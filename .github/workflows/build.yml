@@ -11,10 +11,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -23,17 +23,19 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-          cache: true
+          cache-disabled: true
+          add-job-summary: false
 
       - name: Setup Android
         uses: android-actions/setup-android@v3
 
       - name: Install Android SDK
+        shell: bash
         run: |
+          yes | sdkmanager --licenses || true
           sdkmanager "platform-tools"
           sdkmanager "platforms;android-34"
           sdkmanager "build-tools;34.0.0"
-          yes | sdkmanager --licenses || true
 
       - name: Create Android Project
         shell: bash
@@ -88,26 +90,19 @@ jobs:
           }
 
           android {
-
               namespace 'com.bls.alerte'
 
               compileSdk 34
 
               defaultConfig {
-
                   applicationId 'com.bls.alerte'
-
                   minSdk 23
-
                   targetSdk 34
-
                   versionCode 5
-
                   versionName '5.0'
               }
 
               buildTypes {
-
                   debug {
                       minifyEnabled false
                   }
@@ -119,7 +114,6 @@ jobs:
           }
 
           dependencies {
-
               implementation 'androidx.core:core:1.13.1'
           }
           EOF
@@ -135,25 +129,15 @@ jobs:
 
                   <item name="android:fontFamily">sans</item>
 
-                  <item name="android:windowLightStatusBar">
-                      true
-                  </item>
+                  <item name="android:windowLightStatusBar">true</item>
 
-                  <item name="android:statusBarColor">
-                      #FFFFFF
-                  </item>
+                  <item name="android:statusBarColor">#FFFFFF</item>
 
-                  <item name="android:navigationBarColor">
-                      #FFFFFF
-                  </item>
+                  <item name="android:navigationBarColor">#FFFFFF</item>
 
-                  <item name="android:colorAccent">
-                      #7C3AED
-                  </item>
+                  <item name="android:colorAccent">#7C3AED</item>
 
-                  <item name="android:windowNoTitle">
-                      true
-                  </item>
+                  <item name="android:windowNoTitle">true</item>
 
               </style>
 
@@ -229,4 +213,1125 @@ jobs:
 
           import androidx.core.app.NotificationCompat;
 
-          public class
+          public class MonitoringService extends Service {
+
+              public static final String CHANNEL_ID = "BLS_MONITORING";
+              public static final String ACTION_STOP = "BLS_STOP";
+
+              private final Handler handler = new Handler();
+
+              private int checks = 0;
+
+              private final Runnable monitor = new Runnable() {
+
+                  @Override
+                  public void run() {
+
+                      checks++;
+
+                      updateNotification();
+
+                      handler.postDelayed(
+                              this,
+                              15000
+                      );
+                  }
+              };
+
+              @Override
+              public void onCreate() {
+
+                  super.onCreate();
+
+                  createChannel();
+
+                  startForeground(
+                          1001,
+                          buildNotification()
+                  );
+
+                  handler.postDelayed(
+                          monitor,
+                          15000
+                  );
+              }
+
+              @Override
+              public int onStartCommand(
+                      Intent intent,
+                      int flags,
+                      int startId) {
+
+                  if (intent != null &&
+                          ACTION_STOP.equals(
+                                  intent.getAction())) {
+
+                      stopMonitoring();
+
+                      return START_NOT_STICKY;
+                  }
+
+                  return START_STICKY;
+              }
+
+              private void createChannel() {
+
+                  if (Build.VERSION.SDK_INT >=
+                          Build.VERSION_CODES.O) {
+
+                      NotificationChannel channel =
+                              new NotificationChannel(
+                                      CHANNEL_ID,
+                                      "BLS Surveillance",
+                                      NotificationManager
+                                              .IMPORTANCE_LOW
+                              );
+
+                      channel.setDescription(
+                              "Surveillance BLS"
+                      );
+
+                      NotificationManager manager =
+                              getSystemService(
+                                      NotificationManager.class
+                              );
+
+                      if (manager != null) {
+
+                          manager.createNotificationChannel(
+                                  channel
+                          );
+                      }
+                  }
+              }
+
+              private Notification buildNotification() {
+
+                  Intent openIntent =
+                          new Intent(
+                                  this,
+                                  MainActivity.class
+                          );
+
+                  openIntent.setFlags(
+                          Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                          Intent.FLAG_ACTIVITY_CLEAR_TOP
+                  );
+
+                  PendingIntent openPending =
+                          PendingIntent.getActivity(
+                                  this,
+                                  10,
+                                  openIntent,
+                                  PendingIntent.FLAG_UPDATE_CURRENT |
+                                  PendingIntent.FLAG_IMMUTABLE
+                          );
+
+                  Intent stopIntent =
+                          new Intent(
+                                  this,
+                                  MonitoringService.class
+                          );
+
+                  stopIntent.setAction(
+                          ACTION_STOP
+                  );
+
+                  PendingIntent stopPending =
+                          PendingIntent.getService(
+                                  this,
+                                  11,
+                                  stopIntent,
+                                  PendingIntent.FLAG_UPDATE_CURRENT |
+                                  PendingIntent.FLAG_IMMUTABLE
+                          );
+
+                  return new NotificationCompat.Builder(
+                          this,
+                          CHANNEL_ID
+                  )
+                          .setSmallIcon(
+                                  android.R.drawable.ic_media_play
+                          )
+                          .setContentTitle(
+                                  "BLS V5"
+                          )
+                          .setContentText(
+                                  "Surveillance active"
+                          )
+                          .setSubText(
+                                  "Vérifications : " +
+                                  checks
+                          )
+                          .setContentIntent(
+                                  openPending
+                          )
+                          .setOngoing(true)
+                          .setAutoCancel(false)
+                          .setOnlyAlertOnce(true)
+                          .setPriority(
+                                  NotificationCompat
+                                          .PRIORITY_LOW
+                          )
+                          .addAction(
+                                  android.R.drawable.ic_media_pause,
+                                  "STOP",
+                                  stopPending
+                          )
+                          .build();
+              }
+
+              private void updateNotification() {
+
+                  NotificationManager manager =
+                          (NotificationManager)
+                                  getSystemService(
+                                          NOTIFICATION_SERVICE
+                                  );
+
+                  if (manager != null) {
+
+                      manager.notify(
+                              1001,
+                              buildNotification()
+                      );
+                  }
+              }
+
+              private void stopMonitoring() {
+
+                  handler.removeCallbacksAndMessages(null);
+
+                  stopForeground(true);
+
+                  stopSelf();
+              }
+
+              @Override
+              public void onDestroy() {
+
+                  handler.removeCallbacksAndMessages(null);
+
+                  super.onDestroy();
+              }
+
+              @Override
+              public IBinder onBind(Intent intent) {
+
+                  return null;
+              }
+          }
+          EOF
+
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
+          package com.bls.alerte;
+
+          import android.Manifest;
+          import android.app.Activity;
+          import android.content.Intent;
+          import android.content.pm.PackageManager;
+          import android.graphics.Color;
+          import android.graphics.Typeface;
+          import android.graphics.drawable.GradientDrawable;
+          import android.os.Build;
+          import android.os.Bundle;
+          import android.os.Handler;
+          import android.view.Gravity;
+          import android.widget.LinearLayout;
+          import android.widget.ScrollView;
+          import android.widget.Space;
+          import android.widget.TextView;
+          import android.widget.Toast;
+
+          public class MainActivity extends Activity {
+
+              private final int PURPLE =
+                      Color.rgb(124,58,237);
+
+              private final int BLACK =
+                      Color.rgb(30,30,30);
+
+              private final int GREY =
+                      Color.rgb(105,105,105);
+
+              private final int BORDER =
+                      Color.rgb(232,232,232);
+
+              private TextView status;
+
+              private boolean running = false;
+
+              @Override
+              protected void onCreate(
+                      Bundle savedInstanceState) {
+
+                  super.onCreate(savedInstanceState);
+
+                  requestNotificationPermission();
+
+                  showSplash();
+              }
+
+              private void requestNotificationPermission() {
+
+                  if (Build.VERSION.SDK_INT >= 33) {
+
+                      if (checkSelfPermission(
+                              Manifest.permission.POST_NOTIFICATIONS
+                      ) != PackageManager.PERMISSION_GRANTED) {
+
+                          requestPermissions(
+                                  new String[]{
+                                          Manifest.permission.POST_NOTIFICATIONS
+                                  },
+                                  200
+                          );
+                      }
+                  }
+              }
+
+              private void showSplash() {
+
+                  LinearLayout root =
+                          new LinearLayout(this);
+
+                  root.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  root.setGravity(
+                          Gravity.CENTER
+                  );
+
+                  root.setBackgroundColor(
+                          Color.WHITE
+                  );
+
+                  TextView logo =
+                          new TextView(this);
+
+                  logo.setText("BLS");
+
+                  logo.setTextSize(52);
+
+                  logo.setTextColor(PURPLE);
+
+                  logo.setTypeface(
+                          Typeface.DEFAULT,
+                          Typeface.BOLD
+                  );
+
+                  logo.setGravity(
+                          Gravity.CENTER
+                  );
+
+                  TextView subtitle =
+                          new TextView(this);
+
+                  subtitle.setText(
+                          "Visa Assistant"
+                  );
+
+                  subtitle.setTextSize(15);
+
+                  subtitle.setTextColor(GREY);
+
+                  subtitle.setGravity(
+                          Gravity.CENTER
+                  );
+
+                  root.addView(logo);
+
+                  root.addView(subtitle);
+
+                  setContentView(root);
+
+                  new Handler()
+                          .postDelayed(
+                                  this::showHome,
+                                  900
+                          );
+              }
+
+              private void showHome() {
+
+                  LinearLayout root =
+                          new LinearLayout(this);
+
+                  root.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  root.setBackgroundColor(
+                          Color.WHITE
+                  );
+
+                  ScrollView scroll =
+                          new ScrollView(this);
+
+                  LinearLayout content =
+                          new LinearLayout(this);
+
+                  content.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  content.setPadding(
+                          20,
+                          18,
+                          20,
+                          20
+                  );
+
+                  content.addView(
+                          title(
+                                  "Bonjour 👋",
+                                  27
+                          )
+                  );
+
+                  addSpace(content, 18);
+
+                  LinearLayout search =
+                          roundedBox(
+                                  Color.rgb(
+                                          247,
+                                          247,
+                                          247
+                                  ),
+                                  50
+                          );
+
+                  TextView searchIcon =
+                          new TextView(this);
+
+                  searchIcon.setText("⌕");
+
+                  searchIcon.setTextSize(28);
+
+                  searchIcon.setTextColor(GREY);
+
+                  TextView searchText =
+                          new TextView(this);
+
+                  searchText.setText(
+                          "Quel centre BLS recherchez-vous ?"
+                  );
+
+                  searchText.setTextSize(15);
+
+                  searchText.setTextColor(GREY);
+
+                  searchText.setPadding(
+                          12,
+                          0,
+                          0,
+                          0
+                  );
+
+                  search.addView(searchIcon);
+
+                  search.addView(searchText);
+
+                  content.addView(search);
+
+                  addSpace(content, 26);
+
+                  content.addView(
+                          title(
+                                  "Continuez à surveiller",
+                                  20
+                          )
+                  );
+
+                  addSpace(content, 12);
+
+                  LinearLayout centres =
+                          new LinearLayout(this);
+
+                  centres.setOrientation(
+                          LinearLayout.HORIZONTAL
+                  );
+
+                  addCentre(
+                          centres,
+                          "Alger",
+                          "A",
+                          Color.rgb(239,68,68)
+                  );
+
+                  addCentre(
+                          centres,
+                          "Oran",
+                          "O",
+                          Color.rgb(249,115,22)
+                  );
+
+                  addCentre(
+                          centres,
+                          "Annaba",
+                          "A",
+                          Color.rgb(139,92,246)
+                  );
+
+                  content.addView(centres);
+
+                  addSpace(content, 28);
+
+                  content.addView(
+                          title(
+                                  "Accès rapide",
+                                  20
+                          )
+                  );
+
+                  addSpace(content, 12);
+
+                  LinearLayout actions =
+                          new LinearLayout(this);
+
+                  actions.setOrientation(
+                          LinearLayout.HORIZONTAL
+                  );
+
+                  addAction(
+                          actions,
+                          "!",
+                          "Alerte",
+                          Color.rgb(239,68,68)
+                  );
+
+                  addAction(
+                          actions,
+                          "B",
+                          "BLS",
+                          Color.rgb(37,99,235)
+                  );
+
+                  addAction(
+                          actions,
+                          "▶",
+                          "Start",
+                          Color.rgb(16,185,129)
+                  );
+
+                  addAction(
+                          actions,
+                          "▣",
+                          "Stats",
+                          Color.rgb(245,158,11)
+                  );
+
+                  addAction(
+                          actions,
+                          "⚙",
+                          "Réglages",
+                          PURPLE
+                  );
+
+                  content.addView(actions);
+
+                  addSpace(content, 28);
+
+                  LinearLayout monitor =
+                          roundedBox(
+                                  Color.rgb(
+                                          250,
+                                          250,
+                                          250
+                                  ),
+                                  20
+                          );
+
+                  LinearLayout info =
+                          new LinearLayout(this);
+
+                  info.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  info.addView(
+                          title(
+                                  "Surveillance BLS",
+                                  18
+                          )
+                  );
+
+                  status =
+                          new TextView(this);
+
+                  status.setText(
+                          "● Prêt à surveiller"
+                  );
+
+                  status.setTextSize(13);
+
+                  status.setTextColor(
+                          Color.rgb(16,185,129)
+                  );
+
+                  info.addView(status);
+
+                  monitor.addView(
+                          info,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  -2,
+                                  1
+                          )
+                  );
+
+                  TextView start =
+                          createStartButton();
+
+                  monitor.addView(start);
+
+                  content.addView(monitor);
+
+                  TextView checks =
+                          new TextView(this);
+
+                  checks.setText(
+                          "Vérifications : 0"
+                  );
+
+                  checks.setTextSize(13);
+
+                  checks.setTextColor(GREY);
+
+                  checks.setPadding(
+                          5,
+                          12,
+                          5,
+                          5
+                  );
+
+                  content.addView(checks);
+
+                  scroll.addView(content);
+
+                  root.addView(
+                          scroll,
+                          new LinearLayout.LayoutParams(
+                                  -1,
+                                  0,
+                                  1
+                          )
+                  );
+
+                  root.addView(bottomNavigation());
+
+                  setContentView(root);
+              }
+
+              private TextView createStartButton() {
+
+                  TextView button =
+                          new TextView(this);
+
+                  button.setText("START");
+
+                  button.setTextColor(Color.WHITE);
+
+                  button.setTextSize(12);
+
+                  button.setTypeface(
+                          Typeface.DEFAULT,
+                          Typeface.BOLD
+                  );
+
+                  button.setGravity(Gravity.CENTER);
+
+                  button.setPadding(
+                          20,
+                          13,
+                          20,
+                          13
+                  );
+
+                  GradientDrawable background =
+                          new GradientDrawable();
+
+                  background.setColor(PURPLE);
+
+                  background.setCornerRadius(60);
+
+                  button.setBackground(background);
+
+                  button.setOnClickListener(
+                          v -> {
+
+                              if (running) {
+
+                                  stopMonitoring();
+
+                                  button.setText("START");
+
+                              } else {
+
+                                  startMonitoring();
+
+                                  button.setText("STOP");
+                              }
+                          }
+                  );
+
+                  return button;
+              }
+
+              private void startMonitoring() {
+
+                  running = true;
+
+                  status.setText(
+                          "● Surveillance active"
+                  );
+
+                  status.setTextColor(
+                          Color.rgb(16,185,129)
+                  );
+
+                  Intent intent =
+                          new Intent(
+                                  this,
+                                  MonitoringService.class
+                          );
+
+                  if (Build.VERSION.SDK_INT >= 26) {
+
+                      startForegroundService(intent);
+
+                  } else {
+
+                      startService(intent);
+                  }
+
+                  Toast.makeText(
+                          this,
+                          "Surveillance démarrée",
+                          Toast.LENGTH_SHORT
+                  ).show();
+              }
+
+              private void stopMonitoring() {
+
+                  running = false;
+
+                  Intent intent =
+                          new Intent(
+                                  this,
+                                  MonitoringService.class
+                          );
+
+                  intent.setAction(
+                          MonitoringService.ACTION_STOP
+                  );
+
+                  startService(intent);
+
+                  status.setText(
+                          "● Surveillance arrêtée"
+                  );
+
+                  status.setTextColor(
+                          Color.rgb(239,68,68)
+                  );
+
+                  Toast.makeText(
+                          this,
+                          "Surveillance arrêtée",
+                          Toast.LENGTH_SHORT
+                  ).show();
+              }
+
+              private void addCentre(
+                      LinearLayout parent,
+                      String name,
+                      String letter,
+                      int color) {
+
+                  LinearLayout item =
+                          new LinearLayout(this);
+
+                  item.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  item.setGravity(Gravity.CENTER);
+
+                  TextView icon =
+                          circleIcon(
+                                  letter,
+                                  color,
+                                  54
+                          );
+
+                  TextView label =
+                          new TextView(this);
+
+                  label.setText(name);
+
+                  label.setTextSize(13);
+
+                  label.setTextColor(BLACK);
+
+                  label.setGravity(Gravity.CENTER);
+
+                  item.addView(icon);
+
+                  item.addView(label);
+
+                  parent.addView(
+                          item,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  -2,
+                                  1
+                          )
+                  );
+              }
+
+              private void addAction(
+                      LinearLayout parent,
+                      String iconText,
+                      String name,
+                      int color) {
+
+                  LinearLayout item =
+                          new LinearLayout(this);
+
+                  item.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  item.setGravity(Gravity.CENTER);
+
+                  item.addView(
+                          circleIcon(
+                                  iconText,
+                                  color,
+                                  48
+                          )
+                  );
+
+                  TextView label =
+                          new TextView(this);
+
+                  label.setText(name);
+
+                  label.setTextSize(10);
+
+                  label.setTextColor(BLACK);
+
+                  label.setGravity(Gravity.CENTER);
+
+                  item.addView(label);
+
+                  parent.addView(
+                          item,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  -2,
+                                  1
+                          )
+                  );
+              }
+
+              private LinearLayout bottomNavigation() {
+
+                  LinearLayout nav =
+                          new LinearLayout(this);
+
+                  nav.setOrientation(
+                          LinearLayout.HORIZONTAL
+                  );
+
+                  nav.setGravity(Gravity.CENTER);
+
+                  nav.setPadding(
+                          4,
+                          7,
+                          4,
+                          7
+                  );
+
+                  nav.setBackgroundColor(Color.WHITE);
+
+                  String[] names = {
+                          "Accueil",
+                          "Centres",
+                          "Alertes",
+                          "IA BLS",
+                          "Plus"
+                  };
+
+                  String[] icons = {
+                          "⌂",
+                          "●",
+                          "!",
+                          "✦",
+                          "•••"
+                  };
+
+                  for (
+                          int i = 0;
+                          i < names.length;
+                          i++
+                  ) {
+
+                      LinearLayout item =
+                              new LinearLayout(this);
+
+                      item.setOrientation(
+                              LinearLayout.VERTICAL
+                      );
+
+                      item.setGravity(Gravity.CENTER);
+
+                      TextView icon =
+                              new TextView(this);
+
+                      icon.setText(icons[i]);
+
+                      icon.setTextSize(19);
+
+                      icon.setGravity(Gravity.CENTER);
+
+                      icon.setTextColor(
+                              i == 0
+                                      ? PURPLE
+                                      : GREY
+                      );
+
+                      TextView label =
+                              new TextView(this);
+
+                      label.setText(names[i]);
+
+                      label.setTextSize(10);
+
+                      label.setGravity(Gravity.CENTER);
+
+                      label.setTextColor(
+                              i == 0
+                                      ? PURPLE
+                                      : GREY
+                      );
+
+                      item.addView(icon);
+
+                      item.addView(label);
+
+                      final String page = names[i];
+
+                      item.setOnClickListener(
+                              v -> Toast.makeText(
+                                      MainActivity.this,
+                                      page,
+                                      Toast.LENGTH_SHORT
+                              ).show()
+                      );
+
+                      nav.addView(
+                              item,
+                              new LinearLayout.LayoutParams(
+                                      0,
+                                      65,
+                                      1
+                              )
+                      );
+                  }
+
+                  return nav;
+              }
+
+              private TextView title(
+                      String text,
+                      int size) {
+
+                  TextView title =
+                          new TextView(this);
+
+                  title.setText(text);
+
+                  title.setTextSize(size);
+
+                  title.setTextColor(BLACK);
+
+                  title.setTypeface(
+                          Typeface.DEFAULT,
+                          Typeface.BOLD
+                  );
+
+                  return title;
+              }
+
+              private TextView circleIcon(
+                      String text,
+                      int color,
+                      int size) {
+
+                  TextView icon =
+                          new TextView(this);
+
+                  icon.setText(text);
+
+                  icon.setTextColor(Color.WHITE);
+
+                  icon.setTextSize(15);
+
+                  icon.setTypeface(
+                          Typeface.DEFAULT,
+                          Typeface.BOLD
+                  );
+
+                  icon.setGravity(Gravity.CENTER);
+
+                  GradientDrawable background =
+                          new GradientDrawable();
+
+                  background.setColor(color);
+
+                  background.setShape(
+                          GradientDrawable.OVAL
+                  );
+
+                  icon.setBackground(background);
+
+                  icon.setLayoutParams(
+                          new LinearLayout.LayoutParams(
+                                  size,
+                                  size
+                          )
+                  );
+
+                  return icon;
+              }
+
+              private LinearLayout roundedBox(
+                      int color,
+                      float radius) {
+
+                  LinearLayout box =
+                          new LinearLayout(this);
+
+                  box.setGravity(
+                          Gravity.CENTER_VERTICAL
+                  );
+
+                  box.setPadding(
+                          16,
+                          13,
+                          16,
+                          13
+                  );
+
+                  GradientDrawable background =
+                          new GradientDrawable();
+
+                  background.setColor(color);
+
+                  background.setCornerRadius(radius);
+
+                  background.setStroke(
+                          1,
+                          BORDER
+                  );
+
+                  box.setBackground(background);
+
+                  return box;
+              }
+
+              private void addSpace(
+                      LinearLayout parent,
+                      int height) {
+
+                  Space space =
+                          new Space(this);
+
+                  parent.addView(
+                          space,
+                          new LinearLayout.LayoutParams(
+                                  1,
+                                  height
+                          )
+                  );
+              }
+          }
+          EOF
+
+      - name: Build APK
+        shell: bash
+        run: |
+          gradle assembleDebug --no-daemon --stacktrace
+
+      - name: Verify APK
+        shell: bash
+        run: |
+          echo "=============================="
+          echo "APK FILE"
+          echo "=============================="
+
+          ls -lah app/build/outputs/apk/debug/
+
+          test -f app/build/outputs/apk/debug/app-debug.apk
+
+          echo "APK FOUND SUCCESSFULLY"
+
+      - name: Prepare Files
+        shell: bash
+        run: |
+          rm -rf BLS-V5-DOWNLOAD
+
+          mkdir -p BLS-V5-DOWNLOAD
+
+          cp \
+            app/build/outputs/apk/debug/app-debug.apk \
+            BLS-V5-DOWNLOAD/BLS-V5.apk
+
+          cd BLS-V5-DOWNLOAD
+
+          zip -9 BLS-V5.zip BLS-V5.apk
+
+          cd ..
+
+          echo "=============================="
+          echo "DOWNLOAD FILES"
+          echo "=============================="
+
+          ls -lah BLS-V5-DOWNLOAD/
+
+      - name: Upload APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-V5-APK
+          path: BLS-V5-DOWNLOAD/BLS-V5.apk
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload ZIP
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-V5-ZIP
+          path: BLS-V5-DOWNLOAD/BLS-V5.zip
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Final Check
+        shell: bash
+        run: |
+          echo ""
+          echo "======================================"
+          echo "BLS V5 BUILD COMPLETED"
+          echo "======================================"
+          echo ""
+          echo "APK:"
+          ls -lh BLS-V5-DOWNLOAD/BLS-V5.apk
+          echo ""
+          echo "ZIP:"
+          ls -lh BLS-V5-DOWNLOAD/BLS-V5.zip
+          echo ""
+          echo "Artifacts should now appear at the bottom of this run."
