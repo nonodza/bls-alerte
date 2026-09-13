@@ -4,11 +4,15 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v5
 
@@ -18,7 +22,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
       - name: Install Android SDK
@@ -29,11 +33,12 @@ jobs:
       - name: Create project
         shell: bash
         run: |
-          rm -rf app gradle settings.gradle build.gradle gradle.properties
+
+          rm -rf app
+          rm -f settings.gradle build.gradle gradle.properties
 
           mkdir -p app/src/main/java/com/bls/alerte
           mkdir -p app/src/main/res/values
-          mkdir -p app/src/main/res/drawable
 
           cat > settings.gradle <<'EOF'
           pluginManagement {
@@ -106,4 +111,25 @@ jobs:
 
           cat > app/src/main/res/values/themes.xml <<'EOF'
           <resources>
-              <style name="AppTheme" parent="android:
+              <style name="AppTheme"
+                  parent="android:style/Theme.Material.Light.NoActionBar">
+
+                  <item name="android:fontFamily">sans</item>
+                  <item name="android:colorAccent">#6C4CF1</item>
+                  <item name="android:navigationBarColor">#FFFFFF</item>
+                  <item name="android:statusBarColor">#FFFFFF</item>
+                  <item name="android:windowLightStatusBar">true</item>
+
+              </style>
+          </resources>
+          EOF
+
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+              <uses-permission android:name="android.permission.INTERNET"/>
+              <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+
+              <
