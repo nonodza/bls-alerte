@@ -9,14 +9,17 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - uses: android-actions/setup-android@v3
       - uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: 8.4
-      - uses: android-actions/setup-android@v3
       - name: Build
         run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls $ANDROID_HOME/platforms || true
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
+          echo "android.useAndroidX=true" > gradle.properties
           cat > build.gradle << 'E'
           buildscript {
             repositories { google(); mavenCentral() }
@@ -27,19 +30,20 @@ jobs:
           }
           allprojects { repositories { google(); mavenCentral() } }
           E
-          echo "android.useAndroidX=true" > gradle.properties
           cat > app/build.gradle << 'E'
           plugins { id 'com.android.application'; id 'org.jetbrains.kotlin.android' }
           android {
             namespace 'com.bls.alerte'
             compileSdk 34
-            defaultConfig { applicationId "com.bls.alerte"; minSdk 21; targetSdk 34; versionCode 4; versionName "1.0" }
+            defaultConfig { applicationId "com.bls.alerte"; minSdk 21; targetSdk 34; versionCode 5; versionName "1.0" }
+            buildTypes { release { minifyEnabled false } }
           }
           dependencies {
             implementation 'androidx.core:core-ktx:1.10.1'
             implementation 'androidx.appcompat:appcompat:1.6.1'
           }
           E
+          mkdir -p app/src/main
           cat > app/src/main/AndroidManifest.xml << 'E'
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -56,20 +60,12 @@ jobs:
           import androidx.appcompat.app.AppCompatActivity
           import android.widget.TextView
           class MainActivity : AppCompatActivity() {
-            override fun onCreate(savedInstanceState: Bundle?) {
-              super.onCreate(savedInstanceState)
-              val tv = TextView(this)
-              tv.text = "BLS Alerte - OK!"
-              tv.textSize = 24f
-              setContentView(tv)
-            }
+            override fun onCreate(s: Bundle?) { super.onCreate(s); val tv=TextView(this); tv.text="BLS Alerte DZ - Success!"; tv.textSize=24f; tv.setPadding(50,300,50,50); setContentView(tv) }
           }
           E
           yes | sdkmanager --licenses || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
-          gradle wrapper --gradle-version 8.4
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools" || true
+          gradle assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
           name: BLS-Alerte-APK
