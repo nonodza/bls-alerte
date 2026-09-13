@@ -1,22 +1,23 @@
 package com.bls.rendezvous;
 
 import android.os.Bundle;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.TextView;
+import android.view.Gravity;
 import android.graphics.Color;
-import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // خلفية زرقاء
-        View view = new View(this);
-        view.setBackgroundColor(Color.parseColor("#2196F3"));
-        setContentView(view);
+        TextView textView = new TextView(this);
+        textView.setText("BLS Rendez-Vous\nV2 - 22:42 NEW!\n\nCa marche!");
+        textView.setTextSize(24);
+        textView.setTextColor(Color.WHITE);
+        textView.setBackgroundColor(Color.parseColor("#2196F3"));
+        textView.setGravity(Gravity.CENTER);
         
-        // رسالة
-        Toast.makeText(this, "BLS V2 - 21:30 NEW!", Toast.LENGTH_LONG).show();
+        setContentView(textView);
     }
 }
