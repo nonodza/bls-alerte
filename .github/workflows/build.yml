@@ -10,14 +10,12 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      
-      - name: Create App
+      - name: Create App v9 NO CIRCLE
         run: |
           rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
           echo "android.useAndroidX=true" > gradle.properties
-          
           cat > build.gradle << 'A'
           buildscript {
             repositories { google(); mavenCentral() }
@@ -28,7 +26,6 @@ jobs:
           }
           allprojects { repositories { google(); mavenCentral() } }
           A
-          
           cat > app/build.gradle << 'B'
           apply plugin: 'com.android.application'
           apply plugin: 'kotlin-android'
@@ -39,8 +36,8 @@ jobs:
               applicationId "com.bls.alerte"
               minSdk 21
               targetSdk 34
-              versionCode 70
-              versionName "7.0-ULTRA"
+              versionCode 90
+              versionName "9.0-NO-CIRCLE"
             }
             compileOptions {
               sourceCompatibility JavaVersion.VERSION_17
@@ -51,9 +48,9 @@ jobs:
           dependencies {
             implementation 'androidx.core:core-ktx:1.12.0'
             implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+            implementation 'androidx.appcompat:appcompat:1.6.1'
           }
           B
-          
           cat > app/src/main/AndroidManifest.xml << 'C'
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -66,10 +63,10 @@ jobs:
             </application>
           </manifest>
           C
-          
           cat > app/src/main/java/com/bls/alerte/MainActivity.kt << 'D'
           package com.bls.alerte
           import android.app.Activity
+          import android.app.AlertDialog
           import android.content.Intent
           import android.graphics.Color
           import android.graphics.Typeface
@@ -85,8 +82,13 @@ jobs:
           class MainActivity : Activity() {
             lateinit var status: TextView
             lateinit var log: TextView
+            lateinit var mainT: TextView
+            lateinit var subT: TextView
+            lateinit var btn: TextView
+            lateinit var btn2: TextView
             var run = false
             var c = 0
+            var isAr = true
             val client = OkHttpClient()
             val h = Handler(Looper.getMainLooper())
             override fun onCreate(b: Bundle?) {
@@ -95,64 +97,7 @@ jobs:
               val card = Color.parseColor("#1E0A3A")
               val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(bg) }
               val top = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setPadding(40,60,40,20); gravity = Gravity.CENTER_VERTICAL }
-              val menu = TextView(this).apply { text = "☰"; textSize = 26f; setTextColor(Color.WHITE); setPadding(0,0,30,0) }
-              val title = TextView(this).apply { text = "BLS Alerte DZ"; textSize = 18f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD }
+              val menu = TextView(this).apply { text = "☰"; textSize = 26f; setTextColor(Color.WHITE); setPadding(20,10,20,10); isClickable = true }
+              val title = TextView(this).apply { text = "BLS Alerte DZ"; textSize = 18f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD; setPadding(10,0,0,0) }
               val sp = Space(this).apply { layoutParams = LinearLayout.LayoutParams(0,0,1f) }
-              val lang = TextView(this).apply { text = "AR"; setTextColor(Color.parseColor("#8B5CF6")); setPadding(20,10,20,10); background = GradientDrawable().apply { cornerRadius = 30f; setStroke(2, Color.parseColor("#8B5CF6")) } }
-              top.addView(menu); top.addView(title); top.addView(sp); top.addView(lang)
-              val center = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(0,40,0,30) }
-              val logo = TextView(this).apply { text = "BLS\nDZ"; textSize = 32f; setTextColor(Color.WHITE); gravity = Gravity.CENTER; typeface = Typeface.DEFAULT_BOLD; setPadding(55,55,55,55); background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.parseColor("#6D28D9")); setStroke(4, Color.parseColor("#A78BFA")) } }
-              val mainT = TextView(this).apply { text = "BLS Alerte Pro"; textSize = 24f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD; gravity = Gravity.CENTER; setPadding(0,30,0,10) }
-              val subT = TextView(this).apply { text = "مراقبة مواعيد BLS بذكاء"; textSize = 13f; setTextColor(Color.parseColor("#A5B4FC")); gravity = Gravity.CENTER }
-              center.addView(logo); center.addView(mainT); center.addView(subT)
-              val card1 = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(30,25,30,25); background = GradientDrawable().apply { cornerRadius = 25f; setColor(card) }; val p = LinearLayout.LayoutParams(-1,-2); p.setMargins(30,20,30,10); layoutParams = p }
-              status = TextView(this).apply { text = "جاهز للمراقبة"; textSize = 15f; setTextColor(Color.WHITE) }
-              log = TextView(this).apply { text = "السجل:\n- لا يوجد فحص"; textSize = 12f; setTextColor(Color.parseColor("#C4B5FD")); setPadding(0,15,0,0) }
-              card1.addView(status); card1.addView(log)
-              val btn = TextView(this).apply { text = "ابدأ المراقبة الذكية"; textSize = 16f; setTextColor(Color.WHITE); gravity = Gravity.CENTER; setPadding(0,35,0,35); background = GradientDrawable().apply { cornerRadius = 30f; colors = intArrayOf(Color.parseColor("#7C3AED"), Color.parseColor("#4F46E5")); orientation = GradientDrawable.Orientation.LEFT_RIGHT }; val p = LinearLayout.LayoutParams(-1,-2); p.setMargins(30,20,30,10); layoutParams = p }
-              val btn2 = TextView(this).apply { text = "افتح موقع BLS"; textSize = 14f; setTextColor(Color.parseColor("#A5B4FC")); gravity = Gravity.CENTER; setPadding(0,25,0,25); background = GradientDrawable().apply { cornerRadius = 25f; setColor(Color.parseColor("#1E1B4B")); setStroke(1, Color.parseColor("#4C1D95")) }; val p = LinearLayout.LayoutParams(-1,-2); p.setMargins(30,10,30,0); layoutParams = p }
-              val bottom = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER; setPadding(0,25,0,25); setBackgroundColor(Color.parseColor("#0F0A1E")) }
-              fun nav(t:String, a:Boolean): TextView { return TextView(this@MainActivity).apply { text = t; textSize = 22f; gravity = Gravity.CENTER; setPadding(40,0,40,0); setTextColor(if(a) Color.parseColor("#A855F7") else Color.parseColor("#6B7280")) } }
-              bottom.addView(nav("⌂",true)); bottom.addView(nav("◫",false)); bottom.addView(nav("⬇",false)); bottom.addView(nav("⚙",false))
-              btn.setOnClickListener { if(!run){ run=true; btn.text="ايقاف المراقبة"; c=0; check() } else { run=false; btn.text="ابدأ المراقبة الذكية"; h.removeCallbacksAndMessages(null); status.text="متوقف" } }
-              btn2.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))) }
-              root.addView(top); root.addView(center); root.addView(card1); root.addView(btn); root.addView(btn2); val filler = Space(this).apply { layoutParams = LinearLayout.LayoutParams(0,0,1f) }; root.addView(filler); root.addView(bottom); setContentView(root)
-            }
-            fun check(){
-              if(!run) return
-              c++
-              val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
-              status.text = "فحص #$c - $time"
-              log.text = "[$time] فحص...\n" + log.text
-              val req = Request.Builder().url("https://algeria.blsspainvisa.com/book_appointment.php").header("User-Agent","Mozilla/5.0").build()
-              client.newCall(req).enqueue(object: Callback{
-                override fun onFailure(call: Call, e: IOException){ h.post{ status.text="خطأ اتصال" }; h.postDelayed({check()},10000) }
-                override fun onResponse(call: Call, response: Response){
-                  val body = response.body?.string()?.lowercase() ?: ""
-                  h.post{
-                    val no = body.contains("no appointment") || body.contains("no slot") || body.contains("currently") || body.length < 800
-                    if(no){ log.text="[$time] لا يوجد\n"+log.text } else { log.text="موعد محتمل [$time]\n"+log.text; status.text="موعد محتمل!" }
-                  }
-                  h.postDelayed({check()},15000)
-                }
-              })
-            }
-          }
-          D
-          
-          yes | sdkmanager --licenses > /dev/null || true
-
-      - name: Build APK
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.5
-          arguments: clean assembleDebug --no-daemon --rerun-tasks
-          cache-disabled: true
-
-      - name: Show APK
-        run: ls -lh app/build/outputs/apk/debug/
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: BLS-v7-ULTRA
-          path: app/build/outputs/apk/debug/app-debug.apk            
+              val lang = TextView(this).apply { text = "AR"; setTextColor(Color.parseColor("#8B5CF6")); setPadding(22,12,22,12); gravity = Gravity.CENTER
