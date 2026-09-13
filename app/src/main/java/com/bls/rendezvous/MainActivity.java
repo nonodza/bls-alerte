@@ -1,5 +1,4 @@
 package com.bls.rendezvous;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.graphics.Color;
@@ -10,34 +9,98 @@ import android.view.ViewGroup;
 import android.util.TypedValue;
 
 public class MainActivity extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        int[] colors = {Color.parseColor("#2D1B69"), Color.parseColor("#3B2A8A"), Color.parseColor("#2E86AB"), Color.parseColor("#00C9A7")};
-        GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-        
-        ScrollView scroll = new ScrollView(this);
-        LinearLayout main = new LinearLayout(this);
-        main.setOrientation(LinearLayout.VERTICAL);
-        main.setGravity(Gravity.CENTER_HORIZONTAL);
-        main.setPadding(dp(24), dp(60), dp(24), dp(40));
-        main.setBackground(bg);
-
-        TextView bls = new TextView(this);
-        bls.setText("BLS");
-        bls.setTextSize(90);
-        bls.setTextColor(Color.WHITE);
-        bls.setGravity(Gravity.CENTER);
-        bls.setTypeface(null, android.graphics.Typeface.BOLD);
-        main.addView(bls);
-
-        TextView sub = new TextView(this);
-        sub.setText("Visa Application Services");
-        sub.setTextSize(20);
-        sub.setTextColor(Color.WHITE);
-        sub.setGravity(Gravity.CENTER);
-        sub.setPadding(0, dp(5), 0, dp(8));
-        main.addView(sub);
-
-        TextView secure = new Text
+ @Override
+ protected void onCreate(Bundle b) {
+  super.onCreate(b);
+  int[] c = {Color.parseColor("#2D1B69"),Color.parseColor("#2E86AB"),Color.parseColor("#00C9A7")};
+  GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,c);
+  ScrollView sv = new ScrollView(this);
+  LinearLayout m = new LinearLayout(this);
+  m.setOrientation(1);
+  m.setGravity(17);
+  m.setPadding(dp(24),dp(60),dp(24),dp(40));
+  m.setBackground(bg);
+  
+  TextView t1 = new TextView(this);
+  t1.setText("BLS");
+  t1.setTextSize(90);
+  t1.setTextColor(-1);
+  t1.setGravity(17);
+  t1.setTypeface(null,1);
+  m.addView(t1);
+  
+  TextView t2 = new TextView(this);
+  t2.setText("Visa Application Services\nSecure • Fast • Official");
+  t2.setTextSize(16);
+  t2.setTextColor(-1);
+  t2.setGravity(17);
+  t2.setPadding(0,0,0,dp(30));
+  m.addView(t2);
+  
+  m.addView(card("Passport Services","Apply, Renew & Track","P","#FF6B6B","#9B59B6"));
+  m.addView(card("Visa Centers","Find Nearest BLS Center","V","#3498DB","#1ABC9C"));
+  
+  TextView btn = new TextView(this);
+  btn.setText("Get Started");
+  btn.setTextSize(20);
+  btn.setTextColor(-1);
+  btn.setGravity(17);
+  btn.setTypeface(null,1);
+  GradientDrawable bbg = new GradientDrawable();
+  bbg.setCornerRadius(dp(30));
+  bbg.setColor(Color.parseColor("#66FFFFFF"));
+  btn.setBackground(bbg);
+  LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1,dp(60));
+  p.topMargin=dp(40);
+  btn.setLayoutParams(p);
+  btn.setPadding(0,dp(15),0,dp(15));
+  m.addView(btn);
+  
+  sv.addView(m);
+  setContentView(sv);
+ }
+ 
+ LinearLayout card(String a,String b,String l,String c1,String c2){
+  LinearLayout ca = new LinearLayout(this);
+  ca.setOrientation(0);
+  ca.setGravity(16);
+  ca.setPadding(dp(20),dp(20),dp(20),dp(20));
+  GradientDrawable g = new GradientDrawable();
+  g.setCornerRadius(dp(20));
+  g.setColor(Color.parseColor("#55FFFFFF"));
+  ca.setBackground(g);
+  LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1,-2);
+  lp.bottomMargin=dp(20);
+  ca.setLayoutParams(lp);
+  TextView ic = new TextView(this);
+  ic.setText(l);
+  ic.setTextSize(22);
+  ic.setTextColor(-1);
+  ic.setGravity(17);
+  ic.setTypeface(null,1);
+  GradientDrawable ig = new GradientDrawable();
+  ig.setCornerRadius(dp(15));
+  ig.setColors(new int[]{Color.parseColor(c1),Color.parseColor(c2)});
+  ig.setOrientation(GradientDrawable.Orientation.TL_BR);
+  ic.setBackground(ig);
+  ic.setLayoutParams(new LinearLayout.LayoutParams(dp(60),dp(60)));
+  ca.addView(ic);
+  LinearLayout tx = new LinearLayout(this);
+  tx.setOrientation(1);
+  tx.setPadding(dp(16),0,0,0);
+  TextView t = new TextView(this);
+  t.setText(a);
+  t.setTextSize(18);
+  t.setTextColor(-1);
+  t.setTypeface(null,1);
+  tx.addView(t);
+  TextView d = new TextView(this);
+  d.setText(b);
+  d.setTextSize(13);
+  d.setTextColor(Color.parseColor("#E0E0E0"));
+  tx.addView(d);
+  ca.addView(tx);
+  return ca;
+ }
+ int dp(int v){return (int)TypedValue.applyDimension(1,v,getResources().getDisplayMetrics());}
+}
