@@ -1,4 +1,4 @@
-name: BLS ULTRA PRO FIXED
+name: BLS ULTRA FIXED FINAL
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -12,24 +12,13 @@ jobs:
       - uses: android-actions/setup-android@v3
 
       - name: Create ULTRA App
+        shell: python
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties .gradle gradle
-          mkdir -p app/src/main/java/com/bls/alerte
-          echo "include ':app'" > settings.gradle
-          echo "android.useAndroidX=true" > gradle.properties
-          echo "buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.5.2'}} allprojects{repositories{google();mavenCentral()}}" > build.gradle
-          echo "apply plugin: 'com.android.application' android{namespace 'com.bls.alerte';compileSdk 34;defaultConfig{applicationId 'com.bls.alerte';minSdk 23;targetSdk 34;versionCode 50;versionName 'ULTRA'}}" > app/build.gradle
-          mkdir -p app/src/main
-          cat > app/src/main/AndroidManifest.xml <<'MAN'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-          <uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/>
-          <application android:label="BLS ULTRA"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
-          MAN
-          python3 << 'PY'
-          code = """
-          package com.bls.alerte;
-          import android.app.Activity; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.content.*; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*;
-          public class MainActivity extends Activity {
-            TextView status,cnt,log; Spinner spC,spV,spT; boolean run=false; int c=0, interval=15; String centre="Alger"; Handler h=new Handler(Looper.getMainLooper());
-            protected void onCreate(Bundle b){ super.onCreate(b);
-              ScrollView
+          import os, pathlib
+          os.system("rm -rf app build.gradle settings.gradle gradle.properties .gradle gradle")
+          pathlib.Path("app/src/main/java/com/bls/alerte").mkdir(parents=True, exist_ok=True)
+          open("settings.gradle","w").write("include ':app'")
+          open("gradle.properties","w").write("android.useAndroidX=true")
+          open("build.gradle","w").write("buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.5.2'}} allprojects{repositories{google();mavenCentral()}}")
+          open("app/build.gradle","w").write("apply plugin: 'com.android.application' android{namespace 'com.bls.alerte';compileSdk 34;defaultConfig{applicationId 'com.bls.alerte';minSdk 23;targetSdk 34;versionCode 60;versionName 'ULTRA-FIXED'}}")
+          pathlib.Path("app/src/main").mkdir(par
