@@ -3,30 +3,25 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
       - name: Setup Android
         uses: android-actions/setup-android@v3
-
-      - name: Create Full App
+      - name: Create App
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties gradle .gradle
+          rm -rf app build.gradle settings.gradle gradle.properties gradle
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
           echo "android.useAndroidX=true" > gradle.properties
-          echo "org.gradle.jvmargs=-Xmx2g" >> gradle.properties
           cat > build.gradle <<'EOF'
           buildscript {
             repositories { google(); mavenCentral() }
@@ -74,8 +69,24 @@ jobs:
           import android.view.Gravity;
           import android.widget.*;
           public class MainActivity extends Activity {
-            TextView status,cnt,log; Spinner spC; boolean run=false; int c=0,interval=15; String centre="Alger"; Handler h=new Handler(Looper.getMainLooper());
+            TextView status,cnt,log; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper());
             protected void onCreate(Bundle b){ super.onCreate(b);
               ScrollView sv=new ScrollView(this); sv.setBackgroundColor(Color.parseColor("#0A001A"));
               LinearLayout root=new LinearLayout(this); root.setOrientation(1);
-              LinearLayout header=new LinearLayout(this); header
+              LinearLayout header=new LinearLayout(this); header.setOrientation(1); header.setGravity(Gravity.CENTER); header.setPadding(20,40,20,20);
+              TextView t1=new TextView(this); t1.setText("BLS ULTRA 2026"); t1.setTextColor(Color.WHITE); t1.setTextSize(22); t1.setTypeface(null,Typeface.BOLD); t1.setGravity(Gravity.CENTER);
+              header.addView(t1);
+              LinearLayout c2=card(); status=new TextView(this); status.setText("Ready"); status.setTextColor(Color.parseColor("#10B981")); status.setTypeface(null,Typeface.BOLD);
+              cnt=new TextView(this); cnt.setText("Checks: 0"); cnt.setTextColor(Color.parseColor("#A78BFA"));
+              log=new TextView(this); log.setText("Log: Ready\n"); log.setTextColor(Color.parseColor("#D1D5DB"));
+              c2.addView(status); c2.addView(cnt); c2.addView(log);
+              TextView btn1=btn("Start", new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#4F46E5")});
+              TextView btn2=btn("Test Alert", new int[]{Color.parseColor("#1A1033"),Color.parseColor("#2D1B4E")});
+              TextView btn3=btn("Open BLS", new int[]{Color.parseColor("#0F172A"),Color.parseColor("#1E293B")});
+              root.addView(header); root.addView(c2); root.addView(btn1); root.addView(btn2); root.addView(btn3);
+              sv.addView(root); setContentView(sv);
+              btn1.setOnClickListener(v->{ if(!run){run=true;c=0;btn1.setText("STOP");status.setText("Monitoring");loop();} else{run=false;btn1.setText("Start");status.setText("Stopped");h.removeCallbacksAndMessages(null);} });
+              btn2.setOnClickListener(v->{ Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE); try{ if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(1000,255)); else vib.vibrate(1000);}catch(Exception e){} Toast.makeText(this,"Alert OK!",1).show(); });
+              btn3.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))));
+            }
+            LinearLayout card(){ LinearLayout c=new LinearLayout(this); c.setOrientation(1); c.setPadding(18,14,18,14); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(16); gd.setColor(Color.parseColor("#1A0B2E")); gd.setStroke(1,Color.parseColor("#2D1B4E")); c.setBackground(gd); LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,-2); cp.setMargins(14,10,14,0); c.set
