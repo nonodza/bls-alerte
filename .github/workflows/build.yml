@@ -1,4 +1,4 @@
-name: BLS WORLD FULL
+name: BLS ULTRA PRO FIXED
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -10,129 +10,26 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Create WORLD App
+
+      - name: Create ULTRA App
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties.gradle gradle
+          rm -rf app build.gradle settings.gradle gradle.properties .gradle gradle
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
           echo "android.useAndroidX=true" > gradle.properties
-          cat > build.gradle <<'EOF'
-          buildscript { repositories { google(); mavenCentral() } dependencies { classpath 'com.android.tools.build:gradle:8.5.2' } }
-          allprojects { repositories { google(); mavenCentral() } }
-          EOF
-          cat > app/build.gradle <<'EOF'
-          apply plugin: 'com.android.application'
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 100; versionName "WORLD-2026" } }
-          EOF
-          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          echo "buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.5.2'}} allprojects{repositories{google();mavenCentral()}}" > build.gradle
+          echo "apply plugin: 'com.android.application' android{namespace 'com.bls.alerte';compileSdk 34;defaultConfig{applicationId 'com.bls.alerte';minSdk 23;targetSdk 34;versionCode 50;versionName 'ULTRA'}}" > app/build.gradle
+          mkdir -p app/src/main
+          cat > app/src/main/AndroidManifest.xml <<'MAN'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-            <uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/>
-            <application android:label="BLS WORLD 2026"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application>
-          </manifest>
-          EOF
-          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
+          <uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/>
+          <application android:label="BLS ULTRA"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
+          MAN
+          python3 << 'PY'
+          code = """
           package com.bls.alerte;
-          import android.app.Activity; import android.content.*; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*;
+          import android.app.Activity; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.content.*; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*;
           public class MainActivity extends Activity {
-            int lang=0; //0=AR 1=FR 2=EN 3=ES
-            TextView status,cnt,log; Spinner spLang, spCentre, spVisa, spTime;
-            boolean run=false; int c=0, interval=15;
-            Handler h=new Handler(Looper.getMainLooper());
-            String[][] tr={
-              {"BLS WORLD 2026","مراقب BLS الشامل","📍 المركز","✈️ نوع الفيزا","⚙️ المراقبة","📝 السجل","🚀 ابدأ المراقبة","🔔 اختبار","🌐 موقع BLS","📋 الوثائق المطلوبة","💰 المصاريف","💡 نصائح BLS","🗑️ مسح","جاهز"},
-              {"BLS WORLD 2026","Surveillance BLS Complète","📍 Centre","✈️ Type Visa","⚙️ Surveillance","📝 Journal","🚀 Démarrer","🔔 Tester","🌐 Site BLS","📋 Documents Requis","💰 Frais","💡 Conseils BLS","🗑️ Effacer","Prêt"},
-              {"BLS WORLD 2026","Complete BLS Monitor","📍 Center","✈️ Visa Type","⚙️ Monitoring","📝 Log","🚀 Start Monitoring","🔔 Test Alert","🌐 BLS Website","📋 Required Docs","💰 Fees","💡 BLS Tips","🗑️ Clear","Ready"},
-              {"BLS WORLD 2026","Monitor BLS Completo","📍 Centro","✈️ Tipo Visado","⚙️ Monitoreo","📝 Registro","🚀 Iniciar","🔔 Probar","🌐 Web BLS","📋 Documentos","💰 Tarifas","💡 Consejos BLS","🗑️ Borrar","Listo"}
-            };
+            TextView status,cnt,log; Spinner spC,spV,spT; boolean run=false; int c=0, interval=15; String centre="Alger"; Handler h=new Handler(Looper.getMainLooper());
             protected void onCreate(Bundle b){ super.onCreate(b);
-              ScrollView sv=new ScrollView(this); sv.setBackgroundColor(Color.parseColor("#0A001A"));
-              LinearLayout root=new LinearLayout(this); root.setOrientation(1); root.setPadding(0,0,0,50);
-              // LANG SELECTOR TOP
-              LinearLayout topLang=new LinearLayout(this); topLang.setOrientation(0); topLang.setPadding(16,20,16,10); topLang.setGravity(Gravity.CENTER);
-              TextView lIcon=new TextView(this); lIcon.setText("🌍"); lIcon.setTextSize(18);
-              spLang=new Spinner(this); ArrayAdapter<String> adL=new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"🇩🇿 العربية","🇫🇷 Français","🇬🇧 English","🇪🇸 Español"}); spLang.setAdapter(adL);
-              topLang.addView(lIcon); topLang.addView(spLang);
-
-              // Header
-              LinearLayout header=new LinearLayout(this); header.setOrientation(1); header.setGravity(Gravity.CENTER); header.setPadding(20,10,20,20);
-              TextView title=new TextView(this); title.setTextSize(26); title.setTypeface(null,Typeface.BOLD); title.setTextColor(Color.WHITE); title.setGravity(Gravity.CENTER);
-              TextView sub=new TextView(this); sub.setTextSize(12); sub.setTextColor(Color.parseColor("#A78BFA")); sub.setGravity(Gravity.CENTER);
-              header.addView(title); header.addView(sub);
-
-              LinearLayout cardCentre=makeCard(); TextView lCentre=new TextView(this); lCentre.setTypeface(null,Typeface.BOLD); lCentre.setTextColor(Color.WHITE);
-              spCentre=new Spinner(this); spCentre.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"🏛️ Alger","🏖️ Oran","🌊 Annaba","🏜️ Adrar - BLS"}));
-              spVisa=new Spinner(this); spVisa.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"✈️ Tourisme / سياحة","💼 Affaires / أعمال","👨‍👩‍👧 Famille / عائلي","📚 Étude / دراسة","💉 Medical"}));
-              cardCentre.addView(lCentre); cardCentre.addView(spCentre); cardCentre.addView(spVisa);
-
-              LinearLayout cardMon=makeCard(); TextView lMon=new TextView(this); lMon.setTypeface(null,Typeface.BOLD); lMon.setTextColor(Color.WHITE);
-              LinearLayout rowT=new LinearLayout(this); rowT.setOrientation(0);
-              spTime=new Spinner(this); spTime.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"15s","30s","60s","5min","10min"}));
-              Switch swS=new Switch(this); swS.setText("🔊"); swS.setChecked(true); swS.setTextColor(Color.WHITE);
-              Switch swV=new Switch(this); swV.setText("📳"); swV.setChecked(true); swV.setTextColor(Color.WHITE);
-              rowT.addView(spTime); rowT.addView(swS); rowT.addView(swV);
-              cardMon.addView(lMon); cardMon.addView(rowT);
-
-              LinearLayout cardStatus=makeCard(); status=new TextView(this); status.setTextColor(Color.parseColor("#10B981")); status.setTypeface(null,Typeface.BOLD);
-              cnt=new TextView(this); cnt.setTextColor(Color.parseColor("#A78BFA")); cnt.setTextSize(11);
-              log=new TextView(this); log.setTextColor(Color.parseColor("#D1D5DB")); log.setTextSize(11);
-              cardStatus.addView(status); cardStatus.addView(cnt); cardStatus.addView(log);
-
-              TextView btnStart=makeBtn("", new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#4F46E5")});
-              TextView btnTest=makeBtn("", new int[]{Color.parseColor("#1A1033"),Color.parseColor("#2D1B4E")});
-              TextView btnWeb=makeBtn("", new int[]{Color.parseColor("#0F172A"),Color.parseColor("#1E293B")});
-
-              // DOCS CARD
-              LinearLayout cardDocs=makeCard(); TextView lDocs=new TextView(this); lDocs.setTypeface(null,Typeface.BOLD); lDocs.setTextColor(Color.WHITE);
-              TextView docs=new TextView(this); docs.setTextSize(11); docs.setTextColor(Color.parseColor("#E5E7EB"));
-              cardDocs.addView(lDocs); cardDocs.addView(docs);
-
-              LinearLayout cardFees=makeCard(); TextView lFees=new TextView(this); lFees.setTypeface(null,Typeface.BOLD); lFees.setTextColor(Color.WHITE);
-              TextView fees=new TextView(this); fees.setTextSize(11); fees.setTextColor(Color.parseColor("#FDE68A"));
-              cardFees.addView(lFees); cardFees.addView(fees);
-
-              LinearLayout cardTips=makeCard(); TextView lTips=new TextView(this); lTips.setTypeface(null,Typeface.BOLD); lTips.setTextColor(Color.WHITE);
-              TextView tips=new TextView(this); tips.setTextSize(11); tips.setTextColor(Color.parseColor("#A7F3D0"));
-              cardTips.addView(lTips); cardTips.addView(tips);
-
-              root.addView(topLang); root.addView(header); root.addView(cardCentre); root.addView(cardMon); root.addView(cardStatus); root.addView(btnStart); root.addView(btnTest); root.addView(btnWeb); root.addView(cardDocs); root.addView(cardFees); root.addView(cardTips);
-              sv.addView(root); setContentView(sv);
-
-              Runnable update=()->{
-                title.setText(tr[lang][0]); sub.setText(tr[lang][1]); lCentre.setText(tr[lang][2]); lMon.setText(tr[lang][4]);
-                status.setText(tr[lang][13]+" ✅"); btnStart.setText(tr[lang][6]); btnTest.setText(tr[lang][7]); btnWeb.setText(tr[lang][8]);
-                lDocs.setText(tr[lang][9]); lFees.setText(tr[lang][10]); lTips.setText(tr[lang][11]);
-                if(lang==0){ docs.setText("• جواز سفر + نسخ\n• صور بيومترية 3.5x4.5\n• تأمين سفر\n• حجز فندق\n• كشف حساب 3 أشهر\n• شهادة عمل / دراسة\n• استمارة فيزا\n• موعد BLS مطبوع");
-                  fees.setText("• فيزا قصيرة: 80€ ~ 14,500 دج\n• BLS رسوم: 3,500 دج\n• خدمة مميزة Prime: +6,000 دج\n• SMS: 400 دج\n• الكل: ~18,500 دج");
-                  tips.setText("• ادخل 08:00-10:00 صباحا - أكثر مواعيد\n• استعمل 4G مش WiFi\n• لا تستعمل VPN\n• حضّر Autofill\n• راقب الاثنين و الخميس\n• Prime Time فيه مواعيد أكثر"); }
-                else if(lang==1){ docs.setText("• Passeport + copies\n• Photos biométriques\n• Assurance voyage\n• Réservation hôtel\n• Relevé bancaire 3 mois\n• Attestation travail\n• Formulaire visa\n• RDV BLS imprimé");
-                  fees.setText("• Visa court: 80€\n• Frais BLS: 3,500 DA\n• Prime Time: +6,000 DA\n• Total: ~18,500 DA");
-                  tips.setText("• Connectez 08h-10h\n• Utilisez 4G\n• Pas de VPN\n• Lundi & Jeudi = plus de RDV\n• Prime Time a plus de slots"); }
-                else { docs.setText("• Passport + copies\n• Biometric photos\n• Travel insurance\n• Hotel booking\n• Bank statement 3 months\n• Work certificate\n• Visa form\n• Printed BLS appointment");
-                  fees.setText("• Short visa: 80€\n• BLS fee: 3,500 DZD\n• Prime: +6,000 DZD\n• Total ~18,500 DZD");
-                  tips.setText("• Login 08:00-10:00 AM\n• Use 4G not WiFi\n• No VPN\n• Monday & Thursday best\n• Prime has more slots"); }
-                cnt.setText("📊 Checks: "+c+" | Centre: Alger");
-                log.setText("📝 Log:\n- System ULTRA ready\n- Lang: "+(lang==0?"AR":lang==1?"FR":lang==2?"EN":"ES")+"\n");
-              };
-              update.run();
-              spLang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){ public void onItemSelected(AdapterView<?> p, android.view.View v, int i, long id){ lang=i; update.run(); } public void onNothingSelected(AdapterView<?> p){}});
-              spTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){ public void onItemSelected(AdapterView<?> p, android.view.View v, int i, long id){ int[] vals={15,30,60,300,600}; interval=vals[i]; } public void onNothingSelected(AdapterView<?> p){}});
-              btnStart.setOnClickListener(v->{ if(!run){run=true;c=0;btnStart.setText("⏹️ STOP"); loop();}else{run=false;btnStart.setText(tr[lang][6]); h.removeCallbacksAndMessages(null);} });
-              btnTest.setOnClickListener(v->{ Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE); try{ if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(1000,255)); else vib.vibrate(1000);}catch(Exception e){} Toast.makeText(MainActivity.this,"🔔 Test OK - "+tr[lang][0],Toast.LENGTH_LONG).show(); });
-              btnWeb.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))));
-            }
-            LinearLayout makeCard(){ LinearLayout c=new LinearLayout(this); c.setOrientation(1); c.setPadding(18,14,18,14); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(16); gd.setColor(Color.parseColor("#1A0B2E")); gd.setStroke(1,Color.parseColor("#2D1B4E")); c.setBackground(gd); LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,-2); cp.setMargins(14,10,14,0); c.setLayoutParams(cp); return c; }
-            TextView makeBtn(String t, int[] col){ TextView b=new TextView(this); b.setText(t); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding(0,18,0,18); b.setTypeface(null,Typeface.BOLD); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(12); bg.setColors(col); bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT); b.setBackground(bg); LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2); bp.setMargins(14,8,14,0); b.setLayoutParams(bp); return b; }
-            void loop(){ if(!run) return; c++; String time=new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date()); cnt.setText("📊 "+c+" checks | "+time); log.setText(log.getText()+"["+time+"] Checking BLS...\n"); if(c==3){ Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE); try{ if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(1000,255)); else vib.vibrate(1000);}catch(Exception e){} status.setText("🎉 SLOT FOUND! (demo)"); } h.postDelayed(this::loop, interval*1000L); }
-          }
-          JAVA
-          yes | sdkmanager --licenses > /dev/null || true
-      - name: Build WORLD APK
-        run: |
-          gradle wrapper --gradle-version 8.9
-         ./gradlew clean assembleDebug --no-daemon
-          ls -lh app/build/outputs/apk/debug/
-      - name: Upload WORLD APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: BLS-WORLD-2026-FULL-LANGUAGES
-          path: app/build/outputs/apk/debug/app-debug.apk
+              ScrollView
