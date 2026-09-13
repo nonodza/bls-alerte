@@ -14,7 +14,7 @@ jobs:
         run: |
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
           yes | sdkmanager --licenses || true
-      - name: Create V4.2 CANVA GRADIENT
+      - name: Create V5 CANVA CLONE
         run: |
           rm -rf app build.gradle settings.gradle gradle.properties
           mkdir -p app/src/main/java/com/bls/alerte
@@ -28,41 +28,13 @@ jobs:
           EOF
           cat > app/build.gradle <<'EOF'
           plugins { id 'com.android.application' }
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 6; versionName '4.2-CANVA-GRADIENT' } }
+          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 7; versionName '5.0-CANVA-CLONE' } }
           EOF
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/><application android:label="BLS ULTRA"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
           EOF
           cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
           package com.bls.alerte;
-          import android.app.Activity; import android.content.Intent; import android.content.SharedPreferences; import android.graphics.Color; import android.graphics.Typeface; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.view.ViewGroup; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
+          import android.app.Activity; import android.content.Intent; import android.content.SharedPreferences; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
           public class MainActivity extends Activity {
-            SharedPreferences prefs; String lang="fr"; String email=""; int langSelected=1;
-            TextView status,cnt,log; Spinner sp; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper()); String[] centres={"Alger - Centre","Oran - Centre","Annaba - Centre"};
-            String tr(String fr, String ar, String en){ if(lang.equals("ar")) return ar; if(lang.equals("en")) return en; return fr; }
-            GradientDrawable canvaGradient(){ GradientDrawable gd=new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{Color.parseColor("#1A0A2E"),Color.parseColor("#2D1B69"),Color.parseColor("#4C1D95"),Color.parseColor("#6D28D9")}); gd.setCornerRadius(0); return gd; }
-            GradientDrawable cardGradient(){ GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(20); gd.setColors(new int[]{Color.parseColor("#2A1A4A"),Color.parseColor("#3B1F6E")}); gd.setStroke(1,Color.parseColor("#7C3AED")); gd.setOrientation(GradientDrawable.Orientation.TL_BR); return gd; }
-            protected void onCreate(Bundle b){ super.onCreate(b); prefs=getSharedPreferences("bls_prefs", MODE_PRIVATE); lang=prefs.getString("lang","fr"); email=prefs.getString("email",""); if(!prefs.getBoolean("registered", false)){ showRegister(); } else { showMain(); } }
-            void showRegister(){
-              ScrollView sv=new ScrollView(this); sv.setBackground(canvaGradient());
-              LinearLayout root=new LinearLayout(this); root.setOrientation(1); root.setPadding(25,40,25,30);
-              TextView title=new TextView(this); title.setText("BLS ULTRA 2026"); title.setTextColor(Color.WHITE); title.setTextSize(28); title.setTypeface(null,Typeface.BOLD); title.setGravity(Gravity.CENTER); title.setShadowLayer(10,0,0,Color.parseColor("#7C3AED"));
-              TextView sub=new TextView(this); sub.setText("✨ Canva Design - Premium"); sub.setTextColor(Color.parseColor("#C4B5FD")); sub.setGravity(Gravity.CENTER); sub.setPadding(0,8,0,25);
-              TextView l1=new TextView(this); l1.setText("🌐 "+tr("Langue / لغة","لغة / Langue","Language")); l1.setTextColor(Color.WHITE); l1.setTypeface(null,Typeface.BOLD); l1.setPadding(0,0,0,12);
-              LinearLayout langRow=new LinearLayout(this); langRow.setOrientation(0);
-              TextView bAr=langBtn("🇩🇿 عربية",0); TextView bFr=langBtn("🇫🇷 FR",1); TextView bEn=langBtn("🇬🇧 EN",2);
-              langRow.addView(bAr); langRow.addView(bFr); langRow.addView(bEn);
-              bAr.setOnClickListener(v->{langSelected=0; lang="ar"; updateLangBtns(langRow);}); bFr.setOnClickListener(v->{langSelected=1; lang="fr"; updateLangBtns(langRow);}); bEn.setOnClickListener(v->{langSelected=2; lang="en"; updateLangBtns(langRow);}); updateLangBtns(langRow);
-              TextView opt=new TextView(this); opt.setText(tr("\n(Optionnel) 📧 Email / 📱 Téléphone","(اختياري) 📧 إيميل / 📱 هاتف","(Optional) 📧 Email / 📱 Phone")); opt.setTextColor(Color.parseColor("#DDD6FE")); opt.setGravity(Gravity.CENTER); opt.setPadding(0,25,0,10);
-              EditText et=new EditText(this); et.setHint(tr("Facultatif - اختياري","اختياري - Facultatif","Optional")); et.setHintTextColor(Color.parseColor("#8B7CB0")); et.setTextColor(Color.WHITE); et.setPadding(25,22,25,22);
-              GradientDrawable gdInput=new GradientDrawable(); gdInput.setCornerRadius(16); gdInput.setColor(Color.parseColor("#1E1240")); gdInput.setStroke(1,Color.parseColor("#5B21B6")); et.setBackground(gdInput);
-              TextView privacy=new TextView(this); privacy.setText("🔒 "+tr("Données locales uniquement","بياناتك في هاتفك فقط","Local only - No server")); privacy.setTextColor(Color.parseColor("#10B981")); privacy.setTextSize(11); privacy.setGravity(Gravity.CENTER); privacy.setPadding(0,12,0,22);
-              TextView btnContinue=btnCanva(tr("Continuer","متابعة","Continue"), new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#A78BFA")});
-              TextView btnSkip=btnCanva(tr("⏭️ Entrer sans inscription","⏭️ الدخول بدون تسجيل","⏭️ Skip - Enter directly"), new int[]{Color.parseColor("#10B981"),Color.parseColor("#34D399")});
-              btnContinue.setOnClickListener(v->{ String em=et.getText().toString().trim(); prefs.edit().putString("email",em.isEmpty()?"invité":em).putString("lang",lang).putBoolean("registered",true).apply(); email=em.isEmpty()?"invité":em; showMain(); });
-              btnSkip.setOnClickListener(v->{ prefs.edit().putString("email","invité").putString("lang",lang).putBoolean("registered",true).apply(); email="invité"; showMain(); });
-              root.addView(title); root.addView(sub); root.addView(l1); root.addView(langRow); root.addView(opt); root.addView(et); root.addView(privacy); root.addView(btnContinue); root.addView(btnSkip);
-              sv.addView(root); setContentView(sv);
-            }
-            void updateLangBtns(LinearLayout row){ for(int i=0;i<row.getChildCount();i++){ TextView tv=(TextView)row.getChildAt(i); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(14); if(i==langSelected){ bg.setColors(new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#A78BFA")}); bg.setStroke(2,Color.WHITE); } else { bg.setColor(Color.parseColor("#2A1A4A")); bg.setStroke(1,Color.parseColor("#4C1D95")); } tv.setBackground(bg); } }
-            TextView langBtn(String txt,int idx){ TextView b=new TextView(this); b.setText(txt); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding
+            SharedPreferences prefs; String lang="fr"; Linear
