@@ -9,41 +9,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       # 1. تحميل المشروع
       - name: Checkout
         uses: actions/checkout@v5
 
-      # 2. إعداد Java
+      # 2. إعداد Java 17
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
 
-      # 3. إعداد Android SDK
+      # 3. التحقق من Android SDK الموجود في GitHub Runner
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      # 4. تثبيت Android SDK المطلوبة
-      - name: Install Android SDK
+        shell: bash
         run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          set -e
 
-      # 5. إنشاء ملفات المشروع
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+
+          yes | sdkmanager --licenses || true
+
+          sdkmanager \
+            "platform-tools" \
+            "platforms;android-34" \
+            "build-tools;34.0.0"
+
+      # 4. إنشاء ملفات المشروع
       - name: Create project
         shell: bash
         run: |
           set -e
 
           mkdir -p app/src/main/java/com/bls/alerte
-          mkdir -p app/src/main/res/drawable
-          mkdir -p app/src/main/res/mipmap-hdpi
-          mkdir -p app/src/main/res/mipmap-mdpi
-          mkdir -p app/src/main/res/mipmap-xhdpi
-          mkdir -p app/src/main/res/mipmap-xxhdpi
-          mkdir -p app/src/main/res/mipmap-xxxhdpi
-          mkdir -p .github/workflows
+          mkdir -p app/src/main/res/values
 
           cat > settings.gradle <<'EOF'
           pluginManagement {
@@ -68,4 +69,547 @@ jobs:
 
           cat > build.gradle <<'EOF'
           plugins {
-              id 'com.android.application' version '8.6.
+              id 'com.android.application' version '8.6.1' apply false
+          }
+          EOF
+
+          cat > gradle.properties <<'EOF'
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+          android.useAndroidX=true
+          android.nonTransitiveRClass=true
+          EOF
+
+          cat > app/build.gradle <<'EOF'
+          plugins {
+              id 'com.android.application'
+          }
+
+          android {
+              namespace 'com.bls.alerte'
+              compileSdk 34
+
+              defaultConfig {
+                  applicationId "com.bls.alerte"
+                  minSdk 23
+                  targetSdk 34
+                  versionCode 6
+                  versionName "6.0"
+              }
+
+              buildTypes {
+                  debug {
+                      minifyEnabled false
+                  }
+
+                  release {
+                      minifyEnabled false
+                      shrinkResources false
+                  }
+              }
+          }
+
+          dependencies {
+              implementation 'androidx.appcompat:appcompat:1.7.0'
+              implementation 'androidx.core:core:1.15.0'
+              implementation 'com.google.android.material:material:1.12.0'
+          }
+          EOF
+
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+              <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+              <application
+                  android:allowBackup="true"
+                  android:label="BLS Rendez-Vous"
+                  android:supportsRtl="true"
+                  android:theme="@style/AppTheme">
+
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true">
+
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+
+                  </activity>
+
+                  <service
+                      android:name=".MonitoringService"
+                      android:exported="false"
+                      android:foregroundServiceType="dataSync" />
+
+              </application>
+
+          </manifest>
+          EOF
+
+          cat > app/src/main/res/values/styles.xml <<'EOF'
+          <resources>
+
+              <style name="AppTheme"
+                  parent="Theme.Material3.DayNight.NoActionBar">
+
+                  <item name="android:fontFamily">sans</item>
+                  <item name="android:windowLightStatusBar">true</item>
+                  <item name="android:statusBarColor">#FFFFFF</item>
+                  <item name="android:navigationBarColor">#FFFFFF</item>
+
+              </style>
+
+          </resources>
+          EOF
+
+      # 5. MainActivity
+      - name: Create MainActivity
+        shell: bash
+        run: |
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
+          package com.bls.alerte;
+
+          import android.Manifest;
+          import android.app.NotificationChannel;
+          import android.app.NotificationManager;
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.content.pm.PackageManager;
+          import android.net.Uri;
+          import android.os.Build;
+          import android.os.Bundle;
+          import android.widget.Button;
+          import android.widget.LinearLayout;
+          import android.widget.TextView;
+          import android.widget.Toast;
+
+          import androidx.appcompat.app.AppCompatActivity;
+          import androidx.core.app.ActivityCompat;
+          import androidx.core.content.ContextCompat;
+
+          public class MainActivity extends AppCompatActivity {
+
+              private static final String CHANNEL_ID = "bls_monitor";
+
+              private SharedPreferences prefs;
+
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+
+                  prefs = getSharedPreferences(
+                          "BLS_PREFS",
+                          MODE_PRIVATE
+                  );
+
+                  createNotificationChannel();
+
+                  buildInterface();
+
+                  if (Build.VERSION.SDK_INT >= 33) {
+
+                      if (ContextCompat.checkSelfPermission(
+                              this,
+                              Manifest.permission.POST_NOTIFICATIONS
+                      ) != PackageManager.PERMISSION_GRANTED) {
+
+                          ActivityCompat.requestPermissions(
+                                  this,
+                                  new String[]{
+                                          Manifest.permission.POST_NOTIFICATIONS
+                                  },
+                                  100
+                          );
+                      }
+                  }
+              }
+
+              private void buildInterface() {
+
+                  LinearLayout root =
+                          new LinearLayout(this);
+
+                  root.setOrientation(
+                          LinearLayout.VERTICAL
+                  );
+
+                  root.setPadding(
+                          40,
+                          50,
+                          40,
+                          40
+                  );
+
+                  TextView title =
+                          new TextView(this);
+
+                  title.setText(
+                          "BLS Rendez-Vous"
+                  );
+
+                  title.setTextSize(28);
+
+                  title.setPadding(
+                          0,
+                          0,
+                          0,
+                          20
+                  );
+
+                  TextView status =
+                          new TextView(this);
+
+                  status.setText(
+                          "Système prêt"
+                  );
+
+                  status.setTextSize(17);
+
+                  status.setPadding(
+                          0,
+                          0,
+                          0,
+                          30
+                  );
+
+                  Button start =
+                          new Button(this);
+
+                  start.setText(
+                          "▶ Démarrer la surveillance"
+                  );
+
+                  Button stop =
+                          new Button(this);
+
+                  stop.setText(
+                          "■ Arrêter la surveillance"
+                  );
+
+                  Button website =
+                          new Button(this);
+
+                  website.setText(
+                          "🌐 Ouvrir le site officiel BLS"
+                  );
+
+                  Button appointment =
+                          new Button(this);
+
+                  appointment.setText(
+                          "📅 Ouvrir le système de rendez-vous"
+                  );
+
+                  Button stats =
+                          new Button(this);
+
+                  stats.setText(
+                          "📊 الإحصائيات"
+                  );
+
+                  root.addView(title);
+                  root.addView(status);
+                  root.addView(start);
+                  root.addView(stop);
+                  root.addView(website);
+                  root.addView(appointment);
+                  root.addView(stats);
+
+                  setContentView(root);
+
+                  start.setOnClickListener(v -> {
+
+                      Intent serviceIntent =
+                              new Intent(
+                                      this,
+                                      MonitoringService.class
+                              );
+
+                      serviceIntent.setAction("START");
+
+                      if (Build.VERSION.SDK_INT >=
+                              Build.VERSION_CODES.O) {
+
+                          startForegroundService(
+                                  serviceIntent
+                          );
+
+                      } else {
+
+                          startService(
+                                  serviceIntent
+                          );
+                      }
+
+                      status.setText(
+                              "🟢 المراقبة مفعّلة"
+                      );
+
+                      Toast.makeText(
+                              this,
+                              "تم تشغيل المراقبة",
+                              Toast.LENGTH_SHORT
+                      ).show();
+                  });
+
+                  stop.setOnClickListener(v -> {
+
+                      Intent serviceIntent =
+                              new Intent(
+                                      this,
+                                      MonitoringService.class
+                              );
+
+                      serviceIntent.setAction("STOP");
+
+                      startService(
+                              serviceIntent
+                      );
+
+                      status.setText(
+                              "🔴 المراقبة متوقفة"
+                      );
+
+                      Toast.makeText(
+                              this,
+                              "تم إيقاف المراقبة",
+                              Toast.LENGTH_SHORT
+                      ).show();
+                  });
+
+                  website.setOnClickListener(v ->
+                          openUrl(
+                                  "https://algeria.blsspainvisa.com/"
+                          )
+                  );
+
+                  appointment.setOnClickListener(v ->
+                          openUrl(
+                                  "https://algeria.blsinternational.com/"
+                          )
+                  );
+
+                  stats.setOnClickListener(v -> {
+
+                      int checks =
+                              prefs.getInt(
+                                      "checks",
+                                      0
+                              );
+
+                      Toast.makeText(
+                              this,
+                              "عدد عمليات الفحص: " + checks,
+                              Toast.LENGTH_LONG
+                      ).show();
+                  });
+              }
+
+              private void openUrl(String url) {
+
+                  try {
+
+                      Intent intent =
+                              new Intent(
+                                      Intent.ACTION_VIEW,
+                                      Uri.parse(url)
+                              );
+
+                      startActivity(intent);
+
+                  } catch (Exception e) {
+
+                      Toast.makeText(
+                              this,
+                              "تعذر فتح الموقع",
+                              Toast.LENGTH_SHORT
+                      ).show();
+                  }
+              }
+
+              private void createNotificationChannel() {
+
+                  if (Build.VERSION.SDK_INT >=
+                          Build.VERSION_CODES.O) {
+
+                      NotificationChannel channel =
+                              new NotificationChannel(
+                                      CHANNEL_ID,
+                                      "BLS Monitoring",
+                                      NotificationManager
+                                              .IMPORTANCE_DEFAULT
+                              );
+
+                      NotificationManager manager =
+                              getSystemService(
+                                      NotificationManager.class
+                              );
+
+                      if (manager != null) {
+                          manager.createNotificationChannel(
+                                  channel
+                          );
+                      }
+                  }
+              }
+          }
+          EOF
+
+      # 6. MonitoringService
+      - name: Create MonitoringService
+        shell: bash
+        run: |
+          cat > app/src/main/java/com/bls/alerte/MonitoringService.java <<'EOF'
+          package com.bls.alerte;
+
+          import android.app.Notification;
+          import android.app.NotificationChannel;
+          import android.app.NotificationManager;
+          import android.app.Service;
+          import android.content.Intent;
+          import android.os.Build;
+          import android.os.IBinder;
+
+          import androidx.core.app.NotificationCompat;
+
+          public class MonitoringService extends Service {
+
+              private static final String CHANNEL_ID =
+                      "bls_monitor";
+
+              @Override
+              public void onCreate() {
+
+                  super.onCreate();
+
+                  createChannel();
+
+                  Notification notification =
+                          new NotificationCompat.Builder(
+                                  this,
+                                  CHANNEL_ID
+                          )
+                                  .setContentTitle(
+                                          "BLS Rendez-Vous"
+                                  )
+                                  .setContentText(
+                                          "Surveillance active"
+                                  )
+                                  .setSmallIcon(
+                                          android.R.drawable
+                                                  .ic_menu_search
+                                  )
+                                  .setOngoing(true)
+                                  .build();
+
+                  startForeground(
+                          1001,
+                          notification
+                  );
+              }
+
+              @Override
+              public int onStartCommand(
+                      Intent intent,
+                      int flags,
+                      int startId
+              ) {
+
+                  if (intent != null &&
+                          "STOP".equals(
+                                  intent.getAction()
+                          )) {
+
+                      stopForeground(true);
+
+                      stopSelf();
+
+                      return START_NOT_STICKY;
+                  }
+
+                  android.content.SharedPreferences
+                          prefs =
+                          getSharedPreferences(
+                                  "BLS_PREFS",
+                                  MODE_PRIVATE
+                          );
+
+                  int checks =
+                          prefs.getInt(
+                                  "checks",
+                                  0
+                          ) + 1;
+
+                  prefs.edit()
+                          .putInt(
+                                  "checks",
+                                  checks
+                          )
+                          .apply();
+
+                  return START_STICKY;
+              }
+
+              private void createChannel() {
+
+                  if (Build.VERSION.SDK_INT >=
+                          Build.VERSION_CODES.O) {
+
+                      NotificationChannel channel =
+                              new NotificationChannel(
+                                      CHANNEL_ID,
+                                      "BLS Monitoring",
+                                      NotificationManager
+                                              .IMPORTANCE_LOW
+                              );
+
+                      NotificationManager manager =
+                              getSystemService(
+                                      NotificationManager.class
+                              );
+
+                      if (manager != null) {
+                          manager.createNotificationChannel(
+                                  channel
+                          );
+                      }
+                  }
+              }
+
+              @Override
+              public IBinder onBind(Intent intent) {
+                  return null;
+              }
+          }
+          EOF
+
+      # 7. إعداد Gradle
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+          cache-disabled: true
+          add-job-summary: false
+
+      # 8. بناء التطبيق
+      - name: Build APK
+        run: |
+          gradle assembleDebug \
+            --no-daemon \
+            --stacktrace
+
+      # 9. تجهيز APK و ZIP
+      - name: Prepare release files
+        shell: bash
+        run: |
+          set -e
+
+          mkdir -p release
+
+          cp \
+            app/build/outputs/apk/debug/app-debug.apk \
+            release/B
