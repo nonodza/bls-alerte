@@ -11,13 +11,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        TextView textView = new TextView(this);
-        textView.setText("BLS Rendez-Vous\nV2 - 22:42 NEW!\n\nCa marche!");
-        textView.setTextSize(24);
-        textView.setTextColor(Color.WHITE);
-        textView.setBackgroundColor(Color.parseColor("#2196F3"));
-        textView.setGravity(Gravity.CENTER);
+        TextView tv = new TextView(this);
+        tv.setText("BLS Rendez-Vous\nV2 - BLUE TEST\nCa marche! ✅");
+        tv.setTextSize(28);
+        tv.setTextColor(Color.WHITE);
+        tv.setBackgroundColor(Color.parseColor("#2196F3"));
+        tv.setGravity(Gravity.CENTER);
         
-        setContentView(textView);
+        setContentView(tv);
     }
 }
