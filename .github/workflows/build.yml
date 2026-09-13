@@ -1,4 +1,4 @@
-name: BLS V5 CANVA CLONE
+name: BLS V5
 
 on:
   push:
@@ -27,14 +27,14 @@ jobs:
       - name: Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android SDK
+      - name: Install SDK
         run: |
           sdkmanager "platform-tools"
           sdkmanager "platforms;android-34"
           sdkmanager "build-tools;34.0.0"
           yes | sdkmanager --licenses || true
 
-      - name: Create BLS V5
+      - name: Create project
         shell: bash
         run: |
 
@@ -60,7 +60,7 @@ jobs:
               }
           }
 
-          rootProject.name = "BLS-V5-CANVA"
+          rootProject.name = "BLS-V5"
           include(":app")
           EOF
 
@@ -103,6 +103,10 @@ jobs:
                   }
               }
           }
+
+          dependencies {
+              implementation 'androidx.core:core:1.13.1'
+          }
           EOF
 
           cat > app/src/main/res/values/styles.xml <<'EOF'
@@ -110,14 +114,31 @@ jobs:
 
           <resources>
 
-              <style name="AppTheme"
+              <style
+                  name="AppTheme"
                   parent="android:style/Theme.Material.Light.NoActionBar">
 
                   <item name="android:fontFamily">sans</item>
-                  <item name="android:windowLightStatusBar">true</item>
-                  <item name="android:statusBarColor">#FFFFFF</item>
-                  <item name="android:navigationBarColor">#FFFFFF</item>
-                  <item name="android:windowNoTitle">true</item>
+
+                  <item name="android:colorAccent">
+                      #7C3AED
+                  </item>
+
+                  <item name="android:windowLightStatusBar">
+                      true
+                  </item>
+
+                  <item name="android:statusBarColor">
+                      #FFFFFF
+                  </item>
+
+                  <item name="android:navigationBarColor">
+                      #FFFFFF
+                  </item>
+
+                  <item name="android:windowActionModeOverlay">
+                      true
+                  </item>
 
               </style>
 
@@ -127,57 +148,4 @@ jobs:
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <?xml version="1.0" encoding="utf-8"?>
 
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-              <uses-permission android:name="android.permission.INTERNET"/>
-              <uses-permission android:name="android.permission.VIBRATE"/>
-
-              <application
-                  android:theme="@style/AppTheme"
-                  android:label="BLS">
-
-                  <activity
-                      android:name=".MainActivity"
-                      android:screenOrientation="portrait"
-                      android:exported="true">
-
-                      <intent-filter>
-
-                          <action
-                              android:name="android.intent.action.MAIN"/>
-
-                          <category
-                              android:name="android.intent.category.LAUNCHER"/>
-
-                      </intent-filter>
-
-                  </activity>
-
-              </application>
-
-          </manifest>
-          EOF
-
-          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
-          package com.bls.alerte;
-
-          import android.app.Activity;
-          import android.os.Bundle;
-          import android.os.Handler;
-          import android.os.Looper;
-          import android.graphics.Color;
-          import android.graphics.Typeface;
-          import android.graphics.drawable.GradientDrawable;
-          import android.view.Gravity;
-          import android.widget.LinearLayout;
-          import android.widget.ScrollView;
-          import android.widget.Space;
-          import android.widget.TextView;
-          import android.widget.Toast;
-
-          public class MainActivity extends Activity {
-
-              private final Handler handler =
-                      new Handler(Looper.getMainLooper());
-
-             
+          <
