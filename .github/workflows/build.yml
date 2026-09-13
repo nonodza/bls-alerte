@@ -10,7 +10,7 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Build REAL BLS App
+      - name: Build REAL BLS App FIX
         run: |
           rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
@@ -36,19 +36,16 @@ jobs:
               applicationId "com.bls.alerte"
               minSdk 21
               targetSdk 34
-              versionCode 20
-              versionName "2.0"
+              versionCode 21
+              versionName "2.1-FIX"
             }
             compileOptions {
               sourceCompatibility JavaVersion.VERSION_17
               targetCompatibility JavaVersion.VERSION_17
             }
-            buildTypes { release { minifyEnabled false } }
           }
           dependencies {
             implementation 'androidx.core:core-ktx:1.12.0'
-            implementation 'androidx.appcompat:appcompat:1.6.1'
-            implementation 'com.google.android.material:material:1.11.0'
             implementation 'com.squareup.okhttp3:okhttp:4.12.0'
           }
           E
@@ -57,7 +54,7 @@ jobs:
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.VIBRATE"/>
-            <application android:label="BLS Alerte DZ" android:theme="@android:style/Theme.Material.Light">
+            <application android:label="BLS Alerte DZ" android:theme="@android:style/Theme.Material.Light.NoActionBar">
               <activity android:name=".MainActivity" android:exported="true">
                 <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
               </activity>
@@ -66,70 +63,49 @@ jobs:
           E
           cat > app/src/main/java/com/bls/alerte/MainActivity.kt << 'E'
           package com.bls.alerte
-          import android.media.MediaPlayer
+          import android.app.Activity
           import android.os.*
           import android.widget.*
-          import androidx.appcompat.app.AppCompatActivity
           import okhttp3.*
           import java.io.IOException
-          
-          class MainActivity : AppCompatActivity() {
+          class MainActivity : Activity() {
             private lateinit var status: TextView
             private lateinit var log: TextView
             private var isRunning = false
             private var count = 0
             private val client = OkHttpClient()
             private val handler = Handler(Looper.getMainLooper())
-            
             override fun onCreate(b: Bundle?) {
               super.onCreate(b)
-              val layout = LinearLayout(this).apply {
-                orientation = LinearLayout.VERTICAL
-                setPadding(40,100,40,40)
-              }
-              val title = TextView(this).apply { text="🇩🇿 BLS Alerte DZ v2.0"; textSize=22f; setPadding(0,0,0,30) }
+              val layout = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(40,100,40,40) }
+              val title = TextView(this).apply { text="🇩🇿 BLS Alerte DZ v2.1"; textSize=22f; setPadding(0,0,0,30) }
               val spinnerType = Spinner(this)
               val types = arrayOf("National Visa", "Schengen Visa", "Legalisation")
               spinnerType.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, types)
-              
               val spinnerCentre = Spinner(this)
-              val centres = arrayOf("Alger", "Oran", "Annaba", "Ouargla")
+              val centres = arrayOf("Alger", "Oran", "Annaba")
               spinnerCentre.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, centres)
-              
               status = TextView(this).apply { text="جاهز..."; textSize=18f; setPadding(0,30,0,20) }
               log = TextView(this).apply { text="السجل:\n"; textSize=14f }
               val btn = Button(this).apply { text="▶️ ابدأ المراقبة" }
               val scroll = ScrollView(this).apply { addView(log) }
-              
               btn.setOnClickListener {
-                if(!isRunning) {
-                  isRunning=true
-                  btn.text="⏹️ إيقاف"
-                  checkBLS()
-                } else {
-                  isRunning=false
-                  btn.text="▶️ ابدأ المراقبة"
-                  handler.removeCallbacksAndMessages(null)
-                }
+                if(!isRunning) { isRunning=true; btn.text="⏹️ إيقاف"; checkBLS() } 
+                else { isRunning=false; btn.text="▶️ ابدأ"; handler.removeCallbacksAndMessages(null) }
               }
-              
               layout.addView(title)
-              layout.addView(TextView(this).apply{text="نوع التأشيرة:"})
               layout.addView(spinnerType)
-              layout.addView(TextView(this).apply{text="المركز:"; setPadding(0,20,0,0)})
               layout.addView(spinnerCentre)
               layout.addView(btn)
               layout.addView(status)
               layout.addView(scroll)
               setContentView(layout)
             }
-            
             fun checkBLS() {
               if(!isRunning) return
               count++
-              status.text = "🔍 فحص رقم $count... ${java.text.SimpleDateFormat("HH:mm:ss").format(java.util.Date())}"
-              log.append("[$count] فحص... ${java.text.SimpleDateFormat("HH:mm:ss").format(java.util.Date())}\n")
-              
+              status.text = "🔍 فحص $count - ${java.text.SimpleDateFormat("HH:mm:ss").format(java.util.Date())}"
+              log.append("[$count] فحص...\n")
               val request = Request.Builder().url("https://algeria.blsspainvisa.com/book_appointment.php").build()
               client.newCall(request).enqueue(object: Callback {
                 override fun onFailure(call: Call, e: IOException) {
@@ -139,25 +115,12 @@ jobs:
                 override fun onResponse(call: Call, response: Response) {
                   val body = response.body?.string() ?: ""
                   handler.post {
-                    if(body.contains("no appointment", true) || body.contains("No slot", true) || body.length < 500) {
-                      log.append("-> لا يوجد موعد\n")
-                    } else {
-                      log.append("🎉🎉 يوجد موعد محتمل!!!\n")
-                      status.text="🎉 وجدنا موعد!!!"
-                      vibrateAndRing()
-                    }
+                    if(body.contains("no appointment", true)) log.append("-> لا يوجد موعد\n")
+                    else { log.append("🎉 يوجد موعد!!!\n"); status.text="🎉 موعد متاح!!!"; try { val vib = getSystemService(VIBRATOR_SERVICE) as Vibrator; vib.vibrate(VibrationEffect.createOneShot(2000, 255)) } catch(e:Exception){} }
                   }
                   handler.postDelayed({ checkBLS() }, 8000)
                 }
               })
-            }
-            
-            fun vibrateAndRing() {
-              try {
-                val vib = getSystemService(VIBRATOR_SERVICE) as Vibrator
-                vib.vibrate(VibrationEffect.createWaveform(longArrayOf(0,1000,500,1000), intArrayOf(0,255,0,255), 0))
-                Toast.makeText(this, "🎉🎉🎉 موعد BLS متاح!!!", Toast.LENGTH_LONG).show()
-              } catch(e:Exception){}
             }
           }
           E
@@ -168,5 +131,5 @@ jobs:
           arguments: assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: BLS-Alerte-APK-v2
+          name: BLS-Alerte-FIXED
           path: app/build/outputs/apk/debug/*.apk
