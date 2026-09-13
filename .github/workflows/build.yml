@@ -10,22 +10,30 @@ jobs:
 
     steps:
 
-      # 1. تحميل المشروع
+      # ==============================
+      # 1. Checkout
+      # ==============================
       - name: Checkout
         uses: actions/checkout@v5
 
-      # 2. Java 17
+      # ==============================
+      # 2. Java
+      # ==============================
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
 
+      # ==============================
       # 3. Android SDK
+      # ==============================
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # 4. تثبيت Android SDK
+      # ==============================
+      # 4. Android SDK packages
+      # ==============================
       - name: Install Android SDK
         shell: bash
         run: |
@@ -38,7 +46,9 @@ jobs:
             "platforms;android-34" \
             "build-tools;34.0.0"
 
-      # 5. إنشاء المشروع
+      # ==============================
+      # 5. Create project
+      # ==============================
       - name: Create project
         shell: bash
         run: |
@@ -110,4 +120,22 @@ jobs:
           }
 
           dependencies {
-              implementation 'androidx.appcompat:app
+              implementation 'androidx.appcompat:appcompat:1.7.0'
+              implementation 'androidx.core:core:1.15.0'
+              implementation 'com.google.android.material:material:1.12.0'
+          }
+          EOF
+
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+              <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+              <application
+                  android:allowBackup="true"
+                  android:label="BLS Rendez-Vous"
+                  android:supportsRtl="true"
+                  android:
