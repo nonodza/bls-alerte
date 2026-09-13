@@ -8,7 +8,7 @@
 <LinearLayout android:id="@+id/btn_rdv" android:layout_width="match_parent" android:layout_height="85dp" android:background="#CC162B4D" android:gravity="center" android:layout_marginTop="12dp"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rendez-Vous" android:textColor="#FFFFFF" android:textStyle="bold"/></LinearLayout>
 </LinearLayout>
 <LinearLayout android:layout_width="260dp" android:layout_height="match_parent" android:layout_gravity="start" android:background="#F0111E36" android:orientation="vertical" android:padding="20dp">
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Menu" android:textColor="#FFFFFF" android:textSize="20sp" android:textStyle="bold"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Menu" android:textColor="#2D2A6B"" android:textSize="20sp" android:textStyle="bold"/>
 <TextView android:id="@+id/link_youtube" android:layout_width="match_parent" android:layout_height="50dp" android:text="▶ YouTube" android:textColor="#FFFFFF" android:gravity="center_vertical" android:layout_marginTop="30dp"/>
 <TextView android:id="@+id/link_facebook" android:layout_width="match_parent" android:layout_height="50dp" android:text="f Facebook" android:textColor="#FFFFFF" android:gravity="center_vertical"/>
 <TextView android:id="@+id/link_instagram" android:layout_width="match_parent" android:layout_height="50dp" android:text="◎ Instagram" android:textColor="#FFFFFF" android:gravity="center_vertical"/>
