@@ -10,32 +10,23 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Build v10 NEW
+      - name: Build
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties
+          rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
           echo "android.useAndroidX=true" > gradle.properties
           echo "buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.2.2'; classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'}} allprojects{repositories{google(); mavenCentral()}}" > build.gradle
-          cat > app/build.gradle << 'G'
-          apply plugin: 'com.android.application'
-          apply plugin: 'kotlin-android'
-          android {
-            namespace 'com.bls.alerte'
-            compileSdk 34
-            defaultConfig {
-              applicationId "com.bls.alerte"
-              minSdk 21
-              targetSdk 34
-              versionCode 100
-              versionName "10.0-CLEAN-NEW"
-            }
-            compileOptions {
-              sourceCompatibility JavaVersion.VERSION_17
-              targetCompatibility JavaVersion.VERSION_17
-            }
-            kotlinOptions { jvmTarget = "17" }
-          }
-          dependencies {
-            implementation 'androidx.core:core-ktx:1.12.0'
-           
+          printf "apply plugin: 'com.android.application'\nandroid{namespace 'com.bls.alerte'; compileSdk 34; defaultConfig{applicationId 'com.bls.alerte'; minSdk 21; targetSdk 34; versionCode 110; versionName '11.0'}} dependencies{implementation 'androidx.core:core-ktx:1.12.0'}\n" > app/build.gradle
+          mkdir -p app/src/main
+          printf "<manifest xmlns:android='http://schemas.android.com/apk/res/android'><uses-permission android:name='android.permission.INTERNET'/><application android:label='BLS Alerte'><activity android:name='.MainActivity' android:exported='true'><intent-filter><action android:name='android.intent.action.MAIN'/><category android:name='android.intent.category.LAUNCHER'/></intent-filter></activity></application></manifest>" > app/src/main/AndroidManifest.xml
+          printf "package com.bls.alerte\nimport android.app.Activity\nimport android.os.Bundle\nimport android.widget.TextView\nclass MainActivity:Activity(){override fun onCreate(b:Bundle?){super.onCreate(b); val t=TextView(this); t.text=\"BLS Alerte v11 - SUCCESS!\"; setContentView(t)}}" > app/src/main/java/com/bls/alerte/MainActivity.kt
+          yes | sdkmanager --licenses > /dev/null || true
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+          arguments: assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: APK
+          path: app/build/outputs/apk/debug/app-debug.apk
