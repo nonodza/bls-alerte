@@ -1,5 +1,5 @@
 name: Build APK
-on: [push, workflow_dispatch]
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -7,10 +7,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
-      - name: Setup Android
-        run: |
+      - run: |
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmd.zip
           unzip -q cmd.zip -d $HOME/android
           mkdir -p $HOME/android/cmdline-tools/latest
@@ -20,39 +19,32 @@ jobs:
           yes | sdkmanager --licenses || true
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
           echo "ANDROID_HOME=$HOME/android" >> $GITHUB_ENV
-      - name: Install Gradle
-        run: |
+      - run: |
           wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
           unzip -q gradle-8.7-bin.zip
           echo "$PWD/gradle-8.7/bin" >> $GITHUB_PATH
-      - name: Build
-        run: |
+      - run: |
           rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
-          cat > settings.gradle <<'EOF'
-          pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
-          dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
-          rootProject.name = "BLSAlerte"; include(":app")
-          EOF
-          cat > build.gradle <<'EOF'
-          plugins { id 'com.android.application' version '8.2.2' apply false }
-          EOF
-          cat > app/build.gradle <<'EOF'
-          plugins { id 'com.android.application' }
-          android {
-            namespace 'com.bls.alerte'
-            compileSdk 34
-            defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 21; versionName '6.7' }
+          echo 'pluginManagement{repositories{google();mavenCentral();gradlePluginPortal()}} dependencyResolutionManagement{repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS);repositories{google();mavenCentral()}} rootProject.name="BLSAlerte"; include(":app")' > settings.gradle
+          echo 'plugins{id "com.android.application" version "8.2.2" apply false}' > build.gradle
+          printf 'plugins{id "com.android.application"}\nandroid{namespace "com.bls.alerte"; compileSdk 34; defaultConfig{applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 22; versionName "6.8"}}\n' > app/build.gradle
+          mkdir -p app/src/main
+          printf '<manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.FOREGROUND_SERVICE"/><application android:label="BLS ULTRA" android:theme="@android:style/Theme.Light.NoTitleBar"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity><service android:name=".MonitorService" android:exported="false"/></application></manifest>' > app/src/main/AndroidManifest.xml
+          cat > app/src/main/java/com/bls/alerte/MonitorService.java <<'ENDSVC'
+          package com.bls.alerte; import android.app.*; import android.content.Intent; import android.os.IBinder; import androidx.core.app.NotificationCompat; public class MonitorService extends Service { public static String currentCity="Alger"; public IBinder onBind(Intent i){return null;} public int onStartCommand(Intent intent,int f,int id){ String a=intent!=null?intent.getStringExtra("action"):"start"; if("stop".equals(a)){stopForeground(true);stopSelf();return START_NOT_STICKY;} String chId="bls_channel"; NotificationManager nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE); if(android.os.Build.VERSION.SDK_INT>=26){ NotificationChannel ch=new NotificationChannel(chId,"BLS",NotificationManager.IMPORTANCE_LOW); nm.createNotificationChannel(ch);} Intent stopI=new Intent(this,MonitorService.class); stopI.putExtra("action","stop"); PendingIntent stopPI=PendingIntent.getService(this,1,stopI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); Intent openI=new Intent(this,MainActivity.class); PendingIntent openPI=PendingIntent.getActivity(this,0,openI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); NotificationCompat.Builder b=new NotificationCompat.Builder(this,chId).setContentTitle("BLS ULTRA - Surveillance").setContentText(currentCity+" - BG Service").setSmallIcon(android.R.drawable.ic_popup_sync).setOngoing(true).setContentIntent(openPI).addAction(android.R.drawable.ic_delete,"Stop",stopPI); startForeground(101,b.build()); return START_STICKY; } }
+          ENDSVC
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'ENDJAVA'
+          package com.bls.alerte; import android.app.Activity; import android.content.*; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.os.*; import android.view.Gravity; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
+          public class MainActivity extends Activity {
+            SharedPreferences p; Handler h=new Handler(Looper.getMainLooper()); boolean run=false; int c=0; TextView cnt,log,status; String theme="LIGHT";
+            protected void onCreate(Bundle b){super.onCreate(b); p=getSharedPreferences("bls",MODE_PRIVATE); theme=p.getString("theme","LIGHT"); showMain();}
+            void showMain(){ LinearLayout all=new LinearLayout(this); all.setOrientation(1); all.setBackgroundColor(Color.WHITE); TextView t=new TextView(this); t.setText("BLS ULTRA - V6.8 THEMES BG\nSuccess Build!"); t.setTextSize(22); t.setTypeface(null,Typeface.BOLD); t.setPadding(30,100,30,30); t.setTextColor(Color.BLACK); LinearLayout cards=new LinearLayout(this); cards.setOrientation(0); cards.setPadding(20,20,20,20); cards.addView(btn("Alger")); cards.addView(btn("Oran")); cards.addView(btn("Annaba")); all.addView(t); all.addView(cards); setContentView(all); }
+            TextView btn(String city){ TextView b=new TextView(this); b.setText(city+"\nBG"); b.setGravity(Gravity.CENTER); b.setPadding(20,20,20,20); GradientDrawable g=new GradientDrawable(); g.setCornerRadius(16); g.setColor(Color.WHITE); g.setStroke(2,Color.parseColor("#7C3AED")); b.setBackground(g); LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(0,-2,1f); lp.setMargins(10,0,10,0); b.setLayoutParams(lp); b.setOnClickListener(v->{ Intent svc=new Intent(this,MonitorService.class); svc.putExtra("action","start"); MonitorService.currentCity=city; if(Build.VERSION.SDK_INT>=26) startForegroundService(svc); else startService(svc); Toast.makeText(this,"BG Service lance: "+city+" - Regarde en haut!",Toast.LENGTH_LONG).show(); }); return b; }
           }
-          EOF
-          cat > app/src/main/AndroidManifest.xml <<'EOF'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-            <uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/><uses-permission android:name="android.permission.POST_NOTIFICATIONS"/><uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-            <application android:label="BLS ULTRA" android:theme="@android:style/Theme.Light.NoTitleBar">
-              <activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
-              <service android:name=".MonitorService" android:exported="false"/>
-            </application>
-          </manifest>
-          EOF
-          cat > app/src/main/java/com/bls/alerte/MonitorService.java <<'EOF'
-          package com.bls.alerte; import android.app.*; import android.content.Intent; import android.os.IBinder; import androidx.core.app.NotificationCompat; public class MonitorService extends Service { public static String currentCity="Alger"; public IBinder onBind(Intent i){return null;} public int onStartCommand(Intent intent,int f,int id){ String a=intent!=null?intent.getStringExtra("action"):"start"; if("stop".equals(a)){stopForeground(true);stopSelf();return START_NOT_STICKY;} String chId="bls_channel"; NotificationManager nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE); if(android.os.Build.VERSION.SDK_INT>=26){ NotificationChannel ch=new NotificationChannel(chId,"BLS",NotificationManager.IMPORTANCE_LOW); nm.createNotificationChannel(ch);} Intent stopI=new Intent(this,MonitorService.class); stopI.putExtra("action","stop"); PendingIntent stopPI=PendingIntent.getService(this,1,stopI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); Intent openI=new Intent(this,MainActivity.class); PendingIntent openPI=PendingIntent.getActivity(this,0,openI,PendingIntent.FLAG_UPDATE
+          ENDJAVA
+          gradle assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BLS-V6.8-FIXED
+          path: app/build/outputs/apk/debug/app-debug.apk
