@@ -19,13 +19,17 @@ public class MainActivity extends Activity {
         home();
     }
 
+    // =========================================================
+    // HOME
+    // =========================================================
+
     void home() {
 
         int[] colors = {
-                Color.parseColor("#2D1B69"),
+                Color.parseColor("#21104F"),
                 Color.parseColor("#3B2A8A"),
-                Color.parseColor("#2E86AB"),
-                Color.parseColor("#00C9A7")
+                Color.parseColor("#2574A9"),
+                Color.parseColor("#00BFA6")
         };
 
         GradientDrawable bg = new GradientDrawable(
@@ -39,30 +43,50 @@ public class MainActivity extends Activity {
         LinearLayout m = new LinearLayout(this);
         m.setOrientation(LinearLayout.VERTICAL);
         m.setGravity(Gravity.CENTER_HORIZONTAL);
-        m.setPadding(dp(24), dp(60), dp(24), dp(40));
+        m.setPadding(
+                dp(24),
+                dp(55),
+                dp(24),
+                dp(40)
+        );
         m.setBackground(bg);
 
-        TextView t1 = new TextView(this);
-        t1.setText("BLS");
-        t1.setTextSize(90);
-        t1.setTextColor(Color.WHITE);
-        t1.setGravity(Gravity.CENTER);
-        t1.setTypeface(null, 1);
-        m.addView(t1);
+        // =====================================================
+        // LOGO
+        // =====================================================
 
-        TextView t2 = new TextView(this);
-        t2.setText("Visa Application Services\nSecure • Fast • Official");
-        t2.setTextSize(16);
-        t2.setTextColor(Color.WHITE);
-        t2.setGravity(Gravity.CENTER);
-        t2.setPadding(0, 0, 0, dp(40));
-        m.addView(t2);
+        TextView logo = new TextView(this);
+        logo.setText("BLS");
+        logo.setTextSize(76);
+        logo.setTextColor(Color.WHITE);
+        logo.setGravity(Gravity.CENTER);
+        logo.setTypeface(null, 1);
 
-        // =========================
-        // PASSPORT CARD
-        // =========================
+        m.addView(logo);
 
-        LinearLayout c1 = card(
+        TextView subtitle = new TextView(this);
+        subtitle.setText(
+                "Visa Application Services\nSecure • Fast • Official"
+        );
+        subtitle.setTextSize(15);
+        subtitle.setTextColor(
+                Color.parseColor("#F5F5F5")
+        );
+        subtitle.setGravity(Gravity.CENTER);
+        subtitle.setPadding(
+                0,
+                0,
+                0,
+                dp(32)
+        );
+
+        m.addView(subtitle);
+
+        // =====================================================
+        // PASSPORT SERVICES
+        // =====================================================
+
+        LinearLayout passportCard = card(
                 "Passport Services",
                 "Apply, Renew & Track Passport",
                 "P",
@@ -70,26 +94,17 @@ public class MainActivity extends Activity {
                 "#9B59B6"
         );
 
-        c1.setClickable(true);
-        c1.setFocusable(true);
-
-        c1.setOnClickListener(v -> {
-            Toast.makeText(
-                    MainActivity.this,
-                    "Passport Services ✓",
-                    Toast.LENGTH_SHORT
-            ).show();
-
+        passportCard.setOnClickListener(v -> {
             passport();
         });
 
-        m.addView(c1);
+        m.addView(passportCard);
 
-        // =========================
-        // VISA CENTERS CARD
-        // =========================
+        // =====================================================
+        // VISA CENTERS
+        // =====================================================
 
-        LinearLayout c2 = card(
+        LinearLayout visaCard = card(
                 "Visa Centers",
                 "Find Nearest BLS Center\n& Directions",
                 "V",
@@ -97,22 +112,14 @@ public class MainActivity extends Activity {
                 "#1ABC9C"
         );
 
-        c2.setClickable(true);
-        c2.setFocusable(true);
-
-        c2.setOnClickListener(v -> {
-
-            Toast.makeText(
-                    MainActivity.this,
-                    "Opening Maps...",
-                    Toast.LENGTH_SHORT
-            ).show();
+        visaCard.setOnClickListener(v -> {
 
             try {
+
                 Intent intent = new Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(
-                                "https://maps.google.com/?q=BLS+Spain+Algeria"
+                                "https://www.google.com/maps/search/BLS+Spain+Visa+Center+Algeria"
                         )
                 );
 
@@ -128,63 +135,51 @@ public class MainActivity extends Activity {
             }
         });
 
-        m.addView(c2);
+        m.addView(visaCard);
 
-        // =========================
+        // =====================================================
         // GET STARTED
-        // =========================
+        // =====================================================
 
-        TextView btn = new TextView(this);
+        TextView start = new TextView(this);
 
-        btn.setText("Get Started");
-        btn.setTextSize(20);
-        btn.setTextColor(Color.WHITE);
-        btn.setGravity(Gravity.CENTER);
-        btn.setTypeface(null, 1);
+        start.setText("Get Started");
+        start.setTextSize(19);
+        start.setTextColor(Color.WHITE);
+        start.setGravity(Gravity.CENTER);
+        start.setTypeface(null, 1);
 
-        GradientDrawable bbg = new GradientDrawable();
-        bbg.setCornerRadius(dp(30));
-        bbg.setColor(Color.parseColor("#66FFFFFF"));
-        bbg.setStroke(
+        GradientDrawable startBg =
+                new GradientDrawable();
+
+        startBg.setCornerRadius(dp(30));
+        startBg.setColor(
+                Color.parseColor("#55FFFFFF")
+        );
+        startBg.setStroke(
                 dp(1),
-                Color.parseColor("#88FFFFFF")
+                Color.parseColor("#99FFFFFF")
         );
 
-        btn.setBackground(bbg);
+        start.setBackground(startBg);
 
-        LinearLayout.LayoutParams pr =
+        LinearLayout.LayoutParams startParams =
                 new LinearLayout.LayoutParams(
                         -1,
                         dp(60)
                 );
 
-        pr.topMargin = dp(40);
-        pr.leftMargin = dp(20);
-        pr.rightMargin = dp(20);
+        startParams.topMargin = dp(24);
+        startParams.leftMargin = dp(10);
+        startParams.rightMargin = dp(10);
 
-        btn.setLayoutParams(pr);
-        btn.setPadding(
-                0,
-                dp(15),
-                0,
-                dp(15)
-        );
+        start.setLayoutParams(startParams);
 
-        btn.setClickable(true);
-        btn.setFocusable(true);
-
-        btn.setOnClickListener(v -> {
-
-            Toast.makeText(
-                    MainActivity.this,
-                    "Get Started ✓",
-                    Toast.LENGTH_SHORT
-            ).show();
-
+        start.setOnClickListener(v -> {
             login();
         });
 
-        m.addView(btn);
+        m.addView(start);
 
         sv.addView(m);
 
@@ -197,57 +192,81 @@ public class MainActivity extends Activity {
 
     void passport() {
 
-        LinearLayout m = new LinearLayout(this);
+        LinearLayout page =
+                new LinearLayout(this);
 
-        m.setOrientation(LinearLayout.VERTICAL);
-
-        m.setPadding(
-                dp(24),
-                dp(60),
-                dp(24),
-                dp(24)
+        page.setOrientation(
+                LinearLayout.VERTICAL
         );
 
-        m.setBackgroundColor(
+        page.setPadding(
+                dp(24),
+                dp(45),
+                dp(24),
+                dp(30)
+        );
+
+        page.setBackgroundColor(
                 Color.parseColor("#F5F7FF")
         );
 
-        TextView b = new TextView(this);
+        TextView back =
+                new TextView(this);
 
-        b.setText("← Back");
-        b.setTextSize(16);
-        b.setTextColor(
+        back.setText("← Back");
+        back.setTextSize(17);
+        back.setTextColor(
                 Color.parseColor("#2D1B69")
         );
-
-        b.setPadding(
-                dp(10),
-                dp(10),
-                dp(10),
-                dp(10)
+        back.setTypeface(null, 1);
+        back.setPadding(
+                dp(8),
+                dp(8),
+                dp(8),
+                dp(18)
         );
 
-        b.setClickable(true);
-        b.setFocusable(true);
+        back.setOnClickListener(v -> {
+            home();
+        });
 
-        b.setOnClickListener(v -> home());
+        page.addView(back);
 
-        m.addView(b);
+        TextView title =
+                new TextView(this);
 
-        TextView h = new TextView(this);
+        title.setText(
+                "Passport Services"
+        );
+        title.setTextSize(28);
+        title.setTextColor(
+                Color.parseColor("#2D1B69")
+        );
+        title.setTypeface(null, 1);
 
-        h.setText(
-                "\nPassport Services\n\nComing Soon Pro!"
+        page.addView(title);
+
+        TextView info =
+                new TextView(this);
+
+        info.setText(
+                "\n• New Passport\n" +
+                "• Renew Passport\n" +
+                "• Track Status\n\n" +
+                "Coming Soon"
         );
 
-        h.setTextSize(22);
-        h.setTypeface(null, 1);
+        info.setTextSize(17);
+        info.setTextColor(
+                Color.parseColor("#333333")
+        );
 
-        m.addView(h);
+        page.addView(info);
 
-        ScrollView sv = new ScrollView(this);
+        ScrollView sv =
+                new ScrollView(this);
 
-        sv.addView(m);
+        sv.addView(page);
 
         setContentView(sv);
     }
@@ -259,112 +278,180 @@ public class MainActivity extends Activity {
     void login() {
 
         int[] colors = {
-                Color.parseColor("#2D1B69"),
-                Color.parseColor("#00C9A7")
+                Color.parseColor("#21104F"),
+                Color.parseColor("#00BFA6")
         };
 
-        GradientDrawable bg = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                colors
+        GradientDrawable bg =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TOP_BOTTOM,
+                        colors
+                );
+
+        ScrollView sv =
+                new ScrollView(this);
+
+        LinearLayout page =
+                new LinearLayout(this);
+
+        page.setOrientation(
+                LinearLayout.VERTICAL
         );
 
-        LinearLayout m = new LinearLayout(this);
+        page.setGravity(
+                Gravity.CENTER_HORIZONTAL
+        );
 
-        m.setOrientation(LinearLayout.VERTICAL);
-        m.setGravity(Gravity.CENTER);
-        m.setPadding(
+        page.setPadding(
                 dp(28),
                 dp(80),
                 dp(28),
-                dp(28)
+                dp(40)
         );
 
-        m.setBackground(bg);
+        page.setBackground(bg);
 
-        TextView h = new TextView(this);
+        TextView title =
+                new TextView(this);
 
-        h.setText("Welcome Back");
-        h.setTextSize(30);
-        h.setTypeface(null, 1);
-        h.setTextColor(Color.WHITE);
-        h.setGravity(Gravity.CENTER);
+        title.setText("Welcome Back");
+        title.setTextSize(31);
+        title.setTextColor(Color.WHITE);
+        title.setGravity(Gravity.CENTER);
+        title.setTypeface(null, 1);
 
-        m.addView(h);
+        page.addView(title);
 
-        TextView btn = new TextView(this);
+        // EMAIL
 
-        btn.setText("Login Success →");
-        btn.setTextColor(
-                Color.parseColor("#0F0C29")
+        EditText email =
+                new EditText(this);
+
+        email.setHint("Email");
+        email.setTextSize(16);
+        email.setSingleLine(true);
+        email.setPadding(
+                dp(16),
+                0,
+                dp(16),
+                0
         );
-        btn.setTextSize(18);
-        btn.setGravity(Gravity.CENTER);
-        btn.setTypeface(null, 1);
+        email.setBackgroundColor(Color.WHITE);
 
-        GradientDrawable bbg = new GradientDrawable();
+        LinearLayout.LayoutParams emailParams =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(55)
+                );
 
-        bbg.setCornerRadius(dp(30));
-        bbg.setColor(Color.WHITE);
+        emailParams.topMargin = dp(30);
 
-        btn.setBackground(bbg);
+        page.addView(
+                email,
+                emailParams
+        );
 
-        LinearLayout.LayoutParams pr =
+        // PASSWORD
+
+        EditText password =
+                new EditText(this);
+
+        password.setHint("Password");
+        password.setTextSize(16);
+        password.setSingleLine(true);
+        password.setPadding(
+                dp(16),
+                0,
+                dp(16),
+                0
+        );
+        password.setBackgroundColor(Color.WHITE);
+
+        LinearLayout.LayoutParams passwordParams =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(55)
+                );
+
+        passwordParams.topMargin = dp(15);
+
+        page.addView(
+                password,
+                passwordParams
+        );
+
+        // LOGIN
+
+        TextView login =
+                new TextView(this);
+
+        login.setText("Login Success");
+        login.setTextSize(18);
+        login.setTextColor(Color.WHITE);
+        login.setGravity(Gravity.CENTER);
+        login.setTypeface(null, 1);
+
+        GradientDrawable loginBg =
+                new GradientDrawable();
+
+        loginBg.setCornerRadius(
+                dp(30)
+        );
+
+        loginBg.setColor(
+                Color.parseColor("#2D1B69")
+        );
+
+        login.setBackground(loginBg);
+
+        LinearLayout.LayoutParams loginParams =
                 new LinearLayout.LayoutParams(
                         -1,
                         dp(56)
                 );
 
-        pr.topMargin = dp(40);
+        loginParams.topMargin = dp(30);
 
-        btn.setLayoutParams(pr);
-
-        btn.setPadding(
-                0,
-                dp(15),
-                0,
-                dp(15)
+        page.addView(
+                login,
+                loginParams
         );
 
-        btn.setClickable(true);
-        btn.setFocusable(true);
-
-        btn.setOnClickListener(v -> {
+        login.setOnClickListener(v -> {
 
             Toast.makeText(
                     MainActivity.this,
-                    "Login ✓",
+                    "Login Success ✓",
                     Toast.LENGTH_SHORT
             ).show();
 
             home();
         });
 
-        m.addView(btn);
+        // BACK
 
-        TextView bk = new TextView(this);
+        TextView back =
+                new TextView(this);
 
-        bk.setText("← Back to Home");
-        bk.setTextColor(Color.WHITE);
-        bk.setGravity(Gravity.CENTER);
-        bk.setTextSize(16);
+        back.setText("← Back to Home");
+        back.setTextSize(16);
+        back.setTextColor(Color.WHITE);
+        back.setGravity(Gravity.CENTER);
 
-        bk.setPadding(
+        back.setPadding(
                 0,
-                dp(20),
+                dp(24),
                 0,
-                0
+                dp(10)
         );
 
-        bk.setClickable(true);
-        bk.setFocusable(true);
+        page.addView(back);
 
-        bk.setOnClickListener(v -> home());
+        back.setOnClickListener(v -> {
+            home();
+        });
 
-        m.addView(bk);
-
-        ScrollView sv = new ScrollView(this);
-
-        sv.addView(m);
+        sv.addView(page);
 
         setContentView(sv);
     }
@@ -381,133 +468,166 @@ public class MainActivity extends Activity {
             String color2
     ) {
 
-        LinearLayout ca = new LinearLayout(this);
+        LinearLayout card =
+                new LinearLayout(this);
 
-        ca.setOrientation(LinearLayout.HORIZONTAL);
-        ca.setGravity(Gravity.CENTER_VERTICAL);
+        card.setOrientation(
+                LinearLayout.HORIZONTAL
+        );
 
-        ca.setPadding(
+        card.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        card.setPadding(
                 dp(20),
+                dp(18),
                 dp(20),
-                dp(20),
+                dp(18)
+        );
+
+        GradientDrawable cardBg =
+                new GradientDrawable();
+
+        cardBg.setCornerRadius(
                 dp(20)
         );
 
-        GradientDrawable g = new GradientDrawable();
-
-        g.setCornerRadius(dp(20));
-        g.setColor(Color.parseColor("#55FFFFFF"));
-        g.setStroke(
-                dp(1),
-                Color.parseColor("#77FFFFFF")
+        cardBg.setColor(
+                Color.parseColor("#45FFFFFF")
         );
 
-        ca.setBackground(g);
+        cardBg.setStroke(
+                dp(1),
+                Color.parseColor("#70FFFFFF")
+        );
 
-        LinearLayout.LayoutParams lp =
+        card.setBackground(cardBg);
+
+        LinearLayout.LayoutParams cardParams =
                 new LinearLayout.LayoutParams(
                         -1,
                         dp(100)
                 );
 
-        lp.bottomMargin = dp(20);
+        cardParams.bottomMargin =
+                dp(18);
 
-        ca.setLayoutParams(lp);
+        card.setLayoutParams(
+                cardParams
+        );
 
-        // مهم:
-        // العناصر الداخلية لا تأخذ الضغط من البطاقة
+        // ICON
 
-        TextView ic = new TextView(this);
+        TextView icon =
+                new TextView(this);
 
-        ic.setText(letter);
-        ic.setTextSize(22);
-        ic.setTextColor(Color.WHITE);
-        ic.setGravity(Gravity.CENTER);
-        ic.setTypeface(null, 1);
+        icon.setText(letter);
+        icon.setTextSize(22);
+        icon.setTextColor(Color.WHITE);
+        icon.setGravity(Gravity.CENTER);
+        icon.setTypeface(null, 1);
 
-        ic.setClickable(false);
-        ic.setFocusable(false);
+        GradientDrawable iconBg =
+                new GradientDrawable();
 
-        GradientDrawable ig = new GradientDrawable();
+        iconBg.setCornerRadius(
+                dp(15)
+        );
 
-        ig.setCornerRadius(dp(15));
+        iconBg.setColors(
+                new int[]{
+                        Color.parseColor(color1),
+                        Color.parseColor(color2)
+                }
+        );
 
-        ig.setColors(new int[]{
-                Color.parseColor(color1),
-                Color.parseColor(color2)
-        });
-
-        ig.setOrientation(
+        iconBg.setOrientation(
                 GradientDrawable.Orientation.TL_BR
         );
 
-        ic.setBackground(ig);
+        icon.setBackground(iconBg);
 
-        ic.setLayoutParams(
+        LinearLayout.LayoutParams iconParams =
                 new LinearLayout.LayoutParams(
                         dp(60),
                         dp(60)
-                )
+                );
+
+        card.addView(
+                icon,
+                iconParams
         );
 
-        ca.addView(ic);
+        // TEXT
 
-        LinearLayout tx = new LinearLayout(this);
+        LinearLayout text =
+                new LinearLayout(this);
 
-        tx.setOrientation(
+        text.setOrientation(
                 LinearLayout.VERTICAL
         );
 
-        tx.setPadding(
+        text.setPadding(
                 dp(16),
                 0,
                 0,
                 0
         );
 
-        tx.setClickable(false);
-        tx.setFocusable(false);
+        TextView titleView =
+                new TextView(this);
 
-        TextView t = new TextView(this);
+        titleView.setText(title);
+        titleView.setTextSize(18);
+        titleView.setTextColor(Color.WHITE);
+        titleView.setTypeface(null, 1);
 
-        t.setText(title);
-        t.setTextSize(18);
-        t.setTextColor(Color.WHITE);
-        t.setTypeface(null, 1);
+        text.addView(titleView);
 
-        t.setClickable(false);
-        t.setFocusable(false);
+        TextView descriptionView =
+                new TextView(this);
 
-        tx.addView(t);
-
-        TextView d = new TextView(this);
-
-        d.setText(description);
-        d.setTextSize(13);
-        d.setTextColor(
-                Color.parseColor("#E0E0E0")
+        descriptionView.setText(
+                description
         );
 
-        d.setClickable(false);
-        d.setFocusable(false);
+        descriptionView.setTextSize(13);
+        descriptionView.setTextColor(
+                Color.parseColor("#E6E6E6")
+        );
 
-        tx.addView(d);
+        text.addView(
+                descriptionView
+        );
 
-        ca.addView(tx);
+        card.addView(text);
 
-        return ca;
+        return card;
     }
 
     // =========================================================
     // DP
     // =========================================================
 
-    int dp(int v) {
+    int dp(int value) {
 
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                v,
+                value,
                 getResources().getDisplayMetrics()
         );
     }
 }
+
+مهم: هذه المرة لم أغيّر طريقة "setOnClickListener" الموجودة في نسختك التي كانت تعمل. التغييرات كلها تقريبًا في المظهر والمسافات.
+
+بعد الـ Commit والـ Build، المفروض تبقى الوظائف:
+
+Passport → الصفحة
+Visa Centers → Maps
+Get Started → Welcome Back
+Login Success → Home
+Back → Home
+
+إذا هذه النسخة اشتغلت، لا نلمس منطق التنقل مرة أخرى ونبدأ بعدها بإضافة وظائف BLS الحقيقية فوق هذا الأساس.
