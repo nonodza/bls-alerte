@@ -1,473 +1,158 @@
 name: Build APK
-
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-
-      # =========================================================
-      # 1. CHECKOUT
-      # =========================================================
-      - name: Checkout
-        uses: actions/checkout@v4
-
-
-      # =========================================================
-      # 2. JAVA
-      # =========================================================
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
-
-      # =========================================================
-      # 3. ANDROID SDK
-      # =========================================================
-      - name: Setup Android
-        uses: android-actions/setup-android@v3
-
-
-      # =========================================================
-      # 4. CREATE PROJECT
-      # =========================================================
-      - name: Create Project
-        shell: bash
+      - uses: android-actions/setup-android@v3
+      
+      - name: Create App
         run: |
-
-          rm -rf app
-          rm -f build.gradle settings.gradle gradle.properties
-
+          rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
-          mkdir -p app/src/main/res/layout
-          mkdir -p app/src/main/res/drawable
-          mkdir -p app/src/main/res/mipmap-hdpi
-          mkdir -p app/src/main/res/values
-
-
-          # =====================================================
-          # SETTINGS
-          # =====================================================
-
-          cat > settings.gradle <<'EOF'
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-rootProject.name = "BLSAlerteDZ"
-include(":app")
-EOF
-
-
-          # =====================================================
-          # GRADLE PROPERTIES
-          # =====================================================
-
-          cat > gradle.properties <<'EOF'
-android.useAndroidX=true
-android.nonTransitiveRClass=true
-org.gradle.jvmargs=-Xmx2048m
-EOF
-
-
-          # =====================================================
-          # ROOT BUILD
-          # =====================================================
-
-          cat > build.gradle <<'EOF'
-plugins {
-    id 'com.android.application' version '8.2.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
-}
-EOF
-
-
-          # =====================================================
-          # APP BUILD
-          # =====================================================
-
-          cat > app/build.gradle <<'EOF'
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
-
-android {
-    namespace 'com.bls.alerte'
-    compileSdk 34
-
-    defaultConfig {
-        applicationId "com.bls.alerte"
-        minSdk 24
-        targetSdk 34
-        versionCode 30
-        versionName "3.0 PRO"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-
-dependencies {
-
-    implementation "androidx.core:core-ktx:1.13.1"
-    implementation "androidx.appcompat:appcompat:1.7.0"
-    implementation "com.google.android.material:material:1.12.0"
-
-    implementation "androidx.activity:activity-ktx:1.9.0"
-
-    implementation "androidx.work:work-runtime-ktx:2.9.0"
-
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.3"
-}
-EOF
-
-
-          # =====================================================
-          # ANDROID MANIFEST
-          # =====================================================
-
-          cat > app/src/main/AndroidManifest.xml <<'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
-    <application
-        android:allowBackup="true"
-        android:label="BLS Alerte DZ"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-
-        </activity>
-
-    </application>
-
-</manifest>
-EOF
-
-
-          # =====================================================
-          # COLORS / THEME
-          # =====================================================
-
-          cat > app/src/main/res/values/colors.xml <<'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-
-<resources>
-
-    <color name="primary">#00695C</color>
-    <color name="primary_dark">#004D40</color>
-
-    <color name="accent">#00A896</color>
-
-    <color name="background">#F5F7F9</color>
-    <color name="card">#FFFFFF</color>
-
-    <color name="text_main">#18212A</color>
-    <color name="text_secondary">#6B7280</color>
-
-    <color name="success">#168B55</color>
-    <color name="danger">#D64545</color>
-    <color name="warning">#D88A00</color>
-
-</resources>
-EOF
-
-
-          cat > app/src/main/res/values/themes.xml <<'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-
-<resources>
-
-    <style name="AppTheme"
-        parent="Theme.Material3.DayNight.NoActionBar">
-
-        <item name="android:fontFamily">sans</item>
-
-        <item name="android:colorAccent">@color/accent</item>
-
-        <item name="android:navigationBarColor">@color/background</item>
-
-        <item name="android:statusBarColor">@color/primary_dark</item>
-
-        <item name="android:windowLightStatusBar">false</item>
-
-    </style>
-
-</resources>
-EOF
-
-
-          # =====================================================
-          # MAIN LAYOUT
-          # =====================================================
-
-          cat > app/src/main/res/layout/activity_main.xml <<'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="18dp">
-
-
-        <!-- HEADER -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="14dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🇩🇿  BLS Alerte DZ"
-                android:textColor="@color/text_main"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/versionText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="v3.0 PRO"
-                android:textColor="@color/primary"
-                android:textSize="12sp"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-
-        <!-- STATUS CARD -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/card"
-            android:elevation="4dp"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/statusTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="●  MONTORING ARRÊTÉ"
-                android:textColor="@color/danger"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/statusDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="La surveillance n'est pas active."
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"/>
-
-            <Button
-                android:id="@+id/startButton"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="18dp"
-                android:text="▶  DÉMARRER LA SURVEILLANCE"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-
-        <!-- SECTION -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Configuration"
-            android:textColor="@color/text_main"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-
-        <!-- CENTER -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/card"
-            android:elevation="2dp"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="📍 Centre"
-                android:textColor="@color/text_main"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/centerSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="6dp"/>
-
-        </LinearLayout>
-
-
-        <!-- SERVICE -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/card"
-            android:elevation="2dp"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="📋 Type de rendez-vous"
-                android:textColor="@color/text_main"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/serviceSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="6dp"/>
-
-        </LinearLayout>
-
-
-        <!-- INTERVAL -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/card"
-            android:elevation="2dp"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="⏱ Intervalle de surveillance"
-                android:textColor="@color/text_main"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/intervalSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="6dp"/>
-
-        </LinearLayout>
-
-
-        <!-- STATISTICS -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="État du système"
-            android:textColor="@color/text_main"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="110dp"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="@color/card"
-                android:elevation="2dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/checkCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@color/primary"
-                    android:textSize="28sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="V
+          echo "include ':app'" > settings.gradle
+          echo "android.useAndroidX=true" > gradle.properties
+          
+          cat > build.gradle << 'A'
+          buildscript {
+            repositories { google(); mavenCentral() }
+            dependencies {
+              classpath 'com.android.tools.build:gradle:8.2.2'
+              classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'
+            }
+          }
+          allprojects { repositories { google(); mavenCentral() } }
+          A
+          
+          cat > app/build.gradle << 'B'
+          apply plugin: 'com.android.application'
+          apply plugin: 'kotlin-android'
+          android {
+            namespace 'com.bls.alerte'
+            compileSdk 34
+            defaultConfig {
+              applicationId "com.bls.alerte"
+              minSdk 21
+              targetSdk 34
+              versionCode 70
+              versionName "7.0-ULTRA"
+            }
+            compileOptions {
+              sourceCompatibility JavaVersion.VERSION_17
+              targetCompatibility JavaVersion.VERSION_17
+            }
+            kotlinOptions { jvmTarget = "17" }
+          }
+          dependencies {
+            implementation 'androidx.core:core-ktx:1.12.0'
+            implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+          }
+          B
+          
+          cat > app/src/main/AndroidManifest.xml << 'C'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <application android:label="BLS Alerte DZ" android:theme="@android:style/Theme.NoTitleBar">
+              <activity android:name=".MainActivity" android:exported="true">
+                <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+              </activity>
+            </application>
+          </manifest>
+          C
+          
+          cat > app/src/main/java/com/bls/alerte/MainActivity.kt << 'D'
+          package com.bls.alerte
+          import android.app.Activity
+          import android.content.Intent
+          import android.graphics.Color
+          import android.graphics.Typeface
+          import android.graphics.drawable.GradientDrawable
+          import android.net.Uri
+          import android.os.*
+          import android.view.Gravity
+          import android.widget.*
+          import okhttp3.*
+          import java.io.IOException
+          import java.text.SimpleDateFormat
+          import java.util.*
+          class MainActivity : Activity() {
+            lateinit var status: TextView
+            lateinit var log: TextView
+            var run = false
+            var c = 0
+            val client = OkHttpClient()
+            val h = Handler(Looper.getMainLooper())
+            override fun onCreate(b: Bundle?) {
+              super.onCreate(b)
+              val bg = Color.parseColor("#120023")
+              val card = Color.parseColor("#1E0A3A")
+              val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(bg) }
+              val top = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setPadding(40,60,40,20); gravity = Gravity.CENTER_VERTICAL }
+              val menu = TextView(this).apply { text = "☰"; textSize = 26f; setTextColor(Color.WHITE); setPadding(0,0,30,0) }
+              val title = TextView(this).apply { text = "BLS Alerte DZ"; textSize = 18f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD }
+              val sp = Space(this).apply { layoutParams = LinearLayout.LayoutParams(0,0,1f) }
+              val lang = TextView(this).apply { text = "AR"; setTextColor(Color.parseColor("#8B5CF6")); setPadding(20,10,20,10); background = GradientDrawable().apply { cornerRadius = 30f; setStroke(2, Color.parseColor("#8B5CF6")) } }
+              top.addView(menu); top.addView(title); top.addView(sp); top.addView(lang)
+              val center = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(0,40,0,30) }
+              val logo = TextView(this).apply { text = "BLS\nDZ"; textSize = 32f; setTextColor(Color.WHITE); gravity = Gravity.CENTER; typeface = Typeface.DEFAULT_BOLD; setPadding(55,55,55,55); background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.parseColor("#6D28D9")); setStroke(4, Color.parseColor("#A78BFA")) } }
+              val mainT = TextView(this).apply { text = "BLS Alerte Pro"; textSize = 24f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD; gravity = Gravity.CENTER; setPadding(0,30,0,10) }
+              val subT = TextView(this).apply { text = "مراقبة مواعيد BLS بذكاء"; textSize = 13f; setTextColor(Color.parseColor("#A5B4FC")); gravity = Gravity.CENTER }
+              center.addView(logo); center.addView(mainT); center.addView(subT)
+              val card1 = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(30,25,30,25); background = GradientDrawable().apply { cornerRadius = 25f; setColor(card) }; val p = LinearLayout.LayoutParams(-1,-2); p.setMargins(30,20,30,10); layoutParams = p }
+              status = TextView(this).apply { text = "جاهز للمراقبة"; textSize = 15f; setTextColor(Color.WHITE) }
+              log = TextView(this).apply { text = "السجل:\n- لا يوجد فحص"; textSize = 12f; setTextColor(Color.parseColor("#C4B5FD")); setPadding(0,15,0,0) }
+              card1.addView(status); card1.addView(log)
+              val btn = TextView(this).apply { text = "ابدأ المراقبة الذكية"; textSize = 16f; setTextColor(Color.WHITE); gravity = Gravity.CENTER; setPadding(0,35,0,35); background = GradientDrawable().apply { cornerRadius = 30f; colors = intArrayOf(Color.parseColor("#7C3AED"), Color.parseColor("#4F46E5")); orientation = GradientDrawable.Orientation.LEFT_RIGHT }; val p = LinearLayout.LayoutParams(-1,-2); p.setMargins(30,20,30,10); layoutParams = p }
+              val btn2 = TextView(this).apply { text = "افتح موقع BLS"; textSize = 14f; setTextColor(Color.parseColor("#A5B4FC")); gravity = Gravity.CENTER; setPadding(0,25,0,25); background = GradientDrawable().apply { cornerRadius = 25f; setColor(Color.parseColor("#1E1B4B")); setStroke(1, Color.parseColor("#4C1D95")) }; val p = LinearLayout.LayoutParams(-1,-2); p.setMargins(30,10,30,0); layoutParams = p }
+              val bottom = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER; setPadding(0,25,0,25); setBackgroundColor(Color.parseColor("#0F0A1E")) }
+              fun nav(t:String, a:Boolean): TextView { return TextView(this@MainActivity).apply { text = t; textSize = 22f; gravity = Gravity.CENTER; setPadding(40,0,40,0); setTextColor(if(a) Color.parseColor("#A855F7") else Color.parseColor("#6B7280")) } }
+              bottom.addView(nav("⌂",true)); bottom.addView(nav("◫",false)); bottom.addView(nav("⬇",false)); bottom.addView(nav("⚙",false))
+              btn.setOnClickListener { if(!run){ run=true; btn.text="ايقاف المراقبة"; c=0; check() } else { run=false; btn.text="ابدأ المراقبة الذكية"; h.removeCallbacksAndMessages(null); status.text="متوقف" } }
+              btn2.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))) }
+              root.addView(top); root.addView(center); root.addView(card1); root.addView(btn); root.addView(btn2); val filler = Space(this).apply { layoutParams = LinearLayout.LayoutParams(0,0,1f) }; root.addView(filler); root.addView(bottom); setContentView(root)
+            }
+            fun check(){
+              if(!run) return
+              c++
+              val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+              status.text = "فحص #$c - $time"
+              log.text = "[$time] فحص...\n" + log.text
+              val req = Request.Builder().url("https://algeria.blsspainvisa.com/book_appointment.php").header("User-Agent","Mozilla/5.0").build()
+              client.newCall(req).enqueue(object: Callback{
+                override fun onFailure(call: Call, e: IOException){ h.post{ status.text="خطأ اتصال" }; h.postDelayed({check()},10000) }
+                override fun onResponse(call: Call, response: Response){
+                  val body = response.body?.string()?.lowercase() ?: ""
+                  h.post{
+                    val no = body.contains("no appointment") || body.contains("no slot") || body.contains("currently") || body.length < 800
+                    if(no){ log.text="[$time] لا يوجد\n"+log.text } else { log.text="موعد محتمل [$time]\n"+log.text; status.text="موعد محتمل!" }
+                  }
+                  h.postDelayed({check()},15000)
+                }
+              })
+            }
+          }
+          D
+          
+          yes | sdkmanager --licenses > /dev/null || true
+
+      - name: Build APK
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+          arguments: clean assembleDebug --no-daemon --rerun-tasks
+          cache-disabled: true
+
+      - name: Show APK
+        run: ls -lh app/build/outputs/apk/debug/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BLS-v7-ULTRA
+          path: app/build/outputs/apk/debug/app-debug.apk            
