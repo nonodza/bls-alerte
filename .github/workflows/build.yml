@@ -10,46 +10,43 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: 8.4
       - name: Build
         run: |
-          cat > settings.gradle << 'E'
-          include ':app'
-          E
+          rm -rf app build.gradle settings.gradle
+          mkdir -p app/src/main/java/com/bls/alerte
+          echo "include ':app'" > settings.gradle
+          echo "android.useAndroidX=true" > gradle.properties
           cat > build.gradle << 'E'
           buildscript {
-            ext.kotlin_version = '1.9.10'
             repositories { google(); mavenCentral() }
             dependencies {
-              classpath 'com.android.tools.build:gradle:8.1.4'
-              classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+              classpath 'com.android.tools.build:gradle:8.2.2'
+              classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22'
             }
           }
           allprojects { repositories { google(); mavenCentral() } }
           E
-          echo "android.useAndroidX=true" > gradle.properties
-          mkdir -p app/src/main/java/com/bls/alerte
           cat > app/build.gradle << 'E'
           apply plugin: 'com.android.application'
           apply plugin: 'kotlin-android'
           android {
             namespace 'com.bls.alerte'
-            compileSdkVersion 34
+            compileSdk 34
             defaultConfig {
               applicationId "com.bls.alerte"
-              minSdkVersion 21
-              targetSdkVersion 34
-              versionCode 6
+              minSdk 21
+              targetSdk 34
+              versionCode 10
               versionName "1.0"
             }
+            buildTypes { release { minifyEnabled false } }
           }
           dependencies {
-            implementation 'androidx.core:core-ktx:1.10.1'
+            implementation 'androidx.core:core-ktx:1.12.0'
             implementation 'androidx.appcompat:appcompat:1.6.1'
           }
           E
+          mkdir -p app/src/main
           cat > app/src/main/AndroidManifest.xml << 'E'
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -69,16 +66,18 @@ jobs:
             override fun onCreate(b: Bundle?) {
               super.onCreate(b)
               val tv = TextView(this)
-              tv.text = "BLS Alerte DZ - OK FINAL!"
-              tv.textSize = 22f
+              tv.text = "BLS Alerte DZ - FINAL OK v10!"
+              tv.textSize = 24f
               tv.setPadding(50,300,50,50)
               setContentView(tv)
             }
           }
           E
-          yes | sdkmanager --licenses || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
-          gradle assembleDebug --stacktrace
+          yes | sdkmanager --licenses > /dev/null || true
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.5
+          arguments: assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: BLS-Alerte-APK
