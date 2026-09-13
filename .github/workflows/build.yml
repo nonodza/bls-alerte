@@ -1,4 +1,4 @@
-name: BLS ULTRA FIXED FINAL
+name: BLS ULTRA FINAL FIX
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -12,13 +12,159 @@ jobs:
       - uses: android-actions/setup-android@v3
 
       - name: Create ULTRA App
-        shell: python
         run: |
-          import os, pathlib
-          os.system("rm -rf app build.gradle settings.gradle gradle.properties .gradle gradle")
-          pathlib.Path("app/src/main/java/com/bls/alerte").mkdir(parents=True, exist_ok=True)
-          open("settings.gradle","w").write("include ':app'")
-          open("gradle.properties","w").write("android.useAndroidX=true")
-          open("build.gradle","w").write("buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.5.2'}} allprojects{repositories{google();mavenCentral()}}")
-          open("app/build.gradle","w").write("apply plugin: 'com.android.application' android{namespace 'com.bls.alerte';compileSdk 34;defaultConfig{applicationId 'com.bls.alerte';minSdk 23;targetSdk 34;versionCode 60;versionName 'ULTRA-FIXED'}}")
-          pathlib.Path("app/src/main").mkdir(par
+          rm -rf app build.gradle settings.gradle gradle.properties gradle
+          mkdir -p app/src/main/java/com/bls/alerte
+          echo "include ':app'" > settings.gradle
+          echo "android.useAndroidX=true" > gradle.properties
+
+          cat > build.gradle <<'EOF'
+          buildscript { repositories { google(); mavenCentral() } dependencies { classpath 'com.android.tools.build:gradle:8.5.2' } }
+          allprojects { repositories { google(); mavenCentral() } }
+          EOF
+
+          cat > app/build.gradle <<'EOF'
+          apply plugin: 'com.android.application'
+          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 70; versionName "ULTRA-FIXED" } }
+          EOF
+
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <application android:label="BLS ULTRA">
+              <activity android:name=".MainActivity" android:exported="true">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN"/>
+                  <category android:name="android.intent.category.LAUNCHER"/>
+                </intent-filter>
+              </activity>
+            </application>
+          </manifest>
+          EOF
+
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
+          package com.bls.alerte;
+          import android.app.Activity;
+          import android.content.Intent;
+          import android.graphics.Color;
+          import android.graphics.Typeface;
+          import android.graphics.drawable.GradientDrawable;
+          import android.net.Uri;
+          import android.os.*;
+          import android.view.Gravity;
+          import android.widget.*;
+
+          public class MainActivity extends Activity {
+              TextView status,cnt,log;
+              Spinner spC,spV,spT;
+              boolean run=false;
+              int c=0, interval=15;
+              String centre="Alger";
+              Handler h=new Handler(Looper.getMainLooper());
+
+              protected void onCreate(Bundle b){
+                  super.onCreate(b);
+                  ScrollView sv=new ScrollView(this);
+                  sv.setBackgroundColor(Color.parseColor("#0A001A"));
+                  LinearLayout root=new LinearLayout(this);
+                  root.setOrientation(1);
+                  root.setPadding(0,0,0,40);
+
+                  LinearLayout header=new LinearLayout(this);
+                  header.setOrientation(1);
+                  header.setGravity(Gravity.CENTER);
+                  header.setPadding(20,40,20,20);
+                  TextView t1=new TextView(this);
+                  t1.setText("BLS ULTRA 2026 PRO MAX");
+                  t1.setTextColor(Color.WHITE);
+                  t1.setTextSize(22);
+                  t1.setTypeface(null,Typeface.BOLD);
+                  t1.setGravity(Gravity.CENTER);
+                  TextView t2=new TextView(this);
+                  t2.setText("BLS Spain Algerie - Alger | Oran | Annaba");
+                  t2.setTextColor(Color.parseColor("#A78BFA"));
+                  t2.setGravity(Gravity.CENTER);
+                  header.addView(t1);
+                  header.addView(t2);
+
+                  LinearLayout c1=card();
+                  TextView l1=new TextView(this);
+                  l1.setText("📍 Centre & Visa");
+                  l1.setTextColor(Color.WHITE);
+                  l1.setTypeface(null,Typeface.BOLD);
+                  spC=new Spinner(this);
+                  spC.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Alger","Oran","Annaba"}));
+                  spV=new Spinner(this);
+                  spV.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Tourisme","Affaires","Famille","Etude"}));
+                  c1.addView(l1);
+                  c1.addView(spC);
+                  c1.addView(spV);
+
+                  LinearLayout c2=card();
+                  TextView l2=new TextView(this);
+                  l2.setText("⚙️ Options Surveillance");
+                  l2.setTextColor(Color.WHITE);
+                  l2.setTypeface(null,Typeface.BOLD);
+                  spT=new Spinner(this);
+                  spT.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"15 sec","30 sec","60 sec","5 min","10 min"}));
+                  LinearLayout row=new LinearLayout(this);
+                  row.setOrientation(0);
+                  Switch sw1=new Switch(this);
+                  sw1.setText("Sound");
+                  sw1.setTextColor(Color.WHITE);
+                  sw1.setChecked(true);
+                  Switch sw2=new Switch(this);
+                  sw2.setText("Vibrate");
+                  sw2.setTextColor(Color.WHITE);
+                  sw2.setChecked(true);
+                  row.addView(sw1);
+                  row.addView(sw2);
+                  c2.addView(l2);
+                  c2.addView(spT);
+                  c2.addView(row);
+
+                  LinearLayout c3=card();
+                  status=new TextView(this);
+                  status.setText("Ready - Choisis Centre ✅");
+                  status.setTextColor(Color.parseColor("#10B981"));
+                  status.setTypeface(null,Typeface.BOLD);
+                  cnt=new TextView(this);
+                  cnt.setText("Checks: 0");
+                  cnt.setTextColor(Color.parseColor("#A78BFA"));
+                  log=new TextView(this);
+                  log.setText("Log:\n- System ULTRA Ready\n- Choose centre\n");
+                  log.setTextColor(Color.parseColor("#D1D5DB"));
+                  log.setTextSize(11);
+                  c3.addView(status);
+                  c3.addView(cnt);
+                  c3.addView(log);
+
+                  TextView btn1=btn("Start Smart Monitoring", new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#4F46E5")});
+                  TextView btn2=btn("Test Alert Sound+Vibrate", new int[]{Color.parseColor("#1A1033"),Color.parseColor("#2D1B4E")});
+                  TextView btn3=btn("Open BLS Official Website", new int[]{Color.parseColor("#0F172A"),Color.parseColor("#1E293B")});
+                  TextView btn4=btn("Clear Log", new int[]{Color.parseColor("#1F1F1F"),Color.parseColor("#2A2A2A")});
+
+                  root.addView(header);
+                  root.addView(c1);
+                  root.addView(c2);
+                  root.addView(c3);
+                  root.addView(btn1);
+                  root.addView(btn2);
+                  root.addView(btn3);
+                  root.addView(btn4);
+                  sv.addView(root);
+                  setContentView(sv);
+
+                  spC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+                      public void onItemSelected(AdapterView<?> p, android.view.View v, int i, long l){
+                          String[] a={"Alger","Oran","Annaba"};
+                          centre=a[i];
+                          log.setText(log.getText()+"- Centre: "+centre+"\n");
+                      }
+                      public void onNothingSelected(AdapterView<?> p){}
+                  });
+
+                  spT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+                      public void onItemSelected(AdapterView<?> p, android.view.View v, int i, long l){
+                          int[] vals={15,30,60
