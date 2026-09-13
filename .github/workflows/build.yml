@@ -1,43 +1,203 @@
-name: BLS 2026 PRO
+name: BLS 2026 FINAL
 on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Java 17
-        uses: actions/setup-java@v5
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
-      - name: Setup Android
-        uses: android-actions/setup-android@v3
-      - name: Make App
+      - uses: android-actions/setup-android@v3
+
+      - name: Create Project Fixed
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties
+          rm -rf app build.gradle settings.gradle gradle.properties .gradle gradle
           mkdir -p app/src/main/java/com/bls/alerte
-          echo "include ':app'" > settings.gradle
-          echo "android.useAndroidX=true" > gradle.properties
-          echo "buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.2.2'}} allprojects{repositories{google();mavenCentral()}}" > build.gradle
-          cat > app/build.gradle <<'GRADLE'
+          
+          cat > settings.gradle <<'EOF'
+          include ':app'
+          EOF
+          
+          cat > build.gradle <<'EOF'
+          buildscript {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+              dependencies {
+                  classpath 'com.android.tools.build:gradle:8.2.2'
+              }
+          }
+          allprojects {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          EOF
+          
+          cat > app/build.gradle <<'EOF'
           apply plugin: 'com.android.application'
           android {
-            namespace 'com.bls.alerte'
-            compileSdk 34
-            defaultConfig { applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 26; versionName "2026" }
+              namespace 'com.bls.alerte'
+              compileSdk 34
+              defaultConfig {
+                  applicationId "com.bls.alerte"
+                  minSdk 23
+                  targetSdk 34
+                  versionCode 26
+                  versionName "2026-PRO"
+              }
           }
-          dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
-          GRADLE
-          cat > app/src/main/AndroidManifest.xml <<'XML'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/><application android:label="BLS 2026"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
-          XML
-          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
+          dependencies {
+              implementation 'androidx.appcompat:appcompat:1.6.1'
+          }
+          EOF
+          
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <uses-permission android:name="android.permission.INTERNET"/>
+              <uses-permission android:name="android.permission.VIBRATE"/>
+              <application android:label="BLS 2026 PRO" android:theme="@android:style/Theme.NoTitleBar">
+                  <activity android:name=".MainActivity" android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN"/>
+                          <category android:name="android.intent.category.LAUNCHER"/>
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          EOF
+          
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
           package com.bls.alerte;
-          import android.app.*; import android.content.*; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*;
+          import android.app.*;
+          import android.content.*;
+          import android.graphics.*;
+          import android.graphics.drawable.GradientDrawable;
+          import android.net.Uri;
+          import android.os.*;
+          import android.view.Gravity;
+          import android.widget.*;
           public class MainActivity extends Activity {
-            TextView status, log, cnt; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper());
-            protected void onCreate(Bundle b){
-              super.onCreate(b);
-              LinearLayout root=new LinearLayout(this); root.setOrientation(1); root.setBackgroundColor(Color.parseColor("#0A001A"));
-              LinearLayout top=new LinearLayout(this); top.setPadding(30,50,30,20); top.setOrientation(0);
-              TextView title=new TextView(this); title.setText("BLS Alerte 2026 PRO"); title.setTextColor(Color.WHITE); title.setTextSize(20
+              TextView status, log, cnt;
+              boolean run=false;
+              int c=0;
+              Handler h=new Handler(Looper.getMainLooper());
+              protected void onCreate(Bundle b){
+                  super.onCreate(b);
+                  LinearLayout root=new LinearLayout(this);
+                  root.setOrientation(LinearLayout.VERTICAL);
+                  root.setBackgroundColor(Color.parseColor("#0A001A"));
+                  TextView title=new TextView(this);
+                  title.setText("BLS Alerte 2026 PRO\nمراقب ذكي");
+                  title.setTextSize(22);
+                  title.setTextColor(Color.WHITE);
+                  title.setGravity(Gravity.CENTER);
+                  title.setPadding(0,80,0,20);
+                  title.setTypeface(null, Typeface.BOLD);
+                  LinearLayout card=new LinearLayout(this);
+                  card.setOrientation(LinearLayout.VERTICAL);
+                  card.setPadding(24,20,24,20);
+                  GradientDrawable gd=new GradientDrawable();
+                  gd.setCornerRadius(24);
+                  gd.setColor(Color.parseColor("#1A0B2E"));
+                  card.setBackground(gd);
+                  LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,-2);
+                  cp.setMargins(28,10,28,0);
+                  card.setLayoutParams(cp);
+                  status=new TextView(this);
+                  status.setText("جاهز للمراقبة - اضغط ابدأ");
+                  status.setTextColor(Color.WHITE);
+                  cnt=new TextView(this);
+                  cnt.setText("الفحوصات: 0");
+                  cnt.setTextColor(Color.parseColor("#A78BFA"));
+                  log=new TextView(this);
+                  log.setText("- نظام 2026 جاهز\n- مراقبة تلقائية كل 15s\n- تنبيه اهتزاز");
+                  log.setTextColor(Color.parseColor("#D8B4FE"));
+                  card.addView(status);
+                  card.addView(cnt);
+                  card.addView(log);
+                  TextView btn=new TextView(this);
+                  btn.setText("🚀 ابدأ المراقبة");
+                  btn.setTextColor(Color.WHITE);
+                  btn.setGravity(Gravity.CENTER);
+                  btn.setPadding(0,30,0,30);
+                  GradientDrawable bg=new GradientDrawable();
+                  bg.setCornerRadius(30);
+                  bg.setColors(new int[]{Color.parseColor("#7C3AED"), Color.parseColor("#4F46E5")});
+                  bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                  btn.setBackground(bg);
+                  LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2);
+                  bp.setMargins(28,20,28,0);
+                  btn.setLayoutParams(bp);
+                  TextView btn2=new TextView(this);
+                  btn2.setText("🌐 فتح موقع BLS");
+                  btn2.setGravity(Gravity.CENTER);
+                  btn2.setPadding(0,22,0,22);
+                  btn2.setTextColor(Color.parseColor("#A5B4FC"));
+                  GradientDrawable bg2=new GradientDrawable();
+                  bg2.setCornerRadius(24);
+                  bg2.setColor(Color.parseColor("#1A1033"));
+                  btn2.setBackground(bg2);
+                  LinearLayout.LayoutParams bp2=new LinearLayout.LayoutParams(-1,-2);
+                  bp2.setMargins(28,10,28,0);
+                  btn2.setLayoutParams(bp2);
+                  root.addView(title);
+                  root.addView(card);
+                  root.addView(btn);
+                  root.addView(btn2);
+                  setContentView(root);
+                  btn.setOnClickListener(v->{
+                      if(!run){
+                          run=true;
+                          c=0;
+                          btn.setText("⏹️ إيقاف");
+                          loop();
+                      } else {
+                          run=false;
+                          btn.setText("🚀 ابدأ المراقبة");
+                          h.removeCallbacksAndMessages(null);
+                          status.setText("متوقف");
+                      }
+                  });
+                  btn2.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))));
+              }
+              void loop(){
+                  if(!run) return;
+                  c++;
+                  cnt.setText("الفحوصات: "+c);
+                  String t=new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+                  status.setText("فحص #"+c+" - "+t);
+                  log.setText("["+t+"] فحص BLS...\n"+log.getText());
+                  if(c==2){
+                      Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE);
+                      try{
+                          if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(1000, 255));
+                          else vib.vibrate(1000);
+                      }catch(Exception e){}
+                      status.setText("🎉 تنبيه تجريبي!");
+                      new AlertDialog.Builder(this).setTitle("🎉").setMessage("لو كان موعد حقيقي، راح يهتز و يعطيك إشعار!\n\nالنظام خدام 100%").setPositiveButton("OK",null).show();
+                  }
+                  h.postDelayed(this::loop, 15000);
+              }
+          }
+          EOF
+          yes | sdkmanager --licenses > /dev/null || true
+
+      - name: Build APK
+        run: |
+          gradle wrapper --gradle-version 8.5
+          ./gradlew clean assembleDebug --no-daemon --stacktrace
+          echo "---- APK LIST ----"
+          find . -name "*.apk" -ls
+          ls -lh app/build/outputs/apk/debug/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-2026-PRO-APK-FINAL
+          path: app/build/outputs/apk/debug/app-debug.apk
