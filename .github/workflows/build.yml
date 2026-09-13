@@ -11,8 +11,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      - uses: gradle/actions/setup-gradle@v3
+      - name: Fix gradlew
+        run: |
+          if [ ! -f gradlew ]; then
+            gradle wrapper
+          fi
+          chmod +x gradlew
       - name: Build Debug APK
         run: ./gradlew assembleDebug
       - name: Upload APK
