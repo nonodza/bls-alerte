@@ -10,7 +10,7 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Build v4 WORLD CLASS
+      - name: Build v4 FIXED
         run: |
           rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
@@ -36,8 +36,15 @@ jobs:
               applicationId "com.bls.alerte"
               minSdk 21
               targetSdk 34
-              versionCode 40
-              versionName "4.0-WORLD"
+              versionCode 41
+              versionName "4.0-FIXED"
+            }
+            compileOptions {
+              sourceCompatibility JavaVersion.VERSION_17
+              targetCompatibility JavaVersion.VERSION_17
+            }
+            kotlinOptions {
+              jvmTarget = "17"
             }
           }
           dependencies {
@@ -52,112 +59,4 @@ jobs:
             <uses-permission android:name="android.permission.VIBRATE"/>
             <application android:label="BLS Alerte DZ" android:theme="@android:style/Theme.NoTitleBar">
               <activity android:name=".MainActivity" android:exported="true">
-                <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
-              </activity>
-            </application>
-          </manifest>
-          END3
-          cat > app/src/main/java/com/bls/alerte/MainActivity.kt << 'ENDKT'
-          package com.bls.alerte
-          import android.app.Activity
-          import android.content.Intent
-          import android.graphics.Color
-          import android.graphics.Typeface
-          import android.graphics.drawable.GradientDrawable
-          import android.net.Uri
-          import android.os.*
-          import android.view.Gravity
-          import android.widget.*
-          import okhttp3.*
-          import java.io.IOException
-          import java.text.SimpleDateFormat
-          import java.util.*
-          class MainActivity : Activity() {
-            lateinit var status: TextView
-            lateinit var log: TextView
-            var isRunning = false
-            var count = 0
-            val client = OkHttpClient()
-            val handler = Handler(Looper.getMainLooper())
-            override fun onCreate(b: Bundle?) {
-              super.onCreate(b)
-              val bg = Color.parseColor("#120023")
-              val card = Color.parseColor("#1E0A3A")
-              val purple = Color.parseColor("#8B5CF6")
-              val neon = Color.parseColor("#A855F7")
-              val root = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setBackgroundColor(bg) }
-              val top = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setPadding(40,60,40,20); gravity = Gravity.CENTER_VERTICAL }
-              val menu = TextView(this).apply { text = "☰"; textSize = 26f; setTextColor(Color.WHITE); setPadding(0,0,30,0) }
-              val title = TextView(this).apply { text = "BLS Alerte DZ"; textSize = 18f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD }
-              val spacer = Space(this).apply { layoutParams = LinearLayout.LayoutParams(0,0,1f) }
-              val lang = TextView(this).apply { text = "AR"; setTextColor(purple); setPadding(20,10,20,10)
-                background = GradientDrawable().apply { shape = GradientDrawable.RECTANGLE; cornerRadius = 30f; setStroke(2,purple) }
-              }
-              top.addView(menu); top.addView(title); top.addView(spacer); top.addView(lang)
-              val center = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(0,40,0,30) }
-              val logoWrap = LinearLayout(this).apply { gravity = Gravity.CENTER }
-              val logo = TextView(this).apply { text = "BLS\nDZ"; textSize = 30f; setTextColor(Color.WHITE); gravity = Gravity.CENTER; typeface = Typeface.DEFAULT_BOLD; setPadding(50,50,50,50)
-                background = GradientDrawable().apply { shape = GradientDrawable.OVAL; setColor(Color.parseColor("#6D28D9")); setStroke(4, Color.parseColor("#A78BFA")) }
-              }
-              logoWrap.addView(logo)
-              val mainT = TextView(this).apply { text = "BLS Alerte Pro"; textSize = 24f; setTextColor(Color.WHITE); typeface = Typeface.DEFAULT_BOLD; gravity = Gravity.CENTER; setPadding(0,30,0,10) }
-              val subT = TextView(this).apply { text = "مراقبة مواعيد BLS بذكاء"; textSize = 13f; setTextColor(Color.parseColor("#A5B4FC")); gravity = Gravity.CENTER }
-              center.addView(logoWrap); center.addView(mainT); center.addView(subT)
-              val card1 = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(30,25,30,25)
-                background = GradientDrawable().apply { cornerRadius = 25f; setColor(card) }; 
-                val p = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); p.setMargins(30,20,30,10); layoutParams = p
-              }
-              status = TextView(this).apply { text = "جاهز للمراقبة"; textSize = 15f; setTextColor(Color.WHITE) }
-              log = TextView(this).apply { text = "السجل:\n- لا يوجد فحص"; textSize = 12f; setTextColor(Color.parseColor("#C4B5FD")); setPadding(0,15,0,0) }
-              card1.addView(status); card1.addView(log)
-              val btnStart = TextView(this).apply { text = "ابدأ المراقبة الذكية"; textSize = 16f; setTextColor(Color.WHITE); gravity = Gravity.CENTER; setPadding(0,35,0,35)
-                background = GradientDrawable().apply { cornerRadius = 30f; colors = intArrayOf(Color.parseColor("#7C3AED"), Color.parseColor("#4F46E5")); orientation = GradientDrawable.Orientation.LEFT_RIGHT }
-                val p = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); p.setMargins(30,20,30,10); layoutParams = p
-              }
-              val btnOpen = TextView(this).apply { text = "افتح موقع BLS"; textSize = 14f; setTextColor(Color.parseColor("#A5B4FC")); gravity = Gravity.CENTER; setPadding(0,25,0,25)
-                background = GradientDrawable().apply { cornerRadius = 25f; setColor(Color.parseColor("#1E1B4B")); setStroke(1, Color.parseColor("#4C1D95")) }
-                val p = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); p.setMargins(30,10,30,0); layoutParams = p
-              }
-              val bottom = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER; setPadding(0,25,0,25); setBackgroundColor(Color.parseColor("#0F0A1E")) }
-              fun nav(t:String, active:Boolean): TextView { return TextView(this@MainActivity).apply { text = t; textSize = 22f; gravity = Gravity.CENTER; setPadding(40,0,40,0); setTextColor(if(active) neon else Color.parseColor("#6B7280")) } }
-              bottom.addView(nav("⌂",true)); bottom.addView(nav("◫",false)); bottom.addView(nav("⬇",false)); bottom.addView(nav("⚙",false))
-              btnStart.setOnClickListener {
-                if(!isRunning){ isRunning=true; btnStart.text="ايقاف المراقبة"; count=0; check() } else { isRunning=false; btnStart.text="ابدأ المراقبة الذكية"; handler.removeCallbacksAndMessages(null); status.text="متوقف" }
-              }
-              btnOpen.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))) }
-              menu.setOnClickListener { Toast.makeText(this,"القائمة: اللغة - حول - الخصوصية - الدعم",Toast.LENGTH_LONG).show() }
-              root.addView(top); root.addView(center); root.addView(card1); root.addView(btnStart); root.addView(btnOpen)
-              val filler = Space(this).apply { layoutParams = LinearLayout.LayoutParams(0,0,1f) }
-              root.addView(filler); root.addView(bottom)
-              setContentView(root)
-            }
-            fun check(){
-              if(!isRunning) return
-              count++
-              val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
-              status.text = "فحص #$count - $time"
-              log.text = "[$time] فحص...\n" + log.text
-              val req = Request.Builder().url("https://algeria.blsspainvisa.com/book_appointment.php").header("User-Agent","Mozilla/5.0").build()
-              client.newCall(req).enqueue(object: Callback{
-                override fun onFailure(call: Call, e: IOException){ handler.post{ status.text="خطأ اتصال"; log.text="خطأ\n"+log.text }; handler.postDelayed({check()},10000) }
-                override fun onResponse(call: Call, response: Response){
-                  val body = response.body?.string()?.lowercase() ?: ""
-                  handler.post{
-                    val no = body.contains("no appointment") || body.contains("no slot") || body.contains("currently") || body.length < 800
-                    if(no){ log.text="[$time] لا يوجد\n"+log.text } else { log.text="موعد محتمل [$time]\n"+log.text; status.text="موعد محتمل!"; try{ (getSystemService(VIBRATOR_SERVICE) as Vibrator).vibrate(VibrationEffect.createOneShot(1000,255)) }catch(x:Exception){} }
-                  }
-                  handler.postDelayed({check()},15000)
-                }
-              })
-            }
-          }
-          ENDKT
-          yes | sdkmanager --licenses > /dev/null || true
-      - uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.5
-          arguments: assembleDebug
-      - uses: actions/upload-artifact@v4
-        with:
-          name: BLS-v4-WORLD-CLASS
-          path: app/build/outputs/apk/debug/*.apk
+                <intent-filter><action android:name="android.intent.action.M
