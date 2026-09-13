@@ -14,13 +14,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
+          cache: gradle
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Create project folders
         run: |
@@ -80,4 +81,1934 @@ jobs:
           }
 
           android {
-              namespace 'com.bls.
+              namespace 'com.bls.alerte'
+              compileSdk 35
+
+              defaultConfig {
+                  applicationId 'com.bls.alerte'
+                  minSdk 23
+                  targetSdk 35
+                  versionCode 10
+                  versionName "10.0"
+              }
+          }
+
+          dependencies {
+              implementation 'androidx.appcompat:appcompat:1.7.0'
+              implementation 'androidx.core:core:1.16.0'
+              implementation 'com.google.android.material:material:1.12.0'
+          }
+          EOF
+
+      - name: Create AndroidManifest.xml
+        run: |
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+              <uses-permission android:name="android.permission.INTERNET" />
+              <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+              <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+              <application
+                  android:allowBackup="true"
+                  android:label="BLS Rendez-Vous"
+                  android:supportsRtl="true"
+                  android:theme="@style/AppTheme"
+                  android:usesCleartextTraffic="false">
+
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true">
+
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+
+                  </activity>
+
+                  <service
+                      android:name=".MonitorService"
+                      android:exported="false"
+                      android:foregroundServiceType="dataSync" />
+
+              </application>
+
+          </manifest>
+          EOF
+
+      - name: Create styles.xml
+        run: |
+          cat > app/src/main/res/values/styles.xml <<'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+
+              <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+                  <item name="android:fontFamily">sans</item>
+                  <item name="android:windowLightStatusBar">false</item>
+                  <item name="android:statusBarColor">#0B1220</item>
+                  <item name="android:navigationBarColor">#0B1220</item>
+                  <item name="colorPrimary">#2563EB</item>
+                  <item name="colorSecondary">#10B981</item>
+                  <item name="android:windowActionModeOverlay">true</item>
+              </style>
+
+          </resources>
+          EOF
+
+      - name: Create MainActivity.java
+        run: |
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
+          package com.bls.alerte;
+
+          import android.Manifest;
+          import android.app.AlertDialog;
+          import android.content.Context;
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.content.pm.PackageManager;
+          import android.graphics.Color;
+          import android.graphics.Typeface;
+          import android.net.Uri;
+          import android.os.Build;
+          import android.os.Bundle;
+          import android.text.Editable;
+          import android.text.TextWatcher;
+          import android.view.Gravity;
+          import android.view.View;
+          import android.view.ViewGroup;
+          import android.widget.Button;
+          import android.widget.EditText;
+          import android.widget.LinearLayout;
+          import android.widget.ScrollView;
+          import android.widget.Space;
+          import android.widget.TextView;
+          import android.widget.Toast;
+
+          import androidx.annotation.Nullable;
+          import androidx.appcompat.app.AppCompatActivity;
+          import androidx.core.app.ActivityCompat;
+          import androidx.core.content.ContextCompat;
+
+          import java.util.Locale;
+
+          public class MainActivity extends AppCompatActivity {
+
+              private static final String PREFS = "bls_settings";
+
+              private SharedPreferences prefs;
+              private TextView monitoringStatus;
+              private TextView lastCheck;
+              private TextView checkCount;
+              private String selectedCenter = "Alger";
+
+              private final int blue = Color.rgb(37, 99, 235);
+              private final int green = Color.rgb(16, 185, 129);
+              private final int red = Color.rgb(239, 68, 68);
+
+              @Override
+              protected void onCreate(@Nullable Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+
+                  prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+                  selectedCenter = prefs.getString("center", "Alger");
+
+                  if (Build.VERSION.SDK_INT >= 33 &&
+                          ContextCompat.checkSelfPermission(
+                                  this,
+                                  Manifest.permission.POST_NOTIFICATIONS
+                          ) != PackageManager.PERMISSION_GRANTED) {
+
+                      ActivityCompat.requestPermissions(
+                              this,
+                              new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                              100
+                      );
+                  }
+
+                  buildHome();
+              }
+
+              private int dp(int value) {
+                  return (int) (
+                          value *
+                                  getResources()
+                                          .getDisplayMetrics()
+                                          .density +
+                                  0.5f
+                  );
+              }
+
+              private TextView text(
+                      String value,
+                      float size,
+                      int color,
+                      boolean bold
+              ) {
+                  TextView t = new TextView(this);
+                  t.setText(value);
+                  t.setTextSize(size);
+                  t.setTextColor(color);
+                  t.setGravity(Gravity.CENTER_VERTICAL);
+
+                  if (bold) {
+                      t.setTypeface(
+                              Typeface.DEFAULT,
+                              Typeface.BOLD
+                      );
+                  }
+
+                  return t;
+              }
+
+              private LinearLayout vertical() {
+                  LinearLayout l = new LinearLayout(this);
+                  l.setOrientation(LinearLayout.VERTICAL);
+                  return l;
+              }
+
+              private LinearLayout horizontal() {
+                  LinearLayout l = new LinearLayout(this);
+                  l.setOrientation(LinearLayout.HORIZONTAL);
+                  l.setGravity(Gravity.CENTER_VERTICAL);
+                  return l;
+              }
+
+              private GradientCard card() {
+                  GradientCard c = new GradientCard(this);
+                  c.setPadding(
+                          dp(16),
+                          dp(16),
+                          dp(16),
+                          dp(16)
+                  );
+                  return c;
+              }
+
+              private void addGap(
+                      LinearLayout parent,
+                      int height
+              ) {
+                  Space s = new Space(this);
+
+                  parent.addView(
+                          s,
+                          new LinearLayout.LayoutParams(
+                                  ViewGroup.LayoutParams.MATCH_PARENT,
+                                  dp(height)
+                          )
+                  );
+              }
+
+              private void addHorizontalGap(
+                      LinearLayout parent,
+                      int width
+              ) {
+                  Space s = new Space(this);
+
+                  parent.addView(
+                          s,
+                          new LinearLayout.LayoutParams(
+                                  dp(width),
+                                  1
+                          )
+                  );
+              }
+
+              private Button actionButton(String title) {
+                  Button b = new Button(this);
+
+                  b.setText(title);
+                  b.setAllCaps(false);
+                  b.setTextSize(14);
+                  b.setTextColor(Color.WHITE);
+                  b.setBackgroundColor(blue);
+
+                  return b;
+              }
+
+              private void buildHome() {
+
+                  ScrollView scroll = new ScrollView(this);
+                  scroll.setFillViewport(true);
+
+                  LinearLayout root = vertical();
+
+                  root.setPadding(
+                          dp(18),
+                          dp(18),
+                          dp(18),
+                          dp(24)
+                  );
+
+                  scroll.addView(root);
+                  setContentView(scroll);
+
+                  LinearLayout header = horizontal();
+
+                  LinearLayout titleBox = vertical();
+
+                  titleBox.addView(
+                          text(
+                                  "Bonjour 👋",
+                                  16,
+                                  Color.GRAY,
+                                  false
+                          )
+                  );
+
+                  titleBox.addView(
+                          text(
+                                  "BLS Rendez-Vous",
+                                  27,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  header.addView(
+                          titleBox,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  ViewGroup.LayoutParams.WRAP_CONTENT,
+                                  1
+                          )
+                  );
+
+                  Button settings = actionButton("⚙");
+
+                  settings.setTextSize(21);
+                  settings.setBackgroundColor(Color.TRANSPARENT);
+                  settings.setTextColor(Color.DKGRAY);
+
+                  settings.setOnClickListener(
+                          v -> buildSettings()
+                  );
+
+                  header.addView(
+                          settings,
+                          new LinearLayout.LayoutParams(
+                                  dp(55),
+                                  dp(55)
+                          )
+                  );
+
+                  root.addView(header);
+
+                  addGap(root, 18);
+
+                  EditText search = new EditText(this);
+
+                  search.setHint(
+                          "🔎  Rechercher un centre..."
+                  );
+
+                  search.setSingleLine(true);
+                  search.setPadding(
+                          dp(16),
+                          0,
+                          dp(16),
+                          0
+                  );
+
+                  root.addView(
+                          search,
+                          new LinearLayout.LayoutParams(
+                                  ViewGroup.LayoutParams.MATCH_PARENT,
+                                  dp(52)
+                          )
+                  );
+
+                  addGap(root, 20);
+
+                  root.addView(
+                          text(
+                                  "Continuez à surveiller",
+                                  20,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  addGap(root, 10);
+
+                  LinearLayout centers = horizontal();
+
+                  LinearLayout alg =
+                          centerCard(
+                                  "🇩🇿",
+                                  "Alger",
+                                  "Centre ALG"
+                          );
+
+                  LinearLayout oran =
+                          centerCard(
+                                  "🇩🇿",
+                                  "Oran",
+                                  "Centre ORN"
+                          );
+
+                  LinearLayout annaba =
+                          centerCard(
+                                  "🇩🇿",
+                                  "Annaba",
+                                  "Centre ANN"
+                          );
+
+                  centers.addView(
+                          alg,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(145),
+                                  1
+                          )
+                  );
+
+                  addHorizontalGap(centers, 8);
+
+                  centers.addView(
+                          oran,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(145),
+                                  1
+                          )
+                  );
+
+                  addHorizontalGap(centers, 8);
+
+                  centers.addView(
+                          annaba,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(145),
+                                  1
+                          )
+                  );
+
+                  root.addView(centers);
+
+                  addGap(root, 22);
+
+                  root.addView(
+                          text(
+                                  "Accès rapide",
+                                  20,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  addGap(root, 10);
+
+                  LinearLayout row1 = horizontal();
+
+                  LinearLayout alert =
+                          quickCard("🔔", "Alerte");
+
+                  LinearLayout bls =
+                          quickCard("🌐", "BLS");
+
+                  LinearLayout start =
+                          quickCard("▶", "Start");
+
+                  row1.addView(
+                          alert,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(100),
+                                  1
+                          )
+                  );
+
+                  addHorizontalGap(row1, 8);
+
+                  row1.addView(
+                          bls,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(100),
+                                  1
+                          )
+                  );
+
+                  addHorizontalGap(row1, 8);
+
+                  row1.addView(
+                          start,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(100),
+                                  1
+                          )
+                  );
+
+                  root.addView(row1);
+
+                  addGap(root, 8);
+
+                  LinearLayout row2 = horizontal();
+
+                  LinearLayout stats =
+                          quickCard("📊", "Stats");
+
+                  LinearLayout settingsCard =
+                          quickCard("⚙", "Réglages");
+
+                  row2.addView(
+                          stats,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(100),
+                                  1
+                          )
+                  );
+
+                  addHorizontalGap(row2, 8);
+
+                  row2.addView(
+                          settingsCard,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(100),
+                                  1
+                          )
+                  );
+
+                  root.addView(row2);
+
+                  addGap(root, 22);
+
+                  GradientCard monitor = card();
+
+                  LinearLayout monitorHeader =
+                          horizontal();
+
+                  TextView monitorTitle =
+                          text(
+                                  "Surveillance BLS",
+                                  20,
+                                  Color.BLACK,
+                                  true
+                          );
+
+                  monitoringStatus =
+                          text(
+                                  "● Arrêtée",
+                                  14,
+                                  red,
+                                  true
+                          );
+
+                  monitorHeader.addView(
+                          monitorTitle,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(45),
+                                  1
+                          )
+                  );
+
+                  monitorHeader.addView(
+                          monitoringStatus
+                  );
+
+                  monitor.addView(monitorHeader);
+
+                  monitor.addView(
+                          text(
+                                  "Centre surveillé : " +
+                                          selectedCenter,
+                                  15,
+                                  Color.DKGRAY,
+                                  false
+                          )
+                  );
+
+                  addGap(monitor, 5);
+
+                  lastCheck =
+                          text(
+                                  "Dernier contrôle : " +
+                                          prefs.getString(
+                                                  "lastCheck",
+                                                  "Aucun"
+                                          ),
+                                  13,
+                                  Color.GRAY,
+                                  false
+                          );
+
+                  monitor.addView(lastCheck);
+
+                  addGap(monitor, 4);
+
+                  checkCount =
+                          text(
+                                  "Contrôles effectués : " +
+                                          prefs.getInt(
+                                                  "checks",
+                                                  0
+                                          ),
+                                  13,
+                                  Color.GRAY,
+                                  false
+                          );
+
+                  monitor.addView(checkCount);
+
+                  addGap(monitor, 14);
+
+                  LinearLayout buttons = horizontal();
+
+                  Button startButton =
+                          actionButton("▶  Démarrer");
+
+                  Button stopButton =
+                          actionButton("■  Arrêter");
+
+                  startButton.setOnClickListener(
+                          v -> startMonitoring()
+                  );
+
+                  stopButton.setOnClickListener(
+                          v -> stopMonitoring()
+                  );
+
+                  buttons.addView(
+                          startButton,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(50),
+                                  1
+                          )
+                  );
+
+                  addHorizontalGap(buttons, 10);
+
+                  buttons.addView(
+                          stopButton,
+                          new LinearLayout.LayoutParams(
+                                  0,
+                                  dp(50),
+                                  1
+                          )
+                  );
+
+                  monitor.addView(buttons);
+
+                  root.addView(monitor);
+
+                  addGap(root, 18);
+
+                  TextView info =
+                          text(
+                                  "Surveillance des services BLS officiels.\n" +
+                                          "Aucun contournement de CAPTCHA ou de protection anti-bot.",
+                                  13,
+                                  Color.GRAY,
+                                  false
+                          );
+
+                  info.setGravity(Gravity.CENTER);
+
+                  root.addView(info);
+
+                  alert.setOnClickListener(
+                          v -> buildAlerts()
+                  );
+
+                  bls.setOnClickListener(
+                          v -> openUrl(
+                                  "https://algeria.blsspainvisa.com/"
+                          )
+                  );
+
+                  stats.setOnClickListener(
+                          v -> buildStats()
+                  );
+
+                  settingsCard.setOnClickListener(
+                          v -> buildSettings()
+                  );
+
+                  alg.setOnClickListener(
+                          v -> selectCenter("Alger")
+                  );
+
+                  oran.setOnClickListener(
+                          v -> selectCenter("Oran")
+                  );
+
+                  annaba.setOnClickListener(
+                          v -> selectCenter("Annaba")
+                  );
+
+                  start.setOnClickListener(
+                          v -> startMonitoring()
+                  );
+
+                  search.addTextChangedListener(
+                          new TextWatcher() {
+
+                              @Override
+                              public void beforeTextChanged(
+                                      CharSequence s,
+                                      int start,
+                                      int count,
+                                      int after
+                              ) {}
+
+                              @Override
+                              public void onTextChanged(
+                                      CharSequence s,
+                                      int start,
+                                      int before,
+                                      int count
+                              ) {
+
+                                  String q =
+                                          s.toString()
+                                                  .toLowerCase(
+                                                          Locale.ROOT
+                                                  );
+
+                                  alg.setVisibility(
+                                          "alger".contains(q)
+                                                  ? View.VISIBLE
+                                                  : View.GONE
+                                  );
+
+                                  oran.setVisibility(
+                                          "oran".contains(q)
+                                                  ? View.VISIBLE
+                                                  : View.GONE
+                                  );
+
+                                  annaba.setVisibility(
+                                          "annaba".contains(q)
+                                                  ? View.VISIBLE
+                                                  : View.GONE
+                                  );
+                              }
+
+                              @Override
+                              public void afterTextChanged(
+                                      Editable s
+                              ) {}
+                          }
+                  );
+              }
+
+              private LinearLayout centerCard(
+                      String icon,
+                      String name,
+                      String subtitle
+              ) {
+
+                  GradientCard c = card();
+
+                  TextView i =
+                          text(
+                                  icon,
+                                  27,
+                                  Color.BLACK,
+                                  false
+                          );
+
+                  i.setGravity(Gravity.CENTER);
+
+                  TextView n =
+                          text(
+                                  name,
+                                  17,
+                                  Color.BLACK,
+                                  true
+                          );
+
+                  n.setGravity(Gravity.CENTER);
+
+                  TextView sub =
+                          text(
+                                  subtitle,
+                                  11,
+                                  Color.GRAY,
+                                  false
+                          );
+
+                  sub.setGravity(Gravity.CENTER);
+
+                  c.addView(
+                          i,
+                          new LinearLayout.LayoutParams(
+                                  ViewGroup.LayoutParams.MATCH_PARENT,
+                                  dp(45)
+                          )
+                  );
+
+                  c.addView(n);
+                  c.addView(sub);
+
+                  if (name.equals(selectedCenter)) {
+                      c.setStrokeColor(blue);
+                  }
+
+                  return c;
+              }
+
+              private LinearLayout quickCard(
+                      String icon,
+                      String name
+              ) {
+
+                  GradientCard c = card();
+
+                  c.setGravity(Gravity.CENTER);
+
+                  TextView i =
+                          text(
+                                  icon,
+                                  25,
+                                  Color.BLACK,
+                                  false
+                          );
+
+                  i.setGravity(Gravity.CENTER);
+
+                  TextView n =
+                          text(
+                                  name,
+                                  14,
+                                  Color.BLACK,
+                                  true
+                          );
+
+                  n.setGravity(Gravity.CENTER);
+
+                  c.addView(
+                          i,
+                          new LinearLayout.LayoutParams(
+                                  ViewGroup.LayoutParams.MATCH_PARENT,
+                                  dp(42)
+                          )
+                  );
+
+                  c.addView(n);
+
+                  return c;
+              }
+
+              private void selectCenter(
+                      String center
+              ) {
+
+                  selectedCenter = center;
+
+                  prefs.edit()
+                          .putString(
+                                  "center",
+                                  center
+                          )
+                          .apply();
+
+                  Toast.makeText(
+                          this,
+                          "Centre sélectionné : " +
+                                  center,
+                          Toast.LENGTH_SHORT
+                  ).show();
+
+                  buildHome();
+              }
+
+              private void startMonitoring() {
+
+                  Intent i =
+                          new Intent(
+                                  this,
+                                  MonitorService.class
+                          );
+
+                  i.setAction(
+                          MonitorService.ACTION_START
+                  );
+
+                  if (Build.VERSION.SDK_INT >=
+                          Build.VERSION_CODES.O) {
+
+                      ContextCompat.startForegroundService(
+                              this,
+                              i
+                      );
+
+                  } else {
+
+                      startService(i);
+                  }
+
+                  if (monitoringStatus != null) {
+
+                      monitoringStatus.setText(
+                              "● Active"
+                      );
+
+                      monitoringStatus.setTextColor(
+                              green
+                      );
+                  }
+
+                  Toast.makeText(
+                          this,
+                          "Surveillance démarrée",
+                          Toast.LENGTH_SHORT
+                  ).show();
+              }
+
+              private void stopMonitoring() {
+
+                  Intent i =
+                          new Intent(
+                                  this,
+                                  MonitorService.class
+                          );
+
+                  i.setAction(
+                          MonitorService.ACTION_STOP
+                  );
+
+                  startService(i);
+
+                  if (monitoringStatus != null) {
+
+                      monitoringStatus.setText(
+                              "● Arrêtée"
+                      );
+
+                      monitoringStatus.setTextColor(
+                              red
+                      );
+                  }
+
+                  Toast.makeText(
+                          this,
+                          "Surveillance arrêtée",
+                          Toast.LENGTH_SHORT
+                  ).show();
+              }
+
+              private void buildAlerts() {
+
+                  LinearLayout box = vertical();
+
+                  box.setPadding(
+                          dp(22),
+                          dp(5),
+                          dp(22),
+                          dp(5)
+                  );
+
+                  box.addView(
+                          text(
+                                  "🔔  Alertes",
+                                  22,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  addGap(box, 15);
+
+                  box.addView(
+                          text(
+                                  "Recevez une notification lorsqu'un changement est détecté.",
+                                  14,
+                                  Color.GRAY,
+                                  false
+                          )
+                  );
+
+                  addGap(box, 15);
+
+                  Button notifications =
+                          actionButton(
+                                  prefs.getBoolean(
+                                          "notifications",
+                                          true
+                                  )
+                                          ? "🔔 Notifications activées"
+                                          : "🔕 Notifications désactivées"
+                          );
+
+                  notifications.setOnClickListener(
+                          v -> {
+
+                              boolean value =
+                                      !prefs.getBoolean(
+                                              "notifications",
+                                              true
+                                      );
+
+                              prefs.edit()
+                                      .putBoolean(
+                                              "notifications",
+                                              value
+                                      )
+                                      .apply();
+
+                              buildAlerts();
+                          }
+                  );
+
+                  box.addView(notifications);
+
+                  addGap(box, 10);
+
+                  Button website =
+                          actionButton(
+                                  "🌐 Ouvrir BLS"
+                          );
+
+                  website.setOnClickListener(
+                          v -> openUrl(
+                                  "https://algeria.blsspainvisa.com/"
+                          )
+                  );
+
+                  box.addView(website);
+
+                  new AlertDialog.Builder(this)
+                          .setView(box)
+                          .setPositiveButton(
+                                  "Fermer",
+                                  null
+                          )
+                          .show();
+              }
+
+              private void buildStats() {
+
+                  LinearLayout box = vertical();
+
+                  box.setPadding(
+                          dp(22),
+                          dp(10),
+                          dp(22),
+                          dp(5)
+                  );
+
+                  box.addView(
+                          text(
+                                  "📊  Statistiques",
+                                  23,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  addGap(box, 20);
+
+                  addStat(
+                          box,
+                          "Centre surveillé",
+                          selectedCenter
+                  );
+
+                  addStat(
+                          box,
+                          "Contrôles effectués",
+                          String.valueOf(
+                                  prefs.getInt(
+                                          "checks",
+                                          0
+                                  )
+                          )
+                  );
+
+                  addStat(
+                          box,
+                          "Dernier contrôle",
+                          prefs.getString(
+                                  "lastCheck",
+                                  "Aucun"
+                          )
+                  );
+
+                  new AlertDialog.Builder(this)
+                          .setView(box)
+                          .setPositiveButton(
+                                  "Fermer",
+                                  null
+                          )
+                          .show();
+              }
+
+              private void addStat(
+                      LinearLayout box,
+                      String label,
+                      String value
+              ) {
+
+                  box.addView(
+                          text(
+                                  label,
+                                  13,
+                                  Color.GRAY,
+                                  false
+                          )
+                  );
+
+                  box.addView(
+                          text(
+                                  value,
+                                  17,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  addGap(box, 13);
+              }
+
+              private void buildSettings() {
+
+                  LinearLayout box = vertical();
+
+                  box.setPadding(
+                          dp(20),
+                          dp(5),
+                          dp(20),
+                          dp(5)
+                  );
+
+                  box.addView(
+                          text(
+                                  "⚙  Réglages",
+                                  23,
+                                  Color.BLACK,
+                                  true
+                          )
+                  );
+
+                  addGap(box, 18);
+
+                  Button center =
+                          actionButton(
+                                  "Centre : " +
+                                          selectedCenter
+                          );
+
+                  center.setOnClickListener(
+                          v -> {
+
+                              String[] items = {
+                                      "Alger",
+                                      "Oran",
+                                      "Annaba"
+                              };
+
+                              new AlertDialog.Builder(this)
+                                      .setTitle(
+                                              "Choisir le centre"
+                                      )
+                                      .setSingleChoiceItems(
+                                              items,
+                                              java.util.Arrays
+                                                      .asList(items)
+                                                      .indexOf(
+                                                              selectedCenter
+                                                      ),
+                                              (dialog, which) -> {
+
+                                                  selectCenter(
+                                                          items[which]
+                                                  );
+
+                                                  dialog.dismiss();
+                                              }
+                                      )
+                                      .show();
+                          }
+                  );
+
+                  box.addView(center);
+
+                  addGap(box, 10);
+
+                  Button language =
+                          actionButton(
+                                  "Langue : " +
+                                          prefs.getString(
+                                                  "language",
+                                                  "Français"
+                                          )
+                          );
+
+                  language.setOnClickListener(
+                          v -> {
+
+                              String[] items = {
+                                      "Français",
+                                      "العربية"
+                              };
+
+                              new AlertDialog.Builder(this)
+                                      .setTitle("Langue")
+                                      .setItems(
+                                              items,
+                                              (dialog, which) -> {
+
+                                                  prefs.edit()
+                                                          .putString(
+                                                                  "language",
+                                                                  items[which]
+                                                          )
+                                                          .apply();
+
+                                                  buildSettings();
+                                              }
+                                      )
+                                      .show();
+                          }
+                  );
+
+                  box.addView(language);
+
+                  addGap(box, 10);
+
+                  Button theme =
+                          actionButton(
+                                  "Thème : " +
+                                          prefs.getString(
+                                                  "theme",
+                                                  "Système"
+                                          )
+                          );
+
+                  theme.setOnClickListener(
+                          v -> {
+
+                              String[] items = {
+                                      "Système",
+                                      "Clair",
+                                      "Sombre"
+                              };
+
+                              new AlertDialog.Builder(this)
+                                      .setTitle(
+                                              "Thème"
+                                      )
+                                      .setItems(
+                                              items,
+                                              (dialog, which) -> {
+
+                                                  prefs.edit()
+                                                          .putString(
+                                                                  "theme",
+                                                                  items[which]
+                                                          )
+                                                          .apply();
+
+                                                  buildSettings();
+                                              }
+                                      )
+                                      .show();
+                          }
+                  );
+
+                  box.addView(theme);
+
+                  addGap(box, 10);
+
+                  Button interval =
+                          actionButton(
+                                  "Intervalle : " +
+                                          prefs.getInt(
+                                                  "interval",
+                                                  60
+                                          ) +
+                                          " secondes"
+                          );
+
+                  interval.setOnClickListener(
+                          v -> {
+
+                              String[] items = {
+                                      "30 secondes",
+                                      "60 secondes",
+                                      "120 secondes",
+                                      "300 secondes"
+                              };
+
+                              new AlertDialog.Builder(this)
+                                      .setTitle(
+                                              "Intervalle de surveillance"
+                                      )
+                                      .setItems(
+                                              items,
+                                              (dialog, which) -> {
+
+                                                  int value =
+                                                          which == 0
+                                                                  ? 30
+                                                                  : which == 1
+                                                                  ? 60
+                                                                  : which == 2
+                                                                  ? 120
+                                                                  : 300;
+
+                                                  prefs.edit()
+                                                          .putInt(
+                                                                  "interval",
+                                                                  value
+                                                          )
+                                                          .apply();
+
+                                                  buildSettings();
+                                              }
+                                      )
+                                      .show();
+                          }
+                  );
+
+                  box.addView(interval);
+
+                  addGap(box, 10);
+
+                  Button notification =
+                          actionButton(
+                                  prefs.getBoolean(
+                                          "notifications",
+                                          true
+                                  )
+                                          ? "🔔 Notifications : ON"
+                                          : "🔕 Notifications : OFF"
+                          );
+
+                  notification.setOnClickListener(
+                          v -> {
+
+                              boolean value =
+                                      !prefs.getBoolean(
+                                              "notifications",
+                                              true
+                                      );
+
+                              prefs.edit()
+                                      .putBoolean(
+                                              "notifications",
+                                              value
+                                      )
+                                      .apply();
+
+                              buildSettings();
+                          }
+                  );
+
+                  box.addView(notification);
+
+                  addGap(box, 10);
+
+                  Button appointment =
+                          actionButton(
+                                  "📅 Système officiel des rendez-vous"
+                          );
+
+                  appointment.setOnClickListener(
+                          v -> openUrl(
+                                  "https://algeria.blsinternational.com/"
+                          )
+                  );
+
+                  box.addView(appointment);
+
+                  addGap(box, 10);
+
+                  Button about =
+                          actionButton(
+                                  "ℹ À propos"
+                          );
+
+                  about.setOnClickListener(
+                          v -> new AlertDialog.Builder(this)
+                                  .setTitle(
+                                          "BLS Rendez-Vous"
+                                  )
+                                  .setMessage(
+                                          "Version 10.0\n\n" +
+                                                  "Application de surveillance BLS.\n\n" +
+                                                  "L'application ne contourne pas les CAPTCHA ou les protections anti-bot."
+                                  )
+                                  .setPositiveButton(
+                                          "OK",
+                                          null
+                                  )
+                                  .show()
+                  );
+
+                  box.addView(about);
+
+                  new AlertDialog.Builder(this)
+                          .setView(box)
+                          .setPositiveButton(
+                                  "Fermer",
+                                  null
+                          )
+                          .show();
+              }
+
+              private void openUrl(String url) {
+
+                  try {
+
+                      startActivity(
+                              new Intent(
+                                      Intent.ACTION_VIEW,
+                                      Uri.parse(url)
+                              )
+                      );
+
+                  } catch (Exception e) {
+
+                      Toast.makeText(
+                              this,
+                              "Impossible d'ouvrir le lien",
+                              Toast.LENGTH_SHORT
+                      ).show();
+                  }
+              }
+
+              @Override
+              protected void onResume() {
+
+                  super.onResume();
+
+                  if (lastCheck != null) {
+
+                      lastCheck.setText(
+                              "Dernier contrôle : " +
+                                      prefs.getString(
+                                              "lastCheck",
+                                              "Aucun"
+                                      )
+                      );
+
+                      checkCount.setText(
+                              "Contrôles effectués : " +
+                                      prefs.getInt(
+                                              "checks",
+                                              0
+                                      )
+                      );
+                  }
+              }
+
+              public static class GradientCard
+                      extends LinearLayout {
+
+                  private final android.graphics.drawable
+                          .GradientDrawable drawable;
+
+                  public GradientCard(
+                          Context context
+                  ) {
+
+                      super(context);
+
+                      setOrientation(
+                              VERTICAL
+                      );
+
+                      drawable =
+                              new android.graphics.drawable
+                                      .GradientDrawable();
+
+                      drawable.setColor(
+                              Color.WHITE
+                      );
+
+                      drawable.setCornerRadius(
+                              context
+                                      .getResources()
+                                      .getDisplayMetrics()
+                                      .density *
+                                      18
+                      );
+
+                      drawable.setStroke(
+                              (int) context
+                                      .getResources()
+                                      .getDisplayMetrics()
+                                      .density,
+                              Color.rgb(
+                                      230,
+                                      232,
+                                      236
+                              )
+                      );
+
+                      setBackground(drawable);
+
+                      setElevation(
+                              context
+                                      .getResources()
+                                      .getDisplayMetrics()
+                                      .density *
+                                      2
+                      );
+                  }
+
+                  public void setStrokeColor(
+                          int color
+                  ) {
+
+                      drawable.setStroke(
+                              (int) (
+                                      getResources()
+                                              .getDisplayMetrics()
+                                              .density *
+                                              2
+                              ),
+                              color
+                      );
+                  }
+              }
+          }
+          EOF
+
+      - name: Create MonitorService.java
+        run: |
+          cat > app/src/main/java/com/bls/alerte/MonitorService.java <<'EOF'
+          package com.bls.alerte;
+
+          import android.app.Notification;
+          import android.app.NotificationChannel;
+          import android.app.NotificationManager;
+          import android.app.PendingIntent;
+          import android.app.Service;
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.os.Build;
+          import android.os.Handler;
+          import android.os.IBinder;
+
+          import androidx.annotation.Nullable;
+          import androidx.core.app.NotificationCompat;
+
+          import java.io.BufferedReader;
+          import java.io.InputStreamReader;
+          import java.net.HttpURLConnection;
+          import java.net.URL;
+          import java.text.SimpleDateFormat;
+          import java.util.Date;
+          import java.util.Locale;
+
+          public class MonitorService extends Service {
+
+              public static final String ACTION_START =
+                      "com.bls.alerte.START";
+
+              public static final String ACTION_STOP =
+                      "com.bls.alerte.STOP";
+
+              private static final String CHANNEL_ID =
+                      "BLS_MONITOR";
+
+              private final Handler handler =
+                      new Handler();
+
+              private boolean running = false;
+
+              private final Runnable monitorRunnable =
+                      new Runnable() {
+
+                          @Override
+                          public void run() {
+
+                              if (!running) {
+                                  return;
+                              }
+
+                              performCheck();
+
+                              int seconds =
+                                      getSharedPreferences(
+                                              "bls_settings",
+                                              MODE_PRIVATE
+                                      ).getInt(
+                                              "interval",
+                                              60
+                                      );
+
+                              handler.postDelayed(
+                                      this,
+                                      seconds * 1000L
+                              );
+                          }
+                      };
+
+              @Override
+              public void onCreate() {
+
+                  super.onCreate();
+
+                  createChannel();
+              }
+
+              @Override
+              public int onStartCommand(
+                      Intent intent,
+                      int flags,
+                      int startId
+              ) {
+
+                  if (intent != null &&
+                          ACTION_STOP.equals(
+                                  intent.getAction()
+                          )) {
+
+                      stopMonitoring();
+
+                      return START_NOT_STICKY;
+                  }
+
+                  startForeground(
+                          2001,
+                          createNotification(
+                                  "Surveillance BLS active"
+                          )
+                  );
+
+                  if (!running) {
+
+                      running = true;
+
+                      handler.removeCallbacks(
+                              monitorRunnable
+                      );
+
+                      handler.post(
+                              monitorRunnable
+                      );
+                  }
+
+                  return START_STICKY;
+              }
+
+              private void performCheck() {
+
+                  new Thread(() -> {
+
+                      SharedPreferences prefs =
+                              getSharedPreferences(
+                                      "bls_settings",
+                                      MODE_PRIVATE
+                              );
+
+                      String center =
+                              prefs.getString(
+                                      "center",
+                                      "Alger"
+                              );
+
+                      String url;
+
+                      if ("Oran".equals(center)) {
+
+                          url =
+                                  "https://algeria.blsspainvisa.com/oran/";
+
+                      } else if ("Annaba".equals(center)) {
+
+                          url =
+                                  "https://algeria.blsspainvisa.com/";
+
+                      } else {
+
+                          url =
+                                  "https://algeria.blsspainvisa.com/algiers/";
+                      }
+
+                      boolean success =
+                              checkWebsite(url);
+
+                      int checks =
+                              prefs.getInt(
+                                      "checks",
+                                      0
+                              ) + 1;
+
+                      String now =
+                              new SimpleDateFormat(
+                                      "dd/MM/yyyy HH:mm:ss",
+                                      Locale.getDefault()
+                              ).format(
+                                      new Date()
+                              );
+
+                      prefs.edit()
+                              .putInt(
+                                      "checks",
+                                      checks
+                              )
+                              .putString(
+                                      "lastCheck",
+                                      now
+                              )
+                              .apply();
+
+                      if (success) {
+
+                          updateNotification(
+                                  "Dernier contrôle : " +
+                                          now
+                          );
+                      }
+
+                  }).start();
+              }
+
+              private boolean checkWebsite(
+                      String urlString
+              ) {
+
+                  HttpURLConnection connection = null;
+
+                  try {
+
+                      URL url =
+                              new URL(urlString);
+
+                      connection =
+                              (HttpURLConnection)
+                                      url.openConnection();
+
+                      connection.setRequestMethod("GET");
+
+                      connection.setConnectTimeout(
+                              15000
+                      );
+
+                      connection.setReadTimeout(
+                              15000
+                      );
+
+                      connection.setRequestProperty(
+                              "User-Agent",
+                              "Mozilla/5.0"
+                      );
+
+                      int response =
+                              connection.getResponseCode();
+
+                      if (response >= 200 &&
+                              response < 400) {
+
+                          BufferedReader reader =
+                                  new BufferedReader(
+                                          new InputStreamReader(
+                                                  connection
+                                                          .getInputStream()
+                                  )
+                          );
+
+                          StringBuilder result =
+                                  new StringBuilder();
+
+                          String line;
+
+                          while (
+                                  (line =
+                                          reader.readLine())
+                                          != null
+                          ) {
+
+                              result.append(line);
+                          }
+
+                          reader.close();
+
+                          String page =
+                                  result.toString()
+                                          .toLowerCase(
+                                                  Locale.ROOT
+                                          );
+
+                          return !page.contains(
+                                  "captcha"
+                          ) &&
+                                  !page.contains(
+                                          "cloudflare"
+                                  );
+                      }
+
+                      return false;
+
+                  } catch (Exception e) {
+
+                      return false;
+
+                  } finally {
+
+                      if (connection != null) {
+                          connection.disconnect();
+                      }
+                  }
+              }
+
+              private Notification createNotification(
+                      String text
+              ) {
+
+                  Intent intent =
+                          new Intent(
+                                  this,
+                                  MainActivity.class
+                          );
+
+                  PendingIntent pendingIntent =
+                          PendingIntent.getActivity(
+                                  this,
+                                  0,
+                                  intent,
+                                  PendingIntent.FLAG_IMMUTABLE |
+                                          PendingIntent.FLAG_UPDATE_CURRENT
+                          );
+
+                  return new NotificationCompat.Builder(
+                          this,
+                          CHANNEL_ID
+                  )
+                          .setSmallIcon(
+                                  android.R.drawable
+                                          .ic_popup_sync
+                          )
+                          .setContentTitle(
+                                  "BLS Rendez-Vous"
+                          )
+                          .setContentText(text)
+                          .setContentIntent(
+                                  pendingIntent
+                          )
+                          .setOngoing(true)
+                          .setPriority(
+                                  NotificationCompat
+                                          .PRIORITY_LOW
+                          )
+                          .build();
+              }
+
+              private void updateNotification(
+                      String text
+              ) {
+
+                  NotificationManager manager =
+                          (NotificationManager)
+                                  getSystemService(
+                                          NOTIFICATION_SERVICE
+                                  );
+
+                  manager.notify(
+                          2001,
+                          createNotification(text)
+                  );
+              }
+
+              private void createChannel() {
+
+                  if (Build.VERSION.SDK_INT >=
+                          Build.VERSION_CODES.O) {
+
+                      NotificationChannel channel =
+                              new NotificationChannel(
+                                      CHANNEL_ID,
+                                      "BLS Surveillance",
+                                      NotificationManager
+                                              .IMPORTANCE_LOW
+                              );
+
+                      channel.setDescription(
+                              "Surveillance BLS en arrière-plan"
+                      );
+
+                      NotificationManager manager =
+                              getSystemService(
+                                      NotificationManager.class
+                              );
+
+                      manager.createNotificationChannel(
+                              channel
+                      );
+                  }
+              }
+
+              private void stopMonitoring() {
+
+                  running = false;
+
+                  handler.removeCallbacks(
+                          monitorRunnable
+                  );
+
+                  stopForeground(
+                          STOP_FOREGROUND_REMOVE
+                  );
+
+                  stopSelf();
+              }
+
+              @Override
+              public void onDestroy() {
+
+                  running = false;
+
+                  handler.removeCallbacks(
+                          monitorRunnable
+                  );
+
+                  super.onDestroy();
+              }
+
+              @Nullable
+              @Override
+              public IBinder onBind(
+                      Intent intent
+              ) {
+                  return null;
+              }
+          }
+          EOF
+
+      - name: Generate Gradle wrapper
+        run: |
+          gradle wrapper --gradle-version 8.7
+
+      - name: Build APK
+        run: |
+          chmod +x gradlew
+          ./gradlew clean assembleDebug
+
+      - name: Prepare release
+        run: |
+          mkdir -p release
+          cp app/build/outputs/apk/debug/app-debug.apk \
+             release/BLS-Rendez-Vous.apk
+
+      - name: Create ZIP
+        run: |
+          cd release
+          zip -j BLS-Rendez-Vous.zip BLS-Rendez-Vous.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-Rendez-Vous-APK
+          path: release/BLS-Rendez-Vous.apk
+
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-Rendez-Vous-ZIP
+          path: release/BLS-Rendez-Vous.zip
