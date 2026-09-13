@@ -1,25 +1,20 @@
 name: Build APK
-on:
-  push:
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: '17'
+        with: {distribution: temurin, java-version: '17'}
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
+        with: {gradle-version: '8.7'}
       - uses: android-actions/setup-android@v3
       - name: Install SDK
         run: |
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
           yes | sdkmanager --licenses || true
-      - name: Create FULL App
+      - name: Create V4.2 CANVA GRADIENT
         run: |
           rm -rf app build.gradle settings.gradle gradle.properties
           mkdir -p app/src/main/java/com/bls/alerte
@@ -33,47 +28,41 @@ jobs:
           EOF
           cat > app/build.gradle <<'EOF'
           plugins { id 'com.android.application' }
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 2; versionName '2.0-FULL' } }
+          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 6; versionName '4.2-CANVA-GRADIENT' } }
           EOF
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/><application android:label="BLS ULTRA"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
           EOF
           cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
           package com.bls.alerte;
-          import android.app.Activity; import android.content.Intent; import android.graphics.Color; import android.graphics.Typeface; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
+          import android.app.Activity; import android.content.Intent; import android.content.SharedPreferences; import android.graphics.Color; import android.graphics.Typeface; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.view.ViewGroup; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
           public class MainActivity extends Activity {
+            SharedPreferences prefs; String lang="fr"; String email=""; int langSelected=1;
             TextView status,cnt,log; Spinner sp; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper()); String[] centres={"Alger - Centre","Oran - Centre","Annaba - Centre"};
-            protected void onCreate(Bundle b){ super.onCreate(b);
-              ScrollView sv=new ScrollView(this); sv.setBackgroundColor(Color.parseColor("#0A001A"));
-              LinearLayout root=new LinearLayout(this); root.setOrientation(1);
-              LinearLayout header=new LinearLayout(this); header.setOrientation(1); header.setGravity(Gravity.CENTER); header.setPadding(20,50,20,30);
-              TextView t1=new TextView(this); t1.setText("BLS ULTRA 2026"); t1.setTextColor(Color.WHITE); t1.setTextSize(24); t1.setTypeface(null,Typeface.BOLD); t1.setGravity(Gravity.CENTER);
-              TextView t2=new TextView(this); t2.setText("ALGERIE - VISA ESPAGNE"); t2.setTextColor(Color.parseColor("#A78BFA")); t2.setGravity(Gravity.CENTER); t2.setPadding(0,8,0,0);
-              header.addView(t1); header.addView(t2);
-              LinearLayout card1=card(); TextView l1=new TextView(this); l1.setText("📍 Centre BLS"); l1.setTextColor(Color.WHITE); l1.setTypeface(null,Typeface.BOLD); l1.setPadding(0,0,0,10);
-              sp=new Spinner(this); ArrayAdapter<String> ad=new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, centres); sp.setAdapter(ad); card1.addView(l1); card1.addView(sp);
-              LinearLayout card2=card(); status=new TextView(this); status.setText("● Ready - En attente"); status.setTextColor(Color.parseColor("#10B981")); status.setTypeface(null,Typeface.BOLD); status.setTextSize(15);
-              cnt=new TextView(this); cnt.setText("Vérifications: 0"); cnt.setTextColor(Color.parseColor("#A78BFA")); cnt.setPadding(0,10,0,0);
-              log=new TextView(this); log.setText("[LOG]\n> Prêt à démarrer...\n"); log.setTextColor(Color.parseColor("#9CA3AF")); log.setTextSize(11); log.setPadding(0,15,0,0);
-              card2.addView(status); card2.addView(cnt); card2.addView(log);
-              TextView btn1=btn("▶ START MONITORING", new int[]{Color.parseColor("#7C3AED"), Color.parseColor("#4F46E5")});
-              TextView btn2=btn("🔔 Tester Alerte (Vibration)", new int[]{Color.parseColor("#1F2937"), Color.parseColor("#374151")});
-              TextView btn3=btn("🌐 Ouvrir BLS Espagne", new int[]{Color.parseColor("#111827"), Color.parseColor("#1F2937")});
-              root.addView(header); root.addView(card1); root.addView(card2); root.addView(btn1); root.addView(btn2); root.addView(btn3);
+            String tr(String fr, String ar, String en){ if(lang.equals("ar")) return ar; if(lang.equals("en")) return en; return fr; }
+            GradientDrawable canvaGradient(){ GradientDrawable gd=new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{Color.parseColor("#1A0A2E"),Color.parseColor("#2D1B69"),Color.parseColor("#4C1D95"),Color.parseColor("#6D28D9")}); gd.setCornerRadius(0); return gd; }
+            GradientDrawable cardGradient(){ GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(20); gd.setColors(new int[]{Color.parseColor("#2A1A4A"),Color.parseColor("#3B1F6E")}); gd.setStroke(1,Color.parseColor("#7C3AED")); gd.setOrientation(GradientDrawable.Orientation.TL_BR); return gd; }
+            protected void onCreate(Bundle b){ super.onCreate(b); prefs=getSharedPreferences("bls_prefs", MODE_PRIVATE); lang=prefs.getString("lang","fr"); email=prefs.getString("email",""); if(!prefs.getBoolean("registered", false)){ showRegister(); } else { showMain(); } }
+            void showRegister(){
+              ScrollView sv=new ScrollView(this); sv.setBackground(canvaGradient());
+              LinearLayout root=new LinearLayout(this); root.setOrientation(1); root.setPadding(25,40,25,30);
+              TextView title=new TextView(this); title.setText("BLS ULTRA 2026"); title.setTextColor(Color.WHITE); title.setTextSize(28); title.setTypeface(null,Typeface.BOLD); title.setGravity(Gravity.CENTER); title.setShadowLayer(10,0,0,Color.parseColor("#7C3AED"));
+              TextView sub=new TextView(this); sub.setText("✨ Canva Design - Premium"); sub.setTextColor(Color.parseColor("#C4B5FD")); sub.setGravity(Gravity.CENTER); sub.setPadding(0,8,0,25);
+              TextView l1=new TextView(this); l1.setText("🌐 "+tr("Langue / لغة","لغة / Langue","Language")); l1.setTextColor(Color.WHITE); l1.setTypeface(null,Typeface.BOLD); l1.setPadding(0,0,0,12);
+              LinearLayout langRow=new LinearLayout(this); langRow.setOrientation(0);
+              TextView bAr=langBtn("🇩🇿 عربية",0); TextView bFr=langBtn("🇫🇷 FR",1); TextView bEn=langBtn("🇬🇧 EN",2);
+              langRow.addView(bAr); langRow.addView(bFr); langRow.addView(bEn);
+              bAr.setOnClickListener(v->{langSelected=0; lang="ar"; updateLangBtns(langRow);}); bFr.setOnClickListener(v->{langSelected=1; lang="fr"; updateLangBtns(langRow);}); bEn.setOnClickListener(v->{langSelected=2; lang="en"; updateLangBtns(langRow);}); updateLangBtns(langRow);
+              TextView opt=new TextView(this); opt.setText(tr("\n(Optionnel) 📧 Email / 📱 Téléphone","(اختياري) 📧 إيميل / 📱 هاتف","(Optional) 📧 Email / 📱 Phone")); opt.setTextColor(Color.parseColor("#DDD6FE")); opt.setGravity(Gravity.CENTER); opt.setPadding(0,25,0,10);
+              EditText et=new EditText(this); et.setHint(tr("Facultatif - اختياري","اختياري - Facultatif","Optional")); et.setHintTextColor(Color.parseColor("#8B7CB0")); et.setTextColor(Color.WHITE); et.setPadding(25,22,25,22);
+              GradientDrawable gdInput=new GradientDrawable(); gdInput.setCornerRadius(16); gdInput.setColor(Color.parseColor("#1E1240")); gdInput.setStroke(1,Color.parseColor("#5B21B6")); et.setBackground(gdInput);
+              TextView privacy=new TextView(this); privacy.setText("🔒 "+tr("Données locales uniquement","بياناتك في هاتفك فقط","Local only - No server")); privacy.setTextColor(Color.parseColor("#10B981")); privacy.setTextSize(11); privacy.setGravity(Gravity.CENTER); privacy.setPadding(0,12,0,22);
+              TextView btnContinue=btnCanva(tr("Continuer","متابعة","Continue"), new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#A78BFA")});
+              TextView btnSkip=btnCanva(tr("⏭️ Entrer sans inscription","⏭️ الدخول بدون تسجيل","⏭️ Skip - Enter directly"), new int[]{Color.parseColor("#10B981"),Color.parseColor("#34D399")});
+              btnContinue.setOnClickListener(v->{ String em=et.getText().toString().trim(); prefs.edit().putString("email",em.isEmpty()?"invité":em).putString("lang",lang).putBoolean("registered",true).apply(); email=em.isEmpty()?"invité":em; showMain(); });
+              btnSkip.setOnClickListener(v->{ prefs.edit().putString("email","invité").putString("lang",lang).putBoolean("registered",true).apply(); email="invité"; showMain(); });
+              root.addView(title); root.addView(sub); root.addView(l1); root.addView(langRow); root.addView(opt); root.addView(et); root.addView(privacy); root.addView(btnContinue); root.addView(btnSkip);
               sv.addView(root); setContentView(sv);
-              btn1.setOnClickListener(v->{ if(!run){run=true;c=0;btn1.setText("⏹ STOP");status.setText("● Monitoring "+sp.getSelectedItem().toString()+"...");status.setTextColor(Color.parseColor("#F59E0B"));log.setText(log.getText()+"> Démarrage "+sp.getSelectedItem().toString()+"\n");loop();}else{run=false;btn1.setText("▶ START MONITORING");status.setText("● Stoppé");status.setTextColor(Color.parseColor("#EF4444"));h.removeCallbacksAndMessages(null);}});
-              btn2.setOnClickListener(v->{ Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE); if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(1000,255)); else vib.vibrate(1000); Toast.makeText(this,"🔔 Alerte OK!",1).show(); log.setText(log.getText()+"> Test Alerte OK\n"); });
-              btn3.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))));
             }
-            void loop(){ if(!run) return; c++; String time=new SimpleDateFormat("HH:mm:ss", Locale.FRANCE).format(new Date()); cnt.setText("Vérifications: "+c+" | "+time); log.setText(log.getText()+"> ["+time+"] Check - Aucun RDV\n"); h.postDelayed(this::loop, 15000); }
-            LinearLayout card(){ LinearLayout c=new LinearLayout(this); c.setOrientation(1); c.setPadding(20,16,20,16); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(18); gd.setColor(Color.parseColor("#1A1033")); gd.setStroke(1,Color.parseColor("#2D1B4E")); c.setBackground(gd); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2); p.setMargins(16,12,16,0); c.setLayoutParams(p); return c; }
-            TextView btn(String txt,int[] col){ TextView b=new TextView(this); b.setText(txt); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding(0,20,0,20); b.setTypeface(null,Typeface.BOLD); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(14); bg.setColors(col); bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT); b.setBackground(bg); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2); p.setMargins(16,12,16,0); b.setLayoutParams(p); return b; }
-          }
-          EOF
-      - name: Build APK
-        run: gradle assembleDebug --no-daemon
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: BLS-ULTRA-FULL-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+            void updateLangBtns(LinearLayout row){ for(int i=0;i<row.getChildCount();i++){ TextView tv=(TextView)row.getChildAt(i); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(14); if(i==langSelected){ bg.setColors(new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#A78BFA")}); bg.setStroke(2,Color.WHITE); } else { bg.setColor(Color.parseColor("#2A1A4A")); bg.setStroke(1,Color.parseColor("#4C1D95")); } tv.setBackground(bg); } }
+            TextView langBtn(String txt,int idx){ TextView b=new TextView(this); b.setText(txt); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding
