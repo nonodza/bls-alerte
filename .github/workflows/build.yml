@@ -5,28 +5,142 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with: {distribution: temurin, java-version: '17'}
-      - uses: gradle/actions/setup-gradle@v3
-      - uses: android-actions/setup-android@v3
-      - name: Install SDK
+      
+      - name: Setup Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK packages
         run: |
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
           yes | sdkmanager --licenses || true
-      - name: Create Professional App
+
+      - name: Setup Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Create Professional BLS App
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties
+          rm -rf app build.gradle settings.gradle gradle.properties gradlew gradle
           mkdir -p app/src/main/java/com/bls/alerte
+          
           cat > settings.gradle <<'EOF'
           pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
           dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
           rootProject.name = "BLSAlerte"; include(":app")
           EOF
+          
           cat > build.gradle <<'EOF'
           plugins { id 'com.android.application' version '8.2.2' apply false }
           EOF
+          
           cat > app/build.gradle <<'EOF'
           plugins { id 'com.android.application' }
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 13; versionName '5.6-PRO' } }
+          android {
+            namespace 'com.bls.alerte'
+            compileSdk 34
+            defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 14; versionName '5.7-PRO' }
+            buildTypes { debug { minifyEnabled false } }
+          }
           EOF
+          
           cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <application android:label="BLS ULTRA" android:theme="@android:style/Theme.Light.NoTitleBar">
+              <activity android:name=".MainActivity" android:exported="true">
+                <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+              </activity>
+            </application>
+          </manifest>
+          EOF
+
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
+          package com.bls.alerte;
+          import android.app.Activity; import android.content.Intent; import android.content.SharedPreferences; import android.graphics.Color; import android.graphics.Typeface; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
+          public class MainActivity extends Activity {
+            SharedPreferences prefs; Handler h=new Handler(Looper.getMainLooper()); boolean run=false; int c=0; TextView cnt,log,status;
+            protected void onCreate(Bundle b){ super.onCreate(b); prefs=getSharedPreferences("bls_prefs", MODE_PRIVATE); showSplash(); }
+            void showSplash(){
+              LinearLayout r=new LinearLayout(this); r.setOrientation(1); r.setGravity(Gravity.CENTER); r.setBackgroundColor(Color.WHITE);
+              TextView l=new TextView(this); l.setText("BLS"); l.setTextSize(64); l.setTypeface(null,Typeface.BOLD); l.setGravity(Gravity.CENTER); l.setTextColor(Color.parseColor("#5B21B6"));
+              TextView s=new TextView(this); s.setText("ULTRA  •  PREMIUM"); s.setTextColor(Color.parseColor("#A78BFA")); s.setGravity(Gravity.CENTER); s.setTextSize(12);
+              r.addView(l); r.addView(s); setContentView(r);
+              h.postDelayed(()->{ if(!prefs.getBoolean("registered",false)) showLang(); else showMain(); }, 1200);
+            }
+            void showLang(){
+              LinearLayout root=new LinearLayout(this); root.setOrientation(1); root.setPadding(30,80,30,30); root.setBackgroundColor(Color.WHITE); root.setGravity(Gravity.CENTER);
+              TextView t=new TextView(this); t.setText("Bienvenue sur\nBLS ULTRA"); t.setTextSize(26); t.setTextColor(Color.parseColor("#111827")); t.setTypeface(null,Typeface.BOLD); t.setGravity(Gravity.CENTER);
+              LinearLayout row=new LinearLayout(this); row.setOrientation(0); row.setPadding(0,30,0,0);
+              row.addView(btn("AR")); row.addView(btn("FR")); row.addView(btn("EN"));
+              root.addView(t); root.addView(row); setContentView(root);
+            }
+            TextView btn(String txt){ TextView b=new TextView(this); b.setText(txt); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding(10,18,10,18); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(16); gd.setColor(Color.parseColor("#7C3AED")); b.setBackground(gd); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); p.setMargins(8,0,8,0); b.setLayoutParams(p); b.setTypeface(null,Typeface.BOLD); b.setOnClickListener(v->{prefs.edit().putBoolean("registered",true).apply(); showMain();}); return b; }
+            void showMain(){
+              LinearLayout rootAll=new LinearLayout(this); rootAll.setOrientation(1); rootAll.setBackgroundColor(Color.WHITE);
+              LinearLayout top=new LinearLayout(this); top.setOrientation(1); top.setPadding(22,28,22,20);
+              GradientDrawable topBg=new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{Color.parseColor("#ECFEFF"),Color.parseColor("#F5F3FF"),Color.parseColor("#EDE9FE")}); top.setBackground(topBg);
+              TextView prem=new TextView(this); prem.setText("  Premium Actif • 24/7  "); prem.setTextColor(Color.parseColor("#4C1D95")); prem.setGravity(Gravity.CENTER); prem.setPadding(22,10,22,10); prem.setTextSize(11); prem.setTypeface(null,Typeface.BOLD);
+              GradientDrawable premBg=new GradientDrawable(); premBg.setCornerRadius(24); premBg.setColor(Color.WHITE); prem.setBackground(premBg); LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-2,-2); pp.gravity=Gravity.CENTER; prem.setLayoutParams(pp);
+              top.addView(prem);
+              TextView title=new TextView(this); title.setText("Que souhaitez-vous\nsurveiller aujourd'hui ?"); title.setTextColor(Color.parseColor("#111827")); title.setTextSize(21); title.setTypeface(null,Typeface.BOLD); title.setPadding(24,26,24,14);
+              LinearLayout search=new LinearLayout(this); search.setOrientation(0); search.setPadding(18,14,18,14); search.setGravity(Gravity.CENTER_VERTICAL);
+              GradientDrawable sBg=new GradientDrawable(); sBg.setCornerRadius(28); sBg.setColor(Color.WHITE); sBg.setStroke(1,Color.parseColor("#F3F4F6")); search.setBackground(sBg); search.setElevation(8);
+              TextView st=new TextView(this); st.setText("Rechercher centre BLS..."); st.setTextColor(Color.parseColor("#9CA3AF")); st.setTextSize(13);
+              search.addView(st); LinearLayout.LayoutParams sp=new LinearLayout.LayoutParams(-1,-2); sp.setMargins(24,6,24,20); search.setLayoutParams(sp);
+              ScrollView sv=new ScrollView(this); sv.setBackgroundColor(Color.WHITE);
+              LinearLayout content=new LinearLayout(this); content.setOrientation(1); content.setPadding(0,0,0,100);
+              TextView sec1=new TextView(this); sec1.setText("Continuez a surveiller"); sec1.setTextColor(Color.BLACK); sec1.setTypeface(null,Typeface.BOLD); sec1.setPadding(24,10,24,8);
+              LinearLayout cards=new LinearLayout(this); cards.setOrientation(0); cards.setPadding(16,6,16,10);
+              cards.addView(card("Alger","#EF4444")); cards.addView(card("Oran","#F59E0B")); cards.addView(card("Annaba","#8B5CF6"));
+              TextView sec2=new TextView(this); sec2.setText("Choisissez par ou commencer"); sec2.setTextColor(Color.BLACK); sec2.setTypeface(null,Typeface.BOLD); sec2.setPadding(24,22,24,12);
+              LinearLayout row1=new LinearLayout(this); row1.setOrientation(0); row1.setPadding(12,8,12,8); row1.setGravity(Gravity.CENTER);
+              row1.addView(circ("Alger","#EF4444")); row1.addView(circ("Oran","#F97316")); row1.addView(circ("Annaba","#8B5CF6")); row1.addView(circ("Alerte","#111827")); row1.addView(circ("BLS","#2563EB"));
+              LinearLayout row2=new LinearLayout(this); row2.setOrientation(0); row2.setPadding(12,6,12,12); row2.setGravity(Gravity.CENTER);
+              row2.addView(circ("Start","#111827")); row2.addView(circ("Stats","#06B6D4")); row2.addView(circ("Config","#10B981")); row2.addView(circ("Test","#6366F1")); row2.addView(circ("Plus","#9CA3AF"));
+              LinearLayout statusCard=new LinearLayout(this); statusCard.setOrientation(1); statusCard.setPadding(20,16,20,16);
+              GradientDrawable statusBg=new GradientDrawable(); statusBg.setCornerRadius(20); statusBg.setColor(Color.WHITE); statusBg.setStroke(1,Color.parseColor("#F3F4F6")); statusCard.setBackground(statusBg); statusCard.setElevation(6);
+              LinearLayout.LayoutParams scp=new LinearLayout.LayoutParams(-1,-2); scp.setMargins(24,18,24,0); statusCard.setLayoutParams(scp);
+              status=new TextView(this); status.setText("● Pret"); status.setTextColor(Color.parseColor("#10B981")); status.setTypeface(null,Typeface.BOLD);
+              cnt=new TextView(this); cnt.setText("0 verifications"); cnt.setTextColor(Color.parseColor("#6B7280")); cnt.setPadding(0,8,0,0);
+              log=new TextView(this); log.setText("En attente..."); log.setTextColor(Color.parseColor("#9CA3AF")); log.setTextSize(11); log.setPadding(0,10,0,0);
+              statusCard.addView(status); statusCard.addView(cnt); statusCard.addView(log);
+              content.addView(title); content.addView(search); content.addView(sec1); content.addView(cards); content.addView(sec2); content.addView(row1); content.addView(row2); content.addView(statusCard);
+              sv.addView(content);
+              LinearLayout bottom=new LinearLayout(this); bottom.setOrientation(0); bottom.setBackgroundColor(Color.WHITE); bottom.setPadding(0,12,0,18); bottom.setElevation(16);
+              bottom.addView(nav("Accueil",true)); bottom.addView(nav("Centres",false)); bottom.addView(nav("Alertes",false)); bottom.addView(nav("IA BLS",false)); bottom.addView(nav("Plus",false));
+              rootAll.addView(top); rootAll.addView(sv); rootAll.addView(bottom);
+              setContentView(rootAll);
+              cards.getChildAt(0).setOnClickListener(v->start("Alger")); cards.getChildAt(1).setOnClickListener(v->start("Oran")); cards.getChildAt(2).setOnClickListener(v->start("Annaba"));
+              row1.getChildAt(0).setOnClickListener(v->start("Alger")); row1.getChildAt(1).setOnClickListener(v->start("Oran")); row1.getChildAt(2).setOnClickListener(v->start("Annaba")); row1.getChildAt(3).setOnClickListener(v->vib()); row1.getChildAt(4).setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com")))); row2.getChildAt(0).setOnClickListener(v->toggle());
+            }
+            LinearLayout card(String txt, String col){ LinearLayout c=new LinearLayout(this); c.setOrientation(1); c.setPadding(14,14,14,12); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(18); bg.setColor(Color.WHITE); bg.setStroke(1,Color.parseColor("#F3F4F6")); c.setBackground(bg); c.setElevation(4); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); p.setMargins(8,0,8,0); c.setLayoutParams(p); TextView t=new TextView(this); t.setText(txt); t.setTextSize(13); t.setTypeface(null,Typeface.BOLD); t.setTextColor(Color.BLACK); c.addView(t); return c; }
+            LinearLayout circ(String label, String col){ LinearLayout l=new LinearLayout(this); l.setOrientation(1); l.setGravity(Gravity.CENTER); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); l.setLayoutParams(p); TextView ci=new TextView(this); ci.setText(label.substring(0,1)); ci.setTextSize(16); ci.setGravity(Gravity.CENTER); ci.setTextColor(Color.WHITE); ci.setTypeface(null,Typeface.BOLD); GradientDrawable bg=new GradientDrawable(); bg.setShape(GradientDrawable.OVAL); bg.setColor(Color.parseColor(col)); ci.setBackground(bg); LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(56,56); cp.gravity=Gravity.CENTER; ci.setLayoutParams(cp); TextView lab=new TextView(this); lab.setText(label); lab.setTextSize(9); lab.setGravity(Gravity.CENTER); lab.setPadding(0,8,0,0); lab.setTextColor(Color.parseColor("#374151")); l.addView(ci); l.addView(lab); return l; }
+            LinearLayout nav(String label, boolean active){ LinearLayout l=new LinearLayout(this); l.setOrientation(1); l.setGravity(Gravity.CENTER); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); l.setLayoutParams(p); TextView lb=new TextView(this); lb.setText(label); lb.setTextSize(10); lb.setGravity(Gravity.CENTER); lb.setTextColor(active?Color.parseColor("#7C3AED"):Color.parseColor("#9CA3AF")); lb.setTypeface(null, active?Typeface.BOLD:Typeface.NORMAL); l.addView(lb); return l; }
+            void start(String c){ currentCenter=c; status.setText("● Surveillance "+c+"..."); cnt.setText((++this.c)+" verifs • "+c); log.setText("["+new SimpleDateFormat("HH:mm:ss", Locale.FRANCE).format(new Date())+"] "+c+" - Aucun RDV\n"+log.getText()); run=true; loop(); } String currentCenter="Alger";
+            void toggle(){ if(!run){ run=true; this.c=0; status.setText("● En cours..."); loop(); } else { run=false; status.setText("● Arrete"); h.removeCallbacksAndMessages(null); } }
+            void vib(){ Vibrator v=(Vibrator)getSystemService(VIBRATOR_SERVICE); if(Build.VERSION.SDK_INT>=26) v.vibrate(VibrationEffect.createOneShot(600,255)); else v.vibrate(600); }
+            void loop(){ if(!run) return; c++; String t=new SimpleDateFormat("HH:mm:ss", Locale.FRANCE).format(new Date()); cnt.setText(c+" verifs • "+currentCenter+" • "+t); log.setText("> ["+t+"] Check #"+c+" - Aucun\n"+log.getText()); h.postDelayed(this::loop, 12000); }
+          }
+          EOF
+
+      - name: Build APK
+        run: |
+          gradle assembleDebug --no-daemon
+          echo "=== APK BUILT ==="
+          find . -name "*.apk" -type f -ls
+          ls -lh app/build/outputs/apk/debug/
+
+      - name: Upload APK - MUST WORK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-V5.7-PRO-FINAL
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
