@@ -1,44 +1,49 @@
-name: Build BLS Rendez-Vous
+name: Build APK
 
 on:
   push:
   workflow_dispatch:
-
-permissions:
-  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-
+      # 1. تحميل المشروع
       - name: Checkout
         uses: actions/checkout@v5
 
+      # 2. إعداد Java
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
 
+      # 3. إعداد Android SDK
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      # 4. تثبيت Android SDK المطلوبة
       - name: Install Android SDK
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
+          yes | sdkmanager --licenses || true
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
+      # 5. إنشاء ملفات المشروع
       - name: Create project
         shell: bash
         run: |
-
-          rm -rf app
-          rm -f settings.gradle build.gradle gradle.properties
+          set -e
 
           mkdir -p app/src/main/java/com/bls/alerte
-          mkdir -p app/src/main/res/values
+          mkdir -p app/src/main/res/drawable
+          mkdir -p app/src/main/res/mipmap-hdpi
+          mkdir -p app/src/main/res/mipmap-mdpi
+          mkdir -p app/src/main/res/mipmap-xhdpi
+          mkdir -p app/src/main/res/mipmap-xxhdpi
+          mkdir -p app/src/main/res/mipmap-xxxhdpi
+          mkdir -p .github/workflows
 
           cat > settings.gradle <<'EOF'
           pluginManagement {
@@ -63,73 +68,4 @@ jobs:
 
           cat > build.gradle <<'EOF'
           plugins {
-              id 'com.android.application' version '8.2.2' apply false
-          }
-          EOF
-
-          cat > gradle.properties <<'EOF'
-          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-          android.useAndroidX=true
-          android.nonTransitiveRClass=true
-          EOF
-
-          cat > app/build.gradle <<'EOF'
-          plugins {
-              id 'com.android.application'
-          }
-
-          android {
-              namespace 'com.bls.alerte'
-              compileSdk 34
-
-              defaultConfig {
-                  applicationId 'com.bls.alerte'
-                  minSdk 23
-                  targetSdk 34
-                  versionCode 6
-                  versionName "6.0"
-              }
-
-              compileOptions {
-                  sourceCompatibility JavaVersion.VERSION_17
-                  targetCompatibility JavaVersion.VERSION_17
-              }
-          }
-
-          dependencies {
-              implementation 'androidx.core:core:1.13.1'
-          }
-          EOF
-
-          cat > app/src/main/res/values/colors.xml <<'EOF'
-          <resources>
-              <color name="white">#FFFFFF</color>
-              <color name="black">#111111</color>
-              <color name="primary">#6C4CF1</color>
-          </resources>
-          EOF
-
-          cat > app/src/main/res/values/themes.xml <<'EOF'
-          <resources>
-              <style name="AppTheme"
-                  parent="android:style/Theme.Material.Light.NoActionBar">
-
-                  <item name="android:fontFamily">sans</item>
-                  <item name="android:colorAccent">#6C4CF1</item>
-                  <item name="android:navigationBarColor">#FFFFFF</item>
-                  <item name="android:statusBarColor">#FFFFFF</item>
-                  <item name="android:windowLightStatusBar">true</item>
-
-              </style>
-          </resources>
-          EOF
-
-          cat > app/src/main/AndroidManifest.xml <<'EOF'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-              <uses-permission android:name="android.permission.INTERNET"/>
-              <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-              <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-              <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
-
-              <
+              id 'com.android.application' version '8.6.
