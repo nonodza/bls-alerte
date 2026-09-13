@@ -15,29 +15,31 @@ jobs:
         run: |
           rm -rf app build.gradle settings.gradle gradle.properties gradle
           mkdir -p app/src/main/java/com/bls/alerte
-          echo "include ':app'" > settings.gradle
-          echo "android.useAndroidX=true" > gradle.properties
 
-          cat > build.gradle <<'ENDOFFILE'
-          buildscript {
+          cat > settings.gradle <<'EOF'
+          pluginManagement {
               repositories {
                   google()
                   mavenCentral()
-              }
-              dependencies {
-                  classpath 'com.android.tools.build:gradle:8.2.2'
+                  gradlePluginPortal()
               }
           }
-          allprojects {
-              repositories {
-                  google()
-                  mavenCentral()
-              }
+          plugins {
+              id 'com.android.application' version '8.2.2' apply false
           }
-          ENDOFFILE
+          include ':app'
+          EOF
 
-          cat > app/build.gradle <<'ENDOFFILE'
-          apply plugin: 'com.android.application'
+          cat > build.gradle <<'EOF'
+          task clean(type: Delete) {
+              delete rootProject.buildDir
+          }
+          EOF
+
+          cat > app/build.gradle <<'EOF'
+          plugins {
+              id 'com.android.application'
+          }
           android {
               namespace 'com.bls.alerte'
               compileSdk 34
@@ -49,9 +51,9 @@ jobs:
                   versionName "ULTRA"
               }
           }
-          ENDOFFILE
+          EOF
 
-          cat > app/src/main/AndroidManifest.xml <<'ENDOFFILE'
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.VIBRATE"/>
@@ -64,9 +66,9 @@ jobs:
               </activity>
             </application>
           </manifest>
-          ENDOFFILE
+          EOF
 
-          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'ENDOFFILE'
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
           package com.bls.alerte;
           import android.app.Activity;
           import android.content.Intent;
@@ -102,7 +104,7 @@ jobs:
             TextView btn(String t,int[] col){ TextView b=new TextView(this); b.setText(t); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding(0,18,0,18); b.setTypeface(null,Typeface.BOLD); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(12); bg.setColors(col); bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT); b.setBackground(bg); LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2); bp.setMargins(14,8,14,0); b.setLayoutParams(bp); return b; }
             void loop(){ if(!run) return; c++; cnt.setText("Checks: "+c); log.setText(log.getText()+"Check "+c+"\n"); h.postDelayed(this::loop, 15000L); }
           }
-          ENDOFFILE
+          EOF
 
       - name: Build APK
         run: |
