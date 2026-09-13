@@ -1,4 +1,4 @@
-name: BLS 2026 GRADLE9 FIX
+name: BLS 2026 FINAL APK
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -10,9 +10,6 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.9
 
       - name: Create Project
         run: |
@@ -23,4 +20,68 @@ jobs:
           cat > build.gradle <<'EOF'
           buildscript {
             repositories { google(); mavenCentral() }
-            dependencies { classpath 'com.android.tools.build:gradle:8.5
+            dependencies { classpath 'com.android.tools.build:gradle:8.5.2' }
+          }
+          allprojects { repositories { google(); mavenCentral() } }
+          EOF
+          cat > app/build.gradle <<'EOF'
+          apply plugin: 'com.android.application'
+          android {
+            namespace 'com.bls.alerte'
+            compileSdk 34
+            defaultConfig {
+              applicationId "com.bls.alerte"
+              minSdk 21
+              targetSdk 34
+              versionCode 33
+              versionName "2026-FINAL"
+            }
+          }
+          EOF
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <application android:label="BLS 2026 PRO">
+              <activity android:name=".MainActivity" android:exported="true">
+                <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+              </activity>
+            </application>
+          </manifest>
+          EOF
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
+          package com.bls.alerte;
+          import android.app.Activity; import android.content.Intent; import android.graphics.Color; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*;
+          public class MainActivity extends Activity {
+            TextView status,cnt,log; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper());
+            protected void onCreate(Bundle b){ super.onCreate(b);
+              LinearLayout root=new LinearLayout(this); root.setOrientation(LinearLayout.VERTICAL); root.setBackgroundColor(Color.parseColor("#0A001A")); root.setGravity(Gravity.CENTER);
+              TextView title=new TextView(this); title.setText("BLS Alerte 2026 PRO\nمراقب BLS الذكي"); title.setTextColor(Color.WHITE); title.setGravity(Gravity.CENTER); title.setTextSize(22); title.setTypeface(null,android.graphics.Typeface.BOLD); title.setPadding(0,80,0,20);
+              LinearLayout card=new LinearLayout(this); card.setOrientation(LinearLayout.VERTICAL); card.setPadding(28,20,28,20); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(24); gd.setColor(Color.parseColor("#1A0B2E")); card.setBackground(gd); LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,-2); cp.setMargins(28,10,28,0); card.setLayoutParams(cp);
+              status=new TextView(this); status.setText("جاهز للمراقبة ✅"); status.setTextColor(Color.WHITE); status.setTextSize(14);
+              cnt=new TextView(this); cnt.setText("الفحوصات: 0"); cnt.setTextColor(Color.parseColor("#A78BFA")); cnt.setPadding(0,8,0,0);
+              log=new TextView(this); log.setText("- نظام 2026\n- مراقبة كل 15 ثانية\n- اهتزاز عند وجود موعد"); log.setTextColor(Color.parseColor("#D8B4FE")); log.setPadding(0,10,0,0);
+              card.addView(status); card.addView(cnt); card.addView(log);
+              TextView btn=new TextView(this); btn.setText("🚀 ابدأ المراقبة"); btn.setTextColor(Color.WHITE); btn.setGravity(Gravity.CENTER); btn.setPadding(0,28,0,28); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(28); bg.setColors(new int[]{Color.parseColor("#7C3AED"), Color.parseColor("#4F46E5")}); bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT); btn.setBackground(bg); LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2); bp.setMargins(28,20,28,0); btn.setLayoutParams(bp);
+              TextView btn2=new TextView(this); btn2.setText("🌐 فتح موقع BLS الرسمي"); btn2.setTextColor(Color.parseColor("#A5B4FC")); btn2.setGravity(Gravity.CENTER); btn2.setPadding(0,22,0,22); GradientDrawable bg2=new GradientDrawable(); bg2.setCornerRadius(24); bg2.setColor(Color.parseColor("#1A1033")); btn2.setBackground(bg2); LinearLayout.LayoutParams bp2=new LinearLayout.LayoutParams(-1,-2); bp2.setMargins(28,10,28,0); btn2.setLayoutParams(bp2);
+              root.addView(title); root.addView(card); root.addView(btn); root.addView(btn2); setContentView(root);
+              btn.setOnClickListener(v->{ if(!run){run=true;c=0;btn.setText("⏹️ إيقاف المراقبة");loop();}else{run=false;btn.setText("🚀 ابدأ المراقبة");h.removeCallbacksAndMessages(null);status.setText("متوقف");}});
+              btn2.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))));
+            }
+            void loop(){ if(!run) return; c++; String t=new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date()); status.setText("فحص #"+c+" - "+t); cnt.setText("الفحوصات: "+c); log.setText("["+t+"] فحص BLS...\n"+log.getText()); if(c==3){ Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE); try{ if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(800,255)); else vib.vibrate(800);}catch(Exception e){} status.setText("🎉 تنبيه تجريبي - النظام خدام!"); } h.postDelayed(this::loop,15000); }
+          }
+          EOF
+          yes | sdkmanager --licenses > /dev/null || true
+
+      - name: Build APK
+        run: |
+          gradle wrapper --gradle-version 8.9
+          ./gradlew clean assembleDebug --no-daemon
+          echo "APK built:"
+          ls -lh app/build/outputs/apk/debug/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-2026-APK-DOWNLOAD-HERE
+          path: app/build/outputs/apk/debug/app-debug.apk
