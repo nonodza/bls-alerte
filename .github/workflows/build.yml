@@ -14,27 +14,10 @@ jobs:
         run: |
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
           yes | sdkmanager --licenses || true
-      - name: Create V5 CANVA CLONE
+      - name: Create V5.2 PREMIUM COLORS
         run: |
           rm -rf app build.gradle settings.gradle gradle.properties
           mkdir -p app/src/main/java/com/bls/alerte
           cat > settings.gradle <<'EOF'
           pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
-          dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
-          rootProject.name = "BLSAlerte"; include(":app")
-          EOF
-          cat > build.gradle <<'EOF'
-          plugins { id 'com.android.application' version '8.2.2' apply false }
-          EOF
-          cat > app/build.gradle <<'EOF'
-          plugins { id 'com.android.application' }
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 7; versionName '5.0-CANVA-CLONE' } }
-          EOF
-          cat > app/src/main/AndroidManifest.xml <<'EOF'
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/><application android:label="BLS ULTRA"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
-          EOF
-          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'EOF'
-          package com.bls.alerte;
-          import android.app.Activity; import android.content.Intent; import android.content.SharedPreferences; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
-          public class MainActivity extends Activity {
-            SharedPreferences prefs; String lang="fr"; Linear
+          dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google();
