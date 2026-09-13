@@ -10,8 +10,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BLS Rendez-Vous"
-        android:textSize="26sp"
+        android:text="BLS V2 OK"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="40dp"/>
@@ -22,8 +22,8 @@
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:text="BLS ALERTE"
-        android:textColor="#0A1931"
-        android:textStyle="bold"/>
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#0A1931"/>
 
     <Button
         android:id="@+id/btnStart"
@@ -31,15 +31,14 @@
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:text="BLS START"
-        android:textColor="#0A1931"
-        android:textStyle="bold"/>
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#0A1931"/>
 
     <Button
         android:id="@+id/btnRdv"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="BLS RENDEZ-VOUS"
-        android:textColor="#0A1931"
-        android:textStyle="bold"/>
-
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#0A1931"/>
 </LinearLayout>
