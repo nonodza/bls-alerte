@@ -14,7 +14,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Gradient Background
         int[] colors = {Color.parseColor("#2D1B69"), Color.parseColor("#3B2A8A"), Color.parseColor("#2E86AB"), Color.parseColor("#00C9A7")};
         GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
         
@@ -25,7 +24,6 @@ public class MainActivity extends Activity {
         main.setPadding(dp(24), dp(60), dp(24), dp(40));
         main.setBackground(bg);
 
-        // BLS Title
         TextView bls = new TextView(this);
         bls.setText("BLS");
         bls.setTextSize(90);
@@ -50,12 +48,9 @@ public class MainActivity extends Activity {
         secure.setPadding(0, 0, 0, dp(40));
         main.addView(secure);
 
-        // Card 1
-        main.addView(createCard("Passport Services", "Apply, Renew & Track Passport", "🛂"));
-        // Card 2
-        main.addView(createCard("Visa Centers", "Find Nearest BLS Center\n& Directions", "📍"));
+        main.addView(createCard("Passport Services", "Apply, Renew & Track Passport", "P"));
+        main.addView(createCard("Visa Centers", "Find Nearest BLS Center\n& Directions", "V"));
 
-        // Get Started Button
         TextView btn = new TextView(this);
         btn.setText("Get Started");
         btn.setTextSize(20);
@@ -79,7 +74,7 @@ public class MainActivity extends Activity {
         setContentView(scroll);
     }
 
-    private LinearLayout createCard(String title, String desc, String icon) {
+    private LinearLayout createCard(String title, String desc, String letter) {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.HORIZONTAL);
         card.setGravity(Gravity.CENTER_VERTICAL);
@@ -96,17 +91,22 @@ public class MainActivity extends Activity {
         card.setLayoutParams(lp);
 
         TextView ico = new TextView(this);
-        ico.setText(icon);
-        ico.setTextSize(36);
+        ico.setText(letter);
+        ico.setTextSize(22);
+        ico.setTextColor(Color.WHITE);
         ico.setGravity(Gravity.CENTER);
+        ico.setTypeface(null, android.graphics.Typeface.BOLD);
         GradientDrawable icoBg = new GradientDrawable();
         icoBg.setCornerRadius(dp(15));
-        icoBg.setColors(new int[]{Color.parseColor("#8A2BE2"), Color.parseColor("#00CED1")});
+        if(letter.equals("P")) {
+            icoBg.setColors(new int[]{Color.parseColor("#FF6B6B"), Color.parseColor("#9B59B6")});
+        } else {
+            icoBg.setColors(new int[]{Color.parseColor("#3498DB"), Color.parseColor("#1ABC9C")});
+        }
         icoBg.setOrientation(GradientDrawable.Orientation.TL_BR);
         ico.setBackground(icoBg);
-        ico.setPadding(dp(18), dp(18), dp(18), dp(18));
-        ico.setWidth(dp(75));
-        ico.setHeight(dp(75));
+        LinearLayout.LayoutParams ip = new LinearLayout.LayoutParams(dp(60), dp(60));
+        ico.setLayoutParams(ip);
         card.addView(ico);
 
         LinearLayout texts = new LinearLayout(this);
@@ -126,12 +126,3 @@ public class MainActivity extends Activity {
         d.setTextColor(Color.parseColor("#E0E0E0"));
         d.setPadding(0, dp(4), 0, 0);
         texts.addView(d);
-        
-        card.addView(texts);
-        return card;
-    }
-
-    private int dp(int v) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, getResources().getDisplayMetrics());
-    }
-}
