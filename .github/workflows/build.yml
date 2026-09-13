@@ -15,35 +15,41 @@ jobs:
           gradle-version: 8.4
       - name: Build
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          ls $ANDROID_HOME/platforms || true
-          mkdir -p app/src/main/java/com/bls/alerte
-          echo "include ':app'" > settings.gradle
-          echo "android.useAndroidX=true" > gradle.properties
+          cat > settings.gradle << 'E'
+          include ':app'
+          E
           cat > build.gradle << 'E'
           buildscript {
+            ext.kotlin_version = '1.9.10'
             repositories { google(); mavenCentral() }
             dependencies {
               classpath 'com.android.tools.build:gradle:8.1.4'
-              classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10'
+              classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
             }
           }
           allprojects { repositories { google(); mavenCentral() } }
           E
+          echo "android.useAndroidX=true" > gradle.properties
+          mkdir -p app/src/main/java/com/bls/alerte
           cat > app/build.gradle << 'E'
-          plugins { id 'com.android.application'; id 'org.jetbrains.kotlin.android' }
+          apply plugin: 'com.android.application'
+          apply plugin: 'kotlin-android'
           android {
             namespace 'com.bls.alerte'
-            compileSdk 34
-            defaultConfig { applicationId "com.bls.alerte"; minSdk 21; targetSdk 34; versionCode 5; versionName "1.0" }
-            buildTypes { release { minifyEnabled false } }
+            compileSdkVersion 34
+            defaultConfig {
+              applicationId "com.bls.alerte"
+              minSdkVersion 21
+              targetSdkVersion 34
+              versionCode 6
+              versionName "1.0"
+            }
           }
           dependencies {
             implementation 'androidx.core:core-ktx:1.10.1'
             implementation 'androidx.appcompat:appcompat:1.6.1'
           }
           E
-          mkdir -p app/src/main
           cat > app/src/main/AndroidManifest.xml << 'E'
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -60,11 +66,18 @@ jobs:
           import androidx.appcompat.app.AppCompatActivity
           import android.widget.TextView
           class MainActivity : AppCompatActivity() {
-            override fun onCreate(s: Bundle?) { super.onCreate(s); val tv=TextView(this); tv.text="BLS Alerte DZ - Success!"; tv.textSize=24f; tv.setPadding(50,300,50,50); setContentView(tv) }
+            override fun onCreate(b: Bundle?) {
+              super.onCreate(b)
+              val tv = TextView(this)
+              tv.text = "BLS Alerte DZ - OK FINAL!"
+              tv.textSize = 22f
+              tv.setPadding(50,300,50,50)
+              setContentView(tv)
+            }
           }
           E
           yes | sdkmanager --licenses || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools" || true
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
           gradle assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
