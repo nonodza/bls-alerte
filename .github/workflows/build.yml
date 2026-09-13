@@ -1,21 +1,15 @@
-name: Build BLS Alerte DZ
-
+name: Build APK
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
-
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -23,182 +17,108 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Setup Android
+        uses: android-actions/setup-android@v3
 
-      - name: Create Android Project
+      - name: Create Full App
         run: |
-
-          rm -rf app
-          rm -f build.gradle settings.gradle gradle.properties
-
+          rm -rf app build.gradle settings.gradle gradle.properties gradle.gradle
           mkdir -p app/src/main/java/com/bls/alerte
-          mkdir -p app/src/main/res/values
-          mkdir -p app/src/main/res/drawable
-
-
-          # ==========================
-          # SETTINGS
-          # ==========================
-
-          cat > settings.gradle <<'EOF'
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-rootProject.name = "BLSAlerteDZ"
-
-include(":app")
-EOF
-
-
-          # ==========================
-          # GRADLE PROPERTIES
-          # ==========================
-
-          cat > gradle.properties <<'EOF'
-org.gradle.jvmargs=-Xmx2048m
-android.useAndroidX=true
-EOF
-
-
-          # ==========================
-          # BUILD GRADLE
-          # ==========================
+          echo "include ':app'" > settings.gradle
+          echo "android.useAndroidX=true" > gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2g" >> gradle.properties
 
           cat > build.gradle <<'EOF'
-plugins {
-    id 'com.android.application' version '8.2.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
-}
-EOF
-
-
-          # ==========================
-          # APP GRADLE
-          # ==========================
+          buildscript {
+            repositories { google(); mavenCentral() }
+            dependencies { classpath 'com.android.tools.build:gradle:8.2.2' }
+          }
+          allprojects { repositories { google(); mavenCentral() } }
+          EOF
 
           cat > app/build.gradle <<'EOF'
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
-
-android {
-
-    namespace 'com.bls.alerte'
-
-    compileSdk 34
-
-    defaultConfig {
-
-        applicationId "com.bls.alerte"
-
-        minSdk 23
-
-        targetSdk 34
-
-        versionCode 30
-
-        versionName "3.0"
-
-    }
-
-    buildTypes {
-
-        release {
-
-            minifyEnabled false
-
-            shrinkResources false
-
-        }
-
-    }
-
-    compileOptions {
-
-        sourceCompatibility JavaVersion.VERSION_17
-
-        targetCompatibility JavaVersion.VERSION_17
-
-    }
-
-    kotlinOptions {
-
-        jvmTarget = "17"
-
-    }
-}
-
-dependencies {
-
-    implementation 'androidx.core:core-ktx:1.13.1'
-
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-
-    implementation 'com.google.android.material:material:1.12.0'
-
-}
-EOF
-
-
-          # ==========================
-          # MANIFEST
-          # ==========================
+          apply plugin: 'com.android.application'
+          android {
+            namespace 'com.bls.alerte'
+            compileSdk 34
+            defaultConfig {
+              applicationId "com.bls.alerte"
+              minSdk 23
+              targetSdk 34
+              versionCode 101
+              versionName "ULTRA"
+            }
+          }
+          EOF
 
           cat > app/src/main/AndroidManifest.xml <<'EOF'
-<?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <application android:label="BLS ULTRA">
+              <activity android:name=".MainActivity" android:exported="true">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN"/>
+                  <category android:name="android.intent.category.LAUNCHER"/>
+                </intent-filter>
+              </activity>
+            </application>
+          </manifest>
+          EOF
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
+          package com.bls.alerte;
+          import android.app.Activity;
+          import android.content.Intent;
+          import android.graphics.Color;
+          import android.graphics.Typeface;
+          import android.graphics.drawable.GradientDrawable;
+          import android.net.Uri;
+          import android.os.*;
+          import android.view.Gravity;
+          import android.widget.*;
+          public class MainActivity extends Activity {
+            TextView status,cnt,log; Spinner spC,spT; boolean run=false; int c=0,interval=15; String centre="Alger"; Handler h=new Handler(Looper.getMainLooper());
+            protected void onCreate(Bundle b){ super.onCreate(b);
+              ScrollView sv=new ScrollView(this); sv.setBackgroundColor(Color.parseColor("#0A001A"));
+              LinearLayout root=new LinearLayout(this); root.setOrientation(1);
+              LinearLayout header=new LinearLayout(this); header.setOrientation(1); header.setGravity(Gravity.CENTER); header.setPadding(20,40,20,20);
+              TextView t1=new TextView(this); t1.setText("BLS ULTRA 2026 PRO MAX"); t1.setTextColor(Color.WHITE); t1.setTextSize(22); t1.setTypeface(null,Typeface.BOLD); t1.setGravity(Gravity.CENTER);
+              TextView t2=new TextView(this); t2.setText("Alger | Oran | Annaba"); t2.setTextColor(Color.parseColor("#A78BFA")); t2.setGravity(Gravity.CENTER);
+              header.addView(t1); header.addView(t2);
+              LinearLayout c1=card(); TextView l1=new TextView(this); l1.setText("Centre"); l1.setTextColor(Color.WHITE); l1.setTypeface(null,Typeface.BOLD);
+              spC=new Spinner(this); spC.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Alger","Oran","Annaba"}));
+              c1.addView(l1); c1.addView(spC);
+              LinearLayout c2=card(); status=new TextView(this); status.setText("Ready ✅"); status.setTextColor(Color.parseColor("#10B981")); status.setTypeface(null,Typeface.BOLD);
+              cnt=new TextView(this); cnt.setText("Checks: 0"); cnt.setTextColor(Color.parseColor("#A78BFA"));
+              log=new TextView(this); log.setText("Log:\n- Ready\n"); log.setTextColor(Color.parseColor("#D1D5DB")); log.setTextSize(11);
+              c2.addView(status); c2.addView(cnt); c2.addView(log);
+              TextView btn1=btn("Start Monitoring", new int[]{Color.parseColor("#7C3AED"),Color.parseColor("#4F46E5")});
+              TextView btn2=btn("Test Alert", new int[]{Color.parseColor("#1A1033"),Color.parseColor("#2D1B4E")});
+              TextView btn3=btn("Open BLS", new int[]{Color.parseColor("#0F172A"),Color.parseColor("#1E293B")});
+              root.addView(header); root.addView(c1); root.addView(c2); root.addView(btn1); root.addView(btn2); root.addView(btn3);
+              sv.addView(root); setContentView(sv);
+              btn1.setOnClickListener(v->{ if(!run){run=true;c=0;btn1.setText("STOP");status.setText("Monitoring "+centre);loop();} else{run=false;btn1.setText("Start");status.setText("Stopped");h.removeCallbacksAndMessages(null);} });
+              btn2.setOnClickListener(v->{ Vibrator vib=(Vibrator)getSystemService(VIBRATOR_SERVICE); try{ if(Build.VERSION.SDK_INT>=26) vib.vibrate(VibrationEffect.createOneShot(1000,255)); else vib.vibrate(1000);}catch(Exception e){} Toast.makeText(this,"Alert OK!",1).show(); });
+              btn3.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://algeria.blsspainvisa.com"))));
+            }
+            LinearLayout card(){ LinearLayout c=new LinearLayout(this); c.setOrientation(1); c.setPadding(18,14,18,14); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(16); gd.setColor(Color.parseColor("#1A0B2E")); gd.setStroke(1,Color.parseColor("#2D1B4E")); c.setBackground(gd); LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,-2); cp.setMargins(14,10,14,0); c.setLayoutParams(cp); return c; }
+            TextView btn(String t,int[] col){ TextView b=new TextView(this); b.setText(t); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding(0,18,0,18); b.setTypeface(null,Typeface.BOLD); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(12); bg.setColors(col); bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT); b.setBackground(bg); LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2); bp.setMargins(14,8,14,0); b.setLayoutParams(bp); return b; }
+            void loop(){ if(!run) return; c++; String time=new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date()); cnt.setText("Checks: "+c+" | "+time); log.setText(log.getText()+"["+time+"] "+centre+"\n"); h.postDelayed(this::loop, interval*1000L); }
+          }
+          JAVA
+          yes | sdkmanager --licenses > /dev/null || true
 
-    <uses-permission
-        android:name="android.permission.INTERNET" />
+      - name: Build APK
+        run: |
+          gradle wrapper --gradle-version 8.7
+          chmod +x./gradlew
+        ./gradlew assembleDebug --no-daemon
+          ls -lh app/build/outputs/apk/debug/
 
-    <uses-permission
-        android:name="android.permission.VIBRATE" />
-
-    <application
-        android:allowBackup="true"
-        android:label="BLS Alerte DZ"
-        android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-
-            <intent-filter>
-
-                <action
-                    android:name="android.intent.action.MAIN" />
-
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
-
-        </activity>
-
-    </application>
-
-</manifest>
-EOF
-
-
-          # ==========================
-          # COLORS
-          # ==========================
-
-          cat > app/src/main/res/values/colors.xml <<'EOF'
-<?xml version="1.0" encoding="utf-8
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-Alerte-DZ-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
