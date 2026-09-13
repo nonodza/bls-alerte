@@ -6,43 +6,46 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Java 17 No Cache
-        uses: actions/setup-java@v4
+      - name: Setup Java 17
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'none'
 
-      - name: Setup Android SDK No Cache
+      - name: Setup Android
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y wget unzip
-          mkdir -p $HOME/android-sdk
-          export ANDROID_HOME=$HOME/android-sdk
-          export ANDROID_SDK_ROOT=$HOME/android-sdk
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmd.zip
-          unzip -q cmd.zip -d $HOME/android-sdk
-          mkdir -p $HOME/android-sdk/cmdline-tools/latest
-          mv $HOME/android-sdk/cmdline-tools/* $HOME/android-sdk/cmdline-tools/latest/ 2>/dev/null || true
-          export PATH=$HOME/android-sdk/cmdline-tools/latest/bin:$PATH
-          yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
+          unzip -q cmd.zip -d $HOME/android
+          mkdir -p $HOME/android/cmdline-tools/latest
+          mv $HOME/android/cmdline-tools/* $HOME/android/cmdline-tools/latest/ 2>/dev/null || true
+          mv $HOME/android/lib $HOME/android/cmdline-tools/latest/lib 2>/dev/null || true
+          mv $HOME/android/NOTICE.txt $HOME/android/cmdline-tools/latest/ 2>/dev/null || true
+          export ANDROID_HOME=$HOME/android
+          export PATH=$HOME/android/cmdline-tools/latest/bin:$PATH
+          yes | sdkmanager --licenses || true
+          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          echo "ANDROID_HOME=$HOME/android" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/android" >> $GITHUB_ENV
+          echo "$HOME/android/platform-tools" >> $GITHUB_PATH
+          echo "$HOME/android/cmdline-tools/latest/bin" >> $GITHUB_PATH
 
-      - name: Install Gradle Direct
+      - name: Install Gradle
         run: |
-          wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip -O gradle.zip
-          unzip -q gradle.zip
+          wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
+          unzip -q gradle-8.7-bin.zip
           echo "$PWD/gradle-8.7/bin" >> $GITHUB_PATH
 
-      - name: CREATE APP + BUILD
+      - name: Build BLS ULTRA
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties
+          rm -rf app build.gradle settings.gradle
           mkdir -p app/src/main/java/com/bls/alerte
-          echo 'pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } } dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } } rootProject.name = "BLSAlerte"; include(":app")' > settings.gradle
+          cat > settings.gradle <<'EOF'
+          pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+          dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
+          rootProject.name = "BLSAlerte"; include(":app")
+          EOF
           echo "plugins { id 'com.android.application' version '8.2.2' apply false }" > build.gradle
-          echo "plugins { id 'com.android.application' } android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 18; versionName '6.4-FIXED' } }" > app/build.gradle
+          echo "plugins { id 'com.android.application' } android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId 'com.bls.alerte'; minSdk 23; targetSdk 34; versionCode 19; versionName '6.5' } }" > app/build.gradle
           
           cat > app/src/main/AndroidManifest.xml <<'MANI'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -53,15 +56,32 @@ jobs:
             </application>
           </manifest>
           MANI
-          
+
           cat > app/src/main/java/com/bls/alerte/MonitorService.java <<'SVC'
-          package com.bls.alerte; import android.app.*; import android.content.Intent; import android.os.IBinder; import androidx.core.app.NotificationCompat; public class MonitorService extends Service { public static boolean isRunning=false; public static String currentCity="Alger"; public IBinder onBind(Intent i){return null;} public int onStartCommand(Intent intent,int f,int id){ String a=intent!=null?intent.getStringExtra("action"):"start"; if("stop".equals(a)){stopForeground(true);stopSelf();isRunning=false;return START_NOT_STICKY;} isRunning=true; String chId="bls_channel"; NotificationManager nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE); if(android.os.Build.VERSION.SDK_INT>=26){ NotificationChannel ch=new NotificationChannel(chId,"BLS",NotificationManager.IMPORTANCE_LOW); nm.createNotificationChannel(ch);} Intent stopI=new Intent(this,MonitorService.class); stopI.putExtra("action","stop"); PendingIntent stopPI=PendingIntent.getService(this,1,stopI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); Intent openI=new Intent(this,MainActivity.class); PendingIntent openPI=PendingIntent.getActivity(this,0,openI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); NotificationCompat.Builder b=new NotificationCompat.Builder(this,chId).setContentTitle("BLS ULTRA - Surveillance").setContentText("📍 "+currentCity+" - BG Service").setSmallIcon(android.R.drawable.ic_popup_sync).setOngoing(true).setContentIntent(openPI).addAction(android.R.drawable.ic_delete,"Stop",stopPI); startForeground(101,b.build()); return START_STICKY; } }
+          package com.bls.alerte; import android.app.*; import android.content.Intent; import android.os.IBinder; import androidx.core.app.NotificationCompat; public class MonitorService extends Service { public static String currentCity="Alger"; public IBinder onBind(Intent i){return null;} public int onStartCommand(Intent intent,int f,int id){ String chId="bls_channel"; NotificationManager nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE); if(android.os.Build.VERSION.SDK_INT>=26){ NotificationChannel ch=new NotificationChannel(chId,"BLS",NotificationManager.IMPORTANCE_LOW); nm.createNotificationChannel(ch);} Intent stopI=new Intent(this,MonitorService.class); stopI.putExtra("action","stop"); String a=intent!=null?intent.getStringExtra("action"):"start"; if("stop".equals(a)){stopForeground(true);stopSelf();return START_NOT_STICKY;} PendingIntent stopPI=PendingIntent.getService(this,1,stopI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); Intent openI=new Intent(this,MainActivity.class); PendingIntent openPI=PendingIntent.getActivity(this,0,openI,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE); NotificationCompat.Builder b=new NotificationCompat.Builder(this,chId).setContentTitle("BLS ULTRA - Surveillance").setContentText("📍 "+currentCity+" - BG Service").setSmallIcon(android.R.drawable.ic_popup_sync).setOngoing(true).setContentIntent(openPI).addAction(android.R.drawable.ic_delete,"Stop",stopPI); startForeground(101,b.build()); return START_STICKY; } }
           SVC
-          
+
           cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
           package com.bls.alerte; import android.app.Activity; import android.content.Intent; import android.content.SharedPreferences; import android.graphics.Color; import android.graphics.Typeface; import android.graphics.drawable.GradientDrawable; import android.os.*; import android.view.Gravity; import android.widget.*; import java.text.SimpleDateFormat; import java.util.Date; import java.util.Locale;
           public class MainActivity extends Activity {
             SharedPreferences p; Handler h=new Handler(Looper.getMainLooper()); boolean run=false; int c=0; TextView cnt,log,status; String lang="FR", theme="LIGHT"; int bg=Color.WHITE, card=Color.WHITE, txt=Color.parseColor("#111827"), sub=Color.parseColor("#6B7280");
             protected void onCreate(Bundle b){super.onCreate(b); p=getSharedPreferences("bls",MODE_PRIVATE); lang=p.getString("lang","FR"); theme=p.getString("theme","LIGHT"); apply(); main();}
             void apply(){ switch(theme){ case "DARK": bg=Color.parseColor("#111827"); card=Color.parseColor("#1F2937"); txt=Color.WHITE; sub=Color.parseColor("#9CA3AF"); break; case "PURPLE": bg=Color.parseColor("#F5F3FF"); card=Color.WHITE; txt=Color.parseColor("#4C1D95"); sub=Color.parseColor("#7C3AED"); break; case "OCEAN": bg=Color.parseColor("#ECFEFF"); card=Color.WHITE; txt=Color.parseColor("#0E7490"); sub=Color.parseColor("#0891B2"); break; default: bg=Color.WHITE; card=Color.WHITE; txt=Color.parseColor("#111827"); sub=Color.parseColor("#6B7280"); } }
-            void main(){ LinearLayout all=new LinearLayout(this); all.setOrientation(1); all.setBackgroundColor(bg); LinearLayout top=new LinearLayout(this); top.setOrientation(1); top.setPadding(22,28,22,20); top.setBackgroundColor(bg); TextView prem=new TextView(this); prem.setText(" 🎨 "+theme+" • 🌐 "+lang+" • BG Service "); prem.setTextColor(txt); prem.setGravity(Gravity.CENTER); prem.setPadding(22,10,22,10); prem.setTextSize(10); prem.setTypeface(null,Typeface.BOLD); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(24); gd.setColor(card); gd.setStroke(1,Color.parseColor("#E5E7EB")); prem.setBackground(gd); LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-2,-2); pp.gravity=Gravity.CENTER; prem.setLayoutParams(pp); top.addView(prem); TextView title=new TextView(this); title.setText("Que souhaitez-vous\nsurveiller?"); title.setTextColor(txt); title.setTextSize(21); title.setTypeface(null,Typeface.BOLD); title.setPadding(24,22,24,6); ScrollView sv=new ScrollView(this); sv.setBackgroundColor(bg); LinearLayout content=new LinearLayout(this); content.setOrientation(1); content.setPadding(0,0,0,110); TextView s1=new TextView(this); s1.setText("Centres - Service Arriere-plan"); s1.setTextColor(txt); s1.setTypeface(null,Typeface.BOLD); s1.setPadding(24,14,24,8); LinearLayout cards=new LinearLayout(this); cards.setOrientation(0); cards.setPadding(16,6,16,10); cards.addView(card("Alger")); cards.addView(card("Oran")); cards.addView(card("Annaba")); LinearLayout sc=new LinearLayout(this); sc.setOrientation(1); sc.setPadding(20,16,20,16); GradientDrawable sbg=new GradientDrawable(); sbg.setCornerRadius(20); sbg.setColor(card); sbg.setStroke(1,Color.parseColor("#F3F4F6")); sc.setBackground(sbg); sc.setElevation(6); LinearLayout.LayoutParams scp=new LinearLayout.LayoutParams(-1,-2); scp.setMargins(24,18,24,0); sc.setLayoutParams(scp); status=new TextView(this); status.setText("● Pret - BG Service"); status.setTextColor(Color.parseColor("#059669")); status.setTypeface(null,Typeface.BOLD); cnt=new TextView(this); cnt.setText("0 verifs"); cnt.setTextColor(sub); cnt.setPadding(0,8,0,0); log=new TextView(this); log.setText("Service Notification pret\n"); log.setTextColor(sub); log.setTextSize(11); log.setPadding(0,10,0,0); sc.addView(status); sc.addView(cnt); sc.addView(log); content.addView(title); content.addView(s1); content.addView(cards); content.addView(sc); sv.addView(content); LinearLayout bot=new LinearLayout(this); bot.setOrientation(0); bot.setBackgroundColor(card); bot.setPadding(0,12,0,18); bot.setElevation(16); bot.addView(nav("Accueil",true)); bot.addView(nav("Centres",false)); bot.addView(nav("Alertes",false)); bot.addView(nav("Plus",false)); all.addView(top); all.addView(sv); all.addView(bot); setContentView(all); cards.getChildAt(0).setOnClickListener(v->start("Alger")); cards.getChildAt(1).setOnClickListener(v->start("Oran")); cards.getChildAt(2).setOnClickListener(v
+            void main(){ LinearLayout all=new LinearLayout(this); all.setOrientation(1); all.setBackgroundColor(bg); LinearLayout top=new LinearLayout(this); top.setOrientation(1); top.setPadding(22,28,22,20); top.setBackgroundColor(bg); TextView prem=new TextView(this); prem.setText(" 🎨 "+theme+" • 🌐 "+lang+" • BG Service "); prem.setTextColor(txt); prem.setGravity(Gravity.CENTER); prem.setPadding(22,10,22,10); prem.setTextSize(10); prem.setTypeface(null,Typeface.BOLD); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(24); gd.setColor(card); gd.setStroke(1,Color.parseColor("#E5E7EB")); prem.setBackground(gd); LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-2,-2); pp.gravity=Gravity.CENTER; prem.setLayoutParams(pp); top.addView(prem); TextView title=new TextView(this); title.setText("Que souhaitez-vous\nsurveiller?"); title.setTextColor(txt); title.setTextSize(21); title.setTypeface(null,Typeface.BOLD); title.setPadding(24,22,24,6); ScrollView sv=new ScrollView(this); sv.setBackgroundColor(bg); LinearLayout content=new LinearLayout(this); content.setOrientation(1); content.setPadding(0,0,0,110); TextView s1=new TextView(this); s1.setText("Centres - BG Service"); s1.setTextColor(txt); s1.setTypeface(null,Typeface.BOLD); s1.setPadding(24,14,24,8); LinearLayout cards=new LinearLayout(this); cards.setOrientation(0); cards.setPadding(16,6,16,10); cards.addView(card("Alger")); cards.addView(card("Oran")); cards.addView(card("Annaba")); LinearLayout sc=new LinearLayout(this); sc.setOrientation(1); sc.setPadding(20,16,20,16); GradientDrawable sbg=new GradientDrawable(); sbg.setCornerRadius(20); sbg.setColor(card); sbg.setStroke(1,Color.parseColor("#F3F4F6")); sc.setBackground(sbg); sc.setElevation(6); LinearLayout.LayoutParams scp=new LinearLayout.LayoutParams(-1,-2); scp.setMargins(24,18,24,0); sc.setLayoutParams(scp); status=new TextView(this); status.setText("● Pret - BG Service"); status.setTextColor(Color.parseColor("#059669")); status.setTypeface(null,Typeface.BOLD); cnt=new TextView(this); cnt.setText("0 verifs"); cnt.setTextColor(sub); cnt.setPadding(0,8,0,0); log=new TextView(this); log.setText("Service Notification pret\n"); log.setTextColor(sub); log.setTextSize(11); log.setPadding(0,10,0,0); sc.addView(status); sc.addView(cnt); sc.addView(log); content.addView(title); content.addView(s1); content.addView(cards); content.addView(sc); sv.addView(content); LinearLayout bot=new LinearLayout(this); bot.setOrientation(0); bot.setBackgroundColor(card); bot.setPadding(0,12,0,18); bot.setElevation(16); bot.addView(nav("Accueil",true)); bot.addView(nav("Centres",false)); bot.addView(nav("Alertes",false)); bot.addView(nav("Plus",false)); all.addView(top); all.addView(sv); all.addView(bot); setContentView(all); cards.getChildAt(0).setOnClickListener(v->start("Alger")); cards.getChildAt(1).setOnClickListener(v->start("Oran")); cards.getChildAt(2).setOnClickListener(v->start("Annaba")); bot.getChildAt(3).setOnClickListener(v->settings()); }
+            void settings(){ ScrollView sv=new ScrollView(this); sv.setBackgroundColor(bg); LinearLayout r=new LinearLayout(this); r.setOrientation(1); r.setPadding(24,30,24,30); r.setBackgroundColor(bg); TextView t=new TextView(this); t.setText("⚙️ Parametres"); t.setTextSize(24); t.setTextColor(txt); t.setTypeface(null,Typeface.BOLD); t.setPadding(0,0,0,20); TextView th=new TextView(this); th.setText("🎨 Theme"); th.setTextColor(txt); th.setTypeface(null,Typeface.BOLD); th.setPadding(0,20,0,10); LinearLayout r1=new LinearLayout(this); r1.setOrientation(0); r1.addView(thBtn("LIGHT","☀️ Light")); r1.addView(thBtn("DARK","🌙 Dark")); LinearLayout r2=new LinearLayout(this); r2.setOrientation(0); r2.setPadding(0,10,0,0); r2.addView(thBtn("PURPLE","💜 Purple")); r2.addView(thBtn("OCEAN","🌊 Ocean")); TextView lt=new TextView(this); lt.setText("🌐 Langue"); lt.setTextColor(txt); lt.setTypeface(null,Typeface.BOLD); lt.setPadding(0,30,0,10); LinearLayout lr=new LinearLayout(this); lr.setOrientation(0); lr.addView(lgBtn("AR","العربية")); lr.addView(lgBtn("FR","FR")); lr.addView(lgBtn("EN","EN")); TextView bk=new TextView(this); bk.setText("⬅️ Retour"); bk.setTextColor(Color.WHITE); bk.setGravity(Gravity.CENTER); bk.setPadding(0,16,0,16); GradientDrawable bgd=new GradientDrawable(); bgd.setCornerRadius(16); bgd.setColor(Color.parseColor("#7C3AED")); bk.setBackground(bgd); LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2); bp.setMargins(0,40,0,0); bk.setLayoutParams(bp); bk.setOnClickListener(v->main()); r.addView(t); r.addView(th); r.addView(r1); r.addView(r2); r.addView(lt); r.addView(lr); r.addView(bk); sv.addView(r); setContentView(sv); }
+            TextView thBtn(String k,String l){ TextView b=new TextView(this); b.setText(l+(theme.equals(k)?" ✅":"")); b.setTextColor(theme.equals(k)?Color.WHITE:txt); b.setGravity(Gravity.CENTER); b.setPadding(10,14,10,14); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(14); gd.setColor(theme.equals(k)?Color.parseColor("#7C3AED"):card); gd.setStroke(1,Color.parseColor("#E5E7EB")); b.setBackground(gd); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); p.setMargins(6,0,6,0); b.setLayoutParams(p); b.setOnClickListener(v->{p.edit().putString("theme",k).apply(); theme=k; apply(); settings();}); return b; }
+            TextView lgBtn(String k,String l){ TextView b=new TextView(this); b.setText(l+(lang.equals(k)?" ✅":"")); b.setTextColor(lang.equals(k)?Color.WHITE:txt); b.setGravity(Gravity.CENTER); b.setPadding(8,14,8,14); GradientDrawable gd=new GradientDrawable(); gd.setCornerRadius(14); gd.setColor(lang.equals(k)?Color.parseColor("#059669"):card); gd.setStroke(1,Color.parseColor("#E5E7EB")); b.setBackground(gd); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); p.setMargins(4,0,4,0); b.setLayoutParams(p); b.setOnClickListener(v->{p.edit().putString("lang",k).apply(); lang=k; settings();}); return b; }
+            LinearLayout card(String t){ LinearLayout c=new LinearLayout(this); c.setOrientation(1); c.setPadding(14,14,14,12); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(18); bg.setColor(card); bg.setStroke(1,Color.parseColor("#E5E7EB")); c.setBackground(bg); c.setElevation(4); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); p.setMargins(8,0,8,0); c.setLayoutParams(p); TextView tv=new TextView(this); tv.setText(t); tv.setTextSize(13); tv.setTypeface(null,Typeface.BOLD); tv.setTextColor(txt); TextView b=new TextView(this); b.setText("🔔 BG"); b.setTextSize(9); b.setTextColor(sub); c.addView(tv); c.addView(b); return c; }
+            LinearLayout nav(String l,boolean a){ LinearLayout ll=new LinearLayout(this); ll.setOrientation(1); ll.setGravity(Gravity.CENTER); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(0,-2,1f); ll.setLayoutParams(p); TextView tv=new TextView(this); tv.setText(l); tv.setTextSize(10); tv.setGravity(Gravity.CENTER); tv.setTextColor(a?Color.parseColor("#7C3AED"):sub); ll.addView(tv); return ll; }
+            void start(String city){ Intent svc=new Intent(this,MonitorService.class); svc.putExtra("action","start"); MonitorService.currentCity=city; if(Build.VERSION.SDK_INT>=26) startForegroundService(svc); else startService(svc); status.setText("● Surveillance "+city+" BG"); c++; String time=new SimpleDateFormat("HH:mm:ss",Locale.FRANCE).format(new Date()); cnt.setText(c+" verifs BG "+city); log.setText("["+time+"] Service BG lance\nNotif visible en haut\n> Stop depuis notif\n"+log.getText()); run=true; loop(city); }
+            void loop(String city){ if(!run) return; h.postDelayed(()->{ if(!run) return; c++; String time=new SimpleDateFormat("HH:mm:ss",Locale.FRANCE).format(new Date()); cnt.setText(c+" BG "+city+" "+time); log.setText("["+time+"] BG #"+c+" actif\n"+log.getText()); loop(city); },60000); }
+          }
+          JAVA
+          gradle assembleDebug --no-daemon
+          ls -lh app/build/outputs/apk/debug/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLS-V6.5-FIXED-BG
+          path: app/build/outputs/apk/debug/app-debug.apk
