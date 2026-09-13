@@ -1,4 +1,4 @@
-name: Build APK
+name: Build BLS Rendez-Vous APK
 
 on:
   push:
@@ -6,27 +6,50 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
+    name: Build Debug APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Setup Java 17
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Check project files
+        run: |
+          echo "===== PROJECT ====="
+          ls -la
+          echo "===== APP ====="
+          ls -la app
+          echo "===== SOURCE ====="
+          find app/src -maxdepth 5 -type f | sort
+
       - name: Build Debug APK
         run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          gradle assembleDebug --no-daemon --stacktrace
+
+      - name: Check APK
+        run: |
+          echo "===== APK FILES ====="
+          find app/build/outputs -type f -name "*.apk" -print
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: BLS-Rendez-Vous
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
