@@ -10,30 +10,36 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Build APK Direct
+      - name: Create project
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties gradle
+          rm -rf app build.gradle settings.gradle gradle.properties
           mkdir -p app/src/main/java/com/bls/alerte
-          echo "include ':app'" > settings.gradle
-          echo "android.useAndroidX=true" > gradle.properties
-          echo "buildscript { repositories { google(); mavenCentral() } dependencies { classpath 'com.android.tools.build:gradle:8.2.2'; classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22' } } allprojects { repositories { google(); mavenCentral() } }" > build.gradle
-          cat > app/build.gradle << 'E'
+          cat > settings.gradle << 'EOF'
+          include ':app'
+          EOF
+          cat > gradle.properties << 'EOF'
+          android.useAndroidX=true
+          EOF
+          cat > build.gradle << 'EOF'
+          buildscript {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+              dependencies {
+                  classpath 'com.android.tools.build:gradle:8.2.2'
+              }
+          }
+          allprojects {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          EOF
+          cat > app/build.gradle << 'EOF'
           apply plugin: 'com.android.application'
-          apply plugin: 'kotlin-android'
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId "com.bls.alerte"; minSdk 21; targetSdk 34; versionCode 111; versionName "11.1" } }
-          dependencies { implementation 'androidx.core:core-ktx:1.12.0' }
-          E
-          mkdir -p app/src/main
-          echo '<manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><application android:label="BLS Alerte"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>' > app/src/main/AndroidManifest.xml
-          echo 'package com.bls.alerte; import android.app.Activity; import android.os.Bundle; import android.widget.TextView; public class MainActivity extends Activity { protected void onCreate(Bundle b){ super.onCreate(b); TextView t=new TextView(this); t.setText("BLS Alerte v11 FIXED - Ready!"); t.setTextSize(24); setContentView(t); } }' > app/src/main/java/com/bls/alerte/MainActivity.java
-          yes | sdkmanager --licenses > /dev/null || true
-          gradle assembleDebug --no-daemon --stacktrace
-          ls -lh app/build/outputs/apk/debug/
-      - name: Upload to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v11.1-${{ github.run_number }}
-          files: app/build/outputs/apk/debug/app-debug.apk
-          name: "BLS Alerte APK v11.1"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          android {
+              namespace 'com.bls.alerte'
+              compileSdk 34
+              defaultConfig
