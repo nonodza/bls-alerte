@@ -10,34 +10,73 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+
       - name: Create App
         run: |
           rm -rf app build.gradle settings.gradle gradle.properties gradle
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
           echo "android.useAndroidX=true" > gradle.properties
-          cat > build.gradle <<'EOF'
-          buildscript { repositories { google(); mavenCentral() } dependencies { classpath 'com.android.tools.build:gradle:8.2.2' } }
-          allprojects { repositories { google(); mavenCentral() } }
-          EOF
-          cat > app/build.gradle <<'EOF'
+
+          cat > build.gradle <<'ENDOFFILE'
+          buildscript {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+              dependencies {
+                  classpath 'com.android.tools.build:gradle:8.2.2'
+              }
+          }
+          allprojects {
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          ENDOFFILE
+
+          cat > app/build.gradle <<'ENDOFFILE'
           apply plugin: 'com.android.application'
-          android { namespace 'com.bls.alerte'; compileSdk 34; defaultConfig { applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 101; versionName "ULTRA" } }
-          EOF
-          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          android {
+              namespace 'com.bls.alerte'
+              compileSdk 34
+              defaultConfig {
+                  applicationId "com.bls.alerte"
+                  minSdk 23
+                  targetSdk 34
+                  versionCode 101
+                  versionName "ULTRA"
+              }
+          }
+          ENDOFFILE
+
+          cat > app/src/main/AndroidManifest.xml <<'ENDOFFILE'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.VIBRATE"/>
             <application android:label="BLS ULTRA">
               <activity android:name=".MainActivity" android:exported="true">
-                <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN"/>
+                  <category android:name="android.intent.category.LAUNCHER"/>
+                </intent-filter>
               </activity>
             </application>
           </manifest>
-          EOF
-          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
+          ENDOFFILE
+
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'ENDOFFILE'
           package com.bls.alerte;
-          import android.app.Activity;import android.content.Intent;import android.graphics.Color;import android.graphics.Typeface;import android.graphics.drawable.GradientDrawable;import android.net.Uri;import android.os.*;import android.view.Gravity;import android.widget.*;
+          import android.app.Activity;
+          import android.content.Intent;
+          import android.graphics.Color;
+          import android.graphics.Typeface;
+          import android.graphics.drawable.GradientDrawable;
+          import android.net.Uri;
+          import android.os.*;
+          import android.view.Gravity;
+          import android.widget.*;
           public class MainActivity extends Activity {
             TextView status,cnt,log; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper());
             protected void onCreate(Bundle b){ super.onCreate(b);
@@ -63,9 +102,14 @@ jobs:
             TextView btn(String t,int[] col){ TextView b=new TextView(this); b.setText(t); b.setTextColor(Color.WHITE); b.setGravity(Gravity.CENTER); b.setPadding(0,18,0,18); b.setTypeface(null,Typeface.BOLD); GradientDrawable bg=new GradientDrawable(); bg.setCornerRadius(12); bg.setColors(col); bg.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT); b.setBackground(bg); LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(-1,-2); bp.setMargins(14,8,14,0); b.setLayoutParams(bp); return b; }
             void loop(){ if(!run) return; c++; cnt.setText("Checks: "+c); log.setText(log.getText()+"Check "+c+"\n"); h.postDelayed(this::loop, 15000L); }
           }
-          JAVA
+          ENDOFFILE
+
       - name: Build APK
-        run: gradle wrapper --gradle-version 8.7 && chmod +x ./gradlew && ./gradlew assembleDebug --no-daemon
+        run: |
+          gradle wrapper --gradle-version 8.7
+          chmod +x ./gradlew
+          ./gradlew assembleDebug --no-daemon
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
