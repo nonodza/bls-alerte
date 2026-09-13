@@ -36,8 +36,12 @@ jobs:
               applicationId "com.bls.alerte"
               minSdk 21
               targetSdk 34
-              versionCode 10
+              versionCode 11
               versionName "1.0"
+            }
+            compileOptions {
+              sourceCompatibility JavaVersion.VERSION_17
+              targetCompatibility JavaVersion.VERSION_17
             }
             buildTypes { release { minifyEnabled false } }
           }
@@ -66,7 +70,7 @@ jobs:
             override fun onCreate(b: Bundle?) {
               super.onCreate(b)
               val tv = TextView(this)
-              tv.text = "BLS Alerte DZ - FINAL OK v10!"
+              tv.text = "BLS Alerte DZ - v11 OK!"
               tv.textSize = 24f
               tv.setPadding(50,300,50,50)
               setContentView(tv)
