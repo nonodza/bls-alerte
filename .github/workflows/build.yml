@@ -1,38 +1,43 @@
-name: Build APK PRO 2026
+name: BLS 2026 PRO
 on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Setup Java 17
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
-      - name: Create PRO 2026 App
+      - name: Setup Android
+        uses: android-actions/setup-android@v3
+      - name: Make App
         run: |
-          rm -rf app build.gradle settings.gradle gradle.properties .gradle
+          rm -rf app build.gradle settings.gradle gradle.properties
           mkdir -p app/src/main/java/com/bls/alerte
           echo "include ':app'" > settings.gradle
           echo "android.useAndroidX=true" > gradle.properties
-          cat > build.gradle << 'EOF'
-          buildscript { repositories { google(); mavenCentral() } dependencies { classpath 'com.android.tools.build:gradle:8.2.2' } }
-          allprojects { repositories { google(); mavenCentral() } }
-          EOF
-          cat > app/build.gradle << 'EOF'
+          echo "buildscript{repositories{google();mavenCentral()} dependencies{classpath 'com.android.tools.build:gradle:8.2.2'}} allprojects{repositories{google();mavenCentral()}}" > build.gradle
+          cat > app/build.gradle <<'GRADLE'
           apply plugin: 'com.android.application'
           android {
-              namespace 'com.bls.alerte'
-              compileSdk 34
-              defaultConfig { applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 26; versionName "2026-PRO" }
-              compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+            namespace 'com.bls.alerte'
+            compileSdk 34
+            defaultConfig { applicationId "com.bls.alerte"; minSdk 23; targetSdk 34; versionCode 26; versionName "2026" }
           }
-          dependencies {
-              implementation 'androidx.appcompat:appcompat:1.6.1'
-              implementation 'com.google.android.material:material:1.11.0'
-              implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-              implementation 'androidx.core:core-ktx:1.12.0'
-          }
-          EOF
-          cat > app/src/main/Android
+          dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
+          GRADLE
+          cat > app/src/main/AndroidManifest.xml <<'XML'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.VIBRATE"/><application android:label="BLS 2026"><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
+          XML
+          cat > app/src/main/java/com/bls/alerte/MainActivity.java <<'JAVA'
+          package com.bls.alerte;
+          import android.app.*; import android.content.*; import android.graphics.*; import android.graphics.drawable.GradientDrawable; import android.net.Uri; import android.os.*; import android.view.Gravity; import android.widget.*;
+          public class MainActivity extends Activity {
+            TextView status, log, cnt; boolean run=false; int c=0; Handler h=new Handler(Looper.getMainLooper());
+            protected void onCreate(Bundle b){
+              super.onCreate(b);
+              LinearLayout root=new LinearLayout(this); root.setOrientation(1); root.setBackgroundColor(Color.parseColor("#0A001A"));
+              LinearLayout top=new LinearLayout(this); top.setPadding(30,50,30,20); top.setOrientation(0);
+              TextView title=new TextView(this); title.setText("BLS Alerte 2026 PRO"); title.setTextColor(Color.WHITE); title.setTextSize(20
