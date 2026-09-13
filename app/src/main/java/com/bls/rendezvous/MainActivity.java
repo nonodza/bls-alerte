@@ -5,13 +5,18 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.widget.*;
 import android.view.Gravity;
-import android.view.ViewGroup;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.TypedValue;
 
 public class MainActivity extends Activity {
  @Override
  protected void onCreate(Bundle b) {
   super.onCreate(b);
+  showHome();
+ }
+ 
+ void showHome(){
   int[] c = {Color.parseColor("#2D1B69"),Color.parseColor("#2E86AB"),Color.parseColor("#00C9A7")};
   GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,c);
   ScrollView sv = new ScrollView(this);
@@ -37,8 +42,16 @@ public class MainActivity extends Activity {
   t2.setPadding(0,0,0,dp(30));
   m.addView(t2);
   
-  m.addView(card("Passport Services","Apply, Renew & Track","P","#FF6B6B","#9B59B6"));
-  m.addView(card("Visa Centers","Find Nearest BLS Center","V","#3498DB","#1ABC9C"));
+  LinearLayout c1 = card("Passport Services","Apply, Renew & Track","P","#FF6B6B","#9B59B6");
+  c1.setOnClickListener(v -> showPassport());
+  m.addView(c1);
+  
+  LinearLayout c2 = card("Visa Centers","Find Nearest BLS Center","V","#3498DB","#1ABC9C");
+  c2.setOnClickListener(v -> {
+   Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/BLS+Spain+Visa+Center+Algeria"));
+   startActivity(i);
+  });
+  m.addView(c2);
   
   TextView btn = new TextView(this);
   btn.setText("Get Started");
@@ -54,53 +67,80 @@ public class MainActivity extends Activity {
   p.topMargin=dp(40);
   btn.setLayoutParams(p);
   btn.setPadding(0,dp(15),0,dp(15));
+  btn.setOnClickListener(v -> showLogin());
   m.addView(btn);
   
   sv.addView(m);
   setContentView(sv);
  }
  
- LinearLayout card(String a,String b,String l,String c1,String c2){
-  LinearLayout ca = new LinearLayout(this);
-  ca.setOrientation(0);
-  ca.setGravity(16);
-  ca.setPadding(dp(20),dp(20),dp(20),dp(20));
-  GradientDrawable g = new GradientDrawable();
-  g.setCornerRadius(dp(20));
-  g.setColor(Color.parseColor("#55FFFFFF"));
-  ca.setBackground(g);
-  LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1,-2);
-  lp.bottomMargin=dp(20);
-  ca.setLayoutParams(lp);
-  TextView ic = new TextView(this);
-  ic.setText(l);
-  ic.setTextSize(22);
-  ic.setTextColor(-1);
-  ic.setGravity(17);
-  ic.setTypeface(null,1);
-  GradientDrawable ig = new GradientDrawable();
-  ig.setCornerRadius(dp(15));
-  ig.setColors(new int[]{Color.parseColor(c1),Color.parseColor(c2)});
-  ig.setOrientation(GradientDrawable.Orientation.TL_BR);
-  ic.setBackground(ig);
-  ic.setLayoutParams(new LinearLayout.LayoutParams(dp(60),dp(60)));
-  ca.addView(ic);
-  LinearLayout tx = new LinearLayout(this);
-  tx.setOrientation(1);
-  tx.setPadding(dp(16),0,0,0);
+ void showPassport(){
+  ScrollView sv = new ScrollView(this);
+  LinearLayout m = new LinearLayout(this);
+  m.setOrientation(1);
+  m.setPadding(dp(24),dp(50),dp(24),dp(24));
+  m.setBackgroundColor(Color.parseColor("#F5F7FF"));
+  
+  TextView back = new TextView(this);
+  back.setText("← Back");
+  back.setTextSize(16);
+  back.setTextColor(Color.parseColor("#2D1B69"));
+  back.setPadding(0,0,0,dp(20));
+  back.setOnClickListener(v -> showHome());
+  m.addView(back);
+  
+  TextView title = new TextView(this);
+  title.setText("Passport Services");
+  title.setTextSize(26);
+  title.setTextColor(Color.parseColor("#2D1B69"));
+  title.setTypeface(null,1);
+  m.addView(title);
+  
+  m.addView(serviceCard("New Passport","Apply for new passport","🛂"));
+  m.addView(serviceCard("Renew Passport","Renew expired passport","🔄"));
+  m.addView(serviceCard("Track Status","Track your application","📍"));
+  
+  sv.addView(m);
+  setContentView(sv);
+ }
+ 
+ void showLogin(){
+  ScrollView sv = new ScrollView(this);
+  LinearLayout m = new LinearLayout(this);
+  m.setOrientation(1);
+  m.setGravity(17);
+  m.setPadding(dp(24),dp(80),dp(24),dp(24));
+  int[] c = {Color.parseColor("#2D1B69"),Color.parseColor("#00C9A7")};
+  GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,c);
+  m.setBackground(bg);
+  
   TextView t = new TextView(this);
-  t.setText(a);
-  t.setTextSize(18);
+  t.setText("Welcome Back");
+  t.setTextSize(32);
   t.setTextColor(-1);
   t.setTypeface(null,1);
-  tx.addView(t);
-  TextView d = new TextView(this);
-  d.setText(b);
-  d.setTextSize(13);
-  d.setTextColor(Color.parseColor("#E0E0E0"));
-  tx.addView(d);
-  ca.addView(tx);
-  return ca;
- }
- int dp(int v){return (int)TypedValue.applyDimension(1,v,getResources().getDisplayMetrics());}
-}
+  t.setGravity(17);
+  m.addView(t);
+  
+  EditText email = new EditText(this);
+  email.setHint("Email");
+  email.setBackgroundColor(Color.parseColor("#FFFFFF"));
+  LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1,dp(55));
+  lp.topMargin=dp(30);
+  email.setLayoutParams(lp);
+  m.addView(email);
+  
+  EditText pass = new EditText(this);
+  pass.setHint("Password");
+  pass.setBackgroundColor(Color.parseColor("#FFFFFF"));
+  LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(-1,dp(55));
+  lp2.topMargin=dp(15);
+  pass.setLayoutParams(lp2);
+  m.addView(pass);
+  
+  TextView btn = new TextView(this);
+  btn.setText("Login");
+  btn.setTextSize(18);
+  btn.setTextColor(-1);
+  btn.setGravity(17);
+  btn.setTypeface(null,1);
