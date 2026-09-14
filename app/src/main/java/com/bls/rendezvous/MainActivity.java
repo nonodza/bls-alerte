@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 
     private void showSplash() {
 
-        LinearLayout splash = new LinearLayout(this);
+        final LinearLayout splash = new LinearLayout(this);
         splash.setOrientation(LinearLayout.VERTICAL);
         splash.setGravity(Gravity.CENTER);
 
@@ -52,61 +52,157 @@ public class MainActivity extends Activity {
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(55, 30, 125),
-                                Color.rgb(55, 85, 170),
+                                Color.rgb(45, 25, 110),
+                                Color.rgb(55, 75, 165),
                                 Color.rgb(35, 145, 185),
-                                Color.rgb(25, 195, 175)
+                                Color.rgb(25, 190, 170)
                         }
                 );
 
         splash.setBackground(background);
 
-        TextView logo = new TextView(this);
-        logo.setText("BLS");
-        logo.setTextSize(76);
-        logo.setTextColor(Color.WHITE);
-        logo.setTypeface(Typeface.DEFAULT_BOLD);
-        logo.setGravity(Gravity.CENTER);
+        final LinearLayout logoContainer =
+                new LinearLayout(this);
 
-        splash.addView(
-                logo,
+        logoContainer.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        logoContainer.setGravity(
+                Gravity.CENTER
+        );
+
+        // -----------------------------------------------------
+        // BLS
+        // -----------------------------------------------------
+
+        final TextView bls =
+                new TextView(this);
+
+        bls.setText("BLS");
+        bls.setTextSize(68);
+        bls.setTextColor(Color.WHITE);
+        bls.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+        bls.setGravity(Gravity.CENTER);
+
+        logoContainer.addView(
+                bls,
                 new LinearLayout.LayoutParams(
                         -1,
                         -2
                 )
         );
 
-        TextView subtitle = new TextView(this);
-        subtitle.setText("Visa Appointment Services");
-        subtitle.setTextSize(17);
-        subtitle.setTextColor(Color.WHITE);
-        subtitle.setGravity(Gravity.CENTER);
+        // -----------------------------------------------------
+        // INTERNATIONAL
+        // -----------------------------------------------------
 
-        LinearLayout.LayoutParams sp =
+        final TextView international =
+                new TextView(this);
+
+        international.setText("international");
+        international.setTextSize(16);
+        international.setTextColor(
+                Color.rgb(235, 245, 255)
+        );
+        international.setGravity(Gravity.CENTER);
+
+        LinearLayout.LayoutParams internationalParams =
                 new LinearLayout.LayoutParams(
                         -1,
                         -2
                 );
 
-        sp.topMargin = dp(8);
+        internationalParams.topMargin = dp(-2);
 
-        splash.addView(subtitle, sp);
+        logoContainer.addView(
+                international,
+                internationalParams
+        );
+
+        splash.addView(
+                logoContainer,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                )
+        );
+
+        // -----------------------------------------------------
+        // LIGHT / METEOR
+        // -----------------------------------------------------
+
+        final TextView light =
+                new TextView(this);
+
+        light.setText("━━━━━━━━━━━━━━━━");
+        light.setTextSize(5);
+        light.setTextColor(Color.WHITE);
+        light.setGravity(Gravity.CENTER);
+        light.setAlpha(0f);
+
+        LinearLayout.LayoutParams lightParams =
+                new LinearLayout.LayoutParams(
+                        dp(190),
+                        dp(20)
+                );
+
+        lightParams.gravity = Gravity.CENTER;
+
+        splash.addView(
+                light,
+                lightParams
+        );
 
         setContentView(splash);
 
-        logo.setAlpha(0f);
-        subtitle.setAlpha(0f);
+        // -----------------------------------------------------
+        // LOGO APPEAR
+        // -----------------------------------------------------
 
-        logo.animate()
-                .alpha(1f)
-                .setDuration(600)
-                .start();
+        logoContainer.setAlpha(0f);
+        logoContainer.setScaleX(0.94f);
+        logoContainer.setScaleY(0.94f);
 
-        subtitle.animate()
+        logoContainer.animate()
                 .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
                 .setDuration(700)
-                .setStartDelay(250)
                 .start();
+
+        // -----------------------------------------------------
+        // METEOR ANIMATION
+        // -----------------------------------------------------
+
+        light.setTranslationX(-dp(150));
+        light.setTranslationY(-dp(38));
+
+        light.animate()
+                .alpha(0.9f)
+                .translationX(dp(150))
+                .setDuration(850)
+                .setStartDelay(450)
+                .withEndAction(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+
+                                light.animate()
+                                        .alpha(0f)
+                                        .setDuration(300)
+                                        .start();
+                            }
+                        }
+                )
+                .start();
+
+        // -----------------------------------------------------
+        // GO TO HOME
+        // -----------------------------------------------------
 
         new Handler().postDelayed(
                 new Runnable() {
@@ -115,7 +211,7 @@ public class MainActivity extends Activity {
 
                         splash.animate()
                                 .alpha(0f)
-                                .setDuration(500)
+                                .setDuration(450)
                                 .withEndAction(
                                         new Runnable() {
                                             @Override
@@ -125,10 +221,9 @@ public class MainActivity extends Activity {
                                         }
                                 )
                                 .start();
-
                     }
                 },
-                1500
+                1800
         );
     }
 
@@ -426,9 +521,11 @@ public class MainActivity extends Activity {
                     public void onClick(View v) {
 
                         monitorButton.setText("START");
+
                         monitorStatus.setText(
                                 "Monitoring is paused"
                         );
+
                         monitorStatus.setTextColor(
                                 GRAY
                         );
@@ -579,13 +676,18 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         searchBg.setColor(Color.WHITE);
-        searchBg.setCornerRadius(dp(18));
+
+        searchBg.setCornerRadius(
+                dp(18)
+        );
+
         searchBg.setStroke(
                 dp(1),
                 Color.rgb(225, 230, 240)
         );
 
         search.setBackground(searchBg);
+
         search.setPadding(
                 dp(18),
                 0,
@@ -777,7 +879,11 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         bg.setColor(Color.WHITE);
-        bg.setCornerRadius(dp(19));
+
+        bg.setCornerRadius(
+                dp(19)
+        );
+
         bg.setStroke(
                 dp(1),
                 Color.rgb(226, 231, 240)
@@ -792,7 +898,9 @@ public class MainActivity extends Activity {
                         NAVY
                 );
 
-        i.setGravity(Gravity.CENTER);
+        i.setGravity(
+                Gravity.CENTER
+        );
 
         card.addView(i);
 
@@ -807,7 +915,9 @@ public class MainActivity extends Activity {
                 Typeface.DEFAULT_BOLD
         );
 
-        t.setGravity(Gravity.CENTER);
+        t.setGravity(
+                Gravity.CENTER
+        );
 
         card.addView(t);
 
@@ -818,7 +928,9 @@ public class MainActivity extends Activity {
                         GRAY
                 );
 
-        s.setGravity(Gravity.CENTER);
+        s.setGravity(
+                Gravity.CENTER
+        );
 
         card.addView(s);
 
@@ -871,7 +983,9 @@ public class MainActivity extends Activity {
                         NAVY
                 );
 
-        i.setGravity(Gravity.CENTER);
+        i.setGravity(
+                Gravity.CENTER
+        );
 
         TextView n =
                 text(
@@ -880,7 +994,9 @@ public class MainActivity extends Activity {
                         GRAY
                 );
 
-        n.setGravity(Gravity.CENTER);
+        n.setGravity(
+                Gravity.CENTER
+        );
 
         item.addView(i);
         item.addView(n);
@@ -903,6 +1019,7 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showAppointments() {
+
         page(
                 "Appointments",
                 "Find and manage your visa appointments.",
@@ -916,6 +1033,7 @@ public class MainActivity extends Activity {
     }
 
     private void showAlerts() {
+
         page(
                 "Alerts",
                 "Appointment availability notifications.",
@@ -929,6 +1047,7 @@ public class MainActivity extends Activity {
     }
 
     private void showCenters() {
+
         page(
                 "Visa Centers",
                 "Choose your preferred visa center.",
@@ -941,6 +1060,7 @@ public class MainActivity extends Activity {
     }
 
     private void showTracking() {
+
         page(
                 "Application Tracking",
                 "Track the status of your visa application.",
@@ -953,6 +1073,7 @@ public class MainActivity extends Activity {
     }
 
     private void showCountries() {
+
         page(
                 "Countries",
                 "Choose a country for visa services.",
@@ -967,6 +1088,7 @@ public class MainActivity extends Activity {
     }
 
     private void showStatistics() {
+
         page(
                 "Statistics",
                 "Your appointment monitoring activity.",
@@ -979,6 +1101,7 @@ public class MainActivity extends Activity {
     }
 
     private void showSettings() {
+
         page(
                 "Settings",
                 "Customize BLS Rendez-Vous.",
@@ -1023,9 +1146,9 @@ public class MainActivity extends Activity {
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245,248,255),
-                                Color.rgb(238,244,255),
-                                Color.rgb(247,243,252)
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
                         }
                 );
 
@@ -1051,7 +1174,12 @@ public class MainActivity extends Activity {
 
         page.addView(
                 back,
-                margin(0,0,0,15)
+                margin(
+                        0,
+                        0,
+                        0,
+                        15
+                )
         );
 
         TextView titleView =
@@ -1073,7 +1201,12 @@ public class MainActivity extends Activity {
                         13,
                         GRAY
                 ),
-                margin(0,5,0,18)
+                margin(
+                        0,
+                        5,
+                        0,
+                        18
+                )
         );
 
         for (String item : items) {
@@ -1090,7 +1223,12 @@ public class MainActivity extends Activity {
 
             page.addView(
                     c,
-                    margin(0,5,0,5)
+                    margin(
+                            0,
+                            5,
+                            0,
+                            5
+                    )
             );
         }
     }
@@ -1119,10 +1257,14 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         bg.setColor(WHITE);
-        bg.setCornerRadius(dp(19));
+
+        bg.setCornerRadius(
+                dp(19)
+        );
+
         bg.setStroke(
                 dp(1),
-                Color.rgb(225,230,240)
+                Color.rgb(225, 230, 240)
         );
 
         c.setBackground(bg);
@@ -1134,7 +1276,9 @@ public class MainActivity extends Activity {
     // BUTTON
     // =========================================================
 
-    private Button smallButton(String label) {
+    private Button smallButton(
+            String label
+    ) {
 
         Button b =
                 new Button(this);
@@ -1147,7 +1291,10 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         bg.setColor(BLUE);
-        bg.setCornerRadius(dp(15));
+
+        bg.setCornerRadius(
+                dp(15)
+        );
 
         b.setBackground(bg);
 
@@ -1205,9 +1352,11 @@ public class MainActivity extends Activity {
     // DP
     // =========================================================
 
-    private int dp(int value) {
+    private int dp(
+            int value
+    ) {
 
-        return (int)(
+        return (int) (
                 value *
                 getResources()
                         .getDisplayMetrics()
@@ -1217,159 +1366,7 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    private void showSplash() {
-
-    final LinearLayout splash = new LinearLayout(this);
-    splash.setOrientation(LinearLayout.VERTICAL);
-    splash.setGravity(Gravity.CENTER);
-
-    GradientDrawable background =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(45, 25, 110),
-                            Color.rgb(55, 75, 165),
-                            Color.rgb(35, 145, 185),
-                            Color.rgb(25, 190, 170)
-                    }
-            );
-
-    splash.setBackground(background);
-
-    final LinearLayout logoContainer =
-            new LinearLayout(this);
-
-    logoContainer.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    logoContainer.setGravity(
-            Gravity.CENTER
-    );
-
-    final TextView bls =
-            new TextView(this);
-
-    bls.setText("BLS");
-    bls.setTextSize(68);
-    bls.setTextColor(Color.WHITE);
-    bls.setTypeface(
-            Typeface.DEFAULT,
-            Typeface.BOLD
-    );
-    bls.setGravity(Gravity.CENTER);
-
-    logoContainer.addView(
-            bls,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            )
-    );
-
-    final TextView international =
-            new TextView(this);
-
-    international.setText("international");
-    international.setTextSize(16);
-    international.setTextColor(
-            Color.rgb(235, 245, 255)
-    );
-    international.setGravity(Gravity.CENTER);
-
-    LinearLayout.LayoutParams ip =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
-
-    ip.topMargin = dp(-2);
-
-    logoContainer.addView(
-            international,
-            ip
-    );
-
-    splash.addView(
-            logoContainer,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            )
-    );
-
-    final TextView light =
-            new TextView(this);
-
-    light.setText("━━━━━━━━━━━━━━━━");
-    light.setTextSize(5);
-    light.setTextColor(Color.WHITE);
-    light.setGravity(Gravity.CENTER);
-    light.setAlpha(0f);
-
-    LinearLayout.LayoutParams lp =
-            new LinearLayout.LayoutParams(
-                    dp(190),
-                    dp(20)
-            );
-
-    lp.gravity = Gravity.CENTER;
-
-    splash.addView(light, lp);
-
-    setContentView(splash);
-
-    logoContainer.setAlpha(0f);
-    logoContainer.setScaleX(0.94f);
-    logoContainer.setScaleY(0.94f);
-
-    logoContainer.animate()
-            .alpha(1f)
-            .scaleX(1f)
-            .scaleY(1f)
-            .setDuration(700)
-            .start();
-
-    light.setTranslationX(-dp(150));
-    light.setTranslationY(-dp(38));
-
-    light.animate()
-            .alpha(0.9f)
-            .translationX(dp(150))
-            .setDuration(850)
-            .setStartDelay(450)
-            .withEndAction(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-
-                            light.animate()
-                                    .alpha(0f)
-                                    .setDuration(300)
-                                    .start();
-                        }
-                    }
-            )
-            .start();
-
-    new Handler().postDelayed(
-            new Runnable() {
-                @Override
-                public void run() {
-
-                    splash.animate()
-                            .alpha(0f)
-                            .setDuration(450)
-                            .withEndAction(
-                                    new Runnable() {
-                                                 public void run() {
-                                            showHome();
-                                        }
-                                    }
-                            )
-                            .start();
-                }
-            },
-            1800
-    );
+    public void onBackPressed() {
+        showHome();
     }
+}
