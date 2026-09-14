@@ -1,673 +1,1062 @@
 package com.bls.rendezvous;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.*;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
 
-    private SharedPreferences prefs;
-    private int lang = 0;
-    private String country = "Spain";
-    private String center = "Algiers";
-    private boolean monitoring = false;
-    private int checks = 0;
+public class MainActivity extends AppCompatActivity {
 
-    private final int BG = Color.rgb(10, 12, 22);
-    private final int CARD = Color.rgb(24, 27, 40);
-    private final int TEXT = Color.WHITE;
-    private final int MUTED = Color.rgb(165, 170, 185);
-    private final int GOLD = Color.rgb(210, 165, 85);
+    // =========================
+    // COLORS
+    // =========================
+    private static final int BG_TOP = Color.rgb(248, 250, 255);
+    private static final int BG_BOTTOM = Color.rgb(229, 235, 249);
 
+    private static final int WHITE = Color.WHITE;
+    private static final int NAVY = Color.rgb(25, 39, 72);
+    private static final int BLUE = Color.rgb(48, 104, 220);
+    private static final int BLUE_LIGHT = Color.rgb(236, 242, 255);
+    private static final int GOLD = Color.rgb(183, 137, 69);
+    private static final int GREEN = Color.rgb(35, 160, 100);
+    private static final int RED = Color.rgb(210, 70, 70);
+    private static final int TEXT = Color.rgb(40, 48, 66);
+    private static final int MUTED = Color.rgb(115, 125, 145);
+    private static final int BORDER = Color.rgb(225, 230, 240);
+
+    private FrameLayout contentContainer;
+
+    // =========================
+    // ACTIVITY
+    // =========================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        prefs = getSharedPreferences("bls_global", MODE_PRIVATE);
-
-        lang = prefs.getInt("lang", 0);
-        country = prefs.getString("country", "Spain");
-        center = prefs.getString("center", "Algiers");
-        monitoring = prefs.getBoolean("monitoring", false);
-        checks = prefs.getInt("checks", 0);
-
-        home();
+        buildMainInterface();
     }
 
-    private void home() {
+    // =========================
+    // MAIN INTERFACE
+    // =========================
+    private void buildMainInterface() {
 
-        LinearLayout root = page();
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
 
-        TextView top = text("BLS Rendez-Vous", 25, TEXT, true);
-        root.addView(top);
+        GradientDrawable background = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{BG_TOP, Color.rgb(241, 245, 253), BG_BOTTOM}
+        );
+        root.setBackground(background);
+
+        // Content area
+        contentContainer = new FrameLayout(this);
+
+        LinearLayout.LayoutParams contentParams =
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        0,
+                        1
+                );
+
+        root.addView(contentContainer, contentParams);
+
+        // Bottom navigation
+        View bottomNavigation = createBottomNavigation();
+
+        root.addView(
+                bottomNavigation,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dp(76)
+                )
+        );
+
+        setContentView(root);
+
+        showHome();
+    }
+
+    // =========================
+    // HOME
+    // =========================
+    private void showHome() {
+
+        contentContainer.removeAllViews();
+
+        ScrollView scrollView = new ScrollView(this);
+        scrollView.setFillViewport(true);
+        scrollView.setVerticalScrollBarEnabled(false);
+
+        LinearLayout page = new LinearLayout(this);
+        page.setOrientation(LinearLayout.VERTICAL);
+        page.setPadding(dp(20), dp(18), dp(20), dp(25));
+
+        // Header
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+
+        LinearLayout titleBox = new LinearLayout(this);
+        titleBox.setOrientation(LinearLayout.VERTICAL);
+
+        TextView appName = text(
+                "BLS Rendez-Vous",
+                23,
+                NAVY,
+                true
+        );
+
+        TextView subtitle = text(
+                "Your visa appointment assistant",
+                13,
+                MUTED,
+                false
+        );
+
+        titleBox.addView(appName);
+        titleBox.addView(subtitle);
+
+        header.addView(
+                titleBox,
+                new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1
+                )
+        );
+
+        TextView settingsButton = text("⚙", 25, NAVY, false);
+        settingsButton.setGravity(Gravity.CENTER);
+
+        GradientDrawable settingsBg = rounded(
+                WHITE,
+                18,
+                BORDER
+        );
+        settingsButton.setBackground(settingsBg);
+
+        header.addView(
+                settingsButton,
+                new LinearLayout.LayoutParams(dp(48), dp(48))
+        );
+
+        settingsButton.setOnClickListener(v -> openSettings());
+
+        page.addView(header);
+
+        addSpace(page, 18);
+
+        // Current application card
+        page.addView(createCurrentApplicationCard());
+
+        addSpace(page, 18);
+
+        // Section title
+        page.addView(
+                sectionTitle("Services", "Everything you need in one place")
+        );
+
+        addSpace(page, 12);
+
+        // TRUE 2 x 3 GRID
+        LinearLayout row1 = new LinearLayout(this);
+        row1.setOrientation(LinearLayout.HORIZONTAL);
+
+        row1.addView(
+                serviceCard(
+                        "📅",
+                        "Appointments",
+                        "Find & manage",
+                        BLUE,
+                        v -> showAppointments()
+                ),
+                weightParams()
+        );
+
+        row1.addView(
+                serviceCard(
+                        "🔔",
+                        "Alerts",
+                        "Availability alerts",
+                        GOLD,
+                        v -> showAlerts()
+                ),
+                weightParams()
+        );
+
+        page.addView(row1);
+
+        addSpace(page, 12);
+
+        LinearLayout row2 = new LinearLayout(this);
+        row2.setOrientation(LinearLayout.HORIZONTAL);
+
+        row2.addView(
+                serviceCard(
+                        "🏢",
+                        "Centers",
+                        "Visa centers",
+                        Color.rgb(95, 105, 190),
+                        v -> showCenters()
+                ),
+                weightParams()
+        );
+
+        row2.addView(
+                serviceCard(
+                        "🔎",
+                        "Tracking",
+                        "Track application",
+                        GREEN,
+                        v -> showTracking()
+                ),
+                weightParams()
+        );
+
+        page.addView(row2);
+
+        addSpace(page, 12);
+
+        LinearLayout row3 = new LinearLayout(this);
+        row3.setOrientation(LinearLayout.HORIZONTAL);
+
+        row3.addView(
+                serviceCard(
+                        "🌍",
+                        "Countries",
+                        "Visa destinations",
+                        BLUE,
+                        v -> showCountries()
+                ),
+                weightParams()
+        );
+
+        row3.addView(
+                serviceCard(
+                        "📊",
+                        "Statistics",
+                        "Your activity",
+                        Color.rgb(130, 90, 180),
+                        v -> showStatistics()
+                ),
+                weightParams()
+        );
+
+        page.addView(row3);
+
+        addSpace(page, 18);
+
+        // Search
+        page.addView(createSearchCard());
+
+        addSpace(page, 14);
+
+        // Official BLS
+        page.addView(createOfficialCard());
+
+        scrollView.addView(page);
+
+        contentContainer.addView(scrollView);
+    }
+
+    // =========================
+    // CURRENT APPLICATION CARD
+    // =========================
+    private View createCurrentApplicationCard() {
+
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(18), dp(17), dp(18), dp(17));
+
+        card.setBackground(rounded(
+                WHITE,
+                22,
+                BORDER
+        ));
+
+        // Top row
+        LinearLayout top = new LinearLayout(this);
+        top.setOrientation(LinearLayout.HORIZONTAL);
+        top.setGravity(Gravity.CENTER_VERTICAL);
+
+        LinearLayout countryBox = new LinearLayout(this);
+        countryBox.setOrientation(LinearLayout.VERTICAL);
+
+        TextView small = text(
+                "CURRENT APPLICATION",
+                11,
+                MUTED,
+                true
+        );
+
+        TextView country = text(
+                "🇪🇸  Spain",
+                21,
+                NAVY,
+                true
+        );
+
+        countryBox.addView(small);
+        countryBox.addView(country);
+
+        top.addView(
+                countryBox,
+                new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1
+                )
+        );
+
+        TextView active = text(
+                "● ACTIVE",
+                12,
+                GREEN,
+                true
+        );
+
+        top.addView(active);
+
+        card.addView(top);
+
+        addSpace(card, 15);
+
+        // Location
+        LinearLayout location = new LinearLayout(this);
+        location.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView locationText = text(
+                "📍  Algiers Visa Center",
+                14,
+                TEXT,
+                false
+        );
+
+        location.addView(locationText);
+
+        card.addView(location);
+
+        addSpace(card, 12);
+
+        // Monitoring
+        LinearLayout monitoring = new LinearLayout(this);
+        monitoring.setOrientation(LinearLayout.HORIZONTAL);
+        monitoring.setGravity(Gravity.CENTER_VERTICAL);
+
+        TextView monitorLabel = text(
+                "Monitoring",
+                13,
+                MUTED,
+                false
+        );
+
+        monitoring.addView(
+                monitorLabel,
+                new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1
+                )
+        );
+
+        TextView monitorValue = text(
+                "Every 2 minutes",
+                13,
+                NAVY,
+                true
+        );
+
+        monitoring.addView(monitorValue);
+
+        card.addView(monitoring);
+
+        return card;
+    }
+
+    // =========================
+    // SERVICE CARD
+    // =========================
+    private View serviceCard(
+            String icon,
+            String title,
+            String subtitle,
+            int iconColor,
+            View.OnClickListener listener
+    ) {
+
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(15), dp(14), dp(15));
+        card.setClickable(true);
+        card.setFocusable(true);
+
+        card.setBackground(rounded(
+                WHITE,
+                20,
+                BORDER
+        ));
+
+        // Icon
+        TextView iconView = text(
+                icon,
+                25,
+                iconColor,
+                false
+        );
+
+        GradientDrawable iconBg = rounded(
+                BLUE_LIGHT,
+                14,
+                Color.TRANSPARENT
+        );
+
+        iconView.setBackground(iconBg);
+        iconView.setGravity(Gravity.CENTER);
+
+        card.addView(
+                iconView,
+                new LinearLayout.LayoutParams(
+                        dp(46),
+                        dp(46)
+                )
+        );
+
+        addSpace(card, 12);
+
+        TextView titleView = text(
+                title,
+                15,
+                NAVY,
+                true
+        );
+
+        card.addView(titleView);
+
+        addSpace(card, 3);
+
+        TextView subView = text(
+                subtitle,
+                11,
+                MUTED,
+                false
+        );
+
+        card.addView(subView);
+
+        card.setOnClickListener(listener);
+
+        return card;
+    }
+
+    // =========================
+    // SEARCH
+    // =========================
+    private View createSearchCard() {
+
+        LinearLayout search = new LinearLayout(this);
+        search.setOrientation(LinearLayout.HORIZONTAL);
+        search.setGravity(Gravity.CENTER_VERTICAL);
+        search.setPadding(dp(16), 0, dp(16), 0);
+
+        search.setBackground(rounded(
+                WHITE,
+                18,
+                BORDER
+        ));
+
+        TextView icon = text(
+                "🔎",
+                20,
+                MUTED,
+                false
+        );
+
+        search.addView(
+                icon,
+                new LinearLayout.LayoutParams(
+                        dp(35),
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+        );
+
+        TextView label = text(
+                "Search countries, centers or services",
+                13,
+                MUTED,
+                false
+        );
+
+        search.addView(
+                label,
+                new LinearLayout.LayoutParams(
+                        0,
+                        dp(58),
+                        1
+                )
+        );
+
+        search.setOnClickListener(v -> showSearch());
+
+        return search;
+    }
+
+    // =========================
+    // OFFICIAL BLS
+    // =========================
+    private View createOfficialCard() {
+
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.HORIZONTAL);
+        card.setGravity(Gravity.CENTER_VERTICAL);
+        card.setPadding(dp(16), dp(14), dp(16), dp(14));
+
+        card.setBackground(rounded(
+                NAVY,
+                20,
+                NAVY
+        ));
+
+        LinearLayout textBox = new LinearLayout(this);
+        textBox.setOrientation(LinearLayout.VERTICAL);
+
+        TextView title = text(
+                "Official BLS",
+                15,
+                WHITE,
+                true
+        );
 
         TextView sub = text(
-                lang == 2 ? "منصة عالمية لخدمات التأشيرات والمواعيد" :
-                lang == 1 ? "Plateforme mondiale pour visas et rendez-vous" :
-                "Global platform for visas and appointments",
-                13, MUTED, false
+                "Visit the official visa information",
+                11,
+                Color.rgb(190, 200, 220),
+                false
         );
-        root.addView(sub);
 
-        root.addView(space(18));
+        textBox.addView(title);
+        textBox.addView(sub);
 
-        LinearLayout status = card();
-        TextView st = text(
-                monitoring ?
-                        "● " + (lang == 2 ? "المراقبة تعمل" :
-                                lang == 1 ? "Surveillance active" :
-                                "Monitoring active")
-                        :
-                        "○ " + (lang == 2 ? "المراقبة متوقفة" :
-                                lang == 1 ? "Surveillance arrêtée" :
-                                "Monitoring stopped"),
-                16,
-                monitoring ? GOLD : MUTED,
+        card.addView(
+                textBox,
+                new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1
+                )
+        );
+
+        TextView arrow = text(
+                "↗",
+                24,
+                WHITE,
                 true
         );
-        status.addView(st);
 
-        TextView info = text(
-                "🌍 " + country + "   •   🏢 " + center,
-                13, MUTED, false
-        );
-        status.addView(info);
-        root.addView(status);
+        card.addView(arrow);
 
-        root.addView(space(15));
+        card.setOnClickListener(v -> openOfficialBLS());
 
-        TextView monitor = button(
-                monitoring ?
-                        "⏹  " + (lang == 2 ? "إيقاف المراقبة" :
-                                lang == 1 ? "Arrêter la surveillance" :
-                                "Stop Monitoring")
-                        :
-                        "▶  " + (lang == 2 ? "بدء المراقبة" :
-                                lang == 1 ? "Démarrer la surveillance" :
-                                "Start Monitoring")
-        );
-
-        monitor.setOnClickListener(v -> {
-            monitoring = !monitoring;
-            prefs.edit().putBoolean("monitoring", monitoring).apply();
-            home();
-        });
-
-        root.addView(monitor);
-
-        root.addView(space(20));
-
-        root.addView(menu(
-                "🌍  Countries",
-                "Spain • France • Italy",
-                v -> countries()
-        ));
-
-        root.addView(menu(
-                "🏢  Visa Centers",
-                "Algiers • Oran • Annaba",
-                v -> centers()
-        ));
-
-        root.addView(menu(
-                "📅  Appointments",
-                "Find and manage appointments",
-                v -> appointments()
-        ));
-
-        root.addView(menu(
-                "🔔  Alerts",
-                "Appointment availability alerts",
-                v -> alerts()
-        ));
-
-        root.addView(menu(
-                "📊  Statistics",
-                "Monitoring and check statistics",
-                v -> statistics()
-        ));
-
-        root.addView(menu(
-                "🔎  Search",
-                "Search countries and services",
-                v -> search()
-        ));
-
-        root.addView(menu(
-                "📋  Track Application",
-                "Track your visa application",
-                v -> tracking()
-        ));
-
-        root.addView(menu(
-                "🌐  Official BLS",
-                "Official website",
-                v -> official()
-        ));
-
-        root.addView(menu(
-                "⚙️  Settings",
-                "Language • Theme • Monitoring",
-                v -> settings()
-        ));
-
-        show(root);
+        return card;
     }
 
-    private void countries() {
+    // =========================
+    // BOTTOM NAVIGATION
+    // =========================
+    private View createBottomNavigation() {
 
-        LinearLayout root = page();
-        addBack(root);
+        LinearLayout nav = new LinearLayout(this);
+        nav.setOrientation(LinearLayout.HORIZONTAL);
+        nav.setGravity(Gravity.CENTER);
+        nav.setPadding(dp(8), dp(6), dp(8), dp(6));
 
-        root.addView(title("🌍 Countries"));
-
-        root.addView(countryCard("🇪🇸 Spain", "BLS Spain", "Spain"));
-        root.addView(countryCard("🇫🇷 France", "Visa services", "France"));
-        root.addView(countryCard("🇮🇹 Italy", "Visa services", "Italy"));
-
-        root.addView(space(15));
-
-        root.addView(infoCard(
-                "More countries",
-                "Germany • UK • Portugal • Netherlands • Belgium\n" +
-                "The platform is designed to add more countries later."
+        nav.setBackground(rounded(
+                WHITE,
+                0,
+                BORDER
         ));
 
-        show(root);
-    }
-
-    private View countryCard(String name, String description, String value) {
-
-        LinearLayout c = card();
-
-        TextView a = text(name, 17, TEXT, true);
-        TextView b = text(description, 12, MUTED, false);
-
-        c.addView(a);
-        c.addView(b);
-
-        c.setOnClickListener(v -> {
-
-            country = value;
-
-            prefs.edit()
-                    .putString("country", country)
-                    .apply();
-
-            Toast.makeText(
-                    this,
-                    "Selected: " + country,
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            home();
-        });
-
-        return c;
-    }
-
-    private void centers() {
-
-        LinearLayout root = page();
-        addBack(root);
-
-        root.addView(title("🏢 Visa Centers"));
-
-        root.addView(centerCard("🇩🇿 Algiers", "Algiers"));
-        root.addView(centerCard("🇩🇿 Oran", "Oran"));
-        root.addView(centerCard("🇩🇿 Annaba", "Annaba"));
-
-        root.addView(space(15));
-
-        TextView maps = button("📍 Open Centers in Maps");
-
-        maps.setOnClickListener(v ->
-                open("https://www.google.com/maps/search/BLS+Spain+Algeria")
+        nav.addView(
+                navigationItem(
+                        "⌂",
+                        "Home",
+                        v -> showHome()
+                ),
+                navParams()
         );
 
-        root.addView(maps);
+        nav.addView(
+                navigationItem(
+                        "▣",
+                        "Appointments",
+                        v -> showAppointments()
+                ),
+                navParams()
+        );
 
-        show(root);
+        nav.addView(
+                navigationItem(
+                        "●",
+                        "Alerts",
+                        v -> showAlerts()
+                ),
+                navParams()
+        );
+
+        nav.addView(
+                navigationItem(
+                        "⚙",
+                        "Settings",
+                        v -> openSettings()
+                ),
+                navParams()
+        );
+
+        return nav;
     }
 
-    private View centerCard(String name, String value) {
+    private View navigationItem(
+            String icon,
+            String label,
+            View.OnClickListener listener
+    ) {
 
-        LinearLayout c = card();
+        LinearLayout item = new LinearLayout(this);
+        item.setOrientation(LinearLayout.VERTICAL);
+        item.setGravity(Gravity.CENTER);
+        item.setClickable(true);
 
-        c.addView(text(
-                name + (center.equals(value) ? "  ✓" : ""),
-                17,
-                center.equals(value) ? GOLD : TEXT,
+        TextView iconView = text(
+                icon,
+                22,
+                NAVY,
                 true
-        ));
+        );
 
-        c.addView(text(
-                "Visa application center",
+        iconView.setGravity(Gravity.CENTER);
+
+        TextView labelView = text(
+                label,
+                10,
+                MUTED,
+                false
+        );
+
+        labelView.setGravity(Gravity.CENTER);
+
+        item.addView(iconView);
+        item.addView(labelView);
+
+        item.setOnClickListener(listener);
+
+        return item;
+    }
+
+    // =========================
+    // SIMPLE PAGES
+    // =========================
+    private void showAppointments() {
+        showSimplePage(
+                "Appointments",
+                "Find and manage your visa appointments.",
+                new String[]{
+                        "Spain",
+                        "France",
+                        "Italy"
+                }
+        );
+    }
+
+    private void showAlerts() {
+        showSimplePage(
+                "Alerts",
+                "Get notified when appointment information changes.",
+                new String[]{
+                        "Monitoring status",
+                        "Availability alerts",
+                        "Notification settings"
+                }
+        );
+    }
+
+    private void showCenters() {
+        showSimplePage(
+                "Visa Centers",
+                "Choose the center you want to monitor.",
+                new String[]{
+                        "Algiers",
+                        "Oran",
+                        "Annaba"
+                }
+        );
+    }
+
+    private void showCountries() {
+        showSimplePage(
+                "Countries",
+                "Choose your destination country.",
+                new String[]{
+                        "🇪🇸 Spain",
+                        "🇫🇷 France",
+                        "🇮🇹 Italy"
+                }
+        );
+    }
+
+    private void showTracking() {
+        showSimplePage(
+                "Track Application",
+                "Follow your visa application status.",
+                new String[]{
+                        "Enter application reference",
+                        "Passport information",
+                        "Check status"
+                }
+        );
+    }
+
+    private void showStatistics() {
+        showSimplePage(
+                "Statistics",
+                "Overview of your monitoring activity.",
+                new String[]{
+                        "Checks: 0",
+                        "Alerts: 0",
+                        "Appointments: 0"
+                }
+        );
+    }
+
+    private void showSearch() {
+        showSimplePage(
+                "Search",
+                "Search across countries, centers and services.",
+                new String[]{
+                        "Spain",
+                        "Algiers",
+                        "Appointments",
+                        "Tracking"
+                }
+        );
+    }
+
+    // =========================
+    // SIMPLE PAGE UI
+    // =========================
+    private void showSimplePage(
+            String title,
+            String description,
+            String[] items
+    ) {
+
+        ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
+        scroll.setVerticalScrollBarEnabled(false);
+
+        LinearLayout page = new LinearLayout(this);
+        page.setOrientation(LinearLayout.VERTICAL);
+        page.setPadding(dp(20), dp(22), dp(20), dp(30));
+
+        // Back button
+        TextView back = text(
+                "‹  Back",
+                15,
+                BLUE,
+                true
+        );
+
+        back.setPadding(0, 0, 0, dp(10));
+
+        back.setOnClickListener(v -> showHome());
+
+        page.addView(back);
+
+        TextView titleView = text(
+                title,
+                28,
+                NAVY,
+                true
+        );
+
+        page.addView(titleView);
+
+        addSpace(page, 6);
+
+        TextView desc = text(
+                description,
+                14,
+                MUTED,
+                false
+        );
+
+        page.addView(desc);
+
+        addSpace(page, 20);
+
+        for (String item : items) {
+
+            LinearLayout card = new LinearLayout(this);
+            card.setOrientation(LinearLayout.HORIZONTAL);
+            card.setGravity(Gravity.CENTER_VERTICAL);
+            card.setPadding(dp(17), dp(16), dp(17), dp(16));
+
+            card.setBackground(rounded(
+                    WHITE,
+                    20,
+                    BORDER
+            ));
+
+            TextView icon = text(
+                    "•",
+                    22,
+                    BLUE,
+                    true
+            );
+
+            card.addView(
+                    icon,
+                    new LinearLayout.LayoutParams(
+                            dp(35),
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+            );
+
+            TextView itemText = text(
+                    item,
+                    15,
+                    TEXT,
+                    true
+            );
+
+            card.addView(
+                    itemText,
+                    new LinearLayout.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            1
+                    )
+            );
+
+            TextView arrow = text(
+                    "›",
+                    25,
+                    MUTED,
+                    false
+            );
+
+            card.addView(arrow);
+
+            page.addView(card);
+
+            addSpace(page, 12);
+        }
+
+        scroll.addView(page);
+        contentContainer.removeAllViews();
+        contentContainer.addView(scroll);
+    }
+
+    // =========================
+    // SETTINGS
+    // =========================
+    private void openSettings() {
+
+        try {
+
+            Intent intent = new Intent(
+                    MainActivity.this,
+                    SettingsActivity.class
+            );
+
+            startActivity(intent);
+
+        } catch (Exception e) {
+
+            showSimplePage(
+                    "Settings",
+                    "Application settings",
+                    new String[]{
+                            "Language",
+                            "Theme",
+                            "Country",
+                            "Visa center",
+                            "Monitoring interval",
+                            "Notifications"
+                    }
+            );
+        }
+    }
+
+    // =========================
+    // OFFICIAL WEBSITE
+    // =========================
+    private void openOfficialBLS() {
+
+        try {
+
+            Intent intent = new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://algeria.blsspainvisa.com/")
+            );
+
+            startActivity(intent);
+
+        } catch (Exception ignored) {
+        }
+    }
+
+    // =========================
+    // HELPERS
+    // =========================
+
+    private TextView sectionTitle(
+            String title,
+            String subtitle
+    ) {
+
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+
+        TextView titleView = text(
+                title,
+                20,
+                NAVY,
+                true
+        );
+
+        TextView subView = text(
+                subtitle,
                 12,
                 MUTED,
                 false
-        ));
-
-        c.setOnClickListener(v -> {
-
-            center = value;
-
-            prefs.edit()
-                    .putString("center", center)
-                    .apply();
-
-            Toast.makeText(
-                    this,
-                    "Center: " + center,
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            home();
-        });
-
-        return c;
-    }
-
-    private void appointments() {
-
-        LinearLayout root = page();
-        addBack(root);
-
-        root.addView(title("📅 Appointments"));
-
-        root.addView(infoCard(
-                "Selected",
-                country + " • " + center
-        ));
-
-        TextView find = button("🔎 Check Official Appointment Page");
-
-        find.setOnClickListener(v -> official());
-
-        root.addView(find);
-
-        root.addView(menu(
-                "🔔 Appointment Monitoring",
-                monitoring ? "Monitoring is active" : "Monitoring is stopped",
-                v -> {
-                    monitoring = !monitoring;
-                    prefs.edit().putBoolean("monitoring", monitoring).apply();
-                    appointments();
-                }
-        ));
-
-        root.addView(infoCard(
-                "Important",
-                "Availability shown by the official provider is the authoritative source. " +
-                "This application does not bypass CAPTCHA or anti-bot protection."
-        ));
-
-        show(root);
-    }
-
-    private void alerts() {
-
-        LinearLayout root = page();
-        addBack(root);
-
-        root.addView(title("🔔 Alerts"));
-
-        root.addView(infoCard(
-                "Notifications",
-                "Receive an alert when a meaningful change is detected."
-        ));
-
-        root.addView(menu(
-                monitoring ? "● Monitoring enabled" : "○ Monitoring disabled",
-                monitoring ? "The monitoring state is active" :
-                        "Start monitoring from the Home screen",
-                v -> {
-                    monitoring = !monitoring;
-                    prefs.edit().putBoolean("monitoring", monitoring).apply();
-                    alerts();
-                }
-        ));
-
-        root.addView(infoCard(
-                "Protection",
-                "The application respects website security mechanisms and does not attempt to bypass CAPTCHA, Cloudflare or similar protections."
-        ));
-
-        show(root);
-    }
-
-    private void statistics() {
-
-        LinearLayout root = page();
-        addBack(root);
-
-        root.addView(title("📊 Statistics"));
-
-        root.addView(stat("Monitoring", monitoring ? "ACTIVE" : "STOPPED"));
-        root.addView(stat("Country", country));
-        root.addView(stat("Center", center));
-        root.addView(stat("Checks", String.valueOf(checks)));
-        root.addView(stat("Interval", "120 seconds"));
-
-        TextView reset = button("Reset Statistics");
-
-        reset.setOnClickListener(v -> {
-
-            checks = 0;
-
-            prefs.edit()
-                    .putInt("checks", 0)
-                    .apply();
-
-            statistics();
-        });
-
-        root.addView(reset);
-
-        show(root);
-    }
-
-    private View stat(String a, String b) {
-
-        LinearLayout c = card();
-
-        LinearLayout.LayoutParams p =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        -2
-                );
-
-        c.setLayoutParams(p);
-
-        c.addView(text(a, 13, MUTED, false));
-        c.addView(text(b, 18, TEXT, true));
-
-        return c;
-    }
-
-    private void search() {
-
-        LinearLayout root = page();
-        addBack(root);
-
-        root.addView(title("🔎 Search"));
-
-        EditText input = new EditText(this);
-
-        input.setHint("Search country, center or service");
-        input.setTextColor(TEXT);
-        input.setHintTextColor(MUTED);
-        input.setSingleLine(true);
-
-        GradientDrawable bg = new GradientDrawable();
-        bg.setColor(CARD);
-        bg.setCornerRadius(18);
-
-        input.setBackground(bg);
-        input.setPadding(20, 12, 20, 12);
-
-        root.addView(input);
-
-        TextView search = button("Search");
-
-        root.addView(search);
-
-        LinearLayout results = new LinearLayout(this);
-        results.setOrientation(LinearLayout.VERTICAL);
-
-        root.addView(results);
-
-        search.setOnClickListener(v -> {
-
-            results.removeAllViews();
-
-            String q = input.getText().toString().toLowerCase();
-
-            if (q.contains("spain") || q.contains("espagne") ||
-                    q.contains("إسبانيا")) {
-
-                results.addView(
-                        menu(
-                                "🇪🇸 Spain",
-                                "BLS Spain",
-                                x -> countries()
-                        )
-                );
-            }
-
-            if (q.contains("france") || q.contains("français") ||
-                    q.contains("فرنسا")) {
-
-                results.addView(
-                        menu(
-                                "🇫🇷 France",
-                                "Visa services",
-                                x -> countries()
-                        )
-                );
-            }
-
-            if (q.contains("italy") || q.contains("italie") ||
-                    q.contains("إيطاليا")) {
-
-                results.addView(
-                        menu(
-                                "🇮🇹 Italy",
-                                "Visa services",
-                                x -> countries()
-                        )
-                );
-            }
-
-            if (q.contains("algiers") ||
-                    q.contains("الجزائر")) {
-
-                results.addView(
-                        menu(
-                                "🏢 Algiers",
-                                "Visa Center",
-                                x -> centers()
-                        )
-                );
-            }
-
-            if (results.getChildCount() == 0) {
-
-                results.addView(
-                        infoCard(
-                                "No result",
-                                "No matching service was found."
-                        )
-                );
-            }
-        });
-
-        show(root);
-    }
-
-    private void tracking() {
-
-        LinearLayout root = page();
-        addBack(root);
-
-        root.addView(title("📋 Track Application"));
-
-        EditText input = new EditText(this);
-
-        input.setHint("Application / reference number");
-        input.setTextColor(TEXT);
-        input.setHintTextColor(MUTED);
-        input.setSingleLine(true);
-
-        GradientDrawable bg = new GradientDrawable();
-        bg.setColor(CARD);
-        bg.setCornerRadius(18);
-
-        input.setBackground(bg);
-        input.setPadding(20, 12, 20, 12);
-
-        root.addView(input);
-
-        TextView track = button("Open Official Tracking");
-
-        track.setOnClickListener(v ->
-                open("https://algeria.blsspainvisa.com/")
         );
 
-        root.addView(track);
+        box.addView(titleView);
+        box.addView(subView);
 
-        root.addView(infoCard(
-                "Notice",
-                "The application does not generate or invent application status. " +
-                "For a real status, use the official provider."
-        ));
-
-        show(root);
+        return createSectionContainer(box);
     }
 
-    private void settings() {
+    private TextView createSectionContainer(View view) {
 
-        LinearLayout root = page();
-        addBack(root);
+        FrameLayout frame = new FrameLayout(this);
 
-        root.addView(title("⚙️ Settings"));
+        frame.addView(
+                view,
+                new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+        );
 
-        root.addView(menu(
-                "🌐 Language",
-                lang == 0 ? "English" :
-                        lang == 1 ? "Français" :
-                                "العربية",
-                v -> language()
-        ));
+        TextView result = new TextView(this);
+        result.setVisibility(View.GONE);
 
-        root.addView(menu(
-                "🌍 Country",
-                country,
-                v -> countries()
-        ));
-
-        root.addView(menu(
-                "🏢 Center",
-                center,
-                v -> centers()
-        ));
-
-        root.addView(menu(
-                "⏱ Monitoring interval",
-                "120 seconds",
-                v -> Toast.makeText(
-                        this,
-                        "Default interval: 120 seconds",
-                        Toast.LENGTH_SHORT
-                ).show()
-        ));
-
-        root.addView(menu(
-                "🔔 Notifications",
-                "Alerts enabled when monitoring is active",
-                v -> alerts()
-        ));
-
-        root.addView(menu(
-                "🌙 Theme",
-                "System",
-                v -> Toast.makeText(
-                        this,
-                        "Theme setting prepared for the next version",
-                        Toast.LENGTH_SHORT
-                ).show()
-        ));
-
-        root.addView(infoCard(
-                "BLS Rendez-Vous",
-                "Version 2.0\nGlobal visa and appointment platform"
-        ));
-
-        show(root);
+        // Return title-like TextView while preserving the view in a container
+        return buildSectionText(view);
     }
 
-    private void language() {
+    private TextView buildSectionText(View view) {
 
-        LinearLayout root = page();
-        addBack(root);
+        TextView invisibleHolder = new TextView(this);
 
-        root.addView(title("🌐 Language"));
+        invisibleHolder.setText("");
 
-        root.addView(languageCard("English", 0));
-        root.addView(languageCard("Français", 1));
-        root.addView(languageCard("العربية", 2));
+        // This TextView acts as a lightweight container replacement.
+        // The actual section is rebuilt below by copying its content.
+        if (view instanceof LinearLayout) {
 
-        show(root);
+            LinearLayout original = (LinearLayout) view;
+
+            if (original.getChildCount() >= 2) {
+
+                TextView title =
+                        (TextView) original.getChildAt(0);
+
+                TextView subtitle =
+                        (TextView) original.getChildAt(1);
+
+                invisibleHolder.setText(
+                        title.getText() + "\n" + subtitle.getText()
+                );
+
+                invisibleHolder.setTextSize(0);
+                invisibleHolder.setPadding(0, 0, 0, 0);
+
+                // Not used visually; section is rebuilt directly.
+            }
+        }
+
+        // We return a proper TextView with the title and subtitle
+        invisibleHolder.setText("");
+
+        return new SectionView(this, view);
     }
 
-    private View languageCard(String name, int value) {
+    // Custom TextView carrying a child view
+    private static class SectionView extends TextView {
 
-        LinearLayout c = card();
+        private final View child;
 
-        c.addView(text(
-                name + (lang == value ? "  ✓" : ""),
-                17,
-                lang == value ? GOLD : TEXT,
-                true
-        ));
+        public SectionView(Context context, View child) {
+            super(context);
+            this.child = child;
 
-        c.setOnClickListener(v -> {
+            setGravity(Gravity.LEFT);
+            setPadding(0, 0, 0, 0);
+        }
 
-            lang = value;
+        @Override
+        protected void onMeasure(
+                int widthMeasureSpec,
+                int heightMeasureSpec
+        ) {
 
-            prefs.edit()
-                    .putInt("lang", lang)
-                    .apply();
+            child.measure(
+                    widthMeasureSpec,
+                    MeasureSpec.makeMeasureSpec(
+                            0,
+                            MeasureSpec.UNSPECIFIED
+                    )
+            );
 
-            home();
-        });
+            setMeasuredDimension(
+                    MeasureSpec.getSize(widthMeasureSpec),
+                    child.getMeasuredHeight()
+            );
+        }
 
-        return c;
-    }
+        @Override
+        protected void onDraw(
+                android.graphics.Canvas canvas
+        ) {
 
-    private void official() {
+            child.layout(
+                    0,
+                    0,
+                    getWidth(),
+                    child.getMeasuredHeight()
+            );
 
-        open("https://algeria.blsspainvisa.com/");
-    }
-
-    private LinearLayout page() {
-
-        LinearLayout root = new LinearLayout(this);
-
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(20, 35, 20, 30);
-        root.setBackgroundColor(BG);
-
-        return root;
-    }
-
-    private void addBack(LinearLayout root) {
-
-        TextView back = text("← Back", 15, MUTED, true);
-
-        back.setPadding(0, 0, 0, 20);
-
-        back.setOnClickListener(v -> home());
-
-        root.addView(back);
-    }
-
-    private TextView title(String value) {
-
-        return text(value, 24, TEXT, true);
+            child.draw(canvas);
+        }
     }
 
     private TextView text(
             String value,
-            int size,
+            float size,
             int color,
             boolean bold
     ) {
@@ -677,146 +1066,88 @@ public class MainActivity extends Activity {
         t.setText(value);
         t.setTextSize(size);
         t.setTextColor(color);
-        t.setPadding(0, 4, 0, 4);
 
         if (bold) {
-            t.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+            t.setTypeface(
+                    android.graphics.Typeface.DEFAULT,
+                    android.graphics.Typeface.BOLD
+            );
         }
+
+        t.setGravity(Gravity.CENTER_VERTICAL);
 
         return t;
     }
 
-    private LinearLayout card() {
-
-        LinearLayout c = new LinearLayout(this);
-
-        c.setOrientation(LinearLayout.VERTICAL);
-        c.setPadding(18, 15, 18, 15);
-
-        GradientDrawable bg = new GradientDrawable();
-
-        bg.setColor(CARD);
-        bg.setCornerRadius(20);
-
-        c.setBackground(bg);
-
-        LinearLayout.LayoutParams lp =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        -2
-                );
-
-        lp.setMargins(0, 0, 0, 12);
-
-        c.setLayoutParams(lp);
-
-        return c;
-    }
-
-    private View menu(
-            String title,
-            String subtitle,
-            View.OnClickListener click
+    private GradientDrawable rounded(
+            int color,
+            int radius,
+            int strokeColor
     ) {
 
-        LinearLayout c = card();
+        GradientDrawable drawable = new GradientDrawable();
 
-        TextView a = text(title, 16, TEXT, true);
-        TextView b = text(subtitle, 12, MUTED, false);
+        drawable.setColor(color);
+        drawable.setCornerRadius(dp(radius));
 
-        c.addView(a);
-        c.addView(b);
+        if (strokeColor != Color.TRANSPARENT) {
+            drawable.setStroke(dp(1), strokeColor);
+        }
 
-        c.setOnClickListener(click);
-
-        return c;
+        return drawable;
     }
 
-    private View infoCard(
-            String title,
-            String description
-    ) {
+    private LinearLayout.LayoutParams weightParams() {
 
-        LinearLayout c = card();
-
-        c.addView(text(title, 16, GOLD, true));
-        c.addView(text(description, 12, MUTED, false));
-
-        return c;
-    }
-
-    private TextView button(String value) {
-
-        TextView b = new TextView(this);
-
-        b.setText(value);
-        b.setTextSize(16);
-        b.setTextColor(BG);
-        b.setGravity(Gravity.CENTER);
-        b.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-
-        GradientDrawable bg = new GradientDrawable();
-
-        bg.setColor(GOLD);
-        bg.setCornerRadius(30);
-
-        b.setBackground(bg);
-
-        LinearLayout.LayoutParams lp =
+        LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
-                        -1,
-                        56
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1
                 );
 
-        lp.setMargins(0, 8, 0, 12);
-
-        b.setLayoutParams(lp);
-
-        return b;
-    }
-
-    private View space(int height) {
-
-        Space s = new Space(this);
-
-        s.setLayoutParams(
-                new LinearLayout.LayoutParams(
-                        1,
-                        height
-                )
+        params.setMargins(
+                dp(4),
+                0,
+                dp(4),
+                0
         );
 
-        return s;
+        return params;
     }
 
-    private void show(LinearLayout root) {
+    private LinearLayout.LayoutParams navParams() {
 
-        ScrollView scroll = new ScrollView(this);
-
-        scroll.setFillViewport(true);
-        scroll.addView(root);
-
-        setContentView(scroll);
+        return new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1
+        );
     }
 
-    private void open(String url) {
+    private void addSpace(
+            LinearLayout parent,
+            int height
+    ) {
 
-        try {
+        View space = new View(this);
 
-            startActivity(
-                    new Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(url)
-                    )
-            );
+        parent.addView(
+                space,
+                new LinearLayout.LayoutParams(
+                        1,
+                        dp(height)
+                )
+        );
+    }
 
-        } catch (Exception e) {
+    private int dp(int value) {
 
-            Toast.makeText(
-                    this,
-                    "Unable to open link",
-                    Toast.LENGTH_SHORT
-            ).show();
-        }
+        return (int) (
+                value *
+                        getResources()
+                                .getDisplayMetrics()
+                                .density
+        );
     }
 }
