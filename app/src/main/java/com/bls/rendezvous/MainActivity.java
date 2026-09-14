@@ -1947,26 +1947,16 @@ private void showVisaTypePage() {
             smallButton(
                     "CONTINUE"
             );
+continueButton.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    continueButton.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    android.widget.Toast.makeText(
-                            MainActivity.this,
-                            "Tourism selected. Next: Previous Spain Visa",
-                            android.widget.Toast.LENGTH_SHORT
-                    ).show();
-                }
+                showPreviousSpainVisaPage();
             }
-    );
-
-    page.addView(
-            continueButton,
-            margin(0,5,0,10)
-    );
-}
+        }
+);
+    
     // =========================================================
     // OTHER PAGES - UNCHANGED
     // =========================================================
