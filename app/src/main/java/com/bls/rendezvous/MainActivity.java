@@ -1677,13 +1677,11 @@ private void showWilayaSelector() {
 
         // Everything else currently belongs to ALGIERS.
 
-        return "Algiers";
-    }
-
+    
     // =========================================================
     // NEXT STEP - VISA TYPE
     // ==============================center,
-private void showVisaTypePage() {
+        private void showVisaTypePage() {
 
     root.removeAllViews();
 
@@ -1727,6 +1725,8 @@ private void showVisaTypePage() {
             )
     );
 
+    // BACK
+
     TextView back =
             text(
                     "‹  Back",
@@ -1747,6 +1747,8 @@ private void showVisaTypePage() {
             back,
             margin(0,0,0,15)
     );
+
+    // TITLE
 
     TextView title =
             text(
@@ -1769,6 +1771,8 @@ private void showVisaTypePage() {
             ),
             margin(0,5,0,18)
     );
+
+    // SELECTED CENTER
 
     LinearLayout selected =
             card();
@@ -1827,7 +1831,7 @@ private void showVisaTypePage() {
 
     TextView countryTitle =
             text(
-                    "Spain 🇪🇸",
+                    "Spain",
                     18,
                     NAVY
             );
@@ -1846,9 +1850,9 @@ private void showVisaTypePage() {
             margin(0,0,0,10)
     );
 
-    // VISA TYPE
+    // VISA PURPOSE
 
-    final LinearLayout tourism =
+    LinearLayout tourism =
             appointmentCard();
 
     tourism.addView(
@@ -1889,9 +1893,9 @@ private void showVisaTypePage() {
             margin(0,0,0,15)
     );
 
-    // SELECTED STATUS
+    // STATUS
 
-    final TextView status =
+    TextView status =
             text(
                     "✓ Tourism selected",
                     13,
@@ -1907,7 +1911,7 @@ private void showVisaTypePage() {
             margin(3,0,0,15)
     );
 
-    // NEXT STEP INFO
+    // INFORMATION
 
     LinearLayout info =
             card();
@@ -1923,13 +1927,15 @@ private void showVisaTypePage() {
             Typeface.DEFAULT_BOLD
     );
 
-    info.addView(infoTitle);
+    info.addView(
+            infoTitle
+    );
 
     info.addView(
             text(
-                    "After selecting Tourism, the app will determine " +
-                    "the correct appointment category (ALG1, ALG2, " +
-                    "ALG3 or ALG4) based on your previous Spain visa.",
+                    "The next step will determine the correct " +
+                    "appointment category according to your " +
+                    "previous Spain visa.",
                     12,
                     GRAY
             ),
@@ -1941,110 +1947,308 @@ private void showVisaTypePage() {
             margin(0,0,0,15)
     );
 
-    // CONTINUE BUTTON
+    // CONTINUE
 
     Button continueButton =
             smallButton(
                     "CONTINUE"
             );
-continueButton.setOnClickListener(
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                showPreviousSpainVisaPage();
+    continueButton.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showPreviousSpainVisaPage();
+                }
             }
-        }
-);
+    );
+
+    page.addView(
+            continueButton,
+            margin(0,5,0,10)
+    );
+}
+
+
+/* =========================================================
+   PREVIOUS SPAIN VISA
+   ========================================================= */
+
+private void showPreviousSpainVisaPage() {
+
+    root.removeAllViews();
+
+    ScrollView scroll =
+            new ScrollView(this);
+
+    LinearLayout page =
+            new LinearLayout(this);
+
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    page.setPadding(
+            dp(20),
+            dp(25),
+            dp(20),
+            dp(25)
+    );
+
+    GradientDrawable bg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(245,248,255),
+                            Color.rgb(238,244,255),
+                            Color.rgb(247,243,252)
+                    }
+            );
+
+    page.setBackground(bg);
+
+    scroll.addView(page);
+
+    root.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1
+            )
+    );
+
+    // BACK
+
+    TextView back =
+            text(
+                    "‹  Back",
+                    17,
+                    BLUE
+            );
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showVisaTypePage();
+                }
+            }
+    );
+
+    page.addView(
+            back,
+            margin(0,0,0,15)
+    );
+
+    // TITLE
+
+    TextView title =
+            text(
+                    "Previous Spain Visa",
+                    27,
+                    NAVY
+            );
+
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(title);
+
+    page.addView(
+            text(
+                    "Tell us about your previous Spain Schengen visa.",
+                    13,
+                    GRAY
+            ),
+            margin(0,5,0,20)
+    );
+
+    // QUESTION
+
+    LinearLayout question =
+            card();
+
+    TextView questionTitle =
+            text(
+                    "Have you had a Spain Schengen visa since 1 January 2021?",
+                    17,
+                    NAVY
+            );
+
+    questionTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    question.addView(
+            questionTitle
+    );
+
+    question.addView(
+            text(
+                    "Your answer will determine the next appointment category.",
+                    12,
+                    GRAY
+            ),
+            margin(0,6,0,0)
+    );
+
+    page.addView(
+            question,
+            margin(0,0,0,15)
+    );
+
+    // YES
+
+    LinearLayout yesCard =
+            appointmentCard();
+
+    yesCard.addView(
+            text(
+                    "YES",
+                    11,
+                    GREEN
+            )
+    );
+
+    TextView yesTitle =
+            text(
+                    "Yes, I had a Spain visa",
+                    18,
+                    NAVY
+            );
+
+    yesTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    yesCard.addView(
+            yesTitle,
+            margin(0,5,0,0)
+    );
+
+    yesCard.addView(
+            text(
+                    "Issued on or after 1 January 2021",
+                    12,
+                    GRAY
+            ),
+            margin(0,2,0,0)
+    );
+
+    page.addView(
+            yesCard,
+            margin(0,0,0,10)
+    );
+
+    // NO
+
+    LinearLayout noCard =
+            appointmentCard();
+
+    noCard.addView(
+            text(
+                    "NO",
+                    11,
+                    GRAY
+            )
+    );
+
+    TextView noTitle =
+            text(
+                    "No, I did not have one",
+                    18,
+                    NAVY
+            );
+
+    noTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    noCard.addView(
+            noTitle,
+            margin(0,5,0,0)
+    );
+
+    noCard.addView(
+            text(
+                    "No Spain Schengen visa since 1 January 2021",
+                    12,
+                    GRAY
+            ),
+            margin(0,2,0,0)
+    );
+
+    page.addView(
+            noCard,
+            margin(0,0,0,15)
+    );
+
+    // INFORMATION
+
+    LinearLayout info =
+            card();
+
+    TextView infoTitle =
+            text(
+                    "Why do we ask?",
+                    15,
+                    NAVY
+            );
+
+    infoTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    info.addView(
+            infoTitle
+    );
+
+    info.addView(
+            text(
+                    "BLS uses your previous Spain visa history " +
+                    "to determine the appropriate appointment category.",
+                    12,
+                    GRAY
+            ),
+            margin(0,5,0,0)
+    );
+
+    page.addView(
+            info,
+            margin(0,0,0,15)
+    );
+
+    // CONTINUE
+
+    Button continueButton =
+            smallButton(
+                    "CONTINUE"
+            );
+
+    continueButton.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    android.widget.Toast.makeText(
+                            MainActivity.this,
+                            "Next: ALG1 / ALG2 / ALG3 / ALG4",
+                            android.widget.Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+    );
+
+    page.addView(
+            continueButton,
+            margin(0,5,0,10)
+    );
+}
     
-    // =========================================================
-    // OTHER PAGES - UNCHANGED
-    // =========================================================
-
-    private void showAlerts() {
-
-        page(
-                "Alerts",
-                "Appointment availability notifications.",
-                new String[]{
-                        "🔔 Availability alerts",
-                        "● Monitoring active",
-                        "⏱ Every 2 minutes",
-                        "Notifications enabled"
-                }
-        );
-    }
-
-    private void showCenters() {
-
-        page(
-                "Visa Centers",
-                "Choose your preferred visa center.",
-                new String[]{
-                        "Algiers",
-                        "Oran",
-                        "Annaba"
-                }
-        );
-    }
-
-    private void showTracking() {
-
-        page(
-                "Application Tracking",
-                "Track the status of your visa application.",
-                new String[]{
-                        "Application number",
-                        "Passport number",
-                        "Check application status"
-                }
-        );
-    }
-
-    private void showCountries() {
-
-        page(
-                "Countries",
-                "Choose a country for visa services.",
-                new String[]{
-                        "🇪🇸 Spain",
-                        "🇫🇷 France",
-                        "🇮🇹 Italy",
-                        "🇩🇪 Germany",
-                        "🇵🇹 Portugal"
-                }
-        );
-    }
-
-    private void showStatistics() {
-
-        page(
-                "Statistics",
-                "Your appointment monitoring activity.",
-                new String[]{
-                        "Checks today: 0",
-                        "Appointments detected: 0",
-                        "Monitoring status: Active"
-                }
-        );
-    }
-
-    private void showSettings() {
-
-        page(
-                "Settings",
-                "Customize BLS Rendez-Vous.",
-                new String[]{
-                        "🌐 Language",
-                        "🎨 Theme",
-                        "🌍 Country",
-                        "🏢 Visa center",
-                        "⏱ Monitoring interval",
-                        "🔔 Notifications"
-                }
-        );
-    }
-
     // =========================================================
     // UI HELPERS
     // =========================================================
