@@ -1994,40 +1994,7 @@ public class MainActivity extends Activity {
 
         GradientDrawable bg =
                 new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(245,248,255),
-                                Color.rgb(238,244,255),
-                                Color.rgb(247,243,252)
-                        }
-                );
-
-        page.setBackground(bg);
-
-        scroll.addView(page);
-
-        root.addView(
-                scroll,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        0,
-                        1
-                )
-        );
-
-        // BACK
-
-        TextView back =
-                text(
-                        "‹  Back",
-                        17,
-                        BLUE
-                );
-
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+void onClick(View v) {
 
                         showVisaTypePage();
                     }
@@ -2052,36 +2019,7 @@ public class MainActivity extends Activity {
                 Typeface.DEFAULT_BOLD
         );
 
-        page.addView(title);
 
-        page.addView(
-                text(
-                        "Tell us about your previous Spain Schengen visa.",
-                        13,
-                        GRAY
-                ),
-                margin(0,5,0,20)
-        );
-
-        // QUESTION
-
-        LinearLayout question =
-                card();
-
-        TextView questionTitle =
-                text(
-                        "Have you had a Spain Schengen visa since 1 January 2021?",
-                        17,
-                        NAVY
-                );
-
-        questionTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        question.addView(
-                questionTitle
-        );
 
         question.addView(
                 text(
@@ -2106,38 +2044,7 @@ public class MainActivity extends Activity {
                 text(
                         "YES",
                         11,
-                        GREEN
-                )
-        );
-
-        TextView yesTitle =
-                text(
-                        "Yes, I had a Spain visa",
-                        18,
-                        NAVY
-                );
-
-        yesTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        yesCard.addView(
-                yesTitle,
-                margin(0,5,0,0)
-        );
-
-        yesCard.addView(
-                text(
-                        "Issued on or after 1 January 2021",
-                        12,
-                        GRAY
-                ),
-                margin(0,2,0,0)
-        );
-
-        page.addView(
-                yesCard,
-                margin(0,0,0,10)
+margin(0,0,0,10)
         );
 
         // NO
@@ -2163,87 +2070,107 @@ public class MainActivity extends Activity {
         noTitle.setTypeface(
                 Typeface.DEFAULT_BOLD
         );
+private void showPreviousSpainVisaPage() {
+    root.removeAllViews();
 
-        noCard.addView(
-                noTitle,
-                margin(0,5,0,0)
-        );
+    ScrollView scroll = new ScrollView(this);
 
-        noCard.addView(
-                text(
-                        "No Spain Schengen visa since 1 January 2021",
-                        12,
-                        GRAY
-                ),
-                margin(0,2,0,0)
-        );
+    LinearLayout layout = new LinearLayout(this);
+    layout.setOrientation(LinearLayout.VERTICAL);
+    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
 
-        page.addView(
-                noCard,
-                margin(0,0,0,15)
-        );
+    TextView back = text("‹  Back", 16, BLUE);
+    back.setPadding(0, 0, 0, dp(18));
 
-        // INFORMATION
-
-        LinearLayout info =
-                card();
-
-        TextView infoTitle =
-                text(
-                        "Why do we ask?",
-                        15,
-                        NAVY
-                );
-
-        infoTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        info.addView(
-                infoTitle
-        );
-
-        info.addView(
-                text(
-                        "BLS uses your previous Spain visa history " +
-                        "to determine the appropriate appointment category.",
-                        12,
-                        GRAY
-                ),
-                margin(0,5,0,0)
-        );
-
-        page.addView(
-                info,
-                margin(0,0,0,15)
-        );
-
-        // CONTINUE
-
-        Button continueButton =
-                smallButton(
-                        "CONTINUE"
-                );
-
-        continueButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        android.widget.Toast.makeText(
-                                MainActivity.this,
-                                "Next: ALG1 / ALG2 / ALG3 / ALG4",
-                                android.widget.Toast.LENGTH_SHORT
-                        ).show();
-                    }
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showVisaTypePage();
                 }
-        );
+            }
+    );
 
-        page.addView(
-                continueButton,
-                margin(0,5,0,10)
-        );
-    }
+    layout.addView(back);
+
+    TextView title = text("Previous Spain Visa", 26, NAVY);
+    title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+    layout.addView(title);
+
+    TextView subtitle = text(
+            "Tell us about your previous Spain Schengen visa.",
+            16,
+            GRAY
+    );
+    subtitle.setPadding(0, dp(8), 0, dp(20));
+    layout.addView(subtitle);
+
+    TextView question = text(
+            "Have you had a Spain Schengen visa since 1 January 2021?",
+            18,
+            NAVY
+    );
+    question.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+    question.setPadding(0, 0, 0, dp(20));
+    layout.addView(question);
+
+    TextView yes = text(
+            "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
+            17,
+            NAVY
+    );
+    yes.setPadding(dp(20), dp(20), dp(20), dp(20));
+    yes.setBackgroundColor(LIGHT);
+
+    yes.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showVisaValidityPage();
+                }
+            }
+    );
+
+    layout.addView(yes);
+
+    TextView no = text(
+            "NO\n\nNo, I did not have one\nNo Spain Schengen visa since 1 January 2021",
+            17,
+            NAVY
+    );
+    no.setPadding(dp(20), dp(20), dp(20), dp(20));
+    no.setBackgroundColor(LIGHT);
+
+    no.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectAppointmentCategory("ALG1");
+                }
+            }
+    );
+
+    layout.addView(no);
+
+    TextView infoTitle = text(
+            "Why do we ask?",
+            17,
+            NAVY
+    );
+    infoTitle.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+    infoTitle.setPadding(0, dp(24), 0, dp(8));
+    layout.addView(infoTitle);
+
+    TextView info = text(
+            "BLS uses your previous Spain visa history to determine the appropriate appointment category.",
+            14,
+            GRAY
+    );
+    layout.addView(info);
+
+    scroll.addView(layout);
+    root.addView(scroll);
+}
         // =========================================================
     // SPAIN VISA VALIDITY
     // ========================================================
