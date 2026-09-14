@@ -1218,5 +1218,158 @@ public class MainActivity extends Activity {
 
     @Override
     private void showSplash() {
-    ...
+
+    final LinearLayout splash = new LinearLayout(this);
+    splash.setOrientation(LinearLayout.VERTICAL);
+    splash.setGravity(Gravity.CENTER);
+
+    GradientDrawable background =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(45, 25, 110),
+                            Color.rgb(55, 75, 165),
+                            Color.rgb(35, 145, 185),
+                            Color.rgb(25, 190, 170)
+                    }
+            );
+
+    splash.setBackground(background);
+
+    final LinearLayout logoContainer =
+            new LinearLayout(this);
+
+    logoContainer.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    logoContainer.setGravity(
+            Gravity.CENTER
+    );
+
+    final TextView bls =
+            new TextView(this);
+
+    bls.setText("BLS");
+    bls.setTextSize(68);
+    bls.setTextColor(Color.WHITE);
+    bls.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+    bls.setGravity(Gravity.CENTER);
+
+    logoContainer.addView(
+            bls,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    final TextView international =
+            new TextView(this);
+
+    international.setText("international");
+    international.setTextSize(16);
+    international.setTextColor(
+            Color.rgb(235, 245, 255)
+    );
+    international.setGravity(Gravity.CENTER);
+
+    LinearLayout.LayoutParams ip =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    ip.topMargin = dp(-2);
+
+    logoContainer.addView(
+            international,
+            ip
+    );
+
+    splash.addView(
+            logoContainer,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    final TextView light =
+            new TextView(this);
+
+    light.setText("━━━━━━━━━━━━━━━━");
+    light.setTextSize(5);
+    light.setTextColor(Color.WHITE);
+    light.setGravity(Gravity.CENTER);
+    light.setAlpha(0f);
+
+    LinearLayout.LayoutParams lp =
+            new LinearLayout.LayoutParams(
+                    dp(190),
+                    dp(20)
+            );
+
+    lp.gravity = Gravity.CENTER;
+
+    splash.addView(light, lp);
+
+    setContentView(splash);
+
+    logoContainer.setAlpha(0f);
+    logoContainer.setScaleX(0.94f);
+    logoContainer.setScaleY(0.94f);
+
+    logoContainer.animate()
+            .alpha(1f)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(700)
+            .start();
+
+    light.setTranslationX(-dp(150));
+    light.setTranslationY(-dp(38));
+
+    light.animate()
+            .alpha(0.9f)
+            .translationX(dp(150))
+            .setDuration(850)
+            .setStartDelay(450)
+            .withEndAction(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            light.animate()
+                                    .alpha(0f)
+                                    .setDuration(300)
+                                    .start();
+                        }
+                    }
+            )
+            .start();
+
+    new Handler().postDelayed(
+            new Runnable() {
+                @Override
+                public void run() {
+
+                    splash.animate()
+                            .alpha(0f)
+                            .setDuration(450)
+                            .withEndAction(
+                                    new Runnable() {
+                                                 public void run() {
+                                            showHome();
+                                        }
+                                    }
+                            )
+                            .start();
+                }
+            },
+            1800
+    );
     }
