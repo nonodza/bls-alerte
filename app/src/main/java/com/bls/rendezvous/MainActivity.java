@@ -2244,7 +2244,79 @@ public class MainActivity extends Activity {
                 margin(0,5,0,10)
         );
     }
+    // =========================================================
+    // ORIGINAL SERVICE PAGES
+    // =========================================================
 
+    private void showAlerts() {
+        page(
+                "Alerts",
+                "Manage your appointment availability alerts.",
+                new String[]{
+                        "Availability Alerts",
+                        "Appointment notifications",
+                        "Monitoring status"
+                }
+        );
+    }
+
+    private void showCenters() {
+        page(
+                "Visa Centers",
+                "BLS Spain visa centers in Algeria.",
+                new String[]{
+                        "Algiers Visa Center",
+                        "Oran Visa Center"
+                }
+        );
+    }
+
+    private void showTracking() {
+        page(
+                "Application Tracking",
+                "Track your BLS Spain visa application.",
+                new String[]{
+                        "Application reference",
+                        "Passport number",
+                        "Check application status"
+                }
+        );
+    }
+
+    private void showCountries() {
+        page(
+                "Countries",
+                "Choose the country for your visa appointment.",
+                new String[]{
+                        "🇪🇸 Spain",
+                        "More countries coming soon"
+                }
+        );
+    }
+
+    private void showStatistics() {
+        page(
+                "Statistics",
+                "Monitoring and appointment data.",
+                new String[]{
+                        "Appointments checked",
+                        "Availability checks",
+                        "Monitoring activity"
+                }
+        );
+    }
+
+    private void showSettings() {
+        page(
+                "Settings",
+                "Application preferences and configuration.",
+                new String[]{
+                        "Notifications",
+                        "Language",
+                        "About BLS Rendez-Vous"
+                }
+        );
+    }
     // =========================================================
     // UI HELPERS
     // =========================================================
