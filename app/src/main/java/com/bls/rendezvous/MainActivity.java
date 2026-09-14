@@ -2244,7 +2244,71 @@ public class MainActivity extends Activity {
                 margin(0,5,0,10)
         );
     }
+        // =========================================================
+    // SPAIN VISA VALIDITY
     // =========================================================
+
+    private void showVisaValidityPage() {
+        root.removeAllViews();
+
+        ScrollView scroll = new ScrollView(this);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+
+        TextView back = text("‹  Back", 16, BLUE);
+        back.setPadding(0, 0, 0, dp(18));
+        back.setOnClickListener(v -> showPreviousSpainVisaPage());
+        layout.addView(back);
+
+        TextView title = text("Visa Validity", 26, NAVY);
+        title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        layout.addView(title);
+
+        TextView subtitle = text(
+                "How long was your last Spain Schengen visa valid?",
+                16,
+                GRAY
+        );
+        subtitle.setPadding(0, dp(8), 0, dp(20));
+        layout.addView(subtitle);
+
+        LinearLayout alg2 = card("Less than 6 months");
+        alg2.setOnClickListener(v -> selectAppointmentCategory("ALG2"));
+        layout.addView(alg2);
+
+        LinearLayout alg3 = card("6 months to less than 2 years");
+        alg3.setOnClickListener(v -> selectAppointmentCategory("ALG3"));
+        layout.addView(alg3);
+
+        LinearLayout alg4 = card("2 years or more");
+        alg4.setOnClickListener(v -> selectAppointmentCategory("ALG4"));
+        layout.addView(alg4);
+
+        TextView info = text(
+                "Your previous Spain visa validity determines the appropriate BLS appointment category.",
+                14,
+                GRAY
+        );
+        info.setPadding(0, dp(20), 0, dp(0));
+        layout.addView(info);
+
+        scroll.addView(layout);
+        root.addView(scroll);
+    }
+    // =========================================================
+    // APPOINTMENT CATEGORY
+    // =========================================================
+
+    private void selectAppointmentCategory(String category) {
+        Toast.makeText(
+                MainActivity.this,
+                "Selected category: " + category,
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+   // =========================================================
     // ORIGINAL SERVICE PAGES
     // =========================================================
 
