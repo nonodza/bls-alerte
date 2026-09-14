@@ -2327,12 +2327,14 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void selectAppointmentCategory(String category) {
-        Toast.makeText(
-                MainActivity.this,
-               "Selected category: " + category,
-                Toast.LENGTH_SHORT
-        ).show();
+    if (category.equals("ALG2")) {
+        selectedCenter = selectedCenter + " • ALG2";
+    } else if (category.equals("ALG3")) {
+        selectedCenter = selectedCenter + " • ALG3";
+    } else if (category.equals("ALG4")) {
+        selectedCenter = selectedCenter + " • ALG4";
     }
+}
    // =========================================================
     // ORIGINAL SERVICE PAGES
     // =========================================================
