@@ -698,4 +698,402 @@ public class MainActivity extends AppCompatActivity {
 
         TextView n = makeText(
                 name,
-                
+                10,
+                MUTED,
+                false
+        );
+
+        n.setGravity(Gravity.CENTER);
+
+        item.addView(i);
+        item.addView(n);
+
+        item.setOnClickListener(listener);
+
+        return item;
+    }
+
+    // =========================================================
+    // PAGES
+    // =========================================================
+
+    private void showAppointments() {
+
+        showPage(
+                "Appointments",
+                "Find and manage your visa appointments.",
+                new String[]{
+                        "Spain",
+                        "France",
+                        "Italy"
+                }
+        );
+    }
+
+    private void showAlerts() {
+
+        showPage(
+                "Alerts",
+                "Monitor appointment information changes.",
+                new String[]{
+                        "Monitoring status",
+                        "Availability alerts",
+                        "Notifications"
+                }
+        );
+    }
+
+    private void showCenters() {
+
+        showPage(
+                "Visa Centers",
+                "Choose your visa application center.",
+                new String[]{
+                        "Algiers",
+                        "Oran",
+                        "Annaba"
+                }
+        );
+    }
+
+    private void showCountries() {
+
+        showPage(
+                "Countries",
+                "Choose your destination country.",
+                new String[]{
+                        "🇪🇸  Spain",
+                        "🇫🇷  France",
+                        "🇮🇹  Italy"
+                }
+        );
+    }
+
+    private void showTracking() {
+
+        showPage(
+                "Track Application",
+                "Follow your visa application.",
+                new String[]{
+                        "Application reference",
+                        "Passport information",
+                        "Check status"
+                }
+        );
+    }
+
+    private void showStatistics() {
+
+        showPage(
+                "Statistics",
+                "Overview of your monitoring activity.",
+                new String[]{
+                        "Checks: 0",
+                        "Alerts: 0",
+                        "Appointments: 0"
+                }
+        );
+    }
+
+    private void showSearch() {
+
+        showPage(
+                "Search",
+                "Search countries, centers and services.",
+                new String[]{
+                        "Spain",
+                        "Algiers",
+                        "Appointments",
+                        "Tracking"
+                }
+        );
+    }
+
+    // =========================================================
+    // SIMPLE PAGE
+    // =========================================================
+
+    private void showPage(
+            String title,
+            String description,
+            String[] items
+    ) {
+
+        content.removeAllViews();
+
+        ScrollView scroll = new ScrollView(this);
+        scroll.setVerticalScrollBarEnabled(false);
+
+        LinearLayout page = new LinearLayout(this);
+        page.setOrientation(LinearLayout.VERTICAL);
+        page.setPadding(
+                dp(20),
+                dp(20),
+                dp(20),
+                dp(30)
+        );
+
+        TextView back = makeText(
+                "‹  Back",
+                15,
+                BLUE,
+                true
+        );
+
+        back.setPadding(
+                0,
+                0,
+                0,
+                dp(10)
+        );
+
+        back.setOnClickListener(
+                v -> showHome()
+        );
+
+        page.addView(back);
+
+        TextView titleView = makeText(
+                title,
+                27,
+                NAVY,
+                true
+        );
+
+        page.addView(titleView);
+
+        space(page, 5);
+
+        TextView desc = makeText(
+                description,
+                14,
+                MUTED,
+                false
+        );
+
+        page.addView(desc);
+
+        space(page, 20);
+
+        for (String item : items) {
+
+            LinearLayout card = new LinearLayout(this);
+            card.setOrientation(LinearLayout.HORIZONTAL);
+            card.setGravity(Gravity.CENTER_VERTICAL);
+            card.setPadding(
+                    dp(16),
+                    dp(16),
+                    dp(16),
+                    dp(16)
+            );
+
+            card.setBackground(
+                    rounded(WHITE, 20, BORDER)
+            );
+
+            TextView bullet = makeText(
+                    "•",
+                    24,
+                    BLUE,
+                    true
+            );
+
+            card.addView(
+                    bullet,
+                    new LinearLayout.LayoutParams(
+                            dp(35),
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+            );
+
+            TextView itemText = makeText(
+                    item,
+                    15,
+                    TEXT,
+                    true
+            );
+
+            card.addView(
+                    itemText,
+                    new LinearLayout.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            1
+                    )
+            );
+
+            TextView arrow = makeText(
+                    "›",
+                    24,
+                    MUTED,
+                    false
+            );
+
+            card.addView(arrow);
+
+            page.addView(card);
+
+            space(page, 12);
+        }
+
+        scroll.addView(page);
+        content.addView(scroll);
+    }
+
+    // =========================================================
+    // SETTINGS
+    // =========================================================
+
+    private void openSettings() {
+
+        try {
+
+            Intent intent = new Intent(
+                    MainActivity.this,
+                    SettingsActivity.class
+            );
+
+            startActivity(intent);
+
+        } catch (Exception e) {
+
+            showPage(
+                    "Settings",
+                    "Application settings",
+                    new String[]{
+                            "Language",
+                            "Theme",
+                            "Country",
+                            "Visa center",
+                            "Monitoring interval",
+                            "Notifications"
+                    }
+            );
+        }
+    }
+
+    // =========================================================
+    // OFFICIAL BLS
+    // =========================================================
+
+    private void openOfficialBLS() {
+
+        try {
+
+            Intent intent = new Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(
+                            "https://algeria.blsspainvisa.com/"
+                    )
+            );
+
+            startActivity(intent);
+
+        } catch (Exception ignored) {
+        }
+    }
+
+    // =========================================================
+    // HELPERS
+    // =========================================================
+
+    private TextView makeText(
+            String value,
+            float size,
+            int color,
+            boolean bold
+    ) {
+
+        TextView view = new TextView(this);
+
+        view.setText(value);
+        view.setTextSize(size);
+        view.setTextColor(color);
+        view.setGravity(Gravity.CENTER_VERTICAL);
+
+        if (bold) {
+            view.setTypeface(
+                    android.graphics.Typeface.DEFAULT,
+                    android.graphics.Typeface.BOLD
+            );
+        }
+
+        return view;
+    }
+
+    private GradientDrawable rounded(
+            int color,
+            int radius,
+            int stroke
+    ) {
+
+        GradientDrawable drawable =
+                new GradientDrawable();
+
+        drawable.setColor(color);
+        drawable.setCornerRadius(dp(radius));
+
+        if (stroke != Color.TRANSPARENT) {
+            drawable.setStroke(
+                    dp(1),
+                    stroke
+            );
+        }
+
+        return drawable;
+    }
+
+    private LinearLayout.LayoutParams gridParams() {
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        1
+                );
+
+        params.setMargins(
+                dp(4),
+                0,
+                dp(4),
+                0
+        );
+
+        return params;
+    }
+
+    private LinearLayout.LayoutParams navParams() {
+
+        return new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1
+        );
+    }
+
+    private void space(
+            LinearLayout parent,
+            int height
+    ) {
+
+        View view = new View(this);
+
+        parent.addView(
+                view,
+                new LinearLayout.LayoutParams(
+                        1,
+                        dp(height)
+                )
+        );
+    }
+
+    private int dp(int value) {
+
+        return (int) (
+                value *
+                getResources()
+                        .getDisplayMetrics()
+                        .density
+        );
+    }
+}
