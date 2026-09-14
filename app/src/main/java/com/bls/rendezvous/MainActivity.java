@@ -1284,115 +1284,229 @@ public class MainActivity extends Activity {
     // =========================================================
     // 69 WILAYAS
     // =========================================================
+private void showWilayaSelector() {
 
-    private void showWilayaSelector() {
+    final String[] wilayas = {
 
-        final String[] wilayas = {
+            "Adrar",
+            "Chlef",
+            "Laghouat",
+            "Oum El Bouaghi",
+            "Batna",
+            "Bejaia",
+            "Biskra",
+            "Bechar",
+            "Blida",
+            "Bouira",
+            "Tamanrasset",
+            "Tebessa",
+            "Tlemcen",
+            "Tiaret",
+            "Tizi-Ouzou",
+            "Algiers",
+            "Djelfa",
+            "Jijel",
+            "Setif",
+            "Saida",
+            "Skikda",
+            "Sidi Bel Abbes",
+            "Annaba",
+            "Guelma",
+            "Constantine",
+            "Medea",
+            "Mostaganem",
+            "M'Sila",
+            "Mascara",
+            "Ouargla",
+            "Oran",
+            "El Bayadh",
+            "Illizi",
+            "Bordj Bou Arreridj",
+            "Boumerdes",
+            "El Tarf",
+            "Tindouf",
+            "Tissemsilt",
+            "El Oued",
+            "Khenchela",
+            "Souk Ahras",
+            "Tipaza",
+            "Mila",
+            "Ain Defla",
+            "Naama",
+            "Ain Temouchent",
+            "Ghardaia",
+            "Relizane",
 
-                "Adrar",
-                "Chlef",
-                "Laghouat",
-                "Oum El Bouaghi",
-                "Batna",
-                "Bejaia",
-                "Biskra",
-                "Bechar",
-                "Blida",
-                "Bouira",
-                "Tamanrasset",
-                "Tebessa",
-                "Tlemcen",
-                "Tiaret",
-                "Tizi-Ouzou",
-                "Algiers",
-                "Djelfa",
-                "Jijel",
-                "Setif",
-                "Saida",
-                "Skikda",
-                "Sidi Bel Abbes",
-                "Annaba",
-                "Guelma",
-                "Constantine",
-                "Medea",
-                "Mostaganem",
-                "M'Sila",
-                "Mascara",
-                "Ouargla",
-                "Oran",
-                "El Bayadh",
-                "Illizi",
-                "Bordj Bou Arreridj",
-                "Boumerdes",
-                "El Tarf",
-                "Tindouf",
-                "Tissemsilt",
-                "El Oued",
-                "Khenchela",
-                "Souk Ahras",
-                "Tipaza",
-                "Mila",
-                "Ain Defla",
-                "Naama",
-                "Ain Temouchent",
-                "Ghardaia",
-                "Relizane",
+            "Aflou",
+            "Barika",
+            "El Kantara",
+            "Bir El Ater",
+            "El Aricha",
+            "Ksar Chellala",
+            "Ain Oussara",
+            "Messaad",
+            "Ksar El Boukhari",
+            "Bou Saada",
+            "El Abiodh Sidi Cheikh"
+    };
 
-                // 11 new wilayas
-                "Aflou",
-                "Barika",
-                "El Kantara",
-                "Bir El Ater",
-                "El Aricha",
-                "Ksar Chellala",
-                "Ain Oussara",
-                "Messaad",
-                "Ksar El Boukhari",
-                "Bou Saada",
-                "El Abiodh Sidi Cheikh"
-        };
+    final AlertDialog dialog =
+            new AlertDialog.Builder(
+                    MainActivity.this
+            ).create();
 
-        AlertDialog dialog =
-                new AlertDialog.Builder(
-                        MainActivity.this
-                )
-                        .setTitle(
-                                "Select your Wilaya"
-                        )
-                        .setSingleChoiceItems(
-                                wilayas,
-                                getSelectedWilayaIndex(wilayas),
-                                new android.content.DialogInterface.OnClickListener() {
+    LinearLayout main =
+            new LinearLayout(this);
 
-                                    @Override
-                                    public void onClick(
-                                            android.content.DialogInterface dialogInterface,
-                                            int which
-                                    ) {
+    main.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-                                        selectedWilaya =
-                                                wilayas[which];
+    main.setPadding(
+            dp(18),
+            dp(15),
+            dp(18),
+            dp(10)
+    );
 
-                                        selectedCenter =
-                                                getBlsCenter(
-                                                        selectedWilaya
-                                                );
+    TextView title =
+            text(
+                    "Select your Wilaya",
+                    21,
+                    NAVY
+            );
 
-                                        updateAppointmentSelection();
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-                                        dialogInterface.dismiss();
-                                    }
-                                }
-                        )
-                        .setNegativeButton(
-                                "CANCEL",
-                                null
-                        )
-                        .create();
+    main.addView(title);
 
-        dialog.show();
+    ScrollView scroll =
+            new ScrollView(this);
+
+    LinearLayout list =
+            new LinearLayout(this);
+
+    list.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    for (int i = 0; i < wilayas.length; i++) {
+
+        final String wilaya =
+                wilayas[i];
+
+        TextView item =
+                text(
+                        wilaya,
+                        16,
+                        NAVY
+                );
+
+        item.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        item.setPadding(
+                dp(15),
+                0,
+                dp(15),
+                0
+        );
+
+        LinearLayout.LayoutParams itemParams =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(52)
+                );
+
+        itemParams.setMargins(
+                0,
+                dp(3),
+                0,
+                dp(3)
+        );
+
+        list.addView(
+                item,
+                itemParams
+        );
+
+        item.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        selectedWilaya =
+                                wilaya;
+
+                        selectedCenter =
+                                getBlsCenter(
+                                        selectedWilaya
+                                );
+
+                        updateAppointmentSelection();
+
+                        dialog.dismiss();
+                    }
+                }
+        );
     }
 
+    scroll.addView(list);
+
+    main.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(430)
+            )
+    );
+
+    Button cancel =
+            smallButton("CANCEL");
+
+    cancel.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            }
+    );
+
+    main.addView(
+            cancel,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(48)
+            )
+    );
+
+    dialog.setView(main);
+
+    dialog.show();
+
+    if (dialog.getWindow() != null) {
+
+        dialog.getWindow().setBackgroundDrawable(
+                new android.graphics.drawable.ColorDrawable(
+                        Color.WHITE
+                )
+        );
+
+        dialog.getWindow().setLayout(
+                (int)(
+                        getResources()
+                                .getDisplayMetrics()
+                                .widthPixels * 0.92
+                ),
+                dp(560)
+        );
+    }
+}
+   
     private int getSelectedWilayaIndex(
             String[] wilayas
     ) {
