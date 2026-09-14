@@ -72,10 +72,6 @@ public class MainActivity extends Activity {
                 Gravity.CENTER
         );
 
-        // -----------------------------------------------------
-        // BLS
-        // -----------------------------------------------------
-
         final TextView bls =
                 new TextView(this);
 
@@ -95,10 +91,6 @@ public class MainActivity extends Activity {
                         -2
                 )
         );
-
-        // -----------------------------------------------------
-        // INTERNATIONAL
-        // -----------------------------------------------------
 
         final TextView international =
                 new TextView(this);
@@ -131,10 +123,6 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // -----------------------------------------------------
-        // LIGHT / METEOR
-        // -----------------------------------------------------
-
         final TextView light =
                 new TextView(this);
 
@@ -159,10 +147,6 @@ public class MainActivity extends Activity {
 
         setContentView(splash);
 
-        // -----------------------------------------------------
-        // LOGO APPEAR
-        // -----------------------------------------------------
-
         logoContainer.setAlpha(0f);
         logoContainer.setScaleX(0.94f);
         logoContainer.setScaleY(0.94f);
@@ -173,10 +157,6 @@ public class MainActivity extends Activity {
                 .scaleY(1f)
                 .setDuration(700)
                 .start();
-
-        // -----------------------------------------------------
-        // METEOR ANIMATION
-        // -----------------------------------------------------
 
         light.setTranslationX(-dp(150));
         light.setTranslationY(-dp(38));
@@ -199,10 +179,6 @@ public class MainActivity extends Activity {
                         }
                 )
                 .start();
-
-        // -----------------------------------------------------
-        // GO TO HOME
-        // -----------------------------------------------------
 
         new Handler().postDelayed(
                 new Runnable() {
@@ -249,8 +225,6 @@ public class MainActivity extends Activity {
         root.setBackground(background);
 
         setContentView(root);
-
-        // ---------------- HEADER ----------------
 
         LinearLayout header = new LinearLayout(this);
         header.setGravity(Gravity.CENTER_VERTICAL);
@@ -328,8 +302,6 @@ public class MainActivity extends Activity {
 
         root.addView(header);
 
-        // ---------------- SCROLL AREA ----------------
-
         ScrollView scroll =
                 new ScrollView(this);
 
@@ -359,8 +331,6 @@ public class MainActivity extends Activity {
                         1
                 )
         );
-
-        // ---------------- CURRENT APPLICATION ----------------
 
         LinearLayout current = card();
 
@@ -443,8 +413,6 @@ public class MainActivity extends Activity {
                 current,
                 margin(0, 5, 0, 10)
         );
-
-        // ---------------- MONITORING ----------------
 
         LinearLayout monitor =
                 card();
@@ -542,8 +510,6 @@ public class MainActivity extends Activity {
                 margin(0, 0, 0, 10)
         );
 
-        // ---------------- SERVICES TITLE ----------------
-
         TextView services =
                 text(
                         "Services",
@@ -559,10 +525,6 @@ public class MainActivity extends Activity {
                 services,
                 margin(2, 3, 0, 3)
         );
-
-        // =====================================================
-        // 2 x 3 SERVICES
-        // =====================================================
 
         LinearLayout row1 =
                 new LinearLayout(this);
@@ -663,8 +625,6 @@ public class MainActivity extends Activity {
 
         content.addView(row3);
 
-        // ---------------- SEARCH ----------------
-
         TextView search =
                 text(
                         "⌕   Search services",
@@ -676,11 +636,7 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         searchBg.setColor(Color.WHITE);
-
-        searchBg.setCornerRadius(
-                dp(18)
-        );
-
+        searchBg.setCornerRadius(dp(18));
         searchBg.setStroke(
                 dp(1),
                 Color.rgb(225, 230, 240)
@@ -702,8 +658,6 @@ public class MainActivity extends Activity {
                         dp(50)
                 )
         );
-
-        // ---------------- OFFICIAL BLS ----------------
 
         LinearLayout official =
                 card();
@@ -764,8 +718,6 @@ public class MainActivity extends Activity {
                 official,
                 margin(0, 10, 0, 5)
         );
-
-        // ---------------- BOTTOM NAVIGATION ----------------
 
         LinearLayout bottom =
                 new LinearLayout(this);
@@ -847,6 +799,703 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
+    // APPOINTMENTS
+    // =========================================================
+
+    private void showAppointments() {
+
+        root.removeAllViews();
+
+        LinearLayout page =
+                new LinearLayout(this);
+
+        page.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        GradientDrawable background =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
+                        }
+                );
+
+        page.setBackground(background);
+
+        root.addView(page);
+
+        LinearLayout header =
+                new LinearLayout(this);
+
+        header.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        header.setPadding(
+                dp(20),
+                dp(22),
+                dp(20),
+                dp(10)
+        );
+
+        TextView back =
+                text(
+                        "‹  Back",
+                        17,
+                        BLUE
+                );
+
+        back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showHome();
+                    }
+                }
+        );
+
+        header.addView(back);
+
+        TextView title =
+                text(
+                        "Appointments",
+                        29,
+                        NAVY
+                );
+
+        title.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        header.addView(
+                title,
+                margin(0, 10, 0, 3)
+        );
+
+        header.addView(
+                text(
+                        "Find the appointment that matches your travel plan.",
+                        13,
+                        GRAY
+                )
+        );
+
+        page.addView(header);
+
+        ScrollView scroll =
+                new ScrollView(this);
+
+        scroll.setFillViewport(true);
+
+        LinearLayout content =
+                new LinearLayout(this);
+
+        content.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        content.setPadding(
+                dp(18),
+                dp(5),
+                dp(18),
+                dp(25)
+        );
+
+        scroll.addView(content);
+
+        page.addView(
+                scroll,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        0,
+                        1
+                )
+        );
+
+        // COUNTRY
+
+        content.addView(
+                appointmentSectionTitle(
+                        "COUNTRY"
+                ),
+                margin(0, 5, 0, 5)
+        );
+
+        content.addView(
+                appointmentChoice(
+                        "🇪🇸",
+                        "Spain",
+                        "Visa appointment",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        }
+                ),
+                margin(0, 0, 0, 12)
+        );
+
+        // VISA TYPE
+
+        content.addView(
+                appointmentSectionTitle(
+                        "VISA TYPE"
+                ),
+                margin(0, 3, 0, 5)
+        );
+
+        content.addView(
+                appointmentChoice(
+                        "📄",
+                        "Short Stay — Tourism",
+                        "Schengen visa",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        }
+                ),
+                margin(0, 0, 0, 12)
+        );
+
+        // CENTER
+
+        content.addView(
+                appointmentSectionTitle(
+                        "VISA CENTER"
+                ),
+                margin(0, 3, 0, 5)
+        );
+
+        content.addView(
+                appointmentChoice(
+                        "🏢",
+                        "Algiers Visa Center",
+                        "Algiers",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        }
+                ),
+                margin(0, 0, 0, 12)
+        );
+
+        // APPLICANTS
+
+        content.addView(
+                appointmentSectionTitle(
+                        "APPLICANTS"
+                ),
+                margin(0, 3, 0, 5)
+        );
+
+        content.addView(
+                appointmentChoice(
+                        "👤",
+                        "1 Applicant",
+                        "Number of people",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        }
+                ),
+                margin(0, 0, 0, 12)
+        );
+
+        // TRAVEL DATE
+
+        content.addView(
+                appointmentSectionTitle(
+                        "TRAVEL PLAN"
+                ),
+                margin(0, 3, 0, 5)
+        );
+
+        content.addView(
+                appointmentChoice(
+                        "📅",
+                        "15 November 2026",
+                        "Planned departure date",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        }
+                ),
+                margin(0, 0, 0, 15)
+        );
+
+        // SMART MATCH
+
+        LinearLayout smart =
+                appointmentBox();
+
+        TextView smartTitle =
+                text(
+                        "✦  Smart Appointment Match",
+                        16,
+                        NAVY
+                );
+
+        smartTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        smart.addView(smartTitle);
+
+        smart.addView(
+                text(
+                        "We will look for appointments that fit your selected center and travel plan.",
+                        12,
+                        GRAY
+                ),
+                margin(0, 6, 0, 0)
+        );
+
+        content.addView(
+                smart,
+                margin(0, 0, 0, 12)
+        );
+
+        // AVAILABILITY
+
+        final LinearLayout status =
+                appointmentBox();
+
+        LinearLayout statusTop =
+                new LinearLayout(this);
+
+        statusTop.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        TextView statusTitle =
+                text(
+                        "Appointment availability",
+                        15,
+                        NAVY
+                );
+
+        statusTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        statusTop.addView(
+                statusTitle,
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                )
+        );
+
+        final TextView statusDot =
+                text(
+                        "● READY",
+                        11,
+                        GREEN
+                );
+
+        statusTop.addView(statusDot);
+
+        status.addView(statusTop);
+
+        status.addView(
+                text(
+                        "Your preferences are ready for the next availability check.",
+                        12,
+                        GRAY
+                ),
+                margin(0, 5, 0, 12)
+        );
+
+        final Button check =
+                smallButton(
+                        "CHECK AVAILABILITY"
+                );
+
+        check.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        statusDot.setText(
+                                "● CHECKING"
+                        );
+
+                        statusDot.setTextColor(
+                                BLUE
+                        );
+
+                        check.setText(
+                                "CHECKING..."
+                        );
+
+                        check.setEnabled(false);
+
+                        new Handler().postDelayed(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        statusDot.setText(
+                                                "● NO RESULT YET"
+                                        );
+
+                                        statusDot.setTextColor(
+                                                GRAY
+                                        );
+
+                                        check.setText(
+                                                "CHECK AGAIN"
+                                        );
+
+                                        check.setEnabled(true);
+                                    }
+                                },
+                                1200
+                        );
+                    }
+                }
+        );
+
+        status.addView(check);
+
+        content.addView(
+                status,
+                margin(0, 0, 0, 12)
+        );
+
+        // MONITORING
+
+        LinearLayout monitoring =
+                appointmentBox();
+
+        TextView monitoringTitle =
+                text(
+                        "🔔 Appointment monitoring",
+                        15,
+                        NAVY
+                );
+
+        monitoringTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        monitoring.addView(
+                monitoringTitle
+        );
+
+        monitoring.addView(
+                text(
+                        "Get notified when a suitable appointment becomes available.",
+                        12,
+                        GRAY
+                ),
+                margin(0, 5, 0, 10)
+        );
+
+        final Button monitorButton =
+                smallButton(
+                        "ENABLE MONITORING"
+                );
+
+        monitorButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        monitorButton.setText(
+                                "MONITORING ENABLED"
+                        );
+                    }
+                }
+        );
+
+        monitoring.addView(
+                monitorButton
+        );
+
+        content.addView(
+                monitoring,
+                margin(0, 0, 0, 5)
+        );
+    }
+
+    // =========================================================
+    // APPOINTMENT SECTION TITLE
+    // =========================================================
+
+    private TextView appointmentSectionTitle(
+            String value
+    ) {
+
+        TextView t =
+                text(
+                        value,
+                        10,
+                        GRAY
+                );
+
+        t.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        return t;
+    }
+
+    // =========================================================
+    // APPOINTMENT CHOICE
+    // =========================================================
+
+    private LinearLayout appointmentChoice(
+            String icon,
+            String title,
+            String subtitle,
+            View.OnClickListener listener
+    ) {
+
+        LinearLayout card =
+                new LinearLayout(this);
+
+        card.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        card.setPadding(
+                dp(15),
+                dp(13),
+                dp(15),
+                dp(13)
+        );
+
+        GradientDrawable bg =
+                new GradientDrawable();
+
+        bg.setColor(Color.WHITE);
+        bg.setCornerRadius(dp(19));
+        bg.setStroke(
+                dp(1),
+                Color.rgb(225, 230, 240)
+        );
+
+        card.setBackground(bg);
+
+        TextView iconView =
+                text(
+                        icon,
+                        23,
+                        NAVY
+                );
+
+        iconView.setGravity(
+                Gravity.CENTER
+        );
+
+        card.addView(
+                iconView,
+                new LinearLayout.LayoutParams(
+                        dp(45),
+                        dp(45)
+                )
+        );
+
+        LinearLayout info =
+                new LinearLayout(this);
+
+        info.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        TextView titleView =
+                text(
+                        title,
+                        15,
+                        NAVY
+                );
+
+        titleView.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        TextView subtitleView =
+                text(
+                        subtitle,
+                        11,
+                        GRAY
+                );
+
+        info.addView(titleView);
+
+        info.addView(
+                subtitleView,
+                margin(0, 3, 0, 0)
+        );
+
+        LinearLayout.LayoutParams infoParams =
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                );
+
+        infoParams.leftMargin =
+                dp(10);
+
+        card.addView(
+                info,
+                infoParams
+        );
+
+        TextView arrow =
+                text(
+                        "›",
+                        25,
+                        GRAY
+                );
+
+        arrow.setGravity(
+                Gravity.CENTER
+        );
+
+        card.addView(
+                arrow,
+                new LinearLayout.LayoutParams(
+                        dp(30),
+                        dp(45)
+                )
+        );
+
+        card.setOnClickListener(
+                listener
+        );
+
+        return card;
+    }
+
+    // =========================================================
+    // APPOINTMENT BOX
+    // =========================================================
+
+    private LinearLayout appointmentBox() {
+
+        LinearLayout box =
+                new LinearLayout(this);
+
+        box.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        box.setPadding(
+                dp(17),
+                dp(16),
+                dp(17),
+                dp(16)
+        );
+
+        GradientDrawable bg =
+                new GradientDrawable();
+
+        bg.setColor(Color.WHITE);
+        bg.setCornerRadius(dp(20));
+        bg.setStroke(
+                dp(1),
+                Color.rgb(225, 230, 240)
+        );
+
+        box.setBackground(bg);
+
+        return box;
+    }
+
+    // =========================================================
+    // OTHER PAGES
+    // =========================================================
+
+    private void showAlerts() {
+        page(
+                "Alerts",
+                "Appointment availability notifications.",
+                new String[]{
+                        "🔔 Availability alerts",
+                        "● Monitoring active",
+                        "⏱ Every 2 minutes",
+                        "Notifications enabled"
+                }
+        );
+    }
+
+    private void showCenters() {
+        page(
+                "Visa Centers",
+                "Choose your preferred visa center.",
+                new String[]{
+                        "Algiers",
+                        "Oran",
+                        "Annaba"
+                }
+        );
+    }
+
+    private void showTracking() {
+        page(
+                "Application Tracking",
+                "Track the status of your visa application.",
+                new String[]{
+                        "Application number",
+                        "Passport number",
+                        "Check application status"
+                }
+        );
+    }
+
+    private void showCountries() {
+        page(
+                "Countries",
+                "Choose a country for visa services.",
+                new String[]{
+                        "🇪🇸 Spain",
+                        "🇫🇷 France",
+                        "🇮🇹 Italy",
+                        "🇩🇪 Germany",
+                        "🇵🇹 Portugal"
+                }
+        );
+    }
+
+    private void showStatistics() {
+        page(
+                "Statistics",
+                "Your appointment monitoring activity.",
+                new String[]{
+                        "Checks today: 0",
+                        "Appointments detected: 0",
+                        "Monitoring status: Active"
+                }
+        );
+    }
+
+    private void showSettings() {
+        page(
+                "Settings",
+                "Customize BLS Rendez-Vous.",
+                new String[]{
+                        "🌐 Language",
+                        "🎨 Theme",
+                        "🌍 Country",
+                        "🏢 Visa center",
+                        "⏱ Monitoring interval",
+                        "🔔 Notifications"
+                }
+        );
+    }
+
+    // =========================================================
     // SERVICE CARD
     // =========================================================
 
@@ -879,11 +1528,7 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         bg.setColor(Color.WHITE);
-
-        bg.setCornerRadius(
-                dp(19)
-        );
-
+        bg.setCornerRadius(dp(19));
         bg.setStroke(
                 dp(1),
                 Color.rgb(226, 231, 240)
@@ -898,9 +1543,7 @@ public class MainActivity extends Activity {
                         NAVY
                 );
 
-        i.setGravity(
-                Gravity.CENTER
-        );
+        i.setGravity(Gravity.CENTER);
 
         card.addView(i);
 
@@ -915,9 +1558,7 @@ public class MainActivity extends Activity {
                 Typeface.DEFAULT_BOLD
         );
 
-        t.setGravity(
-                Gravity.CENTER
-        );
+        t.setGravity(Gravity.CENTER);
 
         card.addView(t);
 
@@ -928,9 +1569,7 @@ public class MainActivity extends Activity {
                         GRAY
                 );
 
-        s.setGravity(
-                Gravity.CENTER
-        );
+        s.setGravity(Gravity.CENTER);
 
         card.addView(s);
 
@@ -956,7 +1595,7 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // NAVIGATION ITEM
+    // NAVIGATION
     // =========================================================
 
     private LinearLayout nav(
@@ -983,9 +1622,7 @@ public class MainActivity extends Activity {
                         NAVY
                 );
 
-        i.setGravity(
-                Gravity.CENTER
-        );
+        i.setGravity(Gravity.CENTER);
 
         TextView n =
                 text(
@@ -994,9 +1631,7 @@ public class MainActivity extends Activity {
                         GRAY
                 );
 
-        n.setGravity(
-                Gravity.CENTER
-        );
+        n.setGravity(Gravity.CENTER);
 
         item.addView(i);
         item.addView(n);
@@ -1012,108 +1647,6 @@ public class MainActivity extends Activity {
         );
 
         return item;
-    }
-
-    // =========================================================
-    // PAGES
-    // =========================================================
-
-    private void showAppointments() {
-
-        page(
-                "Appointments",
-                "Find and manage your visa appointments.",
-                new String[]{
-                        "🇪🇸 Spain",
-                        "Algiers Visa Center",
-                        "Oran Visa Center",
-                        "Annaba Visa Center"
-                }
-        );
-    }
-
-    private void showAlerts() {
-
-        page(
-                "Alerts",
-                "Appointment availability notifications.",
-                new String[]{
-                        "🔔 Availability alerts",
-                        "● Monitoring active",
-                        "⏱ Every 2 minutes",
-                        "Notifications enabled"
-                }
-        );
-    }
-
-    private void showCenters() {
-
-        page(
-                "Visa Centers",
-                "Choose your preferred visa center.",
-                new String[]{
-                        "Algiers",
-                        "Oran",
-                        "Annaba"
-                }
-        );
-    }
-
-    private void showTracking() {
-
-        page(
-                "Application Tracking",
-                "Track the status of your visa application.",
-                new String[]{
-                        "Application number",
-                        "Passport number",
-                        "Check application status"
-                }
-        );
-    }
-
-    private void showCountries() {
-
-        page(
-                "Countries",
-                "Choose a country for visa services.",
-                new String[]{
-                        "🇪🇸 Spain",
-                        "🇫🇷 France",
-                        "🇮🇹 Italy",
-                        "🇩🇪 Germany",
-                        "🇵🇹 Portugal"
-                }
-        );
-    }
-
-    private void showStatistics() {
-
-        page(
-                "Statistics",
-                "Your appointment monitoring activity.",
-                new String[]{
-                        "Checks today: 0",
-                        "Appointments detected: 0",
-                        "Monitoring status: Active"
-                }
-        );
-    }
-
-    private void showSettings() {
-
-        page(
-                "Settings",
-                "Customize BLS Rendez-Vous.",
-                new String[]{
-                        "🌐 Language",
-                        "🎨 Theme",
-                        "🌍 Country",
-                        "🏢 Visa center",
-                        "⏱ Monitoring interval",
-                        "🔔 Notifications"
-                }
-        );
     }
 
     // =========================================================
@@ -1146,9 +1679,9 @@ public class MainActivity extends Activity {
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
+                                Color.rgb(245,248,255),
+                                Color.rgb(238,244,255),
+                                Color.rgb(247,243,252)
                         }
                 );
 
@@ -1174,12 +1707,7 @@ public class MainActivity extends Activity {
 
         page.addView(
                 back,
-                margin(
-                        0,
-                        0,
-                        0,
-                        15
-                )
+                margin(0,0,0,15)
         );
 
         TextView titleView =
@@ -1201,12 +1729,7 @@ public class MainActivity extends Activity {
                         13,
                         GRAY
                 ),
-                margin(
-                        0,
-                        5,
-                        0,
-                        18
-                )
+                margin(0,5,0,18)
         );
 
         for (String item : items) {
@@ -1223,12 +1746,7 @@ public class MainActivity extends Activity {
 
             page.addView(
                     c,
-                    margin(
-                            0,
-                            5,
-                            0,
-                            5
-                    )
+                    margin(0,5,0,5)
             );
         }
     }
@@ -1257,14 +1775,10 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         bg.setColor(WHITE);
-
-        bg.setCornerRadius(
-                dp(19)
-        );
-
+        bg.setCornerRadius(dp(19));
         bg.setStroke(
                 dp(1),
-                Color.rgb(225, 230, 240)
+                Color.rgb(225,230,240)
         );
 
         c.setBackground(bg);
@@ -1276,9 +1790,7 @@ public class MainActivity extends Activity {
     // BUTTON
     // =========================================================
 
-    private Button smallButton(
-            String label
-    ) {
+    private Button smallButton(String label) {
 
         Button b =
                 new Button(this);
@@ -1291,10 +1803,7 @@ public class MainActivity extends Activity {
                 new GradientDrawable();
 
         bg.setColor(BLUE);
-
-        bg.setCornerRadius(
-                dp(15)
-        );
+        bg.setCornerRadius(dp(15));
 
         b.setBackground(bg);
 
@@ -1352,11 +1861,9 @@ public class MainActivity extends Activity {
     // DP
     // =========================================================
 
-    private int dp(
-            int value
-    ) {
+    private int dp(int value) {
 
-        return (int) (
+        return (int)(
                 value *
                 getResources()
                         .getDisplayMetrics()
