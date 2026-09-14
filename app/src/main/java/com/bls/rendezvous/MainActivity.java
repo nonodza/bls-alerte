@@ -2246,57 +2246,82 @@ public class MainActivity extends Activity {
     }
         // =========================================================
     // SPAIN VISA VALIDITY
-    // =========================================================
-
+    // ========================================================
     private void showVisaValidityPage() {
-        root.removeAllViews();
+    root.removeAllViews();
 
-        ScrollView scroll = new ScrollView(this);
+    ScrollView scroll = new ScrollView(this);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+    LinearLayout layout = new LinearLayout(this);
+    layout.setOrientation(LinearLayout.VERTICAL);
+    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
 
-        TextView back = text("‹  Back", 16, BLUE);
-        back.setPadding(0, 0, 0, dp(18));
-        back.setOnClickListener(v -> showPreviousSpainVisaPage());
-        layout.addView(back);
+    TextView back = text("‹  Back", 16, BLUE);
+    back.setPadding(0, 0, 0, dp(18));
+    back.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showPreviousSpainVisaPage();
+        }
+    });
+    layout.addView(back);
 
-        TextView title = text("Visa Validity", 26, NAVY);
-        title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        layout.addView(title);
+    TextView title = text("Visa Validity", 26, NAVY);
+    title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+    layout.addView(title);
 
-        TextView subtitle = text(
-                "How long was your last Spain Schengen visa valid?",
-                16,
-                GRAY
-        );
-        subtitle.setPadding(0, dp(8), 0, dp(20));
-        layout.addView(subtitle);
+    TextView subtitle = text(
+            "How long was your last Spain Schengen visa valid?",
+            16,
+            GRAY
+    );
+    subtitle.setPadding(0, dp(8), 0, dp(20));
+    layout.addView(subtitle);
 
-        LinearLayout alg2 = card("Less than 6 months");
-        alg2.setOnClickListener(v -> selectAppointmentCategory("ALG2"));
-        layout.addView(alg2);
+    TextView alg2 = text("Less than 6 months", 18, NAVY);
+    alg2.setPadding(dp(20), dp(22), dp(20), dp(22));
+    alg2.setBackgroundColor(LIGHT);
+    alg2.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            selectAppointmentCategory("ALG2");
+        }
+    });
+    layout.addView(alg2);
 
-        LinearLayout alg3 = card("6 months to less than 2 years");
-        alg3.setOnClickListener(v -> selectAppointmentCategory("ALG3"));
-        layout.addView(alg3);
+    TextView alg3 = text("6 months to less than 2 years", 18, NAVY);
+    alg3.setPadding(dp(20), dp(22), dp(20), dp(22));
+    alg3.setBackgroundColor(LIGHT);
+    alg3.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            selectAppointmentCategory("ALG3");
+        }
+    });
+    layout.addView(alg3);
 
-        LinearLayout alg4 = card("2 years or more");
-        alg4.setOnClickListener(v -> selectAppointmentCategory("ALG4"));
-        layout.addView(alg4);
+    TextView alg4 = text("2 years or more", 18, NAVY);
+    alg4.setPadding(dp(20), dp(22), dp(20), dp(22));
+    alg4.setBackgroundColor(LIGHT);
+    alg4.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            selectAppointmentCategory("ALG4");
+        }
+    });
+    layout.addView(alg4);
 
-        TextView info = text(
-                "Your previous Spain visa validity determines the appropriate BLS appointment category.",
-                14,
-                GRAY
-        );
-        info.setPadding(0, dp(20), 0, dp(0));
-        layout.addView(info);
+    TextView info = text(
+            "Your previous Spain visa validity determines the appropriate BLS appointment category.",
+            14,
+            GRAY
+    );
+    info.setPadding(0, dp(20), 0, 0);
+    layout.addView(info);
 
-        scroll.addView(layout);
-        root.addView(scroll);
-    }
+    scroll.addView(layout);
+    root.addView(scroll);
+}
     // =========================================================
     // APPOINTMENT CATEGORY
     // =========================================================
@@ -2304,7 +2329,7 @@ public class MainActivity extends Activity {
     private void selectAppointmentCategory(String category) {
         Toast.makeText(
                 MainActivity.this,
-                "Selected category: " + category,
+               "Selected category: " + category,
                 Toast.LENGTH_SHORT
         ).show();
     }
