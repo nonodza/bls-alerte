@@ -28,9 +28,15 @@ public class MainActivity extends Activity {
 
     private LinearLayout root;
 
-    // Appointment selections
+    // Appointment data
     private String selectedWilaya = "";
     private String selectedCenter = "";
+
+    // Appointment page references
+    private TextView appointmentWilayaValue;
+    private TextView appointmentWilayaHint;
+    private TextView appointmentCenterValue;
+    private TextView appointmentCenterHint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,12 @@ public class MainActivity extends Activity {
         showSplash();
     }
 
+    // =========================================================
+    // SPLASH
+    // =========================================================
+
     private void showSplash() {
+
         final LinearLayout splash = new LinearLayout(this);
         splash.setOrientation(LinearLayout.VERTICAL);
         splash.setGravity(Gravity.CENTER);
@@ -72,8 +83,10 @@ public class MainActivity extends Activity {
         bls.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         bls.setGravity(Gravity.CENTER);
 
-        logoContainer.addView(bls,
-                new LinearLayout.LayoutParams(-1, -2));
+        logoContainer.addView(
+                bls,
+                new LinearLayout.LayoutParams(-1, -2)
+        );
 
         final TextView international = new TextView(this);
         international.setText("international");
@@ -83,12 +96,18 @@ public class MainActivity extends Activity {
 
         LinearLayout.LayoutParams internationalParams =
                 new LinearLayout.LayoutParams(-1, -2);
+
         internationalParams.topMargin = dp(-2);
 
-        logoContainer.addView(international, internationalParams);
+        logoContainer.addView(
+                international,
+                internationalParams
+        );
 
-        splash.addView(logoContainer,
-                new LinearLayout.LayoutParams(-1, -2));
+        splash.addView(
+                logoContainer,
+                new LinearLayout.LayoutParams(-1, -2)
+        );
 
         final TextView light = new TextView(this);
         light.setText("━━━━━━━━━━━━━━━━");
@@ -99,6 +118,7 @@ public class MainActivity extends Activity {
 
         LinearLayout.LayoutParams lightParams =
                 new LinearLayout.LayoutParams(dp(190), dp(20));
+
         lightParams.gravity = Gravity.CENTER;
 
         splash.addView(light, lightParams);
@@ -138,6 +158,7 @@ public class MainActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 splash.animate()
                         .alpha(0f)
                         .setDuration(450)
@@ -151,6 +172,10 @@ public class MainActivity extends Activity {
             }
         }, 1800);
     }
+
+    // =========================================================
+    // HOME
+    // =========================================================
 
     private void showHome() {
 
@@ -172,39 +197,68 @@ public class MainActivity extends Activity {
 
         LinearLayout header = new LinearLayout(this);
         header.setGravity(Gravity.CENTER_VERTICAL);
-        header.setPadding(dp(20), dp(18), dp(20), dp(8));
+        header.setPadding(
+                dp(20),
+                dp(18),
+                dp(20),
+                dp(8)
+        );
 
         LinearLayout titles = new LinearLayout(this);
         titles.setOrientation(LinearLayout.VERTICAL);
 
-        TextView appName = text("BLS Rendez-Vous", 24, NAVY);
+        TextView appName =
+                text(
+                        "BLS Rendez-Vous",
+                        24,
+                        NAVY
+                );
+
         appName.setTypeface(Typeface.DEFAULT_BOLD);
 
         titles.addView(appName);
-        titles.addView(text(
-                "Your visa appointment assistant",
-                12,
-                GRAY
-        ));
+
+        titles.addView(
+                text(
+                        "Your visa appointment assistant",
+                        12,
+                        GRAY
+                )
+        );
 
         header.addView(
                 titles,
-                new LinearLayout.LayoutParams(0, -2, 1)
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                )
         );
 
-        TextView settings = text("⚙", 25, NAVY);
+        TextView settings =
+                text(
+                        "⚙",
+                        25,
+                        NAVY
+                );
+
         settings.setGravity(Gravity.CENTER);
 
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSettings();
-            }
-        });
+        settings.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showSettings();
+                    }
+                }
+        );
 
         header.addView(
                 settings,
-                new LinearLayout.LayoutParams(dp(48), dp(48))
+                new LinearLayout.LayoutParams(
+                        dp(48),
+                        dp(48)
+                )
         );
 
         root.addView(header);
@@ -214,6 +268,7 @@ public class MainActivity extends Activity {
 
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
+
         content.setPadding(
                 dp(18),
                 dp(5),
@@ -225,8 +280,14 @@ public class MainActivity extends Activity {
 
         root.addView(
                 scroll,
-                new LinearLayout.LayoutParams(-1, 0, 1)
+                new LinearLayout.LayoutParams(
+                        -1,
+                        0,
+                        1
+                )
         );
+
+        // Current application
 
         LinearLayout current = card();
 
@@ -236,52 +297,58 @@ public class MainActivity extends Activity {
         LinearLayout country = new LinearLayout(this);
         country.setOrientation(LinearLayout.VERTICAL);
 
-        TextView label = text(
-                "CURRENT APPLICATION",
-                10,
-                GRAY
+        country.addView(
+                text(
+                        "CURRENT APPLICATION",
+                        10,
+                        GRAY
+                )
         );
 
-        TextView countryName = text(
-                "🇪🇸  Spain",
-                21,
-                NAVY
-        );
+        TextView countryName =
+                text(
+                        "🇪🇸  Spain",
+                        21,
+                        NAVY
+                );
 
         countryName.setTypeface(Typeface.DEFAULT_BOLD);
 
-        TextView center = text(
-                "Algiers Visa Center",
-                12,
-                GRAY
-        );
-
-        country.addView(label);
         country.addView(countryName);
-        country.addView(center);
+
+        country.addView(
+                text(
+                        "Algiers Visa Center",
+                        12,
+                        GRAY
+                )
+        );
 
         currentTop.addView(
                 country,
-                new LinearLayout.LayoutParams(0, -2, 1)
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                )
         );
 
-        TextView active = text(
-                "● ACTIVE",
-                11,
-                GREEN
+        currentTop.addView(
+                text(
+                        "● ACTIVE",
+                        11,
+                        GREEN
+                )
         );
 
-        currentTop.addView(active);
         current.addView(currentTop);
 
-        TextView interval = text(
-                "Monitoring every 2 minutes",
-                12,
-                GRAY
-        );
-
         current.addView(
-                interval,
+                text(
+                        "Monitoring every 2 minutes",
+                        12,
+                        GRAY
+                ),
                 margin(0, 12, 0, 0)
         );
 
@@ -290,16 +357,19 @@ public class MainActivity extends Activity {
                 margin(0, 5, 0, 10)
         );
 
+        // Monitoring
+
         LinearLayout monitor = card();
 
         LinearLayout monitorRow = new LinearLayout(this);
         monitorRow.setGravity(Gravity.CENTER_VERTICAL);
 
-        TextView monitorIcon = text(
-                "◉",
-                28,
-                BLUE
-        );
+        TextView monitorIcon =
+                text(
+                        "◉",
+                        28,
+                        BLUE
+                );
 
         monitorIcon.setGravity(Gravity.CENTER);
 
@@ -311,45 +381,61 @@ public class MainActivity extends Activity {
                 )
         );
 
-        LinearLayout monitorInfo = new LinearLayout(this);
-        monitorInfo.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout monitorInfo =
+                new LinearLayout(this);
 
-        TextView monitorTitle = text(
-                "Appointment Monitoring",
-                15,
-                NAVY
+        monitorInfo.setOrientation(
+                LinearLayout.VERTICAL
         );
 
-        monitorTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        TextView monitorTitle =
+                text(
+                        "Appointment Monitoring",
+                        15,
+                        NAVY
+                );
 
-        TextView monitorStatus = text(
-                "Monitoring is active",
-                12,
-                GREEN
+        monitorTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
         );
+
+        TextView monitorStatus =
+                text(
+                        "Monitoring is active",
+                        12,
+                        GREEN
+                );
 
         monitorInfo.addView(monitorTitle);
         monitorInfo.addView(monitorStatus);
 
         monitorRow.addView(
                 monitorInfo,
-                new LinearLayout.LayoutParams(0, -2, 1)
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1
+                )
         );
 
-        Button monitorButton = smallButton("STOP");
+        Button monitorButton =
+                smallButton("STOP");
 
-        monitorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                monitorButton.setText("START");
-                monitorStatus.setText(
-                        "Monitoring is paused"
-                );
-                monitorStatus.setTextColor(GRAY);
-            }
-        });
+        monitorButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        monitorButton.setText("START");
+                        monitorStatus.setText(
+                                "Monitoring is paused"
+                        );
+                        monitorStatus.setTextColor(GRAY);
+                    }
+                }
+        );
 
         monitorRow.addView(monitorButton);
+
         monitor.addView(monitorRow);
 
         content.addView(
@@ -357,13 +443,18 @@ public class MainActivity extends Activity {
                 margin(0, 0, 0, 10)
         );
 
-        TextView services = text(
-                "Services",
-                19,
-                NAVY
-        );
+        // Services
 
-        services.setTypeface(Typeface.DEFAULT_BOLD);
+        TextView services =
+                text(
+                        "Services",
+                        19,
+                        NAVY
+                );
+
+        services.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
         content.addView(
                 services,
@@ -466,11 +557,14 @@ public class MainActivity extends Activity {
 
         content.addView(row3);
 
-        TextView search = text(
-                "⌕   Search services",
-                14,
-                GRAY
-        );
+        // Search
+
+        TextView search =
+                text(
+                        "⌕   Search services",
+                        14,
+                        GRAY
+                );
 
         GradientDrawable searchBg =
                 new GradientDrawable();
@@ -483,6 +577,7 @@ public class MainActivity extends Activity {
         );
 
         search.setBackground(searchBg);
+
         search.setPadding(
                 dp(18),
                 0,
@@ -498,15 +593,20 @@ public class MainActivity extends Activity {
                 )
         );
 
+        // Official
+
         LinearLayout official = card();
 
-        TextView officialTitle = text(
-                "Official BLS Spain",
-                15,
-                NAVY
-        );
+        TextView officialTitle =
+                text(
+                        "Official BLS Spain",
+                        15,
+                        NAVY
+                );
 
-        officialTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        officialTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
         official.addView(officialTitle);
 
@@ -519,15 +619,18 @@ public class MainActivity extends Activity {
                 margin(0, 4, 0, 8)
         );
 
-        Button open = smallButton(
-                "OPEN OFFICIAL WEBSITE"
-        );
+        Button open =
+                smallButton(
+                        "OPEN OFFICIAL WEBSITE"
+                );
 
         open.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         try {
+
                             android.content.Intent intent =
                                     new android.content.Intent(
                                             android.content.Intent.ACTION_VIEW,
@@ -551,10 +654,14 @@ public class MainActivity extends Activity {
                 margin(0, 10, 0, 5)
         );
 
-        LinearLayout bottom = new LinearLayout(this);
+        // Bottom navigation
+
+        LinearLayout bottom =
+                new LinearLayout(this);
 
         bottom.setGravity(Gravity.CENTER);
         bottom.setBackgroundColor(Color.WHITE);
+
         bottom.setPadding(
                 dp(5),
                 dp(4),
@@ -631,34 +738,54 @@ public class MainActivity extends Activity {
 
         root.removeAllViews();
 
-        LinearLayout page = new LinearLayout(this);
-        page.setOrientation(LinearLayout.VERTICAL);
+        ScrollView scroll =
+                new ScrollView(this);
+
+        LinearLayout page =
+                new LinearLayout(this);
+
+        page.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
         page.setPadding(
                 dp(20),
                 dp(20),
                 dp(20),
-                dp(15)
+                dp(25)
         );
 
         GradientDrawable bg =
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
+                                Color.rgb(245,248,255),
+                                Color.rgb(238,244,255),
+                                Color.rgb(247,243,252)
                         }
                 );
 
         page.setBackground(bg);
 
-        root.addView(page);
+        scroll.addView(page);
 
-        TextView back = text(
-                "‹  Back",
-                17,
-                BLUE
+        root.addView(
+                scroll,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        0,
+                        1
+                )
         );
+
+        // Back
+
+        TextView back =
+                text(
+                        "‹  Back",
+                        17,
+                        BLUE
+                );
 
         back.setOnClickListener(
                 new View.OnClickListener() {
@@ -671,16 +798,21 @@ public class MainActivity extends Activity {
 
         page.addView(
                 back,
-                margin(0, 0, 0, 10)
+                margin(0,0,0,10)
         );
 
-        TextView title = text(
-                "Appointments",
-                28,
-                NAVY
-        );
+        // Title
 
-        title.setTypeface(Typeface.DEFAULT_BOLD);
+        TextView title =
+                text(
+                        "Appointments",
+                        28,
+                        NAVY
+                );
+
+        title.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
         page.addView(title);
 
@@ -690,32 +822,36 @@ public class MainActivity extends Activity {
                         13,
                         GRAY
                 ),
-                margin(0, 5, 0, 18)
+                margin(0,5,0,18)
         );
 
-        // COUNTRY
+        // Country
 
-        LinearLayout countryCard = appointmentChoiceCard();
+        LinearLayout countryCard =
+                appointmentCard();
 
-        TextView countryLabel = text(
-                "COUNTRY",
-                10,
-                GRAY
+        countryCard.addView(
+                text(
+                        "COUNTRY",
+                        10,
+                        GRAY
+                )
         );
 
-        countryCard.addView(countryLabel);
+        TextView countryValue =
+                text(
+                        "🇪🇸  Spain",
+                        18,
+                        NAVY
+                );
 
-        TextView countryValue = text(
-                "🇪🇸  Spain",
-                18,
-                NAVY
+        countryValue.setTypeface(
+                Typeface.DEFAULT_BOLD
         );
-
-        countryValue.setTypeface(Typeface.DEFAULT_BOLD);
 
         countryCard.addView(
                 countryValue,
-                margin(0, 5, 0, 0)
+                margin(0,5,0,0)
         );
 
         countryCard.addView(
@@ -724,18 +860,27 @@ public class MainActivity extends Activity {
                         11,
                         GRAY
                 ),
-                margin(0, 2, 0, 0)
+                margin(0,2,0,0)
         );
 
         page.addView(
                 countryCard,
-                margin(0, 0, 0, 8)
+                margin(0,0,0,8)
         );
 
-        // RESIDENCE / WILAYA
+        // Residence
 
-        final LinearLayout residenceCard =
-                appointmentChoiceCard();
+        LinearLayout residenceCard =
+                appointmentCard();
+
+        residenceCard.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showWilayaSelector();
+                    }
+                }
+        );
 
         residenceCard.addView(
                 text(
@@ -745,72 +890,47 @@ public class MainActivity extends Activity {
                 )
         );
 
-        final TextView residenceValue =
+        appointmentWilayaValue =
                 text(
-                        "Select your wilaya",
+                        selectedWilaya.length() == 0
+                                ? "Select your wilaya"
+                                : selectedWilaya,
                         17,
                         NAVY
                 );
 
-        residenceValue.setTypeface(
+        appointmentWilayaValue.setTypeface(
                 Typeface.DEFAULT_BOLD
         );
 
         residenceCard.addView(
-                residenceValue,
-                margin(0, 5, 0, 0)
+                appointmentWilayaValue,
+                margin(0,5,0,0)
         );
 
-        final TextView residenceHint =
+        appointmentWilayaHint =
                 text(
-                        "Required to determine your BLS center",
+                        selectedWilaya.length() == 0
+                                ? "Required to determine your BLS center"
+                                : "Residence selected",
                         11,
                         GRAY
                 );
 
         residenceCard.addView(
-                residenceHint,
-                margin(0, 2, 0, 0)
-        );
-
-        TextView residenceArrow =
-                text(
-                        "›",
-                        28,
-                        BLUE
-                );
-
-        residenceArrow.setGravity(Gravity.CENTER);
-
-        residenceCard.addView(
-                residenceArrow,
-                new LinearLayout.LayoutParams(
-                        dp(35),
-                        dp(45)
-                )
-        );
-
-        residenceCard.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showWilayaSelector(
-                                residenceValue,
-                                residenceHint
-                        );
-                    }
-                }
+                appointmentWilayaHint,
+                margin(0,2,0,0)
         );
 
         page.addView(
                 residenceCard,
-                margin(0, 0, 0, 8)
+                margin(0,0,0,8)
         );
 
-        // VISA CENTER
+        // Center
 
-        final LinearLayout centerCard =
-                appointmentChoiceCard();
+        LinearLayout centerCard =
+                appointmentCard();
 
         centerCard.addView(
                 text(
@@ -820,43 +940,49 @@ public class MainActivity extends Activity {
                 )
         );
 
-        final TextView centerValue =
+        appointmentCenterValue =
                 text(
-                        "Waiting for residence",
+                        selectedCenter.length() == 0
+                                ? "Waiting for residence"
+                                : selectedCenter + " Visa Center",
                         17,
                         NAVY
                 );
 
-        centerValue.setTypeface(
+        appointmentCenterValue.setTypeface(
                 Typeface.DEFAULT_BOLD
         );
 
         centerCard.addView(
-                centerValue,
-                margin(0, 5, 0, 0)
+                appointmentCenterValue,
+                margin(0,5,0,0)
         );
 
-        final TextView centerHint =
+        appointmentCenterHint =
                 text(
-                        "Select your wilaya first",
+                        selectedCenter.length() == 0
+                                ? "Select your wilaya first"
+                                : "Based on your residence",
                         11,
-                        GRAY
+                        selectedCenter.length() == 0
+                                ? GRAY
+                                : GREEN
                 );
 
         centerCard.addView(
-                centerHint,
-                margin(0, 2, 0, 0)
+                appointmentCenterHint,
+                margin(0,2,0,0)
         );
 
         page.addView(
                 centerCard,
-                margin(0, 0, 0, 8)
+                margin(0,0,0,8)
         );
 
-        // VISA TYPE
+        // Visa Type
 
         LinearLayout visaCard =
-                appointmentChoiceCard();
+                appointmentCard();
 
         visaCard.addView(
                 text(
@@ -879,7 +1005,7 @@ public class MainActivity extends Activity {
 
         visaCard.addView(
                 visaValue,
-                margin(0, 5, 0, 0)
+                margin(0,5,0,0)
         );
 
         visaCard.addView(
@@ -888,15 +1014,101 @@ public class MainActivity extends Activity {
                         11,
                         GRAY
                 ),
-                margin(0, 2, 0, 0)
+                margin(0,2,0,0)
         );
 
         page.addView(
                 visaCard,
-                margin(0, 0, 0, 12)
+                margin(0,0,0,8)
         );
 
-        // CONTINUE
+        // Applicants
+
+        LinearLayout applicants =
+                appointmentCard();
+
+        applicants.addView(
+                text(
+                        "APPLICANTS",
+                        10,
+                        GRAY
+                )
+        );
+
+        TextView applicantsValue =
+                text(
+                        "1 Applicant",
+                        17,
+                        NAVY
+                );
+
+        applicantsValue.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        applicants.addView(
+                applicantsValue,
+                margin(0,5,0,0)
+        );
+
+        applicants.addView(
+                text(
+                        "Number of people",
+                        11,
+                        GRAY
+                ),
+                margin(0,2,0,0)
+        );
+
+        page.addView(
+                applicants,
+                margin(0,0,0,8)
+        );
+
+        // Travel plan
+
+        LinearLayout travel =
+                appointmentCard();
+
+        travel.addView(
+                text(
+                        "TRAVEL PLAN",
+                        10,
+                        GRAY
+                )
+        );
+
+        TextView travelValue =
+                text(
+                        "15 November 2026",
+                        17,
+                        NAVY
+                );
+
+        travelValue.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        travel.addView(
+                travelValue,
+                margin(0,5,0,0)
+        );
+
+        travel.addView(
+                text(
+                        "Planned departure date",
+                        11,
+                        GRAY
+                ),
+                margin(0,2,0,0)
+        );
+
+        page.addView(
+                travel,
+                margin(0,0,0,12)
+        );
+
+        // Continue
 
         Button continueButton =
                 smallButton(
@@ -919,8 +1131,7 @@ public class MainActivity extends Activity {
                                             "Residence required"
                                     )
                                     .setMessage(
-                                            "Please select your Wilaya of residence first. " +
-                                            "The app will then determine the correct BLS center."
+                                            "Please select your Wilaya of residence first."
                                     )
                                     .setPositiveButton(
                                             "OK",
@@ -944,9 +1155,10 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // SMART MATCH INFO
+        // Smart Match
 
-        LinearLayout smart = card();
+        LinearLayout smart =
+                card();
 
         TextView smartTitle =
                 text(
@@ -963,137 +1175,181 @@ public class MainActivity extends Activity {
 
         smart.addView(
                 text(
-                        "The app will use your residence, visa type, " +
+                        "We will use your residence, center, visa type, " +
                         "applicant details and travel plan to determine " +
-                        "the appropriate appointment path.",
+                        "the correct appointment path.",
                         12,
                         GRAY
                 ),
-                margin(0, 5, 0, 0)
+                margin(0,5,0,0)
         );
 
         page.addView(
                 smart,
-                margin(0, 12, 0, 0)
+                margin(0,12,0,10)
         );
 
-        ScrollView scroll =
-                new ScrollView(this);
+        // Availability
 
-        // We already have a page layout, so make the content scrollable
-        root.removeAllViews();
+        LinearLayout availability =
+                card();
 
-        scroll.addView(page);
+        TextView availabilityTitle =
+                text(
+                        "Appointment Availability",
+                        15,
+                        NAVY
+                );
 
-        root.addView(
-                scroll,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        0,
-                        1
-                )
+        availabilityTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
         );
 
-        // Keep center references updated after wilaya selection
-        residenceCard.setTag(
-                new TextView[]{
-                        residenceValue,
-                        residenceHint,
-                        centerValue,
-                        centerHint
-                }
+        availability.addView(
+                availabilityTitle
+        );
+
+        availability.addView(
+                text(
+                        "No Result Yet",
+                        13,
+                        GRAY
+                ),
+                margin(0,5,0,0)
+        );
+
+        availability.addView(
+                text(
+                        "Your preferences are ready for the next availability check.",
+                        11,
+                        GRAY
+                ),
+                margin(0,3,0,8)
+        );
+
+        Button check =
+                smallButton("CHECK AGAIN");
+
+        availability.addView(check);
+
+        page.addView(
+                availability,
+                margin(0,0,0,10)
+        );
+
+        // Monitoring
+
+        LinearLayout monitoring =
+                card();
+
+        TextView monitoringTitle =
+                text(
+                        "Appointment Monitoring",
+                        15,
+                        NAVY
+                );
+
+        monitoringTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        monitoring.addView(
+                monitoringTitle
+        );
+
+        monitoring.addView(
+                text(
+                        "Get notified when a suitable appointment becomes available.",
+                        12,
+                        GRAY
+                ),
+                margin(0,5,0,8)
+        );
+
+        Button monitoringButton =
+                smallButton(
+                        "MONITORING ENABLED"
+                );
+
+        monitoring.addView(
+                monitoringButton
+        );
+
+        page.addView(
+                monitoring,
+                margin(0,0,0,5)
         );
     }
 
-    private LinearLayout appointmentChoiceCard() {
-
-        LinearLayout c = new LinearLayout(this);
-
-        c.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        c.setPadding(
-                dp(16),
-                dp(13),
-                dp(45),
-                dp(13)
-        );
-
-        GradientDrawable bg =
-                new GradientDrawable();
-
-        bg.setColor(Color.WHITE);
-        bg.setCornerRadius(dp(18));
-        bg.setStroke(
-                dp(1),
-                Color.rgb(225, 230, 240)
-        );
-
-        c.setBackground(bg);
-
-        return c;
-    }
-
     // =========================================================
-    // WILAYA SELECTOR
+    // 69 WILAYAS
     // =========================================================
 
-    private void showWilayaSelector(
-            final TextView residenceValue,
-            final TextView residenceHint
-    ) {
+    private void showWilayaSelector() {
 
         final String[] wilayas = {
 
                 "Adrar",
-                "Ain Defla",
-                "Ain Temouchent",
-                "Algiers",
-                "Annaba",
+                "Chlef",
+                "Laghouat",
+                "Oum El Bouaghi",
                 "Batna",
-                "Bechar",
                 "Bejaia",
                 "Biskra",
+                "Bechar",
                 "Blida",
-                "Bordj Bou Arreridj",
                 "Bouira",
-                "Boumerdes",
-                "Chlef",
-                "Constantine",
+                "Tamanrasset",
+                "Tebessa",
+                "Tlemcen",
+                "Tiaret",
+                "Tizi-Ouzou",
+                "Algiers",
                 "Djelfa",
-                "El Bayadh",
-                "El Oued",
-                "El Tarf",
-                "Ghardaia",
-                "Guelma",
-                "Illizi",
                 "Jijel",
-                "Khenchela",
-                "Laghouat",
+                "Setif",
+                "Saida",
+                "Skikda",
+                "Sidi Bel Abbes",
+                "Annaba",
+                "Guelma",
+                "Constantine",
                 "Medea",
-                "Mila",
                 "Mostaganem",
                 "M'Sila",
                 "Mascara",
-                "Naama",
-                "Oran",
                 "Ouargla",
-                "Oum El Bouaghi",
-                "Relizane",
-                "Saida",
-                "Setif",
-                "Sidi Bel Abbes",
-                "Skikda",
-                "Souk Ahras",
-                "Tamanrasset",
-                "Tebessa",
-                "Tiaret",
+                "Oran",
+                "El Bayadh",
+                "Illizi",
+                "Bordj Bou Arreridj",
+                "Boumerdes",
+                "El Tarf",
                 "Tindouf",
-                "Tipaza",
                 "Tissemsilt",
-                "Tizi-Ouzou",
-                "Tlemcen"
+                "El Oued",
+                "Khenchela",
+                "Souk Ahras",
+                "Tipaza",
+                "Mila",
+                "Ain Defla",
+                "Naama",
+                "Ain Temouchent",
+                "Ghardaia",
+                "Relizane",
+
+                // 11 new wilayas
+                "Aflou",
+                "Barika",
+                "El Kantara",
+                "Bir El Ater",
+                "El Aricha",
+                "Ksar Chellala",
+                "Ain Oussara",
+                "Messaad",
+                "Ksar El Boukhari",
+                "Bou Saada",
+                "El Abiodh Sidi Cheikh"
         };
 
         AlertDialog dialog =
@@ -1103,192 +1359,141 @@ public class MainActivity extends Activity {
                         .setTitle(
                                 "Select your Wilaya"
                         )
-                        .setItems(
+                        .setSingleChoiceItems(
                                 wilayas,
-                                null
-                        )
-                        .create();
-
-        dialog.setOnShowListener(
-                new android.content.DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(
-                            android.content.DialogInterface d
-                    ) {
-
-                        android.widget.ListView list =
-                                ((AlertDialog) d)
-                                        .getListView();
-
-                        list.setOnItemClickListener(
-                                new android.widget.AdapterView.OnItemClickListener() {
+                                getSelectedWilayaIndex(wilayas),
+                                new android.content.DialogInterface.OnClickListener() {
 
                                     @Override
-                                    public void onItemClick(
-                                            android.widget.AdapterView<?> parent,
-                                            View view,
-                                            int position,
-                                            long id
+                                    public void onClick(
+                                            android.content.DialogInterface dialogInterface,
+                                            int which
                                     ) {
 
                                         selectedWilaya =
-                                                wilayas[position];
+                                                wilayas[which];
 
                                         selectedCenter =
                                                 getBlsCenter(
                                                         selectedWilaya
                                                 );
 
-                                        residenceValue.setText(
-                                                selectedWilaya
-                                        );
+                                        updateAppointmentSelection();
 
-                                        residenceHint.setText(
-                                                "Residence selected"
-                                        );
-
-                                        updateAppointmentCenter(
-                                                selectedCenter
-                                        );
-
-                                        dialog.dismiss();
+                                        dialogInterface.dismiss();
                                     }
                                 }
-                        );
-                    }
-                }
-        );
+                        )
+                        .setNegativeButton(
+                                "CANCEL",
+                                null
+                        )
+                        .create();
 
         dialog.show();
     }
 
-    private void updateAppointmentCenter(
-            String center
+    private int getSelectedWilayaIndex(
+            String[] wilayas
     ) {
 
-        if (root == null) {
-            return;
+        if (selectedWilaya.length() == 0) {
+            return -1;
         }
 
-        TextView centerValue =
-                findTextViewByText(
-                        "Waiting for residence"
-                );
+        for (int i = 0; i < wilayas.length; i++) {
 
-        if (centerValue == null) {
-            centerValue =
-                    findTextViewByText(
-                            "Algiers Visa Center"
-                    );
+            if (wilayas[i].equals(
+                    selectedWilaya
+            )) {
+                return i;
+            }
         }
 
-        TextView centerHint =
-                findTextViewByText(
-                        "Select your wilaya first"
-                );
+        return -1;
+    }
 
-        if (centerHint == null) {
-            centerHint =
-                    findTextViewByText(
-                            "Based on your residence"
-                    );
-        }
+    // =========================================================
+    // UPDATE APPOINTMENT SELECTION
+    // =========================================================
 
-        if (centerValue != null) {
+    private void updateAppointmentSelection() {
 
-            centerValue.setText(
-                    center + " Visa Center"
-            );
+        if (appointmentWilayaValue != null) {
 
-            centerValue.setTextColor(
-                    NAVY
+            appointmentWilayaValue.setText(
+                    selectedWilaya
             );
         }
 
-        if (centerHint != null) {
+        if (appointmentWilayaHint != null) {
 
-            centerHint.setText(
+            appointmentWilayaHint.setText(
+                    "Residence selected"
+            );
+
+            appointmentWilayaHint.setTextColor(
+                    GREEN
+            );
+        }
+
+        if (appointmentCenterValue != null) {
+
+            appointmentCenterValue.setText(
+                    selectedCenter +
+                    " Visa Center"
+            );
+        }
+
+        if (appointmentCenterHint != null) {
+
+            appointmentCenterHint.setText(
                     "Based on your residence"
             );
 
-            centerHint.setTextColor(
+            appointmentCenterHint.setTextColor(
                     GREEN
             );
         }
     }
 
-    private TextView findTextViewByText(
-            String value
-    ) {
-
-        return findTextViewRecursive(
-                root,
-                value
-        );
-    }
-
-    private TextView findTextViewRecursive(
-            View view,
-            String value
-    ) {
-
-        if (view instanceof TextView) {
-
-            TextView t =
-                    (TextView) view;
-
-            if (value.equals(
-                    t.getText().toString()
-            )) {
-                return t;
-            }
-        }
-
-        if (view instanceof LinearLayout) {
-
-            LinearLayout layout =
-                    (LinearLayout) view;
-
-            for (int i = 0;
-                 i < layout.getChildCount();
-                 i++) {
-
-                TextView result =
-                        findTextViewRecursive(
-                                layout.getChildAt(i),
-                                value
-                        );
-
-                if (result != null) {
-                    return result;
-                }
-            }
-        }
-
-        if (view instanceof ScrollView) {
-
-            ScrollView scroll =
-                    (ScrollView) view;
-
-            if (scroll.getChildCount() > 0) {
-
-                return findTextViewRecursive(
-                        scroll.getChildAt(0),
-                        value
-                );
-            }
-        }
-
-        return null;
-    }
-
     // =========================================================
-    // OFFICIAL CURRENT BLS JURISDICTION
+    // BLS CENTER JURISDICTION
     // =========================================================
 
     private String getBlsCenter(
             String wilaya
     ) {
+
+        /*
+         * Current BLS published jurisdiction:
+         *
+         * ORAN:
+         * Adrar
+         * Chlef
+         * Bechar
+         * Tlemcen
+         * Tiaret
+         * Saida
+         * Sidi Bel Abbes
+         * Mostaganem
+         * Mascara
+         * Oran
+         * El Bayadh
+         * Tissemsilt
+         * Naama
+         * Ain Temouchent
+         * Relizane
+         *
+         * ALGIERS:
+         * Remaining current BLS-listed wilayas.
+         *
+         * The 11 new wilayas are temporarily mapped
+         * through their parent wilaya until BLS publishes
+         * an updated jurisdiction list.
+         */
+
+        // ORAN JURISDICTION
 
         if (wilaya.equals("Adrar")
                 || wilaya.equals("Chlef")
@@ -1309,16 +1514,68 @@ public class MainActivity extends Activity {
             return "Oran";
         }
 
+        // 11 NEW WILAYAS
+        // Parent wilaya determines current BLS center.
+
+        if (wilaya.equals("Aflou")) {
+            return getBlsCenter("Laghouat");
+        }
+
+        if (wilaya.equals("Barika")) {
+            return getBlsCenter("Batna");
+        }
+
+        if (wilaya.equals("El Kantara")) {
+            return getBlsCenter("Biskra");
+        }
+
+        if (wilaya.equals("Bir El Ater")) {
+            return getBlsCenter("Tebessa");
+        }
+
+        if (wilaya.equals("El Aricha")) {
+            return getBlsCenter("Tlemcen");
+        }
+
+        if (wilaya.equals("Ksar Chellala")) {
+            return getBlsCenter("Tiaret");
+        }
+
+        if (wilaya.equals("Ain Oussara")) {
+            return getBlsCenter("Djelfa");
+        }
+
+        if (wilaya.equals("Messaad")) {
+            return getBlsCenter("Djelfa");
+        }
+
+        if (wilaya.equals("Ksar El Boukhari")) {
+            return getBlsCenter("Medea");
+        }
+
+        if (wilaya.equals("Bou Saada")) {
+            return getBlsCenter("M'Sila");
+        }
+
+        if (wilaya.equals("El Abiodh Sidi Cheikh")) {
+            return getBlsCenter("El Bayadh");
+        }
+
+        // Everything else currently belongs to ALGIERS.
+
         return "Algiers";
     }
 
     // =========================================================
-    // NEXT STEP
+    // NEXT STEP - VISA TYPE
     // =========================================================
 
     private void showVisaTypePage() {
 
         root.removeAllViews();
+
+        ScrollView scroll =
+                new ScrollView(this);
 
         LinearLayout page =
                 new LinearLayout(this);
@@ -1331,7 +1588,7 @@ public class MainActivity extends Activity {
                 dp(20),
                 dp(25),
                 dp(20),
-                dp(20)
+                dp(25)
         );
 
         GradientDrawable bg =
@@ -1346,7 +1603,16 @@ public class MainActivity extends Activity {
 
         page.setBackground(bg);
 
-        root.addView(page);
+        scroll.addView(page);
+
+        root.addView(
+                scroll,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        0,
+                        1
+                )
+        );
 
         TextView back =
                 text(
@@ -1434,7 +1700,7 @@ public class MainActivity extends Activity {
         );
 
         LinearLayout tourism =
-                appointmentChoiceCard();
+                appointmentCard();
 
         tourism.addView(
                 text(
@@ -1508,7 +1774,7 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // OTHER ORIGINAL PAGES
+    // OTHER PAGES - UNCHANGED
     // =========================================================
 
     private void showAlerts() {
@@ -1596,8 +1862,39 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // GENERIC UI
+    // UI HELPERS
     // =========================================================
+
+    private LinearLayout appointmentCard() {
+
+        LinearLayout c =
+                new LinearLayout(this);
+
+        c.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        c.setPadding(
+                dp(16),
+                dp(13),
+                dp(16),
+                dp(13)
+        );
+
+        GradientDrawable bg =
+                new GradientDrawable();
+
+        bg.setColor(Color.WHITE);
+        bg.setCornerRadius(dp(18));
+        bg.setStroke(
+                dp(1),
+                Color.rgb(225,230,240)
+        );
+
+        c.setBackground(bg);
+
+        return c;
+    }
 
     private LinearLayout service(
             String icon,
@@ -1631,7 +1928,7 @@ public class MainActivity extends Activity {
         bg.setCornerRadius(dp(19));
         bg.setStroke(
                 dp(1),
-                Color.rgb(226, 231, 240)
+                Color.rgb(226,231,240)
         );
 
         card.setBackground(bg);
@@ -1753,6 +2050,9 @@ public class MainActivity extends Activity {
 
         root.removeAllViews();
 
+        ScrollView scroll =
+                new ScrollView(this);
+
         LinearLayout page =
                 new LinearLayout(this);
 
@@ -1779,7 +2079,16 @@ public class MainActivity extends Activity {
 
         page.setBackground(bg);
 
-        root.addView(page);
+        scroll.addView(page);
+
+        root.addView(
+                scroll,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        0,
+                        1
+                )
+        );
 
         TextView back =
                 text(
@@ -1949,7 +2258,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-
         showHome();
     }
 }
