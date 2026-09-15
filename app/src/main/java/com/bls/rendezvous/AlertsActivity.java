@@ -437,7 +437,11 @@ public class AlertsActivity extends Activity {
     }
 
     private void launchMonitoringService() {
-
+Toast.makeText(
+        this,
+        "TEST: launchMonitoringService يعمل",
+        Toast.LENGTH_LONG
+).show();
         showTestNotification();
 
         Intent serviceIntent =
