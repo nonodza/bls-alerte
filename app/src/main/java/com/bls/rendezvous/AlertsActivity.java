@@ -415,25 +415,31 @@ public class AlertsActivity extends Activity {
 
     private void startMonitoring() {
 
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.TIRAMISU) {
+    Toast.makeText(
+            this,
+            "TEST: startMonitoring يعمل",
+            Toast.LENGTH_LONG
+    ).show();
 
-            if (checkSelfPermission(
-                    Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED) {
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.TIRAMISU) {
 
-                requestPermissions(
-                        new String[]{
-                                Manifest.permission.POST_NOTIFICATIONS
-                        },
-                        NOTIFICATION_PERMISSION_REQUEST
-                );
+        if (checkSelfPermission(
+                Manifest.permission.POST_NOTIFICATIONS
+        ) != PackageManager.PERMISSION_GRANTED) {
 
-                return;
-            }
+            requestPermissions(
+                    new String[]{
+                            Manifest.permission.POST_NOTIFICATIONS
+                    },
+                    NOTIFICATION_PERMISSION_REQUEST
+            );
+
+            return;
         }
+    }
 
-        launchMonitoringService();
+    launchMonitoringService();
     }
 
     private void launchMonitoringService() {
