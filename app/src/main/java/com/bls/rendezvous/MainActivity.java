@@ -976,46 +976,58 @@ public class MainActivity extends Activity {
 
         // Visa Type
 
-        LinearLayout visaCard =
-                appointmentCard();
+LinearLayout visaCard =
+        appointmentCard();
 
-        visaCard.addView(
-                text(
-                        "VISA TYPE",
-                        10,
-                        GRAY
-                )
+visaCard.addView(
+        text(
+                "VISA TYPE",
+                10,
+                GRAY
+        )
+);
+
+TextView visaValue =
+        text(
+                "Short Stay - Tourism",
+                17,
+                NAVY
         );
 
-        TextView visaValue =
-                text(
-                        "Short Stay - Tourism",
-                        17,
-                        NAVY
-                );
+visaValue.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-        visaValue.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+visaCard.addView(
+        visaValue,
+        margin(0,5,0,0)
+);
 
-        visaCard.addView(
-                visaValue,
-                margin(0,5,0,0)
-        );
+visaCard.addView(
+        text(
+                "Schengen visa",
+                11,
+                GRAY
+        ),
+        margin(0,2,0,0)
+);
 
-        visaCard.addView(
-                text(
-                        "Schengen visa",
-                        11,
-                        GRAY
-                ),
-                margin(0,2,0,0)
-        );
+// Visa Type click
 
-        page.addView(
-                visaCard,
-                margin(0,0,0,8)
-        );
+visaCard.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showVisaTypePage();
+            }
+        }
+);
+
+page.addView(
+        visaCard,
+        margin(0,0,0,8)
+);
 // Applicants
 
 LinearLayout applicants =
