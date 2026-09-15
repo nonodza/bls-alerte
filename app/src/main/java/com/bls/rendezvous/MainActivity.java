@@ -407,7 +407,8 @@ public class MainActivity extends Activity {
                         );
 
                         monitorStatus.setTextColor(
-                                GRAY
+        GRAY
+);
 // Monitoring
 
 LinearLayout monitor = card();
