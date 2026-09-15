@@ -1016,8 +1016,7 @@ public class MainActivity extends Activity {
                 visaCard,
                 margin(0,0,0,8)
         );
-
-        // Applicants
+// Applicants
 
 LinearLayout applicants =
         appointmentCard();
@@ -1110,6 +1109,7 @@ page.addView(
 );
 
 // Travel plan
+        
 LinearLayout travel =
         appointmentCard();
 
