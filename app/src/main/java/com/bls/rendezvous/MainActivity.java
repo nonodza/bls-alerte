@@ -360,8 +360,6 @@ public class MainActivity extends Activity {
 
         // Monitoring
 
-        // Monitoring
-
 LinearLayout monitor = card();
 
 LinearLayout monitorRow = new LinearLayout(this);
@@ -430,8 +428,28 @@ monitorButton.setOnClickListener(
             @Override
             public void onClick(View v) {
 
-                if (monitorButton.getText().toString()
-                        .equals("START")) {
+                String currentText =
+                        monitorButton.getText()
+                                .toString();
+
+                // =========================
+                // START MONITORING
+                // =========================
+
+                if (currentText.equals("START")) {
+
+                    // Update the interface immediately
+                    monitorButton.setText("STOP");
+
+                    monitorStatus.setText(
+                            "Monitoring is active"
+                    );
+
+                    monitorStatus.setTextColor(
+                            GREEN
+                    );
+
+                    monitorButton.setEnabled(false);
 
                     android.content.Intent serviceIntent =
                             new android.content.Intent(
@@ -455,16 +473,6 @@ monitorButton.setOnClickListener(
                             );
                         }
 
-                        monitorButton.setText("STOP");
-
-                        monitorStatus.setText(
-                                "Monitoring is active"
-                        );
-
-                        monitorStatus.setTextColor(
-                                GREEN
-                        );
-
                         android.widget.Toast.makeText(
                                 MainActivity.this,
                                 "Monitoring started",
@@ -473,14 +481,33 @@ monitorButton.setOnClickListener(
 
                     } catch (Exception e) {
 
+                        // If service failed, return UI to START
+                        monitorButton.setText("START");
+
+                        monitorStatus.setText(
+                                "Monitoring is paused"
+                        );
+
+                        monitorStatus.setTextColor(
+                                GRAY
+                        );
+
                         android.widget.Toast.makeText(
                                 MainActivity.this,
-                                "Could not start monitoring",
+                                "Monitoring could not start",
                                 android.widget.Toast.LENGTH_LONG
                         ).show();
                     }
 
-                } else {
+                    monitorButton.setEnabled(true);
+
+                }
+
+                // =========================
+                // STOP MONITORING
+                // =========================
+
+                else {
 
                     android.content.Intent serviceIntent =
                             new android.content.Intent(
