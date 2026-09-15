@@ -1110,46 +1110,136 @@ page.addView(
 );
 
 // Travel plan
-        LinearLayout travel =
-                appointmentCard();
+LinearLayout travel =
+        appointmentCard();
 
-        travel.addView(
-                text(
-                        "TRAVEL PLAN",
-                        10,
-                        GRAY
-                )
+travel.addView(
+        text(
+                "TRAVEL PLAN",
+                10,
+                GRAY
+        )
+);
+
+TextView travelValue =
+        text(
+                "15 November 2026",
+                17,
+                NAVY
         );
 
-        TextView travelValue =
-                text(
+travelValue.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+travel.addView(
+        travelValue,
+        margin(0,5,0,0)
+);
+
+travel.addView(
+        text(
+                "Planned departure date",
+                11,
+                GRAY
+        ),
+        margin(0,2,0,0)
+);
+
+// Travel Plan click
+travel.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String[] dates = {
                         "15 November 2026",
-                        17,
-                        NAVY
+                        "16 November 2026",
+                        "17 November 2026",
+                        "18 November 2026",
+                        "19 November 2026",
+                        "20 November 2026",
+                        "21 November 2026"
+                };
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(
+                                MainActivity.this
+                        );
+
+                builder.setTitle(
+                        "Planned Departure Date"
                 );
 
-        travelValue.setTypeface(
-                Typeface.DEFAULT_BOLD
+                builder.setItems(
+                        dates,
+                        new android.content.DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(
+                                    android.content.DialogInterface dialog,
+                                    int which
+                            ) {
+
+                                travelValue.setText(
+                                        dates[which]
+                                );
+                            }
+                        }
+                );
+
+                builder.setNegativeButton(
+                        "CANCEL",
+                        null
+                );
+
+                builder.show();
+            }
+        }
+);
+
+page.addView(
+        travel,
+        margin(0,0,0,12)
+);
+
+// Continue
+
+Button continueButton =
+        smallButton(
+                "CONTINUE TO VISA TYPE"
         );
 
-        travel.addView(
-                travelValue,
-                margin(0,5,0,0)
-        );
+continueButton.setTextSize(11);
 
-        travel.addView(
-                text(
-                        "Planned departure date",
-                        11,
-                        GRAY
-                ),
-                margin(0,2,0,0)
-        );
+continueButton.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        page.addView(
-                travel,
-                margin(0,0,0,12)
-        );
+                if (selectedWilaya.length() == 0) {
+
+                    new AlertDialog.Builder(
+                            MainActivity.this
+                    )
+                            .setTitle(
+                                    "Residence required"
+                            )
+                            .setMessage(
+                                    "Please select your Wilaya of residence first."
+                            )
+                            .setPositiveButton(
+                                    "OK",
+                                    null
+                            )
+                            .show();
+
+                    return;
+                }
+
+                showVisaTypePage();
+            }
+        }
+);
 
         // Continue
 
