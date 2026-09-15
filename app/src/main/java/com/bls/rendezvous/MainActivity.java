@@ -1970,117 +1970,35 @@ public class MainActivity extends Activity {
     // =========================================================
     // PREVIOUS SPAIN VISA
     // =========================================================
-
     private void showPreviousSpainVisaPage() {
 
-        root.removeAllViews();
-
-        ScrollView scroll =
-                new ScrollView(this);
-
-        LinearLayout page =
-                new LinearLayout(this);
-
-        page.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        page.setPadding(
-                dp(20),
-                dp(25),
-                dp(20),
-                dp(25)
-        );
-
-        GradientDrawable bg =
-                new GradientDrawable(
-void onClick(View v) {
-
-                        showVisaTypePage();
-                    }
-                }
-        );
-
-        page.addView(
-                back,
-                margin(0,0,0,15)
-        );
-
-        // TITLE
-
-        TextView title =
-                text(
-                        "Previous Spain Visa",
-                        27,
-                        NAVY
-                );
-
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-
-
-        question.addView(
-                text(
-                        "Your answer will determine the next appointment category.",
-                        12,
-                        GRAY
-                ),
-                margin(0,6,0,0)
-        );
-
-        page.addView(
-                question,
-                margin(0,0,0,15)
-        );
-
-        // YES
-
-        LinearLayout yesCard =
-                appointmentCard();
-
-        yesCard.addView(
-                text(
-                        "YES",
-                        11,
-margin(0,0,0,10)
-        );
-
-        // NO
-
-        LinearLayout noCard =
-                appointmentCard();
-
-        noCard.addView(
-                text(
-                        "NO",
-                        11,
-                        GRAY
-                )
-        );
-
-        TextView noTitle =
-                text(
-                        "No, I did not have one",
-                        18,
-                        NAVY
-                );
-
-        noTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-private void showPreviousSpainVisaPage() {
     root.removeAllViews();
 
-    ScrollView scroll = new ScrollView(this);
+    ScrollView scroll =
+            new ScrollView(this);
 
-    LinearLayout layout = new LinearLayout(this);
-    layout.setOrientation(LinearLayout.VERTICAL);
-    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+    LinearLayout page =
+            new LinearLayout(this);
 
-    TextView back = text("‹  Back", 16, BLUE);
-    back.setPadding(0, 0, 0, dp(18));
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    page.setPadding(
+            dp(20),
+            dp(25),
+            dp(20),
+            dp(25)
+    );
+
+    GradientDrawable bg =
+            new GradientDrawable();
+
+    bg.setColor(LIGHT);
+    bg.setCornerRadius(dp(18));
+
+    TextView back =
+            text("< Back", 16, BLUE);
 
     back.setOnClickListener(
             new View.OnClickListener() {
@@ -2091,38 +2009,79 @@ private void showPreviousSpainVisaPage() {
             }
     );
 
-    layout.addView(back);
-
-    TextView title = text("Previous Spain Visa", 26, NAVY);
-    title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-    layout.addView(title);
-
-    TextView subtitle = text(
-            "Tell us about your previous Spain Schengen visa.",
-            16,
-            GRAY
+    page.addView(
+            back,
+            margin(0,0,0,15)
     );
-    subtitle.setPadding(0, dp(8), 0, dp(20));
-    layout.addView(subtitle);
 
-    TextView question = text(
-            "Have you had a Spain Schengen visa since 1 January 2021?",
-            18,
-            NAVY
+    // TITLE
+
+    TextView title =
+            text(
+                    "Previous Spain Visa",
+                    26,
+                    NAVY
+            );
+
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
     );
-    question.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-    question.setPadding(0, 0, 0, dp(20));
-    layout.addView(question);
 
-    TextView yes = text(
-            "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
-            17,
-            NAVY
+    page.addView(
+            title,
+            margin(0,0,0,8)
     );
-    yes.setPadding(dp(20), dp(20), dp(20), dp(20));
-    yes.setBackgroundColor(LIGHT);
 
-    yes.setOnClickListener(
+    TextView subtitle =
+            text(
+                    "Tell us about your previous Spain Schengen visa.",
+                    16,
+                    GRAY
+            );
+
+    page.addView(
+            subtitle,
+            margin(0,0,0,20)
+    );
+
+    TextView question =
+            text(
+                    "Have you had a Spain Schengen visa since 1 January 2021?",
+                    18,
+                    NAVY
+            );
+
+    question.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(
+            question,
+            margin(0,0,0,15)
+    );
+
+    // YES
+
+    LinearLayout yesCard =
+            card();
+
+    yesCard.addView(
+            text(
+                    "YES",
+                    18,
+                    NAVY
+            )
+    );
+
+    yesCard.addView(
+            text(
+                    "Yes, I had a Spain visa\nIssued on or after 1 January 2021",
+                    14,
+                    GRAY
+            )
+    );
+
+    yesCard.setOnClickListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -2131,17 +2090,40 @@ private void showPreviousSpainVisaPage() {
             }
     );
 
-    layout.addView(yes);
-
-    TextView no = text(
-            "NO\n\nNo, I did not have one\nNo Spain Schengen visa since 1 January 2021",
-            17,
-            NAVY
+    page.addView(
+            yesCard,
+            margin(0,0,0,12)
     );
-    no.setPadding(dp(20), dp(20), dp(20), dp(20));
-    no.setBackgroundColor(LIGHT);
 
-    no.setOnClickListener(
+    // NO
+
+    LinearLayout noCard =
+            card();
+
+    TextView noTitle =
+            text(
+                    "NO",
+                    18,
+                    NAVY
+            );
+
+    noTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    noCard.addView(
+            noTitle
+    );
+
+    noCard.addView(
+            text(
+                    "No, I did not have one\nNo Spain Schengen visa since 1 January 2021",
+                    14,
+                    GRAY
+            )
+    );
+
+    noCard.setOnClickListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -2150,25 +2132,39 @@ private void showPreviousSpainVisaPage() {
             }
     );
 
-    layout.addView(no);
-
-    TextView infoTitle = text(
-            "Why do we ask?",
-            17,
-            NAVY
+    page.addView(
+            noCard,
+            margin(0,0,0,20)
     );
-    infoTitle.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-    infoTitle.setPadding(0, dp(24), 0, dp(8));
-    layout.addView(infoTitle);
 
-    TextView info = text(
-            "BLS uses your previous Spain visa history to determine the appropriate appointment category.",
-            14,
-            GRAY
+    // WHY
+
+    TextView why =
+            text(
+                    "Why do we ask?",
+                    17,
+                    NAVY
+            );
+
+    why.setTypeface(
+            Typeface.DEFAULT_BOLD
     );
-    layout.addView(info);
 
-    scroll.addView(layout);
+    page.addView(
+            why,
+            margin(0,0,0,8)
+    );
+
+    page.addView(
+            text(
+                    "BLS uses your previous Spain visa history to determine the appropriate appointment category.",
+                    14,
+                    GRAY
+            )
+    );
+
+    scroll.addView(page);
+
     root.addView(scroll);
 }
         // =========================================================
