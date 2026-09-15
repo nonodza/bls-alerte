@@ -1,4 +1,3 @@
-
 package com.bls.rendezvous;
 
 import android.app.Activity;
@@ -7,140 +6,67 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class AlertsActivity extends Activity {
 
-    private int NAVY = Color.rgb(18, 45, 75);
-    private int GOLD = Color.rgb(190, 150, 60);
-    private int GRAY = Color.rgb(100, 100, 100);
-    private int LIGHT = Color.rgb(245, 247, 250);
+    private final int NAVY = Color.rgb(18, 45, 75);
+    private final int GRAY = Color.rgb(100, 100, 100);
+    private final int LIGHT = Color.rgb(245, 247, 250);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         showAlertsPage();
     }
 
     private void showAlertsPage() {
 
-        LinearLayout root =
-                new LinearLayout(this);
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(LIGHT);
 
-        root.setOrientation(
-                LinearLayout.VERTICAL
-        );
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.VERTICAL);
+        header.setGravity(Gravity.CENTER);
+        header.setPadding(20, 30, 20, 25);
 
-        root.setBackgroundColor(
-                LIGHT
-        );
-
-        // Header
-
-        LinearLayout header =
-                new LinearLayout(this);
-
-        header.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        header.setGravity(
-                Gravity.CENTER
-        );
-
-        header.setPadding(
-                20, 30, 20, 25
-        );
-
-        TextView title =
-                new TextView(this);
-
-        title.setText(
-                "BLS Alerts"
-        );
-
+        TextView title = new TextView(this);
+        title.setText("BLS Alerts");
         title.setTextSize(25);
+        title.setTextColor(NAVY);
+        title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setGravity(Gravity.CENTER);
+        header.addView(title);
 
-        title.setTextColor(
-                NAVY
-        );
-
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        title.setGravity(
-                Gravity.CENTER
-        );
-
-        header.addView(
-                title
-        );
-
-        TextView subtitle =
-                new TextView(this);
-
+        TextView subtitle = new TextView(this);
         subtitle.setText(
                 "Stay updated with important visa information"
         );
-
         subtitle.setTextSize(13);
+        subtitle.setTextColor(GRAY);
+        subtitle.setGravity(Gravity.CENTER);
+        header.addView(subtitle);
 
-        subtitle.setTextColor(
-                GRAY
+        root.addView(header);
+
+        ScrollView scroll = new ScrollView(this);
+
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setPadding(16, 10, 16, 20);
+
+        LinearLayout welcome = alertCard();
+
+        TextView welcomeTitle = text(
+                "IMPORTANT UPDATES",
+                17,
+                NAVY
         );
-
-        subtitle.setGravity(
-                Gravity.CENTER
-        );
-
-        header.addView(
-                subtitle
-        );
-
-        root.addView(
-                header
-        );
-
-        // Scroll content
-
-        ScrollView scroll =
-                new ScrollView(this);
-
-        LinearLayout content =
-                new LinearLayout(this);
-
-        content.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        content.setPadding(
-                16, 10, 16, 20
-        );
-
-        // Welcome card
-
-        LinearLayout welcome =
-                alertCard();
-
-        TextView welcomeTitle =
-                text(
-                        "🔔  IMPORTANT UPDATES",
-                        17,
-                        NAVY
-                );
-
-        welcomeTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        welcome.addView(
-                welcomeTitle
-        );
+        welcomeTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        welcome.addView(welcomeTitle);
 
         welcome.addView(
                 text(
@@ -156,25 +82,15 @@ public class AlertsActivity extends Activity {
                 margin(0, 0, 0, 12)
         );
 
-        // Appointment alerts
+        LinearLayout appointment = alertCard();
 
-        LinearLayout appointment =
-                alertCard();
-
-        TextView appointmentTitle =
-                text(
-                        "APPOINTMENT ALERTS",
-                        16,
-                        NAVY
-                );
-
-        appointmentTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
+        TextView appointmentTitle = text(
+                "APPOINTMENT ALERTS",
+                16,
+                NAVY
         );
-
-        appointment.addView(
-                appointmentTitle
-        );
+        appointmentTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        appointment.addView(appointmentTitle);
 
         appointment.addView(
                 text(
@@ -190,25 +106,15 @@ public class AlertsActivity extends Activity {
                 margin(0, 0, 0, 10)
         );
 
-        // BLS updates
+        LinearLayout updates = alertCard();
 
-        LinearLayout updates =
-                alertCard();
-
-        TextView updatesTitle =
-                text(
-                        "BLS UPDATES",
-                        16,
-                        NAVY
-                );
-
-        updatesTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
+        TextView updatesTitle = text(
+                "BLS UPDATES",
+                16,
+                NAVY
         );
-
-        updates.addView(
-                updatesTitle
-        );
+        updatesTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        updates.addView(updatesTitle);
 
         updates.addView(
                 text(
@@ -224,25 +130,15 @@ public class AlertsActivity extends Activity {
                 margin(0, 0, 0, 10)
         );
 
-        // Official source
+        LinearLayout official = alertCard();
 
-        LinearLayout official =
-                alertCard();
-
-        TextView officialTitle =
-                text(
-                        "OFFICIAL SOURCE",
-                        16,
-                        NAVY
-                );
-
-        officialTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
+        TextView officialTitle = text(
+                "OFFICIAL SOURCE",
+                16,
+                NAVY
         );
-
-        official.addView(
-                officialTitle
-        );
+        officialTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        official.addView(officialTitle);
 
         official.addView(
                 text(
@@ -253,13 +149,9 @@ public class AlertsActivity extends Activity {
                 margin(0, 7, 0, 0)
         );
 
-        content.addView(
-                official
-        );
+        content.addView(official);
 
-        scroll.addView(
-                content
-        );
+        scroll.addView(content);
 
         root.addView(
                 scroll,
@@ -270,30 +162,63 @@ public class AlertsActivity extends Activity {
                 )
         );
 
-        setContentView(
-                root
-        );
+        setContentView(root);
     }
 
     private LinearLayout alertCard() {
 
-        LinearLayout card =
-                new LinearLayout(this);
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(18, 16, 18, 16);
 
-        card.setOrientation(
-                LinearLayout.VERTICAL
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(Color.WHITE);
+        background.setCornerRadius(18);
+        background.setStroke(
+                1,
+                Color.rgb(225, 225, 225)
         );
 
-        card.setPadding(
-                18, 16, 18, 16
+        card.setBackground(background);
+
+        return card;
+    }
+
+    private TextView text(
+            String value,
+            int size,
+            int color
+    ) {
+
+        TextView t = new TextView(this);
+
+        t.setText(value);
+        t.setTextSize(size);
+        t.setTextColor(color);
+
+        return t;
+    }
+
+    private LinearLayout.LayoutParams margin(
+            int left,
+            int top,
+            int right,
+            int bottom
+    ) {
+
+        LinearLayout.LayoutParams p =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
+
+        p.setMargins(
+                left,
+                top,
+                right,
+                bottom
         );
 
-        GradientDrawable background =
-                new GradientDrawable();
-
-        background.setColor(
-                Color.WHITE
-        );
-
-        background.setCornerRadius(
-            }     
+        return p;
+    }
+}
