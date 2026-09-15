@@ -1969,51 +1969,7 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // PREVIOUS SPAIN VISA
-    // =========================================================
-    private void showPreviousSpainVisaPage() {
 
-    root.removeAllViews();
-
-    ScrollView scroll =
-            new ScrollView(this);
-
-    LinearLayout page =
-            new LinearLayout(this);
-
-    page.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    page.setPadding(
-            dp(20),
-            dp(25),
-            dp(20),
-            dp(25)
-    );
-
-    GradientDrawable bg =
-            new GradientDrawable();
-
-    bg.setColor(LIGHT);
-    bg.setCornerRadius(dp(18));
-
-    TextView back =
-            text("< Back", 16, BLUE);
-
-    back.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showVisaTypePage();
-                }
-            }
-    );
-
-    page.addView(
-            back,
-            margin(0,0,0,15)
-    );
 
     // TITLE
 
@@ -2192,6 +2148,82 @@ public class MainActivity extends Activity {
 
     yes.setBackgroundColor(LIGHT);
 
+// =========================================================
+// PREVIOUS SPAIN VISA
+// =========================================================
+
+private void showPreviousSpainVisaPage() {
+
+    root.removeAllViews();
+
+    ScrollView scroll = new ScrollView(this);
+
+    LinearLayout layout = new LinearLayout(this);
+    layout.setOrientation(LinearLayout.VERTICAL);
+    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+
+    TextView back = text("< Back", 16, BLUE);
+
+    back.setPadding(0, 0, 0, dp(18));
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showVisaTypePage();
+                }
+            }
+    );
+
+    layout.addView(back);
+
+    TextView title = text(
+            "Previous Spain Visa",
+            26,
+            NAVY
+    );
+
+    title.setTypeface(Typeface.DEFAULT_BOLD);
+
+    layout.addView(title);
+
+    TextView subtitle = text(
+            "Tell us about your previous Spain Schengen visa.",
+            16,
+            GRAY
+    );
+
+    subtitle.setPadding(0, dp(8), 0, dp(20));
+
+    layout.addView(subtitle);
+
+    TextView question = text(
+            "Have you had a Spain Schengen visa since 1 January 2021?",
+            17,
+            NAVY
+    );
+
+    question.setTypeface(Typeface.DEFAULT_BOLD);
+
+    question.setPadding(0, 0, 0, dp(20));
+
+    layout.addView(question);
+
+    TextView yes = text(
+            "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
+            17,
+            NAVY
+    );
+
+    yes.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    yes.setBackgroundColor(LIGHT);
+
     yes.setOnClickListener(
             new View.OnClickListener() {
                 @Override
@@ -2245,8 +2277,11 @@ public class MainActivity extends Activity {
     scroll.addView(layout);
 
     root.addView(scroll);
-}                
+}
 
+// =========================================================
+// APPOINTMENT CATEGORY
+// =========================================================
         // =========================================================
     // SPAIN VISA VALIDITY
     // ========================================================
