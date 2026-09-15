@@ -2257,8 +2257,144 @@ public class MainActivity extends Activity {
     } else if (category.equals("ALG4")) {
         selectedCenter = selectedCenter + " • ALG4";
     }
+   } 
+    private void showAppointmentCategoryPage() {
+
+    root.removeAllViews();
+
+    ScrollView scroll = new ScrollView(this);
+
+    LinearLayout page = new LinearLayout(this);
+    page.setOrientation(LinearLayout.VERTICAL);
+    page.setPadding(dp(20), dp(25), dp(20), dp(30));
+
+    TextView back = text("< Back", 16, BLUE);
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPreviousSpainVisaPage();
+                }
+            }
+    );
+
+    page.addView(back, margin(0, 0, 0, 18));
+
+    TextView title = text(
+            "Appointment Category",
+            26,
+            NAVY
+    );
+
+    title.setTypeface(Typeface.DEFAULT_BOLD);
+
+    page.addView(title, margin(0, 0, 0, 8));
+
+    TextView selected = text(
+            selectedCategory,
+            28,
+            BLUE
+    );
+
+    selected.setGravity(Gravity.CENTER);
+    selected.setTypeface(Typeface.DEFAULT_BOLD);
+
+    page.addView(selected, margin(0, 0, 0, 20));
+
+    String description;
+
+    if (selectedCategory.equals("ALG1")) {
+
+        description =
+                "No Spain Schengen visa since 1 January 2021.";
+
+    } else if (selectedCategory.equals("ALG2")) {
+
+        description =
+                "Spain Schengen visa issued since 1 January 2021 and valid for less than 6 months.";
+
+    } else if (selectedCategory.equals("ALG3")) {
+
+        description =
+                "Spain Schengen visa issued since 1 January 2021 and valid for 6 months to less than 2 years.";
+
+    } else {
+
+        description =
+                "Spain Schengen visa issued since 1 January 2021 and valid for 2 years or more.";
+    }
+
+    LinearLayout infoCard = card();
+
+    TextView infoTitle = text(
+            "Selected category",
+            17,
+            NAVY
+    );
+
+    infoTitle.setTypeface(Typeface.DEFAULT_BOLD);
+
+    infoCard.addView(infoTitle);
+
+    infoCard.addView(
+            text(
+                    description,
+                    15,
+                    GRAY
+            )
+    );
+
+    page.addView(infoCard, margin(0, 0, 0, 20));
+
+    LinearLayout centerCard = card();
+
+    centerCard.addView(
+            text(
+                    "Visa Center",
+                    16,
+                    GRAY
+            )
+    );
+
+    centerCard.addView(
+            text(
+                    selectedCenter,
+                    18,
+                    NAVY
+            )
+    );
+
+    page.addView(centerCard, margin(0, 0, 0, 20));
+
+    TextView confirmation = text(
+            "✓ Appointment category selected",
+            15,
+            GREEN
+    );
+
+    confirmation.setTypeface(Typeface.DEFAULT_BOLD);
+
+    page.addView(
+            confirmation,
+            margin(0, 0, 0, 25)
+    );
+
+    Button continueButton = new Button(this);
+
+    continueButton.setText("CONTINUE");
+    continueButton.setTextSize(16);
+
+    page.addView(
+            continueButton,
+            margin(0, 0, 0, 10)
+    );
+
+    scroll.addView(page);
+
+    root.addView(scroll);
 }
-   // =========================================================
+    // =========================================================
     // ORIGINAL SERVICE PAGES
     // =========================================================
 
