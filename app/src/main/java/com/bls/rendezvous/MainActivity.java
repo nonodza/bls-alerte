@@ -31,8 +31,8 @@ public class MainActivity extends Activity {
     // Appointment data
     private String selectedWilaya = "";
     private String selectedCenter = "";
-    private String selectedCategory;
-    
+    private String selectedCategory = "";
+
     // Appointment page references
     private TextView appointmentWilayaValue;
     private TextView appointmentWilayaHint;
@@ -1332,7 +1332,6 @@ public class MainActivity extends Activity {
                 "Ain Temouchent",
                 "Ghardaia",
                 "Relizane",
-
                 "Aflou",
                 "Barika",
                 "El Kantara",
@@ -1625,7 +1624,6 @@ public class MainActivity extends Activity {
         }
 
         // 11 NEW WILAYAS
-        // Parent wilaya determines current BLS center.
 
         if (wilaya.equals("Aflou")) {
             return getBlsCenter("Laghouat");
@@ -1676,7 +1674,7 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // NEXT STEP - VISA TYPE
+    // VISA TYPE
     // =========================================================
 
     private void showVisaTypePage() {
@@ -1723,8 +1721,6 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // BACK
-
         TextView back =
                 text(
                         "‹  Back",
@@ -1745,8 +1741,6 @@ public class MainActivity extends Activity {
                 back,
                 margin(0,0,0,15)
         );
-
-        // TITLE
 
         TextView title =
                 text(
@@ -1769,8 +1763,6 @@ public class MainActivity extends Activity {
                 ),
                 margin(0,5,0,18)
         );
-
-        // SELECTED CENTER
 
         LinearLayout selected =
                 card();
@@ -1814,8 +1806,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,15)
         );
 
-        // COUNTRY
-
         LinearLayout country =
                 appointmentCard();
 
@@ -1847,8 +1837,6 @@ public class MainActivity extends Activity {
                 country,
                 margin(0,0,0,10)
         );
-
-        // VISA PURPOSE
 
         LinearLayout tourism =
                 appointmentCard();
@@ -1891,8 +1879,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,15)
         );
 
-        // STATUS
-
         TextView status =
                 text(
                         "✓ Tourism selected",
@@ -1909,8 +1895,6 @@ public class MainActivity extends Activity {
                 margin(3,0,0,15)
         );
 
-        // INFORMATION
-
         LinearLayout info =
                 card();
 
@@ -1925,9 +1909,7 @@ public class MainActivity extends Activity {
                 Typeface.DEFAULT_BOLD
         );
 
-        info.addView(
-                infoTitle
-        );
+        info.addView(infoTitle);
 
         info.addView(
                 text(
@@ -1945,8 +1927,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,15)
         );
 
-        // CONTINUE
-
         Button continueButton =
                 smallButton(
                         "CONTINUE"
@@ -1956,7 +1936,6 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         showPreviousSpainVisaPage();
                     }
                 }
@@ -1969,551 +1948,579 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
+    // PREVIOUS SPAIN VISA
+    // =========================================================
 
-
-    // TITLE
-
-    TextView title =
-            text(
-                    "Previous Spain Visa",
-                    26,
-                    NAVY
-            );
-
-    title.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    page.addView(
-            title,
-            margin(0,0,0,8)
-    );
-
-    TextView subtitle =
-            text(
-                    "Tell us about your previous Spain Schengen visa.",
-                    16,
-                    GRAY
-            );
-
-    page.addView(
-            subtitle,
-            margin(0,0,0,20)
-    );
-
-    TextView question =
-            text(
-                    "Have you had a Spain Schengen visa since 1 January 2021?",
-                    18,
-                    NAVY
-            );
-
-    question.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    page.addView(
-            question,
-            margin(0,0,0,15)
-    );
-
-    // YES
-
-    LinearLayout yesCard =
-            card();
-
-    yesCard.addView(
-            text(
-                    "YES",
-                    18,
-                    NAVY
-            )
-    );
-
-    yesCard.addView(
-            text(
-                    "Yes, I had a Spain visa\nIssued on or after 1 January 2021",
-                    14,
-                    GRAY
-            )
-    );
-
-    yesCard.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showVisaValidityPage();
-                }
-            }
-    );
-
-    page.addView(
-            yesCard,
-            margin(0,0,0,12)
-    );
-
-    // NO
-
-    LinearLayout noCard =
-            card();
-
-    TextView noTitle =
-            text(
-                    "NO",
-                    18,
-                    NAVY
-            );
-
-    noTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    noCard.addView(
-            noTitle
-    );
-
-    noCard.addView(
-            text(
-                    "No, I did not have one\nNo Spain Schengen visa since 1 January 2021",
-                    14,
     private void showPreviousSpainVisaPage() {
 
-    root.removeAllViews();
+        root.removeAllViews();
 
-    ScrollView scroll = new ScrollView(this);
+        ScrollView scroll =
+                new ScrollView(this);
 
-    LinearLayout layout = new LinearLayout(this);
-    layout.setOrientation(LinearLayout.VERTICAL);
-    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+        LinearLayout layout =
+                new LinearLayout(this);
 
-    TextView back = text("< Back", 16, BLUE);
+        layout.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
-    back.setPadding(0, 0, 0, dp(18));
+        layout.setPadding(
+                dp(20),
+                dp(20),
+                dp(20),
+                dp(30)
+        );
 
-    back.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showVisaTypePage();
+        TextView back =
+                text(
+                        "< Back",
+                        16,
+                        BLUE
+                );
+
+        back.setPadding(
+                0,
+                0,
+                0,
+                dp(18)
+        );
+
+        back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showVisaTypePage();
+                    }
                 }
-            }
-    );
+        );
 
-    layout.addView(back);
+        layout.addView(back);
 
-    TextView title = text(
-            "Previous Spain Visa",
-            26,
-            NAVY
-    );
+        TextView title =
+                text(
+                        "Previous Spain Visa",
+                        26,
+                        NAVY
+                );
 
-    title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
-    layout.addView(title);
+        layout.addView(title);
 
-    TextView subtitle = text(
-            "Tell us about your previous Spain Schengen visa.",
-            16,
-            GRAY
-    );
+        TextView subtitle =
+                text(
+                        "Tell us about your previous Spain Schengen visa.",
+                        16,
+                        GRAY
+                );
 
-    subtitle.setPadding(0, dp(8), 0, dp(20));
+        subtitle.setPadding(
+                0,
+                dp(8),
+                0,
+                dp(20)
+        );
 
-    layout.addView(subtitle);
+        layout.addView(subtitle);
 
-    TextView question = text(
-            "Have you had a Spain Schengen visa since 1 January 2021?",
-            17,
-            NAVY
-    );
+        TextView question =
+                text(
+                        "Have you had a Spain Schengen visa since 1 January 2021?",
+                        17,
+                        NAVY
+                );
 
-    question.setTypeface(Typeface.DEFAULT_BOLD);
+        question.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
-    question.setPadding(0, 0, 0, dp(20));
+        question.setPadding(
+                0,
+                0,
+                0,
+                dp(20)
+        );
 
-    layout.addView(question);
+        layout.addView(question);
 
-    TextView yes = text(
-            "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
-            17,
-            NAVY
-    );
+        TextView yes =
+                text(
+                        "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
+                        17,
+                        NAVY
+                );
 
-    yes.setPadding(
-            dp(20),
-            dp(20),
-            dp(20),
-            dp(20)
-    );
+        yes.setPadding(
+                dp(20),
+                dp(20),
+                dp(20),
+                dp(20)
+        );
 
-    yes.setBackgroundColor(LIGHT);
+        yes.setBackgroundColor(LIGHT);
 
-// =========================================================
-// PREVIOUS SPAIN VISA
-// =========================================================
-
-private void showPreviousSpainVisaPage() {
-
-    root.removeAllViews();
-
-    ScrollView scroll = new ScrollView(this);
-
-    LinearLayout layout = new LinearLayout(this);
-    layout.setOrientation(LinearLayout.VERTICAL);
-    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
-
-    TextView back = text("< Back", 16, BLUE);
-
-    back.setPadding(0, 0, 0, dp(18));
-
-    back.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showVisaTypePage();
+        yes.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showVisaValidityPage();
+                    }
                 }
-            }
-    );
+        );
 
-    layout.addView(back);
+        layout.addView(
+                yes,
+                margin(0,0,0,15)
+        );
 
-    TextView title = text(
-            "Previous Spain Visa",
-            26,
-            NAVY
-    );
+        TextView no =
+                text(
+                        "NO\n\nNo, I did not have one\nNo Spain Schengen visa since 1 January 2021",
+                        17,
+                        NAVY
+                );
 
-    title.setTypeface(Typeface.DEFAULT_BOLD);
+        no.setPadding(
+                dp(20),
+                dp(20),
+                dp(20),
+                dp(20)
+        );
 
-    layout.addView(title);
+        no.setBackgroundColor(LIGHT);
 
-    TextView subtitle = text(
-            "Tell us about your previous Spain Schengen visa.",
-            16,
-            GRAY
-    );
-
-    subtitle.setPadding(0, dp(8), 0, dp(20));
-
-    layout.addView(subtitle);
-
-    TextView question = text(
-            "Have you had a Spain Schengen visa since 1 January 2021?",
-            17,
-            NAVY
-    );
-
-    question.setTypeface(Typeface.DEFAULT_BOLD);
-
-    question.setPadding(0, 0, 0, dp(20));
-
-    layout.addView(question);
-
-    TextView yes = text(
-            "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
-            17,
-            NAVY
-    );
-
-    yes.setPadding(
-            dp(20),
-            dp(20),
-            dp(20),
-            dp(20)
-    );
-
-    yes.setBackgroundColor(LIGHT);
-
-    yes.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showVisaValidityPage();
+        no.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectAppointmentCategory("ALG1");
+                    }
                 }
-            }
-    );
+        );
 
-    layout.addView(
-            yes,
-            margin(0, 0, 0, 15)
-    );
+        layout.addView(no);
 
-    TextView no = text(
-            "NO\n\nNo, I did not have one\nNo Spain Schengen visa since 1 January 2021",
-            17,
-            NAVY
-    );
+        TextView why =
+                text(
+                        "Why do we ask?\n\nBLS uses your previous Spain visa history to determine the appropriate appointment category.",
+                        14,
+                        GRAY
+                );
 
-    no.setPadding(
-            dp(20),
-            dp(20),
-            dp(20),
-            dp(20)
-    );
+        why.setPadding(
+                0,
+                dp(25),
+                0,
+                dp(20)
+        );
 
-    no.setBackgroundColor(LIGHT);
+        layout.addView(why);
 
-    no.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    selectAppointmentCategory("ALG1");
-                }
-            }
-    );
+        scroll.addView(layout);
 
-    layout.addView(no);
+        root.addView(scroll);
+    }
 
-    TextView why = text(
-            "Why do we ask?\n\nBLS uses your previous Spain visa history to determine the appropriate appointment category.",
-            14,
-            GRAY
-    );
-
-    why.setPadding(0, dp(25), 0, dp(20));
-
-    layout.addView(why);
-
-    scroll.addView(layout);
-
-    root.addView(scroll);
-}
-
-// =========================================================
-// APPOINTMENT CATEGORY
-// =========================================================
-        // =========================================================
+    // =========================================================
     // SPAIN VISA VALIDITY
-    // ========================================================
+    // =========================================================
+
     private void showVisaValidityPage() {
-    root.removeAllViews();
 
-    ScrollView scroll = new ScrollView(this);
+        root.removeAllViews();
 
-    LinearLayout layout = new LinearLayout(this);
-    layout.setOrientation(LinearLayout.VERTICAL);
-    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+        ScrollView scroll =
+                new ScrollView(this);
 
-    TextView back = text("‹  Back", 16, BLUE);
-    back.setPadding(0, 0, 0, dp(18));
-    back.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            showPreviousSpainVisaPage();
-        }
-    });
-    layout.addView(back);
+        LinearLayout layout =
+                new LinearLayout(this);
 
-    TextView title = text("Visa Validity", 26, NAVY);
-    title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-    layout.addView(title);
+        layout.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
-    TextView subtitle = text(
-            "How long was your last Spain Schengen visa valid?",
-            16,
-            GRAY
-    );
-    subtitle.setPadding(0, dp(8), 0, dp(20));
-    layout.addView(subtitle);
+        layout.setPadding(
+                dp(20),
+                dp(20),
+                dp(20),
+                dp(30)
+        );
 
-    TextView alg2 = text("Less than 6 months", 18, NAVY);
-    alg2.setPadding(dp(20), dp(22), dp(20), dp(22));
-    alg2.setBackgroundColor(LIGHT);
-    alg2.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            selectAppointmentCategory("ALG2");
-        }
-    });
-    layout.addView(alg2);
+        TextView back =
+                text(
+                        "‹  Back",
+                        16,
+                        BLUE
+                );
 
-    TextView alg3 = text("6 months to less than 2 years", 18, NAVY);
-    alg3.setPadding(dp(20), dp(22), dp(20), dp(22));
-    alg3.setBackgroundColor(LIGHT);
-    alg3.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            selectAppointmentCategory("ALG3");
-        }
-    });
-    layout.addView(alg3);
+        back.setPadding(
+                0,
+                0,
+                0,
+                dp(18)
+        );
 
-    TextView alg4 = text("2 years or more", 18, NAVY);
-    alg4.setPadding(dp(20), dp(22), dp(20), dp(22));
-    alg4.setBackgroundColor(LIGHT);
-    alg4.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            selectAppointmentCategory("ALG4");
-        }
-    });
-    layout.addView(alg4);
+        back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPreviousSpainVisaPage();
+                    }
+                }
+        );
 
-    TextView info = text(
-            "Your previous Spain visa validity determines the appropriate BLS appointment category.",
-            14,
-            GRAY
-    );
-    info.setPadding(0, dp(20), 0, 0);
-    layout.addView(info);
+        layout.addView(back);
 
-    scroll.addView(layout);
-    root.addView(scroll);
-}
+        TextView title =
+                text(
+                        "Visa Validity",
+                        26,
+                        NAVY
+                );
+
+        title.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        layout.addView(title);
+
+        TextView subtitle =
+                text(
+                        "How long was your last Spain Schengen visa valid?",
+                        16,
+                        GRAY
+                );
+
+        subtitle.setPadding(
+                0,
+                dp(8),
+                0,
+                dp(20)
+        );
+
+        layout.addView(subtitle);
+
+        TextView alg2 =
+                text(
+                        "Less than 6 months",
+                        18,
+                        NAVY
+                );
+
+        alg2.setPadding(
+                dp(20),
+                dp(22),
+                dp(20),
+                dp(22)
+        );
+
+        alg2.setBackgroundColor(LIGHT);
+
+        alg2.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectAppointmentCategory("ALG2");
+                    }
+                }
+        );
+
+        layout.addView(alg2);
+
+        TextView alg3 =
+                text(
+                        "6 months to less than 2 years",
+                        18,
+                        NAVY
+                );
+
+        alg3.setPadding(
+                dp(20),
+                dp(22),
+                dp(20),
+                dp(22)
+        );
+
+        alg3.setBackgroundColor(LIGHT);
+
+        alg3.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectAppointmentCategory("ALG3");
+                    }
+                }
+        );
+
+        layout.addView(alg3);
+
+        TextView alg4 =
+                text(
+                        "2 years or more",
+                        18,
+                        NAVY
+                );
+
+        alg4.setPadding(
+                dp(20),
+                dp(22),
+                dp(20),
+                dp(22)
+        );
+
+        alg4.setBackgroundColor(LIGHT);
+
+        alg4.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectAppointmentCategory("ALG4");
+                    }
+                }
+        );
+
+        layout.addView(alg4);
+
+        TextView info =
+                text(
+                        "Your previous Spain visa validity determines the appropriate BLS appointment category.",
+                        14,
+                        GRAY
+                );
+
+        info.setPadding(
+                0,
+                dp(20),
+                0,
+                0
+        );
+
+        layout.addView(info);
+
+        scroll.addView(layout);
+
+        root.addView(scroll);
+    }
+
     // =========================================================
     // APPOINTMENT CATEGORY
     // =========================================================
 
-    private void selectAppointmentCategory(String category) {
-    if (category.equals("ALG2")) {
-        selectedCenter = selectedCenter + " • ALG2";
-    } else if (category.equals("ALG3")) {
-        selectedCenter = selectedCenter + " • ALG3";
-    } else if (category.equals("ALG4")) {
-        selectedCenter = selectedCenter + " • ALG4";
+    private void selectAppointmentCategory(
+            String category
+    ) {
+
+        selectedCategory = category;
+
+        showAppointmentCategoryPage();
     }
-   } 
+
     private void showAppointmentCategoryPage() {
 
-    root.removeAllViews();
+        root.removeAllViews();
 
-    ScrollView scroll = new ScrollView(this);
+        ScrollView scroll =
+                new ScrollView(this);
 
-    LinearLayout page = new LinearLayout(this);
-    page.setOrientation(LinearLayout.VERTICAL);
-    page.setPadding(dp(20), dp(25), dp(20), dp(30));
+        LinearLayout page =
+                new LinearLayout(this);
 
-    TextView back = text("< Back", 16, BLUE);
+        page.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
-    back.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showPreviousSpainVisaPage();
+        page.setPadding(
+                dp(20),
+                dp(25),
+                dp(20),
+                dp(30)
+        );
+
+        TextView back =
+                text(
+                        "< Back",
+                        16,
+                        BLUE
+                );
+
+        back.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (selectedCategory.equals("ALG1")) {
+                            showPreviousSpainVisaPage();
+                        } else {
+                            showVisaValidityPage();
+                        }
+                    }
                 }
-            }
-    );
+        );
 
-    page.addView(back, margin(0, 0, 0, 18));
+        page.addView(
+                back,
+                margin(0,0,0,18)
+        );
 
-    TextView title = text(
-            "Appointment Category",
-            26,
-            NAVY
-    );
+        TextView title =
+                text(
+                        "Appointment Category",
+                        26,
+                        NAVY
+                );
 
-    title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
-    page.addView(title, margin(0, 0, 0, 8));
+        page.addView(
+                title,
+                margin(0,0,0,8)
+        );
 
-    TextView selected = text(
-            selectedCategory,
-            28,
-            BLUE
-    );
+        TextView selected =
+                text(
+                        selectedCategory,
+                        28,
+                        BLUE
+                );
 
-    selected.setGravity(Gravity.CENTER);
-    selected.setTypeface(Typeface.DEFAULT_BOLD);
+        selected.setGravity(
+                Gravity.CENTER
+        );
 
-    page.addView(selected, margin(0, 0, 0, 20));
+        selected.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
 
-    String description;
+        page.addView(
+                selected,
+                margin(0,0,0,20)
+        );
 
-    if (selectedCategory.equals("ALG1")) {
+        String description;
 
-        description =
-                "No Spain Schengen visa since 1 January 2021.";
+        if (selectedCategory.equals("ALG1")) {
 
-    } else if (selectedCategory.equals("ALG2")) {
+            description =
+                    "No Spain Schengen visa since 1 January 2021.";
 
-        description =
-                "Spain Schengen visa issued since 1 January 2021 and valid for less than 6 months.";
+        } else if (selectedCategory.equals("ALG2")) {
 
-    } else if (selectedCategory.equals("ALG3")) {
+            description =
+                    "Spain Schengen visa issued since 1 January 2021 and valid for less than 6 months.";
 
-        description =
-                "Spain Schengen visa issued since 1 January 2021 and valid for 6 months to less than 2 years.";
+        } else if (selectedCategory.equals("ALG3")) {
 
-    } else {
+            description =
+                    "Spain Schengen visa issued since 1 January 2021 and valid for 6 months to less than 2 years.";
 
-        description =
-                "Spain Schengen visa issued since 1 January 2021 and valid for 2 years or more.";
+        } else {
+
+            description =
+                    "Spain Schengen visa issued since 1 January 2021 and valid for 2 years or more.";
+        }
+
+        LinearLayout infoCard =
+                card();
+
+        TextView infoTitle =
+                text(
+                        "Selected category",
+                        17,
+                        NAVY
+                );
+
+        infoTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        infoCard.addView(infoTitle);
+
+        infoCard.addView(
+                text(
+                        description,
+                        15,
+                        GRAY
+                ),
+                margin(0,5,0,0)
+        );
+
+        page.addView(
+                infoCard,
+                margin(0,0,0,20)
+        );
+
+        LinearLayout centerCard =
+                card();
+
+        centerCard.addView(
+                text(
+                        "Visa Center",
+                        16,
+                        GRAY
+                )
+        );
+
+        centerCard.addView(
+                text(
+                        selectedCenter,
+                        18,
+                        NAVY
+                ),
+                margin(0,5,0,0)
+        );
+
+        page.addView(
+                centerCard,
+                margin(0,0,0,20)
+        );
+
+        TextView confirmation =
+                text(
+                        "✓ Appointment category selected",
+                        15,
+                        GREEN
+                );
+
+        confirmation.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        page.addView(
+                confirmation,
+                margin(0,0,0,25)
+        );
+
+        Button continueButton =
+                new Button(this);
+
+        continueButton.setText(
+                "CONTINUE"
+        );
+
+        continueButton.setTextSize(16);
+
+        page.addView(
+                continueButton,
+                margin(0,0,0,10)
+        );
+
+        scroll.addView(page);
+
+        root.addView(scroll);
     }
 
-    LinearLayout infoCard = card();
-
-    TextView infoTitle = text(
-            "Selected category",
-            17,
-            NAVY
-    );
-
-    infoTitle.setTypeface(Typeface.DEFAULT_BOLD);
-
-    infoCard.addView(infoTitle);
-
-    infoCard.addView(
-            text(
-                    description,
-                    15,
-                    GRAY
-            )
-    );
-
-    page.addView(infoCard, margin(0, 0, 0, 20));
-
-    LinearLayout centerCard = card();
-
-    centerCard.addView(
-            text(
-                    "Visa Center",
-                    16,
-                    GRAY
-            )
-    );
-
-    centerCard.addView(
-            text(
-                    selectedCenter,
-                    18,
-                    NAVY
-            )
-    );
-
-    page.addView(centerCard, margin(0, 0, 0, 20));
-
-    TextView confirmation = text(
-            "✓ Appointment category selected",
-            15,
-            GREEN
-    );
-
-    confirmation.setTypeface(Typeface.DEFAULT_BOLD);
-
-    page.addView(
-            confirmation,
-            margin(0, 0, 0, 25)
-    );
-
-    Button continueButton = new Button(this);
-
-    continueButton.setText("CONTINUE");
-    continueButton.setTextSize(16);
-
-    page.addView(
-            continueButton,
-            margin(0, 0, 0, 10)
-    );
-
-    scroll.addView(page);
-
-    root.addView(scroll);
-}
     // =========================================================
     // ORIGINAL SERVICE PAGES
     // =========================================================
 
     private void showAlerts() {
+
         page(
                 "Alerts",
                 "Manage your appointment availability alerts.",
@@ -2526,6 +2533,7 @@ private void showPreviousSpainVisaPage() {
     }
 
     private void showCenters() {
+
         page(
                 "Visa Centers",
                 "BLS Spain visa centers in Algeria.",
@@ -2537,6 +2545,7 @@ private void showPreviousSpainVisaPage() {
     }
 
     private void showTracking() {
+
         page(
                 "Application Tracking",
                 "Track your BLS Spain visa application.",
@@ -2549,6 +2558,7 @@ private void showPreviousSpainVisaPage() {
     }
 
     private void showCountries() {
+
         page(
                 "Countries",
                 "Choose the country for your visa appointment.",
@@ -2560,6 +2570,7 @@ private void showPreviousSpainVisaPage() {
     }
 
     private void showStatistics() {
+
         page(
                 "Statistics",
                 "Monitoring and appointment data.",
@@ -2572,6 +2583,7 @@ private void showPreviousSpainVisaPage() {
     }
 
     private void showSettings() {
+
         page(
                 "Settings",
                 "Application preferences and configuration.",
@@ -2582,6 +2594,7 @@ private void showPreviousSpainVisaPage() {
                 }
         );
     }
+
     // =========================================================
     // UI HELPERS
     // =========================================================
