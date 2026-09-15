@@ -1,5 +1,5 @@
 package com.bls.rendezvous;
-
+import android.content.Intent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -344,19 +344,53 @@ public class AlertsActivity extends Activity {
         );
 
         monitoringButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                        monitoringEnabled =
-                                !monitoringEnabled;
+                if (!monitoringEnabled) {
 
-                        saveSettings();
+                    Intent serviceIntent =
+                            new Intent(
+                                    AlertsActivity.this,
+                                    AppointmentMonitoringService.class
+                            );
 
-                        updateMonitoringStatus();
+                    if (android.os.Build.VERSION.SDK_INT >=
+                            android.os.Build.VERSION_CODES.O) {
+
+                        startForegroundService(
+                                serviceIntent
+                        );
+
+                    } else {
+
+                        startService(
+                                serviceIntent
+                        );
                     }
+
+                    monitoringEnabled = true;
+
+                } else {
+
+                    Intent serviceIntent =
+                            new Intent(
+                                    AlertsActivity.this,
+                                    AppointmentMonitoringService.class
+                            );
+
+                    stopService(serviceIntent);
+
+                    monitoringEnabled = false;
                 }
-        );
+
+                saveSettings();
+
+                updateMonitoringStatus();
+            }
+        }
+);
 
         content.addView(
                 monitoringButton,
