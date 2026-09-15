@@ -1019,49 +1019,97 @@ public class MainActivity extends Activity {
 
         // Applicants
 
-        LinearLayout applicants =
-                appointmentCard();
+LinearLayout applicants =
+        appointmentCard();
 
-        applicants.addView(
-                text(
-                        "APPLICANTS",
-                        10,
-                        GRAY
-                )
+applicants.addView(
+        text(
+                "APPLICANTS",
+                10,
+                GRAY
+        )
+);
+
+TextView applicantsValue =
+        text(
+                "1 Applicant",
+                17,
+                NAVY
         );
 
-        TextView applicantsValue =
-                text(
+applicantsValue.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+applicants.addView(
+        applicantsValue,
+        margin(0,5,0,0)
+);
+
+applicants.addView(
+        text(
+                "Number of people",
+                11,
+                GRAY
+        ),
+        margin(0,2,0,0)
+);
+
+// Applicants click
+applicants.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String[] options = {
                         "1 Applicant",
-                        17,
-                        NAVY
+                        "2 Applicants",
+                        "3 Applicants",
+                        "4 Applicants",
+                        "5 Applicants"
+                };
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(
+                                MainActivity.this
+                        );
+
+                builder.setTitle(
+                        "Number of Applicants"
                 );
 
-        applicantsValue.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+                builder.setItems(
+                        options,
+                        new android.content.DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(
+                                    android.content.DialogInterface dialog,
+                                    int which
+                            ) {
 
-        applicants.addView(
-                applicantsValue,
-                margin(0,5,0,0)
-        );
+                                applicantsValue.setText(
+                                        options[which]
+                                );
+                            }
+                        }
+                );
 
-        applicants.addView(
-                text(
-                        "Number of people",
-                        11,
-                        GRAY
-                ),
-                margin(0,2,0,0)
-        );
+                builder.setNegativeButton(
+                        "CANCEL",
+                        null
+                );
 
-        page.addView(
-                applicants,
-                margin(0,0,0,8)
-        );
+                builder.show();
+            }
+        }
+);
 
-        // Travel plan
+page.addView(
+        applicants,
+        margin(0,0,0,8)
+);
 
+// Travel plan
         LinearLayout travel =
                 appointmentCard();
 
