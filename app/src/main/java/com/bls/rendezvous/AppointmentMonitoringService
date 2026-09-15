@@ -1,4 +1,4 @@
-package com.bls.rendezvous; 
+package com.bls.rendezvous;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
