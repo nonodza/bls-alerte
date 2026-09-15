@@ -25,35 +25,33 @@ public class AppointmentMonitoringService extends Service {
 
         createNotificationChannel();
 
+        Notification notification =
+                new NotificationCompat.Builder(
+                        this,
+                        CHANNEL_ID
+                )
+                        .setSmallIcon(
+                                android.R.drawable.ic_popup_sync
+                        )
+                        .setContentTitle(
+                                "BLS Alerts"
+                        )
+                        .setContentText(
+                                "BLS Monitoring is running"
+                        )
+                        .setOngoing(true)
+                        .setPriority(
+                                NotificationCompat.PRIORITY_LOW
+                        )
+                        .setCategory(
+                                NotificationCompat.CATEGORY_SERVICE
+                        )
+                        .build();
+
         startForeground(
                 NOTIFICATION_ID,
-                createNotification()
+                notification
         );
-    }
-
-    private Notification createNotification() {
-
-        return new NotificationCompat.Builder(
-                this,
-                CHANNEL_ID
-        )
-                .setSmallIcon(
-                        android.R.drawable.ic_popup_sync
-                )
-                .setContentTitle(
-                        "BLS Alerts"
-                )
-                .setContentText(
-                        "Monitoring appointment availability"
-                )
-                .setOngoing(true)
-                .setPriority(
-                        NotificationCompat.PRIORITY_LOW
-                )
-                .setCategory(
-                        NotificationCompat.CATEGORY_SERVICE
-                )
-                .build();
     }
 
     private void createNotificationChannel() {
@@ -65,11 +63,11 @@ public class AppointmentMonitoringService extends Service {
                     new NotificationChannel(
                             CHANNEL_ID,
                             "BLS Monitoring",
-                            NotificationManager.IMPORTANCE_LOW
+                            NotificationManager.IMPORTANCE_DEFAULT
                     );
 
             channel.setDescription(
-                    "BLS appointment monitoring status"
+                    "BLS appointment monitoring"
             );
 
             NotificationManager manager =
