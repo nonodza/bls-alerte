@@ -2702,7 +2702,70 @@ private void showAppointmentDetailsPage() {
             info,
             margin(0,0,0,25)
     );
+Button openBlsButton =
+        new Button(this);
 
+openBlsButton.setText(
+        "OPEN OFFICIAL BLS"
+);
+
+openBlsButton.setTextSize(16);
+
+openBlsButton.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle(
+                        "Official BLS Spain"
+                );
+
+                builder.setMessage(
+                        "You are about to open the official BLS Spain website for Algeria."
+                );
+
+                builder.setNegativeButton(
+                        "CANCEL",
+                        null
+                );
+
+                builder.setPositiveButton(
+                        "OPEN",
+                        new android.content.DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(
+                                    android.content.DialogInterface dialog,
+                                    int which
+                            ) {
+
+                                android.content.Intent intent =
+                                        new android.content.Intent(
+                                                android.content.Intent.ACTION_VIEW
+                                        );
+
+                                intent.setData(
+                                        android.net.Uri.parse(
+                                                "https://algeria.blsspainvisa.com/"
+                                        )
+                                );
+
+                                startActivity(intent);
+                            }
+                        }
+                );
+
+                builder.show();
+            }
+        }
+);
+
+page.addView(
+        openBlsButton,
+        margin(0,0,0,10)
+);
     scroll.addView(page);
 
     root.addView(scroll);
