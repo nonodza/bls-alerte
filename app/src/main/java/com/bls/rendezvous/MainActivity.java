@@ -2120,11 +2120,108 @@ public class MainActivity extends Activity {
             text(
                     "No, I did not have one\nNo Spain Schengen visa since 1 January 2021",
                     14,
-                    GRAY
-            )
+    private void showPreviousSpainVisaPage() {
+
+    root.removeAllViews();
+
+    ScrollView scroll = new ScrollView(this);
+
+    LinearLayout layout = new LinearLayout(this);
+    layout.setOrientation(LinearLayout.VERTICAL);
+    layout.setPadding(dp(20), dp(20), dp(20), dp(30));
+
+    TextView back = text("< Back", 16, BLUE);
+
+    back.setPadding(0, 0, 0, dp(18));
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showVisaTypePage();
+                }
+            }
     );
 
-    noCard.setOnClickListener(
+    layout.addView(back);
+
+    TextView title = text(
+            "Previous Spain Visa",
+            26,
+            NAVY
+    );
+
+    title.setTypeface(Typeface.DEFAULT_BOLD);
+
+    layout.addView(title);
+
+    TextView subtitle = text(
+            "Tell us about your previous Spain Schengen visa.",
+            16,
+            GRAY
+    );
+
+    subtitle.setPadding(0, dp(8), 0, dp(20));
+
+    layout.addView(subtitle);
+
+    TextView question = text(
+            "Have you had a Spain Schengen visa since 1 January 2021?",
+            17,
+            NAVY
+    );
+
+    question.setTypeface(Typeface.DEFAULT_BOLD);
+
+    question.setPadding(0, 0, 0, dp(20));
+
+    layout.addView(question);
+
+    TextView yes = text(
+            "YES\n\nYes, I had a Spain visa\nIssued on or after 1 January 2021",
+            17,
+            NAVY
+    );
+
+    yes.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    yes.setBackgroundColor(LIGHT);
+
+    yes.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showVisaValidityPage();
+                }
+            }
+    );
+
+    layout.addView(
+            yes,
+            margin(0, 0, 0, 15)
+    );
+
+    TextView no = text(
+            "NO\n\nNo, I did not have one\nNo Spain Schengen visa since 1 January 2021",
+            17,
+            NAVY
+    );
+
+    no.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    no.setBackgroundColor(LIGHT);
+
+    no.setOnClickListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -2133,41 +2230,23 @@ public class MainActivity extends Activity {
             }
     );
 
-    page.addView(
-            noCard,
-            margin(0,0,0,20)
+    layout.addView(no);
+
+    TextView why = text(
+            "Why do we ask?\n\nBLS uses your previous Spain visa history to determine the appropriate appointment category.",
+            14,
+            GRAY
     );
 
-    // WHY
+    why.setPadding(0, dp(25), 0, dp(20));
 
-    TextView why =
-            text(
-                    "Why do we ask?",
-                    17,
-                    NAVY
-            );
+    layout.addView(why);
 
-    why.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    page.addView(
-            why,
-            margin(0,0,0,8)
-    );
-
-    page.addView(
-            text(
-                    "BLS uses your previous Spain visa history to determine the appropriate appointment category.",
-                    14,
-                    GRAY
-            )
-    );
-
-    scroll.addView(page);
+    scroll.addView(layout);
 
     root.addView(scroll);
-}
+}                GRAY
+
         // =========================================================
     // SPAIN VISA VALIDITY
     // ========================================================
