@@ -358,7 +358,57 @@ public class MainActivity extends Activity {
                 margin(0, 5, 0, 10)
         );
 
-        // Monitoring
+       
+                    monitorStatus.setText(
+                            "Monitoring is active"
+                    );
+
+                    monitorStatus.setTextColor(
+                            GREEN
+                    );
+
+                    monitorButton.setEnabled(false);
+
+                    android.content.Intent serviceIntent =
+                            new android.content.Intent(
+                                    MainActivity.this,
+                                    AppointmentMonitoringService.class
+                            );
+
+                    try {
+
+                        if (android.os.Build.VERSION.SDK_INT >=
+                                android.os.Build.VERSION_CODES.O) {
+
+                            startForegroundService(
+                                    serviceIntent
+                            );
+
+                        } else {
+
+                            startService(
+                                    serviceIntent
+                            );
+                        }
+
+                        android.widget.Toast.makeText(
+                                MainActivity.this,
+                                "Monitoring started",
+                                android.widget.Toast.LENGTH_SHORT
+                        ).show();
+
+                    } catch (Exception e) {
+
+                        // If service failed, return UI to START
+                        monitorButton.setText("START");
+
+                        monitorStatus.setText(
+                                "Monitoring is paused"
+                        );
+
+                        monitorStatus.setTextColor(
+                                GRAY
+// Monitoring
 
 LinearLayout monitor = card();
 
