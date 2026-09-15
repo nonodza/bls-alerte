@@ -2505,16 +2505,208 @@ public class MainActivity extends Activity {
 
         continueButton.setTextSize(16);
 
-        page.addView(
-                continueButton,
-                margin(0,0,0,10)
-        );
+continueButton.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAppointmentDetailsPage();
+            }
+        }
+);
+
+page.addView(
+        continueButton,
+        margin(0,0,0,10)
+);
 
         scroll.addView(page);
 
         root.addView(scroll);
     }
+private void showAppointmentDetailsPage() {
 
+    root.removeAllViews();
+
+    ScrollView scroll = new ScrollView(this);
+
+    LinearLayout page = new LinearLayout(this);
+
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    page.setPadding(
+            dp(20),
+            dp(25),
+            dp(20),
+            dp(30)
+    );
+
+    TextView back =
+            text(
+                    "< Back",
+                    16,
+                    BLUE
+            );
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showAppointmentCategoryPage();
+                }
+            }
+    );
+
+    page.addView(
+            back,
+            margin(0,0,0,18)
+    );
+
+    TextView title =
+            text(
+                    "Appointment Details",
+                    26,
+                    NAVY
+            );
+
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(
+            title,
+            margin(0,0,0,8)
+    );
+
+    TextView subtitle =
+            text(
+                    "Review your appointment information before continuing.",
+                    16,
+                    GRAY
+            );
+
+    page.addView(
+            subtitle,
+            margin(0,0,0,20)
+    );
+
+    LinearLayout categoryCard =
+            card();
+
+    categoryCard.addView(
+            text(
+                    "Appointment Category",
+                    15,
+                    GRAY
+            )
+    );
+
+    TextView categoryValue =
+            text(
+                    selectedCategory,
+                    20,
+                    NAVY
+            );
+
+    categoryValue.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    categoryCard.addView(
+            categoryValue,
+            margin(0,5,0,0)
+    );
+
+    page.addView(
+            categoryCard,
+            margin(0,0,0,15)
+    );
+
+    LinearLayout centerCard =
+            card();
+
+    centerCard.addView(
+            text(
+                    "Visa Center",
+                    15,
+                    GRAY
+            )
+    );
+
+    TextView centerValue =
+            text(
+                    selectedCenter,
+                    20,
+                    NAVY
+            );
+
+    centerValue.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    centerCard.addView(
+            centerValue,
+            margin(0,5,0,0)
+    );
+
+    page.addView(
+            centerCard,
+            margin(0,0,0,15)
+    );
+
+    LinearLayout residenceCard =
+            card();
+
+    residenceCard.addView(
+            text(
+                    "Residence",
+                    15,
+                    GRAY
+            )
+    );
+
+    TextView residenceValue =
+            text(
+                    selectedWilaya,
+                    20,
+                    NAVY
+            );
+
+    residenceValue.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    residenceCard.addView(
+            residenceValue,
+            margin(0,5,0,0)
+    );
+
+    page.addView(
+            residenceCard,
+            margin(0,0,0,20)
+    );
+
+    TextView info =
+            text(
+                    "✓ Your appointment information is ready.",
+                    15,
+                    GREEN
+            );
+
+    info.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(
+            info,
+            margin(0,0,0,25)
+    );
+
+    scroll.addView(page);
+
+    root.addView(scroll);
+    }
     // =========================================================
     // ORIGINAL SERVICE PAGES
     // =========================================================
