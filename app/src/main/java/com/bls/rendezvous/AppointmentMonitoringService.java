@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -22,6 +23,12 @@ public class AppointmentMonitoringService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Toast.makeText(
+                this,
+                "BLS Monitoring Service Started",
+                Toast.LENGTH_LONG
+        ).show();
 
         createNotificationChannel();
 
@@ -41,7 +48,7 @@ public class AppointmentMonitoringService extends Service {
                         )
                         .setOngoing(true)
                         .setPriority(
-                                NotificationCompat.PRIORITY_LOW
+                                NotificationCompat.PRIORITY_HIGH
                         )
                         .setCategory(
                                 NotificationCompat.CATEGORY_SERVICE
@@ -63,7 +70,7 @@ public class AppointmentMonitoringService extends Service {
                     new NotificationChannel(
                             CHANNEL_ID,
                             "BLS Monitoring",
-                            NotificationManager.IMPORTANCE_DEFAULT
+                            NotificationManager.IMPORTANCE_HIGH
                     );
 
             channel.setDescription(
@@ -76,6 +83,7 @@ public class AppointmentMonitoringService extends Service {
                     );
 
             if (manager != null) {
+
                 manager.createNotificationChannel(
                         channel
                 );
