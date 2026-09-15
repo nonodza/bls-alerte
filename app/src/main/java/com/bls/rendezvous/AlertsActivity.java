@@ -3,6 +3,9 @@ package com.bls.rendezvous;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.app.NotificationCompat;
+
 public class AlertsActivity extends Activity {
 
     private final int NAVY = Color.rgb(18, 45, 75);
@@ -29,6 +34,9 @@ public class AlertsActivity extends Activity {
     private final int LIGHT = Color.rgb(245, 247, 250);
 
     private static final int NOTIFICATION_PERMISSION_REQUEST = 2001;
+
+    private static final String TEST_CHANNEL_ID =
+            "bls_test_channel";
 
     private SharedPreferences preferences;
 
@@ -430,6 +438,10 @@ public class AlertsActivity extends Activity {
 
     private void launchMonitoringService() {
 
+        // TEST NOTIFICATION
+        showTestNotification();
+
+        // START FOREGROUND SERVICE
         Intent serviceIntent =
                 new Intent(
                         AlertsActivity.this,
@@ -457,6 +469,71 @@ public class AlertsActivity extends Activity {
         updateMonitoringStatus();
     }
 
+    private void showTestNotification() {
+
+        String channelId =
+                TEST_CHANNEL_ID;
+
+        NotificationManager manager =
+                (NotificationManager)
+                        getSystemService(
+                                NOTIFICATION_SERVICE
+                        );
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.O) {
+
+            NotificationChannel channel =
+                    new NotificationChannel(
+                            channelId,
+                            "BLS Alerts",
+                            NotificationManager.IMPORTANCE_HIGH
+                    );
+
+            channel.setDescription(
+                    "BLS appointment alerts"
+            );
+
+            if (manager != null) {
+
+                manager.createNotificationChannel(
+                        channel
+                );
+            }
+        }
+
+        Notification notification =
+                new NotificationCompat.Builder(
+                        this,
+                        channelId
+                )
+                        .setSmallIcon(
+                                android.R.drawable.ic_popup_sync
+                        )
+                        .setContentTitle(
+                                "BLS Rendez-Vous"
+                        )
+                        .setContentText(
+                                "Test notification - Monitoring"
+                        )
+                        .setPriority(
+                                NotificationCompat.PRIORITY_HIGH
+                        )
+                        .setCategory(
+                                NotificationCompat.CATEGORY_SERVICE
+                        )
+                        .setAutoCancel(false)
+                        .build();
+
+        if (manager != null) {
+
+            manager.notify(
+                    5001,
+                    notification
+            );
+        }
+    }
+
     private void stopMonitoring() {
 
         Intent serviceIntent =
@@ -468,6 +545,17 @@ public class AlertsActivity extends Activity {
         stopService(
                 serviceIntent
         );
+
+        NotificationManager manager =
+                (NotificationManager)
+                        getSystemService(
+                                NOTIFICATION_SERVICE
+                        );
+
+        if (manager != null) {
+
+            manager.cancel(5001);
+        }
 
         monitoringEnabled = false;
 
@@ -664,123 +752,4 @@ public class AlertsActivity extends Activity {
                     "STOP MONITORING"
             );
 
-        } else {
-
-            statusValue.setText(
-                    "● Monitoring OFF"
-            );
-
-            statusValue.setTextColor(
-                    RED
-            );
-
-            monitoringButton.setText(
-                    "START MONITORING"
-            );
         }
-    }
-
-    private void saveSettings() {
-
-        preferences.edit()
-                .putString(
-                        "center",
-                        selectedCenter
-                )
-                .putString(
-                        "category",
-                        selectedCategory
-                )
-                .putBoolean(
-                        "monitoring",
-                        monitoringEnabled
-                )
-                .apply();
-    }
-
-    private LinearLayout alertCard() {
-
-        LinearLayout card =
-                new LinearLayout(this);
-
-        card.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        card.setPadding(
-                18,
-                16,
-                18,
-                16
-        );
-
-        GradientDrawable background =
-                new GradientDrawable();
-
-        background.setColor(
-                Color.WHITE
-        );
-
-        background.setCornerRadius(
-                18
-        );
-
-        background.setStroke(
-                1,
-                Color.rgb(225, 225, 225)
-        );
-
-        card.setBackground(
-                background
-        );
-
-        return card;
-    }
-
-    private TextView text(
-            String value,
-            int size,
-            int color
-    ) {
-
-        TextView t =
-                new TextView(this);
-
-        t.setText(
-                value
-        );
-
-        t.setTextSize(
-                size
-        );
-
-        t.setTextColor(
-                color
-        );
-
-        return t;
-    }
-
-    private LinearLayout.LayoutParams margin(
-            int left,
-            int top,
-            int right,
-            int bottom
-    ) {
-
-        LinearLayout.LayoutParams p =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        -2
-                );
-
-        p.setMargins(
-                left,
-                top,
-                right,
-                bottom
-        );
-
-        return p;
-    }
-}
