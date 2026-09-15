@@ -31,7 +31,8 @@ public class MainActivity extends Activity {
     // Appointment data
     private String selectedWilaya = "";
     private String selectedCenter = "";
-
+    private String selectedCategory;
+    
     // Appointment page references
     private TextView appointmentWilayaValue;
     private TextView appointmentWilayaHint;
