@@ -438,10 +438,8 @@ public class AlertsActivity extends Activity {
 
     private void launchMonitoringService() {
 
-        // TEST NOTIFICATION
         showTestNotification();
 
-        // START FOREGROUND SERVICE
         Intent serviceIntent =
                 new Intent(
                         AlertsActivity.this,
@@ -752,4 +750,123 @@ public class AlertsActivity extends Activity {
                     "STOP MONITORING"
             );
 
+        } else {
+
+            statusValue.setText(
+                    "● Monitoring OFF"
+            );
+
+            statusValue.setTextColor(
+                    RED
+            );
+
+            monitoringButton.setText(
+                    "START MONITORING"
+            );
         }
+    }
+
+    private void saveSettings() {
+
+        preferences.edit()
+                .putString(
+                        "center",
+                        selectedCenter
+                )
+                .putString(
+                        "category",
+                        selectedCategory
+                )
+                .putBoolean(
+                        "monitoring",
+                        monitoringEnabled
+                )
+                .apply();
+    }
+
+    private LinearLayout alertCard() {
+
+        LinearLayout card =
+                new LinearLayout(this);
+
+        card.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        card.setPadding(
+                18,
+                16,
+                18,
+                16
+        );
+
+        GradientDrawable background =
+                new GradientDrawable();
+
+        background.setColor(
+                Color.WHITE
+        );
+
+        background.setCornerRadius(
+                18
+        );
+
+        background.setStroke(
+                1,
+                Color.rgb(225, 225, 225)
+        );
+
+        card.setBackground(
+                background
+        );
+
+        return card;
+    }
+
+    private TextView text(
+            String value,
+            int size,
+            int color
+    ) {
+
+        TextView t =
+                new TextView(this);
+
+        t.setText(
+                value
+        );
+
+        t.setTextSize(
+                size
+        );
+
+        t.setTextColor(
+                color
+        );
+
+        return t;
+    }
+
+    private LinearLayout.LayoutParams margin(
+            int left,
+            int top,
+            int right,
+            int bottom
+    ) {
+
+        LinearLayout.LayoutParams p =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
+
+        p.setMargins(
+                left,
+                top,
+                right,
+                bottom
+        );
+
+        return p;
+    }
+}
