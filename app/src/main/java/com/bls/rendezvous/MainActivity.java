@@ -1243,11 +1243,6 @@ continueButton.setOnClickListener(
 
         // Continue
 
-        Button continueButton =
-                smallButton(
-                        "CONTINUE TO VISA TYPE"
-                );
-
         continueButton.setTextSize(11);
 
         continueButton.setOnClickListener(
