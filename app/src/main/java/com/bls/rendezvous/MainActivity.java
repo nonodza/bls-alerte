@@ -2245,7 +2245,7 @@ public class MainActivity extends Activity {
     scroll.addView(layout);
 
     root.addView(scroll);
-}                GRAY
+}                
 
         // =========================================================
     // SPAIN VISA VALIDITY
