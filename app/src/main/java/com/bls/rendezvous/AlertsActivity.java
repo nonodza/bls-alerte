@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 public class AlertsActivity extends Activity {
