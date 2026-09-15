@@ -360,90 +360,164 @@ public class MainActivity extends Activity {
 
         // Monitoring
 
-        LinearLayout monitor = card();
+        // Monitoring
 
-        LinearLayout monitorRow = new LinearLayout(this);
-        monitorRow.setGravity(Gravity.CENTER_VERTICAL);
+LinearLayout monitor = card();
 
-        TextView monitorIcon =
-                text(
-                        "◉",
-                        28,
-                        BLUE
-                );
+LinearLayout monitorRow = new LinearLayout(this);
+monitorRow.setGravity(Gravity.CENTER_VERTICAL);
 
-        monitorIcon.setGravity(Gravity.CENTER);
-
-        monitorRow.addView(
-                monitorIcon,
-                new LinearLayout.LayoutParams(
-                        dp(45),
-                        dp(45)
-                )
+TextView monitorIcon =
+        text(
+                "◉",
+                28,
+                BLUE
         );
 
-        LinearLayout monitorInfo =
-                new LinearLayout(this);
+monitorIcon.setGravity(Gravity.CENTER);
 
-        monitorInfo.setOrientation(
-                LinearLayout.VERTICAL
-        );
+monitorRow.addView(
+        monitorIcon,
+        new LinearLayout.LayoutParams(
+                dp(45),
+                dp(45)
+        )
+);
 
-        TextView monitorTitle =
-                text(
-                        "Appointment Monitoring",
-                        15,
-                        NAVY
-                );
+LinearLayout monitorInfo =
+        new LinearLayout(this);
 
-        monitorTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+monitorInfo.setOrientation(
+        LinearLayout.VERTICAL
+);
 
-        TextView monitorStatus =
-                text(
-                        "Monitoring is active",
-                        12,
-                        GREEN
-                );
+TextView monitorTitle =
+        text(
+                "Appointment Monitoring",
+                15,
+                NAVY
+);
 
-        monitorInfo.addView(monitorTitle);
-        monitorInfo.addView(monitorStatus);
+monitorTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-        monitorRow.addView(
-                monitorInfo,
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                )
-        );
+TextView monitorStatus =
+        text(
+                "Monitoring is paused",
+                12,
+                GRAY
+);
 
-        Button monitorButton =
-                smallButton("STOP");
+monitorInfo.addView(monitorTitle);
+monitorInfo.addView(monitorStatus);
 
-        monitorButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        monitorButton.setText("START");
+monitorRow.addView(
+        monitorInfo,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1
+        )
+);
+
+Button monitorButton =
+        smallButton("START");
+
+monitorButton.setOnClickListener(
+        new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (monitorButton.getText().toString()
+                        .equals("START")) {
+
+                    android.content.Intent serviceIntent =
+                            new android.content.Intent(
+                                    MainActivity.this,
+                                    AppointmentMonitoringService.class
+                            );
+
+                    try {
+
+                        if (android.os.Build.VERSION.SDK_INT >=
+                                android.os.Build.VERSION_CODES.O) {
+
+                            startForegroundService(
+                                    serviceIntent
+                            );
+
+                        } else {
+
+                            startService(
+                                    serviceIntent
+                            );
+                        }
+
+                        monitorButton.setText("STOP");
+
                         monitorStatus.setText(
-                                "Monitoring is paused"
+                                "Monitoring is active"
                         );
-                        monitorStatus.setTextColor(GRAY);
+
+                        monitorStatus.setTextColor(
+                                GREEN
+                        );
+
+                        android.widget.Toast.makeText(
+                                MainActivity.this,
+                                "Monitoring started",
+                                android.widget.Toast.LENGTH_SHORT
+                        ).show();
+
+                    } catch (Exception e) {
+
+                        android.widget.Toast.makeText(
+                                MainActivity.this,
+                                "Could not start monitoring",
+                                android.widget.Toast.LENGTH_LONG
+                        ).show();
                     }
+
+                } else {
+
+                    android.content.Intent serviceIntent =
+                            new android.content.Intent(
+                                    MainActivity.this,
+                                    AppointmentMonitoringService.class
+                            );
+
+                    stopService(serviceIntent);
+
+                    monitorButton.setText("START");
+
+                    monitorStatus.setText(
+                            "Monitoring is paused"
+                    );
+
+                    monitorStatus.setTextColor(
+                            GRAY
+                    );
+
+                    android.widget.Toast.makeText(
+                            MainActivity.this,
+                            "Monitoring stopped",
+                            android.widget.Toast.LENGTH_SHORT
+                    ).show();
                 }
-        );
+            }
+        }
+);
 
-        monitorRow.addView(monitorButton);
+monitorRow.addView(monitorButton);
 
-        monitor.addView(monitorRow);
+monitor.addView(monitorRow);
 
-        content.addView(
-                monitor,
-                margin(0, 0, 0, 10)
-        );
-
+content.addView(
+        monitor,
+        margin(0, 0, 0, 10)
+);
         // Services
 
         TextView services =
