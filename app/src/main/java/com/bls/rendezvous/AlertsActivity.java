@@ -1,12 +1,17 @@
 package com.bls.rendezvous;
-import android.content.Intent;
+
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.os.Bundle;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +27,8 @@ public class AlertsActivity extends Activity {
     private final int RED = Color.rgb(180, 55, 55);
     private final int GRAY = Color.rgb(100, 100, 100);
     private final int LIGHT = Color.rgb(245, 247, 250);
+
+    private static final int NOTIFICATION_PERMISSION_REQUEST = 2001;
 
     private SharedPreferences preferences;
 
@@ -74,8 +81,6 @@ public class AlertsActivity extends Activity {
         root.setBackgroundColor(
                 LIGHT
         );
-
-        // Header
 
         LinearLayout header =
                 new LinearLayout(this);
@@ -130,8 +135,6 @@ public class AlertsActivity extends Activity {
 
         root.addView(header);
 
-        // Scroll
-
         ScrollView scroll =
                 new ScrollView(this);
 
@@ -148,8 +151,6 @@ public class AlertsActivity extends Activity {
                 16,
                 25
         );
-
-        // Availability Alerts
 
         LinearLayout availability =
                 alertCard();
@@ -182,8 +183,6 @@ public class AlertsActivity extends Activity {
                 availability,
                 margin(0, 0, 0, 12)
         );
-
-        // Center
 
         LinearLayout centerCard =
                 alertCard();
@@ -221,6 +220,8 @@ public class AlertsActivity extends Activity {
                 margin(0, 2, 0, 0)
         );
 
+        centerCard.setClickable(true);
+
         centerCard.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -234,8 +235,6 @@ public class AlertsActivity extends Activity {
                 centerCard,
                 margin(0, 0, 0, 8)
         );
-
-        // Category
 
         LinearLayout categoryCard =
                 alertCard();
@@ -273,6 +272,8 @@ public class AlertsActivity extends Activity {
                 margin(0, 2, 0, 0)
         );
 
+        categoryCard.setClickable(true);
+
         categoryCard.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -286,8 +287,6 @@ public class AlertsActivity extends Activity {
                 categoryCard,
                 margin(0, 0, 0, 12)
         );
-
-        // Monitoring
 
         LinearLayout monitoring =
                 alertCard();
@@ -318,7 +317,7 @@ public class AlertsActivity extends Activity {
 
         monitoring.addView(
                 text(
-                        "Background monitoring will be added in the next stage.",
+                        "Background monitoring service.",
                         11,
                         GRAY
                 ),
@@ -329,8 +328,6 @@ public class AlertsActivity extends Activity {
                 monitoring,
                 margin(0, 0, 0, 10)
         );
-
-        // Monitoring button
 
         monitoringButton =
                 new Button(this);
@@ -344,60 +341,27 @@ public class AlertsActivity extends Activity {
         );
 
         monitoringButton.setOnClickListener(
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                if (!monitoringEnabled) {
+                        if (!monitoringEnabled) {
 
-                    Intent serviceIntent =
-                            new Intent(
-                                    AlertsActivity.this,
-                                    AppointmentMonitoringService.class
-                            );
+                            startMonitoring();
 
-                    if (android.os.Build.VERSION.SDK_INT >=
-                            android.os.Build.VERSION_CODES.O) {
+                        } else {
 
-                        startForegroundService(
-                                serviceIntent
-                        );
+                            stopMonitoring();
 
-                    } else {
-
-                        startService(
-                                serviceIntent
-                        );
+                        }
                     }
-
-                    monitoringEnabled = true;
-
-                } else {
-
-                    Intent serviceIntent =
-                            new Intent(
-                                    AlertsActivity.this,
-                                    AppointmentMonitoringService.class
-                            );
-
-                    stopService(serviceIntent);
-
-                    monitoringEnabled = false;
                 }
-
-                saveSettings();
-
-                updateMonitoringStatus();
-            }
-        }
-);
+        );
 
         content.addView(
                 monitoringButton,
                 margin(0, 0, 0, 12)
         );
-
-        // Appointment notifications
 
         LinearLayout notifications =
                 alertCard();
@@ -412,7 +376,7 @@ public class AlertsActivity extends Activity {
 
         notifications.addView(
                 text(
-                        "Notifications will be enabled when background monitoring is connected.",
+                        "You will receive a notification when monitoring detects an appointment opportunity.",
                         13,
                         GRAY
                 ),
@@ -441,6 +405,117 @@ public class AlertsActivity extends Activity {
         updateMonitoringStatus();
     }
 
+    private void startMonitoring() {
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.TIRAMISU) {
+
+            if (checkSelfPermission(
+                    Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.POST_NOTIFICATIONS
+                        },
+                        NOTIFICATION_PERMISSION_REQUEST
+                );
+
+                return;
+            }
+        }
+
+        launchMonitoringService();
+    }
+
+    private void launchMonitoringService() {
+
+        Intent serviceIntent =
+                new Intent(
+                        AlertsActivity.this,
+                        AppointmentMonitoringService.class
+                );
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.O) {
+
+            startForegroundService(
+                    serviceIntent
+            );
+
+        } else {
+
+            startService(
+                    serviceIntent
+            );
+        }
+
+        monitoringEnabled = true;
+
+        saveSettings();
+
+        updateMonitoringStatus();
+    }
+
+    private void stopMonitoring() {
+
+        Intent serviceIntent =
+                new Intent(
+                        AlertsActivity.this,
+                        AppointmentMonitoringService.class
+                );
+
+        stopService(
+                serviceIntent
+        );
+
+        monitoringEnabled = false;
+
+        saveSettings();
+
+        updateMonitoringStatus();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String[] permissions,
+            int[] grantResults
+    ) {
+
+        super.onRequestPermissionsResult(
+                requestCode,
+                permissions,
+                grantResults
+        );
+
+        if (requestCode ==
+                NOTIFICATION_PERMISSION_REQUEST) {
+
+            if (grantResults.length > 0 &&
+                    grantResults[0] ==
+                            PackageManager.PERMISSION_GRANTED) {
+
+                launchMonitoringService();
+
+            } else {
+
+                new AlertDialog.Builder(this)
+                        .setTitle(
+                                "Notifications Required"
+                        )
+                        .setMessage(
+                                "Please allow notifications so BLS monitoring can show its status and alerts."
+                        )
+                        .setPositiveButton(
+                                "OK",
+                                null
+                        )
+                        .show();
+            }
+        }
+    }
+
     private void showCenterDialog() {
 
         final String[] centers = {
@@ -464,11 +539,11 @@ public class AlertsActivity extends Activity {
         builder.setSingleChoiceItems(
                 centers,
                 selected,
-                new android.content.DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(
-                            android.content.DialogInterface dialog,
+                            DialogInterface dialog,
                             int which
                     ) {
 
@@ -503,7 +578,7 @@ public class AlertsActivity extends Activity {
 
         if (selectedCenter.equals("Oran")) {
 
-            categories = new String[] {
+            categories = new String[]{
                     "ORAN1",
                     "ORAN2",
                     "ORAN3",
@@ -512,7 +587,7 @@ public class AlertsActivity extends Activity {
 
         } else {
 
-            categories = new String[] {
+            categories = new String[]{
                     "ALG1",
                     "ALG2",
                     "ALG3",
@@ -522,11 +597,14 @@ public class AlertsActivity extends Activity {
 
         int selected = 0;
 
-        for (int i = 0; i < categories.length; i++) {
+        for (int i = 0;
+             i < categories.length;
+             i++) {
 
             if (categories[i].equals(
                     selectedCategory
             )) {
+
                 selected = i;
                 break;
             }
@@ -542,11 +620,11 @@ public class AlertsActivity extends Activity {
         builder.setSingleChoiceItems(
                 categories,
                 selected,
-                new android.content.DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(
-                            android.content.DialogInterface dialog,
+                            DialogInterface dialog,
                             int which
                     ) {
 
@@ -575,7 +653,7 @@ public class AlertsActivity extends Activity {
         if (monitoringEnabled) {
 
             statusValue.setText(
-                    "● Monitoring ON"
+                    "● Monitoring ON • ACTIVE"
             );
 
             statusValue.setTextColor(
