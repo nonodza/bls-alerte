@@ -296,4 +296,4 @@ public class AlertsActivity extends Activity {
         );
 
         background.setCornerRadius(
-                
+            }     
