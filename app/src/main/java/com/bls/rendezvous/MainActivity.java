@@ -2135,10 +2135,6 @@ private void showPreviousSpainVisaPage() {
             dp(30)
     );
 
-    // =========================
-    // BACK
-    // =========================
-
     TextView back =
             text(
                     "< Back",
@@ -2157,17 +2153,12 @@ private void showPreviousSpainVisaPage() {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     showVisaTypePage();
                 }
             }
     );
 
     layout.addView(back);
-
-    // =========================
-    // TITLE
-    // =========================
 
     TextView title =
             text(
@@ -2198,10 +2189,6 @@ private void showPreviousSpainVisaPage() {
 
     layout.addView(subtitle);
 
-    // =========================
-    // QUESTION
-    // =========================
-
     TextView question =
             text(
                     "Have you had a Schengen visa before?",
@@ -2222,9 +2209,9 @@ private void showPreviousSpainVisaPage() {
 
     layout.addView(question);
 
-    // =========================
+    // =====================================================
     // YES
-    // =========================
+    // =====================================================
 
     TextView yes =
             text(
@@ -2247,7 +2234,7 @@ private void showPreviousSpainVisaPage() {
                 @Override
                 public void onClick(View v) {
 
-                    showVisaValidityPage();
+                    showVisaIssuingCountryPage();
                 }
             }
     );
@@ -2257,9 +2244,9 @@ private void showPreviousSpainVisaPage() {
             margin(0,0,0,15)
     );
 
-    // =========================
+    // =====================================================
     // NO
-    // =========================
+    // =====================================================
 
     TextView no =
             text(
@@ -2291,13 +2278,13 @@ private void showPreviousSpainVisaPage() {
 
     layout.addView(no);
 
-    // =========================
+    // =====================================================
     // INFORMATION
-    // =========================
+    // =====================================================
 
     TextView why =
             text(
-                    "Why do we ask?\n\nBLS uses your most recent Schengen visa history to determine the appropriate appointment category.",
+                    "Why do we ask?\n\nOnly the most recent Schengen visa issued by Spain on or after 1 January 2021 can be used for ALG2, ALG3 or ALG4.",
                     14,
                     GRAY
             );
@@ -2315,6 +2302,186 @@ private void showPreviousSpainVisaPage() {
 
     root.addView(scroll);
 }
+
+
+// =========================================================
+// VISA ISSUING COUNTRY
+// =========================================================
+
+private void showVisaIssuingCountryPage() {
+
+    root.removeAllViews();
+
+    ScrollView scroll =
+            new ScrollView(this);
+
+    LinearLayout layout =
+            new LinearLayout(this);
+
+    layout.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    layout.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(30)
+    );
+
+    // BACK
+
+    TextView back =
+            text(
+                    "< Back",
+                    16,
+                    BLUE
+            );
+
+    back.setPadding(
+            0,
+            0,
+            0,
+            dp(18)
+    );
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showPreviousSpainVisaPage();
+                }
+            }
+    );
+
+    layout.addView(back);
+
+    // TITLE
+
+    TextView title =
+            text(
+                    "Visa Issuing Country",
+                    26,
+                    NAVY
+            );
+
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    layout.addView(title);
+
+    TextView subtitle =
+            text(
+                    "Which country issued your most recent Schengen visa?",
+                    16,
+                    GRAY
+            );
+
+    subtitle.setPadding(
+            0,
+            dp(8),
+            0,
+            dp(20)
+    );
+
+    layout.addView(subtitle);
+
+    // =====================================================
+    // SPAIN
+    // =====================================================
+
+    TextView spain =
+            text(
+                    "🇪🇸  Spain\n\nMy most recent Schengen visa was issued by Spain",
+                    17,
+                    NAVY
+            );
+
+    spain.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    spain.setBackgroundColor(LIGHT);
+
+    spain.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showVisaValidityPage();
+                }
+            }
+    );
+
+    layout.addView(
+            spain,
+            margin(0,0,0,12)
+    );
+
+    // =====================================================
+    // OTHER SCHENGEN COUNTRY
+    // =====================================================
+
+    TextView other =
+            text(
+                    "🌍  Other Schengen country\n\nMy most recent Schengen visa was issued by another Schengen country",
+                    17,
+                    NAVY
+            );
+
+    other.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    other.setBackgroundColor(LIGHT);
+
+    other.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    selectAppointmentCategory(
+                            "ALG1"
+                    );
+                }
+            }
+    );
+
+    layout.addView(other);
+
+    // =====================================================
+    // INFORMATION
+    // =====================================================
+
+    TextView info =
+            text(
+                    "Important\n\nFor ALG2, ALG3 and ALG4, the most recent Schengen visa must have been issued exclusively by Spain on or after 1 January 2021.",
+                    14,
+                    GRAY
+            );
+
+    info.setPadding(
+            0,
+            dp(25),
+            0,
+            0
+    );
+
+    layout.addView(info);
+
+    scroll.addView(layout);
+
+    root.addView(scroll);
+}
+
 
 // =========================================================
 // SPAIN VISA VALIDITY
