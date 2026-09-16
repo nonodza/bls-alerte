@@ -2026,16 +2026,15 @@ public class MainActivity extends Activity {
                 margin(0,0,0,10)
         );
 
-        LinearLayout tourism =
-                appointmentCard();
-
-        tourism.addView(
-                text(
-                        "VISA PURPOSE",
-                        10,
-                        GRAY
-                )
-        );
+            root.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1
+            )
+    );
+}
         
 // =========================================================
 // VISA TYPE
