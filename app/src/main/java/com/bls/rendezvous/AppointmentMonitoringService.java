@@ -7,7 +7,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -24,12 +23,6 @@ public class AppointmentMonitoringService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Toast.makeText(
-                this,
-                "BLS Monitoring Service Started",
-                Toast.LENGTH_LONG
-        ).show();
-
         createNotificationChannel();
 
         Notification notification =
@@ -38,17 +31,18 @@ public class AppointmentMonitoringService extends Service {
                         CHANNEL_ID
                 )
                         .setSmallIcon(
-                                android.R.drawable.ic_popup_sync
+                                R.drawable.ic_bls_notification
                         )
                         .setContentTitle(
-                                "BLS Alerts"
+                                "BLS Rendez-Vous"
                         )
                         .setContentText(
-                                "BLS Monitoring is running"
+                                "Monitoring is active"
                         )
                         .setOngoing(true)
+                        .setSilent(true)
                         .setPriority(
-                                NotificationCompat.PRIORITY_HIGH
+                                NotificationCompat.PRIORITY_LOW
                         )
                         .setCategory(
                                 NotificationCompat.CATEGORY_SERVICE
@@ -70,12 +64,21 @@ public class AppointmentMonitoringService extends Service {
                     new NotificationChannel(
                             CHANNEL_ID,
                             "BLS Monitoring",
-                            NotificationManager.IMPORTANCE_HIGH
+                            NotificationManager.IMPORTANCE_LOW
                     );
 
             channel.setDescription(
-                    "BLS appointment monitoring"
+                    "Quiet notification for BLS monitoring"
             );
+
+            channel.setSound(
+                    null,
+                    null
+            );
+
+            channel.enableVibration(false);
+
+            channel.setShowBadge(false);
 
             NotificationManager manager =
                     getSystemService(
@@ -83,7 +86,6 @@ public class AppointmentMonitoringService extends Service {
                     );
 
             if (manager != null) {
-
                 manager.createNotificationChannel(
                         channel
                 );
