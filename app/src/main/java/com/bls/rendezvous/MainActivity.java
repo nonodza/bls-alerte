@@ -2987,14 +2987,350 @@ public class MainActivity extends Activity {
 
     private void showCenters() {
 
-        page(
-                "Visa Centers",
-                "BLS Spain visa centers in Algeria.",
-                new String[]{
-                        "Algiers Visa Center",
-                        "Oran Visa Center"
+    root.removeAllViews();
+
+    ScrollView scroll =
+            new ScrollView(this);
+
+    LinearLayout page =
+            new LinearLayout(this);
+
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    page.setPadding(
+            dp(20),
+            dp(25),
+            dp(20),
+            dp(30)
+    );
+
+    GradientDrawable bg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(245,248,255),
+                            Color.rgb(238,244,255),
+                            Color.rgb(247,243,252)
+                    }
+            );
+
+    page.setBackground(bg);
+
+    scroll.addView(page);
+
+    root.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1
+            )
+    );
+
+    // =========================
+    // BACK
+    // =========================
+
+    TextView back =
+            text(
+                    "‹  Back",
+                    17,
+                    BLUE
+            );
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showHome();
                 }
-        );
+            }
+    );
+
+    page.addView(
+            back,
+            margin(0,0,0,15)
+    );
+
+    // =========================
+    // TITLE
+    // =========================
+
+    TextView title =
+            text(
+                    "Visa Centers",
+                    28,
+                    NAVY
+            );
+
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(title);
+
+    page.addView(
+            text(
+                    "Select the BLS Spain visa center you want to use.",
+                    13,
+                    GRAY
+            ),
+            margin(0,5,0,20)
+    );
+
+    // =========================
+    // SAVED CENTER
+    // =========================
+
+    final android.content.SharedPreferences preferences =
+            getSharedPreferences(
+                    "BLS_SETTINGS",
+                    MODE_PRIVATE
+            );
+
+    final String savedCenter =
+            preferences.getString(
+                    "selected_center",
+                    ""
+            );
+
+    LinearLayout currentCard =
+            card();
+
+    TextView currentTitle =
+            text(
+                    "CURRENT CENTER",
+                    10,
+                    GRAY
+            );
+
+    currentCard.addView(currentTitle);
+
+    final TextView currentValue =
+            text(
+                    savedCenter.length() == 0
+                            ? "No center selected"
+                            : savedCenter + " Visa Center",
+                    18,
+                    savedCenter.length() == 0
+                            ? GRAY
+                            : GREEN
+            );
+
+    currentValue.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    currentCard.addView(
+            currentValue,
+            margin(0,5,0,0)
+    );
+
+    currentCard.addView(
+            text(
+                    savedCenter.length() == 0
+                            ? "Choose a center below"
+                            : "Your selected center",
+                    11,
+                    GRAY
+            ),
+            margin(0,3,0,0)
+    );
+
+    page.addView(
+            currentCard,
+            margin(0,0,0,15)
+    );
+
+    // =========================
+    // ALGIERS
+    // =========================
+
+    LinearLayout algiersCard =
+            appointmentCard();
+
+    TextView algiersTitle =
+            text(
+                    "🇩🇿  Algiers Visa Center",
+                    18,
+                    NAVY
+            );
+
+    algiersTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    algiersCard.addView(algiersTitle);
+
+    TextView algiersStatus =
+            text(
+                    savedCenter.equalsIgnoreCase("Algiers")
+                            ? "✓ Selected"
+                            : "Tap to select",
+                    12,
+                    savedCenter.equalsIgnoreCase("Algiers")
+                            ? GREEN
+                            : GRAY
+            );
+
+    algiersCard.addView(
+            algiersStatus,
+            margin(0,5,0,0)
+    );
+
+    algiersCard.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    preferences.edit()
+                            .putString(
+                                    "selected_center",
+                                    "Algiers"
+                            )
+                            .apply();
+
+                    selectedCenter = "Algiers";
+
+                    currentValue.setText(
+                            "Algiers Visa Center"
+                    );
+
+                    currentValue.setTextColor(
+                            GREEN
+                    );
+
+                    appointmentCenterValue =
+                            null;
+
+                    android.widget.Toast.makeText(
+                            MainActivity.this,
+                            "تم اختيار: Algiers",
+                            android.widget.Toast.LENGTH_SHORT
+                    ).show();
+
+                    showCenters();
+                }
+            }
+    );
+
+    page.addView(
+            algiersCard,
+            margin(0,0,0,10)
+    );
+
+    // =========================
+    // ORAN
+    // =========================
+
+    LinearLayout oranCard =
+            appointmentCard();
+
+    TextView oranTitle =
+            text(
+                    "🇩🇿  Oran Visa Center",
+                    18,
+                    NAVY
+            );
+
+    oranTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    oranCard.addView(oranTitle);
+
+    TextView oranStatus =
+            text(
+                    savedCenter.equalsIgnoreCase("Oran")
+                            ? "✓ Selected"
+                            : "Tap to select",
+                    12,
+                    savedCenter.equalsIgnoreCase("Oran")
+                            ? GREEN
+                            : GRAY
+            );
+
+    oranCard.addView(
+            oranStatus,
+            margin(0,5,0,0)
+    );
+
+    oranCard.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    preferences.edit()
+                            .putString(
+                                    "selected_center",
+                                    "Oran"
+                            )
+                            .apply();
+
+                    selectedCenter = "Oran";
+
+                    currentValue.setText(
+                            "Oran Visa Center"
+                    );
+
+                    currentValue.setTextColor(
+                            GREEN
+                    );
+
+                    appointmentCenterValue =
+                            null;
+
+                    android.widget.Toast.makeText(
+                            MainActivity.this,
+                            "تم اختيار: Oran",
+                            android.widget.Toast.LENGTH_SHORT
+                    ).show();
+
+                    showCenters();
+                }
+            }
+    );
+
+    page.addView(
+            oranCard,
+            margin(0,0,0,15)
+    );
+
+    // =========================
+    // INFORMATION
+    // =========================
+
+    LinearLayout info =
+            card();
+
+    TextView infoTitle =
+            text(
+                    "BLS Spain Algeria",
+                    15,
+                    NAVY
+            );
+
+    infoTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    info.addView(infoTitle);
+
+    info.addView(
+            text(
+                    "Choose the visa center that corresponds to your application.",
+                    12,
+                    GRAY
+            ),
+            margin(0,5,0,0)
+    );
+
+    page.addView(
+            info,
+            margin(0,0,0,10)
+    );
     }
 
     private void showTracking() {
