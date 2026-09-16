@@ -2335,7 +2335,10 @@ private void showPreviousSpainVisaPage() {
             dp(20)
     );
 
-    layout.addView(subtitle);
+    layout.addView(
+        yes,
+        margin(0,0,0,15)
+);
 
     // =========================
     // QUESTION 1
