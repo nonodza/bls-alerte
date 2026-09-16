@@ -2262,54 +2262,183 @@ public class MainActivity extends Activity {
         layout.addView(
                 yes,
                 margin(0,0,0,15)
-        );
+private void showPreviousSpainVisaPage() {
 
-        TextView no =
-                text(
-                        "NO\n\nNo, I did not have one\nNo Spain Schengen visa since 1 January 2021",
-                        17,
-                        NAVY
-                );
+    root.removeAllViews();
 
-        no.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(20)
-        );
+    ScrollView scroll =
+            new ScrollView(this);
 
-        no.setBackgroundColor(LIGHT);
+    LinearLayout layout =
+            new LinearLayout(this);
 
-        no.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectAppointmentCategory("ALG1");
-                    }
+    layout.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    layout.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(30)
+    );
+
+    TextView back =
+            text(
+                    "< Back",
+                    16,
+                    BLUE
+            );
+
+    back.setPadding(
+            0,
+            0,
+            0,
+            dp(18)
+    );
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showVisaTypePage();
                 }
-        );
+            }
+    );
 
-        layout.addView(no);
+    layout.addView(back);
 
-        TextView why =
-                text(
-                        "Why do we ask?\n\nBLS uses your previous Spain visa history to determine the appropriate appointment category.",
-                        14,
-                        GRAY
-                );
+    TextView title =
+            text(
+                    "Previous Schengen Visa",
+                    26,
+                    NAVY
+            );
 
-        why.setPadding(
-                0,
-                dp(25),
-                0,
-                dp(20)
-        );
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-        layout.addView(why);
+    layout.addView(title);
 
-        scroll.addView(layout);
+    TextView subtitle =
+            text(
+                    "Tell us about your most recent Schengen visa.",
+                    16,
+                    GRAY
+            );
 
-        root.addView(scroll);
+    subtitle.setPadding(
+            0,
+            dp(8),
+            0,
+            dp(20)
+    );
+
+    layout.addView(subtitle);
+
+    // =========================
+    // QUESTION 1
+    // =========================
+
+    TextView question =
+            text(
+                    "Have you had a Schengen visa before?",
+                    17,
+                    NAVY
+            );
+
+    question.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    question.setPadding(
+            0,
+            0,
+            0,
+            dp(20)
+    );
+
+    layout.addView(question);
+
+    TextView yes =
+            text(
+                    "YES\n\nYes, I have had a Schengen visa",
+                    17,
+                    NAVY
+            );
+
+    yes.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    yes.setBackgroundColor(LIGHT);
+
+    yes.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showLatestVisaCountryPage();
+                }
+            }
+    );
+
+    layout.addView(
+            yes,
+            margin(0,0,0,15)
+    );
+
+    TextView no =
+            text(
+                    "NO\n\nNo, I have never had a Schengen visa",
+                    17,
+                    NAVY
+            );
+
+    no.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    no.setBackgroundColor(LIGHT);
+
+    no.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    selectAppointmentCategory("ALG1");
+                }
+            }
+    );
+
+    layout.addView(no);
+
+    TextView why =
+            text(
+                    "Why do we ask?\n\nBLS uses your most recent Schengen visa history to determine the appropriate appointment category.",
+                    14,
+                    GRAY
+            );
+
+    why.setPadding(
+            0,
+            dp(25),
+            0,
+            dp(20)
+    );
+
+    layout.addView(why);
+
+    scroll.addView(layout);
+
+    root.addView(scroll);
     }
 
     // =========================================================
