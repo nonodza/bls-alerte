@@ -209,11 +209,11 @@ public class MainActivity extends Activity {
         titles.setOrientation(LinearLayout.VERTICAL);
 
         TextView appName =
-                text(
-                        "BLS Rendez-Vous",
-                        24,
-                        NAVY
-                );
+        text(
+                "BLS TEST 248",
+                24,
+                NAVY
+        );
 
         appName.setTypeface(Typeface.DEFAULT_BOLD);
 
