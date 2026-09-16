@@ -2260,8 +2260,9 @@ public class MainActivity extends Activity {
         );
 
         layout.addView(
-                yes,
-                margin(0,0,0,15)
+        yes,
+        margin(0, 0, 0, 15)
+);
 private void showPreviousSpainVisaPage() {
 
     root.removeAllViews();
