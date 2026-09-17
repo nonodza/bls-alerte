@@ -848,11 +848,12 @@ servicesContainer.setPadding(
 
 GradientDrawable servicesBackground =
         new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
                 new int[]{
-        Color.rgb(205, 226, 255),
-        Color.rgb(230, 218, 250),
-        Color.rgb(250, 247, 255)
-}
+                        Color.rgb(205, 226, 255),
+                        Color.rgb(230, 218, 250),
+                        Color.rgb(250, 247, 255)
+                }
         );
 
 servicesBackground.setCornerRadius(
