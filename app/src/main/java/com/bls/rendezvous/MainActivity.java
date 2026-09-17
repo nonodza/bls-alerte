@@ -1026,165 +1026,172 @@ public class MainActivity extends Activity {
         );
     }
 
-    // =========================================================
-    // SERVICE GRID ITEM
-    // =========================================================
+   // =========================================================
+// SERVICE GRID ITEM
+// =========================================================
 
-    private LinearLayout serviceGridItem(
-            String icon,
-            String title,
-            View.OnClickListener listener
-    ) {
+private LinearLayout serviceGridItem(
+        String icon,
+        String title,
+        View.OnClickListener listener
+) {
 
-        LinearLayout item =
-                new LinearLayout(this);
+    LinearLayout item =
+            new LinearLayout(this);
 
-        item.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        item.setGravity(
-                Gravity.CENTER
-        );
+    item.setGravity(
+            Gravity.CENTER
+    );
 
-        item.setPadding(
-                dp(4),
-                dp(5),
-                dp(4),
-                dp(5)
-        );
+    item.setPadding(
+            dp(4),
+            dp(5),
+            dp(4),
+            dp(5)
+    );
 
-        // -----------------------------------------------------
-        // Item background
-        // -----------------------------------------------------
+    // -----------------------------------------------------
+    // ITEM BACKGROUND
+    // -----------------------------------------------------
 
-        GradientDrawable itemBackground =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(255, 255, 255),
-                                Color.rgb(246, 249, 254)
-                        }
-                );
-
-        itemBackground.setCornerRadius(
-                dp(18)
-        );
-
-        item.setBackground(
-                itemBackground
-        );
-
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.LOLLIPOP) {
-
-            item.setElevation(
-                    dp(2)
+    GradientDrawable itemBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(242, 247, 253)
+                    }
             );
-        }
 
-        // -----------------------------------------------------
-        // ICON CIRCLE
-        // -----------------------------------------------------
+    itemBackground.setCornerRadius(
+            dp(18)
+    );
 
-        TextView iconView =
-                new TextView(this);
+    item.setBackground(
+            itemBackground
+    );
 
-        iconView.setText(
-                icon
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        item.setElevation(
+                dp(2)
         );
-
-        iconView.setTextSize(
-                22
-        );
-
-        iconView.setGravity(
-                Gravity.CENTER
-        );
-
-        GradientDrawable iconBackground =
-                new GradientDrawable();
-
-        iconBackground.setShape(
-                GradientDrawable.OVAL
-        );
-
-        iconBackground.setColor(
-                Color.rgb(235, 241, 249)
-        );
-
-        iconView.setBackground(
-                iconBackground
-        );
-
-        item.addView(
-                iconView,
-                new LinearLayout.LayoutParams(
-                        dp(48),
-                        dp(48)
-                )
-        );
-
-        // -----------------------------------------------------
-        // SERVICE NAME
-        // -----------------------------------------------------
-
-        TextView titleView =
-                text(
-                        title,
-                        12,
-                        NAVY
-                );
-
-        titleView.setTypeface(
-                Typeface.DEFAULT,
-                Typeface.BOLD
-        );
-
-        titleView.setGravity(
-                Gravity.CENTER
-        );
-
-        titleView.setMaxLines(1);
-
-        item.addView(
-                titleView,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(28)
-                )
-        );
-
-        // -----------------------------------------------------
-        // CLICK
-        // -----------------------------------------------------
-
-        item.setClickable(true);
-        item.setFocusable(true);
-
-        item.setOnClickListener(
-                listener
-        );
-
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(
-                        0,
-                        dp(96),
-                        1
-                );
-
-        params.setMargins(
-                dp(4),
-                dp(4),
-                dp(4),
-                dp(4)
-        );
-
-        item.setLayoutParams(params);
-
-        return item;
     }
 
+    // -----------------------------------------------------
+    // ICON
+    // -----------------------------------------------------
+
+    TextView iconView =
+            new TextView(this);
+
+    iconView.setText(
+            icon
+    );
+
+    iconView.setTextSize(
+            25
+    );
+
+    iconView.setGravity(
+            Gravity.CENTER
+    );
+
+    GradientDrawable iconBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(232, 240, 252),
+                            Color.rgb(244, 238, 253)
+                    }
+            );
+
+    iconBackground.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconView.setBackground(
+            iconBackground
+    );
+
+    item.addView(
+            iconView,
+            new LinearLayout.LayoutParams(
+                    dp(50),
+                    dp(50)
+            )
+    );
+
+    // -----------------------------------------------------
+    // SERVICE NAME
+    // -----------------------------------------------------
+
+    TextView titleView =
+            text(
+                    title,
+                    12,
+                    NAVY
+            );
+
+    titleView.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+
+    titleView.setGravity(
+            Gravity.CENTER
+    );
+
+    titleView.setMaxLines(
+            1
+    );
+
+    item.addView(
+            titleView,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(25)
+            )
+    );
+
+    // -----------------------------------------------------
+    // CLICK
+    // -----------------------------------------------------
+
+    item.setClickable(true);
+    item.setFocusable(true);
+
+    item.setOnClickListener(
+            listener
+    );
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(96),
+                    1
+            );
+
+    params.setMargins(
+            dp(4),
+            dp(4),
+            dp(4),
+            dp(4)
+    );
+
+    item.setLayoutParams(
+            params
+    );
+
+    return item;
+}
+
+    
     // =========================================================
     // APPOINTMENTS
     // =========================================================
