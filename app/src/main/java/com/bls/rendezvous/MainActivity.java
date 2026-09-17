@@ -4243,7 +4243,8 @@ private LinearLayout serviceGridItem(
         c.setElevation(dp(2));
     }
 
-    return c;
+        return c;
+}
 }
         
             
