@@ -190,14 +190,16 @@ public class MainActivity extends Activity {
         root.setOrientation(LinearLayout.VERTICAL);
 
         GradientDrawable background =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
-                        }
-                );
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(235, 243, 255),
+                        Color.rgb(244, 240, 252),
+                        Color.rgb(250, 247, 255)
+                }
+        );
+
+background.setCornerRadius(dp(0));
 
         root.setBackground(background);
         setContentView(root);
