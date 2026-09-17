@@ -3635,93 +3635,121 @@ root.addView(
     // PROFESSIONAL NAV ITEM
     // =========================================================
 
-    private LinearLayout nav(
-            String icon,
-            String name,
-            View.OnClickListener listener
-    ) {
+   private LinearLayout nav(
+        String icon,
+        String name,
+        View.OnClickListener listener
+) {
 
-        LinearLayout item =
-                new LinearLayout(this);
+    LinearLayout item =
+            new LinearLayout(this);
 
-        item.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        item.setGravity(
-                Gravity.CENTER
-        );
+    item.setGravity(
+            Gravity.CENTER
+    );
 
-        item.setPadding(
-                dp(4),
-                dp(3),
-                dp(4),
-                dp(3)
-        );
+    item.setPadding(
+            dp(4),
+            dp(3),
+            dp(4),
+            dp(3)
+    );
 
-        TextView i =
-                text(
-                        icon,
-                        22,
-                        WHITE
-                );
+    // =====================================================
+    // ICON
+    // =====================================================
 
-        i.setGravity(
-                Gravity.CENTER
-        );
+    TextView i =
+            text(
+                    icon,
+                    22,
+                    WHITE
+            );
 
-        i.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+    i.setGravity(
+            Gravity.CENTER
+    );
 
-        item.addView(
-                i,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(30)
-                )
-        );
+    i.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-        TextView n =
-                text(
-                        name,
-                        10,
-                        Color.rgb(240,245,255)
-                );
+    // Subtle shadow to keep icons visible on the background
+    i.setShadowLayer(
+            dp(3),
+            0,
+            dp(1),
+            Color.rgb(35,35,55)
+    );
 
-        n.setGravity(
-                Gravity.CENTER
-        );
+    item.addView(
+            i,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(30)
+            )
+    );
 
-        n.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+    // =====================================================
+    // LABEL
+    // =====================================================
 
-        item.addView(
-                n,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(20)
-                )
-        );
+    TextView n =
+            text(
+                    name,
+                    10,
+                    Color.WHITE
+            );
 
-        item.setClickable(true);
-        item.setFocusable(true);
+    n.setGravity(
+            Gravity.CENTER
+    );
 
-        item.setOnClickListener(
-                listener
-        );
+    n.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-        item.setLayoutParams(
-                new LinearLayout.LayoutParams(
-                        0,
-                        -1,
-                        1
-                )
-        );
+    // Subtle shadow for readability
+    n.setShadowLayer(
+            dp(3),
+            0,
+            dp(1),
+            Color.rgb(35,35,55)
+    );
 
-        return item;
-    }
+    item.addView(
+            n,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(20)
+            )
+    );
+
+    // =====================================================
+    // CLICK / FOCUS
+    // =====================================================
+
+    item.setClickable(true);
+    item.setFocusable(true);
+
+    item.setOnClickListener(
+            listener
+    );
+
+    item.setLayoutParams(
+            new LinearLayout.LayoutParams(
+                    0,
+                    -1,
+                    1
+            )
+    );
+
+    return item;
+} 
 
     private void page(
             String title,
