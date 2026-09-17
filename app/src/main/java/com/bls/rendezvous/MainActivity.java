@@ -323,71 +323,142 @@ header.addView(
 
         LinearLayout current = card();
 
-        LinearLayout currentTop = new LinearLayout(this);
-        currentTop.setGravity(Gravity.CENTER_VERTICAL);
+current.setPadding(
+        dp(18),
+        dp(16),
+        dp(18),
+        dp(16)
+);
 
-        LinearLayout country = new LinearLayout(this);
-        country.setOrientation(LinearLayout.VERTICAL);
+LinearLayout currentTop =
+        new LinearLayout(this);
 
-        country.addView(
-                text(
-                        "CURRENT APPLICATION",
-                        10,
-                        GRAY
-                )
+currentTop.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+currentTop.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+LinearLayout country =
+        new LinearLayout(this);
+
+country.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+TextView currentLabel =
+        text(
+                "CURRENT APPLICATION",
+                10,
+                GRAY
         );
 
-        TextView countryName =
-                text(
-                        "🇪🇸  Spain",
-                        21,
-                        NAVY
-                );
+currentLabel.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-        countryName.setTypeface(Typeface.DEFAULT_BOLD);
+country.addView(
+        currentLabel
+);
 
-        country.addView(countryName);
-
-        country.addView(
-                text(
-                        "Algiers Visa Center",
-                        12,
-                        GRAY
-                )
+TextView countryName =
+        text(
+                "🇪🇸  Spain",
+                21,
+                NAVY
         );
 
-        currentTop.addView(
-                country,
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                )
+countryName.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+countryName.setPadding(
+        0,
+        dp(3),
+        0,
+        dp(2)
+);
+
+country.addView(
+        countryName
+);
+
+country.addView(
+        text(
+                "Algiers Visa Center",
+                12,
+                GRAY
+        )
+);
+
+currentTop.addView(
+        country,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1
+        )
+);
+
+TextView active =
+        text(
+                "● ACTIVE",
+                11,
+                GREEN
         );
 
-        currentTop.addView(
-                text(
-                        "● ACTIVE",
-                        11,
-                        GREEN
-                )
+active.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+active.setGravity(
+        Gravity.CENTER
+);
+
+active.setPadding(
+        dp(10),
+        dp(6),
+        dp(10),
+        dp(6)
+);
+
+currentTop.addView(
+        active,
+        new LinearLayout.LayoutParams(
+                -2,
+                -2
+        )
+);
+
+current.addView(
+        currentTop
+);
+
+TextView monitoringInfo =
+        text(
+                "Monitoring every 2 minutes",
+                12,
+                GRAY
         );
 
-        current.addView(currentTop);
+monitoringInfo.setPadding(
+        0,
+        dp(10),
+        0,
+        0
+);
 
-        current.addView(
-                text(
-                        "Monitoring every 2 minutes",
-                        12,
-                        GRAY
-                ),
-                margin(0, 12, 0, 0)
-        );
+current.addView(
+        monitoringInfo
+);
 
-        content.addView(
-                current,
-                margin(0, 5, 0, 10)
-        );
+content.addView(
+        current,
+        margin(0, 5, 0, 10)
+);
+
 
         // =====================================================
         // MONITORING
