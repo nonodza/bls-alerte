@@ -258,11 +258,11 @@ public class MainActivity extends Activity {
         content.setOrientation(LinearLayout.VERTICAL);
 
         content.setPadding(
-                dp(18),
-                dp(5),
-                dp(18),
-                dp(15)
-        );
+        dp(18),
+        dp(5),
+        dp(18),
+        dp(28)
+);
 
         scroll.addView(content);
 
@@ -3635,7 +3635,7 @@ root.addView(
     // PROFESSIONAL NAV ITEM
     // =========================================================
 
-   private LinearLayout nav(
+  private LinearLayout nav(
         String icon,
         String name,
         View.OnClickListener listener
@@ -3667,7 +3667,7 @@ root.addView(
             text(
                     icon,
                     22,
-                    WHITE
+                    NAVY
             );
 
     i.setGravity(
@@ -3678,12 +3678,11 @@ root.addView(
             Typeface.DEFAULT_BOLD
     );
 
-    // Subtle shadow to keep icons visible on the background
     i.setShadowLayer(
-            dp(3),
+            dp(2),
             0,
             dp(1),
-            Color.rgb(35,35,55)
+            Color.WHITE
     );
 
     item.addView(
@@ -3702,7 +3701,7 @@ root.addView(
             text(
                     name,
                     10,
-                    Color.WHITE
+                    NAVY
             );
 
     n.setGravity(
@@ -3713,12 +3712,11 @@ root.addView(
             Typeface.DEFAULT_BOLD
     );
 
-    // Subtle shadow for readability
     n.setShadowLayer(
-            dp(3),
+            dp(2),
             0,
             dp(1),
-            Color.rgb(35,35,55)
+            Color.WHITE
     );
 
     item.addView(
@@ -3730,7 +3728,7 @@ root.addView(
     );
 
     // =====================================================
-    // CLICK / FOCUS
+    // CLICK
     // =====================================================
 
     item.setClickable(true);
@@ -3749,7 +3747,7 @@ root.addView(
     );
 
     return item;
-} 
+}  
 
     private void page(
             String title,
