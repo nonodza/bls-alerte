@@ -1184,14 +1184,14 @@ servicesContainer.addView(
     // =====================================================
 
     GradientDrawable itemBackground =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(255, 255, 255),
-                            Color.rgb(241, 246, 255),
-                            Color.rgb(248, 245, 253)
-                    }
-            );
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(255, 255, 255),
+                        Color.rgb(235, 243, 255),
+                        Color.rgb(246, 239, 253)
+                }
+        );
 
     itemBackground.setCornerRadius(
             dp(20)
