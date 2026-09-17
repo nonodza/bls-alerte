@@ -16,8 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Button;
 
-public class MainActivity {
-
+public class MainActivity extends Activity {
     private final int NAVY = Color.rgb(25, 35, 70);
     private final int BLUE = Color.rgb(55, 105, 205);
     private final int PURPLE = Color.rgb(58, 35, 125);
