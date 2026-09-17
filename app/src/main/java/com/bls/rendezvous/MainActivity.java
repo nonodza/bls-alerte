@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Button;
-
+import android.graphics.drawable.GradientDrawable;
+import android.view.Gravity;
+import android.os.Build;
 public class MainActivity extends Activity {
 
     private final int NAVY = Color.rgb(25, 35, 70);
@@ -696,7 +698,7 @@ content.addView(
         services,
         margin(2, 8, 0, 6)
 );
-
+        
 // =====================================================
 // SERVICES
 // =====================================================
@@ -785,6 +787,208 @@ content.addView(
         )
 );                
 
+  private LinearLayout serviceHorizontal(
+        String icon,
+        String title,
+        String description,
+        View.OnClickListener listener
+) {
+
+    // =====================================================
+    // MAIN CARD
+    // =====================================================
+
+    LinearLayout card = new LinearLayout(this);
+
+    card.setOrientation(LinearLayout.HORIZONTAL);
+    card.setGravity(Gravity.CENTER_VERTICAL);
+    card.setPadding(
+            dp(14),
+            dp(12),
+            dp(12),
+            dp(12)
+    );
+
+    GradientDrawable background =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(242, 246, 252)
+                    }
+            );
+
+    background.setCornerRadius(dp(18));
+
+    card.setBackground(background);
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        card.setElevation(dp(3));
+    }
+
+    card.setOnClickListener(listener);
+
+    LinearLayout.LayoutParams cardParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(82)
+            );
+
+    cardParams.setMargins(
+            dp(0),
+            dp(0),
+            dp(0),
+            dp(10)
+    );
+
+    card.setLayoutParams(cardParams);
+
+
+    // =====================================================
+    // ICON CIRCLE
+    // =====================================================
+
+    TextView iconView = new TextView(this);
+
+    iconView.setText(icon);
+    iconView.setTextSize(24);
+    iconView.setGravity(Gravity.CENTER);
+
+    GradientDrawable iconBackground =
+            new GradientDrawable();
+
+    iconBackground.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconBackground.setColor(
+            Color.rgb(235, 241, 249)
+    );
+
+    iconView.setBackground(iconBackground);
+
+    LinearLayout.LayoutParams iconParams =
+            new LinearLayout.LayoutParams(
+                    dp(52),
+                    dp(52)
+            );
+
+    card.addView(
+            iconView,
+            iconParams
+    );
+
+
+    // =====================================================
+    // TEXT AREA
+    // =====================================================
+
+    LinearLayout textContainer =
+            new LinearLayout(this);
+
+    textContainer.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    textContainer.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    LinearLayout.LayoutParams textParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -1,
+                    1
+            );
+
+    textParams.setMargins(
+            dp(14),
+            0,
+            dp(8),
+            0
+    );
+
+    card.addView(
+            textContainer,
+            textParams
+    );
+
+
+    // =====================================================
+    // TITLE
+    // =====================================================
+
+    TextView titleView =
+            new TextView(this);
+
+    titleView.setText(title);
+    titleView.setTextSize(16);
+    titleView.setTextColor(NAVY);
+
+    titleView.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+
+    textContainer.addView(
+            titleView
+    );
+
+
+    // =====================================================
+    // DESCRIPTION
+    // =====================================================
+
+    TextView descriptionView =
+            new TextView(this);
+
+    descriptionView.setText(
+            description
+    );
+
+    descriptionView.setTextSize(12);
+    descriptionView.setTextColor(
+            Color.rgb(105, 115, 130)
+    );
+
+    descriptionView.setMaxLines(1);
+
+    textContainer.addView(
+            descriptionView
+    );
+
+
+    // =====================================================
+    // ARROW
+    // =====================================================
+
+    TextView arrow =
+            new TextView(this);
+
+    arrow.setText("›");
+    arrow.setTextSize(30);
+    arrow.setTextColor(
+            Color.rgb(90, 105, 125)
+    );
+
+    arrow.setGravity(
+            Gravity.CENTER
+    );
+
+    LinearLayout.LayoutParams arrowParams =
+            new LinearLayout.LayoutParams(
+                    dp(32),
+                    dp(52)
+            );
+
+    card.addView(
+            arrow,
+            arrowParams
+    );
+
+
+    return card;
+}      
         // =====================================================
         // SEARCH
         // =====================================================
