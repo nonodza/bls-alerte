@@ -843,40 +843,27 @@ public class MainActivity extends Activity {
         );
 
         GradientDrawable servicesBackground =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(239, 245, 255),
-                                Color.rgb(246, 243, 253)
-                        }
-                );
-
-        servicesBackground.setCornerRadius(
-                dp(22)
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(226, 238, 255),
+                        Color.rgb(239, 232, 253),
+                        Color.rgb(248, 244, 255)
+                }
         );
 
-        servicesContainer.setBackground(
-                servicesBackground
-        );
+servicesBackground.setCornerRadius(
+        dp(22)
+);
 
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.LOLLIPOP) {
+servicesBackground.setStroke(
+        dp(1),
+        Color.rgb(218, 224, 240)
+);
 
-            servicesContainer.setElevation(
-                    dp(2)
-            );
-        }
-
-        TextView servicesTitle =
-                text(
-                        "Services",
-                        20,
-                        NAVY
-                );
-
-        servicesTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+servicesContainer.setBackground(
+        servicesBackground
+);
 
         servicesContainer.addView(
                 servicesTitle,
