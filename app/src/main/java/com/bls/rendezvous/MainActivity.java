@@ -755,20 +755,20 @@ public class MainActivity extends Activity {
         // -----------------------------------------------------
 
         TextView servicesTitle =
-                text(
-                        "Services",
-                        20,
-                        NAVY
-                );
-
-        servicesTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
+        text(
+                "NEW SERVICES TEST",
+                20,
+                NAVY
         );
 
-        servicesContainer.addView(
-                servicesTitle,
-                margin(2, 0, 0, 10)
-        );
+servicesTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+servicesContainer.addView(
+        servicesTitle,
+        margin(2, 0, 0, 10)
+);
 
         // =====================================================
         // FIRST ROW
