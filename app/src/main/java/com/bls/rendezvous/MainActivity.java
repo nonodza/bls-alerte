@@ -829,20 +829,24 @@ public class MainActivity extends Activity {
         // =====================================================
 
         LinearLayout servicesContainer =
-                new LinearLayout(this);
+        new LinearLayout(this);
 
-        servicesContainer.setOrientation(
-                LinearLayout.VERTICAL
-        );
+servicesContainer.setOrientation(
+        LinearLayout.VERTICAL
+);
 
-        servicesContainer.setPadding(
-                dp(12),
-                dp(14),
-                dp(12),
-                dp(10)
-        );
+servicesContainer.setPadding(
+        dp(12),
+        dp(14),
+        dp(12),
+        dp(10)
+);
 
-        GradientDrawable servicesBackground =
+// =====================================================
+// SERVICES BACKGROUND
+// =====================================================
+
+GradientDrawable servicesBackground =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
@@ -865,10 +869,33 @@ servicesContainer.setBackground(
         servicesBackground
 );
 
-        servicesContainer.addView(
-                servicesTitle,
-                margin(2, 0, 0, 10)
+if (Build.VERSION.SDK_INT >=
+        Build.VERSION_CODES.LOLLIPOP) {
+
+    servicesContainer.setElevation(
+            dp(2)
+    );
+}
+
+// =====================================================
+// SERVICES TITLE
+// =====================================================
+
+TextView servicesTitle =
+        text(
+                "Services",
+                20,
+                NAVY
         );
+
+servicesTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+servicesContainer.addView(
+        servicesTitle,
+        margin(2, 0, 0, 10)
+);
 
         // =====================================================
         // SERVICES ROW 1
