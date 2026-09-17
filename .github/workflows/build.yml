@@ -29,10 +29,14 @@ jobs:
 
       - name: Verify MainActivity source
         run: |
-          echo "=== CHECKING MAINACTIVITY SOURCE ==="
-          grep -n "BLS TEST 248" app/src/main/java/com/bls/rendezvous/MainActivity.java || true
-          grep -n "BLS Rendez-Vous" app/src/main/java/com/bls/rendezvous/MainActivity.java | head -10
-          echo "=== END CHECK ==="
+          echo "===== MAINACTIVITY CHECK ====="
+          if grep -q 'BLS TEST 248' app/src/main/java/com/bls/rendezvous/MainActivity.java; then
+            echo "RESULT: BLS TEST 248 FOUND"
+          else
+            echo "RESULT: BLS TEST 248 NOT FOUND"
+            exit 1
+          fi
+          echo "===== END CHECK ====="
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
