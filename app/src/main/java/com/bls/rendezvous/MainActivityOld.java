@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.Handler;
 
-public class MainActivity extends Activity {
+public class MainActivityOld extends Activity {
     private final int NAVY = Color.rgb(25, 35, 70);
     private final int GRAY = Color.rgb(105, 120, 145);
 
