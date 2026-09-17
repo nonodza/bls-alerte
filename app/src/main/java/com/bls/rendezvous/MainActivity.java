@@ -677,7 +677,113 @@ content.addView(
         monitor,
         margin(0, 0, 0, 10)
 );
-                
+  // =====================================================
+        // SERVICES
+        // =====================================================
+
+      TextView services =
+        text(
+                "Services",
+                19,
+                NAVY
+        );
+
+services.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+content.addView(
+        services,
+        margin(2, 8, 0, 6)
+);
+
+// =====================================================
+// SERVICES
+// =====================================================
+
+content.addView(
+        serviceHorizontal(
+                "📅",
+                "Appointments",
+                "Find and manage visa appointments",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAppointments();
+                    }
+                }
+        )
+);
+
+content.addView(
+        serviceHorizontal(
+                "🔔",
+                "Alerts",
+                "Get notified when appointments appear",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAlerts();
+                    }
+                }
+        )
+);
+
+content.addView(
+        serviceHorizontal(
+                "🏢",
+                "Centers",
+                "Visa centers and available locations",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showCenters();
+                    }
+                }
+        )
+);
+
+content.addView(
+        serviceHorizontal(
+                "📋",
+                "Tracking",
+                "Track your visa application",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTracking();
+                    }
+                }
+        )
+);
+
+content.addView(
+        serviceHorizontal(
+                "🌍",
+                "Countries",
+                "Choose your destination country",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showCountries();
+                    }
+                }
+        )
+);
+
+content.addView(
+        serviceHorizontal(
+                "📊",
+                "Statistics",
+                "View monitoring and appointment data",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showStatistics();
+                    }
+                }
+        )
+);                
 
         // =====================================================
         // SEARCH
@@ -780,7 +886,7 @@ content.addView(
                 margin(0, 10, 0, 5)
         );
 
-        // =====================================================
+ // =====================================================
 // BOTTOM NAVIGATION
 // =====================================================
 
