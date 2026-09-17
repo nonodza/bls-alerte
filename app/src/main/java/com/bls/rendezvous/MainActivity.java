@@ -28,6 +28,12 @@ public class MainActivity extends Activity {
 
     private LinearLayout root;
 
+    // =========================================================
+    // PAGE NAVIGATION
+    // =========================================================
+
+    private String currentPage = "HOME";
+
     // Appointment data
     private String selectedWilaya = "";
     private String selectedCenter = "";
@@ -180,6 +186,8 @@ public class MainActivity extends Activity {
 
     private void showHome() {
 
+        currentPage = "HOME";
+
         root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
 
@@ -208,12 +216,12 @@ public class MainActivity extends Activity {
         LinearLayout titles = new LinearLayout(this);
         titles.setOrientation(LinearLayout.VERTICAL);
 
-       TextView appName =
-        text(
-                "BLS TEST 248",
-                24,
-                NAVY
-        );
+        TextView appName =
+                text(
+                        "BLS Rendez-Vous",
+                        24,
+                        NAVY
+                );
 
         appName.setTypeface(Typeface.DEFAULT_BOLD);
 
@@ -415,10 +423,6 @@ public class MainActivity extends Activity {
                                 monitorButton.getText()
                                         .toString();
 
-                        // =========================
-                        // START MONITORING
-                        // =========================
-
                         if (currentText.equals("START")) {
 
                             monitorButton.setText("STOP");
@@ -482,13 +486,7 @@ public class MainActivity extends Activity {
 
                             monitorButton.setEnabled(true);
 
-                        }
-
-                        // =========================
-                        // STOP MONITORING
-                        // =========================
-
-                        else {
+                        } else {
 
                             android.content.Intent serviceIntent =
                                     new android.content.Intent(
@@ -748,7 +746,7 @@ public class MainActivity extends Activity {
         // PROFESSIONAL BOTTOM NAVIGATION
         // =====================================================
 
-                LinearLayout bottom =
+        LinearLayout bottom =
                 new LinearLayout(this);
 
         bottom.setOrientation(
@@ -766,10 +764,6 @@ public class MainActivity extends Activity {
                 dp(4)
         );
 
-        // =====================================================
-        // BLS STYLE GRADIENT
-        // =====================================================
-
         GradientDrawable bottomBg =
                 new GradientDrawable(
                         GradientDrawable.Orientation.LEFT_RIGHT,
@@ -781,7 +775,6 @@ public class MainActivity extends Activity {
                         }
                 );
 
-        // Slightly rounded top corners only
         bottomBg.setCornerRadii(
                 new float[]{
                         dp(18), dp(18),
@@ -794,10 +787,6 @@ public class MainActivity extends Activity {
         bottom.setBackground(
                 bottomBg
         );
-
-        // =====================================================
-        // HOME
-        // =====================================================
 
         LinearLayout homeNav =
                 nav(
@@ -813,10 +802,6 @@ public class MainActivity extends Activity {
 
         bottom.addView(homeNav);
 
-        // =====================================================
-        // APPOINTMENTS
-        // =====================================================
-
         LinearLayout appointmentsNav =
                 nav(
                         "▣",
@@ -830,10 +815,6 @@ public class MainActivity extends Activity {
                 );
 
         bottom.addView(appointmentsNav);
-
-        // =====================================================
-        // ALERTS
-        // =====================================================
 
         LinearLayout alertsNav =
                 nav(
@@ -849,10 +830,6 @@ public class MainActivity extends Activity {
 
         bottom.addView(alertsNav);
 
-        // =====================================================
-        // SETTINGS
-        // =====================================================
-
         LinearLayout settingsNav =
                 nav(
                         "⚙",
@@ -867,10 +844,6 @@ public class MainActivity extends Activity {
 
         bottom.addView(settingsNav);
 
-        // =====================================================
-        // BOTTOM NAVIGATION
-        // =====================================================
-
         root.addView(
                 bottom,
                 new LinearLayout.LayoutParams(
@@ -879,12 +852,14 @@ public class MainActivity extends Activity {
                 )
         );
     }
-    
+
     // =========================================================
     // APPOINTMENTS
     // =========================================================
 
     private void showAppointments() {
+
+        currentPage = "APPOINTMENTS";
 
         root.removeAllViews();
 
@@ -971,8 +946,6 @@ public class MainActivity extends Activity {
                 margin(0,5,0,18)
         );
 
-        // Country
-
         LinearLayout countryCard =
                 appointmentCard();
 
@@ -1013,8 +986,6 @@ public class MainActivity extends Activity {
                 countryCard,
                 margin(0,0,0,8)
         );
-
-        // Residence
 
         LinearLayout residenceCard =
                 appointmentCard();
@@ -1073,8 +1044,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,8)
         );
 
-        // Center
-
         LinearLayout centerCard =
                 appointmentCard();
 
@@ -1125,8 +1094,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,8)
         );
 
-        // Visa Type
-
         LinearLayout visaCard =
                 appointmentCard();
 
@@ -1176,8 +1143,6 @@ public class MainActivity extends Activity {
                 visaCard,
                 margin(0,0,0,8)
         );
-
-        // Applicants
 
         LinearLayout applicants =
                 appointmentCard();
@@ -1267,8 +1232,6 @@ public class MainActivity extends Activity {
                 applicants,
                 margin(0,0,0,8)
         );
-
-        // Travel plan
 
         LinearLayout travel =
                 appointmentCard();
@@ -1361,8 +1324,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,12)
         );
 
-        // Continue
-
         Button continueButton =
                 smallButton(
                         "CONTINUE TO VISA TYPE"
@@ -1408,8 +1369,6 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // Smart Match
-
         LinearLayout smart =
                 card();
 
@@ -1441,8 +1400,6 @@ public class MainActivity extends Activity {
                 smart,
                 margin(0,12,0,10)
         );
-
-        // Availability
 
         LinearLayout availability =
                 card();
@@ -1489,8 +1446,6 @@ public class MainActivity extends Activity {
                 availability,
                 margin(0,0,0,10)
         );
-
-        // Monitoring
 
         LinearLayout monitoring =
                 card();
@@ -1904,6 +1859,8 @@ public class MainActivity extends Activity {
 
     private void showVisaTypePage() {
 
+        currentPage = "VISA_TYPE";
+
         root.removeAllViews();
 
         ScrollView scroll =
@@ -1946,10 +1903,6 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // =========================
-        // BACK
-        // =========================
-
         TextView back =
                 text(
                         "‹  Back",
@@ -1970,10 +1923,6 @@ public class MainActivity extends Activity {
                 back,
                 margin(0,0,0,15)
         );
-
-        // =========================
-        // TITLE
-        // =========================
 
         TextView title =
                 text(
@@ -1996,10 +1945,6 @@ public class MainActivity extends Activity {
                 ),
                 margin(0,5,0,18)
         );
-
-        // =========================
-        // SELECTED CENTER
-        // =========================
 
         LinearLayout selected =
                 card();
@@ -2046,10 +1991,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,15)
         );
 
-        // =========================
-        // COUNTRY
-        // =========================
-
         LinearLayout country =
                 appointmentCard();
 
@@ -2090,10 +2031,6 @@ public class MainActivity extends Activity {
                 country,
                 margin(0,0,0,10)
         );
-
-        // =========================
-        // VISA PURPOSE
-        // =========================
 
         LinearLayout tourism =
                 appointmentCard();
@@ -2152,6 +2089,8 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showPreviousSpainVisaPage() {
+
+        currentPage = "PREVIOUS_VISA";
 
         root.removeAllViews();
 
@@ -2246,10 +2185,6 @@ public class MainActivity extends Activity {
 
         layout.addView(question);
 
-        // =====================================================
-        // YES
-        // =====================================================
-
         TextView yes =
                 text(
                         "YES\n\nYes, I have had a Schengen visa",
@@ -2281,10 +2216,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,15)
         );
 
-        // =====================================================
-        // NO
-        // =====================================================
-
         TextView no =
                 text(
                         "NO\n\nNo, I have never had a Schengen visa",
@@ -2315,10 +2246,6 @@ public class MainActivity extends Activity {
 
         layout.addView(no);
 
-        // =====================================================
-        // INFORMATION
-        // =====================================================
-
         TextView why =
                 text(
                         "Why do we ask?\n\nOnly the most recent Schengen visa issued by Spain on or after 1 January 2021 can be used for ALG2, ALG3 or ALG4.",
@@ -2346,6 +2273,8 @@ public class MainActivity extends Activity {
 
     private void showVisaIssuingCountryPage() {
 
+        currentPage = "ISSUING_COUNTRY";
+
         root.removeAllViews();
 
         ScrollView scroll =
@@ -2364,8 +2293,6 @@ public class MainActivity extends Activity {
                 dp(20),
                 dp(30)
         );
-
-        // BACK
 
         TextView back =
                 text(
@@ -2392,8 +2319,6 @@ public class MainActivity extends Activity {
         );
 
         layout.addView(back);
-
-        // TITLE
 
         TextView title =
                 text(
@@ -2423,10 +2348,6 @@ public class MainActivity extends Activity {
         );
 
         layout.addView(subtitle);
-
-        // =====================================================
-        // SPAIN
-        // =====================================================
 
         TextView spain =
                 text(
@@ -2459,10 +2380,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,12)
         );
 
-        // =====================================================
-        // OTHER SCHENGEN COUNTRY
-        // =====================================================
-
         TextView other =
                 text(
                         "🌍  Other Schengen country\n\nMy most recent Schengen visa was issued by another Schengen country",
@@ -2493,10 +2410,6 @@ public class MainActivity extends Activity {
 
         layout.addView(other);
 
-        // =====================================================
-        // INFORMATION
-        // =====================================================
-
         TextView info =
                 text(
                         "Important\n\nFor ALG2, ALG3 and ALG4, the most recent Schengen visa must have been issued exclusively by Spain on or after 1 January 2021.",
@@ -2524,6 +2437,8 @@ public class MainActivity extends Activity {
 
     private void showVisaValidityPage() {
 
+        currentPage = "VISA_VALIDITY";
+
         root.removeAllViews();
 
         ScrollView scroll =
@@ -2542,10 +2457,6 @@ public class MainActivity extends Activity {
                 dp(20),
                 dp(30)
         );
-
-        // =========================
-        // BACK
-        // =========================
 
         TextView back =
                 text(
@@ -2566,16 +2477,13 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View v) {
 
-                        showPreviousSpainVisaPage();
+                        // Correct previous page
+                        showVisaIssuingCountryPage();
                     }
                 }
         );
 
         layout.addView(back);
-
-        // =========================
-        // TITLE
-        // =========================
 
         TextView title =
                 text(
@@ -2605,10 +2513,6 @@ public class MainActivity extends Activity {
         );
 
         layout.addView(subtitle);
-
-        // =========================
-        // ALG2
-        // =========================
 
         TextView alg2 =
                 text(
@@ -2643,10 +2547,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,12)
         );
 
-        // =========================
-        // ALG3
-        // =========================
-
         TextView alg3 =
                 text(
                         "6 months to less than 2 years",
@@ -2680,10 +2580,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,12)
         );
 
-        // =========================
-        // ALG4
-        // =========================
-
         TextView alg4 =
                 text(
                         "2 years or more",
@@ -2716,10 +2612,6 @@ public class MainActivity extends Activity {
                 alg4,
                 margin(0,0,0,20)
         );
-
-        // =========================
-        // INFORMATION
-        // =========================
 
         TextView info =
                 text(
@@ -2756,6 +2648,8 @@ public class MainActivity extends Activity {
     }
 
     private void showAppointmentCategoryPage() {
+
+        currentPage = "CATEGORY";
 
         root.removeAllViews();
 
@@ -2965,6 +2859,8 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showAppointmentDetailsPage() {
+
+        currentPage = "DETAILS";
 
         root.removeAllViews();
 
@@ -3222,6 +3118,8 @@ public class MainActivity extends Activity {
 
     private void showAlerts() {
 
+        currentPage = "ALERTS";
+
         page(
                 "Alerts",
                 "Manage your appointment availability alerts.",
@@ -3234,6 +3132,8 @@ public class MainActivity extends Activity {
     }
 
     private void showCenters() {
+
+        currentPage = "CENTERS";
 
         root.removeAllViews();
 
@@ -3277,10 +3177,6 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // =========================
-        // BACK
-        // =========================
-
         TextView back =
                 text(
                         "‹  Back",
@@ -3301,10 +3197,6 @@ public class MainActivity extends Activity {
                 back,
                 margin(0,0,0,15)
         );
-
-        // =========================
-        // TITLE
-        // =========================
 
         TextView title =
                 text(
@@ -3327,10 +3219,6 @@ public class MainActivity extends Activity {
                 ),
                 margin(0,5,0,20)
         );
-
-        // =========================
-        // SAVED CENTER
-        // =========================
 
         final android.content.SharedPreferences preferences =
                 getSharedPreferences(
@@ -3391,10 +3279,6 @@ public class MainActivity extends Activity {
                 currentCard,
                 margin(0,0,0,15)
         );
-
-        // =========================
-        // ALGIERS
-        // =========================
 
         LinearLayout algiersCard =
                 appointmentCard();
@@ -3469,10 +3353,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,10)
         );
 
-        // =========================
-        // ORAN
-        // =========================
-
         LinearLayout oranCard =
                 appointmentCard();
 
@@ -3546,10 +3426,6 @@ public class MainActivity extends Activity {
                 margin(0,0,0,15)
         );
 
-        // =========================
-        // INFORMATION
-        // =========================
-
         LinearLayout info =
                 card();
 
@@ -3583,6 +3459,8 @@ public class MainActivity extends Activity {
 
     private void showTracking() {
 
+        currentPage = "TRACKING";
+
         page(
                 "Application Tracking",
                 "Track your BLS Spain visa application.",
@@ -3596,6 +3474,8 @@ public class MainActivity extends Activity {
 
     private void showCountries() {
 
+        currentPage = "COUNTRIES";
+
         page(
                 "Countries",
                 "Choose the country for your visa appointment.",
@@ -3607,6 +3487,8 @@ public class MainActivity extends Activity {
     }
 
     private void showStatistics() {
+
+        currentPage = "STATISTICS";
 
         page(
                 "Statistics",
@@ -3620,6 +3502,8 @@ public class MainActivity extends Activity {
     }
 
     private void showSettings() {
+
+        currentPage = "SETTINGS";
 
         page(
                 "Settings",
@@ -3790,8 +3674,6 @@ public class MainActivity extends Activity {
                 dp(3)
         );
 
-        // Icon
-
         TextView i =
                 text(
                         icon,
@@ -3815,8 +3697,6 @@ public class MainActivity extends Activity {
                 )
         );
 
-        // Name
-
         TextView n =
                 text(
                         name,
@@ -3839,10 +3719,6 @@ public class MainActivity extends Activity {
                         dp(20)
                 )
         );
-
-        // IMPORTANT:
-        // The complete item is clickable,
-        // not only the icon or the text.
 
         item.setClickable(true);
         item.setFocusable(true);
@@ -4076,8 +3952,79 @@ public class MainActivity extends Activity {
         );
     }
 
+    // =========================================================
+    // HARDWARE BACK NAVIGATION
+    // =========================================================
+
     @Override
     public void onBackPressed() {
-        showHome();
+
+        if (currentPage.equals("HOME")) {
+
+            super.onBackPressed();
+
+        } else if (currentPage.equals("APPOINTMENTS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("VISA_TYPE")) {
+
+            showAppointments();
+
+        } else if (currentPage.equals("PREVIOUS_VISA")) {
+
+            showVisaTypePage();
+
+        } else if (currentPage.equals("ISSUING_COUNTRY")) {
+
+            showPreviousSpainVisaPage();
+
+        } else if (currentPage.equals("VISA_VALIDITY")) {
+
+            showVisaIssuingCountryPage();
+
+        } else if (currentPage.equals("CATEGORY")) {
+
+            if (selectedCategory.equals("ALG1")) {
+
+                showPreviousSpainVisaPage();
+
+            } else {
+
+                showVisaValidityPage();
+            }
+
+        } else if (currentPage.equals("DETAILS")) {
+
+            showAppointmentCategoryPage();
+
+        } else if (currentPage.equals("ALERTS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("CENTERS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("TRACKING")) {
+
+            showHome();
+
+        } else if (currentPage.equals("COUNTRIES")) {
+
+            showHome();
+
+        } else if (currentPage.equals("STATISTICS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("SETTINGS")) {
+
+            showHome();
+
+        } else {
+
+            showHome();
+        }
     }
 }
