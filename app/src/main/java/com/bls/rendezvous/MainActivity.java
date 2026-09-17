@@ -1142,135 +1142,165 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private LinearLayout serviceGridItem(
-            String icon,
-            String title,
-            View.OnClickListener listener
-    ) {
+        String icon,
+        String title,
+        View.OnClickListener listener
+) {
 
-        LinearLayout item =
-                new LinearLayout(this);
+    LinearLayout item =
+            new LinearLayout(this);
 
-        item.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        item.setGravity(
-                Gravity.CENTER
-        );
+    item.setGravity(
+            Gravity.CENTER
+    );
 
-        item.setPadding(
-                dp(4),
-                dp(5),
-                dp(4),
-                dp(5)
-        );
+    item.setPadding(
+            dp(5),
+            dp(6),
+            dp(5),
+            dp(6)
+    );
 
-        GradientDrawable itemBackground =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(255, 255, 255),
-                                Color.rgb(246, 249, 254)
-                        }
-                );
+    // =====================================================
+    // SERVICE CARD BACKGROUND
+    // =====================================================
 
-        itemBackground.setCornerRadius(
-                dp(18)
-        );
-
-        item.setBackground(
-                itemBackground
-        );
-
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.LOLLIPOP) {
-
-            item.setElevation(
-                    dp(2)
+    GradientDrawable itemBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(241, 246, 255),
+                            Color.rgb(248, 245, 253)
+                    }
             );
-        }
 
-        TextView iconView =
-                new TextView(this);
+    itemBackground.setCornerRadius(
+            dp(20)
+    );
 
-        iconView.setText(icon);
-        iconView.setTextSize(22);
-        iconView.setGravity(Gravity.CENTER);
+    itemBackground.setStroke(
+            dp(1),
+            Color.rgb(228, 233, 243)
+    );
 
-        GradientDrawable iconBackground =
-                new GradientDrawable();
+    item.setBackground(
+            itemBackground
+    );
 
-        iconBackground.setShape(
-                GradientDrawable.OVAL
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        item.setElevation(
+                dp(3)
         );
-
-        iconBackground.setColor(
-                Color.rgb(235, 241, 249)
-        );
-
-        iconView.setBackground(
-                iconBackground
-        );
-
-        item.addView(
-                iconView,
-                new LinearLayout.LayoutParams(
-                        dp(48),
-                        dp(48)
-                )
-        );
-
-        TextView titleView =
-                text(
-                        title,
-                        12,
-                        NAVY
-                );
-
-        titleView.setTypeface(
-                Typeface.DEFAULT,
-                Typeface.BOLD
-        );
-
-        titleView.setGravity(
-                Gravity.CENTER
-        );
-
-        titleView.setMaxLines(1);
-
-        item.addView(
-                titleView,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(28)
-                )
-        );
-
-        item.setClickable(true);
-        item.setFocusable(true);
-
-        item.setOnClickListener(
-                listener
-        );
-
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(
-                        0,
-                        dp(96),
-                        1
-                );
-
-        params.setMargins(
-                dp(4),
-                dp(4),
-                dp(4),
-                dp(4)
-        );
-
-        item.setLayoutParams(params);
-
-        return item;
     }
+
+    // =====================================================
+    // ICON
+    // =====================================================
+
+    TextView iconView =
+            new TextView(this);
+
+    iconView.setText(icon);
+    iconView.setTextSize(22);
+    iconView.setGravity(
+            Gravity.CENTER
+    );
+
+    GradientDrawable iconBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(230, 239, 255),
+                            Color.rgb(241, 232, 255)
+                    }
+            );
+
+    iconBackground.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconView.setBackground(
+            iconBackground
+    );
+
+    item.addView(
+            iconView,
+            new LinearLayout.LayoutParams(
+                    dp(50),
+                    dp(50)
+            )
+    );
+
+    // =====================================================
+    // TITLE
+    // =====================================================
+
+    TextView titleView =
+            text(
+                    title,
+                    12,
+                    NAVY
+            );
+
+    titleView.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+
+    titleView.setGravity(
+            Gravity.CENTER
+    );
+
+    titleView.setMaxLines(1);
+
+    item.addView(
+            titleView,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(28)
+            )
+    );
+
+    // =====================================================
+    // CLICK
+    // =====================================================
+
+    item.setClickable(true);
+    item.setFocusable(true);
+
+    item.setOnClickListener(
+            listener
+    );
+
+    // =====================================================
+    // SIZE & MARGIN
+    // =====================================================
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(100),
+                    1
+            );
+
+    params.setMargins(
+            dp(4),
+            dp(4),
+            dp(4),
+            dp(4)
+    );
+
+    item.setLayoutParams(params);
+
+    return item;
+}
 
     // =========================================================
     // APPOINTMENTS
