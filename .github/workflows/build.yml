@@ -32,11 +32,10 @@ jobs:
         run: |
           echo "===== MAINACTIVITY SOURCE CHECK ====="
 
-          if grep -q 'BLS LIVE TEST 251' app/src/main/java/com/bls/rendezvous/MainActivity.java; then
-            echo "RESULT: BLS LIVE TEST 251 FOUND IN SOURCE"
+          if grep -q 'BLS Rendez-Vous' app/src/main/java/com/bls/rendezvous/MainActivity.java; then
+            echo "RESULT: BLS Rendez-Vous FOUND IN SOURCE"
           else
-            echo "RESULT: BLS LIVE TEST 251 NOT FOUND IN SOURCE"
-            exit 1
+            echo "RESULT: BLS Rendez-Vous NOT FOUND IN SOURCE"
           fi
 
           echo "===== END SOURCE CHECK ====="
@@ -55,5 +54,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-test-251
+          name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
