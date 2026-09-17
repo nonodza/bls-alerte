@@ -18,12 +18,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Fix gradlew
+      - name: Install Gradle 8.4
         run: |
-          if [ ! -f gradlew ]; then
-            gradle wrapper --gradle-version 8.4
-          fi
-          chmod +x gradlew
+          curl -L https://services.gradle.org/distributions/gradle-8.4-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-8.4/bin" >> $GITHUB_PATH
+
+      - name: Verify Gradle version
+        run: |
+          gradle --version
 
       - name: Verify MainActivity source
         run: |
@@ -40,8 +43,8 @@ jobs:
 
       - name: Build Debug APK
         run: |
-          ./gradlew clean --no-daemon
-          ./gradlew assembleDebug --no-daemon
+          gradle clean --no-daemon
+          gradle assembleDebug --no-daemon
 
       - name: Check APK
         run: |
