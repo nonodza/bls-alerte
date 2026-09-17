@@ -743,115 +743,99 @@ public class MainActivity extends Activity {
         );
 
         // =====================================================
-        // PROFESSIONAL BOTTOM NAVIGATION
-        // =====================================================
+// BOTTOM NAVIGATION
+// =====================================================
 
-        LinearLayout bottom =
-                new LinearLayout(this);
+LinearLayout bottom =
+        new LinearLayout(this);
 
-        bottom.setOrientation(
-                LinearLayout.HORIZONTAL
-        );
+bottom.setOrientation(
+        LinearLayout.HORIZONTAL
+);
 
-        bottom.setGravity(
-                Gravity.CENTER
-        );
+bottom.setGravity(
+        Gravity.CENTER
+);
 
-        bottom.setPadding(
-                dp(4),
-                dp(4),
-                dp(4),
-                dp(4)
-        );
+bottom.setPadding(
+        dp(4),
+        dp(4),
+        dp(4),
+        dp(4)
+);
 
-        GradientDrawable bottomBg =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.LEFT_RIGHT,
-                        new int[]{
-                                Color.rgb(45, 25, 110),
-                                Color.rgb(55, 75, 165),
-                                Color.rgb(35, 145, 185),
-                                Color.rgb(190, 155, 55)
-                        }
-                );
+// -----------------------------------------------------
+// Transparent background
+// The navigation now blends with the main background.
+// -----------------------------------------------------
 
-        bottomBg.setCornerRadii(
-                new float[]{
-                        dp(18), dp(18),
-                        dp(18), dp(18),
-                        0, 0,
-                        0, 0
+bottom.setBackgroundColor(
+        Color.TRANSPARENT
+);
+
+LinearLayout homeNav =
+        nav(
+                "⌂",
+                "Home",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showHome();
+                    }
                 }
         );
 
-        bottom.setBackground(
-                bottomBg
+bottom.addView(homeNav);
+
+LinearLayout appointmentsNav =
+        nav(
+                "▣",
+                "Appointments",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAppointments();
+                    }
+                }
         );
 
-        LinearLayout homeNav =
-                nav(
-                        "⌂",
-                        "Home",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showHome();
-                            }
-                        }
-                );
+bottom.addView(appointmentsNav);
 
-        bottom.addView(homeNav);
-
-        LinearLayout appointmentsNav =
-                nav(
-                        "▣",
-                        "Appointments",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAppointments();
-                            }
-                        }
-                );
-
-        bottom.addView(appointmentsNav);
-
-        LinearLayout alertsNav =
-                nav(
-                        "●",
-                        "Alerts",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAlerts();
-                            }
-                        }
-                );
-
-        bottom.addView(alertsNav);
-
-        LinearLayout settingsNav =
-                nav(
-                        "⚙",
-                        "Settings",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showSettings();
-                            }
-                        }
-                );
-
-        bottom.addView(settingsNav);
-
-        root.addView(
-                bottom,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(64)
-                )
+LinearLayout alertsNav =
+        nav(
+                "●",
+                "Alerts",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAlerts();
+                    }
+                }
         );
-    }
+
+bottom.addView(alertsNav);
+
+LinearLayout settingsNav =
+        nav(
+                "⚙",
+                "Settings",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showSettings();
+                    }
+                }
+        );
+
+bottom.addView(settingsNav);
+
+root.addView(
+        bottom,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(64)
+        )
+);
 
     // =========================================================
     // APPOINTMENTS
