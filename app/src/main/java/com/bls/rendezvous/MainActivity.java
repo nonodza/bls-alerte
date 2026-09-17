@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Build;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -14,9 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Button;
-import android.graphics.drawable.GradientDrawable;
-import android.view.Gravity;
-import android.os.Build;
 public class MainActivity extends Activity {
 
     private final int NAVY = Color.rgb(25, 35, 70);
@@ -462,11 +460,11 @@ content.addView(
 );
 
 
-        // =====================================================
-        // MONITORING
-        // =====================================================
+       // =====================================================
+// MONITORING
+// =====================================================
 
-        LinearLayout monitor = card();
+LinearLayout monitor = card();
 
 monitor.setPadding(
         dp(18),
@@ -679,11 +677,80 @@ content.addView(
         monitor,
         margin(0, 0, 0, 10)
 );
-  // =====================================================
-        // SERVICES
-        // =====================================================
 
-      TextView services =
+
+// =====================================================
+// OFFICIAL BLS
+// =====================================================
+
+LinearLayout official = card();
+
+TextView officialTitle =
+        text(
+                "Official BLS Spain",
+                15,
+                NAVY
+        );
+
+officialTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+official.addView(
+        officialTitle
+);
+
+official.addView(
+        text(
+                "Official information and visa services",
+                12,
+                GRAY
+        ),
+        margin(0, 4, 0, 8)
+);
+
+Button open =
+        smallButton(
+                "OPEN OFFICIAL WEBSITE"
+        );
+
+open.setOnClickListener(
+        new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    android.content.Intent intent =
+                            new android.content.Intent(
+                                    android.content.Intent.ACTION_VIEW,
+                                    android.net.Uri.parse(
+                                            "https://algeria.blsspainvisa.com/"
+                                    )
+                            );
+
+                    startActivity(intent);
+
+                } catch (Exception ignored) {
+                }
+            }
+        }
+);
+
+official.addView(open);
+
+content.addView(
+        official,
+        margin(0, 10, 0, 5)
+);
+
+
+// =====================================================
+// SERVICES
+// =====================================================
+
+TextView services =
         text(
                 "Services",
                 19,
@@ -698,9 +765,10 @@ content.addView(
         services,
         margin(2, 8, 0, 6)
 );
-        
+
+
 // =====================================================
-// SERVICES
+// SERVICE CARDS
 // =====================================================
 
 content.addView(
@@ -709,6 +777,7 @@ content.addView(
                 "Appointments",
                 "Find and manage visa appointments",
                 new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         showAppointments();
@@ -723,6 +792,7 @@ content.addView(
                 "Alerts",
                 "Get notified when appointments appear",
                 new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         showAlerts();
@@ -737,6 +807,7 @@ content.addView(
                 "Centers",
                 "Visa centers and available locations",
                 new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         showCenters();
@@ -751,6 +822,7 @@ content.addView(
                 "Tracking",
                 "Track your visa application",
                 new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         showTracking();
@@ -765,6 +837,7 @@ content.addView(
                 "Countries",
                 "Choose your destination country",
                 new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         showCountries();
@@ -779,318 +852,54 @@ content.addView(
                 "Statistics",
                 "View monitoring and appointment data",
                 new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
                         showStatistics();
                     }
                 }
         )
-);                
-
-  private LinearLayout serviceHorizontal(
-        String icon,
-        String title,
-        String description,
-        View.OnClickListener listener
-) {
-
-    // =====================================================
-    // MAIN CARD
-    // =====================================================
-
-    LinearLayout card = new LinearLayout(this);
-
-    card.setOrientation(LinearLayout.HORIZONTAL);
-    card.setGravity(Gravity.CENTER_VERTICAL);
-    card.setPadding(
-            dp(14),
-            dp(12),
-            dp(12),
-            dp(12)
-    );
-
-    GradientDrawable background =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.LEFT_RIGHT,
-                    new int[]{
-                            Color.rgb(255, 255, 255),
-                            Color.rgb(242, 246, 252)
-                    }
-            );
-
-    background.setCornerRadius(dp(18));
-
-    card.setBackground(background);
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        card.setElevation(dp(3));
-    }
-
-    card.setOnClickListener(listener);
-
-    LinearLayout.LayoutParams cardParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(82)
-            );
-
-    cardParams.setMargins(
-            dp(0),
-            dp(0),
-            dp(0),
-            dp(10)
-    );
-
-    card.setLayoutParams(cardParams);
+);
 
 
-    // =====================================================
-    // ICON CIRCLE
-    // =====================================================
+// =====================================================
+// SEARCH
+// =====================================================
 
-    TextView iconView = new TextView(this);
-
-    iconView.setText(icon);
-    iconView.setTextSize(24);
-    iconView.setGravity(Gravity.CENTER);
-
-    GradientDrawable iconBackground =
-            new GradientDrawable();
-
-    iconBackground.setShape(
-            GradientDrawable.OVAL
-    );
-
-    iconBackground.setColor(
-            Color.rgb(235, 241, 249)
-    );
-
-    iconView.setBackground(iconBackground);
-
-    LinearLayout.LayoutParams iconParams =
-            new LinearLayout.LayoutParams(
-                    dp(52),
-                    dp(52)
-            );
-
-    card.addView(
-            iconView,
-            iconParams
-    );
-
-
-    // =====================================================
-    // TEXT AREA
-    // =====================================================
-
-    LinearLayout textContainer =
-            new LinearLayout(this);
-
-    textContainer.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    textContainer.setGravity(
-            Gravity.CENTER_VERTICAL
-    );
-
-    LinearLayout.LayoutParams textParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    -1,
-                    1
-            );
-
-    textParams.setMargins(
-            dp(14),
-            0,
-            dp(8),
-            0
-    );
-
-    card.addView(
-            textContainer,
-            textParams
-    );
-
-
-    // =====================================================
-    // TITLE
-    // =====================================================
-
-    TextView titleView =
-            new TextView(this);
-
-    titleView.setText(title);
-    titleView.setTextSize(16);
-    titleView.setTextColor(NAVY);
-
-    titleView.setTypeface(
-            Typeface.DEFAULT,
-            Typeface.BOLD
-    );
-
-    textContainer.addView(
-            titleView
-    );
-
-
-    // =====================================================
-    // DESCRIPTION
-    // =====================================================
-
-    TextView descriptionView =
-            new TextView(this);
-
-    descriptionView.setText(
-            description
-    );
-
-    descriptionView.setTextSize(12);
-    descriptionView.setTextColor(
-            Color.rgb(105, 115, 130)
-    );
-
-    descriptionView.setMaxLines(1);
-
-    textContainer.addView(
-            descriptionView
-    );
-
-
-    // =====================================================
-    // ARROW
-    // =====================================================
-
-    TextView arrow =
-            new TextView(this);
-
-    arrow.setText("›");
-    arrow.setTextSize(30);
-    arrow.setTextColor(
-            Color.rgb(90, 105, 125)
-    );
-
-    arrow.setGravity(
-            Gravity.CENTER
-    );
-
-    LinearLayout.LayoutParams arrowParams =
-            new LinearLayout.LayoutParams(
-                    dp(32),
-                    dp(52)
-            );
-
-    card.addView(
-            arrow,
-            arrowParams
-    );
-
-
-    return card;
-}      
-        // =====================================================
-        // SEARCH
-        // =====================================================
-
-        TextView search =
-                text(
-                        "⌕   Search services",
-                        14,
-                        GRAY
-                );
-
-        GradientDrawable searchBg =
-                new GradientDrawable();
-
-        searchBg.setColor(Color.WHITE);
-        searchBg.setCornerRadius(dp(18));
-        searchBg.setStroke(
-                dp(1),
-                Color.rgb(225, 230, 240)
+TextView search =
+        text(
+                "⌕   Search services",
+                14,
+                GRAY
         );
 
-        search.setBackground(searchBg);
+GradientDrawable searchBg =
+        new GradientDrawable();
 
-        search.setPadding(
-                dp(18),
-                0,
-                dp(18),
-                0
-        );
+searchBg.setColor(
+        Color.rgb(245, 247, 250)
+);
 
-        content.addView(
-                search,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(50)
-                )
-        );
+searchBg.setCornerRadius(
+        dp(14)
+);
 
-        // =====================================================
-        // OFFICIAL BLS
-        // =====================================================
+search.setBackground(searchBg);
 
-        LinearLayout official = card();
+search.setPadding(
+        dp(14),
+        dp(12),
+        dp(14),
+        dp(12)
+);
 
-        TextView officialTitle =
-                text(
-                        "Official BLS Spain",
-                        15,
-                        NAVY
-                );
+content.addView(
+        search,
+        margin(0, 5, 0, 10)
+);
 
-        officialTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
 
-        official.addView(officialTitle);
-
-        official.addView(
-                text(
-                        "Official information and visa services",
-                        12,
-                        GRAY
-                ),
-                margin(0, 4, 0, 8)
-        );
-
-        Button open =
-                smallButton(
-                        "OPEN OFFICIAL WEBSITE"
-                );
-
-        open.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        try {
-
-                            android.content.Intent intent =
-                                    new android.content.Intent(
-                                            android.content.Intent.ACTION_VIEW,
-                                            android.net.Uri.parse(
-                                                    "https://algeria.blsspainvisa.com/"
-                                            )
-                                    );
-
-                            startActivity(intent);
-
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-        );
-
-        official.addView(open);
-
-        content.addView(
-                official,
-                margin(0, 10, 0, 5)
-        );
-
- // =====================================================
+// =====================================================
 // BOTTOM NAVIGATION
 // =====================================================
 
@@ -1112,14 +921,15 @@ bottom.setPadding(
         dp(4)
 );
 
+
 // -----------------------------------------------------
 // Transparent background
-// The navigation now blends with the main background.
 // -----------------------------------------------------
 
 bottom.setBackgroundColor(
         Color.TRANSPARENT
 );
+
 
 LinearLayout homeNav =
         nav(
@@ -1135,6 +945,7 @@ LinearLayout homeNav =
 
 bottom.addView(homeNav);
 
+
 LinearLayout appointmentsNav =
         nav(
                 "▣",
@@ -1148,6 +959,7 @@ LinearLayout appointmentsNav =
         );
 
 bottom.addView(appointmentsNav);
+
 
 LinearLayout alertsNav =
         nav(
@@ -1163,6 +975,7 @@ LinearLayout alertsNav =
 
 bottom.addView(alertsNav);
 
+
 LinearLayout settingsNav =
         nav(
                 "⚙",
@@ -1177,6 +990,7 @@ LinearLayout settingsNav =
 
 bottom.addView(settingsNav);
 
+
 root.addView(
         bottom,
         new LinearLayout.LayoutParams(
@@ -1184,11 +998,267 @@ root.addView(
                 dp(64)
         )
 );
+
+
+// =====================================================
+// END OF HOME
+// =====================================================
+
+}
+
+
+// =====================================================
+// HORIZONTAL SERVICE CARD
+// =====================================================
+
+private LinearLayout serviceHorizontal(
+        String icon,
+        String title,
+        String description,
+        View.OnClickListener listener
+) {
+
+    LinearLayout card =
+            new LinearLayout(this);
+
+    card.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
+
+    card.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    card.setPadding(
+            dp(14),
+            dp(12),
+            dp(12),
+            dp(12)
+    );
+
+
+    GradientDrawable background =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(242, 246, 252)
+                    }
+            );
+
+    background.setCornerRadius(
+            dp(18)
+    );
+
+    card.setBackground(
+            background
+    );
+
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        card.setElevation(
+                dp(3)
+        );
     }
 
-    // =========================================================
-    // APPOINTMENTS
-    // =========================================================
+    card.setOnClickListener(
+            listener
+    );
+
+
+    LinearLayout.LayoutParams cardParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(82)
+            );
+
+    cardParams.setMargins(
+            0,
+            0,
+            0,
+            dp(10)
+    );
+
+    card.setLayoutParams(
+            cardParams
+    );
+
+
+    // =====================================================
+    // ICON CIRCLE
+    // =====================================================
+
+    TextView iconView =
+            new TextView(this);
+
+    iconView.setText(
+            icon
+    );
+
+    iconView.setTextSize(
+            24
+    );
+
+    iconView.setGravity(
+            Gravity.CENTER
+    );
+
+
+    GradientDrawable iconBackground =
+            new GradientDrawable();
+
+    iconBackground.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconBackground.setColor(
+            Color.rgb(235, 241, 249)
+    );
+
+    iconView.setBackground(
+            iconBackground
+    );
+
+
+    card.addView(
+            iconView,
+            new LinearLayout.LayoutParams(
+                    dp(52),
+                    dp(52)
+            )
+    );
+
+
+    // =====================================================
+    // TEXT AREA
+    // =====================================================
+
+    LinearLayout textContainer =
+            new LinearLayout(this);
+
+    textContainer.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    textContainer.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+
+    LinearLayout.LayoutParams textParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -1,
+                    1
+            );
+
+    textParams.setMargins(
+            dp(14),
+            0,
+            dp(8),
+            0
+    );
+
+
+    card.addView(
+            textContainer,
+            textParams
+    );
+
+
+    TextView titleView =
+            new TextView(this);
+
+    titleView.setText(
+            title
+    );
+
+    titleView.setTextSize(
+            16
+    );
+
+    titleView.setTextColor(
+            NAVY
+    );
+
+    titleView.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+
+
+    textContainer.addView(
+            titleView
+    );
+
+
+    TextView descriptionView =
+            new TextView(this);
+
+    descriptionView.setText(
+            description
+    );
+
+    descriptionView.setTextSize(
+            12
+    );
+
+    descriptionView.setTextColor(
+            Color.rgb(105, 115, 130)
+    );
+
+    descriptionView.setMaxLines(
+            1
+    );
+
+
+    textContainer.addView(
+            descriptionView
+    );
+
+
+    // =====================================================
+    // ARROW
+    // =====================================================
+
+    TextView arrow =
+            new TextView(this);
+
+    arrow.setText(
+            "›"
+    );
+
+    arrow.setTextSize(
+            30
+    );
+
+    arrow.setTextColor(
+            Color.rgb(90, 105, 125)
+    );
+
+    arrow.setGravity(
+            Gravity.CENTER
+    );
+
+
+    card.addView(
+            arrow,
+            new LinearLayout.LayoutParams(
+                    dp(32),
+                    dp(52)
+            )
+    );
+
+
+    return card;
+}
+
+
+// =========================================================
+// APPOINTMENTS
+// =========================================================
+
 
     private void showAppointments() {
 
