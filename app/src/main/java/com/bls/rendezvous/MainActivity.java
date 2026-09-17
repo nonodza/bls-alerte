@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+
     private final int NAVY = Color.rgb(25, 35, 70);
     private final int BLUE = Color.rgb(55, 105, 205);
     private final int PURPLE = Color.rgb(58, 35, 125);
@@ -43,13 +44,23 @@ public class MainActivity extends Activity {
     private TextView appointmentCenterValue;
     private TextView appointmentCenterHint;
 
+    // =========================================================
+    // CREATE
+    // =========================================================
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Window window = getWindow();
-        window.setStatusBarColor(Color.rgb(75, 70, 120));
-        window.setNavigationBarColor(Color.WHITE);
+
+        window.setStatusBarColor(
+                Color.rgb(75, 70, 120)
+        );
+
+        window.setNavigationBarColor(
+                Color.WHITE
+        );
 
         showSplash();
     }
@@ -60,9 +71,16 @@ public class MainActivity extends Activity {
 
     private void showSplash() {
 
-        final LinearLayout splash = new LinearLayout(this);
-        splash.setOrientation(LinearLayout.VERTICAL);
-        splash.setGravity(Gravity.CENTER);
+        final LinearLayout splash =
+                new LinearLayout(this);
+
+        splash.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        splash.setGravity(
+                Gravity.CENTER
+        );
 
         GradientDrawable background =
                 new GradientDrawable(
@@ -77,32 +95,66 @@ public class MainActivity extends Activity {
 
         splash.setBackground(background);
 
-        final LinearLayout logoContainer = new LinearLayout(this);
-        logoContainer.setOrientation(LinearLayout.VERTICAL);
-        logoContainer.setGravity(Gravity.CENTER);
+        final LinearLayout logoContainer =
+                new LinearLayout(this);
 
-        final TextView bls = new TextView(this);
+        logoContainer.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        logoContainer.setGravity(
+                Gravity.CENTER
+        );
+
+        final TextView bls =
+                new TextView(this);
+
         bls.setText("BLS");
         bls.setTextSize(68);
         bls.setTextColor(Color.WHITE);
-        bls.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        bls.setGravity(Gravity.CENTER);
+
+        bls.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        bls.setGravity(
+                Gravity.CENTER
+        );
 
         logoContainer.addView(
                 bls,
-                new LinearLayout.LayoutParams(-1, -2)
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                )
         );
 
-        final TextView international = new TextView(this);
-        international.setText("international");
+        final TextView international =
+                new TextView(this);
+
+        international.setText(
+                "international"
+        );
+
         international.setTextSize(16);
-        international.setTextColor(Color.rgb(235, 245, 255));
-        international.setGravity(Gravity.CENTER);
+
+        international.setTextColor(
+                Color.rgb(235, 245, 255)
+        );
+
+        international.setGravity(
+                Gravity.CENTER
+        );
 
         LinearLayout.LayoutParams internationalParams =
-                new LinearLayout.LayoutParams(-1, -2);
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
 
-        internationalParams.topMargin = dp(-2);
+        internationalParams.topMargin =
+                dp(-2);
 
         logoContainer.addView(
                 international,
@@ -111,22 +163,37 @@ public class MainActivity extends Activity {
 
         splash.addView(
                 logoContainer,
-                new LinearLayout.LayoutParams(-1, -2)
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                )
         );
 
-        final TextView light = new TextView(this);
-        light.setText("━━━━━━━━━━━━━━━━");
+        final TextView light =
+                new TextView(this);
+
+        light.setText(
+                "━━━━━━━━━━━━━━━━"
+        );
+
         light.setTextSize(5);
         light.setTextColor(Color.WHITE);
         light.setGravity(Gravity.CENTER);
         light.setAlpha(0f);
 
         LinearLayout.LayoutParams lightParams =
-                new LinearLayout.LayoutParams(dp(190), dp(20));
+                new LinearLayout.LayoutParams(
+                        dp(190),
+                        dp(20)
+                );
 
-        lightParams.gravity = Gravity.CENTER;
+        lightParams.gravity =
+                Gravity.CENTER;
 
-        splash.addView(light, lightParams);
+        splash.addView(
+                light,
+                lightParams
+        );
 
         setContentView(splash);
 
@@ -141,41 +208,54 @@ public class MainActivity extends Activity {
                 .setDuration(700)
                 .start();
 
-        light.setTranslationX(-dp(150));
-        light.setTranslationY(-dp(38));
+        light.setTranslationX(
+                -dp(150)
+        );
+
+        light.setTranslationY(
+                -dp(38)
+        );
 
         light.animate()
                 .alpha(0.9f)
                 .translationX(dp(150))
                 .setDuration(850)
                 .setStartDelay(450)
-                .withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        light.animate()
-                                .alpha(0f)
-                                .setDuration(300)
-                                .start();
-                    }
-                })
-                .start();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                splash.animate()
-                        .alpha(0f)
-                        .setDuration(450)
-                        .withEndAction(new Runnable() {
+                .withEndAction(
+                        new Runnable() {
                             @Override
                             public void run() {
-                                showHome();
+
+                                light.animate()
+                                        .alpha(0f)
+                                        .setDuration(300)
+                                        .start();
                             }
-                        })
-                        .start();
-            }
-        }, 1800);
+                        }
+                )
+                .start();
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+
+                        splash.animate()
+                                .alpha(0f)
+                                .setDuration(450)
+                                .withEndAction(
+                                        new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showHome();
+                                            }
+                                        }
+                                )
+                                .start();
+                    }
+                },
+                1800
+        );
     }
 
     // =========================================================
@@ -186,25 +266,33 @@ public class MainActivity extends Activity {
 
         currentPage = "HOME";
 
-        root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
+        root =
+                new LinearLayout(this);
 
-        GradientDrawable background =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(235, 243, 255),
-                        Color.rgb(244, 240, 252),
-                        Color.rgb(250, 247, 255)
-                }
+        root.setOrientation(
+                LinearLayout.VERTICAL
         );
 
-background.setCornerRadius(dp(0));
+        GradientDrawable background =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
+                        }
+                );
 
         root.setBackground(background);
+
         setContentView(root);
 
-        LinearLayout header = new LinearLayout(this);
+        // =====================================================
+        // HEADER
+        // =====================================================
+
+        LinearLayout header =
+                new LinearLayout(this);
 
         header.setOrientation(
                 LinearLayout.HORIZONTAL
@@ -220,10 +308,6 @@ background.setCornerRadius(dp(0));
                 dp(20),
                 dp(10)
         );
-
-        // =====================================================
-        // APP IDENTITY
-        // =====================================================
 
         LinearLayout titles =
                 new LinearLayout(this);
@@ -275,11 +359,21 @@ background.setCornerRadius(dp(0));
 
         root.addView(header);
 
-        ScrollView scroll = new ScrollView(this);
+        // =====================================================
+        // SCROLL
+        // =====================================================
+
+        ScrollView scroll =
+                new ScrollView(this);
+
         scroll.setFillViewport(true);
 
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout content =
+                new LinearLayout(this);
+
+        content.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
         content.setPadding(
                 dp(18),
@@ -303,7 +397,8 @@ background.setCornerRadius(dp(0));
         // CURRENT APPLICATION
         // =====================================================
 
-        LinearLayout current = card();
+        LinearLayout current =
+                card();
 
         current.setPadding(
                 dp(18),
@@ -426,7 +521,9 @@ background.setCornerRadius(dp(0));
                 0
         );
 
-        current.addView(monitoringInfo);
+        current.addView(
+                monitoringInfo
+        );
 
         content.addView(
                 current,
@@ -437,7 +534,8 @@ background.setCornerRadius(dp(0));
         // MONITORING
         // =====================================================
 
-        LinearLayout monitor = card();
+        LinearLayout monitor =
+                card();
 
         monitor.setPadding(
                 dp(18),
@@ -537,12 +635,15 @@ background.setCornerRadius(dp(0));
                     public void onClick(View v) {
 
                         String currentText =
-                                monitorButton.getText()
+                                monitorButton
+                                        .getText()
                                         .toString();
 
                         if (currentText.equals("START")) {
 
-                            monitorButton.setText("STOP");
+                            monitorButton.setText(
+                                    "STOP"
+                            );
 
                             monitorStatus.setText(
                                     "Monitoring is active"
@@ -552,7 +653,9 @@ background.setCornerRadius(dp(0));
                                     GREEN
                             );
 
-                            monitorButton.setEnabled(false);
+                            monitorButton.setEnabled(
+                                    false
+                            );
 
                             android.content.Intent serviceIntent =
                                     new android.content.Intent(
@@ -584,7 +687,9 @@ background.setCornerRadius(dp(0));
 
                             } catch (Exception e) {
 
-                                monitorButton.setText("START");
+                                monitorButton.setText(
+                                        "START"
+                                );
 
                                 monitorStatus.setText(
                                         "Monitoring is paused"
@@ -601,7 +706,9 @@ background.setCornerRadius(dp(0));
                                 ).show();
                             }
 
-                            monitorButton.setEnabled(true);
+                            monitorButton.setEnabled(
+                                    true
+                            );
 
                         } else {
 
@@ -611,9 +718,13 @@ background.setCornerRadius(dp(0));
                                             AppointmentMonitoringService.class
                                     );
 
-                            stopService(serviceIntent);
+                            stopService(
+                                    serviceIntent
+                            );
 
-                            monitorButton.setText("START");
+                            monitorButton.setText(
+                                    "START"
+                            );
 
                             monitorStatus.setText(
                                     "Monitoring is paused"
@@ -633,8 +744,13 @@ background.setCornerRadius(dp(0));
                 }
         );
 
-        monitorRow.addView(monitorButton);
-        monitor.addView(monitorRow);
+        monitorRow.addView(
+                monitorButton
+        );
+
+        monitor.addView(
+                monitorRow
+        );
 
         content.addView(
                 monitor,
@@ -645,7 +761,8 @@ background.setCornerRadius(dp(0));
         // OFFICIAL BLS
         // =====================================================
 
-        LinearLayout official = card();
+        LinearLayout official =
+                card();
 
         TextView officialTitle =
                 text(
@@ -658,7 +775,9 @@ background.setCornerRadius(dp(0));
                 Typeface.DEFAULT_BOLD
         );
 
-        official.addView(officialTitle);
+        official.addView(
+                officialTitle
+        );
 
         official.addView(
                 text(
@@ -723,10 +842,6 @@ background.setCornerRadius(dp(0));
                 dp(10)
         );
 
-        // -----------------------------------------------------
-        // Soft gradient matching Home background
-        // -----------------------------------------------------
-
         GradientDrawable servicesBackground =
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
@@ -752,28 +867,24 @@ background.setCornerRadius(dp(0));
             );
         }
 
-        // -----------------------------------------------------
-        // SERVICES TITLE
-        // -----------------------------------------------------
-
         TextView servicesTitle =
-        text(
-                "NEW SERVICES TEST",
-                20,
-                NAVY
+                text(
+                        "Services",
+                        20,
+                        NAVY
+                );
+
+        servicesTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
         );
 
-servicesTitle.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-servicesContainer.addView(
-        servicesTitle,
-        margin(2, 0, 0, 10)
-);
+        servicesContainer.addView(
+                servicesTitle,
+                margin(2, 0, 0, 10)
+        );
 
         // =====================================================
-        // FIRST ROW
+        // SERVICES ROW 1
         // =====================================================
 
         LinearLayout row1 =
@@ -835,7 +946,7 @@ servicesContainer.addView(
         );
 
         // =====================================================
-        // SECOND ROW
+        // SERVICES ROW 2
         // =====================================================
 
         LinearLayout row2 =
@@ -923,7 +1034,9 @@ servicesContainer.addView(
                 dp(14)
         );
 
-        search.setBackground(searchBg);
+        search.setBackground(
+                searchBg
+        );
 
         search.setPadding(
                 dp(14),
@@ -963,7 +1076,7 @@ servicesContainer.addView(
                 Color.TRANSPARENT
         );
 
-        LinearLayout homeNav =
+        bottom.addView(
                 nav(
                         "⌂",
                         "Home",
@@ -973,11 +1086,10 @@ servicesContainer.addView(
                                 showHome();
                             }
                         }
-                );
+                )
+        );
 
-        bottom.addView(homeNav);
-
-        LinearLayout appointmentsNav =
+        bottom.addView(
                 nav(
                         "▣",
                         "Appointments",
@@ -987,11 +1099,10 @@ servicesContainer.addView(
                                 showAppointments();
                             }
                         }
-                );
+                )
+        );
 
-        bottom.addView(appointmentsNav);
-
-        LinearLayout alertsNav =
+        bottom.addView(
                 nav(
                         "●",
                         "Alerts",
@@ -1001,11 +1112,10 @@ servicesContainer.addView(
                                 showAlerts();
                             }
                         }
-                );
+                )
+        );
 
-        bottom.addView(alertsNav);
-
-        LinearLayout settingsNav =
+        bottom.addView(
                 nav(
                         "⚙",
                         "Settings",
@@ -1015,9 +1125,8 @@ servicesContainer.addView(
                                 showSettings();
                             }
                         }
-                );
-
-        bottom.addView(settingsNav);
+                )
+        );
 
         root.addView(
                 bottom,
@@ -1028,172 +1137,141 @@ servicesContainer.addView(
         );
     }
 
-   // =========================================================
-// SERVICE GRID ITEM
-// =========================================================
+    // =========================================================
+    // SERVICE GRID ITEM
+    // =========================================================
 
-private LinearLayout serviceGridItem(
-        String icon,
-        String title,
-        View.OnClickListener listener
-) {
+    private LinearLayout serviceGridItem(
+            String icon,
+            String title,
+            View.OnClickListener listener
+    ) {
 
-    LinearLayout item =
-            new LinearLayout(this);
+        LinearLayout item =
+                new LinearLayout(this);
 
-    item.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    item.setGravity(
-            Gravity.CENTER
-    );
-
-    item.setPadding(
-            dp(4),
-            dp(5),
-            dp(4),
-            dp(5)
-    );
-
-    // -----------------------------------------------------
-    // ITEM BACKGROUND
-    // -----------------------------------------------------
-
-    GradientDrawable itemBackground =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(255, 255, 255),
-                            Color.rgb(242, 247, 253)
-                    }
-            );
-
-    itemBackground.setCornerRadius(
-            dp(18)
-    );
-
-    item.setBackground(
-            itemBackground
-    );
-
-    if (Build.VERSION.SDK_INT >=
-            Build.VERSION_CODES.LOLLIPOP) {
-
-        item.setElevation(
-                dp(2)
+        item.setOrientation(
+                LinearLayout.VERTICAL
         );
+
+        item.setGravity(
+                Gravity.CENTER
+        );
+
+        item.setPadding(
+                dp(4),
+                dp(5),
+                dp(4),
+                dp(5)
+        );
+
+        GradientDrawable itemBackground =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.rgb(255, 255, 255),
+                                Color.rgb(246, 249, 254)
+                        }
+                );
+
+        itemBackground.setCornerRadius(
+                dp(18)
+        );
+
+        item.setBackground(
+                itemBackground
+        );
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.LOLLIPOP) {
+
+            item.setElevation(
+                    dp(2)
+            );
+        }
+
+        TextView iconView =
+                new TextView(this);
+
+        iconView.setText(icon);
+        iconView.setTextSize(22);
+        iconView.setGravity(Gravity.CENTER);
+
+        GradientDrawable iconBackground =
+                new GradientDrawable();
+
+        iconBackground.setShape(
+                GradientDrawable.OVAL
+        );
+
+        iconBackground.setColor(
+                Color.rgb(235, 241, 249)
+        );
+
+        iconView.setBackground(
+                iconBackground
+        );
+
+        item.addView(
+                iconView,
+                new LinearLayout.LayoutParams(
+                        dp(48),
+                        dp(48)
+                )
+        );
+
+        TextView titleView =
+                text(
+                        title,
+                        12,
+                        NAVY
+                );
+
+        titleView.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
+
+        titleView.setGravity(
+                Gravity.CENTER
+        );
+
+        titleView.setMaxLines(1);
+
+        item.addView(
+                titleView,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(28)
+                )
+        );
+
+        item.setClickable(true);
+        item.setFocusable(true);
+
+        item.setOnClickListener(
+                listener
+        );
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        0,
+                        dp(96),
+                        1
+                );
+
+        params.setMargins(
+                dp(4),
+                dp(4),
+                dp(4),
+                dp(4)
+        );
+
+        item.setLayoutParams(params);
+
+        return item;
     }
 
-    // -----------------------------------------------------
-    // ICON
-    // -----------------------------------------------------
-
-    TextView iconView =
-            new TextView(this);
-
-    iconView.setText(
-            icon
-    );
-
-    iconView.setTextSize(
-            25
-    );
-
-    iconView.setGravity(
-            Gravity.CENTER
-    );
-
-    GradientDrawable iconBackground =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(232, 240, 252),
-                            Color.rgb(244, 238, 253)
-                    }
-            );
-
-    iconBackground.setShape(
-            GradientDrawable.OVAL
-    );
-
-    iconView.setBackground(
-            iconBackground
-    );
-
-    item.addView(
-            iconView,
-            new LinearLayout.LayoutParams(
-                    dp(50),
-                    dp(50)
-            )
-    );
-
-    // -----------------------------------------------------
-    // SERVICE NAME
-    // -----------------------------------------------------
-
-    TextView titleView =
-            text(
-                    title,
-                    12,
-                    NAVY
-            );
-
-    titleView.setTypeface(
-            Typeface.DEFAULT,
-            Typeface.BOLD
-    );
-
-    titleView.setGravity(
-            Gravity.CENTER
-    );
-
-    titleView.setMaxLines(
-            1
-    );
-
-    item.addView(
-            titleView,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(25)
-            )
-    );
-
-    // -----------------------------------------------------
-    // CLICK
-    // -----------------------------------------------------
-
-    item.setClickable(true);
-    item.setFocusable(true);
-
-    item.setOnClickListener(
-            listener
-    );
-
-    LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(
-                    0,
-                    dp(96),
-                    1
-            );
-
-    params.setMargins(
-            dp(4),
-            dp(4),
-            dp(4),
-            dp(4)
-    );
-
-    item.setLayoutParams(
-            params
-    );
-
-    return item;
-}
-
-    
     // =========================================================
     // APPOINTMENTS
     // =========================================================
@@ -1225,9 +1303,9 @@ private LinearLayout serviceGridItem(
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245,248,255),
-                                Color.rgb(238,244,255),
-                                Color.rgb(247,243,252)
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
                         }
                 );
 
@@ -1262,7 +1340,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 back,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
 
         TextView title =
@@ -1284,7 +1362,7 @@ private LinearLayout serviceGridItem(
                         13,
                         GRAY
                 ),
-                margin(0,5,0,18)
+                margin(0, 5, 0, 18)
         );
 
         LinearLayout countryCard =
@@ -1311,7 +1389,7 @@ private LinearLayout serviceGridItem(
 
         countryCard.addView(
                 countryValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         countryCard.addView(
@@ -1320,12 +1398,12 @@ private LinearLayout serviceGridItem(
                         11,
                         GRAY
                 ),
-                margin(0,2,0,0)
+                margin(0, 2, 0, 0)
         );
 
         page.addView(
                 countryCard,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
         LinearLayout residenceCard =
@@ -1363,7 +1441,7 @@ private LinearLayout serviceGridItem(
 
         residenceCard.addView(
                 appointmentWilayaValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         appointmentWilayaHint =
@@ -1377,12 +1455,12 @@ private LinearLayout serviceGridItem(
 
         residenceCard.addView(
                 appointmentWilayaHint,
-                margin(0,2,0,0)
+                margin(0, 2, 0, 0)
         );
 
         page.addView(
                 residenceCard,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
         LinearLayout centerCard =
@@ -1411,7 +1489,7 @@ private LinearLayout serviceGridItem(
 
         centerCard.addView(
                 appointmentCenterValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         appointmentCenterHint =
@@ -1427,12 +1505,12 @@ private LinearLayout serviceGridItem(
 
         centerCard.addView(
                 appointmentCenterHint,
-                margin(0,2,0,0)
+                margin(0, 2, 0, 0)
         );
 
         page.addView(
                 centerCard,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
         LinearLayout visaCard =
@@ -1459,7 +1537,7 @@ private LinearLayout serviceGridItem(
 
         visaCard.addView(
                 visaValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         visaCard.addView(
@@ -1468,7 +1546,7 @@ private LinearLayout serviceGridItem(
                         11,
                         GRAY
                 ),
-                margin(0,2,0,0)
+                margin(0, 2, 0, 0)
         );
 
         visaCard.setOnClickListener(
@@ -1482,7 +1560,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 visaCard,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
         LinearLayout applicants =
@@ -1509,7 +1587,7 @@ private LinearLayout serviceGridItem(
 
         applicants.addView(
                 applicantsValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         applicants.addView(
@@ -1518,7 +1596,7 @@ private LinearLayout serviceGridItem(
                         11,
                         GRAY
                 ),
-                margin(0,2,0,0)
+                margin(0, 2, 0, 0)
         );
 
         applicants.setOnClickListener(
@@ -1571,7 +1649,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 applicants,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
         LinearLayout travel =
@@ -1598,7 +1676,7 @@ private LinearLayout serviceGridItem(
 
         travel.addView(
                 travelValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         travel.addView(
@@ -1607,7 +1685,7 @@ private LinearLayout serviceGridItem(
                         11,
                         GRAY
                 ),
-                margin(0,2,0,0)
+                margin(0, 2, 0, 0)
         );
 
         travel.setOnClickListener(
@@ -1662,7 +1740,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 travel,
-                margin(0,0,0,12)
+                margin(0, 0, 0, 12)
         );
 
         Button continueButton =
@@ -1734,12 +1812,12 @@ private LinearLayout serviceGridItem(
                         12,
                         GRAY
                 ),
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 smart,
-                margin(0,12,0,10)
+                margin(0, 12, 0, 10)
         );
 
         LinearLayout availability =
@@ -1766,7 +1844,7 @@ private LinearLayout serviceGridItem(
                         13,
                         GRAY
                 ),
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         availability.addView(
@@ -1775,17 +1853,19 @@ private LinearLayout serviceGridItem(
                         11,
                         GRAY
                 ),
-                margin(0,3,0,8)
+                margin(0, 3, 0, 8)
         );
 
         Button check =
-                smallButton("CHECK AGAIN");
+                smallButton(
+                        "CHECK AGAIN"
+                );
 
         availability.addView(check);
 
         page.addView(
                 availability,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
 
         LinearLayout monitoring =
@@ -1812,7 +1892,7 @@ private LinearLayout serviceGridItem(
                         12,
                         GRAY
                 ),
-                margin(0,5,0,8)
+                margin(0, 5, 0, 8)
         );
 
         Button monitoringButton =
@@ -1826,12 +1906,12 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 monitoring,
-                margin(0,0,0,5)
+                margin(0, 0, 0, 5)
         );
     }
 
     // =========================================================
-    // 69 WILAYAS
+    // WILAYAS
     // =========================================================
 
     private void showWilayaSelector() {
@@ -2014,7 +2094,9 @@ private LinearLayout serviceGridItem(
         );
 
         Button cancel =
-                smallButton("CANCEL");
+                smallButton(
+                        "CANCEL"
+                );
 
         cancel.setOnClickListener(
                 new View.OnClickListener() {
@@ -2049,7 +2131,8 @@ private LinearLayout serviceGridItem(
                     (int)(
                             getResources()
                                     .getDisplayMetrics()
-                                    .widthPixels * 0.92
+                                    .widthPixels
+                                    * 0.92
                     ),
                     dp(560)
             );
@@ -2225,9 +2308,9 @@ private LinearLayout serviceGridItem(
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245,248,255),
-                                Color.rgb(238,244,255),
-                                Color.rgb(247,243,252)
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
                         }
                 );
 
@@ -2262,7 +2345,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 back,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         TextView title =
@@ -2284,7 +2367,7 @@ private LinearLayout serviceGridItem(
                         13,
                         GRAY
                 ),
-                margin(0,5,0,18)
+                margin(0, 5, 0, 18)
         );
 
         LinearLayout selected =
@@ -2313,7 +2396,7 @@ private LinearLayout serviceGridItem(
 
         selected.addView(
                 center,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         selected.addView(
@@ -2324,12 +2407,12 @@ private LinearLayout serviceGridItem(
                         12,
                         GREEN
                 ),
-                margin(0,3,0,0)
+                margin(0, 3, 0, 0)
         );
 
         page.addView(
                 selected,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         LinearLayout country =
@@ -2356,7 +2439,7 @@ private LinearLayout serviceGridItem(
 
         country.addView(
                 countryTitle,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         country.addView(
@@ -2365,12 +2448,12 @@ private LinearLayout serviceGridItem(
                         12,
                         GRAY
                 ),
-                margin(0,3,0,0)
+                margin(0, 3, 0, 0)
         );
 
         page.addView(
                 country,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
 
         LinearLayout tourism =
@@ -2397,7 +2480,7 @@ private LinearLayout serviceGridItem(
 
         tourism.addView(
                 tourismTitle,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         tourism.addView(
@@ -2406,14 +2489,13 @@ private LinearLayout serviceGridItem(
                         12,
                         GRAY
                 ),
-                margin(0,3,0,0)
+                margin(0, 3, 0, 0)
         );
 
         tourism.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         showPreviousSpainVisaPage();
                     }
                 }
@@ -2421,7 +2503,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 tourism,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
     }
 
@@ -2546,7 +2628,6 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         showVisaIssuingCountryPage();
                     }
                 }
@@ -2554,7 +2635,7 @@ private LinearLayout serviceGridItem(
 
         layout.addView(
                 yes,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         TextView no =
@@ -2653,7 +2734,6 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         showPreviousSpainVisaPage();
                     }
                 }
@@ -2710,7 +2790,6 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         showVisaValidityPage();
                     }
                 }
@@ -2718,7 +2797,7 @@ private LinearLayout serviceGridItem(
 
         layout.addView(
                 spain,
-                margin(0,0,0,12)
+                margin(0, 0, 0, 12)
         );
 
         TextView other =
@@ -2817,7 +2896,6 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         showVisaIssuingCountryPage();
                     }
                 }
@@ -2874,17 +2952,14 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        selectAppointmentCategory(
-                                "ALG2"
-                        );
+                        selectAppointmentCategory("ALG2");
                     }
                 }
         );
 
         layout.addView(
                 alg2,
-                margin(0,0,0,12)
+                margin(0, 0, 0, 12)
         );
 
         TextView alg3 =
@@ -2907,17 +2982,14 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        selectAppointmentCategory(
-                                "ALG3"
-                        );
+                        selectAppointmentCategory("ALG3");
                     }
                 }
         );
 
         layout.addView(
                 alg3,
-                margin(0,0,0,12)
+                margin(0, 0, 0, 12)
         );
 
         TextView alg4 =
@@ -2940,34 +3012,23 @@ private LinearLayout serviceGridItem(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        selectAppointmentCategory(
-                                "ALG4"
-                        );
+                        selectAppointmentCategory("ALG4");
                     }
                 }
         );
 
         layout.addView(
                 alg4,
-                margin(0,0,0,20)
+                margin(0, 0, 0, 20)
         );
 
-        TextView info =
+        layout.addView(
                 text(
                         "Your previous Spain visa validity determines the appropriate BLS appointment category.",
                         14,
                         GRAY
-                );
-
-        info.setPadding(
-                0,
-                dp(5),
-                0,
-                0
+                )
         );
-
-        layout.addView(info);
 
         scroll.addView(layout);
 
@@ -2982,7 +3043,8 @@ private LinearLayout serviceGridItem(
             String category
     ) {
 
-        selectedCategory = category;
+        selectedCategory =
+                category;
 
         showAppointmentCategoryPage();
     }
@@ -3023,8 +3085,11 @@ private LinearLayout serviceGridItem(
                     public void onClick(View v) {
 
                         if (selectedCategory.equals("ALG1")) {
+
                             showPreviousSpainVisaPage();
+
                         } else {
+
                             showVisaValidityPage();
                         }
                     }
@@ -3033,7 +3098,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 back,
-                margin(0,0,0,18)
+                margin(0, 0, 0, 18)
         );
 
         TextView title =
@@ -3049,7 +3114,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 title,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
         TextView selected =
@@ -3069,7 +3134,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 selected,
-                margin(0,0,0,20)
+                margin(0, 0, 0, 20)
         );
 
         String description;
@@ -3117,12 +3182,12 @@ private LinearLayout serviceGridItem(
                         15,
                         GRAY
                 ),
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 infoCard,
-                margin(0,0,0,20)
+                margin(0, 0, 0, 20)
         );
 
         LinearLayout centerCard =
@@ -3142,12 +3207,12 @@ private LinearLayout serviceGridItem(
                         18,
                         NAVY
                 ),
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 centerCard,
-                margin(0,0,0,20)
+                margin(0, 0, 0, 20)
         );
 
         TextView confirmation =
@@ -3163,15 +3228,13 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 confirmation,
-                margin(0,0,0,25)
+                margin(0, 0, 0, 25)
         );
 
         Button continueButton =
-                new Button(this);
-
-        continueButton.setText(
-                "CONTINUE"
-        );
+                smallButton(
+                        "CONTINUE"
+                );
 
         continueButton.setTextSize(16);
 
@@ -3186,7 +3249,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 continueButton,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
 
         scroll.addView(page);
@@ -3239,7 +3302,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 back,
-                margin(0,0,0,18)
+                margin(0, 0, 0, 18)
         );
 
         TextView title =
@@ -3255,19 +3318,16 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 title,
-                margin(0,0,0,8)
+                margin(0, 0, 0, 8)
         );
 
-        TextView subtitle =
+        page.addView(
                 text(
                         "Review your appointment information before continuing.",
                         16,
                         GRAY
-                );
-
-        page.addView(
-                subtitle,
-                margin(0,0,0,20)
+                ),
+                margin(0, 0, 0, 20)
         );
 
         LinearLayout categoryCard =
@@ -3294,12 +3354,12 @@ private LinearLayout serviceGridItem(
 
         categoryCard.addView(
                 categoryValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 categoryCard,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         LinearLayout centerCard =
@@ -3326,12 +3386,12 @@ private LinearLayout serviceGridItem(
 
         centerCard.addView(
                 centerValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 centerCard,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         LinearLayout residenceCard =
@@ -3358,12 +3418,12 @@ private LinearLayout serviceGridItem(
 
         residenceCard.addView(
                 residenceValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 residenceCard,
-                margin(0,0,0,20)
+                margin(0, 0, 0, 20)
         );
 
         TextView info =
@@ -3379,17 +3439,15 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 info,
-                margin(0,0,0,25)
+                margin(0, 0, 0, 25)
         );
 
         Button openBlsButton =
-                new Button(this);
+                smallButton(
+                        "OPEN OFFICIAL BLS"
+                );
 
-        openBlsButton.setText(
-                "OPEN OFFICIAL BLS"
-        );
-
-        openBlsButton.setTextSize(16);
+        openBlsButton.setTextSize(13);
 
         openBlsButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -3397,7 +3455,9 @@ private LinearLayout serviceGridItem(
                     public void onClick(View v) {
 
                         AlertDialog.Builder builder =
-                                new AlertDialog.Builder(MainActivity.this);
+                                new AlertDialog.Builder(
+                                        MainActivity.this
+                                );
 
                         builder.setTitle(
                                 "Official BLS Spain"
@@ -3444,7 +3504,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 openBlsButton,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
 
         scroll.addView(page);
@@ -3453,7 +3513,7 @@ private LinearLayout serviceGridItem(
     }
 
     // =========================================================
-    // ORIGINAL SERVICE PAGES
+    // ALERTS
     // =========================================================
 
     private void showAlerts() {
@@ -3470,6 +3530,10 @@ private LinearLayout serviceGridItem(
                 }
         );
     }
+
+    // =========================================================
+    // CENTERS
+    // =========================================================
 
     private void showCenters() {
 
@@ -3498,9 +3562,9 @@ private LinearLayout serviceGridItem(
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245,248,255),
-                                Color.rgb(238,244,255),
-                                Color.rgb(247,243,252)
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
                         }
                 );
 
@@ -3535,7 +3599,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 back,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         TextView title =
@@ -3557,7 +3621,7 @@ private LinearLayout serviceGridItem(
                         13,
                         GRAY
                 ),
-                margin(0,5,0,20)
+                margin(0, 5, 0, 20)
         );
 
         final android.content.SharedPreferences preferences =
@@ -3575,14 +3639,13 @@ private LinearLayout serviceGridItem(
         LinearLayout currentCard =
                 card();
 
-        TextView currentTitle =
+        currentCard.addView(
                 text(
                         "CURRENT CENTER",
                         10,
                         GRAY
-                );
-
-        currentCard.addView(currentTitle);
+                )
+        );
 
         final TextView currentValue =
                 text(
@@ -3601,7 +3664,7 @@ private LinearLayout serviceGridItem(
 
         currentCard.addView(
                 currentValue,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         currentCard.addView(
@@ -3612,12 +3675,12 @@ private LinearLayout serviceGridItem(
                         11,
                         GRAY
                 ),
-                margin(0,3,0,0)
+                margin(0, 3, 0, 0)
         );
 
         page.addView(
                 currentCard,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         LinearLayout algiersCard =
@@ -3649,7 +3712,7 @@ private LinearLayout serviceGridItem(
 
         algiersCard.addView(
                 algiersStatus,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         algiersCard.setOnClickListener(
@@ -3664,7 +3727,8 @@ private LinearLayout serviceGridItem(
                                 )
                                 .apply();
 
-                        selectedCenter = "Algiers";
+                        selectedCenter =
+                                "Algiers";
 
                         currentValue.setText(
                                 "Algiers Visa Center"
@@ -3690,7 +3754,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 algiersCard,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
 
         LinearLayout oranCard =
@@ -3722,7 +3786,7 @@ private LinearLayout serviceGridItem(
 
         oranCard.addView(
                 oranStatus,
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         oranCard.setOnClickListener(
@@ -3737,7 +3801,8 @@ private LinearLayout serviceGridItem(
                                 )
                                 .apply();
 
-                        selectedCenter = "Oran";
+                        selectedCenter =
+                                "Oran";
 
                         currentValue.setText(
                                 "Oran Visa Center"
@@ -3763,7 +3828,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 oranCard,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         LinearLayout info =
@@ -3788,14 +3853,18 @@ private LinearLayout serviceGridItem(
                         12,
                         GRAY
                 ),
-                margin(0,5,0,0)
+                margin(0, 5, 0, 0)
         );
 
         page.addView(
                 info,
-                margin(0,0,0,10)
+                margin(0, 0, 0, 10)
         );
     }
+
+    // =========================================================
+    // TRACKING
+    // =========================================================
 
     private void showTracking() {
 
@@ -3812,6 +3881,10 @@ private LinearLayout serviceGridItem(
         );
     }
 
+    // =========================================================
+    // COUNTRIES
+    // =========================================================
+
     private void showCountries() {
 
         currentPage = "COUNTRIES";
@@ -3825,6 +3898,10 @@ private LinearLayout serviceGridItem(
                 }
         );
     }
+
+    // =========================================================
+    // STATISTICS
+    // =========================================================
 
     private void showStatistics() {
 
@@ -3840,6 +3917,10 @@ private LinearLayout serviceGridItem(
                 }
         );
     }
+
+    // =========================================================
+    // SETTINGS
+    // =========================================================
 
     private void showSettings() {
 
@@ -3857,7 +3938,7 @@ private LinearLayout serviceGridItem(
     }
 
     // =========================================================
-    // UI HELPERS
+    // APPOINTMENT CARD
     // =========================================================
 
     private LinearLayout appointmentCard() {
@@ -3877,19 +3958,39 @@ private LinearLayout serviceGridItem(
         );
 
         GradientDrawable bg =
-                new GradientDrawable();
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.WHITE,
+                                Color.rgb(247, 249, 253)
+                        }
+                );
 
-        bg.setColor(Color.WHITE);
-        bg.setCornerRadius(dp(18));
+        bg.setCornerRadius(
+                dp(18)
+        );
+
         bg.setStroke(
                 dp(1),
-                Color.rgb(225,230,240)
+                Color.rgb(225, 230, 240)
         );
 
         c.setBackground(bg);
 
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.LOLLIPOP) {
+
+            c.setElevation(
+                    dp(1)
+            );
+        }
+
         return c;
     }
+
+    // =========================================================
+    // OLD SERVICE CARD
+    // =========================================================
 
     private LinearLayout service(
             String icon,
@@ -3917,13 +4018,21 @@ private LinearLayout serviceGridItem(
         );
 
         GradientDrawable bg =
-                new GradientDrawable();
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.WHITE,
+                                Color.rgb(246, 249, 254)
+                        }
+                );
 
-        bg.setColor(Color.WHITE);
-        bg.setCornerRadius(dp(19));
+        bg.setCornerRadius(
+                dp(19)
+        );
+
         bg.setStroke(
                 dp(1),
-                Color.rgb(226,231,240)
+                Color.rgb(226, 231, 240)
         );
 
         card.setBackground(bg);
@@ -3935,7 +4044,9 @@ private LinearLayout serviceGridItem(
                         NAVY
                 );
 
-        i.setGravity(Gravity.CENTER);
+        i.setGravity(
+                Gravity.CENTER
+        );
 
         card.addView(i);
 
@@ -3950,7 +4061,9 @@ private LinearLayout serviceGridItem(
                 Typeface.DEFAULT_BOLD
         );
 
-        t.setGravity(Gravity.CENTER);
+        t.setGravity(
+                Gravity.CENTER
+        );
 
         card.addView(t);
 
@@ -3961,11 +4074,15 @@ private LinearLayout serviceGridItem(
                         GRAY
                 );
 
-        s.setGravity(Gravity.CENTER);
+        s.setGravity(
+                Gravity.CENTER
+        );
 
         card.addView(s);
 
-        card.setOnClickListener(listener);
+        card.setOnClickListener(
+                listener
+        );
 
         LinearLayout.LayoutParams p =
                 new LinearLayout.LayoutParams(
@@ -4092,6 +4209,10 @@ private LinearLayout serviceGridItem(
         return item;
     }
 
+    // =========================================================
+    // GENERIC PAGE
+    // =========================================================
+
     private void page(
             String title,
             String subtitle,
@@ -4121,9 +4242,9 @@ private LinearLayout serviceGridItem(
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245,248,255),
-                                Color.rgb(238,244,255),
-                                Color.rgb(247,243,252)
+                                Color.rgb(245, 248, 255),
+                                Color.rgb(238, 244, 255),
+                                Color.rgb(247, 243, 252)
                         }
                 );
 
@@ -4158,7 +4279,7 @@ private LinearLayout serviceGridItem(
 
         page.addView(
                 back,
-                margin(0,0,0,15)
+                margin(0, 0, 0, 15)
         );
 
         TextView titleView =
@@ -4180,7 +4301,7 @@ private LinearLayout serviceGridItem(
                         13,
                         GRAY
                 ),
-                margin(0,5,0,18)
+                margin(0, 5, 0, 18)
         );
 
         for (String item : items) {
@@ -4198,53 +4319,232 @@ private LinearLayout serviceGridItem(
 
             page.addView(
                     c,
-                    margin(0,5,0,5)
+                    margin(0, 5, 0, 5)
             );
         }
     }
 
+    // =========================================================
+    // MAIN CARD
+    // =========================================================
+
     private LinearLayout card() {
 
-    LinearLayout c =
-            new LinearLayout(this);
+        LinearLayout c =
+                new LinearLayout(this);
 
-    c.setOrientation(
-            LinearLayout.VERTICAL
-    );
+        c.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
-    c.setPadding(
-            dp(16),
-            dp(14),
-            dp(16),
-            dp(14)
-    );
+        c.setPadding(
+                dp(16),
+                dp(14),
+                dp(16),
+                dp(14)
+        );
 
-    GradientDrawable bg =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(255, 255, 255),
-                            Color.rgb(246, 248, 253)
-                    }
+        GradientDrawable bg =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.rgb(255, 255, 255),
+                                Color.rgb(246, 248, 253)
+                        }
+                );
+
+        bg.setCornerRadius(
+                dp(19)
+        );
+
+        bg.setStroke(
+                dp(1),
+                Color.rgb(228, 233, 243)
+        );
+
+        c.setBackground(bg);
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.LOLLIPOP) {
+
+            c.setElevation(
+                    dp(2)
             );
-
-    bg.setCornerRadius(dp(19));
-
-    bg.setStroke(
-            dp(1),
-            Color.rgb(228, 233, 243)
-    );
-
-    c.setBackground(bg);
-
-    if (Build.VERSION.SDK_INT >=
-            Build.VERSION_CODES.LOLLIPOP) {
-
-        c.setElevation(dp(2));
-    }
+        }
 
         return c;
+    }
+
+    // =========================================================
+    // SMALL BUTTON
+    // =========================================================
+
+    private Button smallButton(
+            String label
+    ) {
+
+        Button b =
+                new Button(this);
+
+        b.setText(label);
+        b.setTextSize(10);
+        b.setTextColor(WHITE);
+
+        GradientDrawable bg =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.rgb(55, 105, 205),
+                                Color.rgb(75, 80, 170)
+                        }
+                );
+
+        bg.setCornerRadius(
+                dp(15)
+        );
+
+        b.setBackground(bg);
+
+        return b;
+    }
+
+    // =========================================================
+    // TEXT HELPER
+    // =========================================================
+
+    private TextView text(
+            String value,
+            float size,
+            int color
+    ) {
+
+        TextView t =
+                new TextView(this);
+
+        t.setText(value);
+        t.setTextSize(size);
+        t.setTextColor(color);
+
+        return t;
+    }
+
+    // =========================================================
+    // MARGIN HELPER
+    // =========================================================
+
+    private LinearLayout.LayoutParams margin(
+            int left,
+            int top,
+            int right,
+            int bottom
+    ) {
+
+        LinearLayout.LayoutParams p =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
+
+        p.setMargins(
+                dp(left),
+                dp(top),
+                dp(right),
+                dp(bottom)
+        );
+
+        return p;
+    }
+
+    // =========================================================
+    // DP HELPER
+    // =========================================================
+
+    private int dp(
+            int value
+    ) {
+
+        return (int)(
+                value *
+                getResources()
+                        .getDisplayMetrics()
+                        .density
+                        + 0.5f
+        );
+    }
+
+    // =========================================================
+    // HARDWARE BACK NAVIGATION
+    // =========================================================
+
+    @Override
+    public void onBackPressed() {
+
+        if (currentPage.equals("HOME")) {
+
+            super.onBackPressed();
+
+        } else if (currentPage.equals("APPOINTMENTS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("VISA_TYPE")) {
+
+            showAppointments();
+
+        } else if (currentPage.equals("PREVIOUS_VISA")) {
+
+            showVisaTypePage();
+
+        } else if (currentPage.equals("ISSUING_COUNTRY")) {
+
+            showPreviousSpainVisaPage();
+
+        } else if (currentPage.equals("VISA_VALIDITY")) {
+
+            showVisaIssuingCountryPage();
+
+        } else if (currentPage.equals("CATEGORY")) {
+
+            if (selectedCategory.equals("ALG1")) {
+
+                showPreviousSpainVisaPage();
+
+            } else {
+
+                showVisaValidityPage();
+            }
+
+        } else if (currentPage.equals("DETAILS")) {
+
+            showAppointmentCategoryPage();
+
+        } else if (currentPage.equals("ALERTS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("CENTERS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("TRACKING")) {
+
+            showHome();
+
+        } else if (currentPage.equals("COUNTRIES")) {
+
+            showHome();
+
+        } else if (currentPage.equals("STATISTICS")) {
+
+            showHome();
+
+        } else if (currentPage.equals("SETTINGS")) {
+
+            showHome();
+
+        } else {
+
+            showHome();
+        }
+    }
 }
-}
-        
-            
