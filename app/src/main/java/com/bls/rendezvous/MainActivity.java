@@ -210,9 +210,9 @@ public class MainActivity extends Activity {
 
         TextView appName =
         text(
-                "BLS TEST 248",
+                "BLS LIVE TEST 251",
                 24,
-                NAVY
+                Color.RED
         );
 
         appName.setTypeface(Typeface.DEFAULT_BOLD);
