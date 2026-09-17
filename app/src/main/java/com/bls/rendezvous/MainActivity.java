@@ -208,11 +208,11 @@ public class MainActivity extends Activity {
         LinearLayout titles = new LinearLayout(this);
         titles.setOrientation(LinearLayout.VERTICAL);
 
-        TextView appName =
+       TextView appName =
         text(
-                "BLS LIVE TEST 251",
+                "BLS TEST 248",
                 24,
-                Color.RED
+                NAVY
         );
 
         appName.setTypeface(Typeface.DEFAULT_BOLD);
@@ -748,7 +748,7 @@ public class MainActivity extends Activity {
         // PROFESSIONAL BOTTOM NAVIGATION
         // =====================================================
 
-        LinearLayout bottom =
+                LinearLayout bottom =
                 new LinearLayout(this);
 
         bottom.setOrientation(
@@ -760,13 +760,16 @@ public class MainActivity extends Activity {
         );
 
         bottom.setPadding(
-                dp(6),
-                dp(5),
-                dp(6),
-                dp(5)
+                dp(4),
+                dp(4),
+                dp(4),
+                dp(4)
         );
 
-        // BLS style gradient
+        // =====================================================
+        // BLS STYLE GRADIENT
+        // =====================================================
+
         GradientDrawable bottomBg =
                 new GradientDrawable(
                         GradientDrawable.Orientation.LEFT_RIGHT,
@@ -778,8 +781,14 @@ public class MainActivity extends Activity {
                         }
                 );
 
-        bottomBg.setCornerRadius(
-                dp(22)
+        // Slightly rounded top corners only
+        bottomBg.setCornerRadii(
+                new float[]{
+                        dp(18), dp(18),
+                        dp(18), dp(18),
+                        0, 0,
+                        0, 0
+                }
         );
 
         bottom.setBackground(
@@ -858,14 +867,17 @@ public class MainActivity extends Activity {
 
         bottom.addView(settingsNav);
 
+        // =====================================================
+        // BOTTOM NAVIGATION
+        // =====================================================
+
         root.addView(
                 bottom,
                 new LinearLayout.LayoutParams(
                         -1,
-                        dp(70)
+                        dp(64)
                 )
         );
-    }
 
     // =========================================================
     // APPOINTMENTS
