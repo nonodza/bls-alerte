@@ -204,45 +204,87 @@ public class MainActivity extends Activity {
         root.setBackground(background);
         setContentView(root);
 
-        LinearLayout header = new LinearLayout(this);
-        header.setGravity(Gravity.CENTER_VERTICAL);
-        header.setPadding(
-                dp(20),
-                dp(18),
-                dp(20),
-                dp(8)
+   LinearLayout header = new LinearLayout(this);
+
+header.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+header.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+header.setPadding(
+        dp(20),
+        dp(16),
+        dp(20),
+        dp(10)
+);
+
+// =====================================================
+// APP IDENTITY
+// =====================================================
+
+LinearLayout titles =
+        new LinearLayout(this);
+
+titles.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+titles.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// -----------------------------------------------------
+// APP NAME
+// -----------------------------------------------------
+
+TextView appName =
+        text(
+                "BLS Rendez-Vous",
+                24,
+                NAVY
         );
 
-        LinearLayout titles = new LinearLayout(this);
-        titles.setOrientation(LinearLayout.VERTICAL);
+appName.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-        TextView appName =
-                text(
-                        "BLS Rendez-Vous",
-                        24,
-                        NAVY
-                );
+// -----------------------------------------------------
+// SUBTITLE
+// -----------------------------------------------------
 
-        appName.setTypeface(Typeface.DEFAULT_BOLD);
-
-        titles.addView(appName);
-
-        titles.addView(
-                text(
-                        "Your visa appointment assistant",
-                        12,
-                        GRAY
-                )
+TextView subtitle =
+        text(
+                "Your visa appointment assistant",
+                12,
+                GRAY
         );
 
-        header.addView(
-                titles,
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                )
-        );
+subtitle.setPadding(
+        0,
+        dp(2),
+        0,
+        0
+);
+
+titles.addView(
+        appName
+);
+
+titles.addView(
+        subtitle
+);
+
+header.addView(
+        titles,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1
+        )
+);     
 
         // =====================================================
         // TOP SETTINGS REMOVED
