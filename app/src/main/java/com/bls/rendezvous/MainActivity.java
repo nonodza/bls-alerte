@@ -4205,180 +4205,45 @@ private LinearLayout serviceGridItem(
 
     private LinearLayout card() {
 
-        LinearLayout c =
-                new LinearLayout(this);
+    LinearLayout c =
+            new LinearLayout(this);
 
-        c.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    c.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        c.setPadding(
-                dp(16),
-                dp(14),
-                dp(16),
-                dp(14)
-        );
+    c.setPadding(
+            dp(16),
+            dp(14),
+            dp(16),
+            dp(14)
+    );
 
-        GradientDrawable bg =
-                new GradientDrawable();
+    GradientDrawable bg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(246, 248, 253)
+                    }
+            );
 
-        bg.setColor(WHITE);
-        bg.setCornerRadius(dp(19));
-        bg.setStroke(
-                dp(1),
-                Color.rgb(225,230,240)
-        );
+    bg.setCornerRadius(dp(19));
 
-        c.setBackground(bg);
+    bg.setStroke(
+            dp(1),
+            Color.rgb(228, 233, 243)
+    );
 
-        return c;
+    c.setBackground(bg);
+
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        c.setElevation(dp(2));
     }
 
-    private Button smallButton(
-            String label
-    ) {
-
-        Button b =
-                new Button(this);
-
-        b.setText(label);
-        b.setTextSize(10);
-        b.setTextColor(WHITE);
-
-        GradientDrawable bg =
-                new GradientDrawable();
-
-        bg.setColor(BLUE);
-        bg.setCornerRadius(dp(15));
-
-        b.setBackground(bg);
-
-        return b;
-    }
-
-    private TextView text(
-            String value,
-            float size,
-            int color
-    ) {
-
-        TextView t =
-                new TextView(this);
-
-        t.setText(value);
-        t.setTextSize(size);
-        t.setTextColor(color);
-
-        return t;
-    }
-
-    private LinearLayout.LayoutParams margin(
-            int left,
-            int top,
-            int right,
-            int bottom
-    ) {
-
-        LinearLayout.LayoutParams p =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        -2
-                );
-
-        p.setMargins(
-                dp(left),
-                dp(top),
-                dp(right),
-                dp(bottom)
-        );
-
-        return p;
-    }
-
-    private int dp(int value) {
-
-        return (int)(
-                value *
-                getResources()
-                        .getDisplayMetrics()
-                        .density
-                        + 0.5f
-        );
-    }
-
-    // =========================================================
-    // HARDWARE BACK NAVIGATION
-    // =========================================================
-
-    @Override
-    public void onBackPressed() {
-
-        if (currentPage.equals("HOME")) {
-
-            super.onBackPressed();
-
-        } else if (currentPage.equals("APPOINTMENTS")) {
-
-            showHome();
-
-        } else if (currentPage.equals("VISA_TYPE")) {
-
-            showAppointments();
-
-        } else if (currentPage.equals("PREVIOUS_VISA")) {
-
-            showVisaTypePage();
-
-        } else if (currentPage.equals("ISSUING_COUNTRY")) {
-
-            showPreviousSpainVisaPage();
-
-        } else if (currentPage.equals("VISA_VALIDITY")) {
-
-            showVisaIssuingCountryPage();
-
-        } else if (currentPage.equals("CATEGORY")) {
-
-            if (selectedCategory.equals("ALG1")) {
-
-                showPreviousSpainVisaPage();
-
-            } else {
-
-                showVisaValidityPage();
-            }
-
-        } else if (currentPage.equals("DETAILS")) {
-
-            showAppointmentCategoryPage();
-
-        } else if (currentPage.equals("ALERTS")) {
-
-            showHome();
-
-        } else if (currentPage.equals("CENTERS")) {
-
-            showHome();
-
-        } else if (currentPage.equals("TRACKING")) {
-
-            showHome();
-
-        } else if (currentPage.equals("COUNTRIES")) {
-
-            showHome();
-
-        } else if (currentPage.equals("STATISTICS")) {
-
-            showHome();
-
-        } else if (currentPage.equals("SETTINGS")) {
-
-            showHome();
-
-        } else {
-
-            showHome();
-        }
-    }
+    return c;
 }
+        
+            
