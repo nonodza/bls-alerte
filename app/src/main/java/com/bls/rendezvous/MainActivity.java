@@ -1229,42 +1229,38 @@ private LinearLayout serviceGridItem(
     );
 
     // =====================================================
-    // ICON
-    // =====================================================
+// ICON
+// =====================================================
 
-    TextView iconView =
-            new TextView(this);
+TextView iconView =
+        new TextView(this);
 
-    iconView.setText(icon);
-    iconView.setTextSize(22);
-    iconView.setGravity(
-            Gravity.CENTER
-    );
+iconView.setText(icon);
+iconView.setTextSize(22);
+iconView.setGravity(
+        Gravity.CENTER
+);
 
-    GradientDrawable iconBackground =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(230, 239, 255),
-                            Color.rgb(241, 232, 255)
-                    }
-            );
+iconView.setIncludeFontPadding(true);
 
-    iconBackground.setShape(
-            GradientDrawable.OVAL
-    );
+GradientDrawable iconBackground =
+        new GradientDrawable();
 
-    iconView.setBackground(
-            iconBackground
-    );
+iconBackground.setColor(
+        Color.rgb(238, 244, 255)
+);
 
-    item.addView(
-            iconView,
-            new LinearLayout.LayoutParams(
-                    dp(50),
-                    dp(50)
-            )
-    );
+iconBackground.setShape(
+        GradientDrawable.OVAL
+);
+
+item.addView(
+        iconView,
+        new LinearLayout.LayoutParams(
+                dp(46),
+                dp(46)
+        )
+);
 
     // =====================================================
     // TITLE
