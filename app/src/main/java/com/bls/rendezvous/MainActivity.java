@@ -1183,36 +1183,27 @@ private LinearLayout serviceGridItem(
     // SERVICE CARD BACKGROUND
     // =====================================================
 
-    GradientDrawable itemBackground =
+    GradientDrawable servicesBackground =
             new GradientDrawable(
                     GradientDrawable.Orientation.TL_BR,
                     new int[]{
-                            Color.rgb(255, 255, 255),
-                            Color.rgb(235, 243, 255),
-                            Color.rgb(246, 239, 253)
+                            Color.rgb(207, 222, 255),
+                            Color.rgb(228, 214, 255)
                     }
             );
 
-    itemBackground.setCornerRadius(
-            dp(20)
+    servicesBackground.setCornerRadius(
+            dp(28)
     );
 
-    itemBackground.setStroke(
+    servicesBackground.setStroke(
             dp(1),
-            Color.rgb(228, 233, 243)
+            Color.rgb(225, 225, 255)
     );
 
     item.setBackground(
-            itemBackground
+            servicesBackground
     );
-
-    if (Build.VERSION.SDK_INT >=
-            Build.VERSION_CODES.LOLLIPOP) {
-
-        item.setElevation(
-                dp(3)
-        );
-    }
 
     // =====================================================
     // ICON
@@ -1294,7 +1285,7 @@ private LinearLayout serviceGridItem(
     );
 
     // =====================================================
-    // SIZE
+    // SIZE & MARGIN
     // =====================================================
 
     LinearLayout.LayoutParams params =
@@ -1314,7 +1305,7 @@ private LinearLayout serviceGridItem(
     item.setLayoutParams(params);
 
     return item;
-}  
+}
     
     // =========================================================
     // APPOINTMENTS
