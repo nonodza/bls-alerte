@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 
@@ -1232,16 +1233,49 @@ private LinearLayout serviceGridItem(
 // ICON
 // =====================================================
 
-TextView iconView =
-        new TextView(this);
+ImageView iconView =
+        new ImageView(this);
 
-iconView.setText(icon);
-iconView.setTextSize(22);
-iconView.setGravity(
-        Gravity.CENTER
+if (title.equals("Appointments")) {
+
+    iconView.setImageResource(
+            android.R.drawable.ic_menu_my_calendar
+    );
+
+} else if (title.equals("Alerts")) {
+
+    iconView.setImageResource(
+            android.R.drawable.ic_dialog_info
+    );
+
+} else if (title.equals("Centers")) {
+
+    iconView.setImageResource(
+            android.R.drawable.ic_menu_mapmode
+    );
+
+} else if (title.equals("Tracking")) {
+
+    iconView.setImageResource(
+            android.R.drawable.ic_menu_directions
+    );
+
+} else if (title.equals("Countries")) {
+
+    iconView.setImageResource(
+            android.R.drawable.ic_menu_compass
+    );
+
+} else if (title.equals("Statistics")) {
+
+    iconView.setImageResource(
+            android.R.drawable.ic_menu_sort_by_size
+    );
+}
+
+iconView.setScaleType(
+        ImageView.ScaleType.CENTER
 );
-
-iconView.setIncludeFontPadding(true);
 
 GradientDrawable iconBackground =
         new GradientDrawable();
@@ -1252,6 +1286,10 @@ iconBackground.setColor(
 
 iconBackground.setShape(
         GradientDrawable.OVAL
+);
+
+iconView.setBackground(
+        iconBackground
 );
 
 item.addView(
