@@ -898,7 +898,7 @@ servicesContainer.addView(
         margin(2, 0, 0, 10)
 );
 
-  // =====================================================
+ // =====================================================
 // SERVICES GRID — 2 COLUMNS
 // =====================================================
 
@@ -947,7 +947,7 @@ servicesContainer.addView(
         row1,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(78)
+                dp(122)
         )
 );
 
@@ -996,7 +996,7 @@ servicesContainer.addView(
         row2,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(78)
+                dp(122)
         )
 );
 
@@ -1045,9 +1045,9 @@ servicesContainer.addView(
         row3,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(78)
+                dp(122)
         )
-);      
+);
 
 // =====================================================
 // ADD SERVICES CONTAINER TO HOME
@@ -1056,7 +1056,8 @@ servicesContainer.addView(
 content.addView(
         servicesContainer,
         margin(0, 10, 0, 10)
-);
+); 
+
         // =====================================================
         // SEARCH
         // =====================================================
