@@ -1151,11 +1151,11 @@ servicesContainer.addView(
         );
     }
 
-    // =========================================================
-    // SERVICE GRID ITEM
-    // =========================================================
+  // =========================================================
+// SERVICE GRID ITEM
+// =========================================================
 
-    private LinearLayout serviceGridItem(
+private LinearLayout serviceGridItem(
         String icon,
         String title,
         View.OnClickListener listener
@@ -1183,27 +1183,36 @@ servicesContainer.addView(
     // SERVICE CARD BACKGROUND
     // =====================================================
 
-    GradientDrawable servicesBackground =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(207, 222, 255),
-                        Color.rgb(228, 214, 255)
-                }
+    GradientDrawable itemBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(235, 243, 255),
+                            Color.rgb(246, 239, 253)
+                    }
+            );
+
+    itemBackground.setCornerRadius(
+            dp(20)
+    );
+
+    itemBackground.setStroke(
+            dp(1),
+            Color.rgb(228, 233, 243)
+    );
+
+    item.setBackground(
+            itemBackground
+    );
+
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        item.setElevation(
+                dp(3)
         );
-
-servicesBackground.setCornerRadius(
-        dp(28)
-);
-
-servicesBackground.setStroke(
-        dp(1),
-        Color.rgb(225, 225, 255)
-);
-
-servicesContainer.setBackground(
-        servicesBackground
-);
+    }
 
     // =====================================================
     // ICON
@@ -1285,7 +1294,7 @@ servicesContainer.setBackground(
     );
 
     // =====================================================
-    // SIZE & MARGIN
+    // SIZE
     // =====================================================
 
     LinearLayout.LayoutParams params =
@@ -1305,8 +1314,8 @@ servicesContainer.setBackground(
     item.setLayoutParams(params);
 
     return item;
-}
-
+}  
+    
     // =========================================================
     // APPOINTMENTS
     // =========================================================
