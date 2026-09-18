@@ -844,41 +844,6 @@ servicesContainer.setPadding(
 );
 
 // =====================================================
-// SERVICES BACKGROUND
-// =====================================================
-
-GradientDrawable servicesBackground =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(205, 226, 255),
-                        Color.rgb(230, 218, 250),
-                        Color.rgb(250, 247, 255)
-                }
-        );
-
-servicesBackground.setCornerRadius(
-        dp(22)
-);
-
-servicesBackground.setStroke(
-        dp(1),
-        Color.rgb(218, 224, 240)
-);
-
-servicesContainer.setBackground(
-        servicesBackground
-);
-
-if (Build.VERSION.SDK_INT >=
-        Build.VERSION_CODES.LOLLIPOP) {
-
-    servicesContainer.setElevation(
-            dp(2)
-    );
-}
-
-// =====================================================
 // SERVICES TITLE
 // =====================================================
 
@@ -898,7 +863,7 @@ servicesContainer.addView(
         margin(2, 0, 0, 10)
 );
 
- // =====================================================
+  // =====================================================
 // SERVICES GRID — 2 COLUMNS
 // =====================================================
 
@@ -921,6 +886,7 @@ row1.addView(
         serviceGridItem(
                 "📅",
                 "Appointments",
+                "Find appointments",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -934,6 +900,7 @@ row1.addView(
         serviceGridItem(
                 "🔔",
                 "Alerts",
+                "Availability alerts",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -947,7 +914,7 @@ servicesContainer.addView(
         row1,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(122)
+                dp(94)
         )
 );
 
@@ -970,6 +937,7 @@ row2.addView(
         serviceGridItem(
                 "🏢",
                 "Centers",
+                "Visa centers",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -983,6 +951,7 @@ row2.addView(
         serviceGridItem(
                 "📋",
                 "Tracking",
+                "Track application",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -996,7 +965,7 @@ servicesContainer.addView(
         row2,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(122)
+                dp(94)
         )
 );
 
@@ -1019,6 +988,7 @@ row3.addView(
         serviceGridItem(
                 "🌍",
                 "Countries",
+                "Visa countries",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1032,6 +1002,7 @@ row3.addView(
         serviceGridItem(
                 "📊",
                 "Statistics",
+                "View statistics",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1045,7 +1016,7 @@ servicesContainer.addView(
         row3,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(122)
+                dp(94)
         )
 );
 
@@ -1056,8 +1027,7 @@ servicesContainer.addView(
 content.addView(
         servicesContainer,
         margin(0, 10, 0, 10)
-); 
-
+);
         // =====================================================
         // SEARCH
         // =====================================================
@@ -1185,12 +1155,13 @@ content.addView(
 
   
 // =========================================================
-// SERVICE GRID ITEM - PROFESSIONAL
+// SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
 // =========================================================
 
 private LinearLayout serviceGridItem(
         String icon,
         String title,
+        String description,
         View.OnClickListener listener
 ) {
 
@@ -1202,16 +1173,16 @@ private LinearLayout serviceGridItem(
             new LinearLayout(this);
 
     item.setOrientation(
-            LinearLayout.VERTICAL
+            LinearLayout.HORIZONTAL
     );
 
     item.setGravity(
-            Gravity.CENTER
+            Gravity.CENTER_VERTICAL
     );
 
     item.setPadding(
             dp(10),
-            dp(9),
+            dp(8),
             dp(10),
             dp(8)
     );
@@ -1224,8 +1195,9 @@ private LinearLayout serviceGridItem(
             new GradientDrawable(
                     GradientDrawable.Orientation.TL_BR,
                     new int[]{
-                            Color.rgb(250, 252, 255),
-                            Color.rgb(236, 242, 255)
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(241, 246, 255),
+                            Color.rgb(248, 244, 255)
                     }
             );
 
@@ -1235,7 +1207,7 @@ private LinearLayout serviceGridItem(
 
     cardBg.setStroke(
             dp(1),
-            Color.rgb(222, 229, 245)
+            Color.rgb(225, 230, 242)
     );
 
     item.setBackground(
@@ -1250,18 +1222,22 @@ private LinearLayout serviceGridItem(
         );
     }
 
+    // =====================================================
+    // CARD SIZE
+    // =====================================================
+
     LinearLayout.LayoutParams itemParams =
             new LinearLayout.LayoutParams(
                     0,
-                    dp(110),
+                    dp(82),
                     1
             );
 
     itemParams.setMargins(
-            dp(5),
-            dp(5),
-            dp(5),
-            dp(5)
+            dp(6),
+            dp(6),
+            dp(6),
+            dp(6)
     );
 
     item.setLayoutParams(
@@ -1269,7 +1245,7 @@ private LinearLayout serviceGridItem(
     );
 
     // =====================================================
-    // ICON CIRCLE
+    // ICON CIRCLE - 50DP
     // =====================================================
 
     TextView iconView =
@@ -1284,7 +1260,7 @@ private LinearLayout serviceGridItem(
     );
 
     iconView.setTextColor(
-            Color.rgb(55, 95, 180)
+            Color.rgb(45, 95, 190)
     );
 
     iconView.setGravity(
@@ -1299,7 +1275,7 @@ private LinearLayout serviceGridItem(
             new GradientDrawable();
 
     iconBg.setColor(
-            Color.rgb(232, 240, 255)
+            Color.rgb(20, 20, 25)
     );
 
     iconBg.setShape(
@@ -1312,16 +1288,47 @@ private LinearLayout serviceGridItem(
 
     LinearLayout.LayoutParams iconParams =
             new LinearLayout.LayoutParams(
-                    dp(44),
-                    dp(44)
+                    dp(50),
+                    dp(50)
             );
 
-    iconParams.bottomMargin =
-            dp(7);
+    iconParams.setMargins(
+            0,
+            0,
+            dp(10),
+            0
+    );
 
     item.addView(
             iconView,
             iconParams
+    );
+
+    // =====================================================
+    // TEXT CONTAINER
+    // =====================================================
+
+    LinearLayout textContainer =
+            new LinearLayout(this);
+
+    textContainer.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    textContainer.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    LinearLayout.LayoutParams textParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -1,
+                    1
+            );
+
+    item.addView(
+            textContainer,
+            textParams
     );
 
     // =====================================================
@@ -1340,10 +1347,6 @@ private LinearLayout serviceGridItem(
             Typeface.BOLD
     );
 
-    titleView.setGravity(
-            Gravity.CENTER
-    );
-
     titleView.setMaxLines(
             1
     );
@@ -1352,11 +1355,73 @@ private LinearLayout serviceGridItem(
             android.text.TextUtils.TruncateAt.END
     );
 
-    item.addView(
+    textContainer.addView(
             titleView,
             new LinearLayout.LayoutParams(
                     -1,
-                    dp(22)
+                    dp(21)
+            )
+    );
+
+    // =====================================================
+    // DESCRIPTION
+    // =====================================================
+
+    TextView descriptionView =
+            text(
+                    description,
+                    10,
+                    Color.rgb(145, 150, 165)
+            );
+
+    descriptionView.setMaxLines(
+            1
+    );
+
+    descriptionView.setEllipsize(
+            android.text.TextUtils.TruncateAt.END
+    );
+
+    textContainer.addView(
+            descriptionView,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(19)
+            )
+    );
+
+    // =====================================================
+    // ARROW
+    // =====================================================
+
+    TextView arrowView =
+            new TextView(this);
+
+    arrowView.setText(
+            ">"
+    );
+
+    arrowView.setTextSize(
+            20
+    );
+
+    arrowView.setTextColor(
+            Color.rgb(145, 148, 158)
+    );
+
+    arrowView.setGravity(
+            Gravity.CENTER
+    );
+
+    arrowView.setIncludeFontPadding(
+            false
+    );
+
+    item.addView(
+            arrowView,
+            new LinearLayout.LayoutParams(
+                    dp(20),
+                    -1
             )
     );
 
