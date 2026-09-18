@@ -1049,7 +1049,14 @@ servicesContainer.addView(
         )
 );      
 
+// =====================================================
+// ADD SERVICES CONTAINER TO HOME
+// =====================================================
 
+content.addView(
+        servicesContainer,
+        margin(0, 10, 0, 10)
+);
         // =====================================================
         // SEARCH
         // =====================================================
@@ -1175,8 +1182,9 @@ servicesContainer.addView(
         );
     }
 
-  // =========================================================
-// SERVICE GRID ITEM (FIXED)
+  
+// =========================================================
+// SERVICE GRID ITEM - PROFESSIONAL
 // =========================================================
 
 private LinearLayout serviceGridItem(
@@ -1185,74 +1193,79 @@ private LinearLayout serviceGridItem(
         View.OnClickListener listener
 ) {
 
-  // =====================================================
-// CARD
-// =====================================================
+    // =====================================================
+    // CARD
+    // =====================================================
 
-LinearLayout item =
-        new LinearLayout(this);
+    LinearLayout item =
+            new LinearLayout(this);
 
-item.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-item.setGravity(
-        Gravity.CENTER
-);
-
-item.setPadding(
-        dp(12),
-        dp(12),
-        dp(12),
-        dp(12)
-);
-
- // =====================================================
-// CARD BACKGROUND
-// =====================================================
-
-GradientDrawable cardBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(245, 248, 255),
-                        Color.rgb(232, 238, 255)
-                }
-        );
-
-cardBg.setCornerRadius(
-        dp(18)
-);
-
-item.setBackground(
-        cardBg
-);
-
-if (Build.VERSION.SDK_INT >=
-        Build.VERSION_CODES.LOLLIPOP) {
-
-    item.setElevation(
-            dp(2)
+    item.setOrientation(
+            LinearLayout.VERTICAL
     );
-}
 
-LinearLayout.LayoutParams itemParams =
-        new LinearLayout.LayoutParams(
-                0,
-                dp(110),
-                1
+    item.setGravity(
+            Gravity.CENTER
+    );
+
+    item.setPadding(
+            dp(10),
+            dp(9),
+            dp(10),
+            dp(8)
+    );
+
+    // =====================================================
+    // CARD BACKGROUND
+    // =====================================================
+
+    GradientDrawable cardBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(250, 252, 255),
+                            Color.rgb(236, 242, 255)
+                    }
+            );
+
+    cardBg.setCornerRadius(
+            dp(18)
+    );
+
+    cardBg.setStroke(
+            dp(1),
+            Color.rgb(222, 229, 245)
+    );
+
+    item.setBackground(
+            cardBg
+    );
+
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        item.setElevation(
+                dp(2)
         );
+    }
 
-itemParams.setMargins(
-        dp(6),
-        dp(6),
-        dp(6),
-        dp(6)
-);
+    LinearLayout.LayoutParams itemParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(110),
+                    1
+            );
 
-item.setLayoutParams(
-        itemParams
-);
+    itemParams.setMargins(
+            dp(5),
+            dp(5),
+            dp(5),
+            dp(5)
+    );
+
+    item.setLayoutParams(
+            itemParams
+    );
 
     // =====================================================
     // ICON CIRCLE
@@ -1266,7 +1279,7 @@ item.setLayoutParams(
     );
 
     iconView.setTextSize(
-            22
+            21
     );
 
     iconView.setTextColor(
@@ -1285,16 +1298,11 @@ item.setLayoutParams(
             new GradientDrawable();
 
     iconBg.setColor(
-            Color.rgb(238, 244, 255)
+            Color.rgb(232, 240, 255)
     );
 
     iconBg.setShape(
             GradientDrawable.OVAL
-    );
-
-    iconBg.setSize(
-            dp(46),
-            dp(46)
     );
 
     iconView.setBackground(
@@ -1303,12 +1311,12 @@ item.setLayoutParams(
 
     LinearLayout.LayoutParams iconParams =
             new LinearLayout.LayoutParams(
-                    dp(46),
-                    dp(46)
+                    dp(44),
+                    dp(44)
             );
 
     iconParams.bottomMargin =
-            dp(8);
+            dp(7);
 
     item.addView(
             iconView,
@@ -1339,6 +1347,10 @@ item.setLayoutParams(
             1
     );
 
+    titleView.setEllipsize(
+            android.text.TextUtils.TruncateAt.END
+    );
+
     item.addView(
             titleView,
             new LinearLayout.LayoutParams(
@@ -1351,20 +1363,12 @@ item.setLayoutParams(
     // CLICK
     // =====================================================
 
-    item.setClickable(
-            true
-    );
-
-    item.setFocusable(
-            true
-    );
-
     item.setOnClickListener(
             listener
     );
 
     return item;
-            }
+}
     
     // =========================================================
     // APPOINTMENTS
