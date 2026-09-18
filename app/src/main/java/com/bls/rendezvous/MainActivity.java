@@ -1233,48 +1233,46 @@ private LinearLayout serviceGridItem(
 // ICON
 // =====================================================
 
-ImageView iconView =
-        new ImageView(this);
+TextView iconView =
+        new TextView(this);
+
+String iconSymbol = "";
 
 if (title.equals("Appointments")) {
 
-    iconView.setImageResource(
-            android.R.drawable.ic_menu_my_calendar
-    );
+    iconSymbol = "📅";
 
 } else if (title.equals("Alerts")) {
 
-    iconView.setImageResource(
-            android.R.drawable.ic_dialog_info
-    );
+    iconSymbol = "🔔";
 
 } else if (title.equals("Centers")) {
 
-    iconView.setImageResource(
-            android.R.drawable.ic_menu_mapmode
-    );
+    iconSymbol = "🏢";
 
 } else if (title.equals("Tracking")) {
 
-    iconView.setImageResource(
-            android.R.drawable.ic_menu_directions
-    );
+    iconSymbol = "📋";
 
 } else if (title.equals("Countries")) {
 
-    iconView.setImageResource(
-            android.R.drawable.ic_menu_compass
-    );
+    iconSymbol = "🌍";
 
 } else if (title.equals("Statistics")) {
 
-    iconView.setImageResource(
-            android.R.drawable.ic_menu_sort_by_size
-    );
+    iconSymbol = "📊";
 }
 
-iconView.setScaleType(
-        ImageView.ScaleType.CENTER
+iconView.setText(iconSymbol);
+
+iconView.setTextSize(20);
+
+iconView.setGravity(
+        Gravity.CENTER
+);
+
+iconView.setIncludeFontPadding(
+        false
 );
 
 GradientDrawable iconBackground =
@@ -1286,6 +1284,11 @@ iconBackground.setColor(
 
 iconBackground.setShape(
         GradientDrawable.OVAL
+);
+
+iconBackground.setSize(
+        dp(46),
+        dp(46)
 );
 
 iconView.setBackground(
