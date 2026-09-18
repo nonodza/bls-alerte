@@ -1207,8 +1207,26 @@ item.setPadding(
         dp(12)
 );
 
-// TEST
-item.setBackgroundColor(Color.RED);
+ // =====================================================
+// CARD BACKGROUND
+// =====================================================
+
+GradientDrawable cardBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(245, 248, 255),
+                        Color.rgb(232, 238, 255)
+                }
+        );
+
+cardBg.setCornerRadius(
+        dp(18)
+);
+
+item.setBackground(
+        cardBg
+);
 
 if (Build.VERSION.SDK_INT >=
         Build.VERSION_CODES.LOLLIPOP) {
@@ -1234,7 +1252,7 @@ itemParams.setMargins(
 
 item.setLayoutParams(
         itemParams
-);  
+);
 
     // =====================================================
     // ICON CIRCLE
