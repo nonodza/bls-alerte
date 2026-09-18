@@ -897,134 +897,157 @@ servicesContainer.addView(
         margin(2, 0, 0, 10)
 );
 
-        // =====================================================
-        // SERVICES ROW 1
-        // =====================================================
+  // =====================================================
+// SERVICES GRID — 2 COLUMNS
+// =====================================================
 
-        LinearLayout row1 =
-                new LinearLayout(this);
+// =====================================================
+// ROW 1
+// =====================================================
 
-        row1.setOrientation(
-                LinearLayout.HORIZONTAL
-        );
+LinearLayout row1 =
+        new LinearLayout(this);
 
-        row1.setGravity(
-                Gravity.CENTER
-        );
+row1.setOrientation(
+        LinearLayout.HORIZONTAL
+);
 
-        row1.addView(
-                serviceGridItem(
-                        "📅",
-                        "Appointments",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAppointments();
-                            }
-                        }
-                )
-        );
+row1.setGravity(
+        Gravity.CENTER
+);
 
-        row1.addView(
-                serviceGridItem(
-                        "🔔",
-                        "Alerts",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAlerts();
-                            }
-                        }
-                )
-        );
+row1.addView(
+        serviceGridItem(
+                "📅",
+                "Appointments",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAppointments();
+                    }
+                }
+        )
+);
 
-        row1.addView(
-                serviceGridItem(
-                        "🏢",
-                        "Centers",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showCenters();
-                            }
-                        }
-                )
-        );
+row1.addView(
+        serviceGridItem(
+                "🔔",
+                "Alerts",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAlerts();
+                    }
+                }
+        )
+);
 
-        servicesContainer.addView(
-                row1,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(105)
-                )
-        );
+servicesContainer.addView(
+        row1,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(78)
+        )
+);
 
-        // =====================================================
-        // SERVICES ROW 2
-        // =====================================================
+// =====================================================
+// ROW 2
+// =====================================================
 
-        LinearLayout row2 =
-                new LinearLayout(this);
+LinearLayout row2 =
+        new LinearLayout(this);
 
-        row2.setOrientation(
-                LinearLayout.HORIZONTAL
-        );
+row2.setOrientation(
+        LinearLayout.HORIZONTAL
+);
 
-        row2.setGravity(
-                Gravity.CENTER
-        );
+row2.setGravity(
+        Gravity.CENTER
+);
 
-        row2.addView(
-                serviceGridItem(
-                        "📋",
-                        "Tracking",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showTracking();
-                            }
-                        }
-                )
-        );
+row2.addView(
+        serviceGridItem(
+                "🏢",
+                "Centers",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showCenters();
+                    }
+                }
+        )
+);
 
-        row2.addView(
-                serviceGridItem(
-                        "🌍",
-                        "Countries",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showCountries();
-                            }
-                        }
-                )
-        );
+row2.addView(
+        serviceGridItem(
+                "📋",
+                "Tracking",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTracking();
+                    }
+                }
+        )
+);
 
-        row2.addView(
-                serviceGridItem(
-                        "📊",
-                        "Statistics",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showStatistics();
-                            }
-                        }
-                )
-        );
+servicesContainer.addView(
+        row2,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(78)
+        )
+);
 
-        servicesContainer.addView(
-                row2,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(105)
-                )
-        );
+// =====================================================
+// ROW 3
+// =====================================================
 
-        content.addView(
-                servicesContainer,
-                margin(0, 10, 0, 10)
-        );
+LinearLayout row3 =
+        new LinearLayout(this);
+
+row3.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+row3.setGravity(
+        Gravity.CENTER
+);
+
+row3.addView(
+        serviceGridItem(
+                "🌍",
+                "Countries",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showCountries();
+                    }
+                }
+        )
+);
+
+row3.addView(
+        serviceGridItem(
+                "📊",
+                "Statistics",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showStatistics();
+                    }
+                }
+        )
+);
+
+servicesContainer.addView(
+        row3,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(78)
+        )
+);      
+
 
         // =====================================================
         // SEARCH
