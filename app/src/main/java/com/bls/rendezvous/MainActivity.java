@@ -1176,7 +1176,7 @@ servicesContainer.addView(
     }
 
   // =========================================================
-// SERVICE GRID ITEM
+// SERVICE GRID ITEM (FIXED)
 // =========================================================
 
 private LinearLayout serviceGridItem(
@@ -1184,6 +1184,10 @@ private LinearLayout serviceGridItem(
         String title,
         View.OnClickListener listener
 ) {
+
+    // =====================================================
+    // CARD
+    // =====================================================
 
     LinearLayout item =
             new LinearLayout(this);
@@ -1197,111 +1201,118 @@ private LinearLayout serviceGridItem(
     );
 
     item.setPadding(
-            dp(5),
-            dp(6),
-            dp(5),
-            dp(6)
+            dp(12),
+            dp(12),
+            dp(12),
+            dp(12)
     );
 
-    // =====================================================
-    // SERVICE CARD BACKGROUND
-    // =====================================================
+    GradientDrawable cardBg =
+            new GradientDrawable();
 
-    GradientDrawable servicesBackground =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(207, 222, 255),
-                            Color.rgb(228, 214, 255)
-                    }
-            );
-
-    servicesBackground.setCornerRadius(
-            dp(28)
+    cardBg.setColor(
+            Color.WHITE
     );
 
-    servicesBackground.setStroke(
+    cardBg.setCornerRadius(
+            dp(20)
+    );
+
+    cardBg.setStroke(
             dp(1),
-            Color.rgb(225, 225, 255)
+            Color.rgb(230, 235, 255)
     );
 
     item.setBackground(
-            servicesBackground
+            cardBg
+    );
+
+    if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.LOLLIPOP) {
+
+        item.setElevation(
+                dp(2)
+        );
+    }
+
+    LinearLayout.LayoutParams itemParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(110),
+                    1
+            );
+
+    itemParams.setMargins(
+            dp(6),
+            dp(6),
+            dp(6),
+            dp(6)
+    );
+
+    item.setLayoutParams(
+            itemParams
     );
 
     // =====================================================
-// ICON
-// =====================================================
+    // ICON CIRCLE
+    // =====================================================
 
-TextView iconView =
-        new TextView(this);
+    TextView iconView =
+            new TextView(this);
 
-String iconSymbol = "";
+    iconView.setText(
+            icon
+    );
 
-if (title.equals("Appointments")) {
+    iconView.setTextSize(
+            22
+    );
 
-    iconSymbol = "📅";
+    iconView.setTextColor(
+            Color.rgb(55, 95, 180)
+    );
 
-} else if (title.equals("Alerts")) {
+    iconView.setGravity(
+            Gravity.CENTER
+    );
 
-    iconSymbol = "🔔";
+    iconView.setIncludeFontPadding(
+            false
+    );
 
-} else if (title.equals("Centers")) {
+    GradientDrawable iconBg =
+            new GradientDrawable();
 
-    iconSymbol = "🏢";
+    iconBg.setColor(
+            Color.rgb(238, 244, 255)
+    );
 
-} else if (title.equals("Tracking")) {
+    iconBg.setShape(
+            GradientDrawable.OVAL
+    );
 
-    iconSymbol = "📋";
+    iconBg.setSize(
+            dp(46),
+            dp(46)
+    );
 
-} else if (title.equals("Countries")) {
+    iconView.setBackground(
+            iconBg
+    );
 
-    iconSymbol = "🌍";
+    LinearLayout.LayoutParams iconParams =
+            new LinearLayout.LayoutParams(
+                    dp(46),
+                    dp(46)
+            );
 
-} else if (title.equals("Statistics")) {
+    iconParams.bottomMargin =
+            dp(8);
 
-    iconSymbol = "📊";
-}
-
-iconView.setText(iconSymbol);
-
-iconView.setTextSize(20);
-
-iconView.setGravity(
-        Gravity.CENTER
-);
-
-iconView.setIncludeFontPadding(
-        false
-);
-
-GradientDrawable iconBackground =
-        new GradientDrawable();
-
-iconBackground.setColor(
-        Color.rgb(238, 244, 255)
-);
-
-iconBackground.setShape(
-        GradientDrawable.OVAL
-);
-
-iconBackground.setSize(
-        dp(46),
-        dp(46)
-);
-
-iconView.setBackground(
-        iconBackground
-);
-
-item.addView(
-        iconView,
-        new LinearLayout.LayoutParams(
-                dp(46),
-                dp(46)
-        )
-);
+    item.addView(
+            iconView,
+            iconParams
+    );
 
     // =====================================================
     // TITLE
@@ -1323,13 +1334,15 @@ item.addView(
             Gravity.CENTER
     );
 
-    titleView.setMaxLines(1);
+    titleView.setMaxLines(
+            1
+    );
 
     item.addView(
             titleView,
             new LinearLayout.LayoutParams(
                     -1,
-                    dp(28)
+                    dp(22)
             )
     );
 
@@ -1337,35 +1350,20 @@ item.addView(
     // CLICK
     // =====================================================
 
-    item.setClickable(true);
-    item.setFocusable(true);
+    item.setClickable(
+            true
+    );
+
+    item.setFocusable(
+            true
+    );
 
     item.setOnClickListener(
             listener
     );
 
-    // =====================================================
-    // SIZE & MARGIN
-    // =====================================================
-
-    LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(
-                    0,
-                    dp(100),
-                    1
-            );
-
-    params.setMargins(
-            dp(4),
-            dp(4),
-            dp(4),
-            dp(4)
-    );
-
-    item.setLayoutParams(params);
-
     return item;
-}
+            }
     
     // =========================================================
     // APPOINTMENTS
