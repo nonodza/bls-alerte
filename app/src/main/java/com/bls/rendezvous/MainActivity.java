@@ -1185,73 +1185,56 @@ private LinearLayout serviceGridItem(
         View.OnClickListener listener
 ) {
 
-    // =====================================================
-    // CARD
-    // =====================================================
+  // =====================================================
+// CARD
+// =====================================================
 
-    LinearLayout item =
-            new LinearLayout(this);
+LinearLayout item =
+        new LinearLayout(this);
 
-    item.setOrientation(
-            LinearLayout.VERTICAL
+item.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+item.setGravity(
+        Gravity.CENTER
+);
+
+item.setPadding(
+        dp(12),
+        dp(12),
+        dp(12),
+        dp(12)
+);
+
+// TEST
+item.setBackgroundColor(Color.RED);
+
+if (Build.VERSION.SDK_INT >=
+        Build.VERSION_CODES.LOLLIPOP) {
+
+    item.setElevation(
+            dp(2)
     );
+}
 
-    item.setGravity(
-            Gravity.CENTER
-    );
-
-    item.setPadding(
-            dp(12),
-            dp(12),
-            dp(12),
-            dp(12)
-    );
-
-    GradientDrawable cardBg =
-            new GradientDrawable();
-
-    cardBg.setColor(
-            Color.WHITE
-    );
-
-    cardBg.setCornerRadius(
-            dp(20)
-    );
-
-    cardBg.setStroke(
-            dp(1),
-            Color.rgb(230, 235, 255)
-    );
-
-    item.setBackground(
-            cardBg
-    );
-
-    if (Build.VERSION.SDK_INT >=
-            Build.VERSION_CODES.LOLLIPOP) {
-
-        item.setElevation(
-                dp(2)
+LinearLayout.LayoutParams itemParams =
+        new LinearLayout.LayoutParams(
+                0,
+                dp(110),
+                1
         );
-    }
 
-    LinearLayout.LayoutParams itemParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    dp(110),
-                    1
-            );
+itemParams.setMargins(
+        dp(6),
+        dp(6),
+        dp(6),
+        dp(6)
+);
 
-    itemParams.setMargins(
-            dp(6),
-            dp(6),
-            dp(6),
-            dp(6)
-    );
-
-    item.setLayoutParams(
-            itemParams
-    );
+item.setLayoutParams(
+        itemParams
+);  
 
     // =====================================================
     // ICON CIRCLE
