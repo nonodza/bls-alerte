@@ -289,7 +289,7 @@ public class MainActivity extends Activity {
 
         setContentView(root);
 
-        // =====================================================
+ // =====================================================
 // HEADER — MODERN TOP BAR
 // =====================================================
 
@@ -305,79 +305,62 @@ header.setGravity(
 );
 
 header.setPadding(
-        dp(18),
-        dp(12),
-        dp(18),
-        dp(12)
+        dp(16),
+        dp(8),
+        dp(16),
+        dp(8)
 );
 
 // =====================================================
-// MENU BUTTON
+// MENU
 // =====================================================
 
-LinearLayout menuButton =
-        new LinearLayout(this);
+ImageView menuIcon =
+        new ImageView(this);
 
-menuButton.setGravity(
-        Gravity.CENTER
-);
-
-GradientDrawable menuBg =
-        new GradientDrawable();
-
-menuBg.setColor(
-        Color.TRANSPARENT
-);
-
-menuBg.setCornerRadius(
-        dp(14)
-);
-
-menuButton.setBackground(
-        menuBg
-);
-
-// Vector-style Menu icon
-TextView menuIcon =
-        text(
-                "☰",
-                24,
-                NAVY
-);
-
-menuIcon.setGravity(
-        Gravity.CENTER
-);
-
-menuButton.addView(
-        menuIcon,
-        new LinearLayout.LayoutParams(
-                dp(40),
-                dp(40)
+// Material-style menu vector
+menuIcon.setImageDrawable(
+        getDrawable(
+                android.R.drawable.ic_menu_sort_by_size
         )
+);
+
+menuIcon.setColorFilter(
+        new android.graphics.PorterDuffColorFilter(
+                NAVY,
+                android.graphics.PorterDuff.Mode.SRC_IN
+        )
+);
+
+menuIcon.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
 );
 
 header.addView(
-        menuButton,
+        menuIcon,
         new LinearLayout.LayoutParams(
-                dp(40),
-                dp(40)
+                dp(42),
+                dp(42)
         )
 );
 
 // =====================================================
-// APP TITLE
+// TITLE
 // =====================================================
 
 TextView appName =
         text(
                 "BLS Rendez-Vous",
-                21,
+                20,
                 NAVY
         );
 
 appName.setTypeface(
-        Typeface.DEFAULT_BOLD
+        Typeface.DEFAULT,
+        Typeface.BOLD
 );
 
 appName.setGravity(
@@ -387,12 +370,12 @@ appName.setGravity(
 LinearLayout.LayoutParams titleParams =
         new LinearLayout.LayoutParams(
                 0,
-                dp(48),
+                dp(42),
                 1
 );
 
 titleParams.leftMargin =
-        dp(8);
+        dp(6);
 
 header.addView(
         appName,
@@ -400,7 +383,7 @@ header.addView(
 );
 
 // =====================================================
-// NOTIFICATION BUTTON
+// NOTIFICATION AREA
 // =====================================================
 
 FrameLayout notificationContainer =
@@ -414,33 +397,17 @@ notificationContainer.setClipToPadding(
         false
 );
 
-// Bell background
-GradientDrawable bellBg =
-        new GradientDrawable();
+// =====================================================
+// BELL
+// =====================================================
 
-bellBg.setColor(
-        Color.TRANSPARENT
-);
-
-bellBg.setCornerRadius(
-        dp(14)
-);
-
-// Bell icon
-TextView bellIcon =
-        text(
-                "♧",
-                1,
-                Color.TRANSPARENT
-);
-
-// Use ImageView-compatible vector drawable
 ImageView bell =
         new ImageView(this);
 
+// Temporary system bell icon
 bell.setImageDrawable(
         getDrawable(
-                android.R.drawable.ic_dialog_info
+                android.R.drawable.ic_lock_idle_alarm
         )
 );
 
@@ -449,10 +416,6 @@ bell.setColorFilter(
                 NAVY,
                 android.graphics.PorterDuff.Mode.SRC_IN
         )
-);
-
-bell.setBackground(
-        bellBg
 );
 
 bell.setPadding(
@@ -465,8 +428,8 @@ bell.setPadding(
 notificationContainer.addView(
         bell,
         new android.widget.FrameLayout.LayoutParams(
-                dp(40),
-                dp(40),
+                dp(42),
+                dp(42),
                 Gravity.CENTER
         )
 );
@@ -497,7 +460,7 @@ android.widget.FrameLayout.LayoutParams dotParams =
         new android.widget.FrameLayout.LayoutParams(
                 dp(8),
                 dp(8)
-        );
+);
 
 dotParams.gravity =
         Gravity.TOP | Gravity.RIGHT;
@@ -506,7 +469,7 @@ dotParams.rightMargin =
         dp(5);
 
 dotParams.topMargin =
-        dp(5);
+        dp(4);
 
 notificationContainer.addView(
         notificationDot,
@@ -516,19 +479,24 @@ notificationContainer.addView(
 header.addView(
         notificationContainer,
         new LinearLayout.LayoutParams(
-                dp(40),
-                dp(40)
+                dp(42),
+                dp(42)
         )
 );
 
 // =====================================================
-// ADD HEADER
+// ADD TOP BAR
 // =====================================================
 
 root.addView(
-        header
+        header,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
 );
-        
+
+       
 // =====================================================
         // SCROLL
         // =====================================================
