@@ -887,6 +887,7 @@ row1.addView(
                 "📅",
                 "Appointments",
                 "Find appointments",
+                false,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -901,6 +902,7 @@ row1.addView(
                 "🔔",
                 "Alerts",
                 "Availability alerts",
+                true,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -914,7 +916,7 @@ servicesContainer.addView(
         row1,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(94)
+                dp(82)
         )
 );
 
@@ -938,6 +940,7 @@ row2.addView(
                 "🏢",
                 "Centers",
                 "Visa centers",
+                false,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -952,6 +955,7 @@ row2.addView(
                 "📋",
                 "Tracking",
                 "Track application",
+                true,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -965,7 +969,7 @@ servicesContainer.addView(
         row2,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(94)
+                dp(82)
         )
 );
 
@@ -989,6 +993,7 @@ row3.addView(
                 "🌍",
                 "Countries",
                 "Visa countries",
+                false,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1003,6 +1008,7 @@ row3.addView(
                 "📊",
                 "Statistics",
                 "View statistics",
+                true,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1015,10 +1021,9 @@ row3.addView(
 servicesContainer.addView(
         row3,
         new LinearLayout.LayoutParams(
-                -1,
-                dp(94)
-        )
-);
+        -1,
+        dp(82)
+)
 
 // =====================================================
 // ADD SERVICES CONTAINER TO HOME
@@ -1162,9 +1167,9 @@ private LinearLayout serviceGridItem(
         String icon,
         String title,
         String description,
-        View.OnClickListener listener
+        boolean purple,
+                View.OnClickListener listener
 ) {
-
     // =====================================================
     // CARD
     // =====================================================
@@ -1191,47 +1196,64 @@ private LinearLayout serviceGridItem(
     // CARD BACKGROUND
     // =====================================================
 
-    GradientDrawable cardBg =
+    GradientDrawable cardBg;
+
+if (purple) {
+
+    cardBg =
             new GradientDrawable(
                     GradientDrawable.Orientation.TL_BR,
                     new int[]{
                             Color.rgb(255, 255, 255),
-                            Color.rgb(241, 246, 255),
-                            Color.rgb(248, 244, 255)
+                            Color.rgb(245, 239, 255),
+                            Color.rgb(235, 225, 250)
                     }
             );
 
-    cardBg.setCornerRadius(
-            dp(18)
+} else {
+
+    cardBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(255, 255, 255),
+                            Color.rgb(239, 247, 255),
+                            Color.rgb(222, 237, 255)
+                    }
+            );
+}
+
+cardBg.setCornerRadius(
+        dp(18)
+);
+
+cardBg.setStroke(
+        dp(1),
+        Color.rgb(225, 230, 242)
+);
+
+item.setBackground(
+        cardBg
+);
+
+if (Build.VERSION.SDK_INT >=
+        Build.VERSION_CODES.LOLLIPOP) {
+
+    item.setElevation(
+            dp(2)
     );
-
-    cardBg.setStroke(
-            dp(1),
-            Color.rgb(225, 230, 242)
-    );
-
-    item.setBackground(
-            cardBg
-    );
-
-    if (Build.VERSION.SDK_INT >=
-            Build.VERSION_CODES.LOLLIPOP) {
-
-        item.setElevation(
-                dp(2)
-        );
-    }
+}
 
     // =====================================================
     // CARD SIZE
     // =====================================================
 
     LinearLayout.LayoutParams itemParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    dp(82),
-                    1
-            );
+        new LinearLayout.LayoutParams(
+                0,
+                dp(70),
+                1
+        );
 
     itemParams.setMargins(
             dp(6),
