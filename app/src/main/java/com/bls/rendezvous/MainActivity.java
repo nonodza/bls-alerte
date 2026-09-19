@@ -884,7 +884,7 @@ row1.setGravity(
 
 row1.addView(
         serviceGridItem(
-                "📅",
+                "calendar",
                 "Appointments",
                 "Find appointments",
                 false,
@@ -899,7 +899,7 @@ row1.addView(
 
 row1.addView(
         serviceGridItem(
-                "🔔",
+                "bell",
                 "Alerts",
                 "Availability alerts",
                 true,
@@ -937,7 +937,7 @@ row2.setGravity(
 
 row2.addView(
         serviceGridItem(
-                "🏢",
+                "building",
                 "Centers",
                 "Visa centers",
                 false,
@@ -952,7 +952,7 @@ row2.addView(
 
 row2.addView(
         serviceGridItem(
-                "📋",
+                "tracking",
                 "Tracking",
                 "Track application",
                 true,
@@ -990,7 +990,7 @@ row3.setGravity(
 
 row3.addView(
         serviceGridItem(
-                "🌍",
+                "globe",
                 "Countries",
                 "Visa countries",
                 false,
@@ -1005,7 +1005,7 @@ row3.addView(
 
 row3.addView(
         serviceGridItem(
-                "📊",
+                "stats",
                 "Statistics",
                 "View statistics",
                 true,
@@ -1034,44 +1034,7 @@ content.addView(
         servicesContainer,
         margin(0, 10, 0, 10)
 );
-        // =====================================================
-        // SEARCH
-        // =====================================================
-
-        TextView search =
-                text(
-                        "⌕   Search services",
-                        14,
-                        GRAY
-                );
-
-        GradientDrawable searchBg =
-                new GradientDrawable();
-
-        searchBg.setColor(
-                Color.rgb(245, 247, 250)
-        );
-
-        searchBg.setCornerRadius(
-                dp(14)
-        );
-
-        search.setBackground(
-                searchBg
-        );
-
-        search.setPadding(
-                dp(14),
-                dp(12),
-                dp(14),
-                dp(12)
-        );
-
-        content.addView(
-                search,
-                margin(0, 5, 0, 10)
-        );
-
+       
         // =====================================================
         // BOTTOM NAVIGATION
         // =====================================================
@@ -1268,64 +1231,122 @@ if (Build.VERSION.SDK_INT >=
     );
 
     // =====================================================
-    // ICON CIRCLE - 50DP
-    // =====================================================
+// ICON CIRCLE - PROFESSIONAL VECTOR
+// =====================================================
 
-    TextView iconView =
-            new TextView(this);
+ImageView iconView =
+        new ImageView(this);
 
-    iconView.setText(
-            icon
+// =====================================================
+// SELECT VECTOR ICON
+// =====================================================
+
+int iconRes = 0;
+
+if (icon.equals("calendar")) {
+
+    iconRes = R.drawable.ic_calendar;
+
+} else if (icon.equals("bell")) {
+
+    iconRes = R.drawable.ic_bell;
+
+} else if (icon.equals("building")) {
+
+    iconRes = R.drawable.ic_building;
+
+} else if (icon.equals("tracking")) {
+
+    iconRes = R.drawable.ic_tracking;
+
+} else if (icon.equals("globe")) {
+
+    iconRes = R.drawable.ic_globe;
+
+} else if (icon.equals("stats")) {
+
+    iconRes = R.drawable.ic_statistics;
+}
+
+// =====================================================
+// SET VECTOR ICON
+// =====================================================
+
+if (iconRes != 0) {
+
+    iconView.setImageResource(
+            iconRes
     );
+}
 
-    iconView.setTextSize(
-            21
-    );
+// =====================================================
+// ICON SIZE
+// =====================================================
 
-    iconView.setTextColor(
-            Color.rgb(45, 95, 190)
-    );
+iconView.setScaleType(
+        ImageView.ScaleType.CENTER_INSIDE
+);
 
-    iconView.setGravity(
-            Gravity.CENTER
-    );
+iconView.setPadding(
+        dp(9),
+        dp(9),
+        dp(9),
+        dp(9)
+);
 
-    iconView.setIncludeFontPadding(
-            false
-    );
+// =====================================================
+// CIRCLE BACKGROUND
+// =====================================================
 
-    GradientDrawable iconBg =
-            new GradientDrawable();
+GradientDrawable iconBg =
+        new GradientDrawable();
 
-    iconBg.setColor(
-            Color.rgb(20, 20, 25)
-    );
+iconBg.setColor(
+        purple
+                ? Color.rgb(241, 233, 255)
+                : Color.rgb(232, 242, 255)
+);
 
-    iconBg.setShape(
-            GradientDrawable.OVAL
-    );
+iconBg.setShape(
+        GradientDrawable.OVAL
+);
 
-    iconView.setBackground(
-            iconBg
-    );
+iconBg.setStroke(
+        dp(1),
+        purple
+                ? Color.rgb(226, 214, 245)
+                : Color.rgb(213, 229, 250)
+);
 
-    LinearLayout.LayoutParams iconParams =
-            new LinearLayout.LayoutParams(
-                    dp(50),
-                    dp(50)
-            );
+iconView.setBackground(
+        iconBg
+);
 
-    iconParams.setMargins(
-            0,
-            0,
-            dp(10),
-            0
-    );
+// =====================================================
+// ICON SIZE / MARGIN
+// =====================================================
 
-    item.addView(
-            iconView,
-            iconParams
-    );
+LinearLayout.LayoutParams iconParams =
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        );
+
+iconParams.setMargins(
+        0,
+        0,
+        dp(6),
+        0
+);
+
+// =====================================================
+// ADD ICON
+// =====================================================
+
+item.addView(
+        iconView,
+        iconParams
+);
 
     // =====================================================
     // TEXT CONTAINER
