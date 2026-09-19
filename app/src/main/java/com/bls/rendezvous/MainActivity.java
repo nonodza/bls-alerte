@@ -319,18 +319,10 @@ ImageView menuIcon =
         new ImageView(this);
 
 // Material-style menu vector
-menuIcon.setImageDrawable(
-        getDrawable(
-                android.R.drawable.ic_menu_sort_by_size
-        )
+menuIcon.setImageResource(
+        R.drawable.ic_menu
 );
 
-menuIcon.setColorFilter(
-        new android.graphics.PorterDuffColorFilter(
-                NAVY,
-                android.graphics.PorterDuff.Mode.SRC_IN
-        )
-);
 
 menuIcon.setPadding(
         dp(8),
@@ -401,21 +393,8 @@ notificationContainer.setClipToPadding(
 // BELL
 // =====================================================
 
-ImageView bell =
-        new ImageView(this);
-
-// Temporary system bell icon
-bell.setImageDrawable(
-        getDrawable(
-                android.R.drawable.ic_lock_idle_alarm
-        )
-);
-
-bell.setColorFilter(
-        new android.graphics.PorterDuffColorFilter(
-                NAVY,
-                android.graphics.PorterDuff.Mode.SRC_IN
-        )
+bell.setImageResource(
+        R.drawable.ic_bell
 );
 
 bell.setPadding(
