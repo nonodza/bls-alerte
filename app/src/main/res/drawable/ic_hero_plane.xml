@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="85dp"
+    android:height="85dp"
+    android:viewportWidth="85"
+    android:viewportHeight="85">
+
+    <!-- خلفية دائرة فاتحة -->
+    <path
+        android:fillColor="#EAF2FF"
+        android:pathData="M42.5,5A37.5,37.5 0,1 1,5 42.5A37.5,37.5 0,0 1,42.5 5Z" />
+
+    <!-- الباسبور -->
+    <path
+        android:fillColor="#2F5BFF"
+        android:pathData="M28,28 L52,28 L52,58 L28,58 Z"
+        android:strokeColor="#1E3ECC"
+        android:strokeWidth="0.5" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,36 L48,36 L48,38 L32,38 Z"
+        android:alpha="0.9"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,41 L48,41 L48,43 L32,43 Z"
+        android:alpha="0.6"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,46 L42,46 L42,48 L32,48 Z"
+        android:alpha="0.6"/>
+
+    <!-- الطيارة -->
+    <path
+        android:fillColor="#0F1B4D"
+        android:pathData="M56,22 L58.5,22 L62,38 L60,40 L56,32 L48,48 L45,47 L52,30 Z" />
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M56,32 L60,40 L54,38 Z" />
+
+</vector>
