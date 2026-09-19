@@ -331,302 +331,171 @@ public class MainActivity extends Activity {
 
        
 // =====================================================
-        // SCROLL
-        // =====================================================
-
-        ScrollView scroll =
-                new ScrollView(this);
-
-        scroll.setFillViewport(true);
-
-        LinearLayout content =
-                new LinearLayout(this);
-
-        content.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        content.setPadding(
-                dp(18),
-                dp(5),
-                dp(18),
-                dp(28)
-        );
-
-        scroll.addView(content);
-
-        root.addView(
-                scroll,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        0,
-                        1
-                )
-        );
-
-        // =====================================================
-// HERO - BLS RENDEZ-VOUS
+// HERO - Passport
 // =====================================================
+LinearLayout hero = new LinearLayout(this);
+hero.setOrientation(LinearLayout.HORIZONTAL);
+hero.setGravity(Gravity.CENTER_VERTICAL);
+hero.setPadding(dp(18), dp(10), dp(18), dp(10));
 
-LinearLayout hero = card();
+ImageView heroImg = new ImageView(this);
+heroImg.setImageResource(R.drawable.ic_passport_plane); // باسبور + طيارة
+hero.addView(heroImg, new LinearLayout.LayoutParams(dp(95), dp(95)));
 
-hero.setOrientation(
-        LinearLayout.HORIZONTAL
-);
+LinearLayout heroText = new LinearLayout(this);
+heroText.setOrientation(LinearLayout.VERTICAL);
+heroText.setPadding(dp(12),0,0,0);
+TextView heroTitle = text("BLS Rendez-Vous", 22, NAVY);
+heroTitle.setTypeface(Typeface.DEFAULT_BOLD);
+heroText.addView(heroTitle);
+TextView heroSub = text("Your visa appointment assistant", 13, GRAY);
+heroText.addView(heroSub);
+hero.addView(heroText);
 
-hero.setPadding(
-        dp(18),
-        dp(18),
-        dp(18),
-        dp(18)
-);
-
-hero.setGravity(
-        Gravity.CENTER_VERTICAL
-);
+content.addView(hero, margin(0,10,0,10));
 
 // =====================================================
-// HERO BACKGROUND
+// CURRENT APPLICATION - Blue Gradient
 // =====================================================
+LinearLayout current = card();
+GradientDrawable currentBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.WHITE, Color.rgb(225,240,255) });
+currentBg.setCornerRadius(dp(20));
+currentBg.setStroke(dp(1), Color.rgb(220,235,255));
+current.setBackground(currentBg);
+current.setPadding(dp(16),dp(14),dp(16),dp(14));
 
-GradientDrawable heroBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(240, 247, 255),
-                        Color.rgb(225, 235, 255)
-                }
-        );
+LinearLayout curTop = new LinearLayout(this);
+curTop.setOrientation(LinearLayout.HORIZONTAL);
+curTop.setGravity(Gravity.CENTER_VERTICAL);
 
-heroBg.setCornerRadius(
-        dp(18)
-);
+ImageView flag = new ImageView(this);
+flag.setImageResource(R.drawable.ic_flag_spain); // دائرة فيها علم اسبانيا
+LinearLayout.LayoutParams flagP = new LinearLayout.LayoutParams(dp(52),dp(52));
+flagP.rightMargin = dp(12);
+curTop.addView(flag, flagP);
 
-hero.setBackground(
-        heroBg
-);
+LinearLayout curMid = new LinearLayout(this);
+curMid.setOrientation(LinearLayout.VERTICAL);
+curMid.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1));
+TextView curLabel = text("CURRENT APPLICATION", 11, Color.rgb(90,130,255));
+curLabel.setTypeface(Typeface.DEFAULT_BOLD);
+curMid.addView(curLabel);
+TextView spain = text("Spain", 20, NAVY);
+spain.setTypeface(Typeface.DEFAULT_BOLD);
+curMid.addView(spain);
+TextView alg = text("Algiers Visa Center", 12, GRAY);
+curMid.addView(alg);
+curTop.addView(curMid);
 
-// =====================================================
-// TEXT
-// =====================================================
+TextView active = text("● ACTIVE", 11, Color.rgb(0,170,90));
+active.setPadding(dp(12),dp(6),dp(12),dp(6));
+GradientDrawable activeBg = new GradientDrawable();
+activeBg.setColor(Color.rgb(220,255,235));
+activeBg.setCornerRadius(dp(20));
+active.setBackground(activeBg);
+active.setTypeface(Typeface.DEFAULT_BOLD);
+curTop.addView(active);
 
-LinearLayout heroText =
-        new LinearLayout(this);
+current.addView(curTop);
 
-heroText.setOrientation(
-        LinearLayout.VERTICAL
-);
+LinearLayout mon = new LinearLayout(this);
+mon.setOrientation(LinearLayout.HORIZONTAL);
+mon.setGravity(Gravity.CENTER_VERTICAL);
+mon.setPadding(0,dp(8),0,0);
+ImageView clock = new ImageView(this);
+clock.setImageResource(R.drawable.ic_clock_small);
+mon.addView(clock, new LinearLayout.LayoutParams(dp(16),dp(16)));
+TextView every = text("Monitoring every 2 minutes", 12, GRAY);
+every.setPadding(dp(6),0,0,0);
+mon.addView(every);
+current.addView(mon);
 
-heroText.setLayoutParams(
-        new LinearLayout.LayoutParams(
-                0,
-                -2,
-                1f
-        )
-);
-
-TextView heroTitle =
-        text(
-                "BLS Rendez-Vous",
-                18,
-                NAVY
-        );
-
-heroTitle.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-heroText.addView(
-        heroTitle
-);
-
-TextView heroSub =
-        text(
-                "Your visa appointment\nassistant",
-                13,
-                GRAY
-        );
-
-heroSub.setPadding(
-        0,
-        dp(4),
-        0,
-        0
-);
-
-heroText.addView(
-        heroSub
-);
-
-hero.addView(
-        heroText
-);
+content.addView(current, margin(0,0,0,12));
 
 // =====================================================
-// VECTOR IMAGE
+// APPOINTMENT MONITORING
 // =====================================================
+LinearLayout monCard = card();
+GradientDrawable monBg = new GradientDrawable(GradientDrawable.Orientation.BL_TR, new int[]{ Color.WHITE, Color.rgb(245,230,255) });
+monBg.setCornerRadius(dp(20));
+monCard.setBackground(monBg);
+monCard.setPadding(dp(16),dp(16),dp(16),dp(16));
+monCard.setOrientation(LinearLayout.HORIZONTAL);
+monCard.setGravity(Gravity.CENTER_VERTICAL);
 
-ImageView heroImg =
-        new ImageView(this);
+ImageView monIcon = new ImageView(this);
+monIcon.setImageResource(R.drawable.ic_clock_blue);
+monCard.addView(monIcon, new LinearLayout.LayoutParams(dp(52),dp(52)));
 
-heroImg.setImageResource(
-        R.drawable.ic_hero_plane
-);
+LinearLayout monText = new LinearLayout(this);
+monText.setOrientation(LinearLayout.VERTICAL);
+monText.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1));
+monText.setPadding(dp(12),0,dp(12),0);
+TextView monTitle = text("Appointment Monitoring", 15, NAVY);
+monTitle.setTypeface(Typeface.DEFAULT_BOLD);
+monText.addView(monTitle);
+TextView monSub = text("Monitoring is paused", 12, GRAY);
+monText.addView(monSub);
+monCard.addView(monText);
 
-hero.addView(
-        heroImg,
-        new LinearLayout.LayoutParams(
-                dp(85),
-                dp(85)
-        )
-);
+TextView startBtn = text("▶  START", 13, Color.WHITE);
+startBtn.setGravity(Gravity.CENTER);
+startBtn.setPadding(dp(18),dp(12),dp(18),dp(12));
+GradientDrawable startBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.rgb(60,120,255), Color.rgb(90,70,220) });
+startBg.setCornerRadius(dp(20));
+startBtn.setBackground(startBg);
+startBtn.setTypeface(Typeface.DEFAULT_BOLD);
+monCard.addView(startBtn);
+
+content.addView(monCard, margin(0,0,0,12));
 
 // =====================================================
-// ADD HERO
+// OFFICIAL BLS SPAIN
 // =====================================================
+LinearLayout offCard = card();
+GradientDrawable offBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.WHITE, Color.rgb(210,235,255) });
+offBg.setCornerRadius(dp(20));
+offCard.setBackground(offBg);
+offCard.setPadding(dp(16),dp(16),dp(16),dp(16));
 
-content.addView(
-        hero,
-        margin(0, 8, 0, 10)
-);
-        
-        // =====================================================
-        // CURRENT APPLICATION
-        // =====================================================
+LinearLayout offTop = new LinearLayout(this);
+offTop.setOrientation(LinearLayout.HORIZONTAL);
+offTop.setGravity(Gravity.CENTER_VERTICAL);
+ImageView offIcon = new ImageView(this);
+offIcon.setImageResource(R.drawable.ic_official);
+offTop.addView(offIcon, new LinearLayout.LayoutParams(dp(52),dp(52)));
+LinearLayout offText = new LinearLayout(this);
+offText.setOrientation(LinearLayout.VERTICAL);
+offText.setPadding(dp(12),0,0,0);
+TextView offTitle = text("Official BLS Spain", 15, NAVY);
+offTitle.setTypeface(Typeface.DEFAULT_BOLD);
+offText.addView(offTitle);
+TextView offSub = text("Official information and visa services", 11, GRAY);
+offText.addView(offSub);
+offTop.addView(offText);
+offCard.addView(offTop);
 
-        LinearLayout current =
-                card();
+TextView openBtn = text("🗗  OPEN OFFICIAL WEBSITE", 13, Color.WHITE);
+openBtn.setGravity(Gravity.CENTER);
+openBtn.setPadding(0,dp(14),0,dp(14));
+GradientDrawable openBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.rgb(60,120,255), Color.rgb(85,75,210) });
+openBg.setCornerRadius(dp(14));
+openBtn.setBackground(openBg);
+openBtn.setTypeface(Typeface.DEFAULT_BOLD);
+LinearLayout.LayoutParams openP = new LinearLayout.LayoutParams(-1,-2);
+openP.topMargin = dp(14);
+offCard.addView(openBtn, openP);
 
-        current.setPadding(
-                dp(18),
-                dp(16),
-                dp(18),
-                dp(16)
-        );
+content.addView(offCard, margin(0,0,0,12));
 
-        LinearLayout currentTop =
-                new LinearLayout(this);
-
-        currentTop.setOrientation(
-                LinearLayout.HORIZONTAL
-        );
-
-        currentTop.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
-
-        LinearLayout country =
-                new LinearLayout(this);
-
-        country.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        TextView currentLabel =
-                text(
-                        "CURRENT APPLICATION",
-                        10,
-                        GRAY
-                );
-
-        currentLabel.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        country.addView(currentLabel);
-
-        TextView countryName =
-                text(
-                        "🇪🇸  Spain",
-                        21,
-                        NAVY
-                );
-
-        countryName.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        countryName.setPadding(
-                0,
-                dp(3),
-                0,
-                dp(2)
-        );
-
-        country.addView(countryName);
-
-        country.addView(
-                text(
-                        "Algiers Visa Center",
-                        12,
-                        GRAY
-                )
-        );
-
-        currentTop.addView(
-                country,
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                )
-        );
-
-        TextView active =
-                text(
-                        "● ACTIVE",
-                        11,
-                        GREEN
-                );
-
-        active.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        active.setGravity(
-                Gravity.CENTER
-        );
-
-        active.setPadding(
-                dp(10),
-                dp(6),
-                dp(10),
-                dp(6)
-        );
-
-        currentTop.addView(
-                active,
-                new LinearLayout.LayoutParams(
-                        -2,
-                        -2
-                )
-        );
-
-        current.addView(currentTop);
-
-        TextView monitoringInfo =
-                text(
-                        "Monitoring every 2 minutes",
-                        12,
-                        GRAY
-                );
-
-        monitoringInfo.setPadding(
-                0,
-                dp(10),
-                0,
-                0
-        );
-
-        current.addView(
-                monitoringInfo
-        );
-
-        content.addView(
-                current,
-                margin(0, 5, 0, 10)
-        );
-
+// =====================================================
+// SEARCH
+// =====================================================
+LinearLayout search = card();
+search.setPadding(dp(14),dp(12),dp(14),dp(12));
+TextView searchT = text("🔍  Search services", 13, GRAY);
+search.addView(searchT);
+content.addView(search, margin(0,4,0,20));
         // =====================================================
         // MONITORING
         // =====================================================
