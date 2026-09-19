@@ -496,299 +496,175 @@ search.setPadding(dp(14),dp(12),dp(14),dp(12));
 TextView searchT = text("🔍  Search services", 13, GRAY);
 search.addView(searchT);
 content.addView(search, margin(0,4,0,20));
+        
+      // =====================================================
+// 1- HERO
+// =====================================================
+LinearLayout hero = card();
+hero.setOrientation(LinearLayout.HORIZONTAL);
+hero.setGravity(Gravity.CENTER_VERTICAL);
+hero.setPadding(dp(18),dp(18),dp(18),dp(18));
+GradientDrawable heroBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.WHITE, Color.rgb(225,235,255) });
+heroBg.setCornerRadius(dp(18));
+hero.setBackground(heroBg);
+LinearLayout heroText = new LinearLayout(this);
+heroText.setOrientation(LinearLayout.VERTICAL);
+heroText.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1));
+TextView ht = text("BLS Rendez-Vous", 18, NAVY);
+ht.setTypeface(Typeface.DEFAULT_BOLD);
+heroText.addView(ht);
+heroText.addView(text("Your visa appointment\nassistant", 13, GRAY));
+hero.addView(heroText);
+ImageView heroImg = new ImageView(this);
+heroImg.setImageResource(R.drawable.ic_hero_plane);
+hero.addView(heroImg, new LinearLayout.LayoutParams(dp(85),dp(85)));
+content.addView(hero, margin(0,8,0,10));
+
+// =====================================================
+// 2- CURRENT APPLICATION
+// =====================================================
+LinearLayout current = card();
+current.setPadding(dp(18),dp(16),dp(18),dp(16));
+GradientDrawable curBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.WHITE, Color.rgb(225,240,255) });
+curBg.setCornerRadius(dp(18));
+current.setBackground(curBg);
+LinearLayout top = new LinearLayout(this);
+top.setOrientation(LinearLayout.HORIZONTAL);
+top.setGravity(Gravity.CENTER_VERTICAL);
+LinearLayout country = new LinearLayout(this);
+country.setOrientation(LinearLayout.VERTICAL);
+country.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1));
+TextView lab = text("CURRENT APPLICATION", 10, GRAY);
+lab.setTypeface(Typeface.DEFAULT_BOLD);
+country.addView(lab);
+TextView cn = text("🇪🇸 Spain", 21, NAVY);
+cn.setTypeface(Typeface.DEFAULT_BOLD);
+country.addView(cn);
+country.addView(text("Algiers Visa Center", 12, GRAY));
+top.addView(country);
+TextView active = text("● ACTIVE", 11, Color.rgb(0,170,90));
+active.setPadding(dp(10),dp(6),dp(10),dp(6));
+GradientDrawable aBg = new GradientDrawable();
+aBg.setColor(Color.rgb(220,255,235));
+aBg.setCornerRadius(dp(20));
+active.setBackground(aBg);
+active.setTypeface(Typeface.DEFAULT_BOLD);
+top.addView(active);
+current.addView(top);
+TextView mi = text("Monitoring every 2 minutes", 12, GRAY);
+mi.setPadding(0,dp(8),0,0);
+current.addView(mi);
+content.addView(current, margin(0,5,0,12));
+
+// =====================================================
+// 3- APPOINTMENT MONITORING
+// =====================================================
+LinearLayout monCard = card();
+GradientDrawable monBg = new GradientDrawable(GradientDrawable.Orientation.BL_TR, new int[]{ Color.WHITE, Color.rgb(245,230,255) });
+monBg.setCornerRadius(dp(18));
+monCard.setBackground(monBg);
+monCard.setPadding(dp(16),dp(16),dp(16),dp(16));
+monCard.setOrientation(LinearLayout.HORIZONTAL);
+monCard.setGravity(Gravity.CENTER_VERTICAL);
+ImageView monIcon = new ImageView(this);
+monIcon.setImageResource(R.drawable.ic_clock);
+monCard.addView(monIcon, new LinearLayout.LayoutParams(dp(48),dp(48)));
+LinearLayout monText = new LinearLayout(this);
+monText.setOrientation(LinearLayout.VERTICAL);
+monText.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1));
+monText.setPadding(dp(12),0,dp(12),0);
+TextView mt = text("Appointment Monitoring", 15, NAVY);
+mt.setTypeface(Typeface.DEFAULT_BOLD);
+monText.addView(mt);
+monText.addView(text("Monitoring is paused", 12, GRAY));
+monCard.addView(monText);
+TextView startBtn = text("▶ START", 13, Color.WHITE);
+startBtn.setPadding(dp(18),dp(12),dp(18),dp(12));
+GradientDrawable sBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.rgb(60,120,255), Color.rgb(90,70,220) });
+sBg.setCornerRadius(dp(20));
+startBtn.setBackground(sBg);
+monCard.addView(startBtn);
+content.addView(monCard, margin(0,0,0,12));
+
+// =====================================================
+// 4- OFFICIAL BLS SPAIN
+// =====================================================
+LinearLayout offCard = card();
+GradientDrawable offBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.WHITE, Color.rgb(210,235,255) });
+offBg.setCornerRadius(dp(18));
+offCard.setBackground(offBg);
+offCard.setPadding(dp(16),dp(16),dp(16),dp(16));
+LinearLayout offTop = new LinearLayout(this);
+offTop.setOrientation(LinearLayout.HORIZONTAL);
+offTop.setGravity(Gravity.CENTER_VERTICAL);
+ImageView offIcon = new ImageView(this);
+offIcon.setImageResource(R.drawable.ic_official);
+offTop.addView(offIcon, new LinearLayout.LayoutParams(dp(48),dp(48)));
+LinearLayout offText = new LinearLayout(this);
+offText.setOrientation(LinearLayout.VERTICAL);
+offText.setPadding(dp(12),0,0,0);
+TextView ot = text("Official BLS Spain", 15, NAVY);
+ot.setTypeface(Typeface.DEFAULT_BOLD);
+offText.addView(ot);
+offText.addView(text("Official information and visa services", 11, GRAY));
+offTop.addView(offText);
+offCard.addView(offTop);
+TextView openBtn = text("OPEN OFFICIAL WEBSITE", 13, Color.WHITE);
+openBtn.setGravity(Gravity.CENTER);
+openBtn.setPadding(0,dp(14),0,dp(14));
+GradientDrawable oBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[]{ Color.rgb(60,120,255), Color.rgb(85,75,210) });
+oBg.setCornerRadius(dp(14));
+openBtn.setBackground(oBg);
+openBtn.setTypeface(Typeface.DEFAULT_BOLD);
+LinearLayout.LayoutParams op = new LinearLayout.LayoutParams(-1,-2);
+op.topMargin = dp(14);
+offCard.addView(openBtn, op);
+content.addView(offCard, margin(0,0,0,12));
+
+// =====================================================
+// 5- SEARCH
+// =====================================================
+LinearLayout search = card();
+search.setPadding(dp(14),dp(12),dp(14),dp(12));
+search.addView(text("🔍  Search services", 13, GRAY));
+content.addView(search, margin(0,4,0,20));  
         // =====================================================
-        // MONITORING
-        // =====================================================
-
-        LinearLayout monitor =
-                card();
-
-        monitor.setPadding(
-                dp(18),
-                dp(16),
-                dp(18),
-                dp(16)
-        );
-
-        LinearLayout monitorRow =
-                new LinearLayout(this);
-
-        monitorRow.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
-
-        TextView monitorIcon =
-                text(
-                        "◉",
-                        28,
-                        BLUE
-                );
-
-        monitorIcon.setGravity(
-                Gravity.CENTER
-        );
-
-        monitorIcon.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        monitorRow.addView(
-                monitorIcon,
-                new LinearLayout.LayoutParams(
-                        dp(45),
-                        dp(45)
-                )
-        );
-
-        LinearLayout monitorInfo =
-                new LinearLayout(this);
-
-        monitorInfo.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        monitorInfo.setPadding(
-                dp(10),
-                0,
-                dp(8),
-                0
-        );
-
-        TextView monitorTitle =
-                text(
-                        "Appointment Monitoring",
-                        15,
-                        NAVY
-                );
-
-        monitorTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        TextView monitorStatus =
-                text(
-                        "Monitoring is paused",
-                        12,
-                        GRAY
-                );
-
-        monitorStatus.setPadding(
-                0,
-                dp(3),
-                0,
-                0
-        );
-
-        monitorInfo.addView(monitorTitle);
-        monitorInfo.addView(monitorStatus);
-
-        monitorRow.addView(
-                monitorInfo,
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                )
-        );
-
-        Button monitorButton =
-                smallButton("START");
-
-        monitorButton.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        String currentText =
-                                monitorButton
-                                        .getText()
-                                        .toString();
-
-                        if (currentText.equals("START")) {
-
-                            monitorButton.setText(
-                                    "STOP"
-                            );
-
-                            monitorStatus.setText(
-                                    "Monitoring is active"
-                            );
-
-                            monitorStatus.setTextColor(
-                                    GREEN
-                            );
-
-                            monitorButton.setEnabled(
-                                    false
-                            );
-
-                            android.content.Intent serviceIntent =
-                                    new android.content.Intent(
-                                            MainActivity.this,
-                                            AppointmentMonitoringService.class
-                                    );
-
-                            try {
-
-                                if (android.os.Build.VERSION.SDK_INT >=
-                                        android.os.Build.VERSION_CODES.O) {
-
-                                    startForegroundService(
-                                            serviceIntent
-                                    );
-
-                                } else {
-
-                                    startService(
-                                            serviceIntent
-                                    );
-                                }
-
-                                android.widget.Toast.makeText(
-                                        MainActivity.this,
-                                        "Monitoring started",
-                                        android.widget.Toast.LENGTH_SHORT
-                                ).show();
-
-                            } catch (Exception e) {
-
-                                monitorButton.setText(
-                                        "START"
-                                );
-
-                                monitorStatus.setText(
-                                        "Monitoring is paused"
-                                );
-
-                                monitorStatus.setTextColor(
-                                        GRAY
-                                );
-
-                                android.widget.Toast.makeText(
-                                        MainActivity.this,
-                                        "Monitoring could not start",
-                                        android.widget.Toast.LENGTH_LONG
-                                ).show();
-                            }
-
-                            monitorButton.setEnabled(
-                                    true
-                            );
-
-                        } else {
-
-                            android.content.Intent serviceIntent =
-                                    new android.content.Intent(
-                                            MainActivity.this,
-                                            AppointmentMonitoringService.class
-                                    );
-
-                            stopService(
-                                    serviceIntent
-                            );
-
-                            monitorButton.setText(
-                                    "START"
-                            );
-
-                            monitorStatus.setText(
-                                    "Monitoring is paused"
-                            );
-
-                            monitorStatus.setTextColor(
-                                    GRAY
-                            );
-
-                            android.widget.Toast.makeText(
-                                    MainActivity.this,
-                                    "Monitoring stopped",
-                                    android.widget.Toast.LENGTH_SHORT
-                            ).show();
-                        }
-                    }
-                }
-        );
-
-        monitorRow.addView(
-                monitorButton
-        );
-
-        monitor.addView(
-                monitorRow
-        );
-
-        content.addView(
-                monitor,
-                margin(0, 0, 0, 10)
-        );
-
-        // =====================================================
-        // OFFICIAL BLS
+        // SERVICES CONTAINER
         // =====================================================
 
-        LinearLayout official =
-                card();
+        LinearLayout servicesContainer =
+        new LinearLayout(this);
 
-        TextView officialTitle =
-                text(
-                        "Official BLS Spain",
-                        15,
-                        NAVY
-                );
+servicesContainer.setOrientation(
+        LinearLayout.VERTICAL
+);
 
-        officialTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
+servicesContainer.setPadding(
+        dp(12),
+        dp(14),
+        dp(12),
+        dp(10)
+);
+
+// =====================================================
+// SERVICES TITLE
+// =====================================================
+
+TextView servicesTitle =
+        text(
+                "Services",
+                20,
+                NAVY
         );
 
-        official.addView(
-                officialTitle
-        );
+servicesTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-        official.addView(
-                text(
-                        "Official information and visa services",
-                        12,
-                        GRAY
-                ),
-                margin(0, 4, 0, 8)
-        );
-
-        Button open =
-                smallButton(
-                        "OPEN OFFICIAL WEBSITE"
-                );
-
-        open.setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        try {
-
-                            android.content.Intent intent =
-                                    new android.content.Intent(
-                                            android.content.Intent.ACTION_VIEW,
-                                            android.net.Uri.parse(
-                                                    "https://algeria.blsspainvisa.com/"
-                                            )
-                                    );
-
-                            startActivity(intent);
-
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-        );
-
-        official.addView(open);
-
-        content.addView(
-                official,
-                margin(0, 10, 0, 5)
-        );
+servicesContainer.addView(
+        servicesTitle,
+        margin(2, 0, 0, 10)
+);                                                                     // ===========================================
 
         // =====================================================
         // SERVICES CONTAINER
