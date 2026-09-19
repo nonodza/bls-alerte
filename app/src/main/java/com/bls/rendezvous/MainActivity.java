@@ -289,194 +289,47 @@ public class MainActivity extends Activity {
 
         setContentView(root);
 
- // =====================================================
-// HEADER — MODERN TOP BAR
-// =====================================================
+     if (getSupportActionBar() != null) getSupportActionBar().hide();
 
-LinearLayout header =
-        new LinearLayout(this);
+    // =====================================================
+    // HEADER — TOP BAR (Vector 100%)
+    // =====================================================
+    LinearLayout header = new LinearLayout(this);
+    header.setOrientation(LinearLayout.HORIZONTAL);
+    header.setGravity(Gravity.CENTER_VERTICAL);
+    header.setPadding(dp(16), dp(8), dp(16), dp(8));
+    header.setBackgroundColor(Color.WHITE);
 
-header.setOrientation(
-        LinearLayout.HORIZONTAL
-);
+    ImageView menuIcon = new ImageView(this);
+    menuIcon.setImageResource(R.drawable.ic_menu);
+    menuIcon.setPadding(dp(8), dp(8), dp(8), dp(8));
+    header.addView(menuIcon, new LinearLayout.LayoutParams(dp(42), dp(42)));
 
-header.setGravity(
-        Gravity.CENTER_VERTICAL
-);
+    TextView appName = text("BLS Rendez-Vous", 20, NAVY);
+    appName.setTypeface(Typeface.DEFAULT_BOLD);
+    LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(0, dp(42), 1);
+    titleParams.leftMargin = dp(6);
+    header.addView(appName, titleParams);
 
-header.setPadding(
-        dp(16),
-        dp(8),
-        dp(16),
-        dp(8)
-);
+    FrameLayout notificationContainer = new FrameLayout(this);
+    ImageView bellIcon = new ImageView(this);
+    bellIcon.setImageResource(R.drawable.ic_bell);
+    bellIcon.setPadding(dp(8), dp(8), dp(8), dp(8));
+    notificationContainer.addView(bellIcon, new FrameLayout.LayoutParams(dp(42), dp(42), Gravity.CENTER));
 
-// =====================================================
-// MENU
-// =====================================================
+    View notificationDot = new View(this);
+    GradientDrawable dotBg = new GradientDrawable();
+    dotBg.setShape(GradientDrawable.OVAL);
+    dotBg.setColor(Color.rgb(235, 65, 85));
+    notificationDot.setBackground(dotBg);
+    FrameLayout.LayoutParams dotParams = new FrameLayout.LayoutParams(dp(8), dp(8));
+    dotParams.gravity = Gravity.TOP | Gravity.RIGHT;
+    dotParams.rightMargin = dp(5);
+    dotParams.topMargin = dp(4);
+    notificationContainer.addView(notificationDot, dotParams);
 
-ImageView menuIcon =
-        new ImageView(this);
-
-// Material-style menu vector
-menuIcon.setImageResource(
-        R.drawable.ic_menu
-);
-
-
-menuIcon.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
-
-header.addView(
-        menuIcon,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
-        )
-);
-
-// =====================================================
-// TITLE
-// =====================================================
-
-TextView appName =
-        text(
-                "BLS Rendez-Vous",
-                20,
-                NAVY
-        );
-
-appName.setTypeface(
-        Typeface.DEFAULT,
-        Typeface.BOLD
-);
-
-appName.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-LinearLayout.LayoutParams titleParams =
-        new LinearLayout.LayoutParams(
-                0,
-                dp(42),
-                1
-);
-
-titleParams.leftMargin =
-        dp(6);
-
-header.addView(
-        appName,
-        titleParams
-);
-
-// =====================================================
-// NOTIFICATION AREA
-// =====================================================
-
-FrameLayout notificationContainer =
-        new FrameLayout(this);
-
-notificationContainer.setClipChildren(
-        false
-);
-
-notificationContainer.setClipToPadding(
-        false
-);
-
-// =====================================================
-// BELL
-// =====================================================
-
-ImageView bell =
-        new ImageView(this);
-
-bell.setImageResource(
-        R.drawable.ic_bell
-);
-
-bell.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
-
-notificationContainer.addView(
-        bell,
-        new android.widget.FrameLayout.LayoutParams(
-                dp(42),
-                dp(42),
-                Gravity.CENTER
-        )
-);
-
-// =====================================================
-// NOTIFICATION DOT
-// =====================================================
-
-View notificationDot =
-        new View(this);
-
-GradientDrawable dotBg =
-        new GradientDrawable();
-
-dotBg.setShape(
-        GradientDrawable.OVAL
-);
-
-dotBg.setColor(
-        Color.rgb(235, 65, 85)
-);
-
-notificationDot.setBackground(
-        dotBg
-);
-
-android.widget.FrameLayout.LayoutParams dotParams =
-        new android.widget.FrameLayout.LayoutParams(
-                dp(8),
-                dp(8)
-);
-
-dotParams.gravity =
-        Gravity.TOP | Gravity.RIGHT;
-
-dotParams.rightMargin =
-        dp(5);
-
-dotParams.topMargin =
-        dp(4);
-
-notificationContainer.addView(
-        notificationDot,
-        dotParams
-);
-
-header.addView(
-        notificationContainer,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
-        )
-);
-
-// =====================================================
-// ADD TOP BAR
-// =====================================================
-
-root.addView(
-        header,
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        )
-);
+    header.addView(notificationContainer, new LinearLayout.LayoutParams(dp(42), dp(42)));
+    root.addView(header, new LinearLayout.LayoutParams(-1, -2));
 
        
 // =====================================================
