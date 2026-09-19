@@ -393,6 +393,9 @@ notificationContainer.setClipToPadding(
 // BELL
 // =====================================================
 
+ImageView bell =
+        new ImageView(this);
+
 bell.setImageResource(
         R.drawable.ic_bell
 );
