@@ -1021,9 +1021,10 @@ row3.addView(
 servicesContainer.addView(
         row3,
         new LinearLayout.LayoutParams(
-        -1,
-        dp(82)
-)
+                -1,
+                dp(82)
+        )
+);
 
 // =====================================================
 // ADD SERVICES CONTAINER TO HOME
