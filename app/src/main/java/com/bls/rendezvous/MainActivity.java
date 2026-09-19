@@ -512,6 +512,133 @@ root.addView(
                         1
                 )
         );
+
+        // =====================================================
+// HERO - BLS RENDEZ-VOUS
+// =====================================================
+
+LinearLayout hero = card();
+
+hero.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+hero.setPadding(
+        dp(18),
+        dp(18),
+        dp(18),
+        dp(18)
+);
+
+hero.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// =====================================================
+// HERO BACKGROUND
+// =====================================================
+
+GradientDrawable heroBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(240, 247, 255),
+                        Color.rgb(225, 235, 255)
+                }
+        );
+
+heroBg.setCornerRadius(
+        dp(18)
+);
+
+hero.setBackground(
+        heroBg
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+LinearLayout heroText =
+        new LinearLayout(this);
+
+heroText.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+heroText.setLayoutParams(
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+TextView heroTitle =
+        text(
+                "BLS Rendez-Vous",
+                18,
+                NAVY
+        );
+
+heroTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+heroText.addView(
+        heroTitle
+);
+
+TextView heroSub =
+        text(
+                "Your visa appointment\nassistant",
+                13,
+                GRAY
+        );
+
+heroSub.setPadding(
+        0,
+        dp(4),
+        0,
+        0
+);
+
+heroText.addView(
+        heroSub
+);
+
+hero.addView(
+        heroText
+);
+
+// =====================================================
+// VECTOR IMAGE
+// =====================================================
+
+ImageView heroImg =
+        new ImageView(this);
+
+heroImg.setImageResource(
+        R.drawable.ic_hero_plane
+);
+
+hero.addView(
+        heroImg,
+        new LinearLayout.LayoutParams(
+                dp(85),
+                dp(85)
+        )
+);
+
+// =====================================================
+// ADD HERO
+// =====================================================
+
+content.addView(
+        hero,
+        margin(0, 8, 0, 10)
+);
+        
         // =====================================================
         // CURRENT APPLICATION
         // =====================================================
