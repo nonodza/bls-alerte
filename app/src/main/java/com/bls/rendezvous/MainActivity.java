@@ -289,8 +289,6 @@ public class MainActivity extends Activity {
 
         setContentView(root);
 
-     if (getSupportActionBar() != null) getSupportActionBar().hide();
-
     // =====================================================
     // HEADER — TOP BAR (Vector 100%)
     // =====================================================
