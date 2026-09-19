@@ -289,78 +289,246 @@ public class MainActivity extends Activity {
         setContentView(root);
 
         // =====================================================
-        // HEADER
-        // =====================================================
+// HEADER — MODERN TOP BAR
+// =====================================================
 
-        LinearLayout header =
-                new LinearLayout(this);
+LinearLayout header =
+        new LinearLayout(this);
 
-        header.setOrientation(
-                LinearLayout.HORIZONTAL
+header.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+header.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+header.setPadding(
+        dp(18),
+        dp(12),
+        dp(18),
+        dp(12)
+);
+
+// =====================================================
+// MENU BUTTON
+// =====================================================
+
+LinearLayout menuButton =
+        new LinearLayout(this);
+
+menuButton.setGravity(
+        Gravity.CENTER
+);
+
+GradientDrawable menuBg =
+        new GradientDrawable();
+
+menuBg.setColor(
+        Color.TRANSPARENT
+);
+
+menuBg.setCornerRadius(
+        dp(14)
+);
+
+menuButton.setBackground(
+        menuBg
+);
+
+// Vector-style Menu icon
+TextView menuIcon =
+        text(
+                "☰",
+                24,
+                NAVY
+);
+
+menuIcon.setGravity(
+        Gravity.CENTER
+);
+
+menuButton.addView(
+        menuIcon,
+        new LinearLayout.LayoutParams(
+                dp(40),
+                dp(40)
+        )
+);
+
+header.addView(
+        menuButton,
+        new LinearLayout.LayoutParams(
+                dp(40),
+                dp(40)
+        )
+);
+
+// =====================================================
+// APP TITLE
+// =====================================================
+
+TextView appName =
+        text(
+                "BLS Rendez-Vous",
+                21,
+                NAVY
         );
 
-        header.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
+appName.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-        header.setPadding(
-                dp(20),
-                dp(16),
-                dp(20),
-                dp(10)
-        );
+appName.setGravity(
+        Gravity.CENTER_VERTICAL
+);
 
-        LinearLayout titles =
-                new LinearLayout(this);
-
-        titles.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        titles.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
-
-        TextView appName =
-                text(
-                        "BLS Rendez-Vous",
-                        24,
-                        NAVY
-                );
-
-        appName.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        TextView subtitle =
-                text(
-                        "Your visa appointment assistant",
-                        12,
-                        GRAY
-                );
-
-        subtitle.setPadding(
+LinearLayout.LayoutParams titleParams =
+        new LinearLayout.LayoutParams(
                 0,
-                dp(2),
-                0,
-                0
+                dp(48),
+                1
+);
+
+titleParams.leftMargin =
+        dp(8);
+
+header.addView(
+        appName,
+        titleParams
+);
+
+// =====================================================
+// NOTIFICATION BUTTON
+// =====================================================
+
+FrameLayout notificationContainer =
+        new FrameLayout(this);
+
+notificationContainer.setClipChildren(
+        false
+);
+
+notificationContainer.setClipToPadding(
+        false
+);
+
+// Bell background
+GradientDrawable bellBg =
+        new GradientDrawable();
+
+bellBg.setColor(
+        Color.TRANSPARENT
+);
+
+bellBg.setCornerRadius(
+        dp(14)
+);
+
+// Bell icon
+TextView bellIcon =
+        text(
+                "♧",
+                1,
+                Color.TRANSPARENT
+);
+
+// Use ImageView-compatible vector drawable
+ImageView bell =
+        new ImageView(this);
+
+bell.setImageDrawable(
+        getDrawable(
+                android.R.drawable.ic_dialog_info
+        )
+);
+
+bell.setColorFilter(
+        new android.graphics.PorterDuffColorFilter(
+                NAVY,
+                android.graphics.PorterDuff.Mode.SRC_IN
+        )
+);
+
+bell.setBackground(
+        bellBg
+);
+
+bell.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
+);
+
+notificationContainer.addView(
+        bell,
+        new android.widget.FrameLayout.LayoutParams(
+                dp(40),
+                dp(40),
+                Gravity.CENTER
+        )
+);
+
+// =====================================================
+// NOTIFICATION DOT
+// =====================================================
+
+View notificationDot =
+        new View(this);
+
+GradientDrawable dotBg =
+        new GradientDrawable();
+
+dotBg.setShape(
+        GradientDrawable.OVAL
+);
+
+dotBg.setColor(
+        Color.rgb(235, 65, 85)
+);
+
+notificationDot.setBackground(
+        dotBg
+);
+
+android.widget.FrameLayout.LayoutParams dotParams =
+        new android.widget.FrameLayout.LayoutParams(
+                dp(8),
+                dp(8)
         );
 
-        titles.addView(appName);
-        titles.addView(subtitle);
+dotParams.gravity =
+        Gravity.TOP | Gravity.RIGHT;
 
-        header.addView(
-                titles,
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                )
-        );
+dotParams.rightMargin =
+        dp(5);
 
-        root.addView(header);
+dotParams.topMargin =
+        dp(5);
 
-        // =====================================================
+notificationContainer.addView(
+        notificationDot,
+        dotParams
+);
+
+header.addView(
+        notificationContainer,
+        new LinearLayout.LayoutParams(
+                dp(40),
+                dp(40)
+        )
+);
+
+// =====================================================
+// ADD HEADER
+// =====================================================
+
+root.addView(
+        header
+);
+        
+// =====================================================
         // SCROLL
         // =====================================================
 
@@ -393,7 +561,6 @@ public class MainActivity extends Activity {
                         1
                 )
         );
-
         // =====================================================
         // CURRENT APPLICATION
         // =====================================================
