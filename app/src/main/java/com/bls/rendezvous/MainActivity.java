@@ -279,10 +279,10 @@ public class MainActivity extends Activity {
                 new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,
                         new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
-                        }
+    Color.rgb(226, 234, 250),
+    Color.rgb(211, 221, 246),
+    Color.rgb(228, 216, 242)
+}
                 );
 
         root.setBackground(background);
