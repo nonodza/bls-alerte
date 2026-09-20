@@ -224,17 +224,28 @@ public class MainActivity extends Activity {
                 .setDuration(850)
                 .setStartDelay(450)
                 .withEndAction(
-                        new Runnable() {
-                            @Override
-                            public void run() {
+    new Runnable() {
+        @Override
+        public void run() {
 
-                                light.animate()
-                                        .alpha(0f)
-                                        .setDuration(300)
-                                        .start();
-                            }
-                        }
-                )
+            try {
+                showHome();
+
+            } catch (Exception e) {
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("BLS Rendez-Vous Error")
+                        .setMessage(
+                                e.getClass().getName()
+                                + "\n\n"
+                                + e.getMessage()
+                        )
+                        .setPositiveButton("OK", null)
+                        .show();
+            }
+        }
+    }
+)
                 .start();
 
         new Handler().postDelayed(
