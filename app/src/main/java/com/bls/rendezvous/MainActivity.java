@@ -234,23 +234,25 @@ public class MainActivity extends Activity {
 
             } catch (Exception e) {
 
-                StringBuilder details =
-                        new StringBuilder();
+    StackTraceElement[] trace =
+            e.getStackTrace();
 
-                details.append(e.toString());
-                details.append("\n\n");
+    String location = "Unknown";
 
-                for (StackTraceElement element : e.getStackTrace()) {
-                    details.append(element.toString());
-                    details.append("\n");
-                }
+    if (trace != null && trace.length > 0) {
+        location = trace[0].toString();
+    }
 
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("BLS Rendez-Vous Error")
-                        .setMessage(details.toString())
-                        .setPositiveButton("OK", null)
-                        .show();
-            }
+    new AlertDialog.Builder(MainActivity.this)
+            .setTitle("BLS ERROR LOCATION")
+            .setMessage(
+                    e.toString()
+                    + "\n\n"
+                    + location
+            )
+            .setPositiveButton("OK", null)
+            .show();
+           }
         }
     }
 )
