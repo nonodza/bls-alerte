@@ -1009,7 +1009,7 @@ offTop.setGravity(
 TextView offIcon =
         text(
                 "✓",
-                20,
+                16,
                 BLUE
         );
 
@@ -1020,8 +1020,8 @@ offIcon.setGravity(
 offTop.addView(
         offIcon,
         new LinearLayout.LayoutParams(
-                dp(32),
-                dp(32)
+                dp(26),
+                dp(26)
         )
 );
 
