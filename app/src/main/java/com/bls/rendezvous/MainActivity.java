@@ -545,7 +545,13 @@ hero.setPadding(
 // GLOBAL VISA ICON
 // =====================================================
 
-imageView.setImageResource(R.drawable.ic_hero_plane);
+ImageView heroImg =
+        new ImageView(this);
+
+heroImg.setImageResource(
+        R.drawable.ic_hero_plane
+);
+
 heroImg.setScaleType(
         ImageView.ScaleType.CENTER_INSIDE
 );
