@@ -4,69 +4,57 @@
     android:viewportWidth="85"
     android:viewportHeight="85">
 
-    <!-- Soft background -->
+    <!-- Soft travel background -->
     <path
-        android:fillColor="#EAF1FF"
+        android:fillColor="#EEF4FF"
         android:pathData="M42.5,5A37.5,37.5 0,1 1,5 42.5A37.5,37.5 0,0 1,42.5 5Z" />
 
     <!-- Globe -->
     <path
         android:fillColor="#FFFFFF"
         android:strokeColor="#3264E8"
-        android:strokeWidth="2.5"
-        android:pathData="M42.5,21
-            A21.5,21.5 0,1 0,42.5 64
-            A21.5,21.5 0,1 0,42.5 21Z" />
+        android:strokeWidth="2.4"
+        android:pathData="M42.5,20
+            A22.5,22.5 0,1 0,42.5,65
+            A22.5,22.5 0,1 0,42.5,20Z" />
 
-    <!-- Globe vertical lines -->
+    <!-- Globe longitude -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#6C82E8"
-        android:strokeWidth="1.4"
-        android:pathData="M42.5,21
-            C31,28 31,57 42.5,64
-            C54,57 54,28 42.5,21Z" />
+        android:strokeColor="#7894EA"
+        android:strokeWidth="1.3"
+        android:pathData="M42.5,20
+            C30,27 30,58 42.5,65
+            C55,58 55,27 42.5,20Z" />
 
-    <!-- Globe horizontal lines -->
+    <!-- Globe latitude -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#6C82E8"
-        android:strokeWidth="1.4"
+        android:strokeColor="#7894EA"
+        android:strokeWidth="1.3"
         android:pathData="M22,42.5
-            C32,35 53,35 63,42.5
-            C53,50 32,50 22,42.5Z" />
+            C31,35 54,35 63,42.5
+            C54,50 31,50 22,42.5Z" />
 
     <!-- Equator -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#8A78D8"
-        android:strokeWidth="1.4"
-        android:pathData="M21.5,42.5 L63.5,42.5" />
+        android:strokeColor="#A08BD9"
+        android:strokeWidth="1.2"
+        android:pathData="M20.5,42.5
+            C30,42.5 55,42.5 64.5,42.5" />
 
-    <!-- Travel route / orbit -->
+    <!-- Travel orbit -->
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#7855B4"
         android:strokeWidth="2.2"
-        android:pathData="M17,55
-            C25,70 48,73 62,61
-            C69,55 70,47 67,39" />
+        android:pathData="M15,55
+            C23,69 43,74 59,66
+            C68,62 72,54 70,44
+            C69,39 67,35 64,32" />
 
-    <!-- Small airplane -->
+    <!-- Orbit highlight -->
     <path
-        android:fillColor="#182B67"
-        android:pathData="
-            M64,28
-            L67,29
-            L69,38
-            L76,44
-            L74,46
-            L67,42
-            L61,53
-            L58,52
-            L63,40
-            L56,36
-            L57,33
-            L64,36 Z" />
-
-</vector>
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#5D7FE
