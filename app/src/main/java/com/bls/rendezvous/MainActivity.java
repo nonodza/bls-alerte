@@ -596,96 +596,53 @@ root.addView(
 );
 
 // =====================================================
-// SCROLL CONTENT
+// HERO - GLOBAL VISA
 // =====================================================
 
-ScrollView scroll = new ScrollView(this);
-scroll.setFillViewport(true);
-scroll.setClipToPadding(false);
+LinearLayout hero =
+        new LinearLayout(this);
 
-LinearLayout content = new LinearLayout(this);
-content.setOrientation(LinearLayout.VERTICAL);
-content.setPadding(
-        dp(18),
-        dp(5),
-        dp(18),
-        dp(28)
+hero.setOrientation(
+        LinearLayout.HORIZONTAL
 );
 
-scroll.addView(content);
-
-root.addView(
-        scroll,
-        new LinearLayout.LayoutParams(
-                -1,
-                0,
-                1
-        )
+hero.setGravity(
+        Gravity.CENTER_VERTICAL
 );
-       
-// =====================================================
-// HERO - Passport
-// =====================================================
 
-LinearLayout hero = new LinearLayout(this);
-hero.setOrientation(LinearLayout.HORIZONTAL);
-hero.setGravity(Gravity.CENTER_VERTICAL);
 hero.setPadding(
-        dp(16),
-        dp(6),
-        dp(16),
-        dp(6)
+        dp(8),
+        dp(4),
+        dp(8),
+        dp(4)
 );
 
-ImageView heroImg = new ImageView(this);
+// =====================================================
+// GLOBAL VISA ICON
+// =====================================================
+
+ImageView heroImg =
+        new ImageView(this);
 
 heroImg.setImageResource(
-        R.drawable.ic_hero_plane
+        R.drawable.ic_hero_global
+);
+
+heroImg.setScaleType(
+        ImageView.ScaleType.CENTER_INSIDE
 );
 
 hero.addView(
         heroImg,
         new LinearLayout.LayoutParams(
-                dp(78), dp(78)
+                dp(58),
+                dp(58)
         )
 );
 
-LinearLayout heroText = new LinearLayout(this);
-heroText.setOrientation(LinearLayout.VERTICAL);
-heroText.setPadding(
-        dp(12),
-        0,
-        0,
-        0
-);
-
-TextView heroTitle =
-        text(
-                "BLS Rendez-Vous",
-                22,
-                NAVY
-        );
-
-heroTitle.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-heroText.addView(heroTitle);
-
-TextView heroSub =
-        text(
-                "Your visa appointment assistant",
-                13,
-                GRAY
-        );
-
-heroText.addView(heroSub);
-
-hero.addView(heroText);
-
 content.addView(
         hero,
-        margin(0, 10, 0, 10)
+        margin(0, 6, 0, 8)
 );
 
 
