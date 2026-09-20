@@ -507,6 +507,123 @@ root.addView(
 );
        
 // =====================================================
+// BELL
+// =====================================================
+
+ImageView bell =
+        new ImageView(this);
+
+bell.setImageResource(
+        R.drawable.ic_bell
+);
+
+bell.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
+);
+
+notificationContainer.addView(
+        bell,
+        new android.widget.FrameLayout.LayoutParams(
+                dp(42),
+                dp(42),
+                Gravity.CENTER
+        )
+);
+
+// =====================================================
+// NOTIFICATION DOT
+// =====================================================
+
+View notificationDot =
+        new View(this);
+
+GradientDrawable dotBg =
+        new GradientDrawable();
+
+dotBg.setShape(
+        GradientDrawable.OVAL
+);
+
+dotBg.setColor(
+        Color.rgb(235, 65, 85)
+);
+
+notificationDot.setBackground(
+        dotBg
+);
+
+android.widget.FrameLayout.LayoutParams dotParams =
+        new android.widget.FrameLayout.LayoutParams(
+                dp(8),
+                dp(8)
+);
+
+dotParams.gravity =
+        Gravity.TOP | Gravity.RIGHT;
+
+dotParams.rightMargin =
+        dp(5);
+
+dotParams.topMargin =
+        dp(4);
+
+notificationContainer.addView(
+        notificationDot,
+        dotParams
+);
+
+header.addView(
+        notificationContainer,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// ADD TOP BAR
+// =====================================================
+
+root.addView(
+        header,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
+
+// =====================================================
+// SCROLL CONTENT
+// =====================================================
+
+ScrollView scroll = new ScrollView(this);
+scroll.setFillViewport(true);
+scroll.setClipToPadding(false);
+
+LinearLayout content = new LinearLayout(this);
+content.setOrientation(LinearLayout.VERTICAL);
+content.setPadding(
+        dp(18),
+        dp(5),
+        dp(18),
+        dp(28)
+);
+
+scroll.addView(content);
+
+root.addView(
+        scroll,
+        new LinearLayout.LayoutParams(
+                -1,
+                0,
+                1
+        )
+);
+       
+// =====================================================
 // HERO - Passport
 // =====================================================
 
