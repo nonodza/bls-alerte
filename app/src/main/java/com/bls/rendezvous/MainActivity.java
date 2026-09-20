@@ -234,13 +234,20 @@ public class MainActivity extends Activity {
 
             } catch (Exception e) {
 
+                StringBuilder details =
+                        new StringBuilder();
+
+                details.append(e.toString());
+                details.append("\n\n");
+
+                for (StackTraceElement element : e.getStackTrace()) {
+                    details.append(element.toString());
+                    details.append("\n");
+                }
+
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("BLS Rendez-Vous Error")
-                        .setMessage(
-                                e.getClass().getName()
-                                + "\n\n"
-                                + e.getMessage()
-                        )
+                        .setMessage(details.toString())
                         .setPositiveButton("OK", null)
                         .show();
             }
