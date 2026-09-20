@@ -4,57 +4,52 @@
     android:viewportWidth="85"
     android:viewportHeight="85">
 
-    <!-- Soft travel background -->
     <path
         android:fillColor="#EEF4FF"
         android:pathData="M42.5,5A37.5,37.5 0,1 1,5 42.5A37.5,37.5 0,0 1,42.5 5Z" />
 
-    <!-- Globe -->
     <path
         android:fillColor="#FFFFFF"
         android:strokeColor="#3264E8"
         android:strokeWidth="2.4"
-        android:pathData="M42.5,20
-            A22.5,22.5 0,1 0,42.5,65
-            A22.5,22.5 0,1 0,42.5,20Z" />
+        android:pathData="M42.5,20A22.5,22.5 0,1 0,42.5,65A22.5,22.5 0,1 0,42.5,20Z" />
 
-    <!-- Globe longitude -->
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#7894EA"
         android:strokeWidth="1.3"
-        android:pathData="M42.5,20
-            C30,27 30,58 42.5,65
-            C55,58 55,27 42.5,20Z" />
+        android:pathData="M42.5,20C30,27 30,58 42.5,65C55,58 55,27 42.5,20Z" />
 
-    <!-- Globe latitude -->
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#7894EA"
         android:strokeWidth="1.3"
-        android:pathData="M22,42.5
-            C31,35 54,35 63,42.5
-            C54,50 31,50 22,42.5Z" />
+        android:pathData="M22,42.5C31,35 54,35 63,42.5C54,50 31,50 22,42.5Z" />
 
-    <!-- Equator -->
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#A08BD9"
         android:strokeWidth="1.2"
-        android:pathData="M20.5,42.5
-            C30,42.5 55,42.5 64.5,42.5" />
+        android:pathData="M20.5,42.5C30,42.5 55,42.5 64.5,42.5" />
 
-    <!-- Travel orbit -->
     <path
         android:fillColor="@android:color/transparent"
         android:strokeColor="#7855B4"
         android:strokeWidth="2.2"
-        android:pathData="M15,55
-            C23,69 43,74 59,66
-            C68,62 72,54 70,44
-            C69,39 67,35 64,32" />
+        android:pathData="M15,55C23,69 43,74 59,66C68,62 72,54 70,44C69,39 67,35 64,32" />
 
-    <!-- Orbit highlight -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#5D7FE
+        android:strokeColor="#5D7FE5"
+        android:strokeWidth="1.1"
+        android:pathData="M17,56C27,68 45,71 58,64" />
+
+    <path
+        android:fillColor="#182B67"
+        android:pathData="M63,27L66,28L68,37L76,43L74,46L67,42L61,53L58,52L63,40L56,36L57,33L63,36Z" />
+
+    <path
+        android:fillColor="#7855B4"
+        android:pathData="M16,54A2,2 0,1 1,12 54A2,2 0,1 1,16 54Z" />
+
+</vector>
