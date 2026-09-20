@@ -258,8 +258,30 @@ public class MainActivity extends Activity {
                 },
                 1800
         );
-    }
+    } 
+    
+// =====================================================
+// HOME
+// =====================================================
+private void showHome(){
+    currentPage = "HOME";
+    root.removeAllViews();
+    root.setOrientation(LinearLayout.VERTICAL);
+    GradientDrawable background = new GradientDrawable(
+        GradientDrawable.Orientation.TL_BR,
+        new int[]{ Color.rgb(245,248,255), Color.rgb(238,244,255), Color.rgb(247,243,252) }
+    );
+    root.setBackground(background);
 
+    // SCROLL + CONTENT
+    ScrollView scroll = new ScrollView(this);
+    scroll.setFillViewport(true);
+    LinearLayout content = new LinearLayout(this);
+    content.setOrientation(LinearLayout.VERTICAL);
+    content.setPadding(dp(18),dp(5),dp(18),dp(28));
+    scroll.addView(content);
+    root.addView(scroll, new LinearLayout.LayoutParams(-1,0,1));
+    
     // =====================================================
     // HEADER — TOP BAR (Vector 100%)
     // =====================================================
@@ -300,28 +322,6 @@ public class MainActivity extends Activity {
     header.addView(notificationContainer, new LinearLayout.LayoutParams(dp(42), dp(42)));
     root.addView(header, new LinearLayout.LayoutParams(-1, -2));
 
-       // =====================================================
-// HOME
-// =====================================================
-private void showHome(){
-    currentPage = "HOME";
-    root.removeAllViews();
-    root.setOrientation(LinearLayout.VERTICAL);
-    GradientDrawable background = new GradientDrawable(
-        GradientDrawable.Orientation.TL_BR,
-        new int[]{ Color.rgb(245,248,255), Color.rgb(238,244,255), Color.rgb(247,243,252) }
-    );
-    root.setBackground(background);
-
-    // SCROLL + CONTENT
-    ScrollView scroll = new ScrollView(this);
-    scroll.setFillViewport(true);
-    LinearLayout content = new LinearLayout(this);
-    content.setOrientation(LinearLayout.VERTICAL);
-    content.setPadding(dp(18),dp(5),dp(18),dp(28));
-    scroll.addView(content);
-    root.addView(scroll, new LinearLayout.LayoutParams(-1,0,1));
-    
 // =====================================================
 // HERO - Passport
 // =====================================================
