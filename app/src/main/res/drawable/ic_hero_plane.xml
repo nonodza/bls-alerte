@@ -1,9 +1,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="85dp"
-    android:height="85dp"
+    android:width="65dp"
+    android:height="65dp"
     android:viewportWidth="85"
     android:viewportHeight="85">
-
     <!-- Soft circular background -->
     <path
         android:fillColor="#EAF1FF"
