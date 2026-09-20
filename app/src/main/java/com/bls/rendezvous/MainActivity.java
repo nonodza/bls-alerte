@@ -849,11 +849,11 @@ monCard.setGravity(
 
 // Monitoring icon
 TextView monIcon =
-        text(
-                "◷",
-                30,
-                BLUE
-        );
+     text(
+      "◷",
+       24,
+      BLUE
+);
 
 monIcon.setGravity(
         Gravity.CENTER
@@ -862,8 +862,8 @@ monIcon.setGravity(
 monCard.addView(
         monIcon,
         new LinearLayout.LayoutParams(
-                dp(52),
-                dp(52)
+                dp(44),
+                dp(44)
         )
 );
 
@@ -1000,7 +1000,7 @@ offTop.setGravity(
 TextView offIcon =
         text(
                 "✓",
-                30,
+                24,
                 BLUE
         );
 
@@ -1011,8 +1011,8 @@ offIcon.setGravity(
 offTop.addView(
         offIcon,
         new LinearLayout.LayoutParams(
-                dp(52),
-                dp(52)
+                dp(44),
+                dp(44)
         )
 );
 
