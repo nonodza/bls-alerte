@@ -514,10 +514,10 @@ LinearLayout hero = new LinearLayout(this);
 hero.setOrientation(LinearLayout.HORIZONTAL);
 hero.setGravity(Gravity.CENTER_VERTICAL);
 hero.setPadding(
-        dp(18),
-        dp(10),
-        dp(18),
-        dp(10)
+        dp(16),
+        dp(6),
+        dp(16),
+        dp(6)
 );
 
 ImageView heroImg = new ImageView(this);
@@ -529,8 +529,7 @@ heroImg.setImageResource(
 hero.addView(
         heroImg,
         new LinearLayout.LayoutParams(
-                dp(95),
-                dp(95)
+                dp(78), dp(78)
         )
 );
 
@@ -583,8 +582,8 @@ GradientDrawable currentBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.WHITE,
-                        Color.rgb(225, 240, 255)
+                        Color.rgb(244, 249, 255),
+                        Color.rgb(198, 222, 250)
                 }
         );
 
@@ -598,10 +597,10 @@ currentBg.setStroke(
 current.setBackground(currentBg);
 
 current.setPadding(
-        dp(16),
         dp(14),
-        dp(16),
-        dp(14)
+        dp(10),
+        dp(14),
+        dp(10)
 );
 
 
@@ -823,8 +822,8 @@ GradientDrawable monBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
                 new int[]{
-                        Color.WHITE,
-                        Color.rgb(245, 230, 255)
+                        Color.rgb(245, 242, 255),
+                        Color.rgb(221, 202, 247)
                 }
         );
 
@@ -833,10 +832,10 @@ monBg.setCornerRadius(dp(20));
 monCard.setBackground(monBg);
 
 monCard.setPadding(
-        dp(16),
-        dp(16),
-        dp(16),
-        dp(16)
+        dp(14),
+        dp(11),
+        dp(14),
+        dp(11)
 );
 
 monCard.setOrientation(
@@ -971,8 +970,8 @@ GradientDrawable offBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.WHITE,
-                        Color.rgb(210, 235, 255)
+                        Color.rgb(242, 248, 255),
+                        Color.rgb(194, 224, 249)
                 }
         );
 
@@ -981,10 +980,7 @@ offBg.setCornerRadius(dp(20));
 offCard.setBackground(offBg);
 
 offCard.setPadding(
-        dp(16),
-        dp(16),
-        dp(16),
-        dp(16)
+        dp(16), dp(16), dp(16), dp(16)
 );
 
 
