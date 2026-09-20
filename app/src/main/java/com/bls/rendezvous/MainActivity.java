@@ -2,6 +2,7 @@ package com.bls.rendezvous;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Build;
