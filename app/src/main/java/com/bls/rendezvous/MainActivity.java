@@ -260,35 +260,6 @@ public class MainActivity extends Activity {
         );
     }
 
-    // =========================================================
-    // HOME
-    // =========================================================
-
-    private void showHome() {
-
-        currentPage = "HOME";
-
-        root =
-                new LinearLayout(this);
-
-        root.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        GradientDrawable background =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
-                        }
-                );
-
-        root.setBackground(background);
-
-        setContentView(root);
-
     // =====================================================
     // HEADER — TOP BAR (Vector 100%)
     // =====================================================
