@@ -556,7 +556,7 @@ ImageView heroImg =
         new ImageView(this);
 
 heroImg.setImageResource(
-        R.drawable.ic_globe
+        R.drawable.ic_hero_new
 );
 
 heroImg.setScaleType(
