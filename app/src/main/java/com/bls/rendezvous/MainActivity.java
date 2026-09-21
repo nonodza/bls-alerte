@@ -728,7 +728,7 @@ active.setTypeface(
 
 curTop.addView(active);
 
-current.addView(curTop);
+content.addView(curTop);
 
 
 // =====================================================
@@ -788,7 +788,7 @@ every.setPadding(
 
 mon.addView(every);
 
-current.addView(mon);
+content.addView(mon);
 
 content.addView(
         current,
