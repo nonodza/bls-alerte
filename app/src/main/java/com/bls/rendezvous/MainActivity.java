@@ -525,23 +525,38 @@ root.addView(
         )
 );
        
-
 // =====================================================
-// HERO - GLOBAL VISA - FINAL FIX
+// HERO - GLOBAL VISA - WITH IMAGE FINAL
 // =====================================================
-LinearLayout hero = new LinearLayout(this);
-hero.setOrientation(LinearLayout.HORIZONTAL);
-hero.setGravity(Gravity.CENTER_VERTICAL);
-hero.setPadding(dp(20), dp(18), dp(18), dp(18));
-
+FrameLayout heroContainer = new FrameLayout(this);
 GradientDrawable heroBg = new GradientDrawable(
     GradientDrawable.Orientation.TL_BR,
     new int[]{ Color.rgb(7, 11, 42), Color.rgb(15, 32, 88), Color.rgb(35, 72, 165) }
 );
 heroBg.setCornerRadius(dp(22));
-hero.setBackground(heroBg);
+heroContainer.setBackground(heroBg);
+heroContainer.setClipToOutline(true);
 
-// RV BRAND MARK
+ImageView heroImage = new ImageView(this);
+heroImage.setImageResource(R.drawable.hero_final1);
+heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+heroImage.setAlpha(0.9f);
+FrameLayout.LayoutParams imgParams = new FrameLayout.LayoutParams(-1, -1);
+heroContainer.addView(heroImage, imgParams);
+
+View overlay = new View(this);
+GradientDrawable overlayBg = new GradientDrawable(
+    GradientDrawable.Orientation.LEFT_RIGHT,
+    new int[]{ Color.argb(220, 7, 11, 42), Color.argb(100, 7, 11, 42), Color.argb(30, 7, 11, 42) }
+);
+overlay.setBackground(overlayBg);
+heroContainer.addView(overlay, new FrameLayout.LayoutParams(-1, -1));
+
+LinearLayout hero = new LinearLayout(this);
+hero.setOrientation(LinearLayout.HORIZONTAL);
+hero.setGravity(Gravity.CENTER_VERTICAL);
+hero.setPadding(dp(20), dp(18), dp(18), dp(18));
+
 TextView rvMark = new TextView(this);
 rvMark.setText("RV");
 rvMark.setTextSize(22);
@@ -556,37 +571,28 @@ rvBg.setCornerRadius(dp(16));
 rvMark.setBackground(rvBg);
 hero.addView(rvMark, new LinearLayout.LayoutParams(dp(58), dp(58)));
 
-// TEXTS - 
 LinearLayout mid = new LinearLayout(this);
 mid.setOrientation(LinearLayout.VERTICAL);
 mid.setPadding(dp(14), 0, dp(10), 0);
-
 TextView t1 = new TextView(this);
 t1.setText("VisaSlot Global");
 t1.setTextSize(16);
 t1.setTextColor(Color.WHITE);
 t1.setTypeface(Typeface.DEFAULT_BOLD);
-
 TextView t2 = new TextView(this);
 t2.setText("Never miss a slot");
 t2.setTextSize(11);
 t2.setTextColor(Color.rgb(160,190,255));
 LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(-2,-2);
 p2.topMargin = dp(2);
-
 mid.addView(t1);
 mid.addView(t2, p2);
 hero.addView(mid, new LinearLayout.LayoutParams(0, -2, 1f));
 
-// GLOBE ICON 
-TextView globe = new TextView(this);
-globe.setText("🌐");
-globe.setTextSize(28);
-globe.setGravity(Gravity.CENTER);
-hero.addView(globe, new LinearLayout.LayoutParams(dp(40), dp(40)));
+heroContainer.addView(hero, new FrameLayout.LayoutParams(-1, -2));
 
-// ADD HERO
-content.addView(hero, margin(0, 6, 0, 8));
+// ADD HERO - 
+content.addView(heroContainer, margin(0, 6, 0, 8));
 
 // =====================================================
 // CURRENT APPLICATION TOP
