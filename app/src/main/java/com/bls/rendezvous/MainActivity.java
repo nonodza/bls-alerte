@@ -726,74 +726,23 @@ active.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-curTop.addView(active);
+curTop.addView(active); 
+content.addView(curTop); 
 
-content.addView(curTop);
-
-
-// =====================================================
 // MONITORING INFO
-// =====================================================
-
-LinearLayout mon =
-        new LinearLayout(this);
-
-mon.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-mon.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-mon.setPadding(
-        0,
-        dp(8),
-        0,
-        0
-);
-
-TextView clock =
-        text(
-                "◷",
-                17,
-                GRAY
-        );
-
-clock.setGravity(
-        Gravity.CENTER
-);
-
-mon.addView(
-        clock,
-        new LinearLayout.LayoutParams(
-                dp(20),
-                dp(20)
-        )
-);
-
-TextView every =
-        text(
-                "Monitoring every 2 minutes",
-                12,
-                GRAY
-        );
-
-every.setPadding(
-        dp(6),
-        0,
-        0,
-        0
-);
-
-mon.addView(every);
-
-content.addView(mon);
-
-content.addView(
-        current,
-        margin(0, 0, 0, 12)
-);
+LinearLayout mon = new LinearLayout(this); 
+mon.setOrientation(LinearLayout.HORIZONTAL); 
+mon.setGravity(Gravity.CENTER_VERTICAL); 
+mon.setPadding(0, dp(8), 0, 0); 
+TextView clock = text("◷", 17, GRAY); 
+clock.setGravity(Gravity.CENTER); 
+mon.addView(clock, new LinearLayout.LayoutParams(dp(20), dp(20))); 
+TextView every = text("Monitoring every 2 minutes", 12, GRAY); 
+every.setPadding(dp(6), 0, 0, 0); 
+mon.addView(every); 
+content.addView(mon); 
+        
+// content.addView(current, margin(0, 0, 0, 12));
 
 
 // =====================================================
