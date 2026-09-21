@@ -570,7 +570,7 @@ GradientDrawable rvBg = new GradientDrawable(
 
 rvBg.setCornerRadius(dp(18));
 rvMark.setBackground(rvBg);
-
+hero.removeAllViews();
 hero.addView(
         rvMark,
         new LinearLayout.LayoutParams(
