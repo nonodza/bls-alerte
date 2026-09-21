@@ -549,26 +549,39 @@ hero.setPadding(
 );
 
 // =====================================================
-// GLOBAL VISA ICON
+// RV BRAND MARK
 // =====================================================
 
-ImageView heroImg =
-        new ImageView(this);
+TextView rvMark = new TextView(this);
 
-heroImg.setImageResource(
-        R.drawable.ic_hero_new
+rvMark.setText("RV");
+rvMark.setTextSize(25);
+rvMark.setTextColor(Color.WHITE);
+rvMark.setTypeface(Typeface.DEFAULT_BOLD);
+rvMark.setGravity(Gravity.CENTER);
+
+GradientDrawable rvBg = new GradientDrawable(
+        GradientDrawable.Orientation.TL_BR,
+        new int[]{
+                Color.rgb(95, 75, 215),
+                Color.rgb(45, 135, 235)
+        }
 );
 
-heroImg.setScaleType(
-        ImageView.ScaleType.CENTER_INSIDE
-);
+rvBg.setCornerRadius(dp(18));
+rvMark.setBackground(rvBg);
 
 hero.addView(
-        heroImg,
+        rvMark,
         new LinearLayout.LayoutParams(
-                dp(58),
-                dp(58)
+                dp(70),
+                dp(70)
         )
+);
+
+content.addView(
+        hero,
+        margin(0, 6, 0, 8)
 );
 
 content.addView(
