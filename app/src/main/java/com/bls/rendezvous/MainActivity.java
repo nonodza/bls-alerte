@@ -527,94 +527,66 @@ root.addView(
        
 
 // =====================================================
-// HERO - GLOBAL VISA
+// HERO - GLOBAL VISA - FINAL FIX
 // =====================================================
+LinearLayout hero = new LinearLayout(this);
+hero.setOrientation(LinearLayout.HORIZONTAL);
+hero.setGravity(Gravity.CENTER_VERTICAL);
+hero.setPadding(dp(20), dp(18), dp(18), dp(18));
 
-LinearLayout hero =
-        new LinearLayout(this);
-
-hero.setOrientation(
-        LinearLayout.HORIZONTAL
+GradientDrawable heroBg = new GradientDrawable(
+    GradientDrawable.Orientation.TL_BR,
+    new int[]{ Color.rgb(7, 11, 42), Color.rgb(15, 32, 88), Color.rgb(35, 72, 165) }
 );
-
-hero.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-hero.setPadding(
-        dp(8),
-        dp(4),
-        dp(8),
-        dp(4)
-);
-
-
-// =====================================================
-// PREMIUM DARK RV BACKGROUND
-// =====================================================
-
-GradientDrawable heroBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(7, 11, 42),
-                        Color.rgb(15, 32, 88),
-                        Color.rgb(35, 72, 165)
-                }
-        );
-
 heroBg.setCornerRadius(dp(22));
-
 hero.setBackground(heroBg);
 
-hero.setPadding(
-        dp(20),
-        dp(18),
-        dp(18),
-        dp(18)
+// RV BRAND MARK
+TextView rvMark = new TextView(this);
+rvMark.setText("RV");
+rvMark.setTextSize(22);
+rvMark.setTextColor(Color.WHITE);
+rvMark.setTypeface(Typeface.DEFAULT_BOLD);
+rvMark.setGravity(Gravity.CENTER);
+GradientDrawable rvBg = new GradientDrawable(
+    GradientDrawable.Orientation.TL_BR,
+    new int[]{ Color.rgb(95, 75, 215), Color.rgb(45, 135, 235) }
 );
+rvBg.setCornerRadius(dp(16));
+rvMark.setBackground(rvBg);
+hero.addView(rvMark, new LinearLayout.LayoutParams(dp(58), dp(58)));
 
-// =====================================================
+// TEXTS - 
+LinearLayout mid = new LinearLayout(this);
+mid.setOrientation(LinearLayout.VERTICAL);
+mid.setPadding(dp(14), 0, dp(10), 0);
+
+TextView t1 = new TextView(this);
+t1.setText("VisaSlot Global");
+t1.setTextSize(16);
+t1.setTextColor(Color.WHITE);
+t1.setTypeface(Typeface.DEFAULT_BOLD);
+
+TextView t2 = new TextView(this);
+t2.setText("Never miss a slot");
+t2.setTextSize(11);
+t2.setTextColor(Color.rgb(160,190,255));
+LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(-2,-2);
+p2.topMargin = dp(2);
+
+mid.addView(t1);
+mid.addView(t2, p2);
+hero.addView(mid, new LinearLayout.LayoutParams(0, -2, 1f));
+
+// GLOBE ICON 
+TextView globe = new TextView(this);
+globe.setText("🌐");
+globe.setTextSize(28);
+globe.setGravity(Gravity.CENTER);
+hero.addView(globe, new LinearLayout.LayoutParams(dp(40), dp(40)));
+
 // ADD HERO
-// =====================================================
-
-content.addView(
-        hero,
-        margin(0, 6, 0, 8)
-);
-
-
-// =====================================================
-// CURRENT APPLICATION - Blue Gradient
-// =====================================================
-
-LinearLayout current = card();
-
-GradientDrawable currentBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(244, 249, 255),
-                        Color.rgb(198, 222, 250)
-                }
-        );
-
-currentBg.setCornerRadius(dp(20));
-
-currentBg.setStroke(
-        dp(1),
-        Color.rgb(220, 235, 255)
-);
-
-current.setBackground(currentBg);
-
-current.setPadding(
-        dp(14),
-        dp(10),
-        dp(14),
-        dp(10)
-);
-
+content.addView(hero, margin(0, 6, 0, 8));
 
 // =====================================================
 // CURRENT APPLICATION TOP
