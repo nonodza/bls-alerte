@@ -538,7 +538,7 @@ heroContainer.setBackground(heroBg);
 heroContainer.setClipToOutline(true);
 
 ImageView heroImage = new ImageView(this);
-heroImage.setImageResource(R.drawable.hero_final1);
+heroImage.setImageResource(R.drawable.hero_final);
 heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 heroImage.setAlpha(0.9f);
 FrameLayout.LayoutParams imgParams = new FrameLayout.LayoutParams(-1, -1);
