@@ -579,10 +579,34 @@ hero.addView(
         )
 );
 
-content.addView(
-        hero,
-        margin(0, 6, 0, 8)
+// =====================================================
+// PREMIUM DARK RV BACKGROUND
+// =====================================================
+
+GradientDrawable heroBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(7, 11, 42),
+                        Color.rgb(15, 32, 88),
+                        Color.rgb(35, 72, 165)
+                }
+        );
+
+heroBg.setCornerRadius(dp(22));
+
+hero.setBackground(heroBg);
+
+hero.setPadding(
+        dp(20),
+        dp(18),
+        dp(18),
+        dp(18)
 );
+
+// =====================================================
+// ADD HERO
+// =====================================================
 
 content.addView(
         hero,
