@@ -1,0 +1,62 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="130dp"
+    android:viewportWidth="180"
+    android:viewportHeight="130">
+
+    <!-- Calendar / Appointment -->
+    <path
+        android:fillColor="#7855B4"
+        android:pathData="M108,24
+            C108,18 113,13 119,13
+            L153,13
+            C159,13 164,18 164,24
+            L164,67
+            C164,73 159,78 153,78
+            L119,78
+            C113,78 108,73 108,67 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M108,31 L164,31 L164,37 L108,37 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M119,44
+            L125,50
+            L137,40
+            L141,44
+            L125,58
+            L119,52 Z" />
+
+    <!-- Airplane -->
+    <path
+        android:fillColor="#438FE8"
+        android:pathData="M19,74
+            L66,59
+            L84,22
+            C86,18 91,18 93,21
+            L95,25
+            L79,58
+            L116,47
+            C121,46 125,48 127,52
+            L129,56
+            L84,76
+            L68,108
+            L59,111
+            L62,78
+            L31,89
+            L22,85
+            Z" />
+
+    <!-- Flight trail -->
+    <path
+        android:fillColor="#A8C9F5"
+        android:pathData="M17,101
+            C38,94 56,94 73,101
+            C82,105 91,106 101,103
+            L104,108
+            C91,114 79,113 68,109
+            C52,103 35,103 20,108 Z" />
+
+</vector>
