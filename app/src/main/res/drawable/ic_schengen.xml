@@ -5,58 +5,10 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- European blue circle -->
     <path
         android:fillColor="#003399"
-        android:pathData="M50,2 A48,48 0,1 1 49.99,2" />
-
-    <!-- Gold stars -->
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M50,10 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M70,15 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M83,30 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M88,50 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M83,70 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M70,85 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M50,90 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M30,85 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M17,70 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M12,50 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M17,30 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
-
-    <path
-        android:fillColor="#FFCC00"
-        android:pathData="M30,15 l2,5 5,0 -4,3 2,-5 -5,-3 -5,3 2,-5 -4,-3 5,0z" />
+        android:pathData="M50,0
+            A50,50 0,1 0,50,100
+            A50,50 0,1 0,50,0" />
 
 </vector>
