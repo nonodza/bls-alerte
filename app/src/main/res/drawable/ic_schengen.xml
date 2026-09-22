@@ -5,239 +5,69 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- SCHENGEN / EUROPEAN BLUE CIRCLE -->
+    <!-- BLUE CIRCLE -->
     <path
         android:fillColor="#003399"
         android:pathData="M50,2 A48,48 0,1 1 50,98 A48,48 0,1 1 50,2 Z" />
 
     <!-- 12 GOLD STARS -->
-    
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="0">
 
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
+    <!-- 12 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M50,10 L52,15 L57,15 L53,18 L54.5,23 L50,20 L45.5,23 L47,18 L43,15 L48,15 Z" />
 
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="30">
+    <!-- 1 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M70,15.4 L72,20.4 L77,20.4 L73,23.4 L74.5,28.4 L70,25.4 L65.5,28.4 L67,23.4 L63,20.4 L68,20.4 Z" />
 
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
+    <!-- 2 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M84.6,30 L86.6,35 L91.6,35 L87.6,38 L89.1,43 L84.6,40 L80.1,43 L81.6,38 L77.6,35 L82.6,35 Z" />
 
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="60">
+    <!-- 3 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M90,50 L92,55 L97,55 L93,58 L94.5,63 L90,60 L85.5,63 L87,58 L83,55 L88,55 Z" />
 
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
+    <!-- 4 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M84.6,70 L86.6,75 L91.6,75 L87.6,78 L89.1,83 L84.6,80 L80.1,83 L81.6,78 L77.6,75 L82.6,75 Z" />
 
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="90">
+    <!-- 5 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M70,84.6 L72,89.6 L77,89.6 L73,92.6 L74.5,97.6 L70,94.6 L65.5,97.6 L67,92.6 L63,89.6 L68,89.6 Z" />
 
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
+    <!-- 6 o'clock -->
+    <path
+        android:pathData="M50,77 L52,82 L57,82 L53,85 L54.5,90 L50,87 L45.5,90 L47,85 L43,82 L48,82 Z"
+    <!-- 7 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M30,84.6 L32,89.6 L37,89.6 L33,92.6 L34.5,97.6 L30,94.6 L25.5,97.6 L27,92.6 L23,89.6 L28,89.6 Z" />
 
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="120">
+    <!-- 8 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M15.4,70 L17.4,75 L22.4,75 L18.4,78 L19.9,83 L15.4,80 L10.9,83 L12.4,78 L8.4,75 L13.4,75 Z" />
 
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
+    <!-- 9 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M10,50 L12,55 L17,55 L13,58 L14.5,63 L10,60 L5.5,63 L7,58 L3,55 L8,55 Z" />
 
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="150">
+    <!-- 10 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M15.4,30 L17.4,35 L22.4,35 L18.4,38 L19.9,43 L15.4,40 L10.9,43 L12.4,38 L8.4,35 L13.4,35 Z" />
 
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
-
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="180">
-
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
-
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="210">
-
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
-
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="240">
-
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
-
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="270">
-
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
-
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="300">
-
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
-
-    <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:rotation="330">
-
-        <path
-            android:fillColor="#FFCC00"
-            android:pathData="M50,9
-                L51.9,14.2
-                L57.4,14.4
-                L53.1,17.8
-                L54.6,23
-                L50,20
-                L45.4,23
-                L46.9,17.8
-                L42.6,14.4
-                L48.1,14.2 Z" />
-    </group>
+    <!-- 11 o'clock -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M30,15.4 L32,20.4 L37,20.4 L33,23.4 L34.5,28.4 L30,25.4 L25.5,28.4 L27,23.4 L23,20.4 L28,20.4 Z" />
 
 </vector>
