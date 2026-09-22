@@ -547,7 +547,7 @@ FrameLayout.LayoutParams imgParams = new FrameLayout.LayoutParams(
 );
 heroContainer.addView(heroImage, imgParams);
 
-content.addView(heroContainer, margin(0, 6, 0, 12));
+content.addView(heroContainer, margin(16, 6, 16, 12));
         
 // =====================================================
 // CURRENT APPLICATION TOP
