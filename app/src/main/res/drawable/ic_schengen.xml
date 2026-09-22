@@ -5,8 +5,239 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
+    <!-- SCHENGEN / EUROPEAN BLUE CIRCLE -->
     <path
         android:fillColor="#003399"
         android:pathData="M50,2 A48,48 0,1 1 50,98 A48,48 0,1 1 50,2 Z" />
+
+    <!-- 12 GOLD STARS -->
+    
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="0">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="30">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="60">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="90">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="120">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="150">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="180">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="210">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="240">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="270">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="300">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:rotation="330">
+
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,9
+                L51.9,14.2
+                L57.4,14.4
+                L53.1,17.8
+                L54.6,23
+                L50,20
+                L45.4,23
+                L46.9,17.8
+                L42.6,14.4
+                L48.1,14.2 Z" />
+    </group>
 
 </vector>
