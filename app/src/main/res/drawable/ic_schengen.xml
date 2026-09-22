@@ -10,64 +10,64 @@
         android:fillColor="#003399"
         android:pathData="M50,2 A48,48 0,1 1 50,98 A48,48 0,1 1 50,2 Z" />
 
-    <!-- 12 GOLD STARS -->
-
-    <!-- 12 o'clock -->
+    <!-- 12 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M50,10 L52,15 L57,15 L53,18 L54.5,23 L50,20 L45.5,23 L47,18 L43,15 L48,15 Z" />
+        android:pathData="M50,10 L51.6,14.1 L56,14.1 L52.5,16.7 L53.8,21 L50,18.4 L46.2,21 L47.5,16.7 L44,14.1 L48.4,14.1 Z" />
 
-    <!-- 1 o'clock -->
+    <!-- 1 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M70,15.4 L72,20.4 L77,20.4 L73,23.4 L74.5,28.4 L70,25.4 L65.5,28.4 L67,23.4 L63,20.4 L68,20.4 Z" />
+        android:pathData="M67.5,14.8 L69.1,18.9 L73.5,18.9 L70,21.5 L71.3,25.8 L67.5,23.2 L63.7,25.8 L65,21.5 L61.5,18.9 L65.9,18.9 Z" />
 
-    <!-- 2 o'clock -->
+    <!-- 2 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M84.6,30 L86.6,35 L91.6,35 L87.6,38 L89.1,43 L84.6,40 L80.1,43 L81.6,38 L77.6,35 L82.6,35 Z" />
+        android:pathData="M80.2,27.5 L81.8,31.6 L86.2,31.6 L82.7,34.2 L84,38.5 L80.2,35.9 L76.4,38.5 L77.7,34.2 L74.2,31.6 L78.6,31.6 Z" />
 
-    <!-- 3 o'clock -->
+    <!-- 3 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M90,50 L92,55 L97,55 L93,58 L94.5,63 L90,60 L85.5,63 L87,58 L83,55 L88,55 Z" />
+        android:pathData="M85,45 L86.6,49.1 L91,49.1 L87.5,51.7 L88.8,56 L85,53.4 L81.2,56 L82.5,51.7 L79,49.1 L83.4,49.1 Z" />
 
-    <!-- 4 o'clock -->
+    <!-- 4 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M84.6,70 L86.6,75 L91.6,75 L87.6,78 L89.1,83 L84.6,80 L80.1,83 L81.6,78 L77.6,75 L82.6,75 Z" />
+        android:pathData="M80.2,62.5 L81.8,66.6 L86.2,66.6 L82.7,69.2 L84,73.5 L80.2,70.9 L76.4,73.5 L77.7,69.2 L74.2,66.6 L78.6,66.6 Z" />
 
-    <!-- 5 o'clock -->
+    <!-- 5 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M70,84.6 L72,89.6 L77,89.6 L73,92.6 L74.5,97.6 L70,94.6 L65.5,97.6 L67,92.6 L63,89.6 L68,89.6 Z" />
+        android:pathData="M67.5,75.2 L69.1,79.3 L73.5,79.3 L70,81.9 L71.3,86.2 L67.5,83.6 L63.7,86.2 L65,81.9 L61.5,79.3 L65.9,79.3 Z" />
 
-    <!-- 6 o'clock -->
-    <path
-        android:pathData="M50,77 L52,82 L57,82 L53,85 L54.5,90 L50,87 L45.5,90 L47,85 L43,82 L48,82 Z"
-    <!-- 7 o'clock -->
+    <!-- 6 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M30,84.6 L32,89.6 L37,89.6 L33,92.6 L34.5,97.6 L30,94.6 L25.5,97.6 L27,92.6 L23,89.6 L28,89.6 Z" />
+        android:pathData="M50,79 L51.6,83.1 L56,83.1 L52.5,85.7 L53.8,90 L50,87.4 L46.2,90 L47.5,85.7 L44,83.1 L48.4,83.1 Z" />
 
-    <!-- 8 o'clock -->
+    <!-- 7 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M15.4,70 L17.4,75 L22.4,75 L18.4,78 L19.9,83 L15.4,80 L10.9,83 L12.4,78 L8.4,75 L13.4,75 Z" />
+        android:pathData="M32.5,75.2 L34.1,79.3 L38.5,79.3 L35,81.9 L36.3,86.2 L32.5,83.6 L28.7,86.2 L30,81.9 L26.5,79.3 L30.9,79.3 Z" />
 
-    <!-- 9 o'clock -->
+    <!-- 8 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M10,50 L12,55 L17,55 L13,58 L14.5,63 L10,60 L5.5,63 L7,58 L3,55 L8,55 Z" />
+        android:pathData="M19.8,62.5 L21.4,66.6 L25.8,66.6 L22.3,69.2 L23.6,73.5 L19.8,70.9 L16,73.5 L17.3,69.2 L13.8,66.6 L18.2,66.6 Z" />
 
-    <!-- 10 o'clock -->
+    <!-- 9 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M15.4,30 L17.4,35 L22.4,35 L18.4,38 L19.9,43 L15.4,40 L10.9,43 L12.4,38 L8.4,35 L13.4,35 Z" />
+        android:pathData="M15,45 L16.6,49.1 L21,49.1 L17.5,51.7 L18.8,56 L15,53.4 L11.2,56 L12.5,51.7 L9,49.1 L13.4,49.1 Z" />
 
-    <!-- 11 o'clock -->
+    <!-- 10 O'CLOCK -->
     <path
         android:fillColor="#FFCC00"
-        android:pathData="M30,15.4 L32,20.4 L37,20.4 L33,23.4 L34.5,28.4 L30,25.4 L25.5,28.4 L27,23.4 L23,20.4 L28,20.4 Z" />
+        android:pathData="M19.8,27.5 L21.4,31.6 L25.8,31.6 L22.3,34.2 L23.6,38.5 L19.8,35.9 L16,38.5 L17.3,34.2 L13.8,31.6 L18.2,31.6 Z" />
+
+    <!-- 11 O'CLOCK -->
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="M32.5,14.8 L34.1,18.9 L38.5,18.9 L35,21.5 L36.3,25.8 L32.5,23.2 L28.7,25.8 L30,21.5 L26.5,18.9 L30.9,18.9 Z" />
 
 </vector>
