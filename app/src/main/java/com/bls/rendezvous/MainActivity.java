@@ -573,30 +573,12 @@ curTop.setGravity(
 // =====================================================
 // SCHENGEN LOGO
 // =====================================================
-
-AppCompatImageView schengenLogo =
-        new AppCompatImageView(this);
-
+AppCompatImageView schengenLogo = new AppCompatImageView(this);
 schengenLogo.setImageResource(R.drawable.ic_eu_new);
-);
-
-schengenLogo.setScaleType(
-        ImageView.ScaleType.CENTER_INSIDE
-);
-
-LinearLayout.LayoutParams schengenP =
-        new LinearLayout.LayoutParams(
-                dp(52),
-                dp(52)
-        );
-
-schengenP.rightMargin =
-        dp(12);
-
-curTop.addView(
-        schengenLogo,
-        schengenP
-);
+schengenLogo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+LinearLayout.LayoutParams schengenP = new LinearLayout.LayoutParams(dp(52), dp(52));
+schengenP.rightMargin = dp(12);
+curTop.addView(schengenLogo, schengenP);
 
 // =====================================================
 // COUNTRY INFORMATION
