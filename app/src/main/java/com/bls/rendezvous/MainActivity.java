@@ -570,34 +570,33 @@ curTop.setGravity(
 
 
 // =====================================================
-// SPAIN
+// SCHENGEN LOGO
 // =====================================================
 
-TextView flag =
-        text(
-                "🇪🇸",
-                30,
-                NAVY
-        );
+ImageView schengenLogo =
+        new ImageView(this);
 
-flag.setGravity(
-        Gravity.CENTER
+schengenLogo.setImageResource(
+        R.drawable.ic_schengen
 );
 
-LinearLayout.LayoutParams flagP =
+schengenLogo.setScaleType(
+        ImageView.ScaleType.CENTER_INSIDE
+);
+
+LinearLayout.LayoutParams schengenP =
         new LinearLayout.LayoutParams(
                 dp(52),
                 dp(52)
         );
 
-flagP.rightMargin =
+schengenP.rightMargin =
         dp(12);
 
 curTop.addView(
-        flag,
-        flagP
+        schengenLogo,
+        schengenP
 );
-
 
 // =====================================================
 // COUNTRY INFORMATION
@@ -610,6 +609,10 @@ curMid.setOrientation(
         LinearLayout.VERTICAL
 );
 
+curMid.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
 curMid.setLayoutParams(
         new LinearLayout.LayoutParams(
                 0,
@@ -618,10 +621,14 @@ curMid.setLayoutParams(
         )
 );
 
+// -----------------------------------------------------
+// CURRENT APPLICATION
+// -----------------------------------------------------
+
 TextView curLabel =
         text(
                 "CURRENT APPLICATION",
-                11,
+                10,
                 Color.rgb(90, 130, 255)
         );
 
@@ -629,12 +636,26 @@ curLabel.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-curMid.addView(curLabel);
+curLabel.setLetterSpacing(
+        0.08f
+);
+
+curMid.addView(
+        curLabel,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
+
+// -----------------------------------------------------
+// COUNTRY
+// -----------------------------------------------------
 
 TextView spain =
         text(
                 "Spain",
-                20,
+                19,
                 NAVY
         );
 
@@ -642,7 +663,22 @@ spain.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-curMid.addView(spain);
+LinearLayout.LayoutParams spainP =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+spainP.topMargin = dp(2);
+
+curMid.addView(
+        spain,
+        spainP
+);
+
+// -----------------------------------------------------
+// VISA CENTER
+// -----------------------------------------------------
 
 TextView alg =
         text(
@@ -651,7 +687,18 @@ TextView alg =
                 GRAY
         );
 
-curMid.addView(alg);
+LinearLayout.LayoutParams algP =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+algP.topMargin = dp(1);
+
+curMid.addView(
+        alg,
+        algP
+);
 
 curTop.addView(curMid);
 
