@@ -577,8 +577,7 @@ curTop.setGravity(
 AppCompatImageView schengenLogo =
         new AppCompatImageView(this);
 
-schengenLogo.setImageResource(
-        R.drawable.schengen_logo
+schengenLogo.setImageResource(R.drawable.ic_eu_new);
 );
 
 schengenLogo.setScaleType(
