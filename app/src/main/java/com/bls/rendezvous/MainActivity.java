@@ -577,7 +577,7 @@ ImageView schengenLogo =
         new ImageView(this);
 
 schengenLogo.setImageResource(
-        R.drawable.ic_schengen
+        android.R.drawable.ic_menu_gallery
 );
 
 schengenLogo.setScaleType(
