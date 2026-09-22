@@ -578,7 +578,7 @@ AppCompatImageView schengenLogo =
         new AppCompatImageView(this);
 
 schengenLogo.setImageResource(
-        R.drawable.ic_schengen
+        R.drawable.schengen_logo
 );
 
 schengenLogo.setScaleType(
