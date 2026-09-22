@@ -2,6 +2,7 @@ package com.bls.rendezvous;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -573,8 +574,8 @@ curTop.setGravity(
 // SCHENGEN LOGO
 // =====================================================
 
-ImageView schengenLogo =
-        new ImageView(this);
+AppCompatImageView schengenLogo =
+        new AppCompatImageView(this);
 
 schengenLogo.setImageResource(
         R.drawable.ic_schengen
