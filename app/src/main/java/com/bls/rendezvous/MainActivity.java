@@ -543,7 +543,7 @@ heroImage.setAdjustViewBounds(true);
 
 FrameLayout.LayoutParams imgParams = new FrameLayout.LayoutParams(
     FrameLayout.LayoutParams.MATCH_PARENT,
-    dp(155)  // الطول 155dp برك - بالعرض
+    dp(88)  //  88 dp 
 );
 heroContainer.addView(heroImage, imgParams);
 
