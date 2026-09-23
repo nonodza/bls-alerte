@@ -832,11 +832,11 @@ monCard.setGravity(
 
 // Monitoring icon
 TextView monIcon =
-     text(
-      "◷",
-       24,
-      BLUE
-);
+        text(
+                "◷",
+                24,
+                BLUE
+        );
 
 monIcon.setGravity(
         Gravity.CENTER
@@ -851,6 +851,9 @@ monCard.addView(
 );
 
 
+// Monitoring text
+
+        
 // Monitoring text
 LinearLayout monText =
         new LinearLayout(this);
