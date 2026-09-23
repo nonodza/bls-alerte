@@ -6,16 +6,16 @@
     android:viewportHeight="100">
 
     <!-- BLUE CIRCLE -->
-    <path
-        android:fillColor="#003399"
-        android:pathData="M50,5 A45,45 0,1 1 50,95 A45,45 0,1 1 50,5" />
+<path
+    android:fillColor="#003399"
+    android:pathData="M50,7 A43,43 0,1 1 50,93 A43,43 0,1 1 50,7" />
 
-    <!-- STAR RING -->
-    <group
+<!-- STAR RING -->
+<group
     android:pivotX="50"
     android:pivotY="50"
-    android:scaleX="0.78"
-    android:scaleY="0.78"
+    android:scaleX="0.74"
+    android:scaleY="0.74"
     android:translateY="-6">
         
         <!-- 1 -->
