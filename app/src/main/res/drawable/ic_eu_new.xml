@@ -12,11 +12,12 @@
 
     <!-- STAR RING -->
     <group
-        android:pivotX="50"
-        android:pivotY="50"
-        android:scaleX="0.78"
-        android:scaleY="0.78">
-
+    android:pivotX="50"
+    android:pivotY="50"
+    android:scaleX="0.78"
+    android:scaleY="0.78"
+    android:translateY="-2">
+        
         <!-- 1 -->
         <path
             android:fillColor="#FFCC00"
