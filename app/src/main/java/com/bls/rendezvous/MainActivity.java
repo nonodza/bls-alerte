@@ -600,100 +600,50 @@ curMid.setLayoutParams(
         )
 );
 
-
 // =====================================================
-// COUNTRY NAME
+// COUNTRY SELECTOR
 // =====================================================
 
 TextView countrySelector =
-        text(
-                "Select Country",
-                19,
-                NAVY
-        );
+        new TextView(this);
+
+countrySelector.setText(
+        "Select Country  ⌄"
+);
+
+countrySelector.setTextSize(
+        16
+);
+
+countrySelector.setTextColor(
+        Color.WHITE
+);
 
 countrySelector.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
 countrySelector.setGravity(
-        Gravity.CENTER_VERTICAL
+        Gravity.CENTER
+);
+
+countrySelector.setSingleLine(
+        true
 );
 
 countrySelector.setPadding(
+        dp(10),
         0,
-        0,
-        0,
+        dp(10),
         0
 );
 
 
 // =====================================================
-// COUNTRY SELECTOR ROW
+// COUNTRY SELECTOR BACKGROUND
 // =====================================================
 
-LinearLayout countryRow =
-        new LinearLayout(this);
-
-countryRow.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-countryRow.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-
-// =====================================================
-// COUNTRY TEXT
-// =====================================================
-
-LinearLayout.LayoutParams countryTextP =
-        new LinearLayout.LayoutParams(
-                0,
-                dp(28),
-                1
-);
-
-countryRow.addView(
-        countrySelector,
-        countryTextP
-);
-
-
-// =====================================================
-// DROPDOWN BUTTON
-// =====================================================
-
-TextView countryButton =
-        new TextView(this);
-
-countryButton.setGravity(
-        Gravity.CENTER
-);
-
-countryButton.setText(
-        "⌄"
-);
-
-countryButton.setTextSize(
-        18
-);
-
-countryButton.setTextColor(
-        Color.WHITE
-);
-
-countryButton.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-
-// =====================================================
-// DROPDOWN BUTTON BACKGROUND
-// =====================================================
-
-GradientDrawable countryButtonBg =
+GradientDrawable countrySelectorBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
@@ -702,39 +652,34 @@ GradientDrawable countryButtonBg =
                 }
         );
 
-countryButtonBg.setCornerRadius(
+countrySelectorBg.setCornerRadius(
         dp(8)
 );
 
-countryButton.setBackground(
-        countryButtonBg
+countrySelector.setBackground(
+        countrySelectorBg
 );
 
 
 // =====================================================
-// DROPDOWN BUTTON SIZE
+// COUNTRY SELECTOR SIZE
 // =====================================================
 
-LinearLayout.LayoutParams countryButtonP =
+LinearLayout.LayoutParams countrySelectorP =
         new LinearLayout.LayoutParams(
-                dp(32),
-                dp(28)
+                -2,
+                dp(30)
         );
 
-countryButtonP.leftMargin =
-        dp(6);
-
-countryRow.addView(
-        countryButton,
-        countryButtonP
-);
+countrySelectorP.topMargin =
+        dp(2);
 
 
 // =====================================================
 // SCHENGEN COUNTRIES
 // =====================================================
 
-View.OnClickListener openCountryDialog =
+countrySelector.setOnClickListener(
         v -> {
 
             final String[] countries = {
@@ -778,60 +723,29 @@ View.OnClickListener openCountryDialog =
                     "Select Country"
             );
 
-
             builder.setItems(
                     countries,
                     (dialog, which) -> {
 
-                        String selected =
-                                countries[which];
-
                         countrySelector.setText(
-                                selected
+                                countries[which]
+                                + "  ⌄"
                         );
                     }
             );
 
-
             builder.show();
-        };
-
-
-// =====================================================
-// CLICK — COUNTRY NAME
-// =====================================================
-
-countrySelector.setOnClickListener(
-        openCountryDialog
-);
-
-
-// =====================================================
-// CLICK — DROPDOWN BUTTON
-// =====================================================
-
-countryButton.setOnClickListener(
-        openCountryDialog
-);
-
-
-// =====================================================
-// COUNTRY ROW
-// =====================================================
-
-LinearLayout.LayoutParams countryRowP =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(28)
         );
 
-countryRowP.topMargin =
-        dp(2);
+
+// =====================================================
+// ADD COUNTRY SELECTOR
+// =====================================================
 
 curMid.addView(
-        countryRow,
-        countryRowP
-);
+        countrySelector,
+        countrySelectorP
+); 
            
 // =====================================================
 // ADD CENTER CONTENT
