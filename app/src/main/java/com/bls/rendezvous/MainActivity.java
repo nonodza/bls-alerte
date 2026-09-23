@@ -547,7 +547,7 @@ heroContainer.addView(heroImage, imgParams);
 // - Container
 LinearLayout.LayoutParams containerParams = new LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT, dp(88) );
-containerParams.setMargins(dp(12), dp(6), dp(12), dp(12));
+containerParams.setMargins(dp(6), dp(6), dp(8), dp(12));
 content.addView(heroContainer, containerParams);
         
 // =====================================================
