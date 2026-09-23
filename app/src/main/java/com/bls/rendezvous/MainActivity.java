@@ -674,7 +674,6 @@ LinearLayout.LayoutParams countrySelectorP =
 countrySelectorP.topMargin =
         dp(2);
 
-
 // =====================================================
 // SCHENGEN COUNTRIES
 // =====================================================
@@ -733,7 +732,8 @@ countrySelector.setOnClickListener(
             );
 
             builder.show();
-        );
+        }
+);
 
 
 // =====================================================
@@ -744,7 +744,7 @@ curMid.addView(
         countrySelector,
         countrySelectorP
 );
-          
+
 // =====================================================
 // ADD CENTER CONTENT
 // =====================================================
