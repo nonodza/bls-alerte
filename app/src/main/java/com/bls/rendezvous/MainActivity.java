@@ -795,7 +795,46 @@ curTop.addView(status);
 
 content.addView(curTop);
 
+
+// =====================================================
+// APPOINTMENT MONITORING
+// =====================================================
+
+LinearLayout monCard = card();
+
+GradientDrawable monBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.BL_TR,
+                new int[]{
+                        Color.rgb(245, 242, 255),
+                        Color.rgb(221, 202, 247)
+                }
+        );
+
+monBg.setCornerRadius(dp(20));
+
+monCard.setBackground(monBg);
+
+monCard.setPadding(
+        dp(14),
+        dp(11),
+        dp(14),
+        dp(11)
+);
+
+monCard.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+monCard.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+
+// =====================================================
 // MONITORING INFO
+// =====================================================
+
 LinearLayout mon = new LinearLayout(this); 
 mon.setOrientation(LinearLayout.HORIZONTAL); 
 mon.setGravity(Gravity.CENTER_VERTICAL); 
