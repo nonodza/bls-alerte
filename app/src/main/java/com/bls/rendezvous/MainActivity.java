@@ -637,7 +637,17 @@ TextView countrySelector =
                 19,
                 NAVY
         );
+countrySelector.setClickable(true);
 
+countrySelector.setOnClickListener(
+        v -> {
+            Toast.makeText(
+                    this,
+                    "Country selector clicked",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+);
 countrySelector.setTypeface(
         Typeface.DEFAULT_BOLD
 );
