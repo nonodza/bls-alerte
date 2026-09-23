@@ -627,108 +627,97 @@ curMid.addView(
 );
 
 // -----------------------------------------------------
-// COUNTRY SELECTOR
+// COUNTRY
 // -----------------------------------------------------
 
-TextView countrySelector =
+TextView spain =
         text(
-                "Select Country  ▾",
+                "Spain",
                 19,
                 NAVY
         );
 
-countrySelector.setTypeface(
+spain.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-countrySelector.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-countrySelector.setPadding(
-        0,
-        0,
-        0,
-        0
-);
-
-LinearLayout.LayoutParams countryP =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(28)
-        );
-
-countryP.topMargin = dp(2);
-
-curMid.addView(
-        countrySelector,
-        countryP
-);
-
-
-// -----------------------------------------------------
-// VISA CENTER
-// -----------------------------------------------------
-
-TextView visaCenter =
-        text(
-                "Select a visa center",
-                12,
-                GRAY
-        );
-
-LinearLayout.LayoutParams centerP =
+LinearLayout.LayoutParams spainP =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         );
 
-centerP.topMargin = dp(1);
+spainP.topMargin = dp(2);
 
 curMid.addView(
-        visaCenter,
-        centerP
+        spain,
+        spainP
+);
+
+// -----------------------------------------------------
+// VISA CENTER
+// -----------------------------------------------------
+
+TextView alg =
+        text(
+                "Algiers Visa Center",
+                12,
+                GRAY
+        );
+
+LinearLayout.LayoutParams algP =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+algP.topMargin = dp(1);
+
+curMid.addView(
+        alg,
+        algP
 );
 
 curTop.addView(curMid);
 
 
 // =====================================================
-// STATUS BADGE
+// ACTIVE BADGE
 // =====================================================
 
-TextView status =
+TextView active =
         text(
-                "● READY",
+                "● ACTIVE",
                 11,
-                Color.rgb(0, 145, 90)
+                Color.rgb(0, 170, 90)
         );
 
-status.setPadding(
+active.setPadding(
         dp(12),
         dp(6),
         dp(12),
         dp(6)
 );
 
-GradientDrawable statusBg =
+GradientDrawable activeBg =
         new GradientDrawable();
 
-statusBg.setColor(
-        Color.rgb(225, 250, 238)
+activeBg.setColor(
+        Color.rgb(220, 255, 235)
 );
 
-statusBg.setCornerRadius(
+activeBg.setCornerRadius(
         dp(20)
 );
 
-status.setBackground(statusBg);
+active.setBackground(activeBg);
 
-status.setTypeface(
+active.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-curTop.addView(status);
+curTop.addView(active); 
+content.addView(curTop); 
 
 // MONITORING INFO
 LinearLayout mon = new LinearLayout(this); 
