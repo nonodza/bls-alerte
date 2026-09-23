@@ -715,7 +715,6 @@ countrySelector.setOnClickListener(
                     "🇨🇭  Switzerland"
             };
 
-
             AlertDialog.Builder builder =
                     new AlertDialog.Builder(this);
 
@@ -728,8 +727,7 @@ countrySelector.setOnClickListener(
                     (dialog, which) -> {
 
                         countrySelector.setText(
-                                countries[which]
-                                + "  ⌄"
+                                countries[which] + "  ⌄"
                         );
                     }
             );
@@ -745,8 +743,8 @@ countrySelector.setOnClickListener(
 curMid.addView(
         countrySelector,
         countrySelectorP
-); 
-           
+);
+          
 // =====================================================
 // ADD CENTER CONTENT
 // =====================================================
