@@ -743,8 +743,6 @@ curTop.addView(status);
 
 content.addView(curTop);
 
-content.addView(curTop);
-
 // MONITORING INFO
 LinearLayout mon = new LinearLayout(this); 
 mon.setOrientation(LinearLayout.HORIZONTAL); 
