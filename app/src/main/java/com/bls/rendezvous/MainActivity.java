@@ -634,11 +634,15 @@ curMid.addView(
 
 TextView countrySelector =
         text(
-                "Select Country  ▾",
+                "Select Country  ⌄",
                 19,
                 NAVY
         );
 
+countrySelector.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+        
 countrySelector.setTypeface(
         Typeface.DEFAULT_BOLD
 );
