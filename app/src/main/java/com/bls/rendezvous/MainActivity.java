@@ -802,9 +802,13 @@ mon.setGravity(Gravity.CENTER_VERTICAL);
 mon.setPadding(0, dp(8), 0, 0); 
 TextView clock = text("◷", 17, GRAY); 
 clock.setGravity(Gravity.CENTER); 
-mon.addView(clock, new LinearLayout.LayoutPara(221, 202, 247)
-                }
-        );
+mon.addView(
+        clock,
+        new LinearLayout.LayoutParams(
+                dp(20),
+                dp(20)
+        )
+);
 
 monBg.setCornerRadius(dp(20));
 
