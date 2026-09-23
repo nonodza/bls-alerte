@@ -634,15 +634,11 @@ curMid.addView(
 
 TextView countrySelector =
         text(
-                "Select Country  ⌄",
+                "Select Country",
                 19,
                 NAVY
         );
 
-countrySelector.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-        
 countrySelector.setTypeface(
         Typeface.DEFAULT_BOLD
 );
@@ -660,6 +656,21 @@ countrySelector.setPadding(
 
 countrySelector.setClickable(true);
 
+
+// =====================================================
+// MODERN DOWN ARROW
+// =====================================================
+
+countrySelector.setCompoundDrawablesWithIntrinsicBounds(
+        0,
+        0,
+        R.drawable.ic_arrow_down,
+        0
+);
+
+countrySelector.setCompoundDrawablePadding(
+        dp(5)
+);
 
 // =====================================================
 // SCHENGEN COUNTRIES
