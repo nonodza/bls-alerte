@@ -626,7 +626,78 @@ curMid.addView(
         )
 );
 
+
+// -----------------------------------------------------
+// COUNTRY SELECTOR
+// -----------------------------------------------------
+
+TextView countrySelector =
+        text(
+                "Select Country  ▾",
+                19,
+                NAVY
+        );
+
+countrySelector.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+countrySelector.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+countrySelector.setPadding(
+        0,
+        0,
+        0,
+        0
+);
+
+LinearLayout.LayoutParams countryP =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(28)
+        );
+
+countryP.topMargin = dp(2);
+
+curMid.addView(
+        countrySelector,
+        countryP
+);
+
+
+// -----------------------------------------------------
+// VISA CENTER
+// -----------------------------------------------------
+
+TextView visaCenter =
+        text(
+                "Select a visa center",
+                12,
+                GRAY
+        );
+
+LinearLayout.LayoutParams centerP =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+centerP.topMargin = dp(1);
+
+curMid.addView(
+        visaCenter,
+        centerP
+);
+
+
+// =====================================================
+// ADD CENTER CONTENT
+// =====================================================
+
 curTop.addView(curMid);
+
 
 // =====================================================
 // STATUS BADGE
@@ -664,6 +735,13 @@ status.setTypeface(
 );
 
 curTop.addView(status);
+
+
+// =====================================================
+// ADD CURRENT APPLICATION
+// =====================================================
+
+content.addView(curTop);
 
 content.addView(curTop);
 
