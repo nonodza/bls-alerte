@@ -600,36 +600,24 @@ curMid.setLayoutParams(
         )
 );
 
-// -----------------------------------------------------
-// CURRENT APPLICATION
-// -----------------------------------------------------
+// =====================================================
+// COUNTRY SELECTOR
+// =====================================================
 
-TextView curLabel =
-        text(
-                "CURRENT APPLICATION",
-                10,
-                Color.rgb(90, 130, 255)
-        );
+LinearLayout countryRow =
+        new LinearLayout(this);
 
-curLabel.setTypeface(
-        Typeface.DEFAULT_BOLD
+countryRow.setOrientation(
+        LinearLayout.HORIZONTAL
 );
 
-curLabel.setLetterSpacing(
-        0.08f
-);
-
-curMid.addView(
-        curLabel,
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        )
+countryRow.setGravity(
+        Gravity.CENTER_VERTICAL
 );
 
 
 // =====================================================
-// COUNTRY SELECTOR
+// COUNTRY NAME
 // =====================================================
 
 TextView countrySelector =
@@ -658,25 +646,56 @@ countrySelector.setClickable(true);
 
 
 // =====================================================
+// COUNTRY SELECTOR WIDTH
+// =====================================================
+
+LinearLayout.LayoutParams countryTextP =
+        new LinearLayout.LayoutParams(
+                0,
+                dp(28),
+                1
+        );
+
+countryRow.addView(
+        countrySelector,
+        countryTextP
+);
+
+
+// =====================================================
 // MODERN DOWN ARROW
 // =====================================================
 
-countrySelector.setCompoundDrawablesWithIntrinsicBounds(
-        0,
-        0,
-        R.drawable.ic_arrow_down,
-        0
+ImageView countryArrow =
+        new ImageView(this);
+
+countryArrow.setImageResource(
+        R.drawable.ic_arrow_down
 );
 
-countrySelector.setCompoundDrawablePadding(
-        dp(5)
+countryArrow.setScaleType(
+        ImageView.ScaleType.CENTER
 );
+
+LinearLayout.LayoutParams arrowP =
+        new LinearLayout.LayoutParams(
+                dp(20),
+                dp(28)
+        );
+
+countryRow.addView(
+        countryArrow,
+        arrowP
+);
+
 
 // =====================================================
 // SCHENGEN COUNTRIES
 // =====================================================
 
-countrySelector.setOnClickListener(
+countryRow.setClickable(true);
+
+countryRow.setOnClickListener(
         v -> {
 
             final String[] countries = {
@@ -725,10 +744,6 @@ countrySelector.setOnClickListener(
             );
 
 
-            // =================================================
-            // COUNTRY LIST
-            // =================================================
-
             builder.setItems(
                     countries,
                     (dialog, which) -> {
@@ -743,10 +758,6 @@ countrySelector.setOnClickListener(
             );
 
 
-            // =================================================
-            // SHOW
-            // =================================================
-
             builder.show();
         }
 );
@@ -756,20 +767,20 @@ countrySelector.setOnClickListener(
 // COUNTRY HEIGHT
 // =====================================================
 
-LinearLayout.LayoutParams countryP =
+LinearLayout.LayoutParams countryRowP =
         new LinearLayout.LayoutParams(
                 -1,
                 dp(28)
         );
 
-countryP.topMargin = dp(2);
-
+countryRowP.topMargin = dp(2);
 
 curMid.addView(
-        countrySelector,
-        countryP
+        countryRow,
+        countryRowP
 );
-        
+
+
 // -----------------------------------------------------
 // VISA CENTER
 // -----------------------------------------------------
