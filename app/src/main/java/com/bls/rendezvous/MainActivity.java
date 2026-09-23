@@ -527,7 +527,7 @@ root.addView(
 );
        
 // =====================================================
-// HERO - FINAL -
+// HERO - FINAL - 
 // =====================================================
 FrameLayout heroContainer = new FrameLayout(this);
 GradientDrawable heroBg = new GradientDrawable();
@@ -539,20 +539,15 @@ heroContainer.setClipToOutline(true);
 ImageView heroImage = new ImageView(this);
 heroImage.setImageResource(R.drawable.hero_final);
 heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
 FrameLayout.LayoutParams imgParams = new FrameLayout.LayoutParams(
-    FrameLayout.LayoutParams.MATCH_PARENT,
-    FrameLayout.LayoutParams.MATCH_PARENT
-);
+        FrameLayout.LayoutParams.MATCH_PARENT,
+        FrameLayout.LayoutParams.MATCH_PARENT );
 heroContainer.addView(heroImage, imgParams);
 
 // - Container
 LinearLayout.LayoutParams containerParams = new LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT, dp(88) );
 containerParams.setMargins(dp(12), dp(6), dp(12), dp(12));
-content.addView(heroContainer, containerParams);
-);
-containerParams.setMargins(dp(16), dp(6), dp(16), dp(12));
 content.addView(heroContainer, containerParams);
         
 // =====================================================
