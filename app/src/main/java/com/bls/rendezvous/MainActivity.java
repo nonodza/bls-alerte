@@ -626,98 +626,46 @@ curMid.addView(
         )
 );
 
-// -----------------------------------------------------
-// COUNTRY
-// -----------------------------------------------------
-
-TextView spain =
-        text(
-                "Spain",
-                19,
-                NAVY
-        );
-
-spain.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-LinearLayout.LayoutParams spainP =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-spainP.topMargin = dp(2);
-
-curMid.addView(
-        spain,
-        spainP
-);
-
-// -----------------------------------------------------
-// VISA CENTER
-// -----------------------------------------------------
-
-TextView alg =
-        text(
-                "Algiers Visa Center",
-                12,
-                GRAY
-        );
-
-LinearLayout.LayoutParams algP =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-algP.topMargin = dp(1);
-
-curMid.addView(
-        alg,
-        algP
-);
-
 curTop.addView(curMid);
 
-
 // =====================================================
-// ACTIVE BADGE
+// STATUS BADGE
 // =====================================================
 
-TextView active =
+TextView status =
         text(
-                "● ACTIVE",
+                "● READY",
                 11,
-                Color.rgb(0, 170, 90)
+                Color.rgb(0, 145, 90)
         );
 
-active.setPadding(
+status.setPadding(
         dp(12),
         dp(6),
         dp(12),
         dp(6)
 );
 
-GradientDrawable activeBg =
+GradientDrawable statusBg =
         new GradientDrawable();
 
-activeBg.setColor(
-        Color.rgb(220, 255, 235)
+statusBg.setColor(
+        Color.rgb(225, 250, 238)
 );
 
-activeBg.setCornerRadius(
+statusBg.setCornerRadius(
         dp(20)
 );
 
-active.setBackground(activeBg);
+status.setBackground(statusBg);
 
-active.setTypeface(
+status.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-curTop.addView(active); 
-content.addView(curTop); 
+curTop.addView(status);
+
+content.addView(curTop);
 
 // MONITORING INFO
 LinearLayout mon = new LinearLayout(this); 
