@@ -628,9 +628,9 @@ curMid.addView(
 );
 
 
-// -----------------------------------------------------
+// =====================================================
 // COUNTRY SELECTOR
-// -----------------------------------------------------
+// =====================================================
 
 TextView countrySelector =
         text(
@@ -638,17 +638,7 @@ TextView countrySelector =
                 19,
                 NAVY
         );
-countrySelector.setClickable(true);
 
-countrySelector.setOnClickListener(
-        v -> {
-            Toast.makeText(
-                    this,
-                    "Country selector clicked",
-                    Toast.LENGTH_SHORT
-            ).show();
-        }
-);
 countrySelector.setTypeface(
         Typeface.DEFAULT_BOLD
 );
@@ -664,6 +654,93 @@ countrySelector.setPadding(
         0
 );
 
+countrySelector.setClickable(true);
+
+
+// =====================================================
+// SCHENGEN COUNTRIES
+// =====================================================
+
+countrySelector.setOnClickListener(
+        v -> {
+
+            final String[] countries = {
+
+                    "🇦🇹  Austria",
+                    "🇧🇪  Belgium",
+                    "🇧🇬  Bulgaria",
+                    "🇭🇷  Croatia",
+                    "🇨🇿  Czech Republic",
+                    "🇩🇰  Denmark",
+                    "🇪🇪  Estonia",
+                    "🇫🇮  Finland",
+                    "🇫🇷  France",
+                    "🇩🇪  Germany",
+                    "🇬🇷  Greece",
+                    "🇭🇺  Hungary",
+                    "🇮🇸  Iceland",
+                    "🇮🇹  Italy",
+                    "🇱🇻  Latvia",
+                    "🇱🇮  Liechtenstein",
+                    "🇱🇹  Lithuania",
+                    "🇱🇺  Luxembourg",
+                    "🇲🇹  Malta",
+                    "🇳🇱  Netherlands",
+                    "🇳🇴  Norway",
+                    "🇵🇱  Poland",
+                    "🇵🇹  Portugal",
+                    "🇷🇴  Romania",
+                    "🇸🇰  Slovakia",
+                    "🇸🇮  Slovenia",
+                    "🇪🇸  Spain",
+                    "🇸🇪  Sweden",
+                    "🇨🇭  Switzerland"
+            };
+
+
+            // =================================================
+            // COUNTRY DIALOG
+            // =================================================
+
+            AlertDialog.Builder builder =
+                    new AlertDialog.Builder(this);
+
+            builder.setTitle(
+                    "Select Country"
+            );
+
+
+            // =================================================
+            // COUNTRY LIST
+            // =================================================
+
+            builder.setItems(
+                    countries,
+                    (dialog, which) -> {
+
+                        String selected =
+                                countries[which];
+
+                        countrySelector.setText(
+                                selected
+                        );
+                    }
+            );
+
+
+            // =================================================
+            // SHOW
+            // =================================================
+
+            builder.show();
+        }
+);
+
+
+// =====================================================
+// COUNTRY HEIGHT
+// =====================================================
+
 LinearLayout.LayoutParams countryP =
         new LinearLayout.LayoutParams(
                 -1,
@@ -672,12 +749,12 @@ LinearLayout.LayoutParams countryP =
 
 countryP.topMargin = dp(2);
 
+
 curMid.addView(
         countrySelector,
         countryP
 );
-
-
+        
 // -----------------------------------------------------
 // VISA CENTER
 // -----------------------------------------------------
