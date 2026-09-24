@@ -779,33 +779,35 @@ curTop.addView(curMid);
 // COUNTRY STATUS DOT
 // =====================================================
 
-TextView statusDot =
-        new TextView(this);
+final View statusDot =
+        new View(this);
 
-statusDot.setText("●");
+final GradientDrawable statusDotBg =
+        new GradientDrawable();
 
-statusDot.setTextSize(16);
-
-statusDot.setTextColor(
-        Color.rgb(150, 150, 150)
+statusDotBg.setShape(
+        GradientDrawable.OVAL
 );
 
-statusDot.setGravity(
-        Gravity.CENTER
+statusDotBg.setColor(
+        Color.rgb(184, 190, 200)
 );
 
-statusDot.setPadding(
-        0,
-        0,
-        0,
-        0
+statusDot.setBackground(
+        statusDotBg
 );
 
 LinearLayout.LayoutParams statusDotParams =
         new LinearLayout.LayoutParams(
-                dp(24),
-                dp(40)
+                dp(8),
+                dp(8)
         );
+
+statusDotParams.leftMargin =
+        dp(8);
+
+statusDotParams.rightMargin =
+        dp(4);
 
 curTop.addView(
         statusDot,
