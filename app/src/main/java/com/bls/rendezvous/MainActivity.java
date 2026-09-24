@@ -661,6 +661,10 @@ LinearLayout.LayoutParams statusDotP =
 
 statusDotP.leftMargin = dp(8);
 statusDotP.rightMargin = dp(4);
+ curTop.addView(
+        statusDot,
+        statusDotP
+);       
 
 
 // =====================================================
@@ -746,8 +750,22 @@ countrySelector.setOnClickListener(
             );
 
             builder.setItems(
-                    countries,
-                    (dialog, which) -> {
+        countries,
+        (dialog, which) -> {
+
+            countrySelector.setText(
+                    countries[which] + "  ⌄"
+            );
+
+            statusDotBg.setColor(
+                    Color.rgb(32, 178, 107)
+            );
+
+            statusDot.setBackground(
+                    statusDotBg
+            );
+        }
+);
 
                         countrySelector.setText(
                                 countries[which] + "  ⌄"
