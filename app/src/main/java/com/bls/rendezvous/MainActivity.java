@@ -803,44 +803,6 @@ curTop.addView(
         statusDotP
 );
 
-// =====================================================
-// COUNTRY STATUS DOT
-// =====================================================
-
-final View statusDot =
-        new View(this);
-
-final GradientDrawable statusDotBg =
-        new GradientDrawable();
-
-statusDotBg.setShape(
-        GradientDrawable.OVAL
-);
-
-statusDotBg.setColor(
-        Color.rgb(184, 190, 200)
-);
-
-statusDot.setBackground(
-        statusDotBg
-);
-
-LinearLayout.LayoutParams statusDotParams =
-        new LinearLayout.LayoutParams(
-                dp(8),
-                dp(8)
-        );
-
-statusDotParams.leftMargin =
-        dp(8);
-
-statusDotParams.rightMargin =
-        dp(4);
-
-curTop.addView(
-        statusDot,
-        statusDotParams
-);
 
 // =====================================================
 // ADD CURRENT APPLICATION
