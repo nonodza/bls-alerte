@@ -608,7 +608,11 @@ TextView countrySelector =
         new TextView(this);
 
 countrySelector.setText(
-        "Select Country  ⌄"
+        countries[which] + "  ⌄"
+);
+
+statusDot.setTextColor(
+        Color.rgb(0, 180, 90)
 );
 
 countrySelector.setTextSize(
@@ -752,41 +756,41 @@ curMid.addView(
 curTop.addView(curMid);
 
 // =====================================================
-// STATUS BADGE
+// COUNTRY STATUS DOT
 // =====================================================
 
-TextView status =
-        text(
-                "● READY",
-                11,
-                Color.rgb(0, 145, 90)
+TextView statusDot =
+        new TextView(this);
+
+statusDot.setText("●");
+
+statusDot.setTextSize(16);
+
+statusDot.setTextColor(
+        Color.rgb(150, 150, 150)
+);
+
+statusDot.setGravity(
+        Gravity.CENTER
+);
+
+statusDot.setPadding(
+        0,
+        0,
+        0,
+        0
+);
+
+LinearLayout.LayoutParams statusDotParams =
+        new LinearLayout.LayoutParams(
+                dp(24),
+                dp(40)
         );
 
-status.setPadding(
-        dp(12),
-        dp(6),
-        dp(12),
-        dp(6)
+curTop.addView(
+        statusDot,
+        statusDotParams
 );
-
-GradientDrawable statusBg =
-        new GradientDrawable();
-
-statusBg.setColor(
-        Color.rgb(225, 250, 238)
-);
-
-statusBg.setCornerRadius(
-        dp(20)
-);
-
-status.setBackground(statusBg);
-
-status.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-curTop.addView(status);
 
 // =====================================================
 // ADD CURRENT APPLICATION
