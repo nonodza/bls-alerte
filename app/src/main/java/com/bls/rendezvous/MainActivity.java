@@ -631,40 +631,6 @@ countrySelector.setSingleLine(
         true
 );
 
-// =====================================================
-// COUNTRY STATUS DOT
-// =====================================================
-
-final View statusDot =
-        new View(this);
-
-final GradientDrawable statusDotBg =
-        new GradientDrawable();
-
-statusDotBg.setShape(
-        GradientDrawable.OVAL
-);
-
-statusDotBg.setColor(
-        Color.rgb(184, 190, 200)
-);
-
-statusDot.setBackground(
-        statusDotBg
-);
-
-LinearLayout.LayoutParams statusDotP =
-        new LinearLayout.LayoutParams(
-                dp(8),
-                dp(8)
-        );
-
-statusDotP.leftMargin =
-        dp(8);
-
-statusDotP.rightMargin =
-        dp(4);
-
 
 // =====================================================
 // COUNTRY SELECTOR BACKGROUND
