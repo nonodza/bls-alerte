@@ -749,25 +749,23 @@ countrySelector.setOnClickListener(
             );
 
             builder.setItems(
-        countries,
-        (dialog, which) -> {
-
-            countrySelector.setText(
-                    countries[which] + "  ⌄"
-            );
-
-            statusDotBg.setColor(
-                    Color.rgb(32, 178, 107)
-            );
-
-            statusDot.setBackground(
-                    statusDotBg
-            );
-        }
-);
+                    countries,
+                    (dialog, which) -> {
 
                         countrySelector.setText(
                                 countries[which] + "  ⌄"
+                        );
+
+                        statusDotBg.setColor(
+                                Color.rgb(
+                                        32,
+                                        178,
+                                        107
+                                )
+                        );
+
+                        statusDot.setBackground(
+                                statusDotBg
                         );
                     }
             );
@@ -786,11 +784,24 @@ curMid.addView(
         countrySelectorP
 );
 
+
 // =====================================================
 // ADD CENTER CONTENT
 // =====================================================
 
-curTop.addView(curMid);
+curTop.addView(
+        curMid
+);
+
+
+// =====================================================
+// ADD COUNTRY STATUS DOT
+// =====================================================
+
+curTop.addView(
+        statusDot,
+        statusDotP
+);
 
 // =====================================================
 // COUNTRY STATUS DOT
