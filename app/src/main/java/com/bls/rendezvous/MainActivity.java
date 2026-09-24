@@ -659,12 +659,11 @@ LinearLayout.LayoutParams statusDotP =
                 dp(8)
         );
 
-statusDotP.leftMargin = dp(8);
-statusDotP.rightMargin = dp(4);
- curTop.addView(
-        statusDot,
-        statusDotP
-);       
+statusDotP.leftMargin =
+        dp(8);
+
+statusDotP.rightMargin =
+        dp(4);
 
 
 // =====================================================
