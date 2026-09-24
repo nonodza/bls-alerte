@@ -788,7 +788,6 @@ status.setTypeface(
 
 curTop.addView(status);
 
-
 // =====================================================
 // ADD CURRENT APPLICATION
 // =====================================================
@@ -811,9 +810,13 @@ GradientDrawable monBg =
                 }
         );
 
-monBg.setCornerRadius(dp(20));
+monBg.setCornerRadius(
+        dp(20)
+);
 
-monCard.setBackground(monBg);
+monCard.setBackground(
+        monBg
+);
 
 monCard.setPadding(
         dp(14),
@@ -832,44 +835,9 @@ monCard.setGravity(
 
 
 // =====================================================
-// MONITORING INFO
+// MONITORING ICON
 // =====================================================
 
-LinearLayout mon = new LinearLayout(this); 
-mon.setOrientation(LinearLayout.HORIZONTAL); 
-mon.setGravity(Gravity.CENTER_VERTICAL); 
-mon.setPadding(0, dp(8), 0, 0); 
-TextView clock = text("◷", 17, GRAY); 
-clock.setGravity(Gravity.CENTER); 
-mon.addView(
-        clock,
-        new LinearLayout.LayoutParams(
-                dp(20),
-                dp(20)
-        )
-);
-
-monBg.setCornerRadius(dp(20));
-
-monCard.setBackground(monBg);
-
-monCard.setPadding(
-        dp(14),
-        dp(11),
-        dp(14),
-        dp(11)
-);
-
-monCard.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-monCard.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-
-// Monitoring icon
 TextView monIcon =
         text(
                 "◷",
@@ -890,10 +858,10 @@ monCard.addView(
 );
 
 
-// Monitoring text
+// =====================================================
+// MONITORING TEXT
+// =====================================================
 
-        
-// Monitoring text
 LinearLayout monText =
         new LinearLayout(this);
 
@@ -927,7 +895,9 @@ monTitle.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-monText.addView(monTitle);
+monText.addView(
+        monTitle
+);
 
 TextView monSub =
         text(
@@ -936,12 +906,19 @@ TextView monSub =
                 GRAY
         );
 
-monText.addView(monSub);
+monText.addView(
+        monSub
+);
 
-monCard.addView(monText);
+monCard.addView(
+        monText
+);
 
 
+// =====================================================
 // START BUTTON
+// =====================================================
+
 TextView startBtn =
         text(
                 "START",
@@ -969,21 +946,26 @@ GradientDrawable startBg =
                 }
         );
 
-startBg.setCornerRadius(dp(20));
+startBg.setCornerRadius(
+        dp(20)
+);
 
-startBtn.setBackground(startBg);
+startBtn.setBackground(
+        startBg
+);
 
 startBtn.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-monCard.addView(startBtn);
+monCard.addView(
+        startBtn
+);
 
 content.addView(
         monCard,
         margin(0, 0, 0, 12)
 );
-
 
 // =====================================================
 // OFFICIAL BLS SPAIN
