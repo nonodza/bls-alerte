@@ -3,6 +3,7 @@ package com.bls.rendezvous;
 import android.app.Activity;
 import android.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -922,11 +923,53 @@ monCard.addView(
         startBtn
 );
 
+
+// =====================================================
+// START MONITORING
+// =====================================================
+
+startBtn.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent serviceIntent =
+                        new Intent(
+                                MainActivity.this,
+                                AppointmentMonitoringService.class
+                        );
+
+                serviceIntent.putExtra(
+                        "center",
+                        selectedCenter.length() == 0
+                                ? "Algiers"
+                                : selectedCenter
+                );
+
+                ContextCompat.startForegroundService(
+                        MainActivity.this,
+                        serviceIntent
+                );
+
+                Toast.makeText(
+                        MainActivity.this,
+                        "Monitoring started",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        }
+);
+
+
+// =====================================================
+// ADD MONITORING CARD
+// =====================================================
+
 content.addView(
         monCard,
         margin(0, 0, 0, 12)
 );
-
+        
 // =====================================================
 // OFFICIAL BLS SPAIN
 // =====================================================
