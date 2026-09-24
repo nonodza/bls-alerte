@@ -721,18 +721,7 @@ countrySelector.setOnClickListener(
                         countrySelector.setText(
                                 countries[which] + "  ⌄"
                         );
-
-                        statusDotBg.setColor(
-                                Color.rgb(
-                                        32,
-                                        178,
-                                        107
-                                )
-                        );
-
-                        statusDot.setBackground(
-                                statusDotBg
-                        );
+                        
                     }
             );
 
@@ -758,17 +747,6 @@ curMid.addView(
 curTop.addView(
         curMid
 );
-
-
-// =====================================================
-// ADD COUNTRY STATUS DOT
-// =====================================================
-
-curTop.addView(
-        statusDot,
-        statusDotP
-);
-
 
 // =====================================================
 // ADD CURRENT APPLICATION
