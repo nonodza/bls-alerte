@@ -12,6 +12,10 @@ import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class AppointmentMonitoringService extends Service {
 
     private static final String CHANNEL_ID =
@@ -19,6 +23,11 @@ public class AppointmentMonitoringService extends Service {
 
     private static final int NOTIFICATION_ID =
             1001;
+
+    private ScheduledExecutorService scheduler;
+
+    private String selectedCenter =
+            "Algiers";
 
     @Override
     public void onCreate() {
@@ -61,6 +70,13 @@ public class AppointmentMonitoringService extends Service {
                 NOTIFICATION_ID,
                 notification
         );
+
+        // =====================================================
+        // MONITORING SCHEDULER
+        // =====================================================
+
+        scheduler =
+                Executors.newSingleThreadScheduledExecutor();
     }
 
     private void createNotificationChannel() {
@@ -107,11 +123,80 @@ public class AppointmentMonitoringService extends Service {
             int startId
     ) {
 
+        if (intent != null) {
+
+            String center =
+                    intent.getStringExtra(
+                            "center"
+                    );
+
+            if (center != null &&
+                    center.length() > 0) {
+
+                selectedCenter = center;
+            }
+        }
+
+        startMonitoring();
+
         return START_STICKY;
+    }
+
+    // =====================================================
+    // START BLS MONITORING
+    // =====================================================
+
+    private void startMonitoring() {
+
+        if (scheduler == null) {
+            return;
+        }
+
+        if (scheduler.isShutdown()) {
+            return;
+        }
+
+        scheduler.scheduleAtFixedRate(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        BLSMonitor monitor =
+                                new BLSMonitor();
+
+                        BLSMonitor.Result result =
+                                monitor.check(
+                                        selectedCenter
+                                );
+
+                        android.util.Log.d(
+                                "BLS_MONITOR",
+                                "Center: "
+                                        + selectedCenter
+                                        + " | Status: "
+                                        + result.getStatus()
+                                        + " | HTTP: "
+                                        + result.getHttpCode()
+                        );
+                    }
+                },
+                0,
+                BLSMonitor.CHECK_INTERVAL_MS,
+                TimeUnit.MILLISECONDS
+        );
     }
 
     @Override
     public void onDestroy() {
+
+        if (scheduler != null) {
+
+            scheduler.shutdownNow();
+
+            scheduler = null;
+        }
+
         super.onDestroy();
     }
 
