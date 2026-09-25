@@ -5,14 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:background="#FF0000"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/notification_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Monitoring is active"
-        android:textSize="16sp"
-        android:textColor="#000000" />
+        android:text="REMOTE VIEWS TEST"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BLS Monitoring"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
 
 </LinearLayout>
