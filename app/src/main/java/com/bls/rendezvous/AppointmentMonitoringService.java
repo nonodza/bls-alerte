@@ -110,7 +110,7 @@ public class AppointmentMonitoringService extends Service {
         // =================================================
 
         int pendingFlags =
-                PendingIntent.FLAG_UPDATE_CURRENT;
+                PendingIntent.FLAG_CANCEL_CURRENT;
 
         if (Build.VERSION.SDK_INT >=
                 Build.VERSION_CODES.M) {
@@ -188,7 +188,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // STOP BUTTON CLICK
+        // STOP BUTTON
         // =================================================
 
         notificationView.setOnClickPendingIntent(
@@ -198,7 +198,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // VIEW LOG BUTTON CLICK
+        // VIEW LOG BUTTON
         // =================================================
 
         notificationView.setOnClickPendingIntent(
@@ -227,7 +227,7 @@ public class AppointmentMonitoringService extends Service {
 
 
                         // =================================
-                        // CUSTOM REMOTE VIEWS
+                        // CUSTOM VIEW
                         // =================================
 
                         .setCustomContentView(
@@ -245,7 +245,7 @@ public class AppointmentMonitoringService extends Service {
 
 
                         // =================================
-                        // MAIN STATUS
+                        // STATUS
                         // =================================
 
                         .setContentText(
@@ -255,7 +255,7 @@ public class AppointmentMonitoringService extends Service {
 
 
                         // =================================
-                        // SECONDARY TEXT
+                        // SECONDARY
                         // =================================
 
                         .setSubText(
