@@ -188,6 +188,26 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
+        // STOP BUTTON CLICK
+        // =================================================
+
+        notificationView.setOnClickPendingIntent(
+                R.id.notification_stop,
+                stopPendingIntent
+        );
+
+
+        // =================================================
+        // VIEW LOG BUTTON CLICK
+        // =================================================
+
+        notificationView.setOnClickPendingIntent(
+                R.id.notification_log,
+                logPendingIntent
+        );
+
+
+        // =================================================
         // NOTIFICATION
         // =================================================
 
@@ -263,30 +283,8 @@ public class AppointmentMonitoringService extends Service {
 
 
                         // =================================
-                        // STOP
+                        // BUILD
                         // =================================
-
-                        .addAction(
-                                new NotificationCompat.Action.Builder(
-                                        0,
-                                        "STOP",
-                                        stopPendingIntent
-                                ).build()
-                        )
-
-
-                        // =================================
-                        // VIEW LOG
-                        // =================================
-
-                        .addAction(
-                                new NotificationCompat.Action.Builder(
-                                        0,
-                                        "VIEW LOG",
-                                        logPendingIntent
-                                ).build()
-                        )
-
 
                         .build();
 
