@@ -8,7 +8,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -56,7 +55,7 @@ public class AppointmentMonitoringService extends Service {
 
 
     // =====================================================
-    // START COMMAND
+    // ON START COMMAND
     // =====================================================
 
     @Override
@@ -141,7 +140,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // VIEW LOG
+        // VIEW LOG PENDING INTENT
         // =================================================
 
         Intent logIntent =
@@ -166,53 +165,6 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // CUSTOM NOTIFICATION
-        // =================================================
-
-        RemoteViews notificationView =
-                new RemoteViews(
-                        getPackageName(),
-                        R.layout.notification_monitoring
-                );
-
-
-        // =================================================
-        // CENTER TEXT
-        // =================================================
-
-        String centerText =
-                "Scanning BLS Spain - "
-                        + selectedCenter
-                        + " center";
-
-
-        notificationView.setTextViewText(
-                R.id.notification_description,
-                centerText
-        );
-
-
-        // =================================================
-        // STOP
-        // =================================================
-
-        notificationView.setOnClickPendingIntent(
-                R.id.notification_stop,
-                stopPendingIntent
-        );
-
-
-        // =================================================
-        // VIEW LOG
-        // =================================================
-
-        notificationView.setOnClickPendingIntent(
-                R.id.notification_log,
-                logPendingIntent
-        );
-
-
-        // =================================================
         // NOTIFICATION
         // =================================================
 
@@ -224,6 +176,19 @@ public class AppointmentMonitoringService extends Service {
 
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
+                        )
+
+                        .setContentTitle(
+                                "BLS Rendez-Vous"
+                        )
+
+                        .setContentText(
+                                "Monitoring is active • "
+                                        + selectedCenter
+                        )
+
+                        .setSubText(
+                                "BLS Spain"
                         )
 
                         .setOngoing(true)
@@ -240,9 +205,32 @@ public class AppointmentMonitoringService extends Service {
 
                         .setShowWhen(false)
 
-                        .setCustomContentView(
-                                notificationView
+
+                        // =================================
+                        // STOP
+                        // =================================
+
+                        .addAction(
+                                new NotificationCompat.Action.Builder(
+                                        0,
+                                        "STOP",
+                                        stopPendingIntent
+                                ).build()
                         )
+
+
+                        // =================================
+                        // VIEW LOG
+                        // =================================
+
+                        .addAction(
+                                new NotificationCompat.Action.Builder(
+                                        0,
+                                        "VIEW LOG",
+                                        logPendingIntent
+                                ).build()
+                        )
+
 
                         .build();
 
@@ -321,6 +309,7 @@ public class AppointmentMonitoringService extends Service {
     private void startMonitoring() {
 
         if (monitoring) {
+
             return;
         }
 
@@ -373,11 +362,6 @@ public class AppointmentMonitoringService extends Service {
                                             InterruptedException e
                                     ) {
 
-                                        android.util.Log.d(
-                                                "BLS_MONITOR",
-                                                "Monitoring stopped"
-                                        );
-
                                         Thread.currentThread()
                                                 .interrupt();
 
@@ -404,11 +388,6 @@ public class AppointmentMonitoringService extends Service {
                                         } catch (
                                                 InterruptedException ignored
                                         ) {
-
-                                            android.util.Log.d(
-                                                    "BLS_MONITOR",
-                                                    "Monitoring stopped"
-                                            );
 
                                             Thread.currentThread()
                                                     .interrupt();
@@ -447,7 +426,7 @@ public class AppointmentMonitoringService extends Service {
 
 
     // =====================================================
-    // DESTROY
+    // ON DESTROY
     // =====================================================
 
     @Override
