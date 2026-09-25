@@ -7,7 +7,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -35,11 +34,9 @@ public class AppointmentMonitoringService extends Service {
 
         createNotificationChannel();
 
-        RemoteViews notificationView =
-                new RemoteViews(
-                        getPackageName(),
-                        R.layout.notification_monitoring
-                );
+        // =====================================================
+        // SIMPLE TEST NOTIFICATION
+        // =====================================================
 
         Notification notification =
                 new NotificationCompat.Builder(
@@ -49,11 +46,11 @@ public class AppointmentMonitoringService extends Service {
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
                         )
-                        .setCustomContentView(
-                                notificationView
+                        .setContentTitle(
+                                "BLS Rendez-Vous"
                         )
-                        .setStyle(
-                                new NotificationCompat.DecoratedCustomViewStyle()
+                        .setContentText(
+                                "Monitoring is active"
                         )
                         .setOngoing(true)
                         .setSilent(true)
@@ -109,6 +106,7 @@ public class AppointmentMonitoringService extends Service {
                     );
 
             if (manager != null) {
+
                 manager.createNotificationChannel(
                         channel
                 );
@@ -138,7 +136,7 @@ public class AppointmentMonitoringService extends Service {
         }
 
         // =====================================================
-        // TEMPORARY TEST
+        // TEMPORARILY DISABLED FOR TEST
         // =====================================================
 
         // startMonitoring();
