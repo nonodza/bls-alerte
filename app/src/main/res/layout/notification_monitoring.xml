@@ -3,70 +3,130 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="76dp"
     android:orientation="vertical"
-    android:background="@drawable/notification_header_bg">
+    android:background="@drawable/notification_header_bg"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
 
-    <TextView
-        android:id="@+id/notification_title"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:text="BLS Rendez-Vous"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:gravity="center_vertical"
-        android:maxLines="1" />
+    <!-- ========================================= -->
+    <!-- TOP ROW -->
+    <!-- ========================================= -->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:orientation="horizontal">
+        android:layout_height="28dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- TIME -->
 
         <TextView
-            android:id="@+id/notification_description"
+            android:id="@+id/notification_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingStart="12dp"
-            android:paddingEnd="4dp"
-            android:text="Monitoring is active"
+            android:gravity="center_vertical"
+            android:text="2 min ago"
+            android:textColor="#B9D8FF"
+            android:textSize="10sp"
+            android:maxLines="1" />
+
+        <!-- RV -->
+
+        <TextView
+            android:id="@+id/notification_rv"
+            android:layout_width="30dp"
+            android:layout_height="22dp"
+            android:gravity="center"
+            android:text="RV"
             android:textColor="#FFFFFF"
             android:textSize="11sp"
+            android:textStyle="bold"
+            android:background="#243B73" />
+
+        <!-- TITLE -->
+
+        <TextView
+            android:id="@+id/notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="7dp"
             android:gravity="center_vertical"
+            android:text="BLS Rendez-Vous"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:maxLines="1" />
 
     </LinearLayout>
 
+
+    <!-- ========================================= -->
+    <!-- MONITORING STATUS -->
+    <!-- ========================================= -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="22dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_monitoring_shield"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/notification_description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="6dp"
+            android:gravity="center_vertical"
+            android:text="Monitoring is active"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+
+    <!-- ========================================= -->
+    <!-- ACTION BUTTONS -->
+    <!-- ========================================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/notification_stop"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="22dp"
             android:layout_weight="1"
+            android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:text="STOP"
+            android:text="■  STOP"
             android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:background="#B83A4B" />
 
         <TextView
             android:id="@+id/notification_log"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="22dp"
             android:layout_weight="1"
+            android:layout_marginStart="5dp"
             android:gravity="center"
-            android:text="VIEW LOG"
+            android:text="▣  VIEW LOG"
             android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:background="#3156A3" />
 
     </LinearLayout>
 
