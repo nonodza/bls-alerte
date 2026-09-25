@@ -4,16 +4,73 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-    <!-- B -->
-    <path
-        android:fillColor="#FFFFFFFF"
-        android:pathData="M3,4 L3,20 L8.5,20 C11.5,20 13.5,18.4 13.5,15.9 C13.5,13.9 12.4,12.7 10.8,12.1 C12.1,11.4 12.8,10.2 12.8,8.6 C12.8,5.7 10.8,4 7.8,4 Z
-        M6.2,6.8 L7.7,6.8 C9,6.8 9.7,7.4 9.7,8.6 C9.7,9.8 9,10.5 7.7,10.5 L6.2,10.5 Z
-        M6.2,13.2 L8.1,13.2 C9.6,13.2 10.3,13.9 10.3,15.2 C10.3,16.5 9.6,17.2 8.1,17.2 L6.2,17.2 Z" />
+    <!-- PASSPORT / VISA ICON -->
 
-    <!-- L -->
+    <!-- Passport body -->
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M15,4 L15,20 L21,20 L21,17 L18.2,17 L18.2,4 Z" />
+        android:pathData="
+            M5,3
+            C3.9,3 3,3.9 3,5
+            L3,19
+            C3,20.1 3.9,21 5,21
+            L17,21
+            C18.1,21 19,20.1 19,19
+            L19,5
+            C19,3.9 18.1,3 17,3
+            Z" />
+
+    <!-- Passport inner panel -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="
+            M6,5
+            L16,5
+            L16,19
+            L6,19
+            Z" />
+
+    <!-- Visa / globe circle -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="
+            M11,7
+            C8.8,7 7,8.8 7,11
+            C7,13.2 8.8,15 11,15
+            C13.2,15 15,13.2 15,11
+            C15,8.8 13.2,7 11,7
+            Z" />
+
+    <!-- Globe horizontal cut -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="
+            M7.4,10
+            L14.6,10
+            L14.6,11.2
+            L7.4,11.2
+            Z" />
+
+    <!-- Globe vertical cut -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="
+            M10.4,7.2
+            L11.6,7.2
+            L11.6,14.8
+            L10.4,14.8
+            Z" />
+
+    <!-- Visa check / V -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="
+            M8,17
+            L10,19
+            L14,16
+            L13,15
+            L10,17.2
+            L9,16.2
+            Z" />
 
 </vector>
