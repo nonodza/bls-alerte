@@ -7,17 +7,15 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 public class AppointmentMonitoringService extends Service {
+
+    // =====================================================
+    // CONSTANTS
+    // =====================================================
 
     private static final String CHANNEL_ID =
             "bls_monitoring_channel";
@@ -25,116 +23,119 @@ public class AppointmentMonitoringService extends Service {
     private static final int NOTIFICATION_ID =
             1001;
 
-    private static final String TAG =
-            "BLS_NOTIFICATION";
+    // =====================================================
+    // MONITORING
+    // =====================================================
 
-    private ScheduledExecutorService scheduler;
+    private Thread monitoringThread;
+
+    private volatile boolean monitoring =
+            false;
 
     private String selectedCenter =
             "Algiers";
 
+
+    // =====================================================
+    // ON CREATE
+    // =====================================================
+
     @Override
     public void onCreate() {
-
         super.onCreate();
 
         createNotificationChannel();
+    }
 
-        Notification notification;
 
-        try {
+    // =====================================================
+    // START COMMAND
+    // =====================================================
 
-            // =====================================================
-            // CUSTOM NOTIFICATION
-            // =====================================================
+    @Override
+    public int onStartCommand(
+            Intent intent,
+            int flags,
+            int startId
+    ) {
 
-            RemoteViews notificationView =
-                    new RemoteViews(
-                            getPackageName(),
-                            R.layout.notification_monitoring
-                    );
+        if (intent != null) {
 
-            notification =
-                    new NotificationCompat.Builder(
-                            this,
-                            CHANNEL_ID
-                    )
-                            .setSmallIcon(
-                                    R.drawable.ic_bls_notification
-                            )
-                            .setCustomContentView(
-                                    notificationView
-                            )
-                            .setOngoing(true)
-                            .setSilent(true)
-                            .setPriority(
-                                    NotificationCompat.PRIORITY_LOW
-                            )
-                            .setCategory(
-                                    NotificationCompat.CATEGORY_SERVICE
-                            )
-                            .setShowWhen(false)
-                            .build();
+            String center =
+                    intent.getStringExtra("center");
 
-            Log.d(
-                    TAG,
-                    "Custom notification created successfully"
-            );
+            if (center != null &&
+                    center.length() > 0) {
 
-        } catch (Exception e) {
-
-            // =====================================================
-            // FALLBACK NOTIFICATION
-            // =====================================================
-
-            Log.e(
-                    TAG,
-                    "CUSTOM NOTIFICATION FAILED",
-                    e
-            );
-
-            notification =
-                    new NotificationCompat.Builder(
-                            this,
-                            CHANNEL_ID
-                    )
-                            .setSmallIcon(
-                                    R.drawable.ic_bls_notification
-                            )
-                            .setContentTitle(
-                                    "BLS Rendez-Vous"
-                            )
-                            .setContentText(
-                                    "Monitoring is active"
-                            )
-                            .setOngoing(true)
-                            .setSilent(true)
-                            .setPriority(
-                                    NotificationCompat.PRIORITY_LOW
-                            )
-                            .setCategory(
-                                    NotificationCompat.CATEGORY_SERVICE
-                            )
-                            .setShowWhen(false)
-                            .build();
+                selectedCenter =
+                        center;
+            }
         }
 
-        // =====================================================
+
+        // =================================================
+        // FOREGROUND NOTIFICATION
+        // =================================================
+
+        Notification notification =
+                new NotificationCompat.Builder(
+                        this,
+                        CHANNEL_ID
+                )
+
+                        .setSmallIcon(
+                                R.drawable.ic_bls_notification
+                        )
+
+                        .setContentTitle(
+                                "BLS Rendez-Vous"
+                        )
+
+                        .setContentText(
+                                "Monitoring is active"
+                        )
+
+                        .setOngoing(true)
+
+                        .setSilent(true)
+
+                        .setPriority(
+                                NotificationCompat.PRIORITY_LOW
+                        )
+
+                        .setCategory(
+                                NotificationCompat.CATEGORY_SERVICE
+                        )
+
+                        .setShowWhen(false)
+
+                        .build();
+
+
+        // =================================================
         // START FOREGROUND
-        // =====================================================
+        // =================================================
 
         startForeground(
                 NOTIFICATION_ID,
                 notification
         );
 
-        // =====================================================
-        // MONITORING SCHEDULER
-        // =====================================================
 
-        scheduler =
-                Executors.newSingleThreadScheduledExecutor();
+        // =================================================
+        // START MONITORING
+        // =================================================
+
+        startMonitoring();
+
+
+        return START_STICKY;
     }
+
+
+    // =====================================================
+    // CREATE NOTIFICATION CHANNEL
+    // =====================================================
 
     private void createNotificationChannel() {
 
@@ -149,7 +150,7 @@ public class AppointmentMonitoringService extends Service {
                     );
 
             channel.setDescription(
-                    "Quiet notification for BLS monitoring"
+                    "BLS appointment monitoring"
             );
 
             channel.setSound(
@@ -157,8 +158,9 @@ public class AppointmentMonitoringService extends Service {
                     null
             );
 
-            channel.enableVibration(false);
-            channel.setShowBadge(false);
+            channel.enableVibration(
+                    false
+            );
 
             NotificationManager manager =
                     getSystemService(
@@ -174,97 +176,165 @@ public class AppointmentMonitoringService extends Service {
         }
     }
 
-    @Override
-    public int onStartCommand(
-            Intent intent,
-            int flags,
-            int startId
-    ) {
-
-        if (intent != null) {
-
-            String center =
-                    intent.getStringExtra(
-                            "center"
-                    );
-
-            if (center != null &&
-                    center.length() > 0) {
-
-                selectedCenter = center;
-            }
-        }
-
-        // =====================================================
-        // TEMPORARILY DISABLED
-        // =====================================================
-
-        // startMonitoring();
-
-        return START_STICKY;
-    }
 
     // =====================================================
-    // START BLS MONITORING
+    // START MONITORING
     // =====================================================
 
     private void startMonitoring() {
 
-        if (scheduler == null) {
+        if (monitoring) {
             return;
         }
 
-        if (scheduler.isShutdown()) {
-            return;
-        }
+        monitoring =
+                true;
 
-        scheduler.scheduleAtFixedRate(
-                new Runnable() {
 
-                    @Override
-                    public void run() {
+        monitoringThread =
+                new Thread(
+                        new Runnable() {
 
-                        BLSMonitor monitor =
-                                new BLSMonitor();
+                            @Override
+                            public void run() {
 
-                        BLSMonitor.Result result =
-                                monitor.check(
-                                        selectedCenter
-                                );
+                                BLSMonitor monitor =
+                                        new BLSMonitor();
 
-                        Log.d(
-                                "BLS_MONITOR",
-                                "Center: "
-                                        + selectedCenter
-                                        + " | Status: "
-                                        + result.getStatus()
-                                        + " | HTTP: "
-                                        + result.getHttpCode()
-                        );
-                    }
-                },
-                0,
-                BLSMonitor.CHECK_INTERVAL_MS,
-                TimeUnit.MILLISECONDS
-        );
+                                while (monitoring) {
+
+                                    try {
+
+                                        BLSMonitor.Result result =
+                                                monitor.check(
+                                                        selectedCenter
+                                                );
+
+
+                                        // =================================
+                                        // TEMPORARY LOG
+                                        // =================================
+
+                                        if (result != null) {
+
+                                            android.util.Log.d(
+                                                    "BLS_MONITOR",
+                                                    "Center: "
+                                                            + selectedCenter
+                                                            + " | Status: "
+                                                            + result.getStatus()
+                                                            + " | HTTP: "
+                                                            + result.getHttpCode()
+                                            );
+                                        }
+
+
+                                        // =================================
+                                        // WAIT
+                                        // =================================
+
+                                        Thread.sleep(
+                                                BLSMonitor.CHECK_INTERVAL_MS
+                                        );
+
+                                    } catch (
+                                            InterruptedException e
+                                    ) {
+
+                                        Thread.currentThread()
+                                                .interrupt();
+
+                                        break;
+
+                                    } catch (
+                                            Exception e
+                                    ) {
+
+                                        android.util.Log.e(
+                                                "BLS_MONITOR",
+                                                "Monitoring error",
+                                                e
+                                        );
+
+                                        try {
+
+                                            Thread.sleep(
+                                                    10000
+                                            );
+
+                                        } catch (
+                                                InterruptedException ignored
+                                        ) {
+
+                                            Thread.currentThread()
+                                                    .interrupt();
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                );
+
+        monitoringThread.start();
     }
+
+
+    // =====================================================
+    // STOP MONITORING
+    // =====================================================
+
+    private void stopMonitoring() {
+
+        monitoring =
+                false;
+
+        if (monitoringThread != null) {
+
+            monitoringThread.interrupt();
+
+            monitoringThread =
+                    null;
+        }
+    }
+
+
+    // =====================================================
+    // DESTROY
+    // =====================================================
 
     @Override
     public void onDestroy() {
 
-        if (scheduler != null) {
+        stopMonitoring();
 
-            scheduler.shutdownNow();
+        NotificationManager manager =
+                getSystemService(
+                        NotificationManager.class
+                );
 
-            scheduler = null;
+        if (manager != null) {
+
+            manager.cancel(
+                    NOTIFICATION_ID
+            );
         }
 
         super.onDestroy();
     }
 
+
+    // =====================================================
+    // BIND
+    // =====================================================
+
     @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(
+            Intent intent
+    ) {
+
         return null;
     }
 }
