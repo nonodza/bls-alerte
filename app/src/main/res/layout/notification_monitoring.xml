@@ -20,7 +20,7 @@
         android:paddingEnd="12dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="#0A1931">
+        android:background="@drawable/notification_header_bg">
 
         <!-- BLS ICON -->
 
@@ -164,8 +164,8 @@
                 android:id="@+id/notification_log"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
                 android:layout_marginStart="6dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="VIEW LOG"
                 android:textColor="#FFFFFF"
