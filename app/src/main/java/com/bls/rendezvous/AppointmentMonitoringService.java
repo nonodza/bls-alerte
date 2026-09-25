@@ -137,7 +137,11 @@ public class AppointmentMonitoringService extends Service {
             }
         }
 
-        startMonitoring();
+        // =====================================================
+        // TEMPORARY TEST
+        // =====================================================
+
+        // startMonitoring();
 
         return START_STICKY;
     }
