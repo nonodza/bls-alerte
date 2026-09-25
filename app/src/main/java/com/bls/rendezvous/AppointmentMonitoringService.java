@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -105,7 +106,22 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // STOP PENDING INTENT
+        // PENDING INTENT FLAGS
+        // =================================================
+
+        int pendingFlags =
+                PendingIntent.FLAG_UPDATE_CURRENT;
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.M) {
+
+            pendingFlags |=
+                    PendingIntent.FLAG_IMMUTABLE;
+        }
+
+
+        // =================================================
+        // STOP INTENT
         // =================================================
 
         Intent stopIntent =
@@ -119,17 +135,6 @@ public class AppointmentMonitoringService extends Service {
         );
 
 
-        int pendingFlags =
-                PendingIntent.FLAG_UPDATE_CURRENT;
-
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.M) {
-
-            pendingFlags |=
-                    PendingIntent.FLAG_IMMUTABLE;
-        }
-
-
         PendingIntent stopPendingIntent =
                 PendingIntent.getService(
                         this,
@@ -140,7 +145,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // VIEW LOG PENDING INTENT
+        // VIEW LOG INTENT
         // =================================================
 
         Intent logIntent =
@@ -174,22 +179,59 @@ public class AppointmentMonitoringService extends Service {
                         CHANNEL_ID
                 )
 
+                        // =================================
+                        // ICON
+                        // =================================
+
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
                         )
 
+
+                        // =================================
+                        // TITLE
+                        // =================================
+
                         .setContentTitle(
                                 "BLS Rendez-Vous"
                         )
+
+
+                        // =================================
+                        // MAIN STATUS
+                        // =================================
 
                         .setContentText(
                                 "Monitoring is active • "
                                         + selectedCenter
                         )
 
+
+                        // =================================
+                        // SECONDARY TEXT
+                        // =================================
+
                         .setSubText(
                                 "BLS Spain"
                         )
+
+
+                        // =================================
+                        // PROFESSIONAL ACCENT
+                        // =================================
+
+                        .setColor(
+                                Color.rgb(
+                                        36,
+                                        107,
+                                        254
+                                )
+                        )
+
+
+                        // =================================
+                        // BEHAVIOR
+                        // =================================
 
                         .setOngoing(true)
 
@@ -272,14 +314,17 @@ public class AppointmentMonitoringService extends Service {
                             NotificationManager.IMPORTANCE_LOW
                     );
 
+
             channel.setDescription(
                     "BLS appointment monitoring"
             );
+
 
             channel.setSound(
                     null,
                     null
             );
+
 
             channel.enableVibration(
                     false
@@ -339,6 +384,10 @@ public class AppointmentMonitoringService extends Service {
                                                 );
 
 
+                                        // =================================
+                                        // LOG
+                                        // =================================
+
                                         if (result != null) {
 
                                             android.util.Log.d(
@@ -352,6 +401,10 @@ public class AppointmentMonitoringService extends Service {
                                             );
                                         }
 
+
+                                        // =================================
+                                        // WAIT
+                                        // =================================
 
                                         Thread.sleep(
                                                 BLSMonitor.CHECK_INTERVAL_MS
@@ -384,6 +437,7 @@ public class AppointmentMonitoringService extends Service {
                                             Thread.sleep(
                                                     10000
                                             );
+
 
                                         } catch (
                                                 InterruptedException ignored
