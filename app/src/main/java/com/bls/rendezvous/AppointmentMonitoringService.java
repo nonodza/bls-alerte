@@ -170,7 +170,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // TEST REMOTE VIEWS
+        // REMOTE VIEWS
         // =================================================
 
         RemoteViews notificationView =
@@ -198,39 +198,31 @@ public class AppointmentMonitoringService extends Service {
                 )
 
                         // =================================
-// ICON
-// =================================
+                        // ICON
+                        // =================================
 
-.setSmallIcon(
-        R.drawable.ic_bls_notification
-)
-
-
-// =================================
-// CUSTOM NOTIFICATION STYLE
-// =================================
-
-.setStyle(
-        new NotificationCompat.DecoratedCustomViewStyle()
-)
+                        .setSmallIcon(
+                                R.drawable.ic_bls_notification
+                        )
 
 
-// =================================
-// CUSTOM REMOTE VIEWS
-// =================================
+                        // =================================
+                        // CUSTOM REMOTE VIEWS
+                        // =================================
 
-.setCustomContentView(
-        notificationView
-)
+                        .setCustomContentView(
+                                notificationView
+                        )
 
 
-// =================================
-// TITLE
-// =================================
+                        // =================================
+                        // TITLE
+                        // =================================
 
-.setContentTitle(
-        "BLS Rendez-Vous"
-)
+                        .setContentTitle(
+                                "BLS Rendez-Vous"
+                        )
+
 
                         // =================================
                         // MAIN STATUS
