@@ -214,21 +214,7 @@ public class AppointmentMonitoringService extends Service {
                         .setSubText(
                                 "BLS Spain"
                         )
-
-
-                        // =================================
-                        // PROFESSIONAL ACCENT
-                        // =================================
-
-                        .setColor(
-                                Color.rgb(
-                                        36,
-                                        107,
-                                        254
-                                )
-                        )
-
-
+                     
                         // =================================
                         // BEHAVIOR
                         // =================================
