@@ -3,10 +3,12 @@ package com.bls.rendezvous;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -22,6 +24,10 @@ public class AppointmentMonitoringService extends Service {
 
     private static final int NOTIFICATION_ID =
             1001;
+
+    private static final String ACTION_STOP =
+            "STOP_MONITORING";
+
 
     // =====================================================
     // MONITORING
@@ -42,6 +48,7 @@ public class AppointmentMonitoringService extends Service {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
 
         createNotificationChannel();
@@ -59,10 +66,35 @@ public class AppointmentMonitoringService extends Service {
             int startId
     ) {
 
+        // =================================================
+        // STOP ACTION
+        // =================================================
+
+        if (intent != null &&
+                ACTION_STOP.equals(
+                        intent.getAction()
+                )) {
+
+            stopMonitoring();
+
+            stopForeground(true);
+
+            stopSelf();
+
+            return START_NOT_STICKY;
+        }
+
+
+        // =================================================
+        // READ CENTER
+        // =================================================
+
         if (intent != null) {
 
             String center =
-                    intent.getStringExtra("center");
+                    intent.getStringExtra(
+                            "center"
+                    );
 
             if (center != null &&
                     center.length() > 0) {
@@ -74,7 +106,114 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // FOREGROUND NOTIFICATION
+        // STOP PENDING INTENT
+        // =================================================
+
+        Intent stopIntent =
+                new Intent(
+                        this,
+                        AppointmentMonitoringService.class
+                );
+
+        stopIntent.setAction(
+                ACTION_STOP
+        );
+
+
+        int pendingFlags =
+                PendingIntent.FLAG_UPDATE_CURRENT;
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.M) {
+
+            pendingFlags |=
+                    PendingIntent.FLAG_IMMUTABLE;
+        }
+
+
+        PendingIntent stopPendingIntent =
+                PendingIntent.getService(
+                        this,
+                        2001,
+                        stopIntent,
+                        pendingFlags
+                );
+
+
+        // =================================================
+        // VIEW LOG
+        // =================================================
+
+        Intent logIntent =
+                new Intent(
+                        this,
+                        MainActivity.class
+                );
+
+        logIntent.addFlags(
+                Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+        );
+
+
+        PendingIntent logPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        2002,
+                        logIntent,
+                        pendingFlags
+                );
+
+
+        // =================================================
+        // CUSTOM NOTIFICATION
+        // =================================================
+
+        RemoteViews notificationView =
+                new RemoteViews(
+                        getPackageName(),
+                        R.layout.notification_monitoring
+                );
+
+
+        // =================================================
+        // CENTER TEXT
+        // =================================================
+
+        String centerText =
+                "Scanning BLS Spain - "
+                        + selectedCenter
+                        + " center";
+
+
+        notificationView.setTextViewText(
+                R.id.notification_description,
+                centerText
+        );
+
+
+        // =================================================
+        // STOP
+        // =================================================
+
+        notificationView.setOnClickPendingIntent(
+                R.id.notification_stop,
+                stopPendingIntent
+        );
+
+
+        // =================================================
+        // VIEW LOG
+        // =================================================
+
+        notificationView.setOnClickPendingIntent(
+                R.id.notification_log,
+                logPendingIntent
+        );
+
+
+        // =================================================
+        // NOTIFICATION
         // =================================================
 
         Notification notification =
@@ -85,14 +224,6 @@ public class AppointmentMonitoringService extends Service {
 
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
-                        )
-
-                        .setContentTitle(
-                                "BLS Rendez-Vous"
-                        )
-
-                        .setContentText(
-                                "Monitoring is active"
                         )
 
                         .setOngoing(true)
@@ -108,6 +239,10 @@ public class AppointmentMonitoringService extends Service {
                         )
 
                         .setShowWhen(false)
+
+                        .setCustomContentView(
+                                notificationView
+                        )
 
                         .build();
 
@@ -134,7 +269,7 @@ public class AppointmentMonitoringService extends Service {
 
 
     // =====================================================
-    // CREATE NOTIFICATION CHANNEL
+    // NOTIFICATION CHANNEL
     // =====================================================
 
     private void createNotificationChannel() {
@@ -162,10 +297,12 @@ public class AppointmentMonitoringService extends Service {
                     false
             );
 
+
             NotificationManager manager =
                     getSystemService(
                             NotificationManager.class
                     );
+
 
             if (manager != null) {
 
@@ -187,6 +324,7 @@ public class AppointmentMonitoringService extends Service {
             return;
         }
 
+
         monitoring =
                 true;
 
@@ -201,6 +339,7 @@ public class AppointmentMonitoringService extends Service {
                                 BLSMonitor monitor =
                                         new BLSMonitor();
 
+
                                 while (monitoring) {
 
                                     try {
@@ -210,10 +349,6 @@ public class AppointmentMonitoringService extends Service {
                                                         selectedCenter
                                                 );
 
-
-                                        // =================================
-                                        // TEMPORARY LOG
-                                        // =================================
 
                                         if (result != null) {
 
@@ -229,22 +364,25 @@ public class AppointmentMonitoringService extends Service {
                                         }
 
 
-                                        // =================================
-                                        // WAIT
-                                        // =================================
-
                                         Thread.sleep(
                                                 BLSMonitor.CHECK_INTERVAL_MS
                                         );
+
 
                                     } catch (
                                             InterruptedException e
                                     ) {
 
+                                        android.util.Log.d(
+                                                "BLS_MONITOR",
+                                                "Monitoring stopped"
+                                        );
+
                                         Thread.currentThread()
                                                 .interrupt();
 
                                         break;
+
 
                                     } catch (
                                             Exception e
@@ -256,6 +394,7 @@ public class AppointmentMonitoringService extends Service {
                                                 e
                                         );
 
+
                                         try {
 
                                             Thread.sleep(
@@ -265,6 +404,11 @@ public class AppointmentMonitoringService extends Service {
                                         } catch (
                                                 InterruptedException ignored
                                         ) {
+
+                                            android.util.Log.d(
+                                                    "BLS_MONITOR",
+                                                    "Monitoring stopped"
+                                            );
 
                                             Thread.currentThread()
                                                     .interrupt();
@@ -276,6 +420,7 @@ public class AppointmentMonitoringService extends Service {
                             }
                         }
                 );
+
 
         monitoringThread.start();
     }
@@ -289,6 +434,7 @@ public class AppointmentMonitoringService extends Service {
 
         monitoring =
                 false;
+
 
         if (monitoringThread != null) {
 
@@ -309,10 +455,12 @@ public class AppointmentMonitoringService extends Service {
 
         stopMonitoring();
 
+
         NotificationManager manager =
                 getSystemService(
                         NotificationManager.class
                 );
+
 
         if (manager != null) {
 
@@ -320,6 +468,7 @@ public class AppointmentMonitoringService extends Service {
                     NOTIFICATION_ID
             );
         }
+
 
         super.onDestroy();
     }
