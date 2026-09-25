@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
@@ -24,6 +25,9 @@ public class AppointmentMonitoringService extends Service {
     private static final int NOTIFICATION_ID =
             1001;
 
+    private static final String TAG =
+            "BLS_NOTIFICATION";
+
     private ScheduledExecutorService scheduler;
 
     private String selectedCenter =
@@ -31,41 +35,93 @@ public class AppointmentMonitoringService extends Service {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
 
         createNotificationChannel();
 
-        // =====================================================
-        // CUSTOM MONITORING NOTIFICATION
-        // =====================================================
+        Notification notification;
 
-        RemoteViews notificationView =
-                new RemoteViews(
-                        getPackageName(),
-                        R.layout.notification_monitoring
-                );
+        try {
 
-        Notification notification =
-                new NotificationCompat.Builder(
-                        this,
-                        CHANNEL_ID
-                )
-                        .setSmallIcon(
-                                R.drawable.ic_bls_notification
-                        )
-                        .setCustomContentView(
-                                notificationView
-                        )
-                        .setOngoing(true)
-                        .setSilent(true)
-                        .setPriority(
-                                NotificationCompat.PRIORITY_LOW
-                        )
-                        .setCategory(
-                                NotificationCompat.CATEGORY_SERVICE
-                        )
-                        .setShowWhen(false)
-                        .build();
+            // =====================================================
+            // CUSTOM NOTIFICATION
+            // =====================================================
+
+            RemoteViews notificationView =
+                    new RemoteViews(
+                            getPackageName(),
+                            R.layout.notification_monitoring
+                    );
+
+            notification =
+                    new NotificationCompat.Builder(
+                            this,
+                            CHANNEL_ID
+                    )
+                            .setSmallIcon(
+                                    R.drawable.ic_bls_notification
+                            )
+                            .setCustomContentView(
+                                    notificationView
+                            )
+                            .setOngoing(true)
+                            .setSilent(true)
+                            .setPriority(
+                                    NotificationCompat.PRIORITY_LOW
+                            )
+                            .setCategory(
+                                    NotificationCompat.CATEGORY_SERVICE
+                            )
+                            .setShowWhen(false)
+                            .build();
+
+            Log.d(
+                    TAG,
+                    "Custom notification created successfully"
+            );
+
+        } catch (Exception e) {
+
+            // =====================================================
+            // FALLBACK NOTIFICATION
+            // =====================================================
+
+            Log.e(
+                    TAG,
+                    "CUSTOM NOTIFICATION FAILED",
+                    e
+            );
+
+            notification =
+                    new NotificationCompat.Builder(
+                            this,
+                            CHANNEL_ID
+                    )
+                            .setSmallIcon(
+                                    R.drawable.ic_bls_notification
+                            )
+                            .setContentTitle(
+                                    "BLS Rendez-Vous"
+                            )
+                            .setContentText(
+                                    "Monitoring is active"
+                            )
+                            .setOngoing(true)
+                            .setSilent(true)
+                            .setPriority(
+                                    NotificationCompat.PRIORITY_LOW
+                            )
+                            .setCategory(
+                                    NotificationCompat.CATEGORY_SERVICE
+                            )
+                            .setShowWhen(false)
+                            .build();
+        }
+
+        // =====================================================
+        // START FOREGROUND
+        // =====================================================
 
         startForeground(
                 NOTIFICATION_ID,
@@ -140,7 +196,7 @@ public class AppointmentMonitoringService extends Service {
         }
 
         // =====================================================
-        // TEMPORARILY DISABLED FOR TEST
+        // TEMPORARILY DISABLED
         // =====================================================
 
         // startMonitoring();
@@ -176,7 +232,7 @@ public class AppointmentMonitoringService extends Service {
                                         selectedCenter
                                 );
 
-                        android.util.Log.d(
+                        Log.d(
                                 "BLS_MONITOR",
                                 "Center: "
                                         + selectedCenter
