@@ -204,7 +204,9 @@ public class AppointmentMonitoringService extends Service {
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
                         )
-
+                        .setStyle(
+                               new NotificationCompat.DecoratedCustomViewStyle()
+                        )
 
                         // =================================
                         // CUSTOM REMOTE VIEWS
