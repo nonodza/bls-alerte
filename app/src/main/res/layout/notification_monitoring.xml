@@ -3,34 +3,35 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="48dp"
     android:orientation="vertical"
     android:background="@drawable/notification_header_bg"
-    android:paddingTop="6dp"
-    android:paddingBottom="6dp">
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/notification_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:text="BLS Rendez-Vous"
         android:textColor="#FFFFFF"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold"
+        android:gravity="center_vertical"
         android:maxLines="1"
         android:ellipsize="end" />
 
     <TextView
         android:id="@+id/notification_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:text="Monitoring is active"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
+        android:textSize="11sp"
+        android:gravity="center_vertical"
         android:maxLines="1"
         android:ellipsize="end" />
 
