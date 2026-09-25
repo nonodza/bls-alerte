@@ -198,33 +198,39 @@ public class AppointmentMonitoringService extends Service {
                 )
 
                         // =================================
-                        // ICON
-                        // =================================
+// ICON
+// =================================
 
-                        .setSmallIcon(
-                                R.drawable.ic_bls_notification
-                        )
-                        .setStyle(
-                               new NotificationCompat.DecoratedCustomViewStyle()
-                        )
-
-                        // =================================
-                        // CUSTOM REMOTE VIEWS
-                        // =================================
-
-                        .setCustomContentView(
-                                notificationView
-                        )
+.setSmallIcon(
+        R.drawable.ic_bls_notification
+)
 
 
-                        // =================================
-                        // TITLE
-                        // =================================
+// =================================
+// CUSTOM NOTIFICATION STYLE
+// =================================
 
-                        .setContentTitle(
-                                "BLS Rendez-Vous"
-                        )
+.setStyle(
+        new NotificationCompat.DecoratedCustomViewStyle()
+)
 
+
+// =================================
+// CUSTOM REMOTE VIEWS
+// =================================
+
+.setCustomContentView(
+        notificationView
+)
+
+
+// =================================
+// TITLE
+// =================================
+
+.setContentTitle(
+        "BLS Rendez-Vous"
+)
 
                         // =================================
                         // MAIN STATUS
