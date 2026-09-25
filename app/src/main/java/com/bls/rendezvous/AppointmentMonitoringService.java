@@ -6,9 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
+import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -170,6 +170,24 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
+        // TEST REMOTE VIEWS
+        // =================================================
+
+        RemoteViews notificationView =
+                new RemoteViews(
+                        getPackageName(),
+                        R.layout.notification_monitoring
+                );
+
+
+        notificationView.setTextViewText(
+                R.id.notification_description,
+                "Monitoring is active • "
+                        + selectedCenter
+        );
+
+
+        // =================================================
         // NOTIFICATION
         // =================================================
 
@@ -185,6 +203,15 @@ public class AppointmentMonitoringService extends Service {
 
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
+                        )
+
+
+                        // =================================
+                        // CUSTOM REMOTE VIEWS
+                        // =================================
+
+                        .setCustomContentView(
+                                notificationView
                         )
 
 
@@ -214,7 +241,8 @@ public class AppointmentMonitoringService extends Service {
                         .setSubText(
                                 "BLS Spain"
                         )
-                     
+
+
                         // =================================
                         // BEHAVIOR
                         // =================================
