@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -35,8 +36,14 @@ public class AppointmentMonitoringService extends Service {
         createNotificationChannel();
 
         // =====================================================
-        // SIMPLE TEST NOTIFICATION
+        // CUSTOM MONITORING NOTIFICATION
         // =====================================================
+
+        RemoteViews notificationView =
+                new RemoteViews(
+                        getPackageName(),
+                        R.layout.notification_monitoring
+                );
 
         Notification notification =
                 new NotificationCompat.Builder(
@@ -46,11 +53,8 @@ public class AppointmentMonitoringService extends Service {
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
                         )
-                        .setContentTitle(
-                                "BLS Rendez-Vous"
-                        )
-                        .setContentText(
-                                "Monitoring is active"
+                        .setCustomContentView(
+                                notificationView
                         )
                         .setOngoing(true)
                         .setSilent(true)
