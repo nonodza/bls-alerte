@@ -93,7 +93,7 @@
 
 
     <!-- ========================================= -->
-    <!-- ACTION BUTTONS -->
+    <!-- STOP BUTTON -->
     <!-- ========================================= -->
 
     <LinearLayout
@@ -104,31 +104,14 @@
 
         <TextView
             android:id="@+id/notification_stop"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="22dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="4dp"
             android:gravity="center"
             android:text="✕  STOP"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
             android:textStyle="bold"
             android:background="@drawable/notification_stop_bg" />
-
-        <TextView
-            android:id="@+id/notification_log"
-            android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:gravity="center"
-            android:text="VIEW LOG"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:drawableStart="@drawable/ic_notification_log"
-            android:drawablePadding="5dp"
-            android:background="@drawable/notification_log_bg" />
 
     </LinearLayout>
 
