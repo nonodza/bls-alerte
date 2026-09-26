@@ -3,37 +3,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="76dp"
+    android:layout_height="60dp"
     android:orientation="vertical"
     android:background="@drawable/notification_header_bg"
     android:paddingStart="10dp"
     android:paddingEnd="10dp">
 
-    <!-- ========================================= -->
     <!-- TOP ROW -->
-    <!-- ========================================= -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <!-- TIME -->
-
-        <TextView
-            android:id="@+id/notification_time"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="2 min ago"
-            android:textColor="#B9D8FF"
-            android:textSize="10sp"
-            android:maxLines="1" />
-
         <!-- RV -->
-
         <TextView
             android:id="@+id/notification_rv"
             android:layout_width="30dp"
@@ -46,7 +29,6 @@
             android:background="@drawable/notification_rv_bg" />
 
         <!-- TITLE -->
-
         <TextView
             android:id="@+id/notification_title"
             android:layout_width="wrap_content"
@@ -62,52 +44,41 @@
     </LinearLayout>
 
 
-    <!-- ========================================= -->
-    <!-- MONITORING STATUS -->
-    <!-- ========================================= -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="22dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_monitoring_shield"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:id="@+id/notification_description"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingStart="6dp"
-            android:gravity="center_vertical"
-            android:text="Monitoring is active"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:maxLines="1" />
-
-    </LinearLayout>
-
-
-    <!-- ========================================= -->
-    <!-- STOP BUTTON -->
-    <!-- ========================================= -->
-
+    <!-- MONITORING STATUS + STOP -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="26dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
+        <!-- SHIELD -->
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_monitoring_shield"
+            android:contentDescription="@null" />
+
+        <!-- STATUS -->
+        <TextView
+            android:id="@+id/notification_description"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="6dp"
+            android:gravity="center_vertical"
+            android:text="Monitoring is active"
+            android:textColor="#35D07F"
+            android:textSize="11sp"
+            android:maxLines="1" />
+
+        <!-- STOP -->
         <TextView
             android:id="@+id/notification_stop"
-            android:layout_width="match_parent"
+            android:layout_width="68dp"
             android:layout_height="22dp"
+            android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="✕  STOP"
+            android:text="STOP"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
             android:textStyle="bold"
