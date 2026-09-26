@@ -122,10 +122,12 @@
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:gravity="center"
-            android:text="▣  VIEW LOG"
+            android:text="VIEW LOG"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
             android:textStyle="bold"
+            android:drawableStart="@drawable/ic_notification_log"
+            android:drawablePadding="5dp"
             android:background="@drawable/notification_log_bg" />
 
     </LinearLayout>
