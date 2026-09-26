@@ -145,31 +145,6 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // VIEW LOG INTENT
-        // =================================================
-
-        Intent logIntent =
-                new Intent(
-                        this,
-                        MainActivity.class
-                );
-
-        logIntent.addFlags(
-                Intent.FLAG_ACTIVITY_SINGLE_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
-        );
-
-
-        PendingIntent logPendingIntent =
-                PendingIntent.getActivity(
-                        this,
-                        2002,
-                        logIntent,
-                        pendingFlags
-                );
-
-
-        // =================================================
         // REMOTE VIEWS
         // =================================================
 
@@ -194,16 +169,6 @@ public class AppointmentMonitoringService extends Service {
         notificationView.setOnClickPendingIntent(
                 R.id.notification_stop,
                 stopPendingIntent
-        );
-
-
-        // =================================================
-        // VIEW LOG BUTTON
-        // =================================================
-
-        notificationView.setOnClickPendingIntent(
-                R.id.notification_log,
-                logPendingIntent
         );
 
 
