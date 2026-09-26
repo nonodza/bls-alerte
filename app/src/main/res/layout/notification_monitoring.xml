@@ -113,7 +113,7 @@
             android:textColor="#FFFFFF"
             android:textSize="10sp"
             android:textStyle="bold"
-            android:background="#B83A4B" />
+            android:background="@drawable/notification_stop_bg" />
 
         <TextView
             android:id="@+id/notification_log"
@@ -126,7 +126,7 @@
             android:textColor="#FFFFFF"
             android:textSize="10sp"
             android:textStyle="bold"
-            android:background="#3156A3" />
+            android:background="@drawable/notification_log_bg" />
 
     </LinearLayout>
 
