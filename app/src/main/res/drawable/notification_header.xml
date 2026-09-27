@@ -3,31 +3,26 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="66dp"
+    android:layout_height="68dp"
     android:orientation="vertical"
     android:background="@drawable/notification_header_bg"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp">
+    android:paddingStart="7dp"
+    android:paddingEnd="7dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
 
-
-    <!-- ================================================= -->
-    <!-- TOP ROW                                           -->
-    <!-- ================================================= -->
-
+    <!-- TOP ROW -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="31dp"
+        android:layout_height="32dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-
 
         <!-- RV -->
         <TextView
             android:id="@+id/notification_rv"
-            android:layout_width="34dp"
-            android:layout_height="24dp"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
             android:gravity="center"
             android:text="RV"
             android:textColor="#FFFFFF"
@@ -35,42 +30,35 @@
             android:textStyle="bold"
             android:background="@drawable/notification_rv_bg" />
 
-
         <!-- TITLE -->
         <TextView
             android:id="@+id/notification_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:paddingStart="7dp"
             android:gravity="center_vertical"
             android:text="BLS Rendez-Vous"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="none" />
+            android:maxLines="1" />
 
     </LinearLayout>
 
-
-    <!-- ================================================= -->
-    <!-- MONITORING STATUS + STOP                          -->
-    <!-- ================================================= -->
-
+    <!-- MONITORING -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="27dp"
+        android:layout_height="29dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-
         <!-- SHIELD -->
         <ImageView
-            android:layout_width="19dp"
-            android:layout_height="19dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/ic_monitoring_shield"
             android:contentDescription="@null" />
-
 
         <!-- STATUS -->
         <TextView
@@ -78,21 +66,20 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginStart="6dp"
+            android:paddingStart="6dp"
             android:gravity="center_vertical"
             android:text="Monitoring is active"
-            android:textColor="#FFFFFF"
+            android:textColor="#35D07F"
             android:textSize="12sp"
-            android:maxLines="1"
-            android:ellipsize="none" />
-
+            android:textStyle="bold"
+            android:maxLines="1" />
 
         <!-- STOP -->
         <TextView
             android:id="@+id/notification_stop"
-            android:layout_width="72dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="76dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
             android:gravity="center"
             android:text="STOP"
             android:textColor="#FFFFFF"
