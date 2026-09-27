@@ -6,8 +6,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
@@ -155,10 +159,95 @@ public class AppointmentMonitoringService extends Service {
                 );
 
 
+        // =================================================
+        // COLORED MONITORING STATUS
+        // =================================================
+
+        String statusText =
+                "Monitoring  ACTIVE  •  "
+                        + selectedCenter;
+
+
+        SpannableString status =
+                new SpannableString(
+                        statusText
+                );
+
+
+        // =================================================
+        // MONITORING = WHITE
+        // =================================================
+
+        int monitoringStart =
+                statusText.indexOf(
+                        "Monitoring"
+                );
+
+        status.setSpan(
+                new ForegroundColorSpan(
+                        Color.WHITE
+                ),
+                monitoringStart,
+                monitoringStart
+                        + "Monitoring".length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        // =================================================
+        // ACTIVE = GREEN
+        // =================================================
+
+        int activeStart =
+                statusText.indexOf(
+                        "ACTIVE"
+                );
+
+        if (activeStart >= 0) {
+
+            status.setSpan(
+                    new ForegroundColorSpan(
+                            Color.rgb(
+                                    53,
+                                    208,
+                                    127
+                            )
+                    ),
+                    activeStart,
+                    activeStart
+                            + "ACTIVE".length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+        }
+
+
+        // =================================================
+        // CENTER = WHITE
+        // =================================================
+
+        int centerStart =
+                statusText.indexOf(
+                        selectedCenter
+                );
+
+        if (centerStart >= 0) {
+
+            status.setSpan(
+                    new ForegroundColorSpan(
+                            Color.WHITE
+                    ),
+                    centerStart,
+                    centerStart
+                            + selectedCenter.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+        }
+
+
         notificationView.setTextViewText(
-        R.id.notification_description,
-        "Monitoring"
-);
+                R.id.notification_description,
+                status
+        );
 
 
         // =================================================
