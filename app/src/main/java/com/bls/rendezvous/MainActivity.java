@@ -849,7 +849,7 @@ TextView monTitle =
         text(
                 "Appointment Monitoring",
                 15,
-                Color.WHITE
+                NAVY
         );
 
 monTitle.setTypeface(
