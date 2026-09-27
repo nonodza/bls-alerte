@@ -156,10 +156,9 @@ public class AppointmentMonitoringService extends Service {
 
 
         notificationView.setTextViewText(
-                R.id.notification_description,
-                "Monitoring is active • "
-                        + selectedCenter
-        );
+        R.id.notification_description,
+        "Monitoring"
+);
 
 
         // =================================================
