@@ -756,6 +756,7 @@ curTop.addView(
 content.addView(curTop);
 
 
+
 // =====================================================
 // APPOINTMENT MONITORING
 // =====================================================
@@ -766,8 +767,8 @@ GradientDrawable monBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
                 new int[]{
-                        Color.rgb(245, 242, 255),
-                        Color.rgb(221, 202, 247)
+                        Color.rgb(7, 11, 42),
+                        Color.rgb(20, 35, 75)
                 }
         );
 
@@ -793,7 +794,6 @@ monCard.setOrientation(
 monCard.setGravity(
         Gravity.CENTER_VERTICAL
 );
-
 
 // =====================================================
 // MONITORING ICON
@@ -849,7 +849,7 @@ TextView monTitle =
         text(
                 "Appointment Monitoring",
                 15,
-                NAVY
+                Color.WHITE
         );
 
 monTitle.setTypeface(
