@@ -59,17 +59,24 @@
             android:contentDescription="@null" />
 
         <!-- STATUS -->
-        <TextView
+        <LinearLayout
             android:id="@+id/notification_description"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingStart="6dp"
             android:gravity="center_vertical"
-            android:text="Monitoring is active"
-            android:textColor="#35D07F"
-            android:textSize="11sp"
-            android:maxLines="1" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monitoring"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:maxLines="1" />
+
+        </LinearLayout>
 
         <!-- STOP -->
         <TextView
