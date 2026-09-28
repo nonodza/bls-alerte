@@ -425,28 +425,28 @@ public class AppointmentMonitoringService extends Service {
                 );
 
 
-        // =================================================
+        
+     // =================================================
         // INFORMATION TEXT
         // =================================================
 
-        String informationText =
-                "Last check: "
-                        + currentTime
-                        + "  •  Checked: "
-                        + formatCheckedCount(
-                                checkedCount
-                        )
-                        + " times"
-                        + "  •  Next: "
-                        + remainingSeconds
-                        + "s";
+        String timesText =
+        checkedCount == 1
+                ? "time"
+                : "times";
 
-
-        notificationView.setTextViewText(
-                R.id.notification_info,
-                informationText
-        );
-    }
+String informationText =
+        "Last check: "
+                + currentTime
+                + "  •  Checked: "
+                + formatCheckedCount(
+                        checkedCount
+                )
+                + " "
+                + timesText
+                + "  •  Next: "
+                + remainingSeconds
+                + "s";
 
 
     // =====================================================
@@ -463,7 +463,13 @@ public class AppointmentMonitoringService extends Service {
                 count
         );
     }
+    
+notificationView.setTextViewText(
+        R.id.notification_info,
+        informationText
+);
 
+}
 
     // =====================================================
     // NOTIFICATION CHANNEL
