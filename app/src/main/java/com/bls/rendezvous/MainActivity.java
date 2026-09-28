@@ -711,20 +711,31 @@ countrySelector.setOnClickListener(
             AlertDialog.Builder builder =
                     new AlertDialog.Builder(this);
 
-            builder.setTitle(
-                    "Select Country"
+           builder.setItems(
+        countries,
+        (dialog, which) -> {
+
+            String selectedCountry =
+                    countries[which];
+
+            countrySelector.setText(
+                    selectedCountry + "  ⌄"
             );
 
-            builder.setItems(
-                    countries,
-                    (dialog, which) -> {
+            // Save selected country
+            getSharedPreferences(
+                    "RV_SETTINGS",
+                    MODE_PRIVATE
+            )
+                    .edit()
+                    .putString(
+                            "selected_country",
+                            selectedCountry
+                    )
+                    .apply();
 
-                        countrySelector.setText(
-                                countries[which] + "  ⌄"
-                        );
-                        
-                    }
-            );
+        }
+); 
 
             builder.show();
         }
