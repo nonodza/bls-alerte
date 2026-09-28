@@ -209,14 +209,13 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // STOP BUTTON
+        // Quitter BUTTON
         // =================================================
 
         notificationView.setOnClickPendingIntent(
-                R.id.notification_stop,
-                stopPendingIntent
-        );
-
+        R.id.btnQuitter,
+        stopPendingIntent
+);
 
         // =================================================
         // NOTIFICATION
