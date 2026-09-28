@@ -61,6 +61,14 @@ public class AppointmentMonitoringService extends Service {
 
 
     // =====================================================
+    // NEXT CHECK COUNTDOWN
+    // =====================================================
+
+    private volatile long nextCheckTimestamp =
+            0L;
+
+
+    // =====================================================
     // LIVE NOTIFICATION CLOCK
     // =====================================================
 
@@ -220,55 +228,26 @@ public class AppointmentMonitoringService extends Service {
                         CHANNEL_ID
                 )
 
-                        // =================================
-                        // ICON
-                        // =================================
-
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
                         )
-
-
-                        // =================================
-                        // CUSTOM VIEW
-                        // =================================
 
                         .setCustomContentView(
                                 notificationView
                         )
 
-
-                        // =================================
-                        // TITLE
-                        // =================================
-
                         .setContentTitle(
                                 "BLS Rendez-Vous"
                         )
-
-
-                        // =================================
-                        // STATUS
-                        // =================================
 
                         .setContentText(
                                 "Monitoring is active • "
                                         + selectedCenter
                         )
 
-
-                        // =================================
-                        // SECONDARY
-                        // =================================
-
                         .setSubText(
                                 "BLS Spain"
                         )
-
-
-                        // =================================
-                        // BEHAVIOR
-                        // =================================
 
                         .setOngoing(true)
 
@@ -283,11 +262,6 @@ public class AppointmentMonitoringService extends Service {
                         )
 
                         .setShowWhen(false)
-
-
-                        // =================================
-                        // BUILD
-                        // =================================
 
                         .build();
 
@@ -424,6 +398,10 @@ public class AppointmentMonitoringService extends Service {
             RemoteViews notificationView
     ) {
 
+        // =================================================
+        // LIVE TIME
+        // =================================================
+
         String currentTime =
                 new SimpleDateFormat(
                         "HH:mm:ss",
@@ -433,6 +411,26 @@ public class AppointmentMonitoringService extends Service {
                 );
 
 
+        // =================================================
+        // NEXT CHECK
+        // =================================================
+
+        long remainingMillis =
+                nextCheckTimestamp
+                        - System.currentTimeMillis();
+
+
+        long remainingSeconds =
+                Math.max(
+                        0L,
+                        (remainingMillis + 999L) / 1000L
+                );
+
+
+        // =================================================
+        // INFORMATION TEXT
+        // =================================================
+
         String informationText =
                 "Last check: "
                         + currentTime
@@ -440,7 +438,10 @@ public class AppointmentMonitoringService extends Service {
                         + formatCheckedCount(
                                 checkedCount
                         )
-                        + " times";
+                        + " times"
+                        + "  •  Next: "
+                        + remainingSeconds
+                        + "s";
 
 
         notificationView.setTextViewText(
@@ -532,6 +533,15 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
+        // INITIAL COUNTDOWN
+        // =================================================
+
+        nextCheckTimestamp =
+                System.currentTimeMillis()
+                        + BLSMonitor.CHECK_INTERVAL_MS;
+
+
+        // =================================================
         // START LIVE CLOCK
         // =================================================
 
@@ -575,6 +585,15 @@ public class AppointmentMonitoringService extends Service {
 
 
                                         // =================================
+                                        // NEXT CHECK
+                                        // =================================
+
+                                        nextCheckTimestamp =
+                                                System.currentTimeMillis()
+                                                        + BLSMonitor.CHECK_INTERVAL_MS;
+
+
+                                        // =================================
                                         // LOG
                                         // =================================
 
@@ -595,7 +614,7 @@ public class AppointmentMonitoringService extends Service {
 
 
                                         // =================================
-                                        // UPDATE AFTER REAL CHECK
+                                        // UPDATE NOTIFICATION
                                         // =================================
 
                                         updateMonitoringNotification();
@@ -629,6 +648,15 @@ public class AppointmentMonitoringService extends Service {
                                                 "Monitoring error",
                                                 e
                                         );
+
+
+                                        // =================================
+                                        // RETRY AFTER ERROR
+                                        // =================================
+
+                                        nextCheckTimestamp =
+                                                System.currentTimeMillis()
+                                                        + 10000L;
 
 
                                         try {
@@ -686,7 +714,7 @@ public class AppointmentMonitoringService extends Service {
 
 
                         // =================================
-                        // UPDATE LIVE TIME
+                        // UPDATE LIVE INFORMATION
                         // =================================
 
                         updateMonitoringNotification();
@@ -932,6 +960,14 @@ public class AppointmentMonitoringService extends Service {
         // =================================================
 
         stopNotificationClock();
+
+
+        // =================================================
+        // RESET COUNTDOWN
+        // =================================================
+
+        nextCheckTimestamp =
+                0L;
 
 
         // =================================================
