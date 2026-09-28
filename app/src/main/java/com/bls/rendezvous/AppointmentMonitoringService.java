@@ -8,7 +8,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -57,8 +59,14 @@ public class AppointmentMonitoringService extends Service {
     private int checkedCount =
             0;
 
-    private String lastCheckTime =
-            "--:--:--";
+
+    // =====================================================
+    // LIVE NOTIFICATION CLOCK
+    // =====================================================
+
+    private Handler notificationClockHandler;
+
+    private Runnable notificationClockRunnable;
 
 
     // =====================================================
@@ -416,9 +424,18 @@ public class AppointmentMonitoringService extends Service {
             RemoteViews notificationView
     ) {
 
+        String currentTime =
+                new SimpleDateFormat(
+                        "HH:mm:ss",
+                        Locale.getDefault()
+                ).format(
+                        new Date()
+                );
+
+
         String informationText =
                 "Last check: "
-                        + lastCheckTime
+                        + currentTime
                         + "  •  Checked: "
                         + formatCheckedCount(
                                 checkedCount
@@ -514,6 +531,17 @@ public class AppointmentMonitoringService extends Service {
                 true;
 
 
+        // =================================================
+        // START LIVE CLOCK
+        // =================================================
+
+        startNotificationClock();
+
+
+        // =================================================
+        // MONITORING THREAD
+        // =================================================
+
         monitoringThread =
                 new Thread(
                         new Runnable() {
@@ -547,19 +575,6 @@ public class AppointmentMonitoringService extends Service {
 
 
                                         // =================================
-                                        // REAL LAST CHECK TIME
-                                        // =================================
-
-                                        lastCheckTime =
-                                                new SimpleDateFormat(
-                                                        "HH:mm:ss",
-                                                        Locale.getDefault()
-                                                ).format(
-                                                        new Date()
-                                                );
-
-
-                                        // =================================
                                         // LOG
                                         // =================================
 
@@ -575,14 +590,12 @@ public class AppointmentMonitoringService extends Service {
                                                             + result.getHttpCode()
                                                             + " | Checked: "
                                                             + checkedCount
-                                                            + " | Last: "
-                                                            + lastCheckTime
                                             );
                                         }
 
 
                                         // =================================
-                                        // UPDATE NOTIFICATION
+                                        // UPDATE AFTER REAL CHECK
                                         // =================================
 
                                         updateMonitoringNotification();
@@ -646,14 +659,98 @@ public class AppointmentMonitoringService extends Service {
 
 
     // =====================================================
+    // START LIVE NOTIFICATION CLOCK
+    // =====================================================
+
+    private void startNotificationClock() {
+
+        stopNotificationClock();
+
+
+        notificationClockHandler =
+                new Handler(
+                        Looper.getMainLooper()
+                );
+
+
+        notificationClockRunnable =
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        if (!monitoring) {
+
+                            return;
+                        }
+
+
+                        // =================================
+                        // UPDATE LIVE TIME
+                        // =================================
+
+                        updateMonitoringNotification();
+
+
+                        // =================================
+                        // NEXT SECOND
+                        // =================================
+
+                        if (notificationClockHandler != null) {
+
+                            notificationClockHandler.postDelayed(
+                                    this,
+                                    1000
+                            );
+                        }
+                    }
+                };
+
+
+        notificationClockHandler.post(
+                notificationClockRunnable
+        );
+    }
+
+
+    // =====================================================
+    // STOP LIVE NOTIFICATION CLOCK
+    // =====================================================
+
+    private void stopNotificationClock() {
+
+        if (notificationClockHandler != null &&
+                notificationClockRunnable != null) {
+
+            notificationClockHandler.removeCallbacks(
+                    notificationClockRunnable
+            );
+        }
+
+
+        notificationClockHandler =
+                null;
+
+        notificationClockRunnable =
+                null;
+    }
+
+
+    // =====================================================
     // UPDATE MONITORING NOTIFICATION
     // =====================================================
 
     private void updateMonitoringNotification() {
 
-        android.os.Handler handler =
-                new android.os.Handler(
-                        android.os.Looper.getMainLooper()
+        if (!monitoring) {
+
+            return;
+        }
+
+
+        Handler handler =
+                new Handler(
+                        Looper.getMainLooper()
                 );
 
 
@@ -662,6 +759,12 @@ public class AppointmentMonitoringService extends Service {
 
                     @Override
                     public void run() {
+
+                        if (!monitoring) {
+
+                            return;
+                        }
+
 
                         // =================================
                         // FLAGS
@@ -823,6 +926,17 @@ public class AppointmentMonitoringService extends Service {
         monitoring =
                 false;
 
+
+        // =================================================
+        // STOP LIVE CLOCK
+        // =================================================
+
+        stopNotificationClock();
+
+
+        // =================================================
+        // STOP THREAD
+        // =================================================
 
         if (monitoringThread != null) {
 
