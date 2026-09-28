@@ -156,7 +156,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // STOP INTENT
+        // QUITTER INTENT
         // =================================================
 
         Intent stopIntent =
@@ -209,13 +209,14 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // Quitter BUTTON
+        // QUITTER BUTTON
         // =================================================
 
         notificationView.setOnClickPendingIntent(
-        R.id.btnQuitter,
-        stopPendingIntent
-);
+                R.id.btnQuitter,
+                stopPendingIntent
+        );
+
 
         // =================================================
         // NOTIFICATION
@@ -249,11 +250,14 @@ public class AppointmentMonitoringService extends Service {
                         )
 
                         .setOngoing(true)
-.setAutoCancel(false)
-.setSilent(true)
-.setPriority(
-        NotificationCompat.PRIORITY_LOW
-)
+
+                        .setAutoCancel(false)
+
+                        .setSilent(true)
+
+                        .setPriority(
+                                NotificationCompat.PRIORITY_LOW
+                        )
 
                         .setCategory(
                                 NotificationCompat.CATEGORY_SERVICE
@@ -425,34 +429,36 @@ public class AppointmentMonitoringService extends Service {
                 );
 
 
-        
-     // =================================================
+        // =================================================
         // INFORMATION TEXT
         // =================================================
-String timesText =
-        checkedCount == 1
-                ? "time"
-                : "times";
 
-String informationText =
-        "Last check: "
-                + currentTime
-                + "  •  Checked: "
-                + formatCheckedCount(
-                        checkedCount
-                )
-                + " "
-                + timesText
-                + "  •  Next: "
-                + remainingSeconds
-                + "s";
+        String timesText =
+                checkedCount == 1
+                        ? "time"
+                        : "times";
 
-notificationView.setTextViewText(
-        R.id.notification_info,
-        informationText
-);
-}
-        
+
+        String informationText =
+                "Last check: "
+                        + currentTime
+                        + "  •  Checked: "
+                        + formatCheckedCount(
+                                checkedCount
+                        )
+                        + " "
+                        + timesText
+                        + "  •  Next: "
+                        + remainingSeconds
+                        + "s";
+
+
+        notificationView.setTextViewText(
+                R.id.notification_info,
+                informationText
+        );
+    }
+
 
     // =====================================================
     // FORMAT CHECK COUNT
@@ -468,7 +474,8 @@ notificationView.setTextViewText(
                 count
         );
     }
-    
+
+
     // =====================================================
     // NOTIFICATION CHANNEL
     // =====================================================
@@ -813,7 +820,7 @@ notificationView.setTextViewText(
 
 
                         // =================================
-                        // STOP INTENT
+                        // QUITTER INTENT
                         // =================================
 
                         Intent stopIntent =
@@ -867,11 +874,11 @@ notificationView.setTextViewText(
 
 
                         // =================================
-                        // STOP
+                        // QUITTER
                         // =================================
 
                         notificationView.setOnClickPendingIntent(
-                                R.id.notification_stop,
+                                R.id.btnQuitter,
                                 stopPendingIntent
                         );
 
@@ -908,6 +915,8 @@ notificationView.setTextViewText(
                                         )
 
                                         .setOngoing(true)
+
+                                        .setAutoCancel(false)
 
                                         .setSilent(true)
 
