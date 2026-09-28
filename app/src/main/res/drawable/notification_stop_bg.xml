@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid
-        android:color="#2C2E3A" />
+    <!-- ================================================ -->
+    <!-- OUTER LIGHT -->
+    <!-- ================================================ -->
 
-    <corners
-        android:radius="8dp" />
+    <item>
 
-</shape>
+        <shape
+            android:shape="rectangle">
+
+            <solid
+                android:color="#BFC5D2" />
+
+            <corners
+                android:radius="8dp" />
+
+        </shape>
+
+    </item>
+
+
+    <!-- ================================================ -->
+    <!-- INNER DARK BUTTON -->
+    <!-- ================================================ -->
+
+    <item
+        android:left="1dp"
+        android:top="1dp"
+        android:right="1dp"
+        android:bottom="1dp">
+
+        <shape
+            android:shape="rectangle">
+
+            <solid
+                android:color="#2C2E3A" />
+
+            <corners
+                android:radius="7dp" />
+
+        </shape>
+
+    </item>
+
+</layer-list>
