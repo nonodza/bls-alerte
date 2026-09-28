@@ -249,12 +249,11 @@ public class AppointmentMonitoringService extends Service {
                         )
 
                         .setOngoing(true)
-
-                        .setSilent(true)
-
-                        .setPriority(
-                                NotificationCompat.PRIORITY_LOW
-                        )
+.setAutoCancel(false)
+.setSilent(true)
+.setPriority(
+        NotificationCompat.PRIORITY_LOW
+)
 
                         .setCategory(
                                 NotificationCompat.CATEGORY_SERVICE
