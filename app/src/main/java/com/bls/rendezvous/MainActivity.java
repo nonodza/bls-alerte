@@ -765,11 +765,10 @@ LinearLayout monCard = card();
 
 GradientDrawable monBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.BL_TR,
+                GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-                        Color.rgb(239, 244, 252),
-                        Color.rgb(232, 239, 250),
-                        Color.rgb(242, 235, 247)
+                        Color.rgb(224, 244, 255),
+                        Color.rgb(242, 249, 255)
                 }
         );
 
