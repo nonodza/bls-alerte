@@ -1116,6 +1116,104 @@ openBtn.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
+
+// =====================================================
+// OPEN OFFICIAL VISA PORTAL
+// =====================================================
+
+openBtn.setOnClickListener(
+        v -> {
+
+            String selectedCountry =
+                    getSharedPreferences(
+                            "RV_SETTINGS",
+                            MODE_PRIVATE
+                    )
+                    .getString(
+                            "selected_country",
+                            ""
+                    );
+
+            if (selectedCountry.isEmpty()) {
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Select Country")
+                        .setMessage(
+                                "Please select a country first."
+                        )
+                        .setPositiveButton(
+                                "OK",
+                                null
+                        )
+                        .show();
+
+                return;
+            }
+
+            String visaUrl =
+                    getVisaPortalUrl(
+                            selectedCountry
+                    );
+
+            if (visaUrl == null) {
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Official Visa Portal")
+                        .setMessage(
+                                "The official visa portal for "
+                                        + selectedCountry
+                                        + " is not configured yet."
+                        )
+                        .setPositiveButton(
+                                "OK",
+                                null
+                        )
+                        .show();
+
+                return;
+            }
+
+            try {
+
+                Intent browserIntent =
+                        new Intent(
+                                Intent.ACTION_VIEW,
+                                android.net.Uri.parse(
+                                        visaUrl
+                                )
+                        );
+
+                startActivity(
+                        browserIntent
+                );
+
+            } catch (Exception e) {
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Unable to open website")
+                        .setMessage(
+                                "Please try again later."
+                        )
+                        .setPositiveButton(
+                                "OK",
+                                null
+                        )
+                        .show();
+            }
+        }
+);
+
+
+// =====================================================
+// BUTTON LAYOUT
+// =====================================================
+
+LinearLayout.LayoutParams openP =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
 LinearLayout.LayoutParams openP =
         new LinearLayout.LayoutParams(
                 -1,
