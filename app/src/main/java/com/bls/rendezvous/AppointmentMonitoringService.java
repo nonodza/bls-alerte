@@ -429,8 +429,7 @@ public class AppointmentMonitoringService extends Service {
      // =================================================
         // INFORMATION TEXT
         // =================================================
-
-        String timesText =
+String timesText =
         checkedCount == 1
                 ? "time"
                 : "times";
@@ -448,6 +447,12 @@ String informationText =
                 + remainingSeconds
                 + "s";
 
+notificationView.setTextViewText(
+        R.id.notification_info,
+        informationText
+);
+}
+        
 
     // =====================================================
     // FORMAT CHECK COUNT
@@ -464,13 +469,6 @@ String informationText =
         );
     }
     
-notificationView.setTextViewText(
-        R.id.notification_info,
-        informationText
-);
-
-}
-
     // =====================================================
     // NOTIFICATION CHANNEL
     // =====================================================
