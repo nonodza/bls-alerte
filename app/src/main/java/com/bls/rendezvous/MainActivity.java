@@ -971,7 +971,7 @@ content.addView(
 );
         
 // =====================================================
-// OFFICIAL BLS SPAIN
+// OFFICIAL VISA PORTAL
 // =====================================================
 
 LinearLayout offCard = card();
@@ -1044,7 +1044,7 @@ offText.setPadding(
 
 TextView offTitle =
         text(
-                "Official BLS Spain",
+                "Official Visa Portal",
                 15,
                 NAVY
         );
@@ -1123,6 +1123,8 @@ content.addView(
         offCard,
         margin(0, 0, 0, 12)
 );
+
+
 
    // =====================================================
         // SERVICES CONTAINER
