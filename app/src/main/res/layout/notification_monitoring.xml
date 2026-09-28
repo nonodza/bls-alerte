@@ -3,7 +3,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="80dp"
     android:orientation="vertical"
     android:background="@drawable/notification_header_bg"
     android:paddingStart="10dp"
@@ -67,7 +67,7 @@
             android:paddingStart="6dp"
             android:gravity="center_vertical"
             android:text="Monitoring is active"
-            android:textColor="#35D07F"
+            android:textColor="#FFFFFF"
             android:textSize="11sp"
             android:maxLines="1" />
 
@@ -85,5 +85,17 @@
             android:background="@drawable/notification_stop_bg" />
 
     </LinearLayout>
+
+
+    <!-- MONITORING INFORMATION -->
+    <TextView
+        android:id="@+id/notification_info"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center_vertical"
+        android:text="Last check: --:--:--  •  Checked: 0 times"
+        android:textColor="#B8C0D4"
+        android:textSize="10sp"
+        android:maxLines="1" />
 
 </LinearLayout>
