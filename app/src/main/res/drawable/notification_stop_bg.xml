@@ -3,47 +3,53 @@
 <layer-list
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ================================================ -->
-    <!-- OUTER LIGHT -->
-    <!-- ================================================ -->
-
+    <!-- OUTER SOFT GLOW -->
     <item>
-
-        <shape
-            android:shape="rectangle">
+        <shape android:shape="rectangle">
 
             <solid
-                android:color="#BFC5D2" />
+                android:color="#66798596" />
 
             <corners
-                android:radius="8dp" />
+                android:radius="9dp" />
 
         </shape>
-
     </item>
 
-
-    <!-- ================================================ -->
-    <!-- INNER DARK BUTTON -->
-    <!-- ================================================ -->
-
+    <!-- SECOND LIGHT LAYER -->
     <item
         android:left="1dp"
         android:top="1dp"
         android:right="1dp"
         android:bottom="1dp">
 
-        <shape
-            android:shape="rectangle">
+        <shape android:shape="rectangle">
 
             <solid
-                android:color="#2C2E3A" />
+                android:color="#D5DAE3" />
 
             <corners
-                android:radius="7dp" />
+                android:radius="8dp" />
 
         </shape>
+    </item>
 
+    <!-- DARK INNER BUTTON -->
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+
+        <shape android:shape="rectangle">
+
+            <solid
+                android:color="#20222C" />
+
+            <corners
+                android:radius="6dp" />
+
+        </shape>
     </item>
 
 </layer-list>
