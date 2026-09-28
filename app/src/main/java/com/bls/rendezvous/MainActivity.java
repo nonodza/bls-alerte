@@ -767,9 +767,9 @@ GradientDrawable monBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.BL_TR,
                 new int[]{
-                        Color.rgb(222, 231, 249),
-                        Color.rgb(207, 219, 244),
-                        Color.rgb(225, 211, 239)
+                        Color.rgb(239, 244, 252),
+                        Color.rgb(232, 239, 250),
+                        Color.rgb(242, 235, 247)
                 }
         );
 
