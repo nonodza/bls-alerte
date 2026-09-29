@@ -1318,25 +1318,19 @@ content.addView(
 // BUTTON LAYOUT
 // =====================================================
 
-LinearLayout.LayoutParams openP =
+LinearLayout.LayoutParams officialButtonP =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         );
 
-openP.topMargin =
+officialButtonP.topMargin =
         dp(14);
 
 offCard.addView(
         openBtn,
-        openP
+        officialButtonP
 );
-
-content.addView(
-        offCard,
-        margin(0, 0, 0, 12)
-);
-
 
 
    // =====================================================
