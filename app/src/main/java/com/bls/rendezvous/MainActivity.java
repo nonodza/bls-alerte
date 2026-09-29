@@ -1538,14 +1538,6 @@ content.addView(
                 )
         );
     }
-root.addView(
-                bottom,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(64)
-                )
-        );
-    }
     
     // =====================================================
     // CARD
