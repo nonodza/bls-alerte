@@ -366,8 +366,8 @@ header.addView(
 // HEADER SPACER
 // =====================================================
 
-Space headerSpacer =
-        new Space(this);
+android.widget.Space headerSpacer =
+        new android.widget.Space(this);
 
 header.addView(
         headerSpacer,
