@@ -426,6 +426,18 @@ bell.setPadding(
         dp(8)
 );
 
+bell.setOnClickListener(
+        v -> {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Notifications")
+                    .setMessage("There are no notifications.")
+                    .setPositiveButton("OK", null)
+                    .show();
+
+        }
+);
+
 notificationContainer.addView(
         bell,
         new android.widget.FrameLayout.LayoutParams(
