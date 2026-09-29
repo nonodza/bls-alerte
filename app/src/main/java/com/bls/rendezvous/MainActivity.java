@@ -334,11 +334,41 @@ header.setPadding(
 );
       
 // =====================================================
+// MENU
+// =====================================================
+
+ImageView menuIcon =
+        new ImageView(this);
+
+menuIcon.setImageResource(
+        R.drawable.ic_menu
+);
+
+menuIcon.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
+);
+
+header.addView(
+        menuIcon,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+
+// =====================================================
 // MENU ACTION
 // =====================================================
 
 menuIcon.setOnClickListener(
         v -> {
+
+        }
+);
 
             // =================================================
             // DIALOG
