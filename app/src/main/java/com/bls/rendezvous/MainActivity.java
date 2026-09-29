@@ -477,13 +477,7 @@ notificationContainer.addView(
         dotParams
 );
 
-header.addView(
-        notificationContainer,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
-        )
-);
+
 
 // =====================================================
 // ADD TOP BAR
