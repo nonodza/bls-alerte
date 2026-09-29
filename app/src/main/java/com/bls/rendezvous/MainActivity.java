@@ -1879,17 +1879,6 @@ root.addView(
         );
     }
     
-// =========================================================
-// SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
-// =========================================================
-
-private LinearLayout serviceGridItem(
-        String icon,
-        String title,
-        String description,
-        boolean purple,
-                View.OnClickListener listener
-) {
     // =====================================================
     // CARD
   
