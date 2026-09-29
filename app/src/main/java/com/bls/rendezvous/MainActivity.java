@@ -359,16 +359,12 @@ header.addView(
         )
 );
 
-
 // =====================================================
 // MENU ACTION
 // =====================================================
 
 menuIcon.setOnClickListener(
         v -> {
-
-        }
-);
 
             // =================================================
             // DIALOG
@@ -405,19 +401,19 @@ menuIcon.setOnClickListener(
             // TITLE
             // =================================================
 
-            TextView title =
+            TextView menuTitle =
                     text(
                             "Menu",
                             22,
                             NAVY
                     );
 
-            title.setTypeface(
+            menuTitle.setTypeface(
                     Typeface.DEFAULT_BOLD
             );
 
             menu.addView(
-                    title,
+                    menuTitle,
                     margin(
                             0,
                             0,
@@ -431,7 +427,7 @@ menuIcon.setOnClickListener(
             // SUBTITLE
             // =================================================
 
-            TextView subtitle =
+            TextView menuSubtitle =
                     text(
                             "Choose a service",
                             12,
@@ -439,7 +435,7 @@ menuIcon.setOnClickListener(
                     );
 
             menu.addView(
-                    subtitle,
+                    menuSubtitle,
                     margin(
                             0,
                             0,
@@ -834,15 +830,16 @@ menuIcon.setOnClickListener(
 
 
             // =================================================
-            // SHOW
+            // SHOW DIALOG
             // =================================================
 
-            dialog.setView(menu);
+            dialog.setView(
+                    menu
+            );
 
             dialog.show();
-        }
-);
-        
+
+
             // =================================================
             // DIALOG WINDOW
             // =================================================
@@ -852,7 +849,7 @@ menuIcon.setOnClickListener(
                 dialog.getWindow()
                         .setBackgroundDrawable(
                                 new android.graphics.drawable.ColorDrawable(
-                                        Color.WHITE
+                                        Color.TRANSPARENT
                                 )
                         );
 
@@ -863,11 +860,25 @@ menuIcon.setOnClickListener(
                                         .widthPixels
                                         * 0.88
                         ),
-                        WindowManager.LayoutParams.WRAP_CONTENT
+                        -2
                 );
             }
         }
 );
+
+
+            // =================================================
+            // TITLE
+            // =================================================
+
+            TextView title =
+                    text(
+                            "Menu",
+                            22,
+                            NAVY
+                    );
+
+
 // =====================================================
 // TITLE
 // =====================================================
