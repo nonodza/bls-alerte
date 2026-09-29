@@ -333,7 +333,35 @@ header.setPadding(
         dp(4)
 );
 
+// =====================================================
+// MENU
+// =====================================================
 
+ImageView menuIcon =
+        new ImageView(this);
+
+menuIcon.setImageResource(
+        R.drawable.ic_menu
+);
+
+menuIcon.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
+);
+
+menuIcon.setOnClickListener(
+        v -> showMainMenu()
+);
+
+header.addView(
+        menuIcon,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
 // =====================================================
 // NOTIFICATION AREA
 // =====================================================
