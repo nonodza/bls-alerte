@@ -363,14 +363,396 @@ header.addView(
 
 
 // =====================================================
-// MENU ACTION
+// MAIN MENU
 // =====================================================
 
 menuIcon.setOnClickListener(
         v -> {
 
-            // TODO: open main menu
+            final AlertDialog dialog =
+                    new AlertDialog.Builder(
+                            MainActivity.this
+                    ).create();
 
+            // =================================================
+            // MAIN MENU CONTAINER
+            // =================================================
+
+            LinearLayout menu =
+                    new LinearLayout(MainActivity.this);
+
+            menu.setOrientation(
+                    LinearLayout.VERTICAL
+            );
+
+            menu.setPadding(
+                    dp(20),
+                    dp(18),
+                    dp(20),
+                    dp(16)
+            );
+
+
+            // =================================================
+            // MENU TITLE
+            // =================================================
+
+            TextView menuTitle =
+                    text(
+                            "Menu",
+                            23,
+                            NAVY
+                    );
+
+            menuTitle.setTypeface(
+                    Typeface.DEFAULT_BOLD
+            );
+
+            menu.addView(
+                    menuTitle,
+                    margin(0, 0, 0, 4)
+            );
+
+
+            TextView menuSub =
+                    text(
+                            "Choose a service",
+                            12,
+                            GRAY
+                    );
+
+            menu.addView(
+                    menuSub,
+                    margin(0, 0, 0, 14)
+            );
+
+
+            // =================================================
+            // MENU ITEM HELPER
+            // =================================================
+
+            View.OnClickListener closeAndOpen =
+                    listener -> {
+
+                        dialog.dismiss();
+
+                        listener.onClick(null);
+                    };
+
+
+            // =================================================
+            // APPOINTMENTS
+            // =================================================
+
+            TextView appointments =
+                    text(
+                            "▣   Appointments",
+                            16,
+                            NAVY
+                    );
+
+            appointments.setGravity(
+                    Gravity.CENTER_VERTICAL
+            );
+
+            appointments.setPadding(
+                    dp(14),
+                    0,
+                    dp(14),
+                    0
+            );
+
+            appointments.setBackground(
+                    menuItemBackground(false)
+            );
+
+            appointments.setOnClickListener(
+                    v2 -> {
+
+                        dialog.dismiss();
+
+                        showAppointments();
+                    }
+            );
+
+            menu.addView(
+                    appointments,
+                    new LinearLayout.LayoutParams(
+                            -1,
+                            dp(50)
+                    )
+            );
+
+
+            // =================================================
+            // ALERTS
+            // =================================================
+
+            TextView alerts =
+                    text(
+                            "●   Alerts",
+                            16,
+                            NAVY
+                    );
+
+            alerts.setGravity(
+                    Gravity.CENTER_VERTICAL
+            );
+
+            alerts.setPadding(
+                    dp(14),
+                    0,
+                    dp(14),
+                    0
+            );
+
+            alerts.setBackground(
+                    menuItemBackground(true)
+            );
+
+            alerts.setOnClickListener(
+                    v2 -> {
+
+                        dialog.dismiss();
+
+                        showAlerts();
+                    }
+            );
+
+            menu.addView(
+                    alerts,
+                    margin(0, 8, 0, 0)
+            );
+
+
+            // =================================================
+            // CENTERS
+            // =================================================
+
+            TextView centers =
+                    text(
+                            "▣   Centers",
+                            16,
+                            NAVY
+                    );
+
+            centers.setGravity(
+                    Gravity.CENTER_VERTICAL
+            );
+
+            centers.setPadding(
+                    dp(14),
+                    0,
+                    dp(14),
+                    0
+            );
+
+            centers.setBackground(
+                    menuItemBackground(false)
+            );
+
+            centers.setOnClickListener(
+                    v2 -> {
+
+                        dialog.dismiss();
+
+                        showCenters();
+                    }
+            );
+
+            menu.addView(
+                    centers,
+                    margin(0, 8, 0, 0)
+            );
+
+
+            // =================================================
+            // TRACKING
+            // =================================================
+
+            TextView tracking =
+                    text(
+                            "↗   Tracking",
+                            16,
+                            NAVY
+                    );
+
+            tracking.setGravity(
+                    Gravity.CENTER_VERTICAL
+            );
+
+            tracking.setPadding(
+                    dp(14),
+                    0,
+                    dp(14),
+                    0
+            );
+
+            tracking.setBackground(
+                    menuItemBackground(true)
+            );
+
+            tracking.setOnClickListener(
+                    v2 -> {
+
+                        dialog.dismiss();
+
+                        showTracking();
+                    }
+            );
+
+            menu.addView(
+                    tracking,
+                    margin(0, 8, 0, 0)
+            );
+
+
+            // =================================================
+            // COUNTRIES
+            // =================================================
+
+            TextView countries =
+                    text(
+                            "◎   Countries",
+                            16,
+                            NAVY
+                    );
+
+            countries.setGravity(
+                    Gravity.CENTER_VERTICAL
+            );
+
+            countries.setPadding(
+                    dp(14),
+                    0,
+                    dp(14),
+                    0
+            );
+
+            countries.setBackground(
+                    menuItemBackground(false)
+            );
+
+            countries.setOnClickListener(
+                    v2 -> {
+
+                        dialog.dismiss();
+
+                        showCountries();
+                    }
+            );
+
+            menu.addView(
+                    countries,
+                    margin(0, 8, 0, 0)
+            );
+
+
+            // =================================================
+            // STATISTICS
+            // =================================================
+
+            TextView statistics =
+                    text(
+                            "▥   Statistics",
+                            16,
+                            NAVY
+                    );
+
+            statistics.setGravity(
+                    Gravity.CENTER_VERTICAL
+            );
+
+            statistics.setPadding(
+                    dp(14),
+                    0,
+                    dp(14),
+                    0
+            );
+
+            statistics.setBackground(
+                    menuItemBackground(true)
+            );
+
+            statistics.setOnClickListener(
+                    v2 -> {
+
+                        dialog.dismiss();
+
+                        showStatistics();
+                    }
+            );
+
+            menu.addView(
+                    statistics,
+                    margin(0, 8, 0, 0)
+            );
+
+
+            // =================================================
+            // CANCEL
+            // =================================================
+
+            TextView cancel =
+                    text(
+                            "CANCEL",
+                            12,
+                            BLUE
+                    );
+
+            cancel.setGravity(
+                    Gravity.CENTER
+            );
+
+            cancel.setTypeface(
+                    Typeface.DEFAULT_BOLD
+            );
+
+            cancel.setOnClickListener(
+                    v2 -> dialog.dismiss()
+            );
+
+            menu.addView(
+                    cancel,
+                    new LinearLayout.LayoutParams(
+                            -1,
+                            dp(46)
+                    )
+            );
+
+
+            // =================================================
+            // SHOW MENU
+            // =================================================
+
+            dialog.setView(menu);
+
+            dialog.show();
+
+
+            // =================================================
+            // DIALOG WINDOW
+            // =================================================
+
+            if (dialog.getWindow() != null) {
+
+                dialog.getWindow()
+                        .setBackgroundDrawable(
+                                new android.graphics.drawable.ColorDrawable(
+                                        Color.WHITE
+                                )
+                        );
+
+                dialog.getWindow().setLayout(
+                        (int)(
+                                getResources()
+                                        .getDisplayMetrics()
+                                        .widthPixels
+                                        * 0.88
+                        ),
+                        WindowManager.LayoutParams.WRAP_CONTENT
+                );
+            }
         }
 );
 // =====================================================
