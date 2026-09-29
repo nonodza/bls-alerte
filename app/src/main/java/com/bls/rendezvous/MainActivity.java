@@ -1638,7 +1638,38 @@ content.addView(
                 )
         );
     }
+root.addView(
+                bottom,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(64)
+                )
+        );
+    }
+    
+// =====================================================
+// MAIN MENU
+// =====================================================
 
+private void showMainMenu() {
+
+    currentPage = "MENU";
+
+}
+  
+// =========================================================
+// SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
+// =========================================================
+
+private LinearLayout serviceGridItem(
+        String icon,
+        String title,
+        String description,
+        boolean purple,
+                View.OnClickListener listener
+) {
+    // =====================================================
+    // CARD
   
 // =========================================================
 // SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
