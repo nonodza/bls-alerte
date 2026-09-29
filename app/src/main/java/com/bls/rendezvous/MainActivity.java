@@ -332,89 +332,76 @@ header.setPadding(
         dp(16),
         dp(8)
 );
-
+      
 // =====================================================
-// MENU
-// =====================================================
-
-ImageView menuIcon =
-        new ImageView(this);
-
-// Material-style menu vector
-menuIcon.setImageResource(
-        R.drawable.ic_menu
-);
-
-
-menuIcon.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
-
-header.addView(
-        menuIcon,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
-        )
-);
-
-
-// =====================================================
-// MAIN MENU
+// MENU ACTION
 // =====================================================
 
 menuIcon.setOnClickListener(
         v -> {
+
+            // =================================================
+            // DIALOG
+            // =================================================
 
             final AlertDialog dialog =
                     new AlertDialog.Builder(
                             MainActivity.this
                     ).create();
 
+
             // =================================================
-            // MAIN MENU CONTAINER
+            // MAIN CONTAINER
             // =================================================
 
             LinearLayout menu =
-                    new LinearLayout(MainActivity.this);
+                    new LinearLayout(
+                            MainActivity.this
+                    );
 
             menu.setOrientation(
                     LinearLayout.VERTICAL
             );
 
             menu.setPadding(
-                    dp(20),
                     dp(18),
-                    dp(20),
-                    dp(16)
+                    dp(18),
+                    dp(18),
+                    dp(12)
             );
 
 
             // =================================================
-            // MENU TITLE
+            // TITLE
             // =================================================
 
-            TextView menuTitle =
+            TextView title =
                     text(
                             "Menu",
-                            23,
+                            22,
                             NAVY
                     );
 
-            menuTitle.setTypeface(
+            title.setTypeface(
                     Typeface.DEFAULT_BOLD
             );
 
             menu.addView(
-                    menuTitle,
-                    margin(0, 0, 0, 4)
+                    title,
+                    margin(
+                            0,
+                            0,
+                            0,
+                            3
+                    )
             );
 
 
-            TextView menuSub =
+            // =================================================
+            // SUBTITLE
+            // =================================================
+
+            TextView subtitle =
                     text(
                             "Choose a service",
                             12,
@@ -422,22 +409,14 @@ menuIcon.setOnClickListener(
                     );
 
             menu.addView(
-                    menuSub,
-                    margin(0, 0, 0, 14)
+                    subtitle,
+                    margin(
+                            0,
+                            0,
+                            0,
+                            14
+                    )
             );
-
-
-            // =================================================
-            // MENU ITEM HELPER
-            // =================================================
-
-            View.OnClickListener closeAndOpen =
-                    listener -> {
-
-                        dialog.dismiss();
-
-                        listener.onClick(null);
-                    };
 
 
             // =================================================
@@ -462,8 +441,21 @@ menuIcon.setOnClickListener(
                     0
             );
 
+            GradientDrawable appointmentsBg =
+                    new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[]{
+                                    Color.rgb(239, 247, 255),
+                                    Color.rgb(222, 237, 255)
+                            }
+                    );
+
+            appointmentsBg.setCornerRadius(
+                    dp(14)
+            );
+
             appointments.setBackground(
-                    menuItemBackground(false)
+                    appointmentsBg
             );
 
             appointments.setOnClickListener(
@@ -506,8 +498,21 @@ menuIcon.setOnClickListener(
                     0
             );
 
+            GradientDrawable alertsBg =
+                    new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[]{
+                                    Color.rgb(245, 239, 255),
+                                    Color.rgb(235, 225, 250)
+                            }
+                    );
+
+            alertsBg.setCornerRadius(
+                    dp(14)
+            );
+
             alerts.setBackground(
-                    menuItemBackground(true)
+                    alertsBg
             );
 
             alerts.setOnClickListener(
@@ -521,7 +526,12 @@ menuIcon.setOnClickListener(
 
             menu.addView(
                     alerts,
-                    margin(0, 8, 0, 0)
+                    margin(
+                            0,
+                            8,
+                            0,
+                            0
+                    )
             );
 
 
@@ -547,8 +557,21 @@ menuIcon.setOnClickListener(
                     0
             );
 
+            GradientDrawable centersBg =
+                    new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[]{
+                                    Color.rgb(239, 247, 255),
+                                    Color.rgb(222, 237, 255)
+                            }
+                    );
+
+            centersBg.setCornerRadius(
+                    dp(14)
+            );
+
             centers.setBackground(
-                    menuItemBackground(false)
+                    centersBg
             );
 
             centers.setOnClickListener(
@@ -562,7 +585,12 @@ menuIcon.setOnClickListener(
 
             menu.addView(
                     centers,
-                    margin(0, 8, 0, 0)
+                    margin(
+                            0,
+                            8,
+                            0,
+                            0
+                    )
             );
 
 
@@ -588,8 +616,21 @@ menuIcon.setOnClickListener(
                     0
             );
 
+            GradientDrawable trackingBg =
+                    new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[]{
+                                    Color.rgb(245, 239, 255),
+                                    Color.rgb(235, 225, 250)
+                            }
+                    );
+
+            trackingBg.setCornerRadius(
+                    dp(14)
+            );
+
             tracking.setBackground(
-                    menuItemBackground(true)
+                    trackingBg
             );
 
             tracking.setOnClickListener(
@@ -603,7 +644,12 @@ menuIcon.setOnClickListener(
 
             menu.addView(
                     tracking,
-                    margin(0, 8, 0, 0)
+                    margin(
+                            0,
+                            8,
+                            0,
+                            0
+                    )
             );
 
 
@@ -629,8 +675,21 @@ menuIcon.setOnClickListener(
                     0
             );
 
+            GradientDrawable countriesBg =
+                    new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[]{
+                                    Color.rgb(239, 247, 255),
+                                    Color.rgb(222, 237, 255)
+                            }
+                    );
+
+            countriesBg.setCornerRadius(
+                    dp(14)
+            );
+
             countries.setBackground(
-                    menuItemBackground(false)
+                    countriesBg
             );
 
             countries.setOnClickListener(
@@ -644,7 +703,12 @@ menuIcon.setOnClickListener(
 
             menu.addView(
                     countries,
-                    margin(0, 8, 0, 0)
+                    margin(
+                            0,
+                            8,
+                            0,
+                            0
+                    )
             );
 
 
@@ -670,8 +734,21 @@ menuIcon.setOnClickListener(
                     0
             );
 
+            GradientDrawable statisticsBg =
+                    new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[]{
+                                    Color.rgb(245, 239, 255),
+                                    Color.rgb(235, 225, 250)
+                            }
+                    );
+
+            statisticsBg.setCornerRadius(
+                    dp(14)
+            );
+
             statistics.setBackground(
-                    menuItemBackground(true)
+                    statisticsBg
             );
 
             statistics.setOnClickListener(
@@ -685,7 +762,12 @@ menuIcon.setOnClickListener(
 
             menu.addView(
                     statistics,
-                    margin(0, 8, 0, 0)
+                    margin(
+                            0,
+                            8,
+                            0,
+                            0
+                    )
             );
 
 
@@ -722,14 +804,15 @@ menuIcon.setOnClickListener(
 
 
             // =================================================
-            // SHOW MENU
+            // SHOW
             // =================================================
 
             dialog.setView(menu);
 
             dialog.show();
-
-
+        }
+);
+        
             // =================================================
             // DIALOG WINDOW
             // =================================================
