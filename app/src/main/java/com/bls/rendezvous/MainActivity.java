@@ -363,6 +363,34 @@ header.addView(
         )
 );
 // =====================================================
+// HEADER SPACER
+// =====================================================
+
+Space headerSpacer =
+        new Space(this);
+
+header.addView(
+        headerSpacer,
+        new LinearLayout.LayoutParams(
+                0,
+                1,
+                1
+        )
+);
+
+// =====================================================
+// NOTIFICATION AREA
+// =====================================================
+
+header.addView(
+        notificationContainer,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+    
+// =====================================================
 // NOTIFICATION AREA
 // =====================================================
 
