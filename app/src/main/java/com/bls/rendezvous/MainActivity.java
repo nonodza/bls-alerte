@@ -806,6 +806,7 @@ monCard.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
+
 // =====================================================
 // MONITORING ICON
 // =====================================================
@@ -856,6 +857,7 @@ monText.setPadding(
         0
 );
 
+
 TextView monTitle =
         text(
                 "Appointment Monitoring",
@@ -870,6 +872,7 @@ monTitle.setTypeface(
 monText.addView(
         monTitle
 );
+
 
 TextView monSub =
         text(
@@ -909,6 +912,7 @@ startBtn.setPadding(
         dp(12)
 );
 
+
 GradientDrawable startBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
@@ -941,6 +945,7 @@ monCard.addView(
 
 startBtn.setOnClickListener(
         new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -978,9 +983,15 @@ startBtn.setOnClickListener(
 
 content.addView(
         monCard,
-        margin(0, 0, 0, 12)
+        margin(
+                0,
+                0,
+                0,
+                12
+        )
 );
-        
+
+
 // =====================================================
 // OFFICIAL VISA PORTAL
 // =====================================================
@@ -996,14 +1007,25 @@ GradientDrawable offBg =
                 }
         );
 
-offBg.setCornerRadius(dp(20));
-
-offCard.setBackground(offBg);
-
-offCard.setPadding(
-        dp(16), dp(16), dp(16), dp(16)
+offBg.setCornerRadius(
+        dp(20)
 );
 
+offCard.setBackground(
+        offBg
+);
+
+offCard.setPadding(
+        dp(16),
+        dp(16),
+        dp(16),
+        dp(16)
+);
+
+
+// =====================================================
+// OFFICIAL TOP
+// =====================================================
 
 LinearLayout offTop =
         new LinearLayout(this);
@@ -1017,7 +1039,10 @@ offTop.setGravity(
 );
 
 
-// Official icon
+// =====================================================
+// OFFICIAL ICON
+// =====================================================
+
 TextView offIcon =
         text(
                 "✓",
@@ -1038,7 +1063,10 @@ offTop.addView(
 );
 
 
-// Official text
+// =====================================================
+// OFFICIAL TEXT
+// =====================================================
+
 LinearLayout offText =
         new LinearLayout(this);
 
@@ -1053,6 +1081,7 @@ offText.setPadding(
         0
 );
 
+
 TextView offTitle =
         text(
                 "Official Visa Portal",
@@ -1064,23 +1093,36 @@ offTitle.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-offText.addView(offTitle);
+offText.addView(
+        offTitle
+);
+
 
 TextView offSub =
         text(
                 "Official information and visa services",
                 11,
                 GRAY
-        );
+);
 
-offText.addView(offSub);
-
-offTop.addView(offText);
-
-offCard.addView(offTop);
+offText.addView(
+        offSub
+);
 
 
-// OPEN WEBSITE BUTTON
+offTop.addView(
+        offText
+);
+
+offCard.addView(
+        offTop
+);
+
+
+// =====================================================
+// OPEN OFFICIAL WEBSITE BUTTON
+// =====================================================
+
 TextView openBtn =
         text(
                 "OPEN OFFICIAL WEBSITE",
@@ -1099,6 +1141,15 @@ openBtn.setPadding(
         dp(14)
 );
 
+openBtn.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+
+// =====================================================
+// OPEN BUTTON BACKGROUND
+// =====================================================
+
 GradientDrawable openBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
@@ -1108,17 +1159,17 @@ GradientDrawable openBg =
                 }
         );
 
-openBg.setCornerRadius(dp(14));
+openBg.setCornerRadius(
+        dp(14)
+);
 
-openBtn.setBackground(openBg);
-
-openBtn.setTypeface(
-        Typeface.DEFAULT_BOLD
+openBtn.setBackground(
+        openBg
 );
 
 
 // =====================================================
-// OPEN OFFICIAL VISA PORTAL
+// OPEN SELECTED COUNTRY PORTAL
 // =====================================================
 
 openBtn.setOnClickListener(
@@ -1134,10 +1185,17 @@ openBtn.setOnClickListener(
                             ""
                     );
 
+
+            // =================================================
+            // NO COUNTRY SELECTED
+            // =================================================
+
             if (selectedCountry.isEmpty()) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("Select Country")
+                        .setTitle(
+                                "Select Country"
+                        )
                         .setMessage(
                                 "Please select a country first."
                         )
@@ -1150,15 +1208,27 @@ openBtn.setOnClickListener(
                 return;
             }
 
+
+            // =================================================
+            // GET OFFICIAL PORTAL
+            // =================================================
+
             String visaUrl =
                     getVisaPortalUrl(
                             selectedCountry
                     );
 
+
+            // =================================================
+            // PORTAL NOT CONFIGURED
+            // =================================================
+
             if (visaUrl == null) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("Official Visa Portal")
+                        .setTitle(
+                                "Official Visa Portal"
+                        )
                         .setMessage(
                                 "The official visa portal for "
                                         + selectedCountry
@@ -1172,6 +1242,11 @@ openBtn.setOnClickListener(
 
                 return;
             }
+
+
+            // =================================================
+            // OPEN WEBSITE
+            // =================================================
 
             try {
 
@@ -1190,7 +1265,9 @@ openBtn.setOnClickListener(
             } catch (Exception e) {
 
                 new AlertDialog.Builder(this)
-                        .setTitle("Unable to open website")
+                        .setTitle(
+                                "Unable to open website"
+                        )
                         .setMessage(
                                 "Please try again later."
                         )
@@ -1203,6 +1280,39 @@ openBtn.setOnClickListener(
         }
 );
 
+
+// =====================================================
+// ADD OPEN BUTTON TO CARD
+// =====================================================
+
+LinearLayout.LayoutParams openP =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+openP.topMargin =
+        dp(14);
+
+offCard.addView(
+        openBtn,
+        openP
+);
+
+
+// =====================================================
+// ADD OFFICIAL CARD
+// =====================================================
+
+content.addView(
+        offCard,
+        margin(
+                0,
+                0,
+                0,
+                12
+        )
+);
 
 // =====================================================
 // BUTTON LAYOUT
@@ -5161,7 +5271,122 @@ item.addView(
 
         } else {
 
-            showHome();
+          showHome();
         }
     }
+
+
+// =====================================================
+// OFFICIAL VISA PORTAL URL
+// =====================================================
+
+private String getVisaPortalUrl(
+        String selectedCountry
+) {
+
+    if (selectedCountry == null) {
+        return null;
+    }
+
+    String country =
+            selectedCountry
+                    .replaceAll(
+                            "[^\\p{L}\\s]",
+                            ""
+                    )
+                    .trim();
+
+    switch (country) {
+
+        case "Austria":
+            return "https://www.bmeia.gv.at/en/travel-stay/entry-and-residence-in-austria/visa";
+
+        case "Belgium":
+            return "https://diplomatie.belgium.be/en/travel-belgium/visa-belgium";
+
+        case "Bulgaria":
+            return "https://www.mfa.bg/en/services-travel/consular-services/travel-to-bulgaria/visas";
+
+        case "Croatia":
+            return "https://mvep.gov.hr/consular-information-22801/visas-22807/22807";
+
+        case "Czech Republic":
+            return "https://mzv.gov.cz/jnp/en/information_for_aliens/visa/index.html";
+
+        case "Denmark":
+            return "https://um.dk/en/travel-and-residence/how-to-apply-for-a-visa";
+
+        case "Estonia":
+            return "https://vm.ee/en/consular-visa-and-travel-information/visa";
+
+        case "Finland":
+            return "https://um.fi/visa-to-visit-finland";
+
+        case "France":
+            return "https://france-visas.gouv.fr/en";
+
+        case "Germany":
+            return "https://www.auswaertiges-amt.de/en/visa-service";
+
+        case "Greece":
+            return "https://www.mfa.gr/en/visas";
+
+        case "Hungary":
+            return "https://konzinfo.mfa.gov.hu/en";
+
+        case "Iceland":
+            return "https://island.is/en/visa";
+
+        case "Italy":
+            return "https://vistoperitalia.esteri.it/home/en";
+
+        case "Latvia":
+            return "https://www.mfa.gov.lv/en/visas";
+
+        case "Liechtenstein":
+            return "https://www.llv.li/en/national-administration/office-for-construction-and-infrastructure/immigration-and-passports/entry-and-residence/visa";
+
+        case "Lithuania":
+            return "https://keliauk.urm.lt/en/entry-to-lithuania/visas";
+
+        case "Luxembourg":
+            return "https://guichet.public.lu/en/citoyens/immigration/plus-3-mois/entree-sejour/visa.html";
+
+        case "Malta":
+            return "https://identita.gov.mt/visas-and-citizenship/visa-applications";
+
+        case "Netherlands":
+            return "https://www.netherlandsworldwide.nl/visa-the-netherlands";
+
+        case "Norway":
+            return "https://www.udi.no/en/want-to-apply/visit-and-holiday/";
+
+        case "Poland":
+            return "https://www.gov.pl/web/diplomacy/visas";
+
+        case "Portugal":
+            return "https://vistos.mne.gov.pt/en";
+
+        case "Romania":
+            return "https://eviza.mae.ro";
+
+        case "Slovakia":
+            return "https://www.mzv.sk/web/en/visa-and-services";
+
+        case "Slovenia":
+            return "https://www.gov.si/en/topics/entry-and-residence/visas";
+
+        case "Spain":
+            return "https://www.exteriores.gob.es/en/ServiciosAlCiudadano/Paginas/Visados.aspx";
+
+        case "Sweden":
+            return "https://www.migrationsverket.se/en/you-want-to-apply/visit-sweden.html";
+
+        case "Switzerland":
+            return "https://www.eda.admin.ch/countries/algeria/en/home/visa/entry-ch.html";
+
+        default:
+            return null;
+    }
 }
+}  
