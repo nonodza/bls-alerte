@@ -282,637 +282,147 @@ public class MainActivity extends Activity {
         );
     }
 
-    // =========================================================
-    // HOME
-    // =========================================================
+// =========================================================
+// HOME
+// =========================================================
 
-    private void showHome() {
+private void showHome() {
 
-        currentPage = "HOME";
+    currentPage = "HOME";
 
-        root =
-                new LinearLayout(this);
+    root =
+            new LinearLayout(this);
 
-        root.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    root.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        GradientDrawable background =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(222, 231, 249),
-                        Color.rgb(207, 219, 244),
-                        Color.rgb(225, 211, 239)
-                }
-        );
+    GradientDrawable background =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(222, 231, 249),
+                            Color.rgb(207, 219, 244),
+                            Color.rgb(225, 211, 239)
+                    }
+            );
 
-background.setCornerRadius(0);
+    background.setCornerRadius(0);
 
-        setContentView(root);
+    root.setBackground(
+            background
+    );
 
- // =====================================================
+    setContentView(root);
+
+
+// =====================================================
 // HEADER — MODERN TOP BAR
 // =====================================================
 
-LinearLayout header =
-        new LinearLayout(this);
+    LinearLayout header =
+            new LinearLayout(this);
 
-header.setOrientation(
-        LinearLayout.HORIZONTAL
-);
+    header.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
 
-header.setGravity(
-        Gravity.CENTER_VERTICAL
-);
+    header.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
 
-header.setPadding(
-        dp(16),
-        dp(8),
-        dp(16),
-        dp(8)
-);
-      
+    header.setPadding(
+            dp(16),
+            dp(8),
+            dp(16),
+            dp(8)
+    );
+
+
 // =====================================================
 // MENU
 // =====================================================
 
-ImageView menuIcon =
-        new ImageView(this);
+    ImageView menuIcon =
+            new ImageView(this);
 
-menuIcon.setImageResource(
-        R.drawable.ic_menu
-);
+    menuIcon.setImageResource(
+            R.drawable.ic_menu
+    );
 
-menuIcon.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
+    menuIcon.setPadding(
+            dp(8),
+            dp(8),
+            dp(8),
+            dp(8)
+    );
 
-header.addView(
-        menuIcon,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
-        )
-);
+    header.addView(
+            menuIcon,
+            new LinearLayout.LayoutParams(
+                    dp(42),
+                    dp(42)
+            )
+    );
+
 
 // =====================================================
 // MENU ACTION
 // =====================================================
 
-menuIcon.setOnClickListener(
-        v -> {
-
-            // =================================================
-            // DIALOG
-            // =================================================
-
-            final AlertDialog dialog =
-                    new AlertDialog.Builder(
-                            MainActivity.this
-                    ).create();
-
-
-            // =================================================
-            // MAIN CONTAINER
-            // =================================================
-
-            LinearLayout menu =
-                    new LinearLayout(
-                            MainActivity.this
-                    );
-
-            menu.setOrientation(
-                    LinearLayout.VERTICAL
-            );
-
-            menu.setPadding(
-                    dp(18),
-                    dp(18),
-                    dp(18),
-                    dp(12)
-            );
-
-
-            // =================================================
-            // TITLE
-            // =================================================
-
-            TextView menuTitle =
-                    text(
-                            "Menu",
-                            22,
-                            NAVY
-                    );
-
-            menuTitle.setTypeface(
-                    Typeface.DEFAULT_BOLD
-            );
-
-            menu.addView(
-                    menuTitle,
-                    margin(
-                            0,
-                            0,
-                            0,
-                            3
-                    )
-            );
-
-
-            // =================================================
-            // SUBTITLE
-            // =================================================
-
-            TextView menuSubtitle =
-                    text(
-                            "Choose a service",
-                            12,
-                            GRAY
-                    );
-
-            menu.addView(
-                    menuSubtitle,
-                    margin(
-                            0,
-                            0,
-                            0,
-                            14
-                    )
-            );
-
-
-            // =================================================
-            // APPOINTMENTS
-            // =================================================
-
-            TextView appointments =
-                    text(
-                            "▣   Appointments",
-                            16,
-                            NAVY
-                    );
-
-            appointments.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            appointments.setPadding(
-                    dp(14),
-                    0,
-                    dp(14),
-                    0
-            );
-
-            GradientDrawable appointmentsBg =
-                    new GradientDrawable(
-                            GradientDrawable.Orientation.TL_BR,
-                            new int[]{
-                                    Color.rgb(239, 247, 255),
-                                    Color.rgb(222, 237, 255)
-                            }
-                    );
-
-            appointmentsBg.setCornerRadius(
-                    dp(14)
-            );
-
-            appointments.setBackground(
-                    appointmentsBg
-            );
-
-            appointments.setOnClickListener(
-                    v2 -> {
-
-                        dialog.dismiss();
-
-                        showAppointments();
-                    }
-            );
-
-            menu.addView(
-                    appointments,
-                    new LinearLayout.LayoutParams(
-                            -1,
-                            dp(50)
-                    )
-            );
-
-
-            // =================================================
-            // ALERTS
-            // =================================================
-
-            TextView alerts =
-                    text(
-                            "●   Alerts",
-                            16,
-                            NAVY
-                    );
-
-            alerts.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            alerts.setPadding(
-                    dp(14),
-                    0,
-                    dp(14),
-                    0
-            );
-
-            GradientDrawable alertsBg =
-                    new GradientDrawable(
-                            GradientDrawable.Orientation.TL_BR,
-                            new int[]{
-                                    Color.rgb(245, 239, 255),
-                                    Color.rgb(235, 225, 250)
-                            }
-                    );
-
-            alertsBg.setCornerRadius(
-                    dp(14)
-            );
-
-            alerts.setBackground(
-                    alertsBg
-            );
-
-            alerts.setOnClickListener(
-                    v2 -> {
-
-                        dialog.dismiss();
-
-                        showAlerts();
-                    }
-            );
-
-            menu.addView(
-                    alerts,
-                    margin(
-                            0,
-                            8,
-                            0,
-                            0
-                    )
-            );
-
-
-            // =================================================
-            // CENTERS
-            // =================================================
-
-            TextView centers =
-                    text(
-                            "▣   Centers",
-                            16,
-                            NAVY
-                    );
-
-            centers.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            centers.setPadding(
-                    dp(14),
-                    0,
-                    dp(14),
-                    0
-            );
-
-            GradientDrawable centersBg =
-                    new GradientDrawable(
-                            GradientDrawable.Orientation.TL_BR,
-                            new int[]{
-                                    Color.rgb(239, 247, 255),
-                                    Color.rgb(222, 237, 255)
-                            }
-                    );
-
-            centersBg.setCornerRadius(
-                    dp(14)
-            );
-
-            centers.setBackground(
-                    centersBg
-            );
-
-            centers.setOnClickListener(
-                    v2 -> {
-
-                        dialog.dismiss();
-
-                        showCenters();
-                    }
-            );
-
-            menu.addView(
-                    centers,
-                    margin(
-                            0,
-                            8,
-                            0,
-                            0
-                    )
-            );
-
-
-            // =================================================
-            // TRACKING
-            // =================================================
-
-            TextView tracking =
-                    text(
-                            "↗   Tracking",
-                            16,
-                            NAVY
-                    );
-
-            tracking.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            tracking.setPadding(
-                    dp(14),
-                    0,
-                    dp(14),
-                    0
-            );
-
-            GradientDrawable trackingBg =
-                    new GradientDrawable(
-                            GradientDrawable.Orientation.TL_BR,
-                            new int[]{
-                                    Color.rgb(245, 239, 255),
-                                    Color.rgb(235, 225, 250)
-                            }
-                    );
-
-            trackingBg.setCornerRadius(
-                    dp(14)
-            );
-
-            tracking.setBackground(
-                    trackingBg
-            );
-
-            tracking.setOnClickListener(
-                    v2 -> {
-
-                        dialog.dismiss();
-
-                        showTracking();
-                    }
-            );
-
-            menu.addView(
-                    tracking,
-                    margin(
-                            0,
-                            8,
-                            0,
-                            0
-                    )
-            );
-
-
-            // =================================================
-            // COUNTRIES
-            // =================================================
-
-            TextView countries =
-                    text(
-                            "◎   Countries",
-                            16,
-                            NAVY
-                    );
-
-            countries.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            countries.setPadding(
-                    dp(14),
-                    0,
-                    dp(14),
-                    0
-            );
-
-            GradientDrawable countriesBg =
-                    new GradientDrawable(
-                            GradientDrawable.Orientation.TL_BR,
-                            new int[]{
-                                    Color.rgb(239, 247, 255),
-                                    Color.rgb(222, 237, 255)
-                            }
-                    );
-
-            countriesBg.setCornerRadius(
-                    dp(14)
-            );
-
-            countries.setBackground(
-                    countriesBg
-            );
-
-            countries.setOnClickListener(
-                    v2 -> {
-
-                        dialog.dismiss();
-
-                        showCountries();
-                    }
-            );
-
-            menu.addView(
-                    countries,
-                    margin(
-                            0,
-                            8,
-                            0,
-                            0
-                    )
-            );
-
-
-            // =================================================
-            // STATISTICS
-            // =================================================
-
-            TextView statistics =
-                    text(
-                            "▥   Statistics",
-                            16,
-                            NAVY
-                    );
-
-            statistics.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            statistics.setPadding(
-                    dp(14),
-                    0,
-                    dp(14),
-                    0
-            );
-
-            GradientDrawable statisticsBg =
-                    new GradientDrawable(
-                            GradientDrawable.Orientation.TL_BR,
-                            new int[]{
-                                    Color.rgb(245, 239, 255),
-                                    Color.rgb(235, 225, 250)
-                            }
-                    );
-
-            statisticsBg.setCornerRadius(
-                    dp(14)
-            );
-
-            statistics.setBackground(
-                    statisticsBg
-            );
-
-            statistics.setOnClickListener(
-                    v2 -> {
-
-                        dialog.dismiss();
-
-                        showStatistics();
-                    }
-            );
-
-            menu.addView(
-                    statistics,
-                    margin(
-                            0,
-                            8,
-                            0,
-                            0
-                    )
-            );
-
-
-            // =================================================
-            // CANCEL
-            // =================================================
-
-            TextView cancel =
-                    text(
-                            "CANCEL",
-                            12,
-                            BLUE
-                    );
-
-            cancel.setGravity(
-                    Gravity.CENTER
-            );
-
-            cancel.setTypeface(
-                    Typeface.DEFAULT_BOLD
-            );
-
-            cancel.setOnClickListener(
-                    v2 -> dialog.dismiss()
-            );
-
-            menu.addView(
-                    cancel,
-                    new LinearLayout.LayoutParams(
-                            -1,
-                            dp(46)
-                    )
-            );
-
-
-            // =================================================
-            // SHOW DIALOG
-            // =================================================
-
-            dialog.setView(
-                    menu
-            );
-
-            dialog.show();
-
-
-            // =================================================
-            // DIALOG WINDOW
-            // =================================================
-
-            if (dialog.getWindow() != null) {
-
-                dialog.getWindow()
-                        .setBackgroundDrawable(
-                                new android.graphics.drawable.ColorDrawable(
-                                        Color.TRANSPARENT
-                                )
-                        );
-
-                dialog.getWindow().setLayout(
-                        (int)(
-                                getResources()
-                                        .getDisplayMetrics()
-                                        .widthPixels
-                                        * 0.88
-                        ),
-                        -2
-                );
-            }
-        }
-);
-
-
-            // =================================================
-            // TITLE
-            // =================================================
-
-            TextView title =
-                    text(
-                            "Menu",
-                            22,
-                            NAVY
-                    );
+    menuIcon.setOnClickListener(
+            v -> showMainMenu()
+    );
 
 
 // =====================================================
-// TITLE
+// APP NAME
 // =====================================================
 
-TextView appName =
-        text(
-                "BLS Rendez-Vous",
-                20,
-                NAVY
-        );
+    TextView appName =
+            text(
+                    "BLS Rendez-Vous",
+                    20,
+                    NAVY
+            );
 
-appName.setTypeface(
-        Typeface.DEFAULT,
-        Typeface.BOLD
-);
+    appName.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
 
-appName.setGravity(
-        Gravity.CENTER_VERTICAL
-);
+    appName.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
 
-LinearLayout.LayoutParams titleParams =
-        new LinearLayout.LayoutParams(
-                0,
-                dp(42),
-                1
-);
+    LinearLayout.LayoutParams titleParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(42),
+                    1
+            );
 
-titleParams.leftMargin =
-        dp(6);
+    titleParams.leftMargin =
+            dp(6);
 
-header.addView(
-        appName,
-        titleParams
-);
+    header.addView(
+            appName,
+            titleParams
+    );
+
+
+// =====================================================
+// ADD HEADER TO ROOT
+// =====================================================
+
+    root.addView(
+            header,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(58)
+            )
+    );
+
 
 // =====================================================
 // NOTIFICATION AREA
