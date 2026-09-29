@@ -1324,12 +1324,6 @@ LinearLayout.LayoutParams openP =
                 -2
         );
 
-LinearLayout.LayoutParams openP =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
 openP.topMargin =
         dp(14);
 
