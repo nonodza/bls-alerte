@@ -282,135 +282,520 @@ public class MainActivity extends Activity {
         );
     }
 
-// =========================================================
-// HOME
-// =========================================================
+// =========================================================  
+// HOME  
+// =========================================================  
 
-private void showHome() {
+private void showHome() {  
 
-    currentPage = "HOME";
+    currentPage = "HOME";  
 
-    root =
-            new LinearLayout(this);
+    root =  
+            new LinearLayout(this);  
 
-    root.setOrientation(
-            LinearLayout.VERTICAL
+    root.setOrientation(  
+            LinearLayout.VERTICAL  
+    );  
+
+    GradientDrawable background =  
+    new GradientDrawable(  
+            GradientDrawable.Orientation.TL_BR,  
+            new int[]{  
+                    Color.rgb(222, 231, 249),  
+                    Color.rgb(207, 219, 244),  
+                    Color.rgb(225, 211, 239)  
+            }  
     );
 
-    GradientDrawable background =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.rgb(222, 231, 249),
-                            Color.rgb(207, 219, 244),
-                            Color.rgb(225, 211, 239)
-                    }
-            );
+background.setCornerRadius(0);
 
-    background.setCornerRadius(0);
-
-    root.setBackground(
-            background
-    );
-
-    setContentView(root);
-
+setContentView(root);
 
 // =====================================================
 // HEADER — MODERN TOP BAR
 // =====================================================
 
-    LinearLayout header =
-            new LinearLayout(this);
+LinearLayout header =
+new LinearLayout(this);
 
-    header.setOrientation(
-            LinearLayout.HORIZONTAL
-    );
+header.setOrientation(
+LinearLayout.HORIZONTAL
+);
 
-    header.setGravity(
-            Gravity.CENTER_VERTICAL
-    );
+header.setGravity(
+Gravity.CENTER_VERTICAL
+);
 
-    header.setPadding(
-            dp(16),
-            dp(8),
-            dp(16),
-            dp(8)
-    );
+header.setPadding(
+dp(16),
+dp(8),
+dp(16),
+dp(8)
+);
 
+// =====================================================
+// MAIN MENU
+// =====================================================
+
+private void showMainMenu() {
+
+currentPage = "MENU";  
+
+
+// =================================================  
+// ROOT  
+// =================================================  
+
+LinearLayout menuRoot =  
+        new LinearLayout(this);  
+
+menuRoot.setOrientation(  
+        LinearLayout.VERTICAL  
+);  
+
+menuRoot.setBackgroundColor(  
+        Color.rgb(7, 24, 50)  
+);  
+
+
+// =================================================  
+// TOP BAR  
+// =================================================  
+
+LinearLayout topBar =  
+        new LinearLayout(this);  
+
+topBar.setOrientation(  
+        LinearLayout.HORIZONTAL  
+);  
+
+topBar.setGravity(  
+        Gravity.CENTER_VERTICAL  
+);  
+
+topBar.setPadding(  
+        dp(12),  
+        dp(8),  
+        dp(18),  
+        dp(8)  
+);  
+
+
+// =================================================  
+// BACK  
+// =================================================  
+
+TextView back =  
+        text(  
+                "‹",  
+                38,  
+                Color.WHITE  
+        );  
+
+back.setGravity(  
+        Gravity.CENTER  
+);  
+
+back.setOnClickListener(  
+        v -> showHome()  
+);  
+
+topBar.addView(  
+        back,  
+        new LinearLayout.LayoutParams(  
+                dp(46),  
+                dp(48)  
+        )  
+);  
+
+
+// =================================================  
+// TITLE  
+// =================================================  
+
+TextView menuTitle =  
+        text(  
+                "Menu",  
+                21,  
+                Color.WHITE  
+        );  
+
+menuTitle.setTypeface(  
+        Typeface.DEFAULT,  
+        Typeface.BOLD  
+);  
+
+menuTitle.setGravity(  
+        Gravity.CENTER_VERTICAL  
+);  
+
+topBar.addView(  
+        menuTitle,  
+        new LinearLayout.LayoutParams(  
+                0,  
+                dp(48),  
+                1  
+        )  
+);  
+
+
+menuRoot.addView(  
+        topBar  
+);  
+
+
+// =================================================  
+// TOP DIVIDER  
+// =================================================  
+
+View dividerTop =  
+        new View(this);  
+
+dividerTop.setBackgroundColor(  
+        Color.rgb(25, 48, 80)  
+);  
+
+menuRoot.addView(  
+        dividerTop,  
+        new LinearLayout.LayoutParams(  
+                -1,  
+                dp(1)  
+        )  
+);  
+
+
+// =================================================  
+// SCROLL  
+// =================================================  
+
+ScrollView scroll =  
+        new ScrollView(this);  
+
+scroll.setFillViewport(  
+        true  
+);  
+
+scroll.setVerticalScrollBarEnabled(  
+        false  
+);  
+
+
+LinearLayout content =  
+        new LinearLayout(this);  
+
+content.setOrientation(  
+        LinearLayout.VERTICAL  
+);  
+
+content.setPadding(  
+        dp(28),  
+        dp(26),  
+        dp(28),  
+        dp(30)  
+);  
+
+
+// =================================================  
+// SERVICES  
+// =================================================  
+
+TextView servicesTitle =  
+        text(  
+                "SERVICES",  
+                16,  
+                Color.rgb(190, 215, 248)  
+        );  
+
+servicesTitle.setTypeface(  
+        Typeface.DEFAULT,  
+        Typeface.BOLD  
+);  
+
+servicesTitle.setLetterSpacing(  
+        0.18f  
+);  
+
+content.addView(  
+        servicesTitle,  
+        margin(  
+                0,  
+                0,  
+                0,  
+                16  
+        )  
+);  
+
+
+// =================================================  
+// APPOINTMENTS  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_calendar,  
+        "Appointments",  
+        "Find available appointments",  
+        v -> showAppointments()  
+);  
+
+
+// =================================================  
+// ALERTS  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_bell,  
+        "Alerts",  
+        "Availability notifications",  
+        v -> showAlerts()  
+);  
+
+
+// =================================================  
+// CENTERS  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_building,  
+        "Centers",  
+        "Visa application centers",  
+        v -> showCenters()  
+);  
+
+
+// =================================================  
+// TRACKING  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_tracking,  
+        "Tracking",  
+        "Track your application",  
+        v -> showTracking()  
+);  
+
+
+// =================================================  
+// GLOBAL  
+// =================================================  
+
+TextView globalTitle =  
+        text(  
+                "GLOBAL",  
+                16,  
+                Color.rgb(190, 215, 248)  
+        );  
+
+globalTitle.setTypeface(  
+        Typeface.DEFAULT,  
+        Typeface.BOLD  
+);  
+
+globalTitle.setLetterSpacing(  
+        0.18f  
+);  
+
+content.addView(  
+        globalTitle,  
+        margin(  
+                0,  
+                24,  
+                0,  
+                16  
+        )  
+);  
+
+
+// =================================================  
+// COUNTRIES  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_globe,  
+        "Countries",  
+        "Explore visa destinations",  
+        v -> showCountries()  
+);  
+
+
+// =================================================  
+// STATISTICS  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_statistics,  
+        "Statistics",  
+        "View appointment statistics",  
+        v -> showStatistics()  
+);  
+
+
+// =================================================  
+// DIVIDER  
+// =================================================  
+
+View divider =  
+        new View(this);  
+
+divider.setBackgroundColor(  
+        Color.rgb(25, 48, 80)  
+);  
+
+content.addView(  
+        divider,  
+        margin(  
+                0,  
+                22,  
+                0,  
+                12  
+        )  
+);  
+
+
+// =================================================  
+// SETTINGS  
+// =================================================  
+
+addMenuItem(  
+        content,  
+        R.drawable.ic_settings,  
+        "Settings",  
+        "Application preferences",  
+        v -> showSettings()  
+);  
+
+
+// =================================================  
+// ADD CONTENT  
+// =================================================  
+
+scroll.addView(  
+        content,  
+        new ScrollView.LayoutParams(  
+                -1,  
+                -2  
+        )  
+);  
+
+
+menuRoot.addView(  
+        scroll,  
+        new LinearLayout.LayoutParams(  
+                -1,  
+                0,  
+                1  
+        )  
+);  
+
+
+// =================================================  
+// DISPLAY  
+// =================================================  
+
+setContentView(  
+        menuRoot  
+);  
+
+
+// =================================================  
+// SYSTEM BARS  
+// =================================================  
+
+getWindow().setStatusBarColor(  
+        Color.rgb(5, 18, 38)  
+);  
+
+getWindow().setNavigationBarColor(  
+        Color.rgb(5, 18, 38)  
+);
+
+}
 
 // =====================================================
 // MENU
 // =====================================================
 
-    ImageView menuIcon =
-            new ImageView(this);
+ImageView menuIcon =
+new ImageView(this);
 
-    menuIcon.setImageResource(
-            R.drawable.ic_menu
-    );
+menuIcon.setImageResource(
+R.drawable.ic_menu
+);
 
-    menuIcon.setPadding(
-            dp(8),
-            dp(8),
-            dp(8),
-            dp(8)
-    );
+menuIcon.setPadding(
+dp(8),
+dp(8),
+dp(8),
+dp(8)
+);
 
-    header.addView(
-            menuIcon,
-            new LinearLayout.LayoutParams(
-                    dp(42),
-                    dp(42)
-            )
-    );
-
+header.addView(
+menuIcon,
+new LinearLayout.LayoutParams(
+dp(42),
+dp(42)
+)
+);
 
 // =====================================================
 // MENU ACTION
 // =====================================================
 
-    menuIcon.setOnClickListener(
-            v -> showMainMenu()
-    );
+menuIcon.setOnClickListener(
+v -> showMainMenu()
+);
 
+// =================================================  
+        // TITLE  
+        // =================================================  
+
+        TextView title =  
+                text(  
+                        "Menu",  
+                        22,  
+                        NAVY  
+                );
 
 // =====================================================
-// APP NAME
+// TITLE
 // =====================================================
 
-    TextView appName =
-            text(
-                    "BLS Rendez-Vous",
-                    20,
-                    NAVY
-            );
+TextView appName =
+text(
+"BLS Rendez-Vous",
+20,
+NAVY
+);
 
-    appName.setTypeface(
-            Typeface.DEFAULT,
-            Typeface.BOLD
-    );
+appName.setTypeface(
+Typeface.DEFAULT,
+Typeface.BOLD
+);
 
-    appName.setGravity(
-            Gravity.CENTER_VERTICAL
-    );
+appName.setGravity(
+Gravity.CENTER_VERTICAL
+);
 
-    LinearLayout.LayoutParams titleParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    dp(42),
-                    1
-            );
+LinearLayout.LayoutParams titleParams =
+new LinearLayout.LayoutParams(
+0,
+dp(42),
+1
+);
 
-    titleParams.leftMargin =
-            dp(6);
+titleParams.leftMargin =
+dp(6);
 
-    header.addView(
-            appName,
-            titleParams
-    );
-
-
+header.addView(
+appName,
+titleParams
+);
+    
 // =====================================================
 // ADD HEADER TO ROOT
 // =====================================================
