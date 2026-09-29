@@ -362,6 +362,23 @@ header.addView(
                 dp(42)
         )
 );
+
+// =====================================================
+// NOTIFICATION AREA
+// =====================================================
+
+FrameLayout notificationContainer =
+        new FrameLayout(this);
+
+notificationContainer.setClipChildren(
+        false
+);
+
+notificationContainer.setClipToPadding(
+        false
+);
+
+
 // =====================================================
 // HEADER SPACER
 // =====================================================
@@ -378,6 +395,7 @@ header.addView(
         )
 );
 
+
 // =====================================================
 // NOTIFICATION AREA
 // =====================================================
@@ -388,21 +406,6 @@ header.addView(
                 dp(42),
                 dp(42)
         )
-);
-    
-// =====================================================
-// NOTIFICATION AREA
-// =====================================================
-
-FrameLayout notificationContainer =
-        new FrameLayout(this);
-
-notificationContainer.setClipChildren(
-        false
-);
-
-notificationContainer.setClipToPadding(
-        false
 );
 
 // =====================================================
