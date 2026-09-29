@@ -1314,24 +1314,6 @@ content.addView(
         )
 );
 
-// =====================================================
-// BUTTON LAYOUT
-// =====================================================
-
-LinearLayout.LayoutParams officialButtonP =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-officialButtonP.topMargin =
-        dp(14);
-
-offCard.addView(
-        openBtn,
-        officialButtonP
-);
-
 
    // =====================================================
         // SERVICES CONTAINER
