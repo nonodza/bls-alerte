@@ -312,16 +312,26 @@ background.setCornerRadius(0);
 setContentView(root);
    
 // =====================================================
-// ADD HEADER TO ROOT
+// HEADER
 // =====================================================
 
-    root.addView(
-            header,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(58)
-            )
-    );
+LinearLayout header =
+        new LinearLayout(this);
+
+header.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+header.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+header.setPadding(
+        dp(6),
+        dp(4),
+        dp(6),
+        dp(4)
+);
 
 
 // =====================================================
