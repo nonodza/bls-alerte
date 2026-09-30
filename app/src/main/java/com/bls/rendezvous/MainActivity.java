@@ -2148,27 +2148,139 @@ private void showMainMenu() {
 
 
     // =================================================
-    // TEMPORARY TITLE
-    // =================================================
+// DRAWER HEADER
+// =================================================
 
-    TextView title =
-            text(
-                    "☰  Menu",
-                    22,
-                    NAVY
-            );
+LinearLayout drawerHeader =
+        new LinearLayout(this);
 
-    title.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+drawerHeader.setOrientation(
+        LinearLayout.VERTICAL
+);
 
-    drawer.addView(
-            title,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(56)
-            )
-    );
+drawerHeader.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+drawerHeader.setPadding(
+        dp(16),
+        dp(14),
+        dp(16),
+        dp(14)
+);
+
+
+// =================================================
+// HEADER BACKGROUND
+// =================================================
+
+GradientDrawable headerBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{
+                        Color.rgb(22, 32, 64),
+                        Color.rgb(30, 58, 95)
+                }
+        );
+
+headerBg.setCornerRadius(
+        dp(18)
+);
+
+drawerHeader.setBackground(
+        headerBg
+);
+
+
+// =================================================
+// RV LOGO
+// =================================================
+
+TextView rvLogo =
+        text(
+                "RV",
+                20,
+                Color.WHITE
+        );
+
+rvLogo.setGravity(
+        Gravity.CENTER
+);
+
+rvLogo.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+GradientDrawable logoBg =
+        new GradientDrawable();
+
+logoBg.setColor(
+        Color.parseColor("#3B82F6")
+);
+
+logoBg.setCornerRadius(
+        dp(10)
+);
+
+rvLogo.setBackground(
+        logoBg
+);
+
+drawerHeader.addView(
+        rvLogo,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+
+// =================================================
+// TITLE
+// =================================================
+
+TextView drawerTitle =
+        text(
+                "Visa Slot Tracker",
+                16,
+                Color.WHITE
+        );
+
+drawerTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+drawerHeader.addView(
+        drawerTitle,
+        margin(0, 10, 0, 0)
+);
+
+
+// =================================================
+// SUBTITLE
+// =================================================
+
+TextView drawerSubtitle =
+        text(
+                "Smart appointment monitoring",
+                10,
+                Color.parseColor("#B8C7E6")
+        );
+
+drawerHeader.addView(
+        drawerSubtitle,
+        margin(0, 3, 0, 0)
+);
+
+
+// =================================================
+// ADD HEADER
+// =================================================
+
+drawer.addView(
+        drawerHeader,
+        margin(0, 0, 0, 18)
+);
 
 
     // =================================================
