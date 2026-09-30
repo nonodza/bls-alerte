@@ -338,8 +338,9 @@ GradientDrawable headerBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.rgb(45, 35, 105),
-                        Color.rgb(55, 75, 165)
+                        Color.rgb(38, 28, 105),
+                        Color.rgb(54, 70, 165),
+                        Color.rgb(31, 118, 190)
                 }
         );
 
