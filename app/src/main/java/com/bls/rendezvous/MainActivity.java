@@ -425,73 +425,29 @@ header.addView(
 // =====================================================
 // BELL - PREMIUM BLUE GLOW
 // =====================================================
-
-FrameLayout bellWrapper =
-        new FrameLayout(this);
-
+FrameLayout bellWrapper = new FrameLayout(this);
 
 // =====================================================
 // BELL PREMIUM BACKGROUND
 // =====================================================
-
-GradientDrawable bellBackground =
-        new GradientDrawable();
-
-bellBackground.setShape(
-        GradientDrawable.OVAL
-);
-
-bellBackground.setColor(
-        Color.parseColor("#070B2A")
-);
-
-bellBackground.setStroke(
-        dp(1),
-        Color.parseColor("#315FC7E8")
-);
-
-bellWrapper.setBackground(
-        bellBackground
-);
-
+GradientDrawable bellBackground = new GradientDrawable();
+bellBackground.setShape(GradientDrawable.OVAL);
+bellBackground.setColor(Color.parseColor("#1A0B2A4A"));
+bellBackground.setStroke(dp(1), Color.parseColor("#334FC3F7"));
+bellWrapper.setBackground(bellBackground);
 bellWrapper.setClipChildren(false);
 bellWrapper.setClipToPadding(false);
-
 
 // =====================================================
 // MAIN BELL
 // =====================================================
+ImageView bell = new ImageView(this);
+bell.setImageResource(R.drawable.ic_bell_outline_blue);
+bell.setColorFilter(Color.parseColor("#4FC3F7"), PorterDuff.Mode.SRC_IN);
+bell.setPadding(dp(8), dp(8), dp(8), dp(8));
 
-ImageView bell =
-        new ImageView(this);
-
-bell.setImageResource(
-        R.drawable.ic_bell_outline_blue
-);
-
-bell.setColorFilter(
-        Color.parseColor("#4FC3F7"),
-        PorterDuff.Mode.SRC_IN
-);
-
-bell.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
-
-FrameLayout.LayoutParams bellParams =
-        new FrameLayout.LayoutParams(
-                dp(42),
-                dp(42),
-                Gravity.CENTER
-);
-
-bellWrapper.addView(
-        bell,
-        bellParams
-);
+FrameLayout.LayoutParams bellParams = new FrameLayout.LayoutParams(dp(42), dp(42), Gravity.CENTER);
+bellWrapper.addView(bell, bellParams);
 
 
 // =====================================================
