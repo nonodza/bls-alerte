@@ -2056,6 +2056,288 @@ private void showMainMenu() {
 
     root.removeAllViews();
 
+
+    // =================================================
+    // MENU ROOT
+    // =================================================
+
+    LinearLayout menuRoot =
+            new LinearLayout(this);
+
+    menuRoot.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    menuRoot.setPadding(
+            dp(20),
+            dp(18),
+            dp(20),
+            dp(20)
+    );
+
+    menuRoot.setBackgroundColor(
+            Color.rgb(245, 247, 252)
+    );
+
+
+    // =================================================
+    // MENU TITLE
+    // =================================================
+
+    TextView menuTitle =
+            text(
+                    "☰  Menu",
+                    22,
+                    NAVY
+            );
+
+    menuTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    menuRoot.addView(
+            menuTitle,
+            margin(0, 0, 0, 18)
+    );
+
+
+    // =================================================
+    // MENU CARD
+    // =================================================
+
+    LinearLayout menuCard =
+            new LinearLayout(this);
+
+    menuCard.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    menuCard.setPadding(
+            dp(6),
+            dp(6),
+            dp(6),
+            dp(6)
+    );
+
+    GradientDrawable cardBg =
+            new GradientDrawable();
+
+    cardBg.setColor(
+            Color.WHITE
+    );
+
+    cardBg.setCornerRadius(
+            dp(18)
+    );
+
+    menuCard.setBackground(cardBg);
+
+
+    // =================================================
+    // HOME
+    // =================================================
+
+    TextView homeItem =
+            text(
+                    "⌂    Home                                      ›",
+                    16,
+                    NAVY
+            );
+
+    homeItem.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    menuCard.addView(
+            homeItem,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(56)
+            )
+    );
+
+
+    // =================================================
+    // APPOINTMENTS
+    // =================================================
+
+    TextView appointmentsItem =
+            text(
+                    "▣    Appointments                            ›",
+                    16,
+                    NAVY
+            );
+
+    appointmentsItem.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    menuCard.addView(
+            appointmentsItem,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(56)
+            )
+    );
+
+
+    // =================================================
+    // ALERTS
+    // =================================================
+
+    TextView alertsItem =
+            text(
+                    "♢    Alerts                                      ›",
+                    16,
+                    NAVY
+            );
+
+    alertsItem.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    menuCard.addView(
+            alertsItem,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(56)
+            )
+    );
+
+
+    // =================================================
+    // VISA SERVICES
+    // =================================================
+
+    TextView visaServicesItem =
+            text(
+                    "◎    Visa Services                           ›",
+                    16,
+                    NAVY
+            );
+
+    visaServicesItem.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    menuCard.addView(
+            visaServicesItem,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(56)
+            )
+    );
+
+
+    // =================================================
+    // VISA GUIDE
+    // =================================================
+
+    TextView visaGuideItem =
+            text(
+                    "▤    Visa Guide                              ›",
+                    16,
+                    NAVY
+            );
+
+    visaGuideItem.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    menuCard.addView(
+            visaGuideItem,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(56)
+            )
+    );
+
+
+    // =================================================
+    // SETTINGS
+    // =================================================
+
+    TextView settingsItem =
+            text(
+                    "⚙    Settings                                 ›",
+                    16,
+                    NAVY
+            );
+
+    settingsItem.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    menuCard.addView(
+            settingsItem,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(56)
+            )
+    );
+
+
+    // =================================================
+    // ADD MENU CARD
+    // =================================================
+
+    menuRoot.addView(
+            menuCard,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+    );
+
+
+    // =================================================
+    // ABOUT
+    // =================================================
+
+    TextView about =
+            text(
+                    "ⓘ    About",
+                    15,
+                    NAVY
+            );
+
+    about.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    menuRoot.addView(
+            about,
+            margin(8, 22, 0, 2)
+    );
+
+
+    // =================================================
+    // VERSION
+    // =================================================
+
+    menuRoot.addView(
+            text(
+                    "       Version 1.0.0",
+                    12,
+                    GRAY
+            )
+    );
+
+
+    // =================================================
+    // ADD TO ROOT
+    // =================================================
+
+    root.addView(
+            menuRoot,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1
+            )
+    );
+}
+
     // =================================================
     // BACKGROUND
     // =================================================
