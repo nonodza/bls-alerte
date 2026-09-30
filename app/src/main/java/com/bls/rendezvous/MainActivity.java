@@ -508,7 +508,7 @@ root.addView(
         header,
         new LinearLayout.LayoutParams(
                 -1,
-                -2
+                dp(52)
         )
 );
 
