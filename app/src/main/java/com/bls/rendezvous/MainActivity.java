@@ -2054,7 +2054,152 @@ private void showMainMenu() {
 
     currentPage = "MENU";
 
-}  
+    root.removeAllViews();
+
+    // =================================================
+    // BACKGROUND
+    // =================================================
+
+    LinearLayout menuRoot =
+            new LinearLayout(this);
+
+    menuRoot.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    menuRoot.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    GradientDrawable menuBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(245, 248, 255),
+                            Color.rgb(238, 244, 255),
+                            Color.rgb(247, 243, 252)
+                    }
+            );
+
+    menuRoot.setBackground(menuBg);
+
+
+    // =================================================
+    // HEADER
+    // =================================================
+
+    LinearLayout menuHeader =
+            new LinearLayout(this);
+
+    menuHeader.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    GradientDrawable headerBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{
+                            Color.rgb(7, 11, 42),
+                            Color.rgb(40, 73, 160)
+                    }
+            );
+
+    headerBg.setCornerRadius(
+            dp(20)
+    );
+
+    menuHeader.setBackground(headerBg);
+
+    menuHeader.setPadding(
+            dp(18),
+            dp(18),
+            dp(18),
+            dp(18)
+    );
+
+
+    // =================================================
+    // RV LOGO
+    // =================================================
+
+    TextView logo =
+            text(
+                    "RV",
+                    28,
+                    Color.WHITE
+            );
+
+    logo.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    menuHeader.addView(logo);
+
+
+    // =================================================
+    // TITLE
+    // =================================================
+
+    TextView menuTitle =
+            text(
+                    "Visa Slot Tracker",
+                    19,
+                    Color.WHITE
+            );
+
+    menuTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    menuHeader.addView(
+            menuTitle,
+            margin(0, 3, 0, 0)
+    );
+
+
+    // =================================================
+    // SUBTITLE
+    // =================================================
+
+    menuHeader.addView(
+            text(
+                    "Smart appointment monitoring",
+                    12,
+                    Color.rgb(205, 220, 255)
+            ),
+            margin(0, 3, 0, 0)
+    );
+
+
+    // =================================================
+    // ADD HEADER
+    // =================================================
+
+    menuRoot.addView(
+            menuHeader,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(120)
+            )
+    );
+
+
+    // =================================================
+    // ADD TO ROOT
+    // =================================================
+
+    root.addView(
+            menuRoot,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1
+            )
+    );
+}
     // =========================================================
     // APPOINTMENTS
     // =========================================================
