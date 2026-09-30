@@ -352,7 +352,10 @@ ImageView menuIcon =
 menuIcon.setImageResource(
         R.drawable.ic_menu
 );
-
+menuIcon.setColorFilter(
+        Color.WHITE,
+        android.graphics.PorterDuff.Mode.SRC_IN
+);
 menuIcon.setPadding(
         dp(8),
         dp(8),
@@ -427,7 +430,10 @@ ImageView bell =
 bell.setImageResource(
         R.drawable.ic_bell
 );
-
+bell.setColorFilter(
+        Color.WHITE,
+        android.graphics.PorterDuff.Mode.SRC_IN
+);
 bell.setPadding(
         dp(8),
         dp(8),
