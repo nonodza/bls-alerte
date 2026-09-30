@@ -2182,9 +2182,7 @@ GradientDrawable headerBg =
                 }
         );
 
-headerBg.setCornerRadius(
-        dp(18)
-);
+
 
 drawerHeader.setBackground(
         headerBg
@@ -2348,7 +2346,7 @@ headerParams.setMargins(
         0,
         0,
         0,
-        dp(18)
+        dp(10)
 );
 
 drawer.addView(
