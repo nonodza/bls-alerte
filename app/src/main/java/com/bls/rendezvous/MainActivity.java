@@ -423,45 +423,18 @@ header.addView(
 // =====================================================
 // BELL
 // =====================================================
+ImageView bell = new ImageView(this);
+bell.setImageResource(R.drawable.ic_bell_outline_blue);
+bell.setPadding(dp(8), dp(8), dp(8), dp(8));
 
-ImageView bell =
-        new ImageView(this);
+bell.setOnClickListener(v -> {
+    BottomSheetDialog bottomSheet = new BottomSheetDialog(this);
+    View sheetView = getLayoutInflater().inflate(R.layout.bottomsheet_notifications_empty, null);
+    bottomSheet.setContentView(sheetView);
+    bottomSheet.show();
+});
 
-bell.setImageResource(
-        R.drawable.ic_bell
-);
-bell.setColorFilter(
-        Color.WHITE,
-        android.graphics.PorterDuff.Mode.SRC_IN
-);
-bell.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
-
-bell.setOnClickListener(
-        v -> {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("Notifications")
-                    .setMessage("There are no notifications.")
-                    .setPositiveButton("OK", null)
-                    .show();
-
-        }
-);
-
-notificationContainer.addView(
-        bell,
-        new android.widget.FrameLayout.LayoutParams(
-                dp(42),
-                dp(42),
-                Gravity.CENTER
-        )
-);
-
+notificationContainer.addView(bell, new FrameLayout.LayoutParams(dp(42), dp(42), Gravity.CENTER));
 // =====================================================
 // NOTIFICATION DOT
 // =====================================================
