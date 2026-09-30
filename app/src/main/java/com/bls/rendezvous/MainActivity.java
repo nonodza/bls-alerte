@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -446,29 +447,51 @@ bellWrapper.addView(bell, bellParams);
 
 
 // =====================================================
-// CLICK
+// CLICK - NOTIFICATIONS POPUP
 // =====================================================
 
 bellWrapper.setOnClickListener(
         v -> {
 
-            BottomSheetDialog bottomSheet =
-                    new BottomSheetDialog(this);
-
-            View sheetView =
+            View popupView =
                     getLayoutInflater().inflate(
                             R.layout.bottomsheet_notifications_empty,
                             null
                     );
 
-            bottomSheet.setContentView(
-                    sheetView
+            PopupWindow notificationPopup =
+                    new PopupWindow(
+                            popupView,
+                            dp(310),
+                            dp(170),
+                            true
+                    );
+
+            notificationPopup.setBackgroundDrawable(
+                    new android.graphics.drawable.ColorDrawable(
+                            Color.TRANSPARENT
+                    )
             );
 
-            bottomSheet.show();
+            notificationPopup.setOutsideTouchable(true);
+            notificationPopup.setFocusable(true);
+            notificationPopup.setElevation(dp(12));
 
 
-            // Small premium click animation
+            // =================================================
+            // SHOW POPUP UNDER BELL
+            // =================================================
+
+            notificationPopup.showAsDropDown(
+                    bellWrapper,
+                    -dp(265),
+                    dp(8)
+            );
+
+
+            // =================================================
+            // BELL CLICK ANIMATION
+            // =================================================
 
             bell.animate()
                     .scaleX(0.90f)
@@ -484,7 +507,6 @@ bellWrapper.setOnClickListener(
                     .start();
         }
 );
-
 
 // =====================================================
 // ADD TO HEADER
