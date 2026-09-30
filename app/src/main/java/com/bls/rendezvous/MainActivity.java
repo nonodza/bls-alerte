@@ -334,14 +334,9 @@ header.setPadding(
         dp(6),
         dp(4)
 );
-GradientDrawable headerBg = new GradientDrawable(
-    GradientDrawable.Orientation.LEFT_RIGHT,
-    new int[]{
-        Color.rgb(11, 14, 42),
-        Color.rgb(26, 35, 126),
-        Color.rgb(0, 176, 255)
-    }
-);
+GradientDrawable headerBg = new GradientDrawable();
+headerBg.setShape(GradientDrawable.RECTANGLE);
+headerBg.setColor(Color.parseColor("#162040"));
 headerBg.setCornerRadius(0f);
 header.setBackground(headerBg);
 // =====================================================
