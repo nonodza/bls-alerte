@@ -2192,47 +2192,109 @@ drawerHeader.setBackground(
 
 
 // =================================================
-// RV LOGO
+// RV PREMIUM LOGO
 // =================================================
 
-TextView rvLogo =
+FrameLayout rvLogoBox =
+        new FrameLayout(this);
+
+GradientDrawable rvLogoBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(59, 130, 246),
+                        Color.rgb(88, 72, 190)
+                }
+        );
+
+rvLogoBg.setCornerRadius(
+        dp(13)
+);
+
+rvLogoBox.setBackground(
+        rvLogoBg
+);
+
+// =================================================
+// RV TEXT
+// =================================================
+
+TextView rvLogoText =
         text(
                 "RV",
-                20,
+                19,
                 Color.WHITE
         );
 
-rvLogo.setGravity(
+rvLogoText.setGravity(
         Gravity.CENTER
 );
 
-rvLogo.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-GradientDrawable logoBg =
-        new GradientDrawable();
-
-logoBg.setColor(
-        Color.parseColor("#3B82F6")
-);
-
-logoBg.setCornerRadius(
-        dp(10)
-);
-
-rvLogo.setBackground(
-        logoBg
-);
-
-drawerHeader.addView(
-        rvLogo,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
+rvLogoText.setTypeface(
+        Typeface.create(
+                Typeface.DEFAULT,
+                Typeface.BOLD
         )
 );
 
+rvLogoBox.addView(
+        rvLogoText,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+// =================================================
+// SMALL ACCENT
+// =================================================
+
+View rvAccent =
+        new View(this);
+
+GradientDrawable accentBg =
+        new GradientDrawable();
+
+accentBg.setColor(
+        Color.parseColor("#8BB8FF")
+);
+
+accentBg.setCornerRadius(
+        dp(2)
+);
+
+FrameLayout.LayoutParams accentParams =
+        new FrameLayout.LayoutParams(
+                dp(14),
+                dp(3)
+        );
+
+accentParams.gravity =
+        Gravity.BOTTOM | Gravity.END;
+
+accentParams.setMargins(
+        0,
+        0,
+        dp(7),
+        dp(6)
+);
+
+rvLogoBox.addView(
+        rvAccent,
+        accentParams
+);
+
+// =================================================
+// ADD LOGO
+// =================================================
+
+drawerHeader.addView(
+        rvLogoBox,
+        new LinearLayout.LayoutParams(
+                dp(48),
+                dp(48)
+        )
+);
 
 // =================================================
 // TITLE
