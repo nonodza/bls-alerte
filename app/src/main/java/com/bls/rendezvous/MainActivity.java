@@ -332,7 +332,16 @@ header.setPadding(
         dp(6),
         dp(4)
 );
+GradientDrawable headerBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{
+                        Color.rgb(45, 35, 105),
+                        Color.rgb(55, 75, 165)
+                }
+        );
 
+header.setBackground(headerBg);
 // =====================================================
 // MENU
 // =====================================================
