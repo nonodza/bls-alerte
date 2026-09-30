@@ -2277,9 +2277,22 @@ drawerHeader.addView(
 // ADD HEADER
 // =================================================
 
+LinearLayout.LayoutParams headerParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(118)
+        );
+
+headerParams.setMargins(
+        0,
+        0,
+        0,
+        dp(18)
+);
+
 drawer.addView(
         drawerHeader,
-        margin(0, 0, 0, 18)
+        headerParams
 );
 
 
