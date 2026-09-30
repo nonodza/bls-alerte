@@ -429,50 +429,33 @@ header.addView(
 FrameLayout bellWrapper =
         new FrameLayout(this);
 
-bellWrapper.setClipChildren(false);
-bellWrapper.setClipToPadding(false);
-
 
 // =====================================================
-// BELL GLOW - SOFT LIGHT
+// BELL PREMIUM BACKGROUND
 // =====================================================
 
-View bellGlow =
-        new View(this);
-
-GradientDrawable glowBackground =
+GradientDrawable bellBackground =
         new GradientDrawable();
 
-glowBackground.setShape(
+bellBackground.setShape(
         GradientDrawable.OVAL
 );
 
-glowBackground.setColor(
-        Color.parseColor("#184FC3F7")
+bellBackground.setColor(
+        Color.parseColor("#070B2A")
 );
 
-glowBackground.setStroke(
+bellBackground.setStroke(
         dp(1),
-        Color.parseColor("#3A4FC3F7")
+        Color.parseColor("#315FC7E8")
 );
 
-bellGlow.setBackground(
-        glowBackground
+bellWrapper.setBackground(
+        bellBackground
 );
 
-bellGlow.setAlpha(0.75f);
-
-FrameLayout.LayoutParams glowParams =
-        new FrameLayout.LayoutParams(
-                dp(38),
-                dp(38),
-                Gravity.CENTER
-        );
-
-bellWrapper.addView(
-        bellGlow,
-        glowParams
-);
+bellWrapper.setClipChildren(false);
+bellWrapper.setClipToPadding(false);
 
 
 // =====================================================
