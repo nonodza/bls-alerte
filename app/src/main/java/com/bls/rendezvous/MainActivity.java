@@ -2117,7 +2117,7 @@ private void showMainMenu() {
                     .widthPixels;
 
     final int drawerWidth =
-            (int) (screenWidth * 0.80f);
+        (int) (screenWidth * 0.48f);
 
 
     final LinearLayout drawer =
