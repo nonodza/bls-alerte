@@ -350,8 +350,8 @@ menuIcon.setImageResource(
         R.drawable.ic_menu
 );
 menuIcon.setColorFilter(
-        Color.WHITE,
-        android.graphics.PorterDuff.Mode.SRC_IN
+        Color.parseColor("#4FC3F7"),
+        PorterDuff.Mode.SRC_IN
 );
 menuIcon.setPadding(
         dp(8),
