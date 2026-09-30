@@ -15,6 +15,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.PopupWindow;
@@ -2046,115 +2048,237 @@ item.addView(
 
     return item;
 }
-  // =====================================================
-// MAIN MENU
+// =====================================================
+// MAIN MENU - NAVIGATION DRAWER
 // =====================================================
 
 private void showMainMenu() {
 
-    currentPage = "MENU";
+    // =================================================
+    // PREVENT DUPLICATE DRAWER
+    // =================================================
 
-    root.removeAllViews();
+    View existingDrawer =
+            getWindow()
+                    .getDecorView()
+                    .findViewWithTag("MAIN_DRAWER");
+
+    if (existingDrawer != null) {
+        return;
+    }
 
 
     // =================================================
-    // MENU ROOT
+    // FULL SCREEN OVERLAY
     // =================================================
 
-    LinearLayout menuRoot =
+    final FrameLayout drawerOverlay =
+            new FrameLayout(this);
+
+    drawerOverlay.setTag(
+            "MAIN_DRAWER"
+    );
+
+    drawerOverlay.setBackgroundColor(
+            Color.TRANSPARENT
+    );
+
+
+    // =================================================
+    // DARK SCRIM
+    // =================================================
+
+    final View scrim =
+            new View(this);
+
+    scrim.setBackgroundColor(
+            Color.parseColor("#66000000")
+    );
+
+    scrim.setAlpha(0f);
+
+
+    drawerOverlay.addView(
+            scrim,
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
+            )
+    );
+
+
+    // =================================================
+    // DRAWER
+    // =================================================
+
+    final int screenWidth =
+            getResources()
+                    .getDisplayMetrics()
+                    .widthPixels;
+
+    final int drawerWidth =
+            (int) (screenWidth * 0.80f);
+
+
+    final LinearLayout drawer =
             new LinearLayout(this);
 
-    menuRoot.setOrientation(
+    drawer.setOrientation(
             LinearLayout.VERTICAL
     );
 
-    menuRoot.setPadding(
+    drawer.setPadding(
             dp(20),
-            dp(18),
+            dp(24),
             dp(20),
             dp(20)
     );
 
-    menuRoot.setBackgroundColor(
-            Color.rgb(245, 247, 252)
+    drawer.setBackgroundColor(
+            Color.rgb(
+                    245,
+                    247,
+                    252
+            )
+    );
+
+    drawer.setElevation(
+            dp(16)
     );
 
 
     // =================================================
-    // MENU TITLE
+    // TEMPORARY TITLE
     // =================================================
 
-    TextView menuTitle =
+    TextView title =
             text(
                     "☰  Menu",
                     22,
                     NAVY
             );
 
-    menuTitle.setTypeface(
+    title.setTypeface(
             Typeface.DEFAULT_BOLD
     );
 
-    menuRoot.addView(
-            menuTitle,
-            margin(0, 0, 0, 18)
-    );
-
-
-    // =================================================
-    // MENU CARD
-    // =================================================
-
-    LinearLayout menuCard =
-            new LinearLayout(this);
-
-    menuCard.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    menuCard.setPadding(
-            dp(6),
-            dp(6),
-            dp(6),
-            dp(6)
-    );
-
-    GradientDrawable cardBg =
-            new GradientDrawable();
-
-    cardBg.setColor(
-            Color.WHITE
-    );
-
-    cardBg.setCornerRadius(
-            dp(18)
-    );
-
-    menuCard.setBackground(cardBg);
-
-
-    // =================================================
-    // HOME
-    // =================================================
-
-    TextView homeItem =
-            text(
-                    "⌂    Home                                      ›",
-                    16,
-                    NAVY
-            );
-
-    homeItem.setGravity(
-            Gravity.CENTER_VERTICAL
-    );
-
-    menuCard.addView(
-            homeItem,
+    drawer.addView(
+            title,
             new LinearLayout.LayoutParams(
                     -1,
                     dp(56)
             )
     );
+
+
+    // =================================================
+    // ADD DRAWER
+    // =================================================
+
+    FrameLayout.LayoutParams drawerParams =
+            new FrameLayout.LayoutParams(
+                    drawerWidth,
+                    -1
+            );
+
+    drawerParams.gravity =
+            Gravity.START;
+
+
+    drawerOverlay.addView(
+            drawer,
+            drawerParams
+    );
+
+
+    // =================================================
+    // ADD OVERLAY ABOVE CURRENT SCREEN
+    // =================================================
+
+    addContentView(
+            drawerOverlay,
+            new ViewGroup.LayoutParams(
+                    -1,
+                    -1
+            )
+    );
+
+
+    // =================================================
+    // START POSITION
+    // =================================================
+
+    drawer.setTranslationX(
+            -drawerWidth
+    );
+
+
+    // =================================================
+    // OPEN ANIMATION
+    // =================================================
+
+    drawer.animate()
+            .translationX(0)
+            .setDuration(280)
+            .setInterpolator(
+                    new android.view.animation.DecelerateInterpolator()
+            )
+            .start();
+
+    scrim.animate()
+            .alpha(1f)
+            .setDuration(240)
+            .start();
+
+
+    // =================================================
+    // CLOSE DRAWER
+    // =================================================
+
+    final Runnable closeDrawer =
+            () -> {
+
+                drawer.animate()
+                        .translationX(
+                                -drawerWidth
+                        )
+                        .setDuration(220)
+                        .setInterpolator(
+                                new android.view.animation.DecelerateInterpolator()
+                        )
+                        .withEndAction(
+                                () -> {
+
+                                    ViewParent parent =
+                                            drawerOverlay.getParent();
+
+                                    if (parent instanceof ViewGroup) {
+
+                                        ((ViewGroup) parent)
+                                                .removeView(
+                                                        drawerOverlay
+                                                );
+                                    }
+                                }
+                        )
+                        .start();
+
+
+                scrim.animate()
+                        .alpha(0f)
+                        .setDuration(180)
+                        .start();
+            };
+
+
+    // =================================================
+    // CLOSE WHEN CLICKING OUTSIDE
+    // =================================================
+
+    scrim.setOnClickListener(
+            v -> closeDrawer.run()
+    );
+}  
 
 
     // =================================================
