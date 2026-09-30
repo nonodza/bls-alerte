@@ -421,20 +421,139 @@ header.addView(
 );
 
 // =====================================================
-// BELL
+// BELL - PREMIUM BLUE GLOW
 // =====================================================
-ImageView bell = new ImageView(this);
-bell.setImageResource(R.drawable.ic_bell_outline_blue);
-bell.setPadding(dp(8), dp(8), dp(8), dp(8));
 
-bell.setOnClickListener(v -> {
-    BottomSheetDialog bottomSheet = new BottomSheetDialog(this);
-    View sheetView = getLayoutInflater().inflate(R.layout.bottomsheet_notifications_empty, null);
-    bottomSheet.setContentView(sheetView);
-    bottomSheet.show();
-});
+FrameLayout bellWrapper =
+        new FrameLayout(this);
 
-notificationContainer.addView(bell, new FrameLayout.LayoutParams(dp(42), dp(42), Gravity.CENTER));
+bellWrapper.setClipChildren(false);
+bellWrapper.setClipToPadding(false);
+
+
+// =====================================================
+// BELL GLOW
+// =====================================================
+
+ImageView bellGlow =
+        new ImageView(this);
+
+bellGlow.setImageResource(
+        R.drawable.ic_bell_outline_blue
+);
+
+bellGlow.setColorFilter(
+        Color.parseColor("#00E5FF"),
+        PorterDuff.Mode.SRC_IN
+);
+
+bellGlow.setAlpha(0.45f);
+
+bellGlow.setScaleX(1.45f);
+bellGlow.setScaleY(1.45f);
+
+FrameLayout.LayoutParams glowParams =
+        new FrameLayout.LayoutParams(
+                dp(42),
+                dp(42),
+                Gravity.CENTER
+        );
+
+bellWrapper.addView(
+        bellGlow,
+        glowParams
+);
+
+
+// =====================================================
+// MAIN BELL
+// =====================================================
+
+ImageView bell =
+        new ImageView(this);
+
+bell.setImageResource(
+        R.drawable.ic_bell_outline_blue
+);
+
+bell.setColorFilter(
+        Color.parseColor("#4FC3F7"),
+        PorterDuff.Mode.SRC_IN
+);
+
+bell.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
+);
+
+FrameLayout.LayoutParams bellParams =
+        new FrameLayout.LayoutParams(
+                dp(42),
+                dp(42),
+                Gravity.CENTER
+);
+
+bellWrapper.addView(
+        bell,
+        bellParams
+);
+
+
+// =====================================================
+// CLICK
+// =====================================================
+
+bellWrapper.setOnClickListener(
+        v -> {
+
+            BottomSheetDialog bottomSheet =
+                    new BottomSheetDialog(this);
+
+            View sheetView =
+                    getLayoutInflater().inflate(
+                            R.layout.bottomsheet_notifications_empty,
+                            null
+                    );
+
+            bottomSheet.setContentView(
+                    sheetView
+            );
+
+            bottomSheet.show();
+
+
+            // Small premium click animation
+
+            bell.animate()
+                    .scaleX(0.90f)
+                    .scaleY(0.90f)
+                    .setDuration(100)
+                    .withEndAction(() ->
+                            bell.animate()
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(120)
+                                    .start()
+                    )
+                    .start();
+        }
+);
+
+
+// =====================================================
+// ADD TO HEADER
+// =====================================================
+
+notificationContainer.addView(
+        bellWrapper,
+        new FrameLayout.LayoutParams(
+                dp(42),
+                dp(42),
+                Gravity.CENTER
+        )
+);
 // =====================================================
 // NOTIFICATION DOT
 // =====================================================
