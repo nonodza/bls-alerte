@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Build;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
