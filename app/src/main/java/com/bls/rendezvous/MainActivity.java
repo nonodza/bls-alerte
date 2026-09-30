@@ -2117,8 +2117,7 @@ private void showMainMenu() {
                     .widthPixels;
 
     final int drawerWidth =
-        (int) (screenWidth * 0.48f);
-
+        (int) (screenWidth * 0.70f);
 
     final LinearLayout drawer =
             new LinearLayout(this);
@@ -2280,7 +2279,7 @@ drawerHeader.addView(
 LinearLayout.LayoutParams headerParams =
         new LinearLayout.LayoutParams(
                 -1,
-                dp(118)
+                dp(150)
         );
 
 headerParams.setMargins(
