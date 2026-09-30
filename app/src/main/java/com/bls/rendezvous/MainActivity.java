@@ -434,30 +434,38 @@ bellWrapper.setClipToPadding(false);
 
 
 // =====================================================
-// BELL GLOW
+// BELL GLOW - SOFT LIGHT
 // =====================================================
 
-ImageView bellGlow =
-        new ImageView(this);
+View bellGlow =
+        new View(this);
 
-bellGlow.setImageResource(
-        R.drawable.ic_bell_outline_blue
+GradientDrawable glowBackground =
+        new GradientDrawable();
+
+glowBackground.setShape(
+        GradientDrawable.OVAL
 );
 
-bellGlow.setColorFilter(
-        Color.parseColor("#00E5FF"),
-        PorterDuff.Mode.SRC_IN
+glowBackground.setColor(
+        Color.parseColor("#184FC3F7")
 );
 
-bellGlow.setAlpha(0.45f);
+glowBackground.setStroke(
+        dp(1),
+        Color.parseColor("#3A4FC3F7")
+);
 
-bellGlow.setScaleX(1.45f);
-bellGlow.setScaleY(1.45f);
+bellGlow.setBackground(
+        glowBackground
+);
+
+bellGlow.setAlpha(0.75f);
 
 FrameLayout.LayoutParams glowParams =
         new FrameLayout.LayoutParams(
-                dp(42),
-                dp(42),
+                dp(38),
+                dp(38),
                 Gravity.CENTER
         );
 
