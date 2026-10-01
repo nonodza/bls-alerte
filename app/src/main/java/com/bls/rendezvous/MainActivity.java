@@ -3251,6 +3251,205 @@ drawer.addView(
         applicationsItem,
         applicationsParams
 );
+// =====================================================
+// ALERTS
+// =====================================================
+
+LinearLayout alertsItem =
+        new LinearLayout(this);
+
+alertsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+alertsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+alertsItem.setPadding(
+        dp(12),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ALERTS PREMIUM BACKGROUND
+// =====================================================
+
+GradientDrawable alertsBg =
+        new GradientDrawable();
+
+alertsBg.setColor(
+        Color.parseColor("#FFF7E8")
+);
+
+alertsBg.setCornerRadius(
+        dp(16)
+);
+
+alertsBg.setStroke(
+        dp(1),
+        Color.parseColor("#FFE6B8")
+);
+
+alertsItem.setBackground(
+        alertsBg
+);
+
+// =====================================================
+// ALERTS ICON BOX
+// =====================================================
+
+FrameLayout alertsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable alertsIconBg =
+        new GradientDrawable();
+
+alertsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+alertsIconBg.setColor(
+        Color.parseColor("#FFE8B5")
+);
+
+alertsIconBox.setBackground(
+        alertsIconBg
+);
+
+// =====================================================
+// ALERTS ICON
+// =====================================================
+
+ImageView alertsIcon =
+        new ImageView(this);
+
+alertsIcon.setImageResource(
+        R.drawable.ic_alerts_premium
+);
+
+alertsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+alertsIconBox.addView(
+        alertsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+alertsItem.addView(
+        alertsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// ALERTS TEXT
+// =====================================================
+
+TextView alertsText =
+        text(
+                "Alerts",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+alertsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+alertsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+alertsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams alertsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+alertsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+alertsItem.addView(
+        alertsText,
+        alertsTextParams
+);
+
+// =====================================================
+// ALERTS ARROW
+// =====================================================
+
+TextView alertsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#D97706")
+        );
+
+alertsArrow.setGravity(
+        Gravity.CENTER
+);
+
+alertsArrow.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.NORMAL
+        )
+);
+
+alertsItem.addView(
+        alertsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// ALERTS MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams alertsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(62)
+        );
+
+alertsParams.setMargins(
+        dp(16),
+        dp(2),
+        dp(16),
+        dp(6)
+);
+
+// =====================================================
+// ADD ALERTS
+// =====================================================
+
+drawer.addView(
+        alertsItem,
+        alertsParams
+);
 
     // =================================================
     // ADD DRAWER
