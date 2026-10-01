@@ -2195,28 +2195,34 @@ drawerHeader.setBackground(
 );
 
 // =================================================
-// RV PREMIUM LOGO
+// RV ORBIT PREMIUM LOGO
 // =================================================
 
 FrameLayout rvLogoBox =
         new FrameLayout(this);
 
+
+// =================================================
+// LOGO BACKGROUND
+// =================================================
+
 GradientDrawable rvLogoBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.rgb(59, 130, 246),
-                        Color.rgb(88, 72, 190)
+                        Color.rgb(42, 115, 230),
+                        Color.rgb(72, 70, 190)
                 }
         );
 
-rvLogoBg.setCornerRadius(
-        dp(13)
+rvLogoBg.setShape(
+        GradientDrawable.OVAL
 );
 
 rvLogoBox.setBackground(
         rvLogoBg
 );
+
 
 // =================================================
 // RV TEXT
@@ -2225,7 +2231,7 @@ rvLogoBox.setBackground(
 TextView rvLogoText =
         text(
                 "RV",
-                19,
+                18,
                 Color.WHITE
         );
 
@@ -2240,12 +2246,123 @@ rvLogoText.setTypeface(
         )
 );
 
+
+// =================================================
+// RV LETTER SPACING
+// =================================================
+
+rvLogoText.setLetterSpacing(
+        0.08f
+);
+
+
 rvLogoBox.addView(
         rvLogoText,
         new FrameLayout.LayoutParams(
                 -1,
                 -1
         )
+);
+
+
+// =================================================
+// ORBIT RING
+// =================================================
+
+View orbitRing =
+        new View(this);
+
+GradientDrawable orbitBg =
+        new GradientDrawable();
+
+orbitBg.setShape(
+        GradientDrawable.OVAL
+);
+
+orbitBg.setColor(
+        Color.TRANSPARENT
+);
+
+orbitBg.setStroke(
+        dp(1),
+        Color.argb(
+                150,
+                210,
+                230,
+                255
+        )
+);
+
+orbitRing.setBackground(
+        orbitBg
+);
+
+
+FrameLayout.LayoutParams orbitParams =
+        new FrameLayout.LayoutParams(
+                dp(39),
+                dp(18)
+        );
+
+orbitParams.gravity =
+        Gravity.CENTER;
+
+orbitRing.setRotation(
+        -25f
+);
+
+rvLogoBox.addView(
+        orbitRing,
+        orbitParams
+);
+
+
+// =================================================
+// ORBIT LIGHT
+// =================================================
+
+View orbitLight =
+        new View(this);
+
+GradientDrawable lightBg =
+        new GradientDrawable();
+
+lightBg.setShape(
+        GradientDrawable.OVAL
+);
+
+lightBg.setColor(
+        Color.rgb(
+                180,
+                225,
+                255
+        )
+);
+
+orbitLight.setBackground(
+        lightBg
+);
+
+
+FrameLayout.LayoutParams lightParams =
+        new FrameLayout.LayoutParams(
+                dp(5),
+                dp(5)
+        );
+
+lightParams.gravity =
+        Gravity.TOP | Gravity.END;
+
+lightParams.setMargins(
+        0,
+        dp(9),
+        dp(6),
+        0
+);
+
+rvLogoBox.addView(
+        orbitLight,
+        lightParams
 );
 
 // =================================================
