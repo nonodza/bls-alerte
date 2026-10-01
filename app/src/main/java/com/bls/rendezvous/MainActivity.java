@@ -2154,7 +2154,7 @@ LinearLayout drawerHeader =
         new LinearLayout(this);
 
 drawerHeader.setOrientation(
-        LinearLayout.VERTICAL
+        LinearLayout.HORIZONTAL
 );
 
 drawerHeader.setGravity(
@@ -2170,24 +2170,22 @@ drawerHeader.setPadding(
 
 
 // =================================================
-// HEADER BACKGROUND
+// PREMIUM SPACE HEADER
 // =================================================
 
 GradientDrawable headerBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
+                GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.rgb(22, 32, 64),
-                        Color.rgb(30, 58, 95)
+                        Color.rgb(5, 12, 32),
+                        Color.rgb(12, 35, 70),
+                        Color.rgb(20, 48, 88)
                 }
         );
-
-
 
 drawerHeader.setBackground(
         headerBg
 );
-
 
 // =================================================
 // RV PREMIUM LOGO
@@ -2295,6 +2293,28 @@ drawerHeader.addView(
 );
 
 // =================================================
+// HEADER TEXT
+// =================================================
+
+LinearLayout headerText =
+        new LinearLayout(this);
+
+headerText.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+headerText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+headerText.setPadding(
+        dp(12),
+        0,
+        0,
+        0
+);
+
+// =================================================
 // TITLE
 // =================================================
 
@@ -2306,14 +2326,18 @@ TextView drawerTitle =
         );
 
 drawerTitle.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
+        Typeface.create(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        ));
 
-drawerHeader.addView(
+headerText.addView(
         drawerTitle,
-        margin(0, 10, 0, 0)
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(24)
+        )
 );
-
 
 // =================================================
 // SUBTITLE
@@ -2326,9 +2350,28 @@ TextView drawerSubtitle =
                 Color.parseColor("#B8C7E6")
         );
 
-drawerHeader.addView(
+headerText.addView(
         drawerSubtitle,
-        margin(0, 3, 0, 0)
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(20)
+        )
+);
+
+// =================================================
+// ADD HEADER TEXT
+// =================================================
+
+LinearLayout.LayoutParams textParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+drawerHeader.addView(
+        headerText,
+        textParams
 );
 
 
