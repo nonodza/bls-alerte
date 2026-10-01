@@ -2439,21 +2439,29 @@ headerText.setPadding(
 );
 
 // =================================================
-// TITLE
+// PREMIUM TITLE
 // =================================================
 
 TextView drawerTitle =
         text(
                 "Visa Slot Tracker",
-                16,
+                17,
                 Color.WHITE
         );
 
 drawerTitle.setTypeface(
         Typeface.create(
-                Typeface.DEFAULT,
+                "sans-serif",
                 Typeface.BOLD
         ));
+
+drawerTitle.setLetterSpacing(
+        0.025f
+);
+
+drawerTitle.setGravity(
+        Gravity.CENTER_VERTICAL
+);
 
 headerText.addView(
         drawerTitle,
