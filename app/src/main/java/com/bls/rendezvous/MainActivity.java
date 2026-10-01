@@ -2203,20 +2203,33 @@ FrameLayout rvLogoBox =
 
 
 // =================================================
-// LOGO BACKGROUND
+// PREMIUM GLASS LOGO BACKGROUND
 // =================================================
 
 GradientDrawable rvLogoBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(42, 115, 230),
-                        Color.rgb(72, 70, 190)
-                }
-        );
+        new GradientDrawable();
 
 rvLogoBg.setShape(
         GradientDrawable.OVAL
+);
+
+rvLogoBg.setColor(
+        Color.argb(
+                55,
+                90,
+                150,
+                230
+        )
+);
+
+rvLogoBg.setStroke(
+        dp(1),
+        Color.argb(
+                120,
+                150,
+                205,
+                255
+        )
 );
 
 rvLogoBox.setBackground(
@@ -2445,7 +2458,7 @@ headerText.setPadding(
 TextView drawerTitle =
         text(
                 "Visa Slot Tracker",
-                17,
+                18,
                 Color.WHITE
         );
 
@@ -2453,10 +2466,23 @@ drawerTitle.setTypeface(
         Typeface.create(
                 "sans-serif",
                 Typeface.BOLD
-        ));
+        )
+);
 
 drawerTitle.setLetterSpacing(
-        0.025f
+        0.045f
+);
+
+drawerTitle.setShadowLayer(
+        dp(5),
+        0,
+        dp(2),
+        Color.argb(
+                120,
+                0,
+                0,
+                0
+        )
 );
 
 drawerTitle.setGravity(
@@ -2467,7 +2493,7 @@ headerText.addView(
         drawerTitle,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(24)
+                dp(27)
         )
 );
 
