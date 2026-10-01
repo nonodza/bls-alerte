@@ -2339,7 +2339,7 @@ drawerHeader.addView(
 LinearLayout.LayoutParams headerParams =
         new LinearLayout.LayoutParams(
                 -1,
-                dp(150)
+                dp(120)
         );
 
 headerParams.setMargins(
