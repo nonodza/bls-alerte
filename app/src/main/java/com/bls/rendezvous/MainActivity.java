@@ -2127,11 +2127,11 @@ private void showMainMenu() {
     );
 
     drawer.setPadding(
-            dp(20),
-            dp(24),
-            dp(20),
-            dp(20)
-    );
+        0,
+        0,
+        0,
+        dp(20)
+);
 
     drawer.setBackgroundColor(
             Color.rgb(
