@@ -2301,18 +2301,18 @@ rvLogoBox.addView(
 View orbitRing =
         new View(this);
 
-GradientDrawable orbitBg =
+GradientDrawable orbitRingBg =
         new GradientDrawable();
 
-orbitBg.setShape(
+orbitRingBg.setShape(
         GradientDrawable.OVAL
 );
 
-orbitBg.setColor(
+orbitRingBg.setColor(
         Color.TRANSPARENT
 );
 
-orbitBg.setStroke(
+orbitRingBg.setStroke(
         dp(1),
         Color.argb(
                 105,
@@ -2323,7 +2323,7 @@ orbitBg.setStroke(
 );
 
 orbitRing.setBackground(
-        orbitBg
+        orbitRingBg
 );
 
 
@@ -2331,13 +2331,13 @@ orbitRing.setBackground(
 // ORBIT SIZE
 // =================================================
 
-FrameLayout.LayoutParams orbitParams =
+FrameLayout.LayoutParams orbitRingParams =
         new FrameLayout.LayoutParams(
                 dp(42),
                 dp(19)
         );
 
-orbitParams.gravity =
+orbitRingParams.gravity =
         Gravity.CENTER;
 
 orbitRing.setRotation(
@@ -2346,7 +2346,7 @@ orbitRing.setRotation(
 
 rvLogoBox.addView(
         orbitRing,
-        orbitParams
+        orbitRingParams
 );
 
 
@@ -2357,18 +2357,18 @@ rvLogoBox.addView(
 View orbitAccent =
         new View(this);
 
-GradientDrawable accentBg =
+GradientDrawable orbitAccentBg =
         new GradientDrawable();
 
-accentBg.setShape(
+orbitAccentBg.setShape(
         GradientDrawable.OVAL
 );
 
-accentBg.setColor(
+orbitAccentBg.setColor(
         Color.TRANSPARENT
 );
 
-accentBg.setStroke(
+orbitAccentBg.setStroke(
         dp(1),
         Color.argb(
                 55,
@@ -2379,17 +2379,17 @@ accentBg.setStroke(
 );
 
 orbitAccent.setBackground(
-        accentBg
+        orbitAccentBg
 );
 
 
-FrameLayout.LayoutParams accentParams =
+FrameLayout.LayoutParams orbitAccentParams =
         new FrameLayout.LayoutParams(
                 dp(35),
                 dp(14)
         );
 
-accentParams.gravity =
+orbitAccentParams.gravity =
         Gravity.CENTER;
 
 orbitAccent.setRotation(
@@ -2398,7 +2398,7 @@ orbitAccent.setRotation(
 
 rvLogoBox.addView(
         orbitAccent,
-        accentParams
+        orbitAccentParams
 );
 
 
@@ -2409,14 +2409,14 @@ rvLogoBox.addView(
 View orbitLight =
         new View(this);
 
-GradientDrawable lightBg =
+GradientDrawable orbitLightBg =
         new GradientDrawable();
 
-lightBg.setShape(
+orbitLightBg.setShape(
         GradientDrawable.OVAL
 );
 
-lightBg.setColor(
+orbitLightBg.setColor(
         Color.rgb(
                 210,
                 240,
@@ -2424,7 +2424,7 @@ lightBg.setColor(
         )
 );
 
-lightBg.setStroke(
+orbitLightBg.setStroke(
         dp(1),
         Color.argb(
                 170,
@@ -2435,7 +2435,7 @@ lightBg.setStroke(
 );
 
 orbitLight.setBackground(
-        lightBg
+        orbitLightBg
 );
 
 
@@ -2443,16 +2443,16 @@ orbitLight.setBackground(
 // LIGHT POSITION
 // =================================================
 
-FrameLayout.LayoutParams lightParams =
+FrameLayout.LayoutParams orbitLightParams =
         new FrameLayout.LayoutParams(
                 dp(5),
                 dp(5)
         );
 
-lightParams.gravity =
+orbitLightParams.gravity =
         Gravity.TOP | Gravity.END;
 
-lightParams.setMargins(
+orbitLightParams.setMargins(
         0,
         dp(7),
         dp(4),
@@ -2461,8 +2461,9 @@ lightParams.setMargins(
 
 rvLogoBox.addView(
         orbitLight,
-        lightParams
+        orbitLightParams
 );
+
 
 // =================================================
 // SMALL ACCENT
