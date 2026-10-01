@@ -2295,7 +2295,7 @@ rvLogoBox.addView(
 
 
 // =================================================
-// ORBIT RING
+// PREMIUM ORBIT RING
 // =================================================
 
 View orbitRing =
@@ -2315,9 +2315,9 @@ orbitBg.setColor(
 orbitBg.setStroke(
         dp(1),
         Color.argb(
-                150,
-                210,
-                230,
+                105,
+                190,
+                225,
                 255
         )
 );
@@ -2327,22 +2327,78 @@ orbitRing.setBackground(
 );
 
 
+// =================================================
+// ORBIT SIZE
+// =================================================
+
 FrameLayout.LayoutParams orbitParams =
         new FrameLayout.LayoutParams(
-                dp(39),
-                dp(18)
+                dp(42),
+                dp(19)
         );
 
 orbitParams.gravity =
         Gravity.CENTER;
 
 orbitRing.setRotation(
-        -25f
+        -28f
 );
 
 rvLogoBox.addView(
         orbitRing,
         orbitParams
+);
+
+
+// =================================================
+// SECOND ORBIT ACCENT
+// =================================================
+
+View orbitAccent =
+        new View(this);
+
+GradientDrawable accentBg =
+        new GradientDrawable();
+
+accentBg.setShape(
+        GradientDrawable.OVAL
+);
+
+accentBg.setColor(
+        Color.TRANSPARENT
+);
+
+accentBg.setStroke(
+        dp(1),
+        Color.argb(
+                55,
+                120,
+                185,
+                255
+        )
+);
+
+orbitAccent.setBackground(
+        accentBg
+);
+
+
+FrameLayout.LayoutParams accentParams =
+        new FrameLayout.LayoutParams(
+                dp(35),
+                dp(14)
+        );
+
+accentParams.gravity =
+        Gravity.CENTER;
+
+orbitAccent.setRotation(
+        -28f
+);
+
+rvLogoBox.addView(
+        orbitAccent,
+        accentParams
 );
 
 
@@ -2362,8 +2418,18 @@ lightBg.setShape(
 
 lightBg.setColor(
         Color.rgb(
-                180,
-                225,
+                210,
+                240,
+                255
+        )
+);
+
+lightBg.setStroke(
+        dp(1),
+        Color.argb(
+                170,
+                140,
+                205,
                 255
         )
 );
@@ -2372,6 +2438,10 @@ orbitLight.setBackground(
         lightBg
 );
 
+
+// =================================================
+// LIGHT POSITION
+// =================================================
 
 FrameLayout.LayoutParams lightParams =
         new FrameLayout.LayoutParams(
@@ -2384,8 +2454,8 @@ lightParams.gravity =
 
 lightParams.setMargins(
         0,
-        dp(9),
-        dp(6),
+        dp(7),
+        dp(4),
         0
 );
 
