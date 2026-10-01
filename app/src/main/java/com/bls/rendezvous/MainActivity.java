@@ -2859,6 +2859,205 @@ drawer.addView(
         dashboardItem,
         dashboardParams
 );
+// =====================================================
+// SLOTS AVAILABILITY
+// =====================================================
+
+LinearLayout slotsItem =
+        new LinearLayout(this);
+
+slotsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+slotsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+slotsItem.setPadding(
+        dp(12),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// SLOTS AVAILABILITY PREMIUM BACKGROUND
+// =====================================================
+
+GradientDrawable slotsBg =
+        new GradientDrawable();
+
+slotsBg.setColor(
+        Color.parseColor("#EEF7FF")
+);
+
+slotsBg.setCornerRadius(
+        dp(16)
+);
+
+slotsBg.setStroke(
+        dp(1),
+        Color.parseColor("#D8EBFF")
+);
+
+slotsItem.setBackground(
+        slotsBg
+);
+
+// =====================================================
+// SLOTS ICON BOX
+// =====================================================
+
+FrameLayout slotsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable slotsIconBg =
+        new GradientDrawable();
+
+slotsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+slotsIconBg.setColor(
+        Color.parseColor("#D5ECFF")
+);
+
+slotsIconBox.setBackground(
+        slotsIconBg
+);
+
+// =====================================================
+// SLOTS ICON
+// =====================================================
+
+ImageView slotsIcon =
+        new ImageView(this);
+
+slotsIcon.setImageResource(
+        R.drawable.ic_slots_premium
+);
+
+slotsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+slotsIconBox.addView(
+        slotsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+slotsItem.addView(
+        slotsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// SLOTS TEXT
+// =====================================================
+
+TextView slotsText =
+        text(
+                "Slots Availability",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+slotsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+slotsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+slotsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams slotsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+slotsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+slotsItem.addView(
+        slotsText,
+        slotsTextParams
+);
+
+// =====================================================
+// SLOTS ARROW
+// =====================================================
+
+TextView slotsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+slotsArrow.setGravity(
+        Gravity.CENTER
+);
+
+slotsArrow.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.NORMAL
+        )
+);
+
+slotsItem.addView(
+        slotsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// SLOTS MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams slotsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(62)
+        );
+
+slotsParams.setMargins(
+        dp(16),
+        dp(2),
+        dp(16),
+        dp(6)
+);
+
+// =====================================================
+// ADD SLOTS AVAILABILITY
+// =====================================================
+
+drawer.addView(
+        slotsItem,
+        slotsParams
+);
 
     // =================================================
     // ADD DRAWER
