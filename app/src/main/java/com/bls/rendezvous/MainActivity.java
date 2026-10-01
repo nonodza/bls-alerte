@@ -2,21 +2,37 @@ package com.bls.rendezvous;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
+import android.content.res.Resources;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Build;
+
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.graphics.ColorFilter;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
+import android.graphics.Typeface;
+
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.Window;
+
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.PopupWindow;
@@ -25,6 +41,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.FrameLayout;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class MainActivity extends Activity {
@@ -2170,21 +2187,11 @@ drawerHeader.setPadding(
 
 
 // =================================================
-// PREMIUM SPACE HEADER
+// PREMIUM EARTH SPACE BACKGROUND
 // =================================================
 
-GradientDrawable headerBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.rgb(5, 12, 32),
-                        Color.rgb(12, 35, 70),
-                        Color.rgb(20, 48, 88)
-                }
-        );
-
 drawerHeader.setBackground(
-        headerBg
+        new EarthSpaceDrawable()
 );
 
 // =================================================
@@ -2506,7 +2513,206 @@ drawer.addView(
             v -> closeDrawer.run()
     );
 }  
+// =========================================================
+// EARTH SPACE DRAWABLE
+// =========================================================
 
+private static class EarthSpaceDrawable
+        extends Drawable {
+
+    private final Paint paint =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private final Paint lightPaint =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    @Override
+    public void draw(Canvas canvas) {
+
+        int width = getBounds().width();
+        int height = getBounds().height();
+
+        // =================================================
+        // DARK SPACE
+        // =================================================
+
+        LinearGradient spaceGradient =
+                new LinearGradient(
+                        0,
+                        0,
+                        width,
+                        height,
+                        new int[]{
+                                Color.rgb(2, 7, 20),
+                                Color.rgb(5, 18, 42),
+                                Color.rgb(8, 30, 58)
+                        },
+                        null,
+                        Shader.TileMode.CLAMP
+                );
+
+        paint.setShader(spaceGradient);
+
+        canvas.drawRect(
+                0,
+                0,
+                width,
+                height,
+                paint
+        );
+
+        paint.setShader(null);
+
+
+        // =================================================
+        // EARTH GLOW
+        // =================================================
+
+        float earthRadius =
+                height * 1.35f;
+
+        float earthX =
+                width * 0.82f;
+
+        float earthY =
+                height * 1.05f;
+
+        RadialGradient earthGlow =
+                new RadialGradient(
+                        earthX,
+                        earthY,
+                        earthRadius,
+                        new int[]{
+                                Color.argb(190, 35, 120, 210),
+                                Color.argb(100, 15, 65, 130),
+                                Color.argb(0, 5, 20, 45)
+                        },
+                        new float[]{
+                                0f,
+                                0.65f,
+                                1f
+                        },
+                        Shader.TileMode.CLAMP
+                );
+
+        paint.setShader(earthGlow);
+
+        canvas.drawCircle(
+                earthX,
+                earthY,
+                earthRadius,
+                paint
+        );
+
+        paint.setShader(null);
+
+
+        // =================================================
+        // EARTH SURFACE
+        // =================================================
+
+        float surfaceRadius =
+                height * 1.02f;
+
+        RadialGradient earthSurface =
+                new RadialGradient(
+                        earthX - height * 0.20f,
+                        earthY - height * 0.20f,
+                        surfaceRadius,
+                        new int[]{
+                                Color.rgb(20, 75, 125),
+                                Color.rgb(8, 42, 78),
+                                Color.rgb(2, 15, 35)
+                        },
+                        null,
+                        Shader.TileMode.CLAMP
+                );
+
+        paint.setShader(earthSurface);
+
+        canvas.drawCircle(
+                earthX,
+                earthY,
+                surfaceRadius,
+                paint
+        );
+
+        paint.setShader(null);
+
+
+        // =================================================
+        // CITY LIGHTS
+        // =================================================
+
+        lightPaint.setStyle(
+                Paint.Style.FILL
+        );
+
+        lightPaint.setColor(
+                Color.rgb(255, 210, 105)
+        );
+
+        float[][] lights = {
+
+                {0.66f, 0.63f},
+                {0.71f, 0.69f},
+                {0.76f, 0.58f},
+                {0.80f, 0.72f},
+                {0.70f, 0.80f},
+                {0.84f, 0.64f},
+                {0.61f, 0.74f},
+                {0.75f, 0.87f},
+                {0.87f, 0.78f},
+                {0.65f, 0.88f},
+                {0.81f, 0.54f},
+                {0.91f, 0.69f}
+        };
+
+        for (float[] point : lights) {
+
+            float x =
+                    width * point[0];
+
+            float y =
+                    height * point[1];
+
+            canvas.drawCircle(
+                    x,
+                    y,
+                    dpStatic(1.2f),
+                    lightPaint
+            );
+        }
+    }
+
+
+    private float dpStatic(float value) {
+
+        return value *
+                Resources.getSystem()
+                        .getDisplayMetrics()
+                        .density;
+    }
+
+
+    @Override
+    public void setAlpha(int alpha) {
+        paint.setAlpha(alpha);
+    }
+
+
+    @Override
+    public void setColorFilter(
+            ColorFilter colorFilter) {
+        paint.setColorFilter(colorFilter);
+    }
+
+
+    @Override
+    public int getOpacity() {
+        return PixelFormat.TRANSLUCENT;
+    }
+}
 
     // =========================================================
     // APPOINTMENTS
