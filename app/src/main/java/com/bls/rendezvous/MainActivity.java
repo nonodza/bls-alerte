@@ -2238,7 +2238,7 @@ rvLogoBox.setBackground(
 
 
 // =================================================
-// RV TEXT
+// PREMIUM RV TEXT
 // =================================================
 
 TextView rvLogoText =
@@ -2254,8 +2254,24 @@ rvLogoText.setGravity(
 
 rvLogoText.setTypeface(
         Typeface.create(
-                Typeface.DEFAULT,
+                "sans-serif",
                 Typeface.BOLD
+        )
+);
+
+rvLogoText.setLetterSpacing(
+        0.10f
+);
+
+rvLogoText.setShadowLayer(
+        dp(4),
+        0,
+        0,
+        Color.argb(
+                170,
+                100,
+                190,
+                255
         )
 );
 
