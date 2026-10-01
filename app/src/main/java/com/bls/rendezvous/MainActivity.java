@@ -2585,7 +2585,7 @@ headerText.addView(
 );
 
 // =================================================
-// SUBTITLE
+// PREMIUM SUBTITLE
 // =================================================
 
 TextView drawerSubtitle =
@@ -2594,6 +2594,14 @@ TextView drawerSubtitle =
                 10,
                 Color.parseColor("#B8C7E6")
         );
+
+drawerSubtitle.setGravity(
+        Gravity.CENTER_HORIZONTAL
+);
+
+drawerSubtitle.setLetterSpacing(
+        0.035f
+);
 
 headerText.addView(
         drawerSubtitle,
