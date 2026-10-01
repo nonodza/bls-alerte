@@ -2859,6 +2859,7 @@ drawer.addView(
         dashboardItem,
         dashboardParams
 );
+
 // =====================================================
 // SLOTS AVAILABILITY
 // =====================================================
@@ -2882,7 +2883,7 @@ slotsItem.setPadding(
 );
 
 // =====================================================
-// SLOTS AVAILABILITY PREMIUM BACKGROUND
+// PREMIUM BACKGROUND
 // =====================================================
 
 GradientDrawable slotsBg =
@@ -2906,7 +2907,7 @@ slotsItem.setBackground(
 );
 
 // =====================================================
-// SLOTS ICON BOX
+// ICON BOX
 // =====================================================
 
 FrameLayout slotsIconBox =
@@ -2928,7 +2929,7 @@ slotsIconBox.setBackground(
 );
 
 // =====================================================
-// SLOTS ICON
+// ICON
 // =====================================================
 
 ImageView slotsIcon =
@@ -2959,7 +2960,7 @@ slotsItem.addView(
 );
 
 // =====================================================
-// SLOTS TEXT
+// TEXT
 // =====================================================
 
 TextView slotsText =
@@ -3004,7 +3005,7 @@ slotsItem.addView(
 );
 
 // =====================================================
-// SLOTS ARROW
+// ARROW
 // =====================================================
 
 TextView slotsArrow =
@@ -3018,13 +3019,6 @@ slotsArrow.setGravity(
         Gravity.CENTER
 );
 
-slotsArrow.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.NORMAL
-        )
-);
-
 slotsItem.addView(
         slotsArrow,
         new LinearLayout.LayoutParams(
@@ -3034,7 +3028,7 @@ slotsItem.addView(
 );
 
 // =====================================================
-// SLOTS MARGINS
+// MARGINS
 // =====================================================
 
 LinearLayout.LayoutParams slotsParams =
@@ -3051,7 +3045,7 @@ slotsParams.setMargins(
 );
 
 // =====================================================
-// ADD SLOTS AVAILABILITY
+// ADD SLOTS
 // =====================================================
 
 drawer.addView(
