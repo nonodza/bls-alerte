@@ -2596,19 +2596,29 @@ TextView drawerSubtitle =
         );
 
 drawerSubtitle.setGravity(
-        Gravity.CENTER_HORIZONTAL
+        Gravity.CENTER_VERTICAL
 );
 
 drawerSubtitle.setLetterSpacing(
-        0.035f
+        0.025f
+);
+
+LinearLayout.LayoutParams subtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(20)
+        );
+
+subtitleParams.setMargins(
+        dp(-1),
+        0,
+        0,
+        0
 );
 
 headerText.addView(
         drawerSubtitle,
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(20)
-        )
+        subtitleParams
 );
 
 // =================================================
