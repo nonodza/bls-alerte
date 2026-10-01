@@ -3052,6 +3052,205 @@ drawer.addView(
         slotsItem,
         slotsParams
 );
+// =====================================================
+// APPLICATIONS
+// =====================================================
+
+LinearLayout applicationsItem =
+        new LinearLayout(this);
+
+applicationsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+applicationsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+applicationsItem.setPadding(
+        dp(12),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// APPLICATIONS PREMIUM BACKGROUND
+// =====================================================
+
+GradientDrawable applicationsBg =
+        new GradientDrawable();
+
+applicationsBg.setColor(
+        Color.parseColor("#F3F0FF")
+);
+
+applicationsBg.setCornerRadius(
+        dp(16)
+);
+
+applicationsBg.setStroke(
+        dp(1),
+        Color.parseColor("#E1D9FF")
+);
+
+applicationsItem.setBackground(
+        applicationsBg
+);
+
+// =====================================================
+// APPLICATIONS ICON BOX
+// =====================================================
+
+FrameLayout applicationsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable applicationsIconBg =
+        new GradientDrawable();
+
+applicationsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+applicationsIconBg.setColor(
+        Color.parseColor("#E3DAFF")
+);
+
+applicationsIconBox.setBackground(
+        applicationsIconBg
+);
+
+// =====================================================
+// APPLICATIONS ICON
+// =====================================================
+
+ImageView applicationsIcon =
+        new ImageView(this);
+
+applicationsIcon.setImageResource(
+        R.drawable.ic_applications_premium
+);
+
+applicationsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+applicationsIconBox.addView(
+        applicationsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+applicationsItem.addView(
+        applicationsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// APPLICATIONS TEXT
+// =====================================================
+
+TextView applicationsText =
+        text(
+                "Applications",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+applicationsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+applicationsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+applicationsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams applicationsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+applicationsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+applicationsItem.addView(
+        applicationsText,
+        applicationsTextParams
+);
+
+// =====================================================
+// APPLICATIONS ARROW
+// =====================================================
+
+TextView applicationsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#6B4FD3")
+        );
+
+applicationsArrow.setGravity(
+        Gravity.CENTER
+);
+
+applicationsArrow.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.NORMAL
+        )
+);
+
+applicationsItem.addView(
+        applicationsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// APPLICATIONS MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams applicationsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(62)
+        );
+
+applicationsParams.setMargins(
+        dp(16),
+        dp(2),
+        dp(16),
+        dp(6)
+);
+
+// =====================================================
+// ADD APPLICATIONS
+// =====================================================
+
+drawer.addView(
+        applicationsItem,
+        applicationsParams
+);
 
     // =================================================
     // ADD DRAWER
