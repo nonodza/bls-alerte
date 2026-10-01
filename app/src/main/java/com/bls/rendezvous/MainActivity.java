@@ -2659,7 +2659,206 @@ drawer.addView(
         drawerHeader,
         headerParams
 );
+    
+// =====================================================
+// DASHBOARD
+// =====================================================
 
+LinearLayout dashboardItem =
+        new LinearLayout(this);
+
+dashboardItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+dashboardItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+dashboardItem.setPadding(
+        dp(12),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// DASHBOARD PREMIUM BACKGROUND
+// =====================================================
+
+GradientDrawable dashboardBg =
+        new GradientDrawable();
+
+dashboardBg.setColor(
+        Color.parseColor("#E8F1FF")
+);
+
+dashboardBg.setCornerRadius(
+        dp(16)
+);
+
+dashboardBg.setStroke(
+        dp(1),
+        Color.parseColor("#D5E5FF")
+);
+
+dashboardItem.setBackground(
+        dashboardBg
+);
+
+// =====================================================
+// DASHBOARD ICON BOX
+// =====================================================
+
+FrameLayout dashboardIconBox =
+        new FrameLayout(this);
+
+GradientDrawable dashboardIconBg =
+        new GradientDrawable();
+
+dashboardIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+dashboardIconBg.setColor(
+        Color.parseColor("#D3E5FF")
+);
+
+dashboardIconBox.setBackground(
+        dashboardIconBg
+);
+
+// =====================================================
+// DASHBOARD ICON
+// =====================================================
+
+ImageView dashboardIcon =
+        new ImageView(this);
+
+dashboardIcon.setImageResource(
+        R.drawable.ic_dashboard_premium
+);
+
+dashboardIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+dashboardIconBox.addView(
+        dashboardIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+dashboardItem.addView(
+        dashboardIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// DASHBOARD TEXT
+// =====================================================
+
+TextView dashboardText =
+        text(
+                "Dashboard",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+dashboardText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+dashboardText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+dashboardText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams dashboardTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+dashboardTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+dashboardItem.addView(
+        dashboardText,
+        dashboardTextParams
+);
+
+// =====================================================
+// DASHBOARD ARROW
+// =====================================================
+
+TextView dashboardArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+dashboardArrow.setGravity(
+        Gravity.CENTER
+);
+
+dashboardArrow.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.NORMAL
+        )
+);
+
+dashboardItem.addView(
+        dashboardArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// DASHBOARD MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams dashboardParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(62)
+        );
+
+dashboardParams.setMargins(
+        dp(16),
+        dp(2),
+        dp(16),
+        dp(6)
+);
+
+// =====================================================
+// ADD DASHBOARD
+// =====================================================
+
+drawer.addView(
+        dashboardItem,
+        dashboardParams
+);
 
     // =================================================
     // ADD DRAWER
