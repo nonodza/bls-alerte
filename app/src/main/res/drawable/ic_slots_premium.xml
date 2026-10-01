@@ -1,0 +1,47 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Calendar Body -->
+    <path
+        android:fillColor="#1656A8"
+        android:pathData="M6,3L6,5L5,5C3.9,5 3,5.9 3,7L3,19C3,20.1 3.9,21 5,21L19,21C20.1,21 21,20.1 21,19L21,7C21,5.9 20.1,5 19,5L18,5L18,3L16,3L16,5L8,5L8,3L6,3Z" />
+
+    <!-- Calendar Top -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M5,8L19,8L19,7L5,7L5,8Z" />
+
+    <!-- Available Slot 1 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6,10L9,10L9,13L6,13Z" />
+
+    <!-- Available Slot 2 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M11,10L14,10L14,13L11,13Z" />
+
+    <!-- Available Slot 3 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16,10L18,10L18,13L16,13Z" />
+
+    <!-- Available Slot 4 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6,15L9,15L9,18L6,18Z" />
+
+    <!-- Highlight Slot -->
+    <path
+        android:fillColor="#69AAFF"
+        android:pathData="M11,15L14,15L14,18L11,18Z" />
+
+    <!-- Available Slot 5 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16,15L18,15L18,18L16,18Z" />
+
+</vector>
