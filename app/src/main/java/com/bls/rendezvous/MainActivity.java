@@ -2855,7 +2855,7 @@ dashboardParams.setMargins(
 // ADD DASHBOARD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         dashboardItem,
         dashboardParams
 );
@@ -3048,7 +3048,7 @@ slotsParams.setMargins(
 // ADD SLOTS
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         slotsItem,
         slotsParams
 );
@@ -3247,7 +3247,7 @@ applicationsParams.setMargins(
 // ADD APPLICATIONS
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         applicationsItem,
         applicationsParams
 );
@@ -3415,7 +3415,7 @@ monitoringParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         monitoringItem,
         monitoringParams
 );
@@ -3583,7 +3583,7 @@ documentsParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         documentsItem,
         documentsParams
 );
@@ -3751,7 +3751,7 @@ paymentsParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         paymentsItem,
         paymentsParams
 );
@@ -3919,7 +3919,7 @@ notificationsParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         notificationsItem,
         notificationsParams
 );
@@ -4087,7 +4087,7 @@ settingsParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         settingsItem,
         settingsParams
 );
@@ -4255,7 +4255,7 @@ helpParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         helpItem,
         helpParams
 );
@@ -4462,7 +4462,7 @@ shareParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         shareItem,
         shareParams
 );
@@ -4630,7 +4630,7 @@ rateParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         rateItem,
         rateParams
 );
@@ -4798,7 +4798,7 @@ feedbackParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         feedbackItem,
         feedbackParams
 );
@@ -4966,7 +4966,7 @@ logoutParams.setMargins(
 // ADD
 // =====================================================
 
-drawer.addView(
+drawerContent.addView(
         logoutItem,
         logoutParams
 );
