@@ -2921,8 +2921,8 @@ dashboardItem.addView(
 TextView dashboardArrow =
         text(
                 "›",
-                28,
-                Color.parseColor("#1656A8")
+                25,
+                Color.parseColor("#4A75B5")
         );
 
 dashboardArrow.setGravity(
@@ -2939,7 +2939,7 @@ dashboardArrow.setTypeface(
 dashboardItem.addView(
         dashboardArrow,
         new LinearLayout.LayoutParams(
-                dp(28),
+                dp(26),
                 -1
         )
 );
