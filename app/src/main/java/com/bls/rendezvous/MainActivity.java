@@ -2739,10 +2739,7 @@ GradientDrawable dashboardBg =
 dashboardBg.setCornerRadius(
         dp(16)
 );
-dashboardBg.setStroke(
-        dp(1),
-        Color.parseColor("#2F80ED")
-);
+
 
 dashboardItem.setBackground(
         dashboardBg
@@ -2751,6 +2748,47 @@ dashboardItem.setElevation(
         dp(2)
 );
   
+// =====================================================
+// DASHBOARD ACTIVE LEFT ACCENT
+// =====================================================
+
+View dashboardLeftAccent =
+        new View(this);
+
+GradientDrawable dashboardLeftAccentBg =
+        new GradientDrawable();
+
+dashboardLeftAccentBg.setColor(
+        Color.parseColor("#2F80ED")
+);
+
+dashboardLeftAccentBg.setCornerRadii(
+        new float[]{
+                dp(4), dp(4),
+                0, 0,
+                0, 0,
+                dp(4), dp(4)
+        }
+);
+
+dashboardLeftAccent.setBackground(
+        dashboardLeftAccentBg
+);
+
+LinearLayout.LayoutParams dashboardLeftAccentParams =
+        new LinearLayout.LayoutParams(
+                dp(4),
+                dp(42)
+        );
+
+dashboardLeftAccentParams.gravity =
+        Gravity.CENTER_VERTICAL;
+
+dashboardItem.addView(
+        dashboardLeftAccent,
+        0,
+        dashboardLeftAccentParams
+);
     
 // =====================================================
 // DASHBOARD ICON BOX
