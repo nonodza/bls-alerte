@@ -3252,7 +3252,7 @@ drawer.addView(
         applicationsParams
 );
 // =====================================================
-// APPOINTMENT MONITORING
+// APPOINTMENT MONITORING PREMIUM
 // =====================================================
 
 LinearLayout monitoringItem =
