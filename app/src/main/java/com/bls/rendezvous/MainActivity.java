@@ -3252,98 +3252,74 @@ drawer.addView(
         applicationsParams
 );
 // =====================================================
-// ALERTS
+// APPOINTMENT MONITORING
 // =====================================================
 
-LinearLayout alertsItem =
+LinearLayout monitoringItem =
         new LinearLayout(this);
 
-alertsItem.setOrientation(
+monitoringItem.setOrientation(
         LinearLayout.HORIZONTAL
 );
 
-alertsItem.setGravity(
+monitoringItem.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-alertsItem.setPadding(
-        dp(12),
+monitoringItem.setPadding(
+        dp(16),
         0,
         dp(12),
         0
 );
 
 // =====================================================
-// ALERTS PREMIUM BACKGROUND
+// ICON BOX
 // =====================================================
 
-GradientDrawable alertsBg =
-        new GradientDrawable();
-
-alertsBg.setColor(
-        Color.parseColor("#FFF7E8")
-);
-
-alertsBg.setCornerRadius(
-        dp(16)
-);
-
-alertsBg.setStroke(
-        dp(1),
-        Color.parseColor("#FFE6B8")
-);
-
-alertsItem.setBackground(
-        alertsBg
-);
-
-// =====================================================
-// ALERTS ICON BOX
-// =====================================================
-
-FrameLayout alertsIconBox =
+FrameLayout monitoringIconBox =
         new FrameLayout(this);
 
-GradientDrawable alertsIconBg =
+GradientDrawable monitoringIconBg =
         new GradientDrawable();
 
-alertsIconBg.setShape(
+monitoringIconBg.setShape(
         GradientDrawable.OVAL
 );
 
-alertsIconBg.setColor(
-        Color.parseColor("#FFE8B5")
+monitoringIconBg.setColor(
+        Color.parseColor("#E8F2FF")
 );
 
-alertsIconBox.setBackground(
-        alertsIconBg
+monitoringIconBox.setBackground(
+        monitoringIconBg
 );
 
 // =====================================================
-// ALERTS ICON
+// ICON
 // =====================================================
 
-ImageView alertsIcon =
+ImageView monitoringIcon =
         new ImageView(this);
 
-alertsIcon.setImageResource(
-        R.drawable.ic_alerts_premium
+monitoringIcon.setImageResource(
+        R.drawable.ic_monitoring_premium
 );
 
-alertsIcon.setScaleType(
+monitoringIcon.setScaleType(
         ImageView.ScaleType.CENTER
 );
 
-alertsIconBox.addView(
-        alertsIcon,
+monitoringIconBox.addView(
+        monitoringIcon,
         new FrameLayout.LayoutParams(
                 -1,
                 -1
         )
 );
 
-alertsItem.addView(
-        alertsIconBox,
+monitoringItem.addView(
+        monitoringIconBox,
         new LinearLayout.LayoutParams(
                 dp(42),
                 dp(42)
@@ -3351,74 +3327,67 @@ alertsItem.addView(
 );
 
 // =====================================================
-// ALERTS TEXT
+// TEXT
 // =====================================================
 
-TextView alertsText =
+TextView monitoringText =
         text(
-                "Alerts",
+                "Appointment Monitoring",
                 16,
                 Color.parseColor("#102B52")
         );
 
-alertsText.setTypeface(
+monitoringText.setTypeface(
         Typeface.create(
                 "sans-serif",
                 Typeface.BOLD
         )
 );
 
-alertsText.setGravity(
+monitoringText.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-alertsText.setLetterSpacing(
+monitoringText.setLetterSpacing(
         0.01f
 );
 
-LinearLayout.LayoutParams alertsTextParams =
+LinearLayout.LayoutParams monitoringTextParams =
         new LinearLayout.LayoutParams(
                 0,
                 -1,
                 1f
 );
 
-alertsTextParams.setMargins(
+monitoringTextParams.setMargins(
         dp(14),
         0,
         dp(8),
         0
 );
 
-alertsItem.addView(
-        alertsText,
-        alertsTextParams
+monitoringItem.addView(
+        monitoringText,
+        monitoringTextParams
 );
 
 // =====================================================
-// ALERTS ARROW
+// ARROW
 // =====================================================
 
-TextView alertsArrow =
+TextView monitoringArrow =
         text(
                 "›",
                 28,
-                Color.parseColor("#D97706")
+                Color.parseColor("#1656A8")
         );
 
-alertsArrow.setGravity(
+monitoringArrow.setGravity(
         Gravity.CENTER
 );
 
-alertsArrow.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.NORMAL
-        )
-);
-
-alertsItem.addView(
-        alertsArrow,
+monitoringItem.addView(
+        monitoringArrow,
         new LinearLayout.LayoutParams(
                 dp(28),
                 -1
@@ -3426,31 +3395,30 @@ alertsItem.addView(
 );
 
 // =====================================================
-// ALERTS MARGINS
+// MARGINS
 // =====================================================
 
-LinearLayout.LayoutParams alertsParams =
+LinearLayout.LayoutParams monitoringParams =
         new LinearLayout.LayoutParams(
                 -1,
-                dp(62)
+                dp(58)
         );
 
-alertsParams.setMargins(
+monitoringParams.setMargins(
         dp(16),
-        dp(2),
+        dp(0),
         dp(16),
-        dp(6)
+        dp(2)
 );
 
 // =====================================================
-// ADD ALERTS
+// ADD
 // =====================================================
 
 drawer.addView(
-        alertsItem,
-        alertsParams
+        monitoringItem,
+        monitoringParams
 );
-
     // =================================================
     // ADD DRAWER
     // =================================================
