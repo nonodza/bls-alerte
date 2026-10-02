@@ -3419,6 +3419,175 @@ drawer.addView(
         monitoringItem,
         monitoringParams
 );
+    // =====================================================
+// DOCUMENTS
+// =====================================================
+
+LinearLayout documentsItem =
+        new LinearLayout(this);
+
+documentsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+documentsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+documentsItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout documentsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable documentsIconBg =
+        new GradientDrawable();
+
+documentsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+documentsIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+documentsIconBox.setBackground(
+        documentsIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView documentsIcon =
+        new ImageView(this);
+
+documentsIcon.setImageResource(
+        R.drawable.ic_documents_premium
+);
+
+documentsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+documentsIconBox.addView(
+        documentsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+documentsItem.addView(
+        documentsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView documentsText =
+        text(
+                "Documents",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+documentsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+documentsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+documentsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams documentsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+documentsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+documentsItem.addView(
+        documentsText,
+        documentsTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView documentsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+documentsArrow.setGravity(
+        Gravity.CENTER
+);
+
+documentsItem.addView(
+        documentsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams documentsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+documentsParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        documentsItem,
+        documentsParams
+);
+    
     // =================================================
     // ADD DRAWER
     // =================================================
