@@ -4298,6 +4298,174 @@ drawer.addView(
         moreTitle,
         moreTitleParams
 );
+  // =====================================================
+// SHARE APP
+// =====================================================
+
+LinearLayout shareItem =
+        new LinearLayout(this);
+
+shareItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+shareItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+shareItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout shareIconBox =
+        new FrameLayout(this);
+
+GradientDrawable shareIconBg =
+        new GradientDrawable();
+
+shareIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+shareIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+shareIconBox.setBackground(
+        shareIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView shareIcon =
+        new ImageView(this);
+
+shareIcon.setImageResource(
+        R.drawable.ic_share_premium
+);
+
+shareIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+shareIconBox.addView(
+        shareIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+shareItem.addView(
+        shareIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView shareText =
+        text(
+                "Share App",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+shareText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+shareText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+shareText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams shareTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+shareTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+shareItem.addView(
+        shareText,
+        shareTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView shareArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+shareArrow.setGravity(
+        Gravity.CENTER
+);
+
+shareItem.addView(
+        shareArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams shareParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+shareParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        shareItem,
+        shareParams
+);
     
     // =================================================
     // ADD DRAWER
