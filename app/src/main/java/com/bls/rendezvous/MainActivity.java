@@ -4466,6 +4466,174 @@ drawer.addView(
         shareItem,
         shareParams
 );
+ // =====================================================
+// RATE US
+// =====================================================
+
+LinearLayout rateItem =
+        new LinearLayout(this);
+
+rateItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+rateItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+rateItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout rateIconBox =
+        new FrameLayout(this);
+
+GradientDrawable rateIconBg =
+        new GradientDrawable();
+
+rateIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+rateIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+rateIconBox.setBackground(
+        rateIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView rateIcon =
+        new ImageView(this);
+
+rateIcon.setImageResource(
+        R.drawable.ic_rate_premium
+);
+
+rateIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+rateIconBox.addView(
+        rateIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+rateItem.addView(
+        rateIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView rateText =
+        text(
+                "Rate us",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+rateText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+rateText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+rateText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams rateTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+rateTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+rateItem.addView(
+        rateText,
+        rateTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView rateArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+rateArrow.setGravity(
+        Gravity.CENTER
+);
+
+rateItem.addView(
+        rateArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams rateParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+rateParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        rateItem,
+        rateParams
+);
     
     // =================================================
     // ADD DRAWER
