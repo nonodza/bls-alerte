@@ -3587,6 +3587,174 @@ drawer.addView(
         documentsItem,
         documentsParams
 );
+   // =====================================================
+// PAYMENTS
+// =====================================================
+
+LinearLayout paymentsItem =
+        new LinearLayout(this);
+
+paymentsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+paymentsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+paymentsItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout paymentsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable paymentsIconBg =
+        new GradientDrawable();
+
+paymentsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+paymentsIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+paymentsIconBox.setBackground(
+        paymentsIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView paymentsIcon =
+        new ImageView(this);
+
+paymentsIcon.setImageResource(
+        R.drawable.ic_payments_premium
+);
+
+paymentsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+paymentsIconBox.addView(
+        paymentsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+paymentsItem.addView(
+        paymentsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView paymentsText =
+        text(
+                "Payments",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+paymentsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+paymentsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+paymentsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams paymentsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+paymentsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+paymentsItem.addView(
+        paymentsText,
+        paymentsTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView paymentsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+paymentsArrow.setGravity(
+        Gravity.CENTER
+);
+
+paymentsItem.addView(
+        paymentsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams paymentsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+paymentsParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        paymentsItem,
+        paymentsParams
+);
     
     // =================================================
     // ADD DRAWER
