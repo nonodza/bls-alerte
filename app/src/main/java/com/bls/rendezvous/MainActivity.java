@@ -3026,9 +3026,6 @@ drawerContent.addView(
 dashboardItem.setOnClickListener(
         v -> {
 
-            // Dashboard is already the main screen
-            // Close the drawer
-
             drawerOverlay.animate()
                     .translationX(-drawerOverlay.getWidth())
                     .setDuration(250)
@@ -3037,6 +3034,15 @@ dashboardItem.setOnClickListener(
                         drawerOverlay.setVisibility(
                                 View.GONE
                         );
+
+                        ViewParent parent =
+                                drawerOverlay.getParent();
+
+                        if (parent instanceof ViewGroup) {
+                            ((ViewGroup) parent).removeView(
+                                    drawerOverlay
+                            );
+                        }
 
                     })
                     .start();
