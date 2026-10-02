@@ -3019,7 +3019,29 @@ drawerContent.addView(
         dashboardItem,
         dashboardParams
 );
+// =====================================================
+// DASHBOARD CLICK
+// =====================================================
 
+dashboardItem.setOnClickListener(
+        v -> {
+
+            // Dashboard is already the main screen
+            // Close the drawer
+
+            drawerOverlay.animate()
+                    .translationX(-drawerOverlay.getWidth())
+                    .setDuration(250)
+                    .withEndAction(() -> {
+
+                        drawerOverlay.setVisibility(
+                                View.GONE
+                        );
+
+                    })
+                    .start();
+        }
+);
 // =====================================================
 // SLOTS AVAILABILITY
 // =====================================================
