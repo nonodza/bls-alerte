@@ -2809,7 +2809,22 @@ dashboardItem.addView(
 );
 
 // =====================================================
-// DASHBOARD TEXT
+// DASHBOARD TEXT CONTAINER
+// =====================================================
+
+LinearLayout dashboardTextContainer =
+        new LinearLayout(this);
+
+dashboardTextContainer.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+dashboardTextContainer.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// =====================================================
+// DASHBOARD TITLE
 // =====================================================
 
 TextView dashboardText =
@@ -2826,13 +2841,55 @@ dashboardText.setTypeface(
         )
 );
 
-dashboardText.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
 dashboardText.setLetterSpacing(
         0.01f
 );
+
+// =====================================================
+// DASHBOARD SUBTITLE
+// =====================================================
+
+TextView dashboardSubtitle =
+        text(
+                "Overview",
+                11,
+                Color.parseColor("#6B83A5")
+        );
+
+dashboardSubtitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.NORMAL
+        )
+);
+
+dashboardSubtitle.setLetterSpacing(
+        0.02f
+);
+
+// =====================================================
+// ADD TEXTS
+// =====================================================
+
+dashboardTextContainer.addView(
+        dashboardText,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(22)
+        )
+);
+
+dashboardTextContainer.addView(
+        dashboardSubtitle,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(18)
+        )
+);
+
+// =====================================================
+// TEXT CONTAINER PARAMS
+// =====================================================
 
 LinearLayout.LayoutParams dashboardTextParams =
         new LinearLayout.LayoutParams(
@@ -2848,8 +2905,12 @@ dashboardTextParams.setMargins(
         0
 );
 
+// =====================================================
+// ADD TEXT CONTAINER
+// =====================================================
+
 dashboardItem.addView(
-        dashboardText,
+        dashboardTextContainer,
         dashboardTextParams
 );
 
