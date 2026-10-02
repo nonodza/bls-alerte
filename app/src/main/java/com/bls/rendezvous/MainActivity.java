@@ -2691,6 +2691,14 @@ drawerScroll.addView(
                 -2
         )
 );
+  drawer.addView(
+        drawerScroll,
+        new LinearLayout.LayoutParams(
+                -1,
+                0,
+                1f
+        )
+);
     
 // =====================================================
 // DASHBOARD
@@ -4326,7 +4334,7 @@ moreTitleParams.setMargins(
         dp(0)
 );
 
-drawer.addView(
+drawerContent.addView(
         moreTitle,
         moreTitleParams
 );
