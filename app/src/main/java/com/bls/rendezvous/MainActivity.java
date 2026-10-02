@@ -4259,6 +4259,45 @@ drawer.addView(
         helpItem,
         helpParams
 );
+    // =====================================================
+// MORE SECTION
+// =====================================================
+
+TextView moreTitle =
+        text(
+                "MORE",
+                12,
+                Color.parseColor("#6B7C93")
+        );
+
+moreTitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+moreTitle.setLetterSpacing(
+        0.12f
+);
+
+LinearLayout.LayoutParams moreTitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(36)
+        );
+
+moreTitleParams.setMargins(
+        dp(20),
+        dp(10),
+        dp(16),
+        dp(0)
+);
+
+drawer.addView(
+        moreTitle,
+        moreTitleParams
+);
     
     // =================================================
     // ADD DRAWER
