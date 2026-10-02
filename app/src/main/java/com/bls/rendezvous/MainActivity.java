@@ -3923,6 +3923,174 @@ drawer.addView(
         notificationsItem,
         notificationsParams
 );
+    // =====================================================
+// SETTINGS
+// =====================================================
+
+LinearLayout settingsItem =
+        new LinearLayout(this);
+
+settingsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+settingsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+settingsItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout settingsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable settingsIconBg =
+        new GradientDrawable();
+
+settingsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+settingsIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+settingsIconBox.setBackground(
+        settingsIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView settingsIcon =
+        new ImageView(this);
+
+settingsIcon.setImageResource(
+        R.drawable.ic_settings_premium
+);
+
+settingsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+settingsIconBox.addView(
+        settingsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+settingsItem.addView(
+        settingsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView settingsText =
+        text(
+                "Settings",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+settingsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+settingsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+settingsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams settingsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+settingsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+settingsItem.addView(
+        settingsText,
+        settingsTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView settingsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+settingsArrow.setGravity(
+        Gravity.CENTER
+);
+
+settingsItem.addView(
+        settingsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams settingsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+settingsParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        settingsItem,
+        settingsParams
+);
     
     // =================================================
     // ADD DRAWER
