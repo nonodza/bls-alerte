@@ -17,6 +17,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
+import android.view.MotionEvent;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -2750,6 +2751,10 @@ dashboardItem.setBackground(
 dashboardItem.setElevation(
         dp(2)
 );
+  dashboardItem.setElevation(
+        dp(2)
+);
+    
 // =====================================================
 // DASHBOARD ICON BOX
 // =====================================================
