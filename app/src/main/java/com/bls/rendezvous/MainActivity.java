@@ -4802,6 +4802,174 @@ drawer.addView(
         feedbackItem,
         feedbackParams
 );
+  // =====================================================
+// LOG OUT
+// =====================================================
+
+LinearLayout logoutItem =
+        new LinearLayout(this);
+
+logoutItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+logoutItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+logoutItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout logoutIconBox =
+        new FrameLayout(this);
+
+GradientDrawable logoutIconBg =
+        new GradientDrawable();
+
+logoutIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+logoutIconBg.setColor(
+        Color.parseColor("#FDECEF")
+);
+
+logoutIconBox.setBackground(
+        logoutIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView logoutIcon =
+        new ImageView(this);
+
+logoutIcon.setImageResource(
+        R.drawable.ic_logout_premium
+);
+
+logoutIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+logoutIconBox.addView(
+        logoutIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+logoutItem.addView(
+        logoutIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView logoutText =
+        text(
+                "Log out",
+                16,
+                Color.parseColor("#B43F50")
+        );
+
+logoutText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+logoutText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+logoutText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams logoutTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+logoutTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+logoutItem.addView(
+        logoutText,
+        logoutTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView logoutArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#C94B5B")
+        );
+
+logoutArrow.setGravity(
+        Gravity.CENTER
+);
+
+logoutItem.addView(
+        logoutArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams logoutParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+logoutParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(12)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        logoutItem,
+        logoutParams
+);
     
     // =================================================
     // ADD DRAWER
