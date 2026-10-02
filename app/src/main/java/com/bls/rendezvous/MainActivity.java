@@ -4091,6 +4091,174 @@ drawer.addView(
         settingsItem,
         settingsParams
 );
+   // =====================================================
+// HELP & SUPPORT
+// =====================================================
+
+LinearLayout helpItem =
+        new LinearLayout(this);
+
+helpItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+helpItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+helpItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout helpIconBox =
+        new FrameLayout(this);
+
+GradientDrawable helpIconBg =
+        new GradientDrawable();
+
+helpIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+helpIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+helpIconBox.setBackground(
+        helpIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView helpIcon =
+        new ImageView(this);
+
+helpIcon.setImageResource(
+        R.drawable.ic_help_premium
+);
+
+helpIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+helpIconBox.addView(
+        helpIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+helpItem.addView(
+        helpIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView helpText =
+        text(
+                "Help & Support",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+helpText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+helpText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+helpText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams helpTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+helpTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+helpItem.addView(
+        helpText,
+        helpTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView helpArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+helpArrow.setGravity(
+        Gravity.CENTER
+);
+
+helpItem.addView(
+        helpArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams helpParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+helpParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        helpItem,
+        helpParams
+);
     
     // =================================================
     // ADD DRAWER
