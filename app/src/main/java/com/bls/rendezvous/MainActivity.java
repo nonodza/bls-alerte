@@ -2768,10 +2768,14 @@ dashboardIndicatorBg.setColor(
         Color.parseColor("#2F80ED")
 );
 
-dashboardIndicatorBg.setCornerRadius(
-        dp(4)
+dashboardIndicatorBg.setCornerRadii(
+        new float[]{
+                dp(3), dp(3),
+                0, 0,
+                0, 0,
+                dp(3), dp(3)
+        }
 );
-
 dashboardIndicator.setBackground(
         dashboardIndicatorBg
 );
