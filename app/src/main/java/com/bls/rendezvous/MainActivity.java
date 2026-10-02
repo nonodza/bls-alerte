@@ -3755,6 +3755,174 @@ drawer.addView(
         paymentsItem,
         paymentsParams
 );
+   // =====================================================
+// NOTIFICATIONS
+// =====================================================
+
+LinearLayout notificationsItem =
+        new LinearLayout(this);
+
+notificationsItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+notificationsItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+notificationsItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout notificationsIconBox =
+        new FrameLayout(this);
+
+GradientDrawable notificationsIconBg =
+        new GradientDrawable();
+
+notificationsIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+notificationsIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+notificationsIconBox.setBackground(
+        notificationsIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView notificationsIcon =
+        new ImageView(this);
+
+notificationsIcon.setImageResource(
+        R.drawable.ic_notifications_premium
+);
+
+notificationsIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+notificationsIconBox.addView(
+        notificationsIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+notificationsItem.addView(
+        notificationsIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView notificationsText =
+        text(
+                "Notifications",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+notificationsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+notificationsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+notificationsText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams notificationsTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+notificationsTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+notificationsItem.addView(
+        notificationsText,
+        notificationsTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView notificationsArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+notificationsArrow.setGravity(
+        Gravity.CENTER
+);
+
+notificationsItem.addView(
+        notificationsArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams notificationsParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+notificationsParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        notificationsItem,
+        notificationsParams
+);
     
     // =================================================
     // ADD DRAWER
