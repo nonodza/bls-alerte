@@ -2754,6 +2754,35 @@ dashboardItem.setElevation(
   dashboardItem.setElevation(
         dp(2)
 );
+ // =====================================================
+// DASHBOARD ACTIVE INDICATOR
+// =====================================================
+
+View dashboardIndicator =
+        new View(this);
+
+GradientDrawable dashboardIndicatorBg =
+        new GradientDrawable();
+
+dashboardIndicatorBg.setColor(
+        Color.parseColor("#2F80ED")
+);
+
+dashboardIndicatorBg.setCornerRadius(
+        dp(4)
+);
+
+dashboardIndicator.setBackground(
+        dashboardIndicatorBg
+);
+
+dashboardItem.addView(
+        dashboardIndicator,
+        new LinearLayout.LayoutParams(
+                dp(4),
+                dp(42)
+        )
+);
     
 // =====================================================
 // DASHBOARD ICON BOX
@@ -2805,12 +2834,22 @@ dashboardIconBox.addView(
         )
 );
 
-dashboardItem.addView(
-        dashboardIconBox,
+LinearLayout.LayoutParams dashboardIconParams =
         new LinearLayout.LayoutParams(
                 dp(42),
                 dp(42)
-        )
+        );
+
+dashboardIconParams.setMargins(
+        dp(10),
+        0,
+        0,
+        0
+);
+
+dashboardItem.addView(
+        dashboardIconBox,
+        dashboardIconParams
 );
 
 // =====================================================
