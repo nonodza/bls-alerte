@@ -2659,7 +2659,16 @@ drawer.addView(
         drawerHeader,
         headerParams
 );
-    
+// =================================================
+// DRAWER CONTENT
+// =================================================
+
+LinearLayout drawerContent =
+        new LinearLayout(this);
+
+drawerContent.setOrientation(
+        LinearLayout.VERTICAL
+);    
 // =====================================================
 // DASHBOARD
 // =====================================================
