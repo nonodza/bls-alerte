@@ -2739,10 +2739,9 @@ GradientDrawable dashboardBg =
 dashboardBg.setCornerRadius(
         dp(16)
 );
-
 dashboardBg.setStroke(
         dp(1),
-        Color.parseColor("#D5E5FF")
+        Color.parseColor("#2F80ED")
 );
 
 dashboardItem.setBackground(
@@ -2751,42 +2750,7 @@ dashboardItem.setBackground(
 dashboardItem.setElevation(
         dp(2)
 );
-  dashboardItem.setElevation(
-        dp(2)
-);
- // =====================================================
-// DASHBOARD ACTIVE INDICATOR
-// =====================================================
-
-View dashboardIndicator =
-        new View(this);
-
-GradientDrawable dashboardIndicatorBg =
-        new GradientDrawable();
-
-dashboardIndicatorBg.setColor(
-        Color.parseColor("#2F80ED")
-);
-
-dashboardIndicatorBg.setCornerRadii(
-        new float[]{
-                dp(3), dp(3),
-                0, 0,
-                0, 0,
-                dp(3), dp(3)
-        }
-);
-dashboardIndicator.setBackground(
-        dashboardIndicatorBg
-);
-
-dashboardItem.addView(
-        dashboardIndicator,
-        new LinearLayout.LayoutParams(
-                dp(4),
-                dp(42)
-        )
-);
+  
     
 // =====================================================
 // DASHBOARD ICON BOX
