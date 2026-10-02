@@ -4634,6 +4634,174 @@ drawer.addView(
         rateItem,
         rateParams
 );
+    // =====================================================
+// FEEDBACK
+// =====================================================
+
+LinearLayout feedbackItem =
+        new LinearLayout(this);
+
+feedbackItem.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+feedbackItem.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+feedbackItem.setPadding(
+        dp(16),
+        0,
+        dp(12),
+        0
+);
+
+// =====================================================
+// ICON BOX
+// =====================================================
+
+FrameLayout feedbackIconBox =
+        new FrameLayout(this);
+
+GradientDrawable feedbackIconBg =
+        new GradientDrawable();
+
+feedbackIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+feedbackIconBg.setColor(
+        Color.parseColor("#E8F2FF")
+);
+
+feedbackIconBox.setBackground(
+        feedbackIconBg
+);
+
+// =====================================================
+// ICON
+// =====================================================
+
+ImageView feedbackIcon =
+        new ImageView(this);
+
+feedbackIcon.setImageResource(
+        R.drawable.ic_feedback_premium
+);
+
+feedbackIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+feedbackIconBox.addView(
+        feedbackIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+feedbackItem.addView(
+        feedbackIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);
+
+// =====================================================
+// TEXT
+// =====================================================
+
+TextView feedbackText =
+        text(
+                "Feedback",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+feedbackText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+feedbackText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+feedbackText.setLetterSpacing(
+        0.01f
+);
+
+LinearLayout.LayoutParams feedbackTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+feedbackTextParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+feedbackItem.addView(
+        feedbackText,
+        feedbackTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView feedbackArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#1656A8")
+        );
+
+feedbackArrow.setGravity(
+        Gravity.CENTER
+);
+
+feedbackItem.addView(
+        feedbackArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                -1
+        )
+);
+
+// =====================================================
+// MARGINS
+// =====================================================
+
+LinearLayout.LayoutParams feedbackParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(58)
+        );
+
+feedbackParams.setMargins(
+        dp(16),
+        dp(0),
+        dp(16),
+        dp(2)
+);
+
+// =====================================================
+// ADD
+// =====================================================
+
+drawer.addView(
+        feedbackItem,
+        feedbackParams
+);
     
     // =================================================
     // ADD DRAWER
