@@ -2668,7 +2668,30 @@ LinearLayout drawerContent =
 
 drawerContent.setOrientation(
         LinearLayout.VERTICAL
-);    
+);   
+   // =================================================
+// DRAWER SCROLL
+// =================================================
+
+ScrollView drawerScroll =
+        new ScrollView(this);
+
+drawerScroll.setFillViewport(
+        true
+);
+
+drawerScroll.setVerticalScrollBarEnabled(
+        false
+);
+
+drawerScroll.addView(
+        drawerContent,
+        new ScrollView.LayoutParams(
+                -1,
+                -2
+        )
+);
+    
 // =====================================================
 // DASHBOARD
 // =====================================================
