@@ -2765,7 +2765,12 @@ dashboardIconBg.setShape(
 );
 
 dashboardIconBg.setColor(
-        Color.parseColor("#D3E5FF")
+        Color.parseColor("#D8E9FF")
+);
+
+dashboardIconBg.setStroke(
+        dp(1),
+        Color.parseColor("#C7DDFF")
 );
 
 dashboardIconBox.setBackground(
