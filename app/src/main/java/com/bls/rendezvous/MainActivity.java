@@ -2727,11 +2727,13 @@ dashboardItem.setPadding(
 // =====================================================
 
 GradientDrawable dashboardBg =
-        new GradientDrawable();
-
-dashboardBg.setColor(
-        Color.parseColor("#E8F1FF")
-);
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#F4F8FF"),
+                        Color.parseColor("#E3EEFF")
+                }
+        );
 
 dashboardBg.setCornerRadius(
         dp(16)
@@ -2745,7 +2747,9 @@ dashboardBg.setStroke(
 dashboardItem.setBackground(
         dashboardBg
 );
-
+dashboardItem.setElevation(
+        dp(2)
+);
 // =====================================================
 // DASHBOARD ICON BOX
 // =====================================================
