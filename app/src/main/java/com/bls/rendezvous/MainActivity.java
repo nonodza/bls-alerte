@@ -1796,8 +1796,14 @@ bottom.addView(
         )
 );
 
-root.addView(
-        bottom,
+// =====================================================
+// ADD BOTTOM NAVIGATION TO MAIN SHELL
+// =====================================================
+
+bottomNavigation = bottom;
+
+mainShell.addView(
+        bottomNavigation,
         new LinearLayout.LayoutParams(
                 -1,
                 dp(64)
@@ -1805,6 +1811,10 @@ root.addView(
 );
 
 }
+    
+// =========================================================
+// SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
+// =========================================================
     
 // =========================================================
 // SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
