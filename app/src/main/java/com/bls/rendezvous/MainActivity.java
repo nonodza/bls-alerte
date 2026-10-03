@@ -58,21 +58,22 @@ public class MainActivity extends Activity {
 
     private LinearLayout root;
 
-    // =========================================================
-    // PAGE NAVIGATION
-    // =========================================================
+   // =========================================================
+// PAGE NAVIGATION
+// =========================================================
 
-    private String currentPage = "HOME";
+private String currentPage = "HOME";
 
-    private String selectedWilaya = "";
-    private String selectedCenter = "";
-    private String selectedCategory = "";
+private String selectedWilaya = "";
+private String selectedCenter = "";
+private String selectedCountry = "";
+private String selectedCategory = "";
 
-    private TextView appointmentWilayaValue;
-    private TextView appointmentWilayaHint;
-    private TextView appointmentCenterValue;
-    private TextView appointmentCenterHint;
-
+private TextView appointmentWilayaValue;
+private TextView appointmentWilayaHint;
+private TextView appointmentCenterValue;
+private TextView appointmentCenterHint;
+    
     // =========================================================
     // CREATE
     // =========================================================
@@ -5596,10 +5597,14 @@ private static class EarthSpaceDrawable
 
         TextView countryValue =
         text(
-                "🇪🇸  Spain",
+                selectedCountry.length() == 0
+                        ? "Select Country"
+                        : selectedCountry,
                 18,
-                NAVY
-);
+                selectedCountry.length() == 0
+                        ? BLUE
+                        : NAVY
+        );
 
 countryValue.setTypeface(
         Typeface.DEFAULT_BOLD
