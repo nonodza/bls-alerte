@@ -3240,6 +3240,28 @@ drawerContent.addView(
         slotsItem,
         slotsParams
 );
+   // =====================================================
+// SLOTS AVAILABILITY CLICK
+// =====================================================
+
+slotsItem.setOnClickListener(
+        v -> {
+
+            // Close drawer
+            ViewParent parent =
+                    drawerOverlay.getParent();
+
+            if (parent instanceof ViewGroup) {
+
+                ((ViewGroup) parent).removeView(
+                        drawerOverlay
+                );
+            }
+
+            // Open Appointments
+            showAppointments();
+        }
+); 
 // =====================================================
 // APPLICATIONS
 // =====================================================
