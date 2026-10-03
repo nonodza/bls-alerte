@@ -1621,92 +1621,149 @@ content.addView(
         margin(0, 10, 0, 10)
 );
        
-        // =====================================================
-        // BOTTOM NAVIGATION
-        // =====================================================
+    // =====================================================
+// BOTTOM NAVIGATION
+// =====================================================
 
-        LinearLayout bottom =
-                new LinearLayout(this);
+LinearLayout bottom =
+        new LinearLayout(this);
 
-        bottom.setOrientation(
-                LinearLayout.HORIZONTAL
+bottom.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+bottom.setGravity(
+        Gravity.CENTER
+);
+
+bottom.setPadding(
+        dp(4),
+        dp(4),
+        dp(4),
+        dp(4)
+);
+
+// =====================================================
+// PREMIUM BOTTOM BACKGROUND
+// =====================================================
+
+GradientDrawable bottomBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(248, 251, 255),
+                        Color.rgb(232, 240, 255)
+                }
         );
 
-        bottom.setGravity(
-                Gravity.CENTER
-        );
+bottomBg.setCornerRadius(
+        dp(18)
+);
 
-        bottom.setPadding(
-                dp(4),
-                dp(4),
-                dp(4),
-                dp(4)
-        );
+bottomBg.setStroke(
+        dp(1),
+        Color.rgb(220, 229, 245)
+);
 
-        bottom.setBackgroundColor(
-                Color.TRANSPARENT
-        );
+bottom.setBackground(
+        bottomBg
+);
 
-        bottom.addView(
-                nav(
-                        "⌂",
-                        "Home",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showHome();
-                            }
-                        }
-                )
-        );
+if (Build.VERSION.SDK_INT >=
+        Build.VERSION_CODES.LOLLIPOP) {
 
-        bottom.addView(
-                nav(
-                        "▣",
-                        "Appointments",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAppointments();
-                            }
-                        }
-                )
-        );
+    bottom.setElevation(
+            dp(8)
+    );
+}
 
-        bottom.addView(
-                nav(
-                        "●",
-                        "Alerts",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAlerts();
-                            }
-                        }
-                )
-        );
+// =====================================================
+// HOME
+// =====================================================
 
-        bottom.addView(
-                nav(
-                        "⚙",
-                        "Settings",
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showSettings();
-                            }
-                        }
-                )
-        );
+bottom.addView(
+        nav(
+                "⌂",
+                "Home",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-        root.addView(
-                bottom,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(64)
-                )
-        );
-    }
+                        showHome();
+
+                    }
+                }
+        )
+);
+
+// =====================================================
+// ACTIVITY
+// =====================================================
+
+bottom.addView(
+        nav(
+                "◷",
+                "Activity",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        showAppointments();
+
+                    }
+                }
+        )
+);
+
+// =====================================================
+// NOTIFICATIONS
+// =====================================================
+
+bottom.addView(
+        nav(
+                "●",
+                "Notifications",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        showAlerts();
+
+                    }
+                }
+        )
+);
+
+// =====================================================
+// PROFILE
+// =====================================================
+
+bottom.addView(
+        nav(
+                "●",
+                "Profile",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        showSettings();
+
+                    }
+                }
+        )
+);
+
+// =====================================================
+// ADD BOTTOM NAVIGATION
+// =====================================================
+
+root.addView(
+        bottom,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(64)
+        )
+);    
     
     // =====================================================
     // CARD
