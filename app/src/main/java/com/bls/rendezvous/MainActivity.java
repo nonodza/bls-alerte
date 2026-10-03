@@ -5478,12 +5478,6 @@ private static class EarthSpaceDrawable
     }
 
 
-    @Override
-    public void setCoorFilter(
-            ColorFilter colorFilter) {
-        paint.setColorFilter(colorFilter);
-    }
-
 
     @Override
     public int getOpacity() {
