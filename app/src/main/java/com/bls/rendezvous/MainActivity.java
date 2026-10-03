@@ -7228,8 +7228,8 @@ private LinearLayout nav(
 
     FrameLayout.LayoutParams iconParams =
         new FrameLayout.LayoutParams(
-                home ? dp(46) : dp(42),
-                home ? dp(46) : dp(42)
+                home ? dp(38) : dp(34),
+                home ? dp(38) : dp(34)
         );
     
     iconParams.gravity =
@@ -7243,10 +7243,10 @@ private LinearLayout nav(
     item.addView(
         iconHolder,
         new LinearLayout.LayoutParams(
-                home ? dp(50) : dp(46),
-                home ? dp(50) : dp(46)
+                home ? dp(44) : dp(40),
+                home ? dp(44) : dp(40)
         )
-    );
+);
 
     Space space =
             new Space(this);
