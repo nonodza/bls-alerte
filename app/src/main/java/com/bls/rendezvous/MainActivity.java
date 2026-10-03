@@ -1694,18 +1694,16 @@ GradientDrawable bottomBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.rgb(248, 251, 255),
-                        Color.rgb(232, 240, 255)
-                }
+        Color.rgb(10, 18, 42),
+        Color.rgb(20, 32, 68)
+}
         );
 
-bottomBg.setCornerRadius(
-        dp(18)
-);
+bottomBg.setCornerRadius(0);
 
 bottomBg.setStroke(
-        dp(1),
-        Color.rgb(220, 229, 245)
+        0,
+        Color.TRANSPARENT
 );
 
 bottom.setBackground(
