@@ -5595,20 +5595,96 @@ private static class EarthSpaceDrawable
         );
 
         TextView countryValue =
-                text(
-                        "🇪🇸  Spain",
-                        18,
-                        NAVY
+        text(
+                "🇪🇸  Spain",
+                18,
+                NAVY
+);
+
+countryValue.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+countryCard.addView(
+        countryValue,
+        margin(0, 5, 0, 0)
+);
+
+// =====================================================
+// COUNTRY SELECTOR
+// =====================================================
+
+countryCard.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String[] countries = {
+        "🇦🇹  Austria",
+        "🇧🇪  Belgium",
+        "🇧🇬  Bulgaria",
+        "🇭🇷  Croatia",
+        "🇨🇿  Czech Republic",
+        "🇩🇰  Denmark",
+        "🇪🇪  Estonia",
+        "🇫🇮  Finland",
+        "🇫🇷  France",
+        "🇩🇪  Germany",
+        "🇬🇷  Greece",
+        "🇭🇺  Hungary",
+        "🇮🇸  Iceland",
+        "🇮🇹  Italy",
+        "🇱🇻  Latvia",
+        "🇱🇮  Liechtenstein",
+        "🇱🇹  Lithuania",
+        "🇱🇺  Luxembourg",
+        "🇲🇹  Malta",
+        "🇳🇱  Netherlands",
+        "🇳🇴  Norway",
+        "🇵🇱  Poland",
+        "🇵🇹  Portugal",
+        "🇷🇴  Romania",
+        "🇸🇰  Slovakia",
+        "🇸🇮  Slovenia",
+        "🇪🇸  Spain",
+        "🇸🇪  Sweden",
+        "🇨🇭  Switzerland"
+};
+
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(
+                                MainActivity.this
+                        );
+
+                builder.setTitle(
+                        "Select Country"
                 );
 
-        countryValue.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+                builder.setItems(
+                        countries,
+                        new android.content.DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(
+                                    android.content.DialogInterface dialog,
+                                    int which
+                            ) {
 
-        countryCard.addView(
-                countryValue,
-                margin(0, 5, 0, 0)
-        );
+                                countryValue.setText(
+                                        countries[which]
+                                );
+                            }
+                        }
+                );
+
+                builder.setNegativeButton(
+                        "CANCEL",
+                        null
+                );
+
+                builder.show();
+            }
+        }
+);
 
         countryCard.addView(
                 text(
