@@ -1717,7 +1717,65 @@ if (Build.VERSION.SDK_INT >=
             dp(8)
     );
 }
-    
+   // =====================================================
+// BOTTOM NAV ITEMS
+// =====================================================
+
+bottom.addView(
+        nav(
+                R.drawable.ic_home,
+                "Home",
+                true,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showHome();
+                    }
+                }
+        )
+);
+
+bottom.addView(
+        nav(
+                R.drawable.ic_activity,
+                "Activity",
+                false,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAppointments();
+                    }
+                }
+        )
+);
+
+bottom.addView(
+        nav(
+                R.drawable.ic_notifications,
+                "Notifications",
+                false,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAlerts();
+                    }
+                }
+        )
+);
+
+bottom.addView(
+        nav(
+                R.drawable.ic_profile,
+                "Profile",
+                false,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showSettings();
+                    }
+                }
+        )
+); 
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
 // =====================================================
