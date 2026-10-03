@@ -1719,81 +1719,208 @@ if (Build.VERSION.SDK_INT >=
 }
 
 // =====================================================
-// HOME
+// PREMIUM BOTTOM NAV ITEM
 // =====================================================
 
-bottom.addView(
-        nav(
-                "⌂",
-                "Home",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+private LinearLayout nav(
+        int iconRes,
+        String title,
+        boolean home,
+        View.OnClickListener listener
+) {
 
-                        showHome();
+    LinearLayout item =
+            new LinearLayout(this);
 
-                    }
-                }
-        )
-);
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-// =====================================================
-// ACTIVITY
-// =====================================================
+    item.setGravity(
+            Gravity.CENTER
+    );
 
-bottom.addView(
-        nav(
-                "◷",
-                "Activity",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+    item.setPadding(
+            dp(4),
+            dp(4),
+            dp(4),
+            dp(4)
+    );
 
-                        showAppointments();
+    item.setClickable(true);
+    item.setFocusable(true);
 
-                    }
-                }
-        )
-);
+    item.setOnClickListener(
+            listener
+    );
 
-// =====================================================
-// NOTIFICATIONS
-// =====================================================
+    // =================================================
+    // ICON HOLDER
+    // =================================================
 
-bottom.addView(
-        nav(
-                "●",
-                "Notifications",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+    FrameLayout iconHolder =
+            new FrameLayout(this);
 
-                        showAlerts();
+    iconHolder.setGravity(
+            Gravity.CENTER
+    );
 
-                    }
-                }
-        )
-);
+    // =================================================
+    // HOME LIGHT
+    // =================================================
 
-// =====================================================
-// PROFILE
-// =====================================================
+    if (home) {
 
-bottom.addView(
-        nav(
-                "●",
-                "Profile",
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        GradientDrawable glow =
+                new GradientDrawable();
 
-                        showSettings();
+        glow.setShape(
+                GradientDrawable.OVAL
+        );
 
-                    }
-                }
-        )
-);
+        glow.setColor(
+                Color.rgb(25, 48, 92)
+        );
 
+        glow.setStroke(
+                dp(1),
+                Color.rgb(55, 120, 210)
+        );
+
+        iconHolder.setBackground(
+                glow
+        );
+
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.LOLLIPOP) {
+
+            iconHolder.setElevation(
+                    dp(5)
+            );
+        }
+    }
+
+    // =================================================
+    // VECTOR ICON
+    // =================================================
+
+    ImageView icon =
+            new ImageView(this);
+
+    icon.setImageResource(
+            iconRes
+    );
+
+    icon.setScaleType(
+            ImageView.ScaleType.CENTER_INSIDE
+    );
+
+    icon.setPadding(
+            home ? dp(8) : dp(7),
+            home ? dp(8) : dp(7),
+            home ? dp(8) : dp(7),
+            home ? dp(8) : dp(7)
+    );
+
+    icon.setColorFilter(
+            Color.rgb(72, 173, 255),
+            PorterDuff.Mode.SRC_IN
+    );
+
+    FrameLayout.LayoutParams iconParams =
+            new FrameLayout.LayoutParams(
+                    home ? dp(42) : dp(38),
+                    home ? dp(42) : dp(38)
+            );
+
+    iconParams.gravity =
+            Gravity.CENTER;
+
+    iconHolder.addView(
+            icon,
+            iconParams
+    );
+
+    item.addView(
+            iconHolder,
+            new LinearLayout.LayoutParams(
+                    home ? dp(46) : dp(42),
+                    home ? dp(46) : dp(42)
+            )
+    );
+
+    // =================================================
+    // SPACE
+    // =================================================
+
+    Space space =
+            new Space(this);
+
+    item.addView(
+            space,
+            new LinearLayout.LayoutParams(
+                    1,
+                    dp(2)
+            )
+    );
+
+    // =================================================
+    // TITLE
+    // =================================================
+
+    TextView text =
+            new TextView(this);
+
+    text.setText(
+            title
+    );
+
+    text.setTextSize(
+            11
+    );
+
+    text.setTextColor(
+            home
+                    ? Color.rgb(100, 190, 255)
+                    : Color.rgb(205, 215, 235)
+    );
+
+    text.setGravity(
+            Gravity.CENTER
+    );
+
+    text.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+
+    text.setSingleLine(true);
+
+    item.addView(
+            text,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(18)
+            )
+    );
+
+    // =================================================
+    // ITEM WIDTH
+    // =================================================
+
+    LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -1,
+                    1f
+            );
+
+    item.setLayoutParams(
+            params
+    );
+
+    return item;
+}
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
 // =====================================================
