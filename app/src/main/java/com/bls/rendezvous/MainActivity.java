@@ -5477,7 +5477,11 @@ private static class EarthSpaceDrawable
         paint.setAlpha(alpha);
     }
 
-
+@Override
+public void setColorFilter(
+        ColorFilter colorFilter) {
+    paint.setColorFilter(colorFilter);
+}
 
     @Override
     public int getOpacity() {
