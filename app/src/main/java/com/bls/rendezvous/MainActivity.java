@@ -341,7 +341,42 @@ private void showHome() {
 
 background.setCornerRadius(0);
 
-setContentView(root);
+// =====================================================
+// MAIN SHELL
+// =====================================================
+
+mainShell =
+        new LinearLayout(this);
+
+mainShell.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+mainShell.setBackground(
+        background
+);
+
+mainContent =
+        new FrameLayout(this);
+
+mainShell.addView(
+        mainContent,
+        new LinearLayout.LayoutParams(
+                -1,
+                0,
+                1f
+        )
+);
+
+mainContent.addView(
+        root,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+setContentView(mainShell);
    
 // =====================================================
 // HEADER
