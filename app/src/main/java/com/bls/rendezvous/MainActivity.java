@@ -7112,9 +7112,6 @@ private LinearLayout nav(
     FrameLayout iconHolder =
             new FrameLayout(this);
 
-    iconHolder.setGravity(
-            Gravity.CENTER
-    );
 
     // =================================================
     // HOME LIGHT
@@ -7253,6 +7250,120 @@ private LinearLayout nav(
 
     return item;
 }
+    // =========================================================
+// GENERIC PAGE
+// =========================================================
+
+private void page(
+        String title,
+        String subtitle,
+        String[] items
+) {
+
+    root.removeAllViews();
+
+    ScrollView scroll =
+            new ScrollView(this);
+
+    LinearLayout page =
+            new LinearLayout(this);
+
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    page.setPadding(
+            dp(20),
+            dp(25),
+            dp(20),
+            dp(20)
+    );
+
+    GradientDrawable bg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(245, 248, 255),
+                            Color.rgb(238, 244, 255),
+                            Color.rgb(247, 243, 252)
+                    }
+            );
+
+    page.setBackground(bg);
+
+    scroll.addView(page);
+
+    root.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1
+            )
+    );
+
+    TextView back =
+            text(
+                    "‹  Back",
+                    17,
+                    BLUE
+            );
+
+    back.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showHome();
+                }
+            }
+    );
+
+    page.addView(
+            back,
+            margin(0, 0, 0, 15)
+    );
+
+    TextView titleView =
+            text(
+                    title,
+                    28,
+                    NAVY
+            );
+
+    titleView.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(titleView);
+
+    page.addView(
+            text(
+                    subtitle,
+                    13,
+                    GRAY
+            ),
+            margin(0, 5, 0, 18)
+    );
+
+    for (String item : items) {
+
+        LinearLayout c =
+                card();
+
+        c.addView(
+                text(
+                        item,
+                        15,
+                        NAVY
+                )
+        );
+
+        page.addView(
+                c,
+                margin(0, 5, 0, 5)
+        );
+    }
+        }
     // =========================================================
     // MAIN CARD
     // =========================================================
