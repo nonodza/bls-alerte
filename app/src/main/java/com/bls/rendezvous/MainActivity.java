@@ -1786,16 +1786,13 @@ mainShell.addView(
         bottomNavigation,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(64)
+                dp(85)
         )
 );
 
 }
     
-// =========================================================
-// SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
-// =========================================================
-    
+
 // =========================================================
 // SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
 // =========================================================
