@@ -1718,136 +1718,8 @@ if (Build.VERSION.SDK_INT >=
     );
 }
 
-// =====================================================
-// PREMIUM BOTTOM NAV ITEM
-// =====================================================
 
-private LinearLayout nav(
-        int iconRes,
-        String title,
-        boolean home,
-        View.OnClickListener listener
-) {
 
-    LinearLayout item =
-            new LinearLayout(this);
-
-    item.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    item.setGravity(
-            Gravity.CENTER
-    );
-
-    item.setPadding(
-            dp(4),
-            dp(4),
-            dp(4),
-            dp(4)
-    );
-
-    item.setClickable(true);
-    item.setFocusable(true);
-
-    item.setOnClickListener(
-            listener
-    );
-
-    // =================================================
-    // ICON HOLDER
-    // =================================================
-
-    FrameLayout iconHolder =
-            new FrameLayout(this);
-
-    iconHolder.setGravity(
-            Gravity.CENTER
-    );
-
-    // =================================================
-    // HOME LIGHT
-    // =================================================
-
-    if (home) {
-
-        GradientDrawable glow =
-                new GradientDrawable();
-
-        glow.setShape(
-                GradientDrawable.OVAL
-        );
-
-        glow.setColor(
-                Color.rgb(25, 48, 92)
-        );
-
-        glow.setStroke(
-                dp(1),
-                Color.rgb(55, 120, 210)
-        );
-
-        iconHolder.setBackground(
-                glow
-        );
-
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.LOLLIPOP) {
-
-            iconHolder.setElevation(
-                    dp(5)
-            );
-        }
-    }
-
-    // =================================================
-    // VECTOR ICON
-    // =================================================
-
-    ImageView icon =
-            new ImageView(this);
-
-    icon.setImageResource(
-            iconRes
-    );
-
-    icon.setScaleType(
-            ImageView.ScaleType.CENTER_INSIDE
-    );
-
-    icon.setPadding(
-            home ? dp(8) : dp(7),
-            home ? dp(8) : dp(7),
-            home ? dp(8) : dp(7),
-            home ? dp(8) : dp(7)
-    );
-
-    icon.setColorFilter(
-            Color.rgb(72, 173, 255),
-            PorterDuff.Mode.SRC_IN
-    );
-
-    FrameLayout.LayoutParams iconParams =
-            new FrameLayout.LayoutParams(
-                    home ? dp(42) : dp(38),
-                    home ? dp(42) : dp(38)
-            );
-
-    iconParams.gravity =
-            Gravity.CENTER;
-
-    iconHolder.addView(
-            icon,
-            iconParams
-    );
-
-    item.addView(
-            iconHolder,
-            new LinearLayout.LayoutParams(
-                    home ? dp(46) : dp(42),
-                    home ? dp(46) : dp(42)
-            )
-    );
 
     // =================================================
     // SPACE
@@ -1863,64 +1735,7 @@ private LinearLayout nav(
                     dp(2)
             )
     );
-
-    // =================================================
-    // TITLE
-    // =================================================
-
-    TextView text =
-            new TextView(this);
-
-    text.setText(
-            title
-    );
-
-    text.setTextSize(
-            11
-    );
-
-    text.setTextColor(
-            home
-                    ? Color.rgb(100, 190, 255)
-                    : Color.rgb(205, 215, 235)
-    );
-
-    text.setGravity(
-            Gravity.CENTER
-    );
-
-    text.setTypeface(
-            Typeface.DEFAULT,
-            Typeface.BOLD
-    );
-
-    text.setSingleLine(true);
-
-    item.addView(
-            text,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(18)
-            )
-    );
-
-    // =================================================
-    // ITEM WIDTH
-    // =================================================
-
-    LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(
-                    0,
-                    -1,
-                    1f
-            );
-
-    item.setLayoutParams(
-            params
-    );
-
-    return item;
-}
+    
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
 // =====================================================
@@ -7276,121 +7091,186 @@ private void showAppointments() {
         return card;
     } 
 
-    // =========================================================
-    // GENERIC PAGE
-    // =========================================================
+ // =========================================================
+// PREMIUM BOTTOM NAV ITEM
+// =========================================================
 
-    private void page(
-            String title,
-            String subtitle,
-            String[] items
-    ) {
+private LinearLayout nav(
+        int iconRes,
+        String title,
+        boolean home,
+        View.OnClickListener listener
+) {
 
-        root.removeAllViews();
+    LinearLayout item =
+            new LinearLayout(this);
 
-        ScrollView scroll =
-                new ScrollView(this);
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        LinearLayout page =
-                new LinearLayout(this);
+    item.setGravity(
+            Gravity.CENTER
+    );
 
-        page.setOrientation(
-                LinearLayout.VERTICAL
+    item.setPadding(
+            dp(4),
+            dp(4),
+            dp(4),
+            dp(4)
+    );
+
+    item.setClickable(true);
+    item.setFocusable(true);
+
+    item.setOnClickListener(
+            listener
+    );
+
+    FrameLayout iconHolder =
+            new FrameLayout(this);
+
+    iconHolder.setGravity(
+            Gravity.CENTER
+    );
+
+    // =================================================
+    // HOME LIGHT
+    // =================================================
+
+    if (home) {
+
+        GradientDrawable glow =
+                new GradientDrawable();
+
+        glow.setShape(
+                GradientDrawable.OVAL
         );
 
-        page.setPadding(
-                dp(20),
-                dp(25),
-                dp(20),
-                dp(20)
+        glow.setColor(
+                Color.rgb(25, 48, 92)
         );
 
-        GradientDrawable bg =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
-                        }
-                );
-
-        page.setBackground(bg);
-
-        scroll.addView(page);
-
-        root.addView(
-                scroll,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        0,
-                        1
-                )
+        glow.setStroke(
+                dp(1),
+                Color.rgb(55, 120, 210)
         );
 
-        TextView back =
-                text(
-                        "‹  Back",
-                        17,
-                        BLUE
-                );
-
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showHome();
-                    }
-                }
+        iconHolder.setBackground(
+                glow
         );
 
-        page.addView(
-                back,
-                margin(0, 0, 0, 15)
-        );
+        if (Build.VERSION.SDK_INT >=
+                Build.VERSION_CODES.LOLLIPOP) {
 
-        TextView titleView =
-                text(
-                        title,
-                        28,
-                        NAVY
-                );
-
-        titleView.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        page.addView(titleView);
-
-        page.addView(
-                text(
-                        subtitle,
-                        13,
-                        GRAY
-                ),
-                margin(0, 5, 0, 18)
-        );
-
-        for (String item : items) {
-
-            LinearLayout c =
-                    card();
-
-            c.addView(
-                    text(
-                            item,
-                            15,
-                            NAVY
-                    )
-            );
-
-            page.addView(
-                    c,
-                    margin(0, 5, 0, 5)
+            iconHolder.setElevation(
+                    dp(5)
             );
         }
     }
 
+    ImageView icon =
+            new ImageView(this);
+
+    icon.setImageResource(
+            iconRes
+    );
+
+    icon.setScaleType(
+            ImageView.ScaleType.CENTER_INSIDE
+    );
+
+    icon.setPadding(
+            home ? dp(8) : dp(7),
+            home ? dp(8) : dp(7),
+            home ? dp(8) : dp(7),
+            home ? dp(8) : dp(7)
+    );
+
+    icon.setColorFilter(
+            Color.rgb(72, 173, 255),
+            PorterDuff.Mode.SRC_IN
+    );
+
+    FrameLayout.LayoutParams iconParams =
+            new FrameLayout.LayoutParams(
+                    home ? dp(42) : dp(38),
+                    home ? dp(42) : dp(38)
+            );
+
+    iconParams.gravity =
+            Gravity.CENTER;
+
+    iconHolder.addView(
+            icon,
+            iconParams
+    );
+
+    item.addView(
+            iconHolder,
+            new LinearLayout.LayoutParams(
+                    home ? dp(46) : dp(42),
+                    home ? dp(46) : dp(42)
+            )
+    );
+
+    Space space =
+            new Space(this);
+
+    item.addView(
+            space,
+            new LinearLayout.LayoutParams(
+                    1,
+                    dp(2)
+            )
+    );
+
+    TextView text =
+            new TextView(this);
+
+    text.setText(
+            title
+    );
+
+    text.setTextSize(
+            11
+    );
+
+    text.setTextColor(
+            home
+                    ? Color.rgb(100, 190, 255)
+                    : Color.rgb(205, 215, 235)
+    );
+
+    text.setGravity(
+            Gravity.CENTER
+    );
+
+    text.setTypeface(
+            Typeface.DEFAULT,
+            Typeface.BOLD
+    );
+
+    text.setSingleLine(true);
+
+    item.addView(
+            text,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(18)
+            )
+    );
+
+    item.setLayoutParams(
+            new LinearLayout.LayoutParams(
+                    0,
+                    -1,
+                    1f
+            )
+    );
+
+    return item;
+}
     // =========================================================
     // MAIN CARD
     // =========================================================
