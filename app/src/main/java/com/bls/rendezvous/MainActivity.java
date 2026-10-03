@@ -1717,24 +1717,6 @@ if (Build.VERSION.SDK_INT >=
             dp(8)
     );
 }
-
-
-
-
-    // =================================================
-    // SPACE
-    // =================================================
-
-    Space space =
-            new Space(this);
-
-    item.addView(
-            space,
-            new LinearLayout.LayoutParams(
-                    1,
-                    dp(2)
-            )
-    );
     
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
