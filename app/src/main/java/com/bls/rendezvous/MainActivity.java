@@ -306,7 +306,14 @@ private TextView appointmentCenterHint;
                 1800
         );
     }
+// =====================================================
+// MAIN APP SHELL
+// =====================================================
 
+private LinearLayout mainShell;
+private FrameLayout mainContent;
+private LinearLayout bottomNavigation;
+    
 // =========================================================  
 // HOME  
 // =========================================================  
