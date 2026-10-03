@@ -6209,1130 +6209,493 @@ countryCard.setOnClickListener(
         );
     }
 
-    // =========================================================
-    // WILAYAS
-    // =========================================================
+  // =========================================================
+// APPOINTMENTS / MONITORING
+// =========================================================
 
-    private void showWilayaSelector() {
+private void showAppointments() {
 
-        final String[] wilayas = {
+    currentPage = "APPOINTMENTS";
 
-                "Adrar",
-                "Chlef",
-                "Laghouat",
-                "Oum El Bouaghi",
-                "Batna",
-                "Bejaia",
-                "Biskra",
-                "Bechar",
-                "Blida",
-                "Bouira",
-                "Tamanrasset",
-                "Tebessa",
-                "Tlemcen",
-                "Tiaret",
-                "Tizi-Ouzou",
-                "Algiers",
-                "Djelfa",
-                "Jijel",
-                "Setif",
-                "Saida",
-                "Skikda",
-                "Sidi Bel Abbes",
-                "Annaba",
-                "Guelma",
-                "Constantine",
-                "Medea",
-                "Mostaganem",
-                "M'Sila",
-                "Mascara",
-                "Ouargla",
-                "Oran",
-                "El Bayadh",
-                "Illizi",
-                "Bordj Bou Arreridj",
-                "Boumerdes",
-                "El Tarf",
-                "Tindouf",
-                "Tissemsilt",
-                "El Oued",
-                "Khenchela",
-                "Souk Ahras",
-                "Tipaza",
-                "Mila",
-                "Ain Defla",
-                "Naama",
-                "Ain Temouchent",
-                "Ghardaia",
-                "Relizane",
-                "Aflou",
-                "Barika",
-                "El Kantara",
-                "Bir El Ater",
-                "El Aricha",
-                "Ksar Chellala",
-                "Ain Oussara",
-                "Messaad",
-                "Ksar El Boukhari",
-                "Bou Saada",
-                "El Abiodh Sidi Cheikh"
-        };
+    root.removeAllViews();
 
-        final AlertDialog dialog =
-                new AlertDialog.Builder(
-                        MainActivity.this
-                ).create();
+    // =====================================================
+    // SCROLL
+    // =====================================================
 
-        LinearLayout main =
-                new LinearLayout(this);
+    ScrollView scroll =
+            new ScrollView(this);
 
-        main.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    scroll.setFillViewport(true);
+    scroll.setVerticalScrollBarEnabled(false);
 
-        main.setPadding(
-                dp(18),
-                dp(15),
-                dp(18),
-                dp(10)
-        );
+    // =====================================================
+    // PAGE
+    // =====================================================
 
-        TextView title =
-                text(
-                        "Select your Wilaya",
-                        21,
-                        NAVY
-                );
+    LinearLayout page =
+            new LinearLayout(this);
 
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
 
-        main.addView(title);
+    page.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(25)
+    );
 
-        ScrollView scroll =
-                new ScrollView(this);
+    // =====================================================
+    // PREMIUM BACKGROUND
+    // =====================================================
 
-        LinearLayout list =
-                new LinearLayout(this);
-
-        list.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        for (int i = 0; i < wilayas.length; i++) {
-
-            final String wilaya =
-                    wilayas[i];
-
-            TextView item =
-                    text(
-                            wilaya,
-                            16,
-                            NAVY
-                    );
-
-            item.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
-
-            item.setPadding(
-                    dp(15),
-                    0,
-                    dp(15),
-                    0
-            );
-
-            LinearLayout.LayoutParams itemParams =
-                    new LinearLayout.LayoutParams(
-                            -1,
-                            dp(52)
-                    );
-
-            itemParams.setMargins(
-                    0,
-                    dp(3),
-                    0,
-                    dp(3)
-            );
-
-            list.addView(
-                    item,
-                    itemParams
-            );
-
-            item.setOnClickListener(
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            selectedWilaya =
-                                    wilaya;
-
-                            selectedCenter =
-                                    getBlsCenter(
-                                            selectedWilaya
-                                    );
-
-                            updateAppointmentSelection();
-
-                            dialog.dismiss();
-                        }
+    GradientDrawable pageBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(245, 248, 255),
+                            Color.rgb(238, 244, 255),
+                            Color.rgb(247, 243, 252)
                     }
             );
-        }
 
-        scroll.addView(list);
+    page.setBackground(pageBg);
 
-        main.addView(
-                scroll,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(430)
-                )
-        );
+    scroll.addView(
+            page,
+            new ScrollView.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
 
-        Button cancel =
-                smallButton(
-                        "CANCEL"
-                );
+    root.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1f
+            )
+    );
 
-        cancel.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                }
-        );
+    // =====================================================
+    // BACK
+    // =====================================================
 
-        main.addView(
-                cancel,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(48)
-                )
-        );
-
-        dialog.setView(main);
-
-        dialog.show();
-
-        if (dialog.getWindow() != null) {
-
-            dialog.getWindow().setBackgroundDrawable(
-                    new android.graphics.drawable.ColorDrawable(
-                            Color.WHITE
-                    )
+    TextView back =
+            text(
+                    "‹  Back",
+                    17,
+                    BLUE
             );
 
-            dialog.getWindow().setLayout(
-                    (int)(
-                            getResources()
-                                    .getDisplayMetrics()
-                                    .widthPixels
-                                    * 0.92
-                    ),
-                    dp(560)
-            );
-        }
-    }
+    back.setOnClickListener(
+            v -> showHome()
+    );
 
-    private int getSelectedWilayaIndex(
-            String[] wilayas
-    ) {
+    page.addView(
+            back,
+            margin(0, 0, 0, 10)
+    );
 
-        if (selectedWilaya.length() == 0) {
-            return -1;
-        }
+    // =====================================================
+    // TITLE
+    // =====================================================
 
-        for (int i = 0; i < wilayas.length; i++) {
-
-            if (wilayas[i].equals(
-                    selectedWilaya
-            )) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    // =========================================================
-    // UPDATE APPOINTMENT SELECTION
-    // =========================================================
-
-    private void updateAppointmentSelection() {
-
-        if (appointmentWilayaValue != null) {
-
-            appointmentWilayaValue.setText(
-                    selectedWilaya
-            );
-        }
-
-        if (appointmentWilayaHint != null) {
-
-            appointmentWilayaHint.setText(
-                    "Residence selected"
+    TextView title =
+            text(
+                    "Visa Monitoring",
+                    28,
+                    NAVY
             );
 
-            appointmentWilayaHint.setTextColor(
-                    GREEN
+    title.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    page.addView(title);
+
+    // =====================================================
+    // SUBTITLE
+    // =====================================================
+
+    page.addView(
+            text(
+                    "Monitor visa appointment availability and get notified when a slot appears.",
+                    13,
+                    GRAY
+            ),
+            margin(0, 5, 0, 20)
+    );
+
+    // =====================================================
+    // COUNTRY CARD
+    // =====================================================
+
+    LinearLayout countryCard =
+            appointmentCard();
+
+    countryCard.addView(
+            text(
+                    "COUNTRY",
+                    10,
+                    GRAY
+            )
+    );
+
+    TextView countryValue =
+            text(
+                    selectedCountry.length() == 0
+                            ? "Select Country"
+                            : selectedCountry,
+                    18,
+                    selectedCountry.length() == 0
+                            ? BLUE
+                            : NAVY
             );
-        }
 
-        if (appointmentCenterValue != null) {
+    countryValue.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-            appointmentCenterValue.setText(
-                    selectedCenter +
-                    " Visa Center"
-            );
-        }
+    countryCard.addView(
+            countryValue,
+            margin(0, 5, 0, 0)
+    );
 
-        if (appointmentCenterHint != null) {
+    countryCard.addView(
+            text(
+                    "Choose the country you want to monitor.",
+                    11,
+                    GRAY
+            ),
+            margin(0, 2, 0, 0)
+    );
 
-            appointmentCenterHint.setText(
-                    "Based on your residence"
-            );
+    // =====================================================
+    // COUNTRY SELECTOR
+    // =====================================================
 
-            appointmentCenterHint.setTextColor(
-                    GREEN
-            );
-        }
-    }
+    countryCard.setOnClickListener(
+            v -> {
 
-    // =========================================================
-    // BLS CENTER JURISDICTION
-    // =========================================================
+                final String[] countries = {
 
-    private String getBlsCenter(
-            String wilaya
-    ) {
-
-        if (wilaya.equals("Adrar")
-                || wilaya.equals("Chlef")
-                || wilaya.equals("Bechar")
-                || wilaya.equals("Tlemcen")
-                || wilaya.equals("Tiaret")
-                || wilaya.equals("Saida")
-                || wilaya.equals("Sidi Bel Abbes")
-                || wilaya.equals("Mostaganem")
-                || wilaya.equals("Mascara")
-                || wilaya.equals("Oran")
-                || wilaya.equals("El Bayadh")
-                || wilaya.equals("Tissemsilt")
-                || wilaya.equals("Naama")
-                || wilaya.equals("Ain Temouchent")
-                || wilaya.equals("Relizane")) {
-
-            return "Oran";
-        }
-
-        if (wilaya.equals("Aflou")) {
-            return getBlsCenter("Laghouat");
-        }
-
-        if (wilaya.equals("Barika")) {
-            return getBlsCenter("Batna");
-        }
-
-        if (wilaya.equals("El Kantara")) {
-            return getBlsCenter("Biskra");
-        }
-
-        if (wilaya.equals("Bir El Ater")) {
-            return getBlsCenter("Tebessa");
-        }
-
-        if (wilaya.equals("El Aricha")) {
-            return getBlsCenter("Tlemcen");
-        }
-
-        if (wilaya.equals("Ksar Chellala")) {
-            return getBlsCenter("Tiaret");
-        }
-
-        if (wilaya.equals("Ain Oussara")) {
-            return getBlsCenter("Djelfa");
-        }
-
-        if (wilaya.equals("Messaad")) {
-            return getBlsCenter("Djelfa");
-        }
-
-        if (wilaya.equals("Ksar El Boukhari")) {
-            return getBlsCenter("Medea");
-        }
-
-        if (wilaya.equals("Bou Saada")) {
-            return getBlsCenter("M'Sila");
-        }
-
-        if (wilaya.equals("El Abiodh Sidi Cheikh")) {
-            return getBlsCenter("El Bayadh");
-        }
-
-        return "Algiers";
-    }
-
-    // =========================================================
-    // VISA TYPE
-    // =========================================================
-
-    private void showVisaTypePage() {
-
-        currentPage = "VISA_TYPE";
-
-        root.removeAllViews();
-
-        ScrollView scroll =
-                new ScrollView(this);
-
-        LinearLayout page =
-                new LinearLayout(this);
-
-        page.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        page.setPadding(
-                dp(20),
-                dp(25),
-                dp(20),
-                dp(25)
-        );
-
-        GradientDrawable bg =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(245, 248, 255),
-                                Color.rgb(238, 244, 255),
-                                Color.rgb(247, 243, 252)
-                        }
-                );
-
-        page.setBackground(bg);
-
-        scroll.addView(page);
-
-        root.addView(
-                scroll,
-                new LinearLayout.LayoutParams(
-                        -1,
-                        0,
-                        1
-                )
-        );
-
-        TextView back =
-                text(
-                        "‹  Back",
-                        17,
-                        BLUE
-                );
-
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showAppointments();
-                    }
-                }
-        );
-
-        page.addView(
-                back,
-                margin(0, 0, 0, 15)
-        );
-
-        TextView title =
-                text(
-                        "Visa Type",
-                        28,
-                        NAVY
-                );
-
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        page.addView(title);
-
-        page.addView(
-                text(
-                        "Select the purpose of your trip to Spain.",
-                        13,
-                        GRAY
-                ),
-                margin(0, 5, 0, 18)
-        );
-
-        LinearLayout selected =
-                card();
-
-        selected.addView(
-                text(
-                        "SELECTED CENTER",
-                        10,
-                        GRAY
-                )
-        );
-
-        TextView center =
-                text(
-                        selectedCenter.length() == 0
-                                ? "Algiers Visa Center"
-                                : selectedCenter + " Visa Center",
-                        18,
-                        NAVY
-                );
-
-        center.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        selected.addView(
-                center,
-                margin(0, 5, 0, 0)
-        );
-
-        selected.addView(
-                text(
-                        selectedWilaya.length() == 0
-                                ? "Algiers"
-                                : selectedWilaya,
-                        12,
-                        GREEN
-                ),
-                margin(0, 3, 0, 0)
-        );
-
-        page.addView(
-                selected,
-                margin(0, 0, 0, 15)
-        );
-
-        LinearLayout country =
-                appointmentCard();
-
-        country.addView(
-                text(
-                        "COUNTRY",
-                        10,
-                        GRAY
-                )
-        );
-
-        TextView countryTitle =
-                text(
+                        "🇦🇹  Austria",
+                        "🇧🇪  Belgium",
+                        "🇧🇬  Bulgaria",
+                        "🇭🇷  Croatia",
+                        "🇨🇿  Czech Republic",
+                        "🇩🇰  Denmark",
+                        "🇪🇪  Estonia",
+                        "🇫🇮  Finland",
+                        "🇫🇷  France",
+                        "🇩🇪  Germany",
+                        "🇬🇷  Greece",
+                        "🇭🇺  Hungary",
+                        "🇮🇸  Iceland",
+                        "🇮🇹  Italy",
+                        "🇱🇻  Latvia",
+                        "🇱🇮  Liechtenstein",
+                        "🇱🇹  Lithuania",
+                        "🇱🇺  Luxembourg",
+                        "🇲🇹  Malta",
+                        "🇳🇱  Netherlands",
+                        "🇳🇴  Norway",
+                        "🇵🇱  Poland",
+                        "🇵🇹  Portugal",
+                        "🇷🇴  Romania",
+                        "🇸🇰  Slovakia",
+                        "🇸🇮  Slovenia",
                         "🇪🇸  Spain",
-                        18,
-                        NAVY
-                );
+                        "🇸🇪  Sweden",
+                        "🇨🇭  Switzerland"
+                };
 
-        countryTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        country.addView(
-                countryTitle,
-                margin(0, 5, 0, 0)
-        );
-
-        country.addView(
-                text(
-                        "Schengen visa",
-                        12,
-                        GRAY
-                ),
-                margin(0, 3, 0, 0)
-        );
-
-        page.addView(
-                country,
-                margin(0, 0, 0, 10)
-        );
-
-        LinearLayout tourism =
-                appointmentCard();
-
-        tourism.addView(
-                text(
-                        "VISA PURPOSE",
-                        10,
-                        GRAY
-                )
-        );
-
-        TextView tourismTitle =
-                text(
-                        "Tourism",
-                        18,
-                        NAVY
-                );
-
-        tourismTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        tourism.addView(
-                tourismTitle,
-                margin(0, 5, 0, 0)
-        );
-
-        tourism.addView(
-                text(
-                        "Short Stay - Tourism",
-                        12,
-                        GRAY
-                ),
-                margin(0, 3, 0, 0)
-        );
-
-        tourism.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showPreviousSpainVisaPage();
-                    }
-                }
-        );
-
-        page.addView(
-                tourism,
-                margin(0, 0, 0, 15)
-        );
-    }
-
-    // =========================================================
-    // PREVIOUS SCHENGEN VISA
-    // =========================================================
-
-    private void showPreviousSpainVisaPage() {
-
-        currentPage = "PREVIOUS_VISA";
-
-        root.removeAllViews();
-
-        ScrollView scroll =
-                new ScrollView(this);
-
-        LinearLayout layout =
-                new LinearLayout(this);
-
-        layout.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        layout.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(30)
-        );
-
-        TextView back =
-                text(
-                        "< Back",
-                        16,
-                        BLUE
-                );
-
-        back.setPadding(
-                0,
-                0,
-                0,
-                dp(18)
-        );
-
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showVisaTypePage();
-                    }
-                }
-        );
-
-        layout.addView(back);
-
-        TextView title =
-                text(
-                        "Previous Schengen Visa",
-                        26,
-                        NAVY
-                );
-
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        layout.addView(title);
-
-        TextView subtitle =
-                text(
-                        "Tell us about your most recent Schengen visa.",
-                        16,
-                        GRAY
-                );
-
-        subtitle.setPadding(
-                0,
-                dp(8),
-                0,
-                dp(20)
-        );
-
-        layout.addView(subtitle);
-
-        TextView question =
-                text(
-                        "Have you had a Schengen visa before?",
-                        17,
-                        NAVY
-                );
-
-        question.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        question.setPadding(
-                0,
-                0,
-                0,
-                dp(20)
-        );
-
-        layout.addView(question);
-
-        TextView yes =
-                text(
-                        "YES\n\nYes, I have had a Schengen visa",
-                        17,
-                        NAVY
-                );
-
-        yes.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(20)
-        );
-
-        yes.setBackgroundColor(LIGHT);
-
-        yes.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showVisaIssuingCountryPage();
-                    }
-                }
-        );
-
-        layout.addView(
-                yes,
-                margin(0, 0, 0, 15)
-        );
-
-        TextView no =
-                text(
-                        "NO\n\nNo, I have never had a Schengen visa",
-                        17,
-                        NAVY
-                );
-
-        no.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(20)
-        );
-
-        no.setBackgroundColor(LIGHT);
-
-        no.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        selectAppointmentCategory(
-                                "ALG1"
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(
+                                MainActivity.this
                         );
-                    }
-                }
-        );
 
-        layout.addView(no);
-
-        TextView why =
-                text(
-                        "Why do we ask?\n\nOnly the most recent Schengen visa issued by Spain on or after 1 January 2021 can be used for ALG2, ALG3 or ALG4.",
-                        14,
-                        GRAY
+                builder.setTitle(
+                        "Select Country"
                 );
 
-        why.setPadding(
-                0,
-                dp(25),
-                0,
-                dp(20)
-        );
+                builder.setItems(
+                        countries,
+                        (dialog, which) -> {
 
-        layout.addView(why);
+                            selectedCountry =
+                                    countries[which];
 
-        scroll.addView(layout);
+                            countryValue.setText(
+                                    selectedCountry
+                            );
 
-        root.addView(scroll);
-    }
+                            countryValue.setTextColor(
+                                    NAVY
+                            );
+                        }
+                );
 
-    // =========================================================
-    // VISA ISSUING COUNTRY
-    // =========================================================
+                builder.setNegativeButton(
+                        "CANCEL",
+                        null
+                );
 
-    private void showVisaIssuingCountryPage() {
+                builder.show();
+            }
+    );
 
-        currentPage = "ISSUING_COUNTRY";
+    page.addView(
+            countryCard,
+            margin(0, 0, 0, 12)
+    );
 
-        root.removeAllViews();
+    // =====================================================
+    // MONITORING CARD
+    // =====================================================
 
-        ScrollView scroll =
-                new ScrollView(this);
+    LinearLayout monitoringCard =
+            card();
 
-        LinearLayout layout =
-                new LinearLayout(this);
+    TextView monitoringTitle =
+            text(
+                    "Appointment Monitoring",
+                    17,
+                    NAVY
+            );
 
-        layout.setOrientation(
-                LinearLayout.VERTICAL
-        );
+    monitoringTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-        layout.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(30)
-        );
+    monitoringCard.addView(
+            monitoringTitle
+    );
 
-        TextView back =
-                text(
-                        "< Back",
-                        16,
+    monitoringCard.addView(
+            text(
+                    "The app will monitor appointment availability and notify you when a slot is detected.",
+                    12,
+                    GRAY
+            ),
+            margin(0, 6, 0, 12)
+    );
+
+    // =====================================================
+    // STATUS
+    // =====================================================
+
+    TextView monitoringStatus =
+            text(
+                    "Monitoring is paused",
+                    13,
+                    GRAY
+            );
+
+    monitoringStatus.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    monitoringCard.addView(
+            monitoringStatus,
+            margin(0, 0, 0, 10)
+    );
+
+    // =====================================================
+    // START MONITORING
+    // =====================================================
+
+    Button startMonitoring =
+            smallButton(
+                    "START MONITORING"
+            );
+
+    startMonitoring.setOnClickListener(
+            v -> {
+
+                if (selectedCountry.length() == 0) {
+
+                    new AlertDialog.Builder(
+                            MainActivity.this
+                    )
+                            .setTitle(
+                                    "Select a country"
+                            )
+                            .setMessage(
+                                    "Please select a country before starting monitoring."
+                            )
+                            .setPositiveButton(
+                                    "OK",
+                                    null
+                            )
+                            .show();
+
+                    return;
+                }
+
+                monitoringStatus.setText(
+                        "Monitoring is active • " +
+                        selectedCountry
+                );
+
+                monitoringStatus.setTextColor(
+                        GREEN
+                );
+
+                startMonitoring.setText(
+                        "MONITORING ACTIVE"
+                );
+            }
+    );
+
+    monitoringCard.addView(
+            startMonitoring
+    );
+
+    page.addView(
+            monitoringCard,
+            margin(0, 0, 0, 12)
+    );
+
+    // =====================================================
+    // AVAILABILITY CARD
+    // =====================================================
+
+    LinearLayout availabilityCard =
+            card();
+
+    TextView availabilityTitle =
+            text(
+                    "Appointment Availability",
+                    17,
+                    NAVY
+            );
+
+    availabilityTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    availabilityCard.addView(
+            availabilityTitle
+    );
+
+    TextView availabilityStatus =
+            text(
+                    "No appointment detected yet",
+                    13,
+                    GRAY
+            );
+
+    availabilityStatus.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    availabilityCard.addView(
+            availabilityStatus,
+            margin(0, 6, 0, 0)
+    );
+
+    availabilityCard.addView(
+            text(
+                    "You will be notified when an available appointment is detected.",
+                    11,
+                    GRAY
+            ),
+            margin(0, 3, 0, 10)
+    );
+
+    Button checkButton =
+            smallButton(
+                    "CHECK NOW"
+            );
+
+    checkButton.setOnClickListener(
+            v -> {
+
+                if (selectedCountry.length() == 0) {
+
+                    new AlertDialog.Builder(
+                            MainActivity.this
+                    )
+                            .setTitle(
+                                    "Select a country"
+                            )
+                            .setMessage(
+                                    "Please select a country first."
+                            )
+                            .setPositiveButton(
+                                    "OK",
+                                    null
+                            )
+                            .show();
+
+                    return;
+                }
+
+                availabilityStatus.setText(
+                        "Checking " +
+                        selectedCountry +
+                        "..."
+                );
+
+                availabilityStatus.setTextColor(
                         BLUE
                 );
+            }
+    );
 
-        back.setPadding(
-                0,
-                0,
-                0,
-                dp(18)
-        );
+    availabilityCard.addView(
+            checkButton
+    );
 
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showPreviousSpainVisaPage();
-                    }
-                }
-        );
+    page.addView(
+            availabilityCard,
+            margin(0, 0, 0, 12)
+    );
 
-        layout.addView(back);
+    // =====================================================
+    // HOW IT WORKS
+    // =====================================================
 
-        TextView title =
-                text(
-                        "Visa Issuing Country",
-                        26,
-                        NAVY
-                );
+    LinearLayout infoCard =
+            card();
 
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
+    TextView infoTitle =
+            text(
+                    "How it works",
+                    16,
+                    NAVY
+            );
 
-        layout.addView(title);
+    infoTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-        TextView subtitle =
-                text(
-                        "Which country issued your most recent Schengen visa?",
-                        16,
-                        GRAY
-                );
+    infoCard.addView(
+            infoTitle
+    );
 
-        subtitle.setPadding(
-                0,
-                dp(8),
-                0,
-                dp(20)
-        );
+    infoCard.addView(
+            text(
+                    "1. Select a country\n" +
+                    "2. Start monitoring\n" +
+                    "3. Get notified when an appointment appears\n" +
+                    "4. Open the official booking page",
+                    12,
+                    GRAY
+            ),
+            margin(0, 7, 0, 0)
+    );
 
-        layout.addView(subtitle);
-
-        TextView spain =
-                text(
-                        "🇪🇸  Spain\n\nMy most recent Schengen visa was issued by Spain",
-                        17,
-                        NAVY
-                );
-
-        spain.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(20)
-        );
-
-        spain.setBackgroundColor(LIGHT);
-
-        spain.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showVisaValidityPage();
-                    }
-                }
-        );
-
-        layout.addView(
-                spain,
-                margin(0, 0, 0, 12)
-        );
-
-        TextView other =
-                text(
-                        "🌍  Other Schengen country\n\nMy most recent Schengen visa was issued by another Schengen country",
-                        17,
-                        NAVY
-                );
-
-        other.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(20)
-        );
-
-        other.setBackgroundColor(LIGHT);
-
-        other.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        selectAppointmentCategory(
-                                "ALG1"
-                        );
-                    }
-                }
-        );
-
-        layout.addView(other);
-
-        TextView info =
-                text(
-                        "Important\n\nFor ALG2, ALG3 and ALG4, the most recent Schengen visa must have been issued exclusively by Spain on or after 1 January 2021.",
-                        14,
-                        GRAY
-                );
-
-        info.setPadding(
-                0,
-                dp(25),
-                0,
-                0
-        );
-
-        layout.addView(info);
-
-        scroll.addView(layout);
-
-        root.addView(scroll);
-    }
-
-    // =========================================================
-    // SPAIN VISA VALIDITY
-    // =========================================================
-
-    private void showVisaValidityPage() {
-
-        currentPage = "VISA_VALIDITY";
-
-        root.removeAllViews();
-
-        ScrollView scroll =
-                new ScrollView(this);
-
-        LinearLayout layout =
-                new LinearLayout(this);
-
-        layout.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        layout.setPadding(
-                dp(20),
-                dp(20),
-                dp(20),
-                dp(30)
-        );
-
-        TextView back =
-                text(
-                        "‹  Back",
-                        16,
-                        BLUE
-                );
-
-        back.setPadding(
-                0,
-                0,
-                0,
-                dp(18)
-        );
-
-        back.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showVisaIssuingCountryPage();
-                    }
-                }
-        );
-
-        layout.addView(back);
-
-        TextView title =
-                text(
-                        "Visa Validity",
-                        26,
-                        NAVY
-                );
-
-        title.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        layout.addView(title);
-
-        TextView subtitle =
-                text(
-                        "How long was your last Spain Schengen visa valid?",
-                        16,
-                        GRAY
-                );
-
-        subtitle.setPadding(
-                0,
-                dp(8),
-                0,
-                dp(20)
-        );
-
-        layout.addView(subtitle);
-
-        TextView alg2 =
-                text(
-                        "Less than 6 months",
-                        18,
-                        NAVY
-                );
-
-        alg2.setPadding(
-                dp(20),
-                dp(22),
-                dp(20),
-                dp(22)
-        );
-
-        alg2.setBackgroundColor(LIGHT);
-
-        alg2.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectAppointmentCategory("ALG2");
-                    }
-                }
-        );
-
-        layout.addView(
-                alg2,
-                margin(0, 0, 0, 12)
-        );
-
-        TextView alg3 =
-                text(
-                        "6 months to less than 2 years",
-                        18,
-                        NAVY
-                );
-
-        alg3.setPadding(
-                dp(20),
-                dp(22),
-                dp(20),
-                dp(22)
-        );
-
-        alg3.setBackgroundColor(LIGHT);
-
-        alg3.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectAppointmentCategory("ALG3");
-                    }
-                }
-        );
-
-        layout.addView(
-                alg3,
-                margin(0, 0, 0, 12)
-        );
-
-        TextView alg4 =
-                text(
-                        "2 years or more",
-                        18,
-                        NAVY
-                );
-
-        alg4.setPadding(
-                dp(20),
-                dp(22),
-                dp(20),
-                dp(22)
-        );
-
-        alg4.setBackgroundColor(LIGHT);
-
-        alg4.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectAppointmentCategory("ALG4");
-                    }
-                }
-        );
-
-        layout.addView(
-                alg4,
-                margin(0, 0, 0, 20)
-        );
-
-        layout.addView(
-                text(
-                        "Your previous Spain visa validity determines the appropriate BLS appointment category.",
-                        14,
-                        GRAY
-                )
-        );
-
-        scroll.addView(layout);
-
-        root.addView(scroll);
-    }
+    page.addView(
+            infoCard,
+            margin(0, 0, 0, 5)
+    );
+}          
 
     // =========================================================
     // APPOINTMENT CATEGORY
