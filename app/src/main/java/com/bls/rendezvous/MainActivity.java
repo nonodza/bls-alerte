@@ -7599,10 +7599,27 @@ private String getVisaPortalUrl(
             return "https://www.migrationsverket.se/en/you-want-to-apply/visit-sweden.html";
 
         case "Switzerland":
-            return "https://www.eda.admin.ch/countries/algeria/en/home/visa/entry-ch.html";
+    return "https://www.eda.admin.ch/countries/algeria/en/home/visa/entry-ch.html";
 
-        default:
-            return null;
-    }
+default:
+    return null;
 }
-}  
+}
+
+// =========================================================
+// OLD VISA METHODS — TEMPORARY
+// =========================================================
+
+private void showPreviousSpainVisaPage() {
+}
+
+private void showVisaValidityPage() {
+}
+
+private void showVisaTypePage() {
+}
+
+private void showVisaIssuingCountryPage() {
+}
+
+}
