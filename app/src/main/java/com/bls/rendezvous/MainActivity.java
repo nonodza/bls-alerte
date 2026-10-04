@@ -1759,7 +1759,7 @@ bottom.addView(profileItem);
 // =====================================================
 
 mainShell.addView(
-        bottomNavigation,
+        bottom,
         new LinearLayout.LayoutParams(
                 -1,
                 dp(64)
