@@ -7370,7 +7370,7 @@ private void page(
             margin(0, 5, 0, 18)
     );
 
-    for (String item : items) {
+        for (String item : items) {
 
         LinearLayout c =
                 card();
@@ -7388,7 +7388,7 @@ private void page(
                 margin(0, 5, 0, 5)
         );
     }
-        }
+}
     // =========================================================
     // MAIN CARD
     // =========================================================
