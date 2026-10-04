@@ -7105,24 +7105,14 @@ private void showAppointments() {
 // =========================================================
 // PREMIUM BOTTOM NAV ITEM
 // =========================================================
-
 private LinearLayout navItem(
         int iconRes,
         String label,
         boolean isHome
 ) {
-
-    LinearLayout item =
-            new LinearLayout(this);
-
-    item.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    item.setGravity(
-            Gravity.CENTER
-    );
-
+    LinearLayout item = new LinearLayout(this);
+    item.setOrientation(LinearLayout.VERTICAL);
+    item.setGravity(Gravity.CENTER);
     item.setLayoutParams(
             new LinearLayout.LayoutParams(
                     0,
@@ -7134,104 +7124,49 @@ private LinearLayout navItem(
     // =================================================
     // ICON HOLDER
     // =================================================
+    FrameLayout holder = new FrameLayout(this);
+    LinearLayout.LayoutParams holderLp;
 
-    FrameLayout holder =
-            new FrameLayout(this);
+    if (isHome) {
+        // هذي هي البيضوية الكحلة - لازم تكون عريضة مشي مربعة
+        holder.setBackgroundResource(R.drawable.bg_home_pill);
+        holderLp = new LinearLayout.LayoutParams(dp(56), dp(32));
+    } else {
+        holder.setBackground(null);
+        holderLp = new LinearLayout.LayoutParams(dp(38), dp(38));
+    }
 
-    LinearLayout.LayoutParams holderLp =
-            new LinearLayout.LayoutParams(
-                    dp(38),
-                    dp(38)
-            );
-
-    holderLp.gravity =
-            Gravity.CENTER;
-
-    holderLp.bottomMargin =
-            dp(2);
-
-    holder.setLayoutParams(
-            holderLp
-    );
+    holderLp.gravity = Gravity.CENTER;
+    holderLp.bottomMargin = dp(2);
+    holder.setLayoutParams(holderLp);
 
     // =================================================
     // ICON
     // =================================================
+    ImageView icon = new ImageView(this);
+    icon.setImageResource(iconRes);
+    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-    ImageView icon =
-            new ImageView(this);
+    // Home صغير و يضوي، لخرين متوسطين
+    int iconSize = isHome ? dp(20) : dp(24);
+    FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
+    iconLp.gravity = Gravity.CENTER;
+    icon.setLayoutParams(iconLp);
 
-    icon.setImageResource(
-            iconRes
-    );
-
-    icon.setScaleType(
-            ImageView.ScaleType.FIT_CENTER
-    );
-
-    icon.setPadding(
-            0,
-            0,
-            0,
-            0
-    );
-
-    int iconSize =
-            isHome ? dp(38) : dp(36);
-
-    FrameLayout.LayoutParams iconLp =
-            new FrameLayout.LayoutParams(
-                    iconSize,
-                    iconSize
-            );
-
-    iconLp.gravity =
-            Gravity.CENTER;
-
-    icon.setLayoutParams(
-            iconLp
-    );
-
-    holder.addView(
-            icon
-    );
+    holder.addView(icon);
 
     // =================================================
     // TEXT
     // =================================================
+    TextView text = new TextView(this);
+    text.setText(label);
+    text.setTextSize(11);
+    text.setGravity(Gravity.CENTER);
+    text.setTextColor(isHome ? Color.parseColor("#4A9EFF") : Color.parseColor("#8A9BB5"));
+    text.setMaxLines(1);
 
-    TextView text =
-            new TextView(this);
-
-    text.setText(
-            label
-    );
-
-    text.setTextSize(
-            11
-    );
-
-    text.setGravity(
-            Gravity.CENTER
-    );
-
-    text.setTextColor(
-            isHome
-                    ? Color.parseColor("#4A9EFF")
-                    : Color.parseColor("#8A9BB5")
-    );
-
-    text.setMaxLines(
-            1
-    );
-
-    item.addView(
-            holder
-    );
-
-    item.addView(
-            text
-    );
+    item.addView(holder);
+    item.addView(text);
 
     return item;
 }
