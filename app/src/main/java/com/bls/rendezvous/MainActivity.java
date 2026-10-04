@@ -1717,42 +1717,43 @@ if (Build.VERSION.SDK_INT >=
             dp(8)
     );
 }
-   // =====================================================
+  
+// =====================================================
 // BOTTOM NAV ITEMS
 // =====================================================
 
-bottom.addView(
+LinearLayout homeItem =
         navItem(
                 R.drawable.ic_home,
                 "Home",
                 true
-        )
-);
+        );
 
-bottom.addView(
+LinearLayout activityItem =
         navItem(
                 R.drawable.ic_activity,
                 "Activity",
                 false
-        )
-);
+        );
 
-bottom.addView(
+LinearLayout notificationsItem =
         navItem(
                 R.drawable.ic_notifications,
                 "Notifications",
                 false
-        )
-);
+        );
 
-bottom.addView(
+LinearLayout profileItem =
         navItem(
                 R.drawable.ic_profile,
                 "Profile",
                 false
-        )
-);
+        );
 
+bottom.addView(homeItem);
+bottom.addView(activityItem);
+bottom.addView(notificationsItem);
+bottom.addView(profileItem);
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
 // =====================================================
