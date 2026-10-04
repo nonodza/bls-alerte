@@ -7182,13 +7182,13 @@ private LinearLayout nav(
         );
 
         glow.setColor(
-                Color.rgb(25, 48, 92)
-        );
+        Color.rgb(20, 35, 65)
+);
 
-        glow.setStroke(
-                dp(1),
-                Color.rgb(55, 120, 210)
-        );
+glow.setStroke(
+        dp(1),
+        Color.rgb(74, 158, 255)
+);
 
         iconHolder.setBackground(
                 glow
@@ -7228,8 +7228,8 @@ private LinearLayout nav(
 
     FrameLayout.LayoutParams iconParams =
         new FrameLayout.LayoutParams(
-                home ? dp(34) : dp(30),
-                home ? dp(34) : dp(30)
+                home ? dp(28) : dp(28),
+                home ? dp(28) : dp(28)
         );
     
     iconParams.gravity =
@@ -7243,8 +7243,8 @@ private LinearLayout nav(
     item.addView(
         iconHolder,
         new LinearLayout.LayoutParams(
-                home ? dp(38) : dp(34),
-                home ? dp(38) : dp(34)
+                home ? dp(34) : dp(34),
+                home ? dp(34) : dp(34)
         )
 );
 
