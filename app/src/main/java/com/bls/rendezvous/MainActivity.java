@@ -1722,60 +1722,36 @@ if (Build.VERSION.SDK_INT >=
 // =====================================================
 
 bottom.addView(
-        nav(
+        navItem(
                 R.drawable.ic_home,
                 "Home",
-                true,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showHome();
-                    }
-                }
+                true
         )
 );
 
 bottom.addView(
-        nav(
+        navItem(
                 R.drawable.ic_activity,
                 "Activity",
-                false,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showAppointments();
-                    }
-                }
+                false
         )
 );
 
 bottom.addView(
-        nav(
+        navItem(
                 R.drawable.ic_notifications,
                 "Notifications",
-                false,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showAlerts();
-                    }
-                }
+                false
         )
 );
 
 bottom.addView(
-        nav(
+        navItem(
                 R.drawable.ic_profile,
                 "Profile",
-                false,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showSettings();
-                    }
-                }
+                false
         )
-); 
+);
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
 // =====================================================
