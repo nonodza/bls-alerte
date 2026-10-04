@@ -6939,8 +6939,8 @@ ImageView icon = new ImageView(this);
 icon.setImageResource(iconRes);
 icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
 icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-// كبرناهم: Home 26 و لوخرين 30
-int iconSize = isHome ? dp(26) : dp(30);
+// مقاس متوازن: 22 و 26
+int iconSize = isHome ? dp(22) : dp(26);
 FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
 iconLp.gravity = Gravity.CENTER;
 icon.setLayoutParams(iconLp);
