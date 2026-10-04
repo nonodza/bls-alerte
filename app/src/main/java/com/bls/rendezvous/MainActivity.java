@@ -2768,7 +2768,7 @@ TextView dashboardText =
         text(
                 "Dashboard",
                 16,
-                Color.parseColor("#102B52")
+                Color.parseColor("#7DD3FC")
         );
 
 dashboardText.setTypeface(
