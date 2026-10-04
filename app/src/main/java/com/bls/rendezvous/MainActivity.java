@@ -1786,7 +1786,7 @@ mainShell.addView(
         bottomNavigation,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(68)
+                dp(64)
         )
 );
 
@@ -7178,8 +7178,12 @@ private LinearLayout nav(
                 new GradientDrawable();
 
         glow.setShape(
-                GradientDrawable.OVAL
-        );
+        GradientDrawable.RECTANGLE
+);
+
+glow.setCornerRadius(
+        dp(12)
+);
 
         glow.setColor(
         Color.rgb(20, 35, 65)
@@ -7243,8 +7247,8 @@ glow.setStroke(
     item.addView(
         iconHolder,
         new LinearLayout.LayoutParams(
-                home ? dp(36) : dp(38),
-                home ? dp(36) : dp(38)
+                dp(38),
+                dp(38)
         )
 );
 
