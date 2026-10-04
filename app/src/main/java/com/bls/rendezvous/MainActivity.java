@@ -6926,18 +6926,16 @@ private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
         hp.bottomMargin = dp(2);
         holder.setLayoutParams(hp);
     } else {
-    // دائرة خفيفة كيما تاع الجرس الفوق
     android.graphics.drawable.GradientDrawable circle = new android.graphics.drawable.GradientDrawable();
     circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
     circle.setColor(Color.TRANSPARENT);
-    // خط رقيق بزاف + لون فاتح كيما الجرس
-    circle.setStroke(1, Color.parseColor("#6A9ED6")); 
+    circle.setStroke(dp(1), Color.parseColor("#4FC3F7")); // نفس تاع الجرس 100%
     holder.setBackground(circle);
-    FrameLayout.LayoutParams cp = new FrameLayout.LayoutParams(dp(34), dp(34));
+    FrameLayout.LayoutParams cp = new FrameLayout.LayoutParams(dp(36), dp(36));
     cp.gravity = Gravity.CENTER;
     cp.bottomMargin = dp(2);
     holder.setLayoutParams(cp);
-        }
+}
 
     // ICON - صغار
     ImageView icon = new ImageView(this);
