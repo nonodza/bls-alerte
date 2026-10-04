@@ -6932,16 +6932,19 @@ private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
     holderLp.bottomMargin = dp(2);
     holder.setLayoutParams(holderLp);
 
-    // ICON - ازرق سماوي
-    ImageView icon = new ImageView(this);
-    icon.setImageResource(iconRes);
-    icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
-    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    int iconSize = isHome ? dp(20) : dp(24);
-    FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
-    iconLp.gravity = Gravity.CENTER;
-    icon.setLayoutParams(iconLp);
-    holder.addView(icon);
+    // =================================================
+// ICON - مكبرين و زرق
+// =================================================
+ImageView icon = new ImageView(this);
+icon.setImageResource(iconRes);
+icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
+icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+// كبرناهم: Home 26 و لوخرين 30
+int iconSize = isHome ? dp(26) : dp(30);
+FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
+iconLp.gravity = Gravity.CENTER;
+icon.setLayoutParams(iconLp);
+holder.addView(icon);
 
     // TEXT - ابيض ناصع للكل
     TextView text = new TextView(this);
