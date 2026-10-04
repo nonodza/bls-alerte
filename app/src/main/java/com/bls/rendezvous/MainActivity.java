@@ -1764,7 +1764,7 @@ mainShell.addView(
                 dp(64)
         )
 );
-    
+}  
 
 // =========================================================
 // SERVICE GRID ITEM - HORIZONTAL PROFESSIONAL
