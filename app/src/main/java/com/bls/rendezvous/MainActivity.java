@@ -1496,35 +1496,7 @@ servicesContainer.addView(
 // SERVICES GRID — 2 COLUMNS
 // =====================================================
 
-// =====================================================
-// ROW 1
-// =====================================================
 
-LinearLayout row1 =
-        new LinearLayout(this);
-
-row1.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-row1.setGravity(
-        Gravity.CENTER
-);
-
-row1.addView(
-        serviceGridItem(
-                "calendar",
-                "Appointments",
-                "Find appointments",
-                false,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showAppointments();
-                    }
-                }
-        )
-);
 
 row1.addView(
         serviceGridItem(
