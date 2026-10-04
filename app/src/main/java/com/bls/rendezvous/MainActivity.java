@@ -2782,6 +2782,10 @@ dashboardText.setLetterSpacing(
         0.01f
 );
 
+dashboardText.setTextColor(
+        Color.WHITE
+);
+
 // =====================================================
 // ADD TEXTS
 // =====================================================
