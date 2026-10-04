@@ -2768,40 +2768,18 @@ TextView dashboardText =
         text(
                 "Dashboard",
                 16,
-                Color.parseColor("#1E3A5F")
+                Color.WHITE
         );
 
 dashboardText.setTypeface(
         Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
+                "sans-serif-medium",
+                Typeface.NORMAL
         )
 );
 
 dashboardText.setLetterSpacing(
         0.01f
-);
-
-// =====================================================
-// DASHBOARD SUBTITLE
-// =====================================================
-
-TextView dashboardSubtitle =
-        text(
-                "Overview",
-                11,
-                Color.parseColor("#6B83A5")
-        );
-
-dashboardSubtitle.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.NORMAL
-        )
-);
-
-dashboardSubtitle.setLetterSpacing(
-        0.02f
 );
 
 // =====================================================
@@ -6992,6 +6970,10 @@ text.setText(label);
 text.setTextSize(11);
 text.setGravity(Gravity.CENTER);
 text.setMaxLines(1);
+
+text.setTranslationY(
+        isHome ? 0 : dp(-2)
+);
 
 // كتابة بيضاء ناصعة للـ Home
 if (isHome) {
