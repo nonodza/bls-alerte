@@ -7232,12 +7232,12 @@ glow.setStroke(
 
     FrameLayout.LayoutParams iconParams =
         new FrameLayout.LayoutParams(
-                home ? dp(28) : dp(28),
-                home ? dp(28) : dp(28)
+                home ? dp(32) : dp(30),
+                home ? dp(32) : dp(30)
         );
-    
-    iconParams.gravity =
-            Gravity.CENTER;
+
+iconParams.gravity =
+        Gravity.CENTER;
 
     iconHolder.addView(
             icon,
