@@ -6914,32 +6914,10 @@ private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.VERTICAL);
     item.setGravity(Gravity.CENTER);
-    item.setLayoutParams(
-        new LinearLayout.LayoutParams(
-            0, LinearLayout.LayoutParams.MATCH_PARENT, 1f )
-    );
-
-    FrameLayout holder = new FrameLayout(this);
-    LinearLayout.LayoutParams holderLp;
-    if (isHome) {
-        holder.setBackgroundResource(R.drawable.bg_home_pill);
-        holderLp = new LinearLayout.LayoutParams(dp(56), dp(32));
-    } else {
-        holder.setBackground(null);
-        holderLp = new LinearLayout.LayoutParams(dp(38), dp(38));
-    }
-    holderLp.gravity = Gravity.CENTER;
-    holderLp.bottomMargin = dp(2);
-    holder.setLayoutParams(holderLp);
-
-    private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
-    LinearLayout item = new LinearLayout(this);
-    item.setOrientation(LinearLayout.VERTICAL);
-    item.setGravity(Gravity.CENTER);
     item.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
     FrameLayout holder = new FrameLayout(this);
-    
+
     if (isHome) {
         // Home يبقى Pill كيما راه
         holder.setBackgroundResource(R.drawable.bg_home_pill);
@@ -6960,14 +6938,12 @@ private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
         holder.setLayoutParams(cp);
     }
 
-    // =================================================
-    // ICON - صغرناهم شوية
-    // =================================================
+    // ICON - صغار
     ImageView icon = new ImageView(this);
     icon.setImageResource(iconRes);
     icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
     icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    int iconSize = isHome ? dp(20) : dp(18); // نقصناهم بزاف هاذ المرة
+    int iconSize = isHome ? dp(20) : dp(18);
     FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
     iconLp.gravity = Gravity.CENTER;
     icon.setLayoutParams(iconLp);
