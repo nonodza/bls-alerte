@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,7 +10,6 @@
     android:background="#10152F">
 
     <!-- TOP HANDLE -->
-
     <View
         android:layout_width="42dp"
         android:layout_height="4dp"
@@ -20,7 +18,6 @@
         android:background="#59617D" />
 
     <!-- TITLE -->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,13 +28,12 @@
         android:gravity="center" />
 
     <!-- EMPTY STATE -->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:text="No new notifications"
-        android:textColor="#B8C0D9"
+        android:textColor="#FFFFFF"
         android:textSize="15sp"
         android:gravity="center" />
 
@@ -46,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="You're all caught up."
-        android:textColor="#737C99"
+        android:textColor="#FFFFFF"
         android:textSize="13sp"
         android:gravity="center" />
 
