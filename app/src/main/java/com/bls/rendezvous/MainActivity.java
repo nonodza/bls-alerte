@@ -6910,79 +6910,53 @@ private void showAppointments() {
 // =========================================================
 // PREMIUM BOTTOM NAV ITEM
 // =========================================================
-private LinearLayout navItem(
-        int iconRes,
-        String label,
-        boolean isHome
-) {
+private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.VERTICAL);
     item.setGravity(Gravity.CENTER);
     item.setLayoutParams(
-            new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1f
-            )
+        new LinearLayout.LayoutParams(
+            0, LinearLayout.LayoutParams.MATCH_PARENT, 1f )
     );
 
-    // =================================================
-    // ICON HOLDER
-    // =================================================
     FrameLayout holder = new FrameLayout(this);
     LinearLayout.LayoutParams holderLp;
-
     if (isHome) {
-        // هذي هي البيضوية الكحلة - لازم تكون عريضة مشي مربعة
         holder.setBackgroundResource(R.drawable.bg_home_pill);
         holderLp = new LinearLayout.LayoutParams(dp(56), dp(32));
     } else {
         holder.setBackground(null);
         holderLp = new LinearLayout.LayoutParams(dp(38), dp(38));
     }
-
     holderLp.gravity = Gravity.CENTER;
     holderLp.bottomMargin = dp(2);
     holder.setLayoutParams(holderLp);
 
-    // =================================================
-    // ICON
-    // =================================================
+    // ICON - ازرق سماوي
     ImageView icon = new ImageView(this);
     icon.setImageResource(iconRes);
+    icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
     icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-    // Home صغير و يضوي، لخرين متوسطين
     int iconSize = isHome ? dp(20) : dp(24);
     FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
     iconLp.gravity = Gravity.CENTER;
     icon.setLayoutParams(iconLp);
-
     holder.addView(icon);
-// =================================================
-// TEXT
-// =================================================
-TextView text = new TextView(this);
-text.setText(label);
-text.setTextSize(11);
-text.setGravity(Gravity.CENTER);
-text.setMaxLines(1);
 
-text.setTranslationY(
-        isHome ? 0 : dp(-2)
-);
-
-// كتابة بيضاء ناصعة للـ Home
-if (isHome) {
-    text.setTextColor(Color.WHITE);
-    text.setTypeface(null, android.graphics.Typeface.BOLD);
-} else {
-    text.setTextColor(Color.parseColor("#8A9BB5"));
-}
-
-item.addView(holder);
-item.addView(text);
-return item;
+    // TEXT - ابيض ناصع للكل
+    TextView text = new TextView(this);
+    text.setText(label);
+    text.setTextSize(11);
+    text.setGravity(Gravity.CENTER);
+    text.setMaxLines(1);
+    text.setTranslationY( isHome ? 0 : dp(-2) );
+    text.setTextColor(Color.WHITE); // <-- هنا التغيير
+    if (isHome) {
+        text.setTypeface(null, android.graphics.Typeface.BOLD);
+    }
+    item.addView(holder);
+    item.addView(text);
+    return item;
 }
    
     
