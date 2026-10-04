@@ -7101,46 +7101,6 @@ private void showAppointments() {
         return card;
     } 
 
- // =========================================================
-// PREMIUM BOTTOM NAV ITEM
-// =========================================================
-
-private LinearLayout nav(
-        int iconRes,
-        String title,
-        boolean home,
-        View.OnClickListener listener
-) {
-
-    LinearLayout item =
-            new LinearLayout(this);
-
-    item.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    item.setGravity(
-            Gravity.CENTER
-    );
-
-    item.setPadding(
-            dp(4),
-            dp(4),
-            dp(4),
-            dp(4)
-    );
-
-    item.setClickable(true);
-    item.setFocusable(true);
-
-    item.setOnClickListener(
-            listener
-    );
-
-    FrameLayout iconHolder =
-            new FrameLayout(this);
-
-
 // =========================================================
 // PREMIUM BOTTOM NAV ITEM
 // =========================================================
