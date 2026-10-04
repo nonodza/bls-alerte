@@ -1562,7 +1562,7 @@ LinearLayout homeItem =
 LinearLayout activityItem =
         navItem(
                 R.drawable.ic_activity,
-                "Activity",
+                "Monitoring",
                 false
         );
 
