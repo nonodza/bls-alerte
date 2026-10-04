@@ -1786,7 +1786,7 @@ mainShell.addView(
         bottomNavigation,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(72)
+                dp(68)
         )
 );
 
@@ -7243,21 +7243,21 @@ glow.setStroke(
     item.addView(
         iconHolder,
         new LinearLayout.LayoutParams(
-                home ? dp(34) : dp(36),
-                home ? dp(34) : dp(36)
+                home ? dp(36) : dp(38),
+                home ? dp(36) : dp(38)
         )
 );
 
     Space space =
-            new Space(this);
+        new Space(this);
 
-    item.addView(
-            space,
-            new LinearLayout.LayoutParams(
-                    1,
-                    dp(2)
-            )
-    );
+item.addView(
+        space,
+        new LinearLayout.LayoutParams(
+                1,
+                dp(0)
+        )
+);
 
     TextView text =
             new TextView(this);
