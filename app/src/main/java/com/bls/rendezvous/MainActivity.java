@@ -2794,13 +2794,6 @@ dashboardTextContainer.addView(
         )
 );
 
-dashboardTextContainer.addView(
-        dashboardSubtitle,
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(18)
-        )
-);
 
 // =====================================================
 // TEXT CONTAINER PARAMS
