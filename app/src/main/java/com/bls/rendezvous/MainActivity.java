@@ -7154,22 +7154,28 @@ private LinearLayout navItem(
     icon.setLayoutParams(iconLp);
 
     holder.addView(icon);
+// =================================================
+// TEXT
+// =================================================
+TextView text = new TextView(this);
+text.setText(label);
+text.setTextSize(11);
+text.setGravity(Gravity.CENTER);
+text.setMaxLines(1);
 
-    // =================================================
-    // TEXT
-    // =================================================
-    TextView text = new TextView(this);
-    text.setText(label);
-    text.setTextSize(11);
-    text.setGravity(Gravity.CENTER);
-    text.setTextColor(isHome ? Color.parseColor("#4A9EFF") : Color.parseColor("#8A9BB5"));
-    text.setMaxLines(1);
-
-    item.addView(holder);
-    item.addView(text);
-
-    return item;
+// كتابة بيضاء ناصعة للـ Home
+if (isHome) {
+    text.setTextColor(Color.WHITE);
+    text.setTypeface(null, android.graphics.Typeface.BOLD);
+} else {
+    text.setTextColor(Color.parseColor("#8A9BB5"));
 }
+
+item.addView(holder);
+item.addView(text);
+return item;
+}
+   
     
     // =========================================================
 // GENERIC PAGE
