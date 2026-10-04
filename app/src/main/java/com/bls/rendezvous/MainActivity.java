@@ -6932,31 +6932,54 @@ private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
     holderLp.bottomMargin = dp(2);
     holder.setLayoutParams(holderLp);
 
-    // =================================================
-// ICON - مكبرين و زرق
-// =================================================
-ImageView icon = new ImageView(this);
-icon.setImageResource(iconRes);
-icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
-icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-// مقاس متوازن: 22 و 26
-int iconSize = isHome ? dp(22) : dp(26);
-FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
-iconLp.gravity = Gravity.CENTER;
-icon.setLayoutParams(iconLp);
-holder.addView(icon);
+    private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
+    LinearLayout item = new LinearLayout(this);
+    item.setOrientation(LinearLayout.VERTICAL);
+    item.setGravity(Gravity.CENTER);
+    item.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
 
-    // TEXT - ابيض ناصع للكل
+    FrameLayout holder = new FrameLayout(this);
+    
+    if (isHome) {
+        // Home يبقى Pill كيما راه
+        holder.setBackgroundResource(R.drawable.bg_home_pill);
+        FrameLayout.LayoutParams hp = new FrameLayout.LayoutParams(dp(56), dp(32));
+        hp.gravity = Gravity.CENTER;
+        hp.bottomMargin = dp(2);
+        holder.setLayoutParams(hp);
+    } else {
+        // لوخرين دائرة كيما الجرس
+        android.graphics.drawable.GradientDrawable circle = new android.graphics.drawable.GradientDrawable();
+        circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+        circle.setColor(Color.TRANSPARENT);
+        circle.setStroke(dp(1), Color.parseColor("#4AB3FF"));
+        holder.setBackground(circle);
+        FrameLayout.LayoutParams cp = new FrameLayout.LayoutParams(dp(36), dp(36));
+        cp.gravity = Gravity.CENTER;
+        cp.bottomMargin = dp(2);
+        holder.setLayoutParams(cp);
+    }
+
+    // =================================================
+    // ICON - صغرناهم شوية
+    // =================================================
+    ImageView icon = new ImageView(this);
+    icon.setImageResource(iconRes);
+    icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
+    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    int iconSize = isHome ? dp(20) : dp(18); // نقصناهم بزاف هاذ المرة
+    FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
+    iconLp.gravity = Gravity.CENTER;
+    icon.setLayoutParams(iconLp);
+    holder.addView(icon);
+
     TextView text = new TextView(this);
     text.setText(label);
     text.setTextSize(11);
     text.setGravity(Gravity.CENTER);
-    text.setMaxLines(1);
-    text.setTranslationY( isHome ? 0 : dp(-2) );
-    text.setTextColor(Color.WHITE); // <-- هنا التغيير
-    if (isHome) {
-        text.setTypeface(null, android.graphics.Typeface.BOLD);
-    }
+    text.setTextColor(Color.WHITE);
+    if(isHome) text.setTypeface(null, android.graphics.Typeface.BOLD);
+
     item.addView(holder);
     item.addView(text);
     return item;
