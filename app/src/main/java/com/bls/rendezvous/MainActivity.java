@@ -1752,11 +1752,10 @@ bottom.addView(
                 false
         )
 );
+
 // =====================================================
 // ADD BOTTOM NAVIGATION TO MAIN SHELL
 // =====================================================
-
-bottomNavigation = bottom;
 
 mainShell.addView(
         bottomNavigation,
@@ -1765,8 +1764,6 @@ mainShell.addView(
                 dp(64)
         )
 );
-
-}
     
 
 // =========================================================
