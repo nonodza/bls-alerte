@@ -7168,44 +7168,61 @@ private LinearLayout nav(
             new FrameLayout(this);
 
 
+// =========================================================
+// PREMIUM BOTTOM NAV ITEM
+// =========================================================
+
+private LinearLayout navItem(
+        int iconRes,
+        String label,
+        boolean isHome
+) {
+
+    LinearLayout item =
+            new LinearLayout(this);
+
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    item.setGravity(
+            Gravity.CENTER
+    );
+
+    item.setLayoutParams(
+            new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    1f
+            )
+    );
+
     // =================================================
-    // HOME LIGHT
+    // ICON HOLDER
     // =================================================
 
-    if (home) {
+    FrameLayout holder =
+            new FrameLayout(this);
 
-        GradientDrawable glow =
-                new GradientDrawable();
-
-        glow.setShape(
-        GradientDrawable.RECTANGLE
-);
-
-glow.setCornerRadius(
-        dp(12)
-);
-
-        glow.setColor(
-        Color.rgb(20, 35, 65)
-);
-
-glow.setStroke(
-        dp(1),
-        Color.rgb(74, 158, 255)
-);
-
-        iconHolder.setBackground(
-                glow
-        );
-
-        if (Build.VERSION.SDK_INT >=
-                Build.VERSION_CODES.LOLLIPOP) {
-
-            iconHolder.setElevation(
-                    dp(5)
+    LinearLayout.LayoutParams holderLp =
+            new LinearLayout.LayoutParams(
+                    dp(38),
+                    dp(38)
             );
-        }
-    }
+
+    holderLp.gravity =
+            Gravity.CENTER;
+
+    holderLp.bottomMargin =
+            dp(2);
+
+    holder.setLayoutParams(
+            holderLp
+    );
+
+    // =================================================
+    // ICON
+    // =================================================
 
     ImageView icon =
             new ImageView(this);
@@ -7215,100 +7232,76 @@ glow.setStroke(
     );
 
     icon.setScaleType(
-            ImageView.ScaleType.CENTER_INSIDE
+            ImageView.ScaleType.FIT_CENTER
     );
 
     icon.setPadding(
-            home ? dp(8) : dp(7),
-            home ? dp(8) : dp(7),
-            home ? dp(8) : dp(7),
-            home ? dp(8) : dp(7)
+            0,
+            0,
+            0,
+            0
     );
 
-    icon.setColorFilter(
-            Color.rgb(72, 173, 255),
-            PorterDuff.Mode.SRC_IN
+    int iconSize =
+            isHome ? dp(38) : dp(36);
+
+    FrameLayout.LayoutParams iconLp =
+            new FrameLayout.LayoutParams(
+                    iconSize,
+                    iconSize
+            );
+
+    iconLp.gravity =
+            Gravity.CENTER;
+
+    icon.setLayoutParams(
+            iconLp
     );
 
-    FrameLayout.LayoutParams iconParams =
-        new FrameLayout.LayoutParams(
-                home ? dp(32) : dp(30),
-                home ? dp(32) : dp(30)
-        );
-
-iconParams.gravity =
-        Gravity.CENTER;
-
-    iconHolder.addView(
-            icon,
-            iconParams
+    holder.addView(
+            icon
     );
 
-    item.addView(
-        iconHolder,
-        new LinearLayout.LayoutParams(
-                dp(38),
-                dp(38)
-        )
-);
-
-    Space space =
-        new Space(this);
-
-item.addView(
-        space,
-        new LinearLayout.LayoutParams(
-                1,
-                dp(0)
-        )
-);
+    // =================================================
+    // TEXT
+    // =================================================
 
     TextView text =
             new TextView(this);
 
     text.setText(
-            title
+            label
     );
 
     text.setTextSize(
             11
     );
 
-    text.setTextColor(
-            home
-                    ? Color.rgb(100, 190, 255)
-                    : Color.rgb(205, 215, 235)
-    );
-
     text.setGravity(
             Gravity.CENTER
     );
 
-    text.setTypeface(
-            Typeface.DEFAULT,
-            Typeface.BOLD
+    text.setTextColor(
+            isHome
+                    ? Color.parseColor("#4A9EFF")
+                    : Color.parseColor("#8A9BB5")
     );
 
-    text.setSingleLine(true);
+    text.setMaxLines(
+            1
+    );
 
     item.addView(
-            text,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(18)
-            )
+            holder
     );
 
-    item.setLayoutParams(
-            new LinearLayout.LayoutParams(
-                    0,
-                    -1,
-                    1f
-            )
+    item.addView(
+            text
     );
 
     return item;
 }
+    
     // =========================================================
 // GENERIC PAGE
 // =========================================================
