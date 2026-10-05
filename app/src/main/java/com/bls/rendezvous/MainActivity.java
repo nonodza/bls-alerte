@@ -2212,6 +2212,9 @@ summaryRow.addView(
                 1f
         )
 );
+   applicationsRoot.addView(
+        summaryRow
+); 
     // =================================================
     // CONTENT SCROLL
     // =================================================
