@@ -3215,43 +3215,21 @@ applicationsItem.addView(
 );
 
 // =====================================================
-// APPLICATIONS TEXT CONTAINER
+// APPLICATIONS TITLE ROW
 // =====================================================
 
-LinearLayout applicationsTextContainer =
+LinearLayout applicationsTitleRow =
         new LinearLayout(this);
 
-applicationsTextContainer.setOrientation(
-        LinearLayout.VERTICAL
+applicationsTitleRow.setOrientation(
+        LinearLayout.HORIZONTAL
 );
 
-applicationsTextContainer.setGravity(
+applicationsTitleRow.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-LinearLayout.LayoutParams applicationsTextContainerParams =
-        new LinearLayout.LayoutParams(
-                0,
-                -1,
-                1f
-);
-
-applicationsTextContainerParams.setMargins(
-        dp(14),
-        0,
-        dp(8),
-        0
-);
-
-applicationsItem.addView(
-        applicationsTextContainer,
-        applicationsTextContainerParams
-);
-
-// =====================================================
-// APPLICATIONS TITLE
-// =====================================================
-
+// TITLE
 TextView applicationsText =
         text(
                 "Applications",
@@ -3274,18 +3252,15 @@ applicationsText.setLetterSpacing(
         0.01f
 );
 
-applicationsTextContainer.addView(
+applicationsTitleRow.addView(
         applicationsText,
         new LinearLayout.LayoutParams(
-                -1,
+                -2,
                 dp(28)
         )
 );
 
-// =====================================================
 // GLOBAL BADGE
-// =====================================================
-
 TextView applicationsGlobal =
         text(
                 "GLOBAL",
@@ -3325,13 +3300,34 @@ applicationsGlobal.setBackground(
         applicationsGlobalBg
 );
 
-applicationsTextContainer.addView(
-        applicationsGlobal,
+LinearLayout.LayoutParams globalParams =
         new LinearLayout.LayoutParams(
                 dp(48),
                 dp(17)
+        );
+
+globalParams.setMargins(
+        dp(8),
+        0,
+        0,
+        0
+);
+
+applicationsTitleRow.addView(
+        applicationsGlobal,
+        globalParams
+);
+
+// ADD TITLE ROW
+applicationsItem.addView(
+        applicationsTitleRow,
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
         )
 );
+
 
 // =====================================================
 // APPLICATIONS ARROW
