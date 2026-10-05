@@ -2140,11 +2140,78 @@ private void showApplications() {
                     dp(22)
             )
     );
+// =================================================
+// APPLICATION SUMMARY
+// =================================================
 
-    applicationsRoot.addView(
-            header
-    );
+LinearLayout summaryRow =
+        new LinearLayout(this);
 
+summaryRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+summaryRow.setGravity(
+        Gravity.CENTER
+);
+
+summaryRow.setPadding(
+        dp(18),
+        dp(4),
+        dp(18),
+        dp(4)
+);
+
+// TOTAL
+LinearLayout totalCard =
+        applicationSummaryCard(
+                "0",
+                "Total",
+                "#2563EB"
+        );
+
+// DRAFT
+LinearLayout draftCard =
+        applicationSummaryCard(
+                "0",
+                "Draft",
+                "#7C3AED"
+        );
+
+// BOOKED
+LinearLayout bookedCard =
+        applicationSummaryCard(
+                "0",
+                "Booked",
+                "#059669"
+        );
+
+summaryRow.addView(
+        totalCard,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(72),
+                1f
+        )
+);
+
+summaryRow.addView(
+        draftCard,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(72),
+                1f
+        )
+);
+
+summaryRow.addView(
+        bookedCard,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(72),
+                1f
+        )
+);
     // =================================================
     // CONTENT SCROLL
     // =================================================
