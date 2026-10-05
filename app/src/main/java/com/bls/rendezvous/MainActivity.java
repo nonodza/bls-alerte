@@ -3894,22 +3894,23 @@ drawerContent.addView(
         paymentsItem,
         paymentsParams
 );
-   // =====================================================
-// NOTIFICATIONS
+   
+// =====================================================
+// MULTI-CENTER MONITORING — PRO
 // =====================================================
 
-LinearLayout notificationsItem =
+LinearLayout multiCenterItem =
         new LinearLayout(this);
 
-notificationsItem.setOrientation(
+multiCenterItem.setOrientation(
         LinearLayout.HORIZONTAL
 );
 
-notificationsItem.setGravity(
+multiCenterItem.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-notificationsItem.setPadding(
+multiCenterItem.setPadding(
         dp(16),
         0,
         dp(12),
@@ -3920,49 +3921,49 @@ notificationsItem.setPadding(
 // ICON BOX
 // =====================================================
 
-FrameLayout notificationsIconBox =
+FrameLayout multiCenterIconBox =
         new FrameLayout(this);
 
-GradientDrawable notificationsIconBg =
+GradientDrawable multiCenterIconBg =
         new GradientDrawable();
 
-notificationsIconBg.setShape(
+multiCenterIconBg.setShape(
         GradientDrawable.OVAL
 );
 
-notificationsIconBg.setColor(
+multiCenterIconBg.setColor(
         Color.parseColor("#E8F2FF")
 );
 
-notificationsIconBox.setBackground(
-        notificationsIconBg
+multiCenterIconBox.setBackground(
+        multiCenterIconBg
 );
 
 // =====================================================
 // ICON
 // =====================================================
 
-ImageView notificationsIcon =
+ImageView multiCenterIcon =
         new ImageView(this);
 
-notificationsIcon.setImageResource(
-        R.drawable.ic_notifications_premium
+multiCenterIcon.setImageResource(
+        R.drawable.ic_monitoring_premium
 );
 
-notificationsIcon.setScaleType(
+multiCenterIcon.setScaleType(
         ImageView.ScaleType.CENTER
 );
 
-notificationsIconBox.addView(
-        notificationsIcon,
+multiCenterIconBox.addView(
+        multiCenterIcon,
         new FrameLayout.LayoutParams(
                 -1,
                 -1
         )
 );
 
-notificationsItem.addView(
-        notificationsIconBox,
+multiCenterItem.addView(
+        multiCenterIconBox,
         new LinearLayout.LayoutParams(
                 dp(42),
                 dp(42)
@@ -3970,67 +3971,137 @@ notificationsItem.addView(
 );
 
 // =====================================================
-// TEXT
+// TEXT CONTAINER
 // =====================================================
 
-TextView notificationsText =
-        text(
-                "Notifications",
-                16,
-                Color.parseColor("#102B52")
-        );
+LinearLayout multiCenterTextContainer =
+        new LinearLayout(this);
 
-notificationsText.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
+multiCenterTextContainer.setOrientation(
+        LinearLayout.VERTICAL
 );
 
-notificationsText.setGravity(
+multiCenterTextContainer.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-notificationsText.setLetterSpacing(
-        0.01f
-);
-
-LinearLayout.LayoutParams notificationsTextParams =
+LinearLayout.LayoutParams multiCenterTextContainerParams =
         new LinearLayout.LayoutParams(
                 0,
                 -1,
                 1f
 );
 
-notificationsTextParams.setMargins(
+multiCenterTextContainerParams.setMargins(
         dp(14),
         0,
         dp(8),
         0
 );
 
-notificationsItem.addView(
-        notificationsText,
-        notificationsTextParams
+multiCenterItem.addView(
+        multiCenterTextContainer,
+        multiCenterTextContainerParams
+);
+
+// =====================================================
+// TITLE
+// =====================================================
+
+TextView multiCenterText =
+        text(
+                "Multi-Center Monitoring",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+multiCenterText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+multiCenterText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+multiCenterText.setLetterSpacing(
+        0.01f
+);
+
+multiCenterTextContainer.addView(
+        multiCenterText,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(28)
+        )
+);
+
+// =====================================================
+// PRO BADGE
+// =====================================================
+
+TextView multiCenterPro =
+        text(
+                "PRO",
+                9,
+                Color.WHITE
+        );
+
+multiCenterPro.setGravity(
+        Gravity.CENTER
+);
+
+multiCenterPro.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+GradientDrawable multiCenterProBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#7C3AED"),
+                        Color.parseColor("#2563EB")
+                }
+        );
+
+multiCenterProBg.setCornerRadius(
+        dp(6)
+);
+
+multiCenterPro.setBackground(
+        multiCenterProBg
+);
+
+multiCenterTextContainer.addView(
+        multiCenterPro,
+        new LinearLayout.LayoutParams(
+                dp(34),
+                dp(17)
+        )
 );
 
 // =====================================================
 // ARROW
 // =====================================================
 
-TextView notificationsArrow =
+TextView multiCenterArrow =
         text(
                 "›",
                 28,
                 Color.parseColor("#1656A8")
         );
 
-notificationsArrow.setGravity(
+multiCenterArrow.setGravity(
         Gravity.CENTER
 );
 
-notificationsItem.addView(
-        notificationsArrow,
+multiCenterItem.addView(
+        multiCenterArrow,
         new LinearLayout.LayoutParams(
                 dp(28),
                 -1
@@ -4041,13 +4112,13 @@ notificationsItem.addView(
 // MARGINS
 // =====================================================
 
-LinearLayout.LayoutParams notificationsParams =
+LinearLayout.LayoutParams multiCenterParams =
         new LinearLayout.LayoutParams(
                 -1,
                 dp(58)
         );
 
-notificationsParams.setMargins(
+multiCenterParams.setMargins(
         dp(16),
         dp(0),
         dp(16),
@@ -4059,9 +4130,10 @@ notificationsParams.setMargins(
 // =====================================================
 
 drawerContent.addView(
-        notificationsItem,
-        notificationsParams
+        multiCenterItem,
+        multiCenterParams
 );
+
     // =====================================================
 // SETTINGS
 // =====================================================
