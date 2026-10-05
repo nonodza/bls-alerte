@@ -1,9 +1,5 @@
 name: Build APK
 
-concurrency:
-  group: build-apk-main
-  cancel-in-progress: true
-
 on:
   push:
     branches: [ main ]
@@ -11,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,14 +31,28 @@ jobs:
       - name: Verify MainActivity source
         run: |
           echo "===== MAINACTIVITY SOURCE CHECK ====="
+
           if grep -q 'BLS Rendez-Vous' app/src/main/java/com/bls/rendezvous/MainActivity.java; then
             echo "RESULT: BLS Rendez-Vous FOUND IN SOURCE"
           else
             echo "RESULT: BLS Rendez-Vous NOT FOUND IN SOURCE"
           fi
+
           echo "===== END SOURCE CHECK ====="
 
       - name: Build Debug APK
         run: |
           gradle clean --no-daemon
-          gradle assembleDebug
+          gradle assembleDebug --no-daemon
+
+      - name: Check APK
+        run: |
+          echo "===== APK CHECK ====="
+          ls -lh app/build/outputs/apk/debug/app-debug.apk
+          echo "===== END APK CHECK ====="
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
