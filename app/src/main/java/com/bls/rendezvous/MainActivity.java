@@ -2499,86 +2499,153 @@ scroll.addView(
             )
     );
 
+   // =====================================================
+// DESTINATION CARD
+// =====================================================
+
+private LinearLayout destinationCard(
+        String code,
+        String name,
+        String backgroundColor,
+        String accentColor
+) {
+
+    LinearLayout card =
+            new LinearLayout(this);
+
+    card.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
+
+    card.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    card.setPadding(
+            dp(12),
+            0,
+            dp(10),
+            0
+    );
+
+
+    GradientDrawable cardBg =
+            new GradientDrawable();
+
+    cardBg.setColor(
+            Color.parseColor(backgroundColor)
+    );
+
+    cardBg.setCornerRadius(
+            dp(16)
+    );
+
+    cardBg.setStroke(
+            dp(1),
+            Color.parseColor(
+                    "#DCE5F5"
+            )
+    );
+
+    card.setBackground(
+            cardBg
+    );
+
+
     // =================================================
-    // GLOBAL SUPPORT
+    // CODE BADGE
     // =================================================
 
-    TextView supportedTitle =
+    TextView codeBadge =
             text(
-                    "Supported destinations",
-                    17,
-                    Color.parseColor("#102B52")
+                    code,
+                    10,
+                    Color.WHITE
             );
 
-    supportedTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    LinearLayout.LayoutParams supportedTitleParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
-
-    supportedTitleParams.setMargins(
-            dp(2),
-            dp(22),
-            dp(2),
-            dp(10)
-    );
-
-    content.addView(
-            supportedTitle,
-            supportedTitleParams
-    );
-
-    TextView supportedText =
-            text(
-                    "Schengen  •  USA  •  Canada  •  UK",
-                    13,
-                    Color.parseColor("#596B86")
-            );
-
-    supportedText.setGravity(
+    codeBadge.setGravity(
             Gravity.CENTER
     );
 
-    GradientDrawable supportedBg =
+    codeBadge.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    GradientDrawable badgeBg =
             new GradientDrawable();
 
-    supportedBg.setColor(
-            Color.parseColor("#F8FAFF")
-    );
-
-    supportedBg.setCornerRadius(
-            dp(14)
-    );
-
-    supportedBg.setStroke(
-            dp(1),
-            Color.parseColor("#E1E8F5")
-    );
-
-    supportedText.setBackground(
-            supportedBg
-    );
-
-    content.addView(
-            supportedText,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(48)
+    badgeBg.setColor(
+            Color.parseColor(
+                    accentColor
             )
     );
 
-    applicationsRoot.addView(
-            scroll,
+    badgeBg.setCornerRadius(
+            dp(10)
+    );
+
+    codeBadge.setBackground(
+            badgeBg
+    );
+
+    card.addView(
+            codeBadge,
             new LinearLayout.LayoutParams(
-                    -1,
+                    dp(38),
+                    dp(38)
+            )
+    );
+
+
+    // =================================================
+    // TEXT
+    // =================================================
+
+    TextView nameText =
+            text(
+                    name,
+                    12,
+                    Color.parseColor(
+                            "#102B52"
+                    )
+            );
+
+    nameText.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    nameText.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    LinearLayout.LayoutParams nameParams =
+            new LinearLayout.LayoutParams(
                     0,
+                    -1,
                     1f
-            )
+            );
+
+    nameParams.setMargins(
+            dp(10),
+            0,
+            0,
+            0
     );
+
+    card.addView(
+            nameText,
+            nameParams
+    );
+
+
+    return card;
+} 
 
     // =================================================
     // SHOW
