@@ -1,0 +1,48 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Outer monitoring ring -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#1656A8"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M12,3
+                          A9,9 0,1 0,12,21
+                          A9,9 0,1 0,12,3" />
+
+    <!-- Center -->
+    <path
+        android:fillColor="#1656A8"
+        android:pathData="M12,7
+                          A5,5 0,1 0,12,17
+                          A5,5 0,1 0,12,7" />
+
+    <!-- Center highlight -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,9
+                          A3,3 0,1 0,12,15
+                          A3,3 0,1 0,12,9" />
+
+    <!-- Monitoring signal -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#4AB3FF"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M5,12
+                          H8
+                          M16,12
+                          H19
+                          M12,5
+                          V8
+                          M12,16
+                          V19" />
+
+</vector>
