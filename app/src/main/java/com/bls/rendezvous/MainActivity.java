@@ -4019,7 +4019,33 @@ drawerContent.addView(
         applicationsItem,
         applicationsParams
 );
+// =====================================================
+// APPLICATIONS CLICK
+// =====================================================
 
+applicationsItem.setOnClickListener(
+        new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                View drawerView =
+                        getWindow()
+                                .getDecorView()
+                                .findViewWithTag(
+                                        "MAIN_DRAWER"
+                                );
+
+                if (drawerView != null) {
+
+                    ((ViewGroup) drawerView.getParent())
+                            .removeView(drawerView);
+                }
+
+                showApplications();
+            }
+        }
+);
 // =====================================================
 // SMART ALERTS — PRO
 // =====================================================
