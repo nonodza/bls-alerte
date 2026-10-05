@@ -6903,129 +6903,211 @@ private void showAppointments() {
     } 
 
 // =========================================================
-// PREMIUM BOTTOM NAV ITEM - الحساب المريقل
+// PREMIUM BOTTOM NAV ITEM
 // =========================================================
 private LinearLayout navItem(
-    int iconRes,
-    String label,
-    boolean isHome
+        int iconRes,
+        String label,
+        boolean isHome
 ) {
-    LinearLayout item = new LinearLayout(this);
-    item.setOrientation(LinearLayout.VERTICAL);
-    item.setGravity(Gravity.CENTER);
+
+    LinearLayout item =
+            new LinearLayout(this);
+
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    item.setGravity(
+            Gravity.CENTER
+    );
+
     item.setLayoutParams(
-        new LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            1f
-        )
+            new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    1f
+            )
     );
 
-    FrameLayout holder = new FrameLayout(this);
+    // =================================================
+    // ICON HOLDER
+    // =================================================
 
-    ImageView icon = new ImageView(this);
-    icon.setImageResource(iconRes);
-    icon.setColorFilter(
-        Color.parseColor("#4FC3F7"),
-        android.graphics.PorterDuff.Mode.SRC_IN
-    );
-    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    FrameLayout holder =
+            new FrameLayout(this);
+
+    LinearLayout.LayoutParams holderLp;
 
     if (isHome) {
-        GradientDrawable bg = new GradientDrawable();
-        bg.setShape(GradientDrawable.RECTANGLE);
-        bg.setCornerRadius(dp(20));
-        bg.setColor(Color.parseColor("#1A2A4A"));
-        holder.setBackground(bg);
 
-        int iconSize = dp(24);
-        FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(
-            iconSize,
-            iconSize,
-            Gravity.CENTER
+        holder.setBackgroundResource(
+                R.drawable.bg_home_pill
         );
-        holder.addView(icon, iconLp);
 
-        FrameLayout.LayoutParams hp = new FrameLayout.LayoutParams(
-            dp(50),
-            dp(34),
-            Gravity.CENTER
-        );
-        hp.bottomMargin = dp(2);
-        holder.setLayoutParams(hp);
+        holderLp =
+                new LinearLayout.LayoutParams(
+                        dp(56),
+                        dp(32)
+                );
+
     } else {
-        GradientDrawable circle = new GradientDrawable();
-        circle.setShape(GradientDrawable.OVAL);
-        circle.setColor(Color.parseColor("#1A0B2A4A"));
-        circle.setStroke(dp(1), Color.parseColor("#334FC3F7"));
-        holder.setBackground(circle);
 
-        int iconSize = dp(22);
-        FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(
-            iconSize,
-            iconSize,
-            Gravity.CENTER
-        );
-        holder.addView(icon, iconLp);
+        holder.setBackground(null);
 
-        FrameLayout.LayoutParams cp = new FrameLayout.LayoutParams(
-            dp(38),
-            dp(38),
-            Gravity.CENTER
-        );
-        holder.setLayoutParams(cp);
+        holderLp =
+                new LinearLayout.LayoutParams(
+                        dp(38),
+                        dp(38)
+                );
     }
 
-    TextView text = new TextView(this);
+    holderLp.gravity =
+            Gravity.CENTER;
+
+    holderLp.bottomMargin =
+            dp(2);
+
+    holder.setLayoutParams(
+            holderLp
+    );
+
+    // =================================================
+    // ICON
+    // =================================================
+
+    ImageView icon =
+            new ImageView(this);
+
+    icon.setImageResource(
+            iconRes
+    );
+
+    icon.setScaleType(
+            ImageView.ScaleType.FIT_CENTER
+    );
+
+    int iconSize =
+            isHome ? dp(20) : dp(24);
+
+    FrameLayout.LayoutParams iconLp =
+            new FrameLayout.LayoutParams(
+                    iconSize,
+                    iconSize
+            );
+
+    iconLp.gravity =
+            Gravity.CENTER;
+
+    icon.setLayoutParams(
+            iconLp
+    );
+
+    holder.addView(icon);
+
+    // =================================================
+    // TEXT
+    // =================================================
+
+    TextView text =
+            new TextView(this);
+
     text.setText(label);
+
     text.setTextSize(11);
-    text.setGravity(Gravity.CENTER);
-    text.setTextColor(Color.WHITE);
+
+    text.setGravity(
+            Gravity.CENTER
+    );
+
+    text.setMaxLines(1);
+
+    text.setTranslationY(
+            isHome ? 0 : dp(-2)
+    );
+
+    // =================================================
+    // TEXT COLOR
+    // =================================================
+
     if (isHome) {
-        text.setTypeface(null, android.graphics.Typeface.BOLD);
+
+        text.setTextColor(
+                Color.WHITE
+        );
+
+        text.setTypeface(
+                null,
+                android.graphics.Typeface.BOLD
+        );
+
+    } else {
+
+        text.setTextColor(
+                Color.parseColor(
+                        "#8A9BB5"
+                )
+        );
     }
-    text.setPadding(0, dp(3), 0, 0);
 
-    item.addView(holder);
-    item.addView(text);
-    return item;
-}
-   // =================================================
-// CLICK
-// =================================================
+    // =================================================
+    // ADD VIEWS
+    // =================================================
 
-item.setOnClickListener(
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    item.addView(
+            holder
+    );
 
-                if (label.equals("Home")) {
+    item.addView(
+            text
+    );
 
-                    showHome();
+    // =================================================
+    // CLICK
+    // =================================================
 
-                } else if (label.equals("Monitoring")) {
+    item.setOnClickListener(
+            new View.OnClickListener() {
 
-                    page(
-                            "Monitoring",
-                            "Monitor your appointment availability",
-                            new String[]{
-                                    "Monitoring is currently paused"
-                            }
-                    );
+                @Override
+                public void onClick(View v) {
 
-                } else if (label.equals("Notifications")) {
+                    if (label.equals("Home")) {
 
-                    showAlerts();
+                        showHome();
 
-                } else if (label.equals("Profile")) {
+                    } else if (
+                            label.equals("Monitoring")
+                    ) {
 
-                    showSettings();
+                        page(
+                                "Monitoring",
+                                "Monitor your appointment availability",
+                                new String[]{
+                                        "Monitoring is currently paused"
+                                }
+                        );
+
+                    } else if (
+                            label.equals("Notifications")
+                    ) {
+
+                        showAlerts();
+
+                    } else if (
+                            label.equals("Profile")
+                    ) {
+
+                        showSettings();
+                    }
                 }
             }
-        }
-);
-    
-    // =========================================================
+    );
+
+    return item;
+}
+      
+// =========================================================
 // GENERIC PAGE
 // =========================================================
 
