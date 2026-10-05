@@ -6990,7 +6990,40 @@ private LinearLayout navItem(
     item.addView(text);
     return item;
 }
-   
+   // =================================================
+// CLICK
+// =================================================
+
+item.setOnClickListener(
+        new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (label.equals("Home")) {
+
+                    showHome();
+
+                } else if (label.equals("Monitoring")) {
+
+                    page(
+                            "Monitoring",
+                            "Monitor your appointment availability",
+                            new String[]{
+                                    "Monitoring is currently paused"
+                            }
+                    );
+
+                } else if (label.equals("Notifications")) {
+
+                    showAlerts();
+
+                } else if (label.equals("Profile")) {
+
+                    showSettings();
+                }
+            }
+        }
+);
     
     // =========================================================
 // GENERIC PAGE
