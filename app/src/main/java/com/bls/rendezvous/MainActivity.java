@@ -2121,7 +2121,7 @@ private void showApplications() {
                     GradientDrawable.Orientation.TL_BR,
                     new int[]{
                             Color.parseColor("#7C3AED"),
-                            Color.parseColo("#2563EB")
+                            Color.parseColor("#2563EB")
                     }
             );
 
@@ -2144,7 +2144,40 @@ private void showApplications() {
     applicationsRoot.addView(
         header
 );
+// =================================================
+// CONTENT SCROLL
+// =================================================
 
+ScrollView scroll =
+        new ScrollView(this);
+
+scroll.setFillViewport(true);
+
+scroll.setVerticalScrollBarEnabled(
+        false
+);
+
+LinearLayout content =
+        new LinearLayout(this);
+
+content.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+content.setPadding(
+        dp(18),
+        dp(8),
+        dp(18),
+        dp(30)
+);
+
+scroll.addView(
+        content,
+        new ScrollView.LayoutParams(
+                -1,
+                -2
+        )
+);
     // =================================================
     // HERO CARD
     // =================================================
