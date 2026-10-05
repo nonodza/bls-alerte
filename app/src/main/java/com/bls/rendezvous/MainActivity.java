@@ -6903,64 +6903,88 @@ private void showAppointments() {
     } 
 
 // =========================================================
-// PREMIUM BOTTOM NAV ITEM
+// PREMIUM BOTTOM NAV ITEM - الحساب المريقل
 // =========================================================
-private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
+private LinearLayout navItem(
+    int iconRes,
+    String label,
+    boolean isHome
+) {
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.VERTICAL);
     item.setGravity(Gravity.CENTER);
-    item.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+    item.setLayoutParams(
+        new LinearLayout.LayoutParams(
+            0,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            1f
+        )
+    );
 
     FrameLayout holder = new FrameLayout(this);
 
+    ImageView icon = new ImageView(this);
+    icon.setImageResource(iconRes);
+    icon.setColorFilter(
+        Color.parseColor("#4FC3F7"),
+        android.graphics.PorterDuff.Mode.SRC_IN
+    );
+    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
     if (isHome) {
-        // Home يبقى Pill كيما راه
-        holder.setBackgroundResource(R.drawable.bg_home_pill);
-        FrameLayout.LayoutParams hp = new FrameLayout.LayoutParams(dp(56), dp(32));
-        hp.gravity = Gravity.CENTER;
+        GradientDrawable bg = new GradientDrawable();
+        bg.setShape(GradientDrawable.RECTANGLE);
+        bg.setCornerRadius(dp(20));
+        bg.setColor(Color.parseColor("#1A2A4A"));
+        holder.setBackground(bg);
+
+        int iconSize = dp(24);
+        FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(
+            iconSize,
+            iconSize,
+            Gravity.CENTER
+        );
+        holder.addView(icon, iconLp);
+
+        FrameLayout.LayoutParams hp = new FrameLayout.LayoutParams(
+            dp(50),
+            dp(34),
+            Gravity.CENTER
+        );
         hp.bottomMargin = dp(2);
         holder.setLayoutParams(hp);
     } else {
-    GradientDrawable circle =
-        new GradientDrawable();
-    circle.setShape(
-        GradientDrawable.OVAL
-    );
-    circle.setColor(
-        Color.parseColor("#1A0B2A4A")
-    );
-    circle.setStroke(
-        dp(1),
-        Color.parseColor("#334FC3F7")
-    );
-    holder.setBackground(circle);
+        GradientDrawable circle = new GradientDrawable();
+        circle.setShape(GradientDrawable.OVAL);
+        circle.setColor(Color.parseColor("#1A0B2A4A"));
+        circle.setStroke(dp(1), Color.parseColor("#334FC3F7"));
+        holder.setBackground(circle);
 
-    FrameLayout.LayoutParams cp =
-        new FrameLayout.LayoutParams(
-            dp(32),
-            dp(32),
+        int iconSize = dp(22);
+        FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(
+            iconSize,
+            iconSize,
             Gravity.CENTER
         );
-    holder.setLayoutParams(cp);
-}
+        holder.addView(icon, iconLp);
 
-    // ICON - صغار
-    ImageView icon = new ImageView(this);
-    icon.setImageResource(iconRes);
-    icon.setColorFilter(Color.parseColor("#4AB3FF"), android.graphics.PorterDuff.Mode.SRC_IN);
-    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    int iconSize = isHome ? dp(20) : dp(18);
-    FrameLayout.LayoutParams iconLp = new FrameLayout.LayoutParams(iconSize, iconSize);
-    iconLp.gravity = Gravity.CENTER;
-    icon.setLayoutParams(iconLp);
-    holder.addView(icon);
+        FrameLayout.LayoutParams cp = new FrameLayout.LayoutParams(
+            dp(38),
+            dp(38),
+            Gravity.CENTER
+        );
+        holder.setLayoutParams(cp);
+    }
 
     TextView text = new TextView(this);
     text.setText(label);
     text.setTextSize(11);
     text.setGravity(Gravity.CENTER);
     text.setTextColor(Color.WHITE);
-    if(isHome) text.setTypeface(null, android.graphics.Typeface.BOLD);
+    if (isHome) {
+        text.setTypeface(null, android.graphics.Typeface.BOLD);
+    }
+    text.setPadding(0, dp(3), 0, 0);
 
     item.addView(holder);
     item.addView(text);
