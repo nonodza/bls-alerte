@@ -2140,6 +2140,20 @@ private void showApplications() {
                     dp(22)
             )
     );
+    header.addView(
+            globalBadge,
+            new LinearLayout.LayoutParams(
+                    dp(54),
+                    dp(22)
+            )
+    );
+    applicationsRoot.addView(
+        header
+);
+    
+// =================================================
+// APPLICATION SUMMARY
+// ===============================
 // =================================================
 // APPLICATION SUMMARY
 // =================================================
