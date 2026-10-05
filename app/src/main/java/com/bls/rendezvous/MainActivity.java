@@ -2150,85 +2150,371 @@ private void showApplications() {
     applicationsRoot.addView(
         header
 );
-    
 // =================================================
-// APPLICATION SUMMARY
-// ===============================
-// =================================================
-// APPLICATION SUMMARY
+// APPLICATION OVERVIEW
 // =================================================
 
-LinearLayout summaryRow =
+LinearLayout overviewCard =
         new LinearLayout(this);
 
-summaryRow.setOrientation(
+overviewCard.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+overviewCard.setPadding(
+        dp(18),
+        dp(16),
+        dp(18),
+        dp(16)
+);
+
+GradientDrawable overviewBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#172B63"),
+                        Color.parseColor("#3156B8"),
+                        Color.parseColor("#5B4BC4")
+                }
+        );
+
+overviewBg.setCornerRadius(
+        dp(20)
+);
+
+overviewCard.setBackground(
+        overviewBg
+);
+
+// =================================================
+// TOP ROW
+// =================================================
+
+LinearLayout overviewTop =
+        new LinearLayout(this);
+
+overviewTop.setOrientation(
         LinearLayout.HORIZONTAL
 );
 
-summaryRow.setGravity(
+overviewTop.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// TITLE
+TextView overviewTitle =
+        text(
+                "Application Overview",
+                15,
+                Color.WHITE
+        );
+
+overviewTitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+overviewTitle.setLetterSpacing(
+        0.02f
+);
+
+overviewTop.addView(
+        overviewTitle,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(28),
+                1f
+        )
+);
+
+// GLOBAL MINI BADGE
+TextView overviewGlobal =
+        text(
+                "GLOBAL",
+                8,
+                Color.WHITE
+        );
+
+overviewGlobal.setGravity(
         Gravity.CENTER
 );
 
-summaryRow.setPadding(
-        dp(18),
-        dp(4),
-        dp(18),
-        dp(4)
+overviewGlobal.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+overviewGlobal.setLetterSpacing(
+        0.08f
+);
+
+GradientDrawable overviewGlobalBg =
+        new GradientDrawable();
+
+overviewGlobalBg.setColor(
+        Color.argb(
+                45,
+                255,
+                255,
+                255
+        )
+);
+
+overviewGlobalBg.setCornerRadius(
+        dp(6)
+);
+
+overviewGlobal.setBackground(
+        overviewGlobalBg
+);
+
+overviewTop.addView(
+        overviewGlobal,
+        new LinearLayout.LayoutParams(
+                dp(54),
+                dp(20)
+        )
+);
+
+overviewCard.addView(
+        overviewTop
+);
+
+// =================================================
+// DIVIDER
+// =================================================
+
+View overviewDivider =
+        new View(this);
+
+GradientDrawable dividerBg =
+        new GradientDrawable();
+
+dividerBg.setColor(
+        Color.argb(
+                45,
+                255,
+                255,
+                255
+        )
+);
+
+overviewDivider.setBackground(
+        dividerBg
+);
+
+LinearLayout.LayoutParams dividerParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(1)
+        );
+
+dividerParams.setMargins(
+        0,
+        dp(8),
+        0,
+        dp(10)
+);
+
+overviewCard.addView(
+        overviewDivider,
+        dividerParams
+);
+
+// =================================================
+// COUNTERS ROW
+// =================================================
+
+LinearLayout countersRow =
+        new LinearLayout(this);
+
+countersRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+countersRow.setGravity(
+        Gravity.CENTER_VERTICAL
 );
 
 // TOTAL
-LinearLayout totalCard =
-        applicationSummaryCard(
+LinearLayout totalBlock =
+        applicationOverviewStat(
                 "0",
-                "Total",
-                "#2563EB"
+                "Total"
         );
 
 // DRAFT
-LinearLayout draftCard =
-        applicationSummaryCard(
+LinearLayout draftBlock =
+        applicationOverviewStat(
                 "0",
-                "Draft",
-                "#7C3AED"
+                "Draft"
         );
 
 // BOOKED
-LinearLayout bookedCard =
-        applicationSummaryCard(
+LinearLayout bookedBlock =
+        applicationOverviewStat(
                 "0",
-                "Booked",
-                "#059669"
+                "Booked"
         );
 
-summaryRow.addView(
-        totalCard,
+countersRow.addView(
+        totalBlock,
         new LinearLayout.LayoutParams(
                 0,
-                dp(72),
+                dp(52),
                 1f
         )
 );
 
-summaryRow.addView(
-        draftCard,
+countersRow.addView(
+        draftBlock,
         new LinearLayout.LayoutParams(
                 0,
-                dp(72),
+                dp(52),
                 1f
         )
 );
 
-summaryRow.addView(
-        bookedCard,
+countersRow.addView(
+        bookedBlock,
         new LinearLayout.LayoutParams(
                 0,
-                dp(72),
+                dp(52),
                 1f
         )
 );
-   applicationsRoot.addView(
-        summaryRow
-); 
+
+overviewCard.addView(
+        countersRow
+);
+
+// =================================================
+// LAST ACTIVITY
+// =================================================
+
+LinearLayout activityRow =
+        new LinearLayout(this);
+
+activityRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+activityRow.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+GradientDrawable activityBg =
+        new GradientDrawable();
+
+activityBg.setColor(
+        Color.argb(
+                35,
+                255,
+                255,
+                255
+        )
+);
+
+activityBg.setCornerRadius(
+        dp(10)
+);
+
+activityRow.setBackground(
+        activityBg
+);
+
+activityRow.setPadding(
+        dp(10),
+        0,
+        dp(10),
+        0
+);
+
+TextView activityLabel =
+        text(
+                "Last activity",
+                11,
+                Color.parseColor("#DDE6FF")
+        );
+
+activityRow.addView(
+        activityLabel,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(32),
+                1f
+        )
+);
+
+TextView activityValue =
+        text(
+                "No activity yet",
+                11,
+                Color.WHITE
+        );
+
+activityValue.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+activityValue.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+activityRow.addView(
+        activityValue,
+        new LinearLayout.LayoutParams(
+                -2,
+                dp(32)
+        )
+);
+
+LinearLayout.LayoutParams activityParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(32)
+        );
+
+activityParams.setMargins(
+        0,
+        dp(8),
+        0,
+        0
+);
+
+overviewCard.addView(
+        activityRow,
+        activityParams
+);
+
+// =================================================
+// ADD TO CONTENT
+// =================================================
+
+LinearLayout.LayoutParams overviewParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+overviewParams.setMargins(
+        0,
+        0,
+        0,
+        dp(16)
+);
+
+content.addView(
+        overviewCard,
+        overviewParams
+);    
     // =================================================
     // CONTENT SCROLL
     // =================================================
@@ -2674,58 +2960,32 @@ summaryRow.addView(
             applicationsRoot
     );
 }   
-   // =====================================================
-// APPLICATION SUMMARY CARD
+// =====================================================
+// APPLICATION OVERVIEW STAT
 // =====================================================
 
-private LinearLayout applicationSummaryCard(
+private LinearLayout applicationOverviewStat(
         String number,
-        String label,
-        String accentColor
+        String label
 ) {
 
-    LinearLayout card =
+    LinearLayout block =
             new LinearLayout(this);
 
-    card.setOrientation(
+    block.setOrientation(
             LinearLayout.VERTICAL
     );
 
-    card.setGravity(
-            Gravity.CENTER
+    block.setGravity(
+            Gravity.CENTER_VERTICAL
     );
 
-    GradientDrawable bg =
-            new GradientDrawable();
-
-    bg.setColor(
-            Color.WHITE
-    );
-
-    bg.setCornerRadius(
-            dp(16)
-    );
-
-    bg.setStroke(
-            dp(1),
-            Color.parseColor("#E1E8F5")
-    );
-
-    card.setBackground(
-            bg
-    );
-
-    // NUMBER
     TextView numberText =
             text(
                     number,
-                    21,
-                    Color.parseColor(accentColor)
+                    20,
+                    Color.WHITE
             );
-
-    numberText.setGravity(
-            Gravity.CENTER
-    );
 
     numberText.setTypeface(
             Typeface.create(
@@ -2734,43 +2994,38 @@ private LinearLayout applicationSummaryCard(
             )
     );
 
-    card.addView(
+    block.addView(
             numberText,
             new LinearLayout.LayoutParams(
                     -1,
-                    dp(30)
+                    dp(27)
             )
     );
 
-    // LABEL
     TextView labelText =
             text(
                     label,
-                    11,
-                    Color.parseColor("#71809A")
+                    10,
+                    Color.parseColor("#C9D6F5")
             );
-
-    labelText.setGravity(
-            Gravity.CENTER
-    );
 
     labelText.setTypeface(
             Typeface.create(
                     "sans-serif",
-                    Typeface.BOLD
+                    Typeface.NORMAL
             )
     );
 
-    card.addView(
+    block.addView(
             labelText,
             new LinearLayout.LayoutParams(
                     -1,
-                    dp(22)
+                    dp(20)
             )
     );
 
-    return card;
-} 
+    return block;
+}   
 // =====================================================
 // MAIN MENU - NAVIGATION DRAWER
 // =====================================================
