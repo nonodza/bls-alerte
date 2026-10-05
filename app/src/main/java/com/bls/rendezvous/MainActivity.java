@@ -1516,38 +1516,33 @@ bottom.setPadding(
         dp(4)
 );
 
-// =====================================================
+// ==============================================
 // PREMIUM BOTTOM BACKGROUND
-// =====================================================
-
-GradientDrawable bottomBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-        Color.rgb(10, 18, 42),
-        Color.rgb(20, 32, 68)
-}
-        );
-
+//================================================
+GradientDrawable bottomBg = new GradientDrawable(
+    GradientDrawable.Orientation.TL_BR,
+    new int[]{
+        Color.parseColor("#162040"),
+        Color.parseColor("#162040")
+    }
+);
 bottomBg.setCornerRadius(0);
-
 bottomBg.setStroke(
-        0,
-        Color.TRANSPARENT
+    0,
+    Color.TRANSPARENT
 );
-
 bottom.setBackground(
-        bottomBg
+    bottomBg
 );
 
-if (Build.VERSION.SDK_INT >=
-        Build.VERSION_CODES.LOLLIPOP) {
-
+if (
+    Build.VERSION.SDK_INT >=
+    Build.VERSION_CODES.LOLLIPOP
+) {
     bottom.setElevation(
-            dp(8)
+        dp(8)
     );
-}
-  
+}  
 // =====================================================
 // BOTTOM NAV ITEMS
 // =====================================================
