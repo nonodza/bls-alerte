@@ -3318,22 +3318,23 @@ drawerContent.addView(
         applicationsItem,
         applicationsParams
 );
+
 // =====================================================
-// APPOINTMENT MONITORING PREMIUM
+// SMART ALERTS — PRO
 // =====================================================
 
-LinearLayout monitoringItem =
+LinearLayout smartAlertsItem =
         new LinearLayout(this);
 
-monitoringItem.setOrientation(
+smartAlertsItem.setOrientation(
         LinearLayout.HORIZONTAL
 );
 
-monitoringItem.setGravity(
+smartAlertsItem.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-monitoringItem.setPadding(
+smartAlertsItem.setPadding(
         dp(16),
         0,
         dp(12),
@@ -3344,49 +3345,49 @@ monitoringItem.setPadding(
 // ICON BOX
 // =====================================================
 
-FrameLayout monitoringIconBox =
+FrameLayout smartAlertsIconBox =
         new FrameLayout(this);
 
-GradientDrawable monitoringIconBg =
+GradientDrawable smartAlertsIconBg =
         new GradientDrawable();
 
-monitoringIconBg.setShape(
+smartAlertsIconBg.setShape(
         GradientDrawable.OVAL
 );
 
-monitoringIconBg.setColor(
+smartAlertsIconBg.setColor(
         Color.parseColor("#E8F2FF")
 );
 
-monitoringIconBox.setBackground(
-        monitoringIconBg
+smartAlertsIconBox.setBackground(
+        smartAlertsIconBg
 );
 
 // =====================================================
 // ICON
 // =====================================================
 
-ImageView monitoringIcon =
+ImageView smartAlertsIcon =
         new ImageView(this);
 
-monitoringIcon.setImageResource(
-        R.drawable.ic_monitoring_premium
+smartAlertsIcon.setImageResource(
+        R.drawable.ic_notifications_premium
 );
 
-monitoringIcon.setScaleType(
+smartAlertsIcon.setScaleType(
         ImageView.ScaleType.CENTER
 );
 
-monitoringIconBox.addView(
-        monitoringIcon,
+smartAlertsIconBox.addView(
+        smartAlertsIcon,
         new FrameLayout.LayoutParams(
                 -1,
                 -1
         )
 );
 
-monitoringItem.addView(
-        monitoringIconBox,
+smartAlertsItem.addView(
+        smartAlertsIconBox,
         new LinearLayout.LayoutParams(
                 dp(42),
                 dp(42)
@@ -3394,67 +3395,137 @@ monitoringItem.addView(
 );
 
 // =====================================================
-// TEXT
+// TEXT CONTAINER
 // =====================================================
 
-TextView monitoringText =
-        text(
-                "Appointment Monitoring",
-                16,
-                Color.parseColor("#102B52")
-        );
+LinearLayout smartAlertsTextContainer =
+        new LinearLayout(this);
 
-monitoringText.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
+smartAlertsTextContainer.setOrientation(
+        LinearLayout.VERTICAL
 );
 
-monitoringText.setGravity(
+smartAlertsTextContainer.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-monitoringText.setLetterSpacing(
-        0.01f
-);
-
-LinearLayout.LayoutParams monitoringTextParams =
+LinearLayout.LayoutParams smartAlertsTextContainerParams =
         new LinearLayout.LayoutParams(
                 0,
                 -1,
                 1f
 );
 
-monitoringTextParams.setMargins(
+smartAlertsTextContainerParams.setMargins(
         dp(14),
         0,
         dp(8),
         0
 );
 
-monitoringItem.addView(
-        monitoringText,
-        monitoringTextParams
+smartAlertsItem.addView(
+        smartAlertsTextContainer,
+        smartAlertsTextContainerParams
+);
+
+// =====================================================
+// TITLE
+// =====================================================
+
+TextView smartAlertsText =
+        text(
+                "Smart Alerts",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+smartAlertsText.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+smartAlertsText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+smartAlertsText.setLetterSpacing(
+        0.01f
+);
+
+smartAlertsTextContainer.addView(
+        smartAlertsText,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(28)
+        )
+);
+
+// =====================================================
+// PRO BADGE
+// =====================================================
+
+TextView smartAlertsPro =
+        text(
+                "PRO",
+                9,
+                Color.WHITE
+        );
+
+smartAlertsPro.setGravity(
+        Gravity.CENTER
+);
+
+smartAlertsPro.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+GradientDrawable smartAlertsProBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#7C3AED"),
+                        Color.parseColor("#2563EB")
+                }
+        );
+
+smartAlertsProBg.setCornerRadius(
+        dp(6)
+);
+
+smartAlertsPro.setBackground(
+        smartAlertsProBg
+);
+
+smartAlertsTextContainer.addView(
+        smartAlertsPro,
+        new LinearLayout.LayoutParams(
+                dp(34),
+                dp(17)
+        )
 );
 
 // =====================================================
 // ARROW
 // =====================================================
 
-TextView monitoringArrow =
+TextView smartAlertsArrow =
         text(
                 "›",
                 28,
                 Color.parseColor("#1656A8")
         );
 
-monitoringArrow.setGravity(
+smartAlertsArrow.setGravity(
         Gravity.CENTER
 );
 
-monitoringItem.addView(
-        monitoringArrow,
+smartAlertsItem.addView(
+        smartAlertsArrow,
         new LinearLayout.LayoutParams(
                 dp(28),
                 -1
@@ -3465,13 +3536,13 @@ monitoringItem.addView(
 // MARGINS
 // =====================================================
 
-LinearLayout.LayoutParams monitoringParams =
+LinearLayout.LayoutParams smartAlertsParams =
         new LinearLayout.LayoutParams(
                 -1,
                 dp(58)
         );
 
-monitoringParams.setMargins(
+smartAlertsParams.setMargins(
         dp(16),
         dp(0),
         dp(16),
@@ -3483,9 +3554,10 @@ monitoringParams.setMargins(
 // =====================================================
 
 drawerContent.addView(
-        monitoringItem,
-        monitoringParams
+        smartAlertsItem,
+        smartAlertsParams
 );
+
     // =====================================================
 // DOCUMENTS
 // =====================================================
