@@ -3215,7 +3215,41 @@ applicationsItem.addView(
 );
 
 // =====================================================
-// APPLICATIONS TEXT
+// APPLICATIONS TEXT CONTAINER
+// =====================================================
+
+LinearLayout applicationsTextContainer =
+        new LinearLayout(this);
+
+applicationsTextContainer.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+applicationsTextContainer.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+LinearLayout.LayoutParams applicationsTextContainerParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1f
+);
+
+applicationsTextContainerParams.setMargins(
+        dp(14),
+        0,
+        dp(8),
+        0
+);
+
+applicationsItem.addView(
+        applicationsTextContainer,
+        applicationsTextContainerParams
+);
+
+// =====================================================
+// APPLICATIONS TITLE
 // =====================================================
 
 TextView applicationsText =
@@ -3240,23 +3274,63 @@ applicationsText.setLetterSpacing(
         0.01f
 );
 
-LinearLayout.LayoutParams applicationsTextParams =
-        new LinearLayout.LayoutParams(
-                0,
-                -1,
-                1f
-);
-
-applicationsTextParams.setMargins(
-        dp(14),
-        0,
-        dp(8),
-        0
-);
-
-applicationsItem.addView(
+applicationsTextContainer.addView(
         applicationsText,
-        applicationsTextParams
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(28)
+        )
+);
+
+// =====================================================
+// GLOBAL BADGE
+// =====================================================
+
+TextView applicationsGlobal =
+        text(
+                "GLOBAL",
+                8,
+                Color.WHITE
+        );
+
+applicationsGlobal.setGravity(
+        Gravity.CENTER
+);
+
+applicationsGlobal.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+applicationsGlobal.setLetterSpacing(
+        0.08f
+);
+
+GradientDrawable applicationsGlobalBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#7C3AED"),
+                        Color.parseColor("#4F46E5")
+                }
+        );
+
+applicationsGlobalBg.setCornerRadius(
+        dp(6)
+);
+
+applicationsGlobal.setBackground(
+        applicationsGlobalBg
+);
+
+applicationsTextContainer.addView(
+        applicationsGlobal,
+        new LinearLayout.LayoutParams(
+                dp(48),
+                dp(17)
+        )
 );
 
 // =====================================================
