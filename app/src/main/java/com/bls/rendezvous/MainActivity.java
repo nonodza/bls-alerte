@@ -1949,6 +1949,641 @@ item.addView(
     return item;
 }
 // =====================================================
+// APPLICATIONS — GLOBAL
+// =====================================================
+
+private void showApplications() {
+
+    currentPage = "APPLICATIONS";
+
+    // =================================================
+    // ROOT
+    // =================================================
+
+    LinearLayout applicationsRoot =
+            new LinearLayout(this);
+
+    applicationsRoot.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    GradientDrawable applicationsBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.rgb(242, 246, 255),
+                            Color.rgb(235, 241, 255),
+                            Color.rgb(246, 240, 252)
+                    }
+            );
+
+    applicationsRoot.setBackground(
+            applicationsBackground
+    );
+
+    // =================================================
+    // HEADER
+    // =================================================
+
+    LinearLayout header =
+            new LinearLayout(this);
+
+    header.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
+
+    header.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    header.setPadding(
+            dp(18),
+            dp(14),
+            dp(18),
+            dp(8)
+    );
+
+    // BACK BUTTON
+    TextView backButton =
+            text(
+                    "‹",
+                    34,
+                    Color.parseColor("#102B52")
+            );
+
+    backButton.setGravity(
+            Gravity.CENTER
+    );
+
+    header.addView(
+            backButton,
+            new LinearLayout.LayoutParams(
+                    dp(42),
+                    dp(42)
+            )
+    );
+
+    backButton.setOnClickListener(
+            new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    showHome();
+                }
+            }
+    );
+
+    // HEADER TEXT
+    LinearLayout headerText =
+            new LinearLayout(this);
+
+    headerText.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    headerText.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    LinearLayout.LayoutParams headerTextParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(52),
+                    1f
+            );
+
+    headerTextParams.setMargins(
+            dp(8),
+            0,
+            dp(8),
+            0
+    );
+
+    header.addView(
+            headerText,
+            headerTextParams
+    );
+
+    TextView title =
+            text(
+                    "My Applications",
+                    23,
+                    Color.parseColor("#102B52")
+            );
+
+    title.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    headerText.addView(
+            title
+    );
+
+    TextView subtitle =
+            text(
+                    "Manage your global visa applications",
+                    12,
+                    Color.parseColor("#71809A")
+            );
+
+    headerText.addView(
+            subtitle
+    );
+
+    // GLOBAL BADGE
+    TextView globalBadge =
+            text(
+                    "GLOBAL",
+                    9,
+                    Color.WHITE
+            );
+
+    globalBadge.setGravity(
+            Gravity.CENTER
+    );
+
+    globalBadge.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    globalBadge.setLetterSpacing(
+            0.08f
+    );
+
+    GradientDrawable globalBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.parseColor("#7C3AED"),
+                            Color.parseColor("#2563EB")
+                    }
+            );
+
+    globalBg.setCornerRadius(
+            dp(7)
+    );
+
+    globalBadge.setBackground(
+            globalBg
+    );
+
+    header.addView(
+            globalBadge,
+            new LinearLayout.LayoutParams(
+                    dp(54),
+                    dp(22)
+            )
+    );
+
+    applicationsRoot.addView(
+            header
+    );
+
+    // =================================================
+    // CONTENT SCROLL
+    // =================================================
+
+    ScrollView scroll =
+            new ScrollView(this);
+
+    scroll.setFillViewport(true);
+
+    scroll.setVerticalScrollBarEnabled(
+            false
+    );
+
+    LinearLayout content =
+            new LinearLayout(this);
+
+    content.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    content.setPadding(
+            dp(18),
+            dp(8),
+            dp(18),
+            dp(30)
+    );
+
+    scroll.addView(
+            content,
+            new ScrollView.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    // =================================================
+    // HERO CARD
+    // =================================================
+
+    LinearLayout heroCard =
+            new LinearLayout(this);
+
+    heroCard.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    heroCard.setPadding(
+            dp(20),
+            dp(20),
+            dp(20),
+            dp(20)
+    );
+
+    GradientDrawable heroBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.parseColor("#182B68"),
+                            Color.parseColor("#3556B8"),
+                            Color.parseColor("#6B4FD3")
+                    }
+            );
+
+    heroBg.setCornerRadius(
+            dp(22)
+    );
+
+    heroCard.setBackground(
+            heroBg
+    );
+
+    TextView heroTitle =
+            text(
+                    "Your visa journey",
+                    21,
+                    Color.WHITE
+            );
+
+    heroTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    heroCard.addView(
+            heroTitle
+    );
+
+    TextView heroSubtitle =
+            text(
+                    "Keep applications, documents and appointment details organized in one place.",
+                    13,
+                    Color.parseColor("#DDE6FF")
+            );
+
+    heroSubtitle.setLineSpacing(
+            0,
+            1.15f
+    );
+
+    LinearLayout.LayoutParams heroSubtitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    heroSubtitleParams.setMargins(
+            0,
+            dp(7),
+            0,
+            dp(16)
+    );
+
+    heroCard.addView(
+            heroSubtitle,
+            heroSubtitleParams
+    );
+
+    // NEW APPLICATION BUTTON
+    TextView newApplication =
+            text(
+                    "+  New Application",
+                    14,
+                    Color.parseColor("#182B68")
+            );
+
+    newApplication.setGravity(
+            Gravity.CENTER
+    );
+
+    newApplication.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    GradientDrawable newApplicationBg =
+            new GradientDrawable();
+
+    newApplicationBg.setColor(
+            Color.WHITE
+    );
+
+    newApplicationBg.setCornerRadius(
+            dp(12)
+    );
+
+    newApplication.setBackground(
+            newApplicationBg
+    );
+
+    heroCard.addView(
+            newApplication,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(46)
+            )
+    );
+
+    content.addView(
+            heroCard,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    // =================================================
+    // SECTION TITLE
+    // =================================================
+
+    TextView applicationsSection =
+            text(
+                    "Applications",
+                    18,
+                    Color.parseColor("#102B52")
+            );
+
+    applicationsSection.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    LinearLayout.LayoutParams sectionParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    sectionParams.setMargins(
+            dp(2),
+            dp(22),
+            dp(2),
+            dp(10)
+    );
+
+    content.addView(
+            applicationsSection,
+            sectionParams
+    );
+
+    // =================================================
+    // EMPTY STATE CARD
+    // =================================================
+
+    LinearLayout emptyCard =
+            new LinearLayout(this);
+
+    emptyCard.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    emptyCard.setGravity(
+            Gravity.CENTER
+    );
+
+    emptyCard.setPadding(
+            dp(20),
+            dp(28),
+            dp(20),
+            dp(28)
+    );
+
+    GradientDrawable emptyBg =
+            new GradientDrawable();
+
+    emptyBg.setColor(
+            Color.WHITE
+    );
+
+    emptyBg.setCornerRadius(
+            dp(20)
+    );
+
+    emptyBg.setStroke(
+            dp(1),
+            Color.parseColor("#E1E8F5")
+    );
+
+    emptyCard.setBackground(
+            emptyBg
+    );
+
+    // ICON
+    FrameLayout emptyIconBox =
+            new FrameLayout(this);
+
+    GradientDrawable emptyIconBg =
+            new GradientDrawable();
+
+    emptyIconBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    emptyIconBg.setColor(
+            Color.parseColor("#EDE9FE")
+    );
+
+    emptyIconBox.setBackground(
+            emptyIconBg
+    );
+
+    ImageView emptyIcon =
+            new ImageView(this);
+
+    emptyIcon.setImageResource(
+            R.drawable.ic_applications_premium
+    );
+
+    emptyIcon.setScaleType(
+            ImageView.ScaleType.CENTER
+    );
+
+    emptyIconBox.addView(
+            emptyIcon,
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
+            )
+    );
+
+    emptyCard.addView(
+            emptyIconBox,
+            new LinearLayout.LayoutParams(
+                    dp(58),
+                    dp(58)
+            )
+    );
+
+    TextView emptyTitle =
+            text(
+                    "No applications yet",
+                    17,
+                    Color.parseColor("#102B52")
+            );
+
+    emptyTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    emptyTitle.setGravity(
+            Gravity.CENTER
+    );
+
+    LinearLayout.LayoutParams emptyTitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    emptyTitleParams.setMargins(
+            0,
+            dp(14),
+            0,
+            dp(5)
+    );
+
+    emptyCard.addView(
+            emptyTitle,
+            emptyTitleParams
+    );
+
+    TextView emptySubtitle =
+            text(
+                    "Create your first application and keep your visa journey organized.",
+                    12,
+                    Color.parseColor("#71809A")
+            );
+
+    emptySubtitle.setGravity(
+            Gravity.CENTER
+    );
+
+    emptySubtitle.setLineSpacing(
+            0,
+            1.15f
+    );
+
+    emptyCard.addView(
+            emptySubtitle,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    content.addView(
+            emptyCard,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    // =================================================
+    // GLOBAL SUPPORT
+    // =================================================
+
+    TextView supportedTitle =
+            text(
+                    "Supported destinations",
+                    17,
+                    Color.parseColor("#102B52")
+            );
+
+    supportedTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    LinearLayout.LayoutParams supportedTitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    supportedTitleParams.setMargins(
+            dp(2),
+            dp(22),
+            dp(2),
+            dp(10)
+    );
+
+    content.addView(
+            supportedTitle,
+            supportedTitleParams
+    );
+
+    TextView supportedText =
+            text(
+                    "Schengen  •  USA  •  Canada  •  UK",
+                    13,
+                    Color.parseColor("#596B86")
+            );
+
+    supportedText.setGravity(
+            Gravity.CENTER
+    );
+
+    GradientDrawable supportedBg =
+            new GradientDrawable();
+
+    supportedBg.setColor(
+            Color.parseColor("#F8FAFF")
+    );
+
+    supportedBg.setCornerRadius(
+            dp(14)
+    );
+
+    supportedBg.setStroke(
+            dp(1),
+            Color.parseColor("#E1E8F5")
+    );
+
+    supportedText.setBackground(
+            supportedBg
+    );
+
+    content.addView(
+            supportedText,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(48)
+            )
+    );
+
+    applicationsRoot.addView(
+            scroll,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    0,
+                    1f
+            )
+    );
+
+    // =================================================
+    // SHOW
+    // =================================================
+
+    setContentView(
+            applicationsRoot
+    );
+}    
+// =====================================================
 // MAIN MENU - NAVIGATION DRAWER
 // =====================================================
 
