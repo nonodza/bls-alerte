@@ -2582,7 +2582,104 @@ private void showApplications() {
     setContentView(
             applicationsRoot
     );
-}    
+}   
+   // =====================================================
+// APPLICATION SUMMARY CARD
+// =====================================================
+
+private LinearLayout applicationSummaryCard(
+        String number,
+        String label,
+        String accentColor
+) {
+
+    LinearLayout card =
+            new LinearLayout(this);
+
+    card.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    card.setGravity(
+            Gravity.CENTER
+    );
+
+    GradientDrawable bg =
+            new GradientDrawable();
+
+    bg.setColor(
+            Color.WHITE
+    );
+
+    bg.setCornerRadius(
+            dp(16)
+    );
+
+    bg.setStroke(
+            dp(1),
+            Color.parseColor("#E1E8F5")
+    );
+
+    card.setBackground(
+            bg
+    );
+
+    // NUMBER
+    TextView numberText =
+            text(
+                    number,
+                    21,
+                    Color.parseColor(accentColor)
+            );
+
+    numberText.setGravity(
+            Gravity.CENTER
+    );
+
+    numberText.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    card.addView(
+            numberText,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(30)
+            )
+    );
+
+    // LABEL
+    TextView labelText =
+            text(
+                    label,
+                    11,
+                    Color.parseColor("#71809A")
+            );
+
+    labelText.setGravity(
+            Gravity.CENTER
+    );
+
+    labelText.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    card.addView(
+            labelText,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(22)
+            )
+    );
+
+    return card;
+} 
 // =====================================================
 // MAIN MENU - NAVIGATION DRAWER
 // =====================================================
