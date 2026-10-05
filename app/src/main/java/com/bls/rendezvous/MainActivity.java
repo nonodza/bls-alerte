@@ -2369,6 +2369,7 @@ summaryRow.addView(
                     dp(46)
             )
     );
+    
 content.addView(
         summaryRow,
         new LinearLayout.LayoutParams(
