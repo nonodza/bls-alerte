@@ -6921,14 +6921,26 @@ private LinearLayout navItem( int iconRes, String label, boolean isHome ) {
         hp.bottomMargin = dp(2);
         holder.setLayoutParams(hp);
     } else {
-    android.graphics.drawable.GradientDrawable circle = new android.graphics.drawable.GradientDrawable();
-    circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
-    circle.setColor(Color.TRANSPARENT);
-    circle.setStroke(dp(1), Color.parseColor("#4FC3F7")); // نفس تاع الجرس 100%
+    GradientDrawable circle =
+        new GradientDrawable();
+    circle.setShape(
+        GradientDrawable.OVAL
+    );
+    circle.setColor(
+        Color.parseColor("#1A0B2A4A")
+    );
+    circle.setStroke(
+        dp(1),
+        Color.parseColor("#334FC3F7")
+    );
     holder.setBackground(circle);
-    FrameLayout.LayoutParams cp = new FrameLayout.LayoutParams(dp(36), dp(36));
-    cp.gravity = Gravity.CENTER;
-    cp.bottomMargin = dp(2);
+
+    FrameLayout.LayoutParams cp =
+        new FrameLayout.LayoutParams(
+            dp(32),
+            dp(32),
+            Gravity.CENTER
+        );
     holder.setLayoutParams(cp);
 }
 
