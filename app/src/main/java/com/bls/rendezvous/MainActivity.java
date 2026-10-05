@@ -2763,7 +2763,7 @@ TextView dashboardText =
         text(
                 "Dashboard",
                 16,
-                Color.RED
+                Color.parseColor("#102B52")
         );
 
 dashboardText.setTypeface(
@@ -2775,10 +2775,6 @@ dashboardText.setTypeface(
 
 dashboardText.setLetterSpacing(
         0.01f
-);
-
-dashboardText.setTextColor(
-        Color.WHITE
 );
 
 // =====================================================
