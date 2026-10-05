@@ -2370,13 +2370,13 @@ summaryRow.addView(
             )
     );
     
- content.addView(
-        summaryRow,
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(82)
-        )
-);   
+ // content.addView(
+//         summaryRow,
+//         new LinearLayout.LayoutParams(
+//                 -1,
+//                 dp(82)
+//         )
+// );
     content.addView(
             heroCard,
             new LinearLayout.LayoutParams(
