@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="72dp"
+    android:viewportWidth="100"
+    android:viewportHeight="72">
+
+    <!-- Canada flag -->
+
+    <!-- Left red -->
+    <path
+        android:fillColor="#D52B1E"
+        android:pathData="
+            M0,0
+            L25,0
+            L25,72
+            L0,72
+            Z" />
+
+    <!-- Center white -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M25,0
+            L75,0
+            L75,72
+            L25,72
+            Z" />
+
+    <!-- Right red -->
+    <path
+        android:fillColor="#D52B1E"
+        android:pathData="
+            M75,0
+            L100,0
+            L100,72
+            L75,72
+            Z" />
+
+    <!-- Maple leaf -->
+    <path
+        android:fillColor="#D52B1E"
+        android:pathData="
+            M50,10
+            L53,23
+            L61,19
+            L58,29
+            L68,30
+            L59,36
+            L63,44
+            L54,41
+            L55,56
+            L50,51
+            L45,56
+            L46,41
+            L37,44
+            L41,36
+            L32,30
+            L42,29
+            L39,19
+            L47,23
+            Z" />
+
+</vector>
