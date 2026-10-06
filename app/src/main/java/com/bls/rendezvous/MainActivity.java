@@ -2534,7 +2534,75 @@ content.addView(
         supportedTitle,
         supportedTitleParams
 );
+// =================================================
+// DESTINATIONS GRID
+// =================================================
 
+LinearLayout destinationsGrid =
+        new LinearLayout(this);
+
+destinationsGrid.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+destinationsGrid.setPadding(
+        0,
+        0,
+        0,
+        0
+);
+
+// =================================================
+// ROW 1
+// =================================================
+
+LinearLayout destinationsRow1 =
+        new LinearLayout(this);
+
+destinationsRow1.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+destinationsRow1.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// =================================================
+// SCHENGEN
+// =================================================
+
+LinearLayout schengenCard =
+        destinationCard(
+                "EU",
+                "Schengen",
+                "#EAF2FF",
+                "#2563EB"
+        );
+
+destinationsRow1.addView(
+        schengenCard,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(64),
+                1f
+        )
+);
+
+destinationsGrid.addView(
+        destinationsRow1,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(64)
+        )
+);
+
+content.addView(
+        destinationsGrid,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
 // =================================================
 // ADD CONTENT SCROLL
 // =================================================
