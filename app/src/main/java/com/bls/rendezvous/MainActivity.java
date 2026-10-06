@@ -2676,7 +2676,7 @@ destinationsRow2.addView(
 
 LinearLayout ukCard =
         destinationCard(
-                "UK",
+                R.drawable.ic_uk,
                 "UK",
                 "#F2EEFF",
                 "#6B4FD3"
