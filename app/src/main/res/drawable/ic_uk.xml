@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="72dp"
+    android:viewportWidth="100"
+    android:viewportHeight="72">
+
+    <!-- UK FLAG -->
+
+    <!-- Blue background -->
+    <path
+        android:fillColor="#012169"
+        android:pathData="
+            M0,0
+            L100,0
+            L100,72
+            L0,72
+            Z" />
+
+    <!-- White diagonal -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M0,0
+            L8,0
+            L100,64
+            L100,72
+            L92,72
+            L0,8
+            Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M92,0
+            L100,0
+            L100,8
+            L8,72
+            L0,72
+            L0,64
+            Z" />
+
+    <!-- Red diagonal -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="
+            M0,0
+            L4,0
+            L100,62
+            L100,68
+            L96,68
+            L0,6
+            Z" />
+
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="
+            M96,0
+            L100,0
+            L100,6
+            L4,72
+            L0,72
+            L0,66
+            Z" />
+
+    <!-- White cross -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M42,0
+            L58,0
+            L58,72
+            L42,72
+            Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="
+            M0,28
+            L100,28
+            L100,44
+            L0,44
+            Z" />
+
+    <!-- Red cross -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="
+            M46,0
+            L54,0
+            L54,72
+            L46,72
+            Z" />
+
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="
+            M0,32
+            L100,32
+            L100,40
+            L0,40
+            Z" />
+
+</vector>
