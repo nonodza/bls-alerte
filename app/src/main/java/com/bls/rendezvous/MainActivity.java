@@ -2686,7 +2686,6 @@ private LinearLayout destinationPremiumItem(
 
     return item;
 }
-
 // =================================================
 // ADD CONTENT SCROLL
 // =================================================
