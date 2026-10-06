@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- White circular background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,0A50,50 0,1 0,50 100A50,50 0,1 0,50 0" />
+
+    <!-- Red stripes -->
+    <path
+        android:fillColor="#D93636"
+        android:pathData="M8,18 L92,18 L92,26 L8,26 Z
+                          M8,34 L92,34 L92,42 L8,42 Z
+                          M8,50 L92,50 L92,58 L8,58 Z
+                          M8,66 L92,66 L92,74 L8,74 Z
+                          M8,82 L92,82 L92,90 L8,90 Z" />
+
+    <!-- Blue canton -->
+    <path
+        android:fillColor="#2454A6"
+        android:pathData="M8,10 L52,10 L52,50 L8,50 Z" />
+
+    <!-- Stars -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,16 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M28,16 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M42,16 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M21,29 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M35,29 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M14,42 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M28,42 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z
+                          M42,42 l2,5 5,0 -4,3 2,5 -5,-3 -5,3 2,-5 -4,-3 5,0 z" />
+
+</vector>
