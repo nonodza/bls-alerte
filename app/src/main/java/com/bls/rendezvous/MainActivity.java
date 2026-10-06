@@ -2499,582 +2499,193 @@ scroll.addView(
         )
 );
 
-// =================================================
-// SUPPORTED DESTINATIONS TITLE
-// =================================================
+// =====================================================
+// PREMIUM DESTINATION ITEM
+// =====================================================
 
-TextView supportedTitle =
-        text(
-                "Supported destinations",
-                17,
-                Color.parseColor("#102B52")
+private LinearLayout destinationPremiumItem(
+        int iconRes,
+        String code
+) {
+
+    LinearLayout item =
+            new LinearLayout(this);
+
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    item.setGravity(
+            Gravity.CENTER
+    );
+
+
+    // =================================================
+    // OUTER SHADOW / GLOW
+    // =================================================
+
+    FrameLayout logoFrame =
+            new FrameLayout(this);
+
+    GradientDrawable outerBg =
+            new GradientDrawable();
+
+    outerBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    outerBg.setColor(
+            Color.argb(
+                    55,
+                    255,
+                    255,
+                    255
+            )
+    );
+
+    logoFrame.setBackground(
+            outerBg
+    );
+
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+        logoFrame.setElevation(
+                dp(6)
         );
-
-supportedTitle.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
-);
-
-LinearLayout.LayoutParams supportedTitleParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-supportedTitleParams.setMargins(
-        dp(2),
-        dp(22),
-        dp(2),
-        dp(10)
-);
-
-content.addView(
-        supportedTitle,
-        supportedTitleParams
-);
-
-
-// =================================================
-// DESTINATIONS PREMIUM CONTAINER
-// =================================================
-
-LinearLayout destinationsContainer =
-        new LinearLayout(this);
-
-destinationsContainer.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-destinationsContainer.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-destinationsContainer.setPadding(
-        dp(10),
-        dp(10),
-        dp(10),
-        dp(10)
-);
-
-
-// =================================================
-// GRADIENT BACKGROUND
-// =================================================
-
-GradientDrawable destinationsBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{
-                        Color.parseColor("#2563EB"),
-                        Color.parseColor("#3156B8"),
-                        Color.parseColor("#D94A5A"),
-                        Color.parseColor("#6B4FD3")
-                }
-        );
-
-destinationsBg.setCornerRadius(
-        dp(20)
-);
-
-destinationsBg.setStroke(
-        dp(1),
-        Color.argb(
-                45,
-                255,
-                255,
-                255
-        )
-);
-
-destinationsContainer.setBackground(
-        destinationsBg
-);
-
-
-// =================================================
-// SCHENGEN
-// =================================================
-
-LinearLayout schengenItem =
-        new LinearLayout(this);
-
-schengenItem.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-schengenItem.setGravity(
-        Gravity.CENTER
-);
-
-
-// Logo box
-FrameLayout schengenLogoBox =
-        new FrameLayout(this);
-
-GradientDrawable schengenLogoBg =
-        new GradientDrawable();
-
-schengenLogoBg.setColor(
-        Color.WHITE
-);
-
-schengenLogoBg.setCornerRadius(
-        dp(14)
-);
-
-schengenLogoBox.setBackground(
-        schengenLogoBg
-);
-
-ImageView schengenLogo =
-        new ImageView(this);
-
-schengenLogo.setImageResource(
-        R.drawable.ic_eu_new
-);
-
-schengenLogo.setScaleType(
-        ImageView.ScaleType.CENTER_INSIDE
-);
-
-schengenLogo.setPadding(
-        dp(4),
-        dp(4),
-        dp(4),
-        dp(4)
-);
-
-schengenLogoBox.addView(
-        schengenLogo,
-        new FrameLayout.LayoutParams(
-                -1,
-                -1
-        )
-);
-
-schengenItem.addView(
-        schengenLogoBox,
-        new LinearLayout.LayoutParams(
-                dp(48),
-                dp(48)
-        )
-);
-
-
-// Code
-TextView schengenCode =
-        text(
-                "EU",
-                10,
-                Color.WHITE
-        );
-
-schengenCode.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
-);
-
-schengenCode.setGravity(
-        Gravity.CENTER
-);
-
-LinearLayout.LayoutParams schengenCodeParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(20)
-        );
-
-schengenCodeParams.setMargins(
-        0,
-        dp(3),
-        0,
-        0
-);
-
-schengenItem.addView(
-        schengenCode,
-        schengenCodeParams
-);
-
-destinationsContainer.addView(
-        schengenItem,
-        new LinearLayout.LayoutParams(
-                0,
-                -1,
-                1f
-        )
-);
-
-
-// =================================================
-// USA
-// =================================================
-
-LinearLayout usaItem =
-        new LinearLayout(this);
-
-usaItem.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-usaItem.setGravity(
-        Gravity.CENTER
-);
-
-
-// Logo box
-FrameLayout usaLogoBox =
-        new FrameLayout(this);
-
-GradientDrawable usaLogoBg =
-        new GradientDrawable();
-
-usaLogoBg.setColor(
-        Color.WHITE
-);
-
-usaLogoBg.setCornerRadius(
-        dp(14)
-);
-
-usaLogoBox.setBackground(
-        usaLogoBg
-);
-
-ImageView usaLogo =
-        new ImageView(this);
-
-usaLogo.setImageResource(
-        R.drawable.ic_usa
-);
-
-usaLogo.setScaleType(
-        ImageView.ScaleType.CENTER_INSIDE
-);
-
-usaLogo.setPadding(
-        dp(4),
-        dp(4),
-        dp(4),
-        dp(4)
-);
-
-usaLogoBox.addView(
-        usaLogo,
-        new FrameLayout.LayoutParams(
-                -1,
-                -1
-        )
-);
-
-usaItem.addView(
-        usaLogoBox,
-        new LinearLayout.LayoutParams(
-                dp(48),
-                dp(48)
-        )
-);
-
-
-// Code
-TextView usaCode =
-        text(
-                "US",
-                10,
-                Color.WHITE
-        );
-
-usaCode.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
-);
-
-usaCode.setGravity(
-        Gravity.CENTER
-);
-
-LinearLayout.LayoutParams usaCodeParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(20)
-        );
-
-usaCodeParams.setMargins(
-        0,
-        dp(3),
-        0,
-        0
-);
-
-usaItem.addView(
-        usaCode,
-        usaCodeParams
-);
-
-destinationsContainer.addView(
-        usaItem,
-        new LinearLayout.LayoutParams(
-                0,
-                -1,
-                1f
-        )
-);
-
-
-// =================================================
-// CANADA
-// =================================================
-
-LinearLayout canadaItem =
-        new LinearLayout(this);
-
-canadaItem.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-canadaItem.setGravity(
-        Gravity.CENTER
-);
-
-
-// Logo box
-FrameLayout canadaLogoBox =
-        new FrameLayout(this);
-
-GradientDrawable canadaLogoBg =
-        new GradientDrawable();
-
-canadaLogoBg.setColor(
-        Color.WHITE
-);
-
-canadaLogoBg.setCornerRadius(
-        dp(14)
-);
-
-canadaLogoBox.setBackground(
-        canadaLogoBg
-);
-
-ImageView canadaLogo =
-        new ImageView(this);
-
-canadaLogo.setImageResource(
-        R.drawable.ic_canada
-);
-
-canadaLogo.setScaleType(
-        ImageView.ScaleType.CENTER_INSIDE
-);
-
-canadaLogo.setPadding(
-        dp(4),
-        dp(4),
-        dp(4),
-        dp(4)
-);
-
-canadaLogoBox.addView(
-        canadaLogo,
-        new FrameLayout.LayoutParams(
-                -1,
-                -1
-        )
-);
-
-canadaItem.addView(
-        canadaLogoBox,
-        new LinearLayout.LayoutParams(
-                dp(48),
-                dp(48)
-        )
-);
-
-
-// Code
-TextView canadaCode =
-        text(
-                "CA",
-                10,
-                Color.WHITE
-        );
-
-canadaCode.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
-);
-
-canadaCode.setGravity(
-        Gravity.CENTER
-);
-
-LinearLayout.LayoutParams canadaCodeParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(20)
-        );
-
-canadaCodeParams.setMargins(
-        0,
-        dp(3),
-        0,
-        0
-);
-
-canadaItem.addView(
-        canadaCode,
-        canadaCodeParams
-);
-
-destinationsContainer.addView(
-        canadaItem,
-        new LinearLayout.LayoutParams(
-                0,
-                -1,
-                1f
-        )
-);
-
-
-// =================================================
-// UK
-// =================================================
-
-LinearLayout ukItem =
-        new LinearLayout(this);
-
-ukItem.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-ukItem.setGravity(
-        Gravity.CENTER
-);
-
-
-// Logo box
-FrameLayout ukLogoBox =
-        new FrameLayout(this);
-
-GradientDrawable ukLogoBg =
-        new GradientDrawable();
-
-ukLogoBg.setColor(
-        Color.WHITE
-);
-
-ukLogoBg.setCornerRadius(
-        dp(14)
-);
-
-ukLogoBox.setBackground(
-        ukLogoBg
-);
-
-ImageView ukLogo =
-        new ImageView(this);
-
-ukLogo.setImageResource(
-        R.drawable.ic_uk
-);
-
-ukLogo.setScaleType(
-        ImageView.ScaleType.CENTER_INSIDE
-);
-
-ukLogo.setPadding(
-        dp(4),
-        dp(4),
-        dp(4),
-        dp(4)
-);
-
-ukLogoBox.addView(
-        ukLogo,
-        new FrameLayout.LayoutParams(
-                -1,
-                -1
-        )
-);
-
-ukItem.addView(
-        ukLogoBox,
-        new LinearLayout.LayoutParams(
-                dp(48),
-                dp(48)
-        )
-);
-
-
-// Code
-TextView ukCode =
-        text(
-                "UK",
-                10,
-                Color.WHITE
-        );
-
-ukCode.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
-);
-
-ukCode.setGravity(
-        Gravity.CENTER
-);
-
-LinearLayout.LayoutParams ukCodeParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(20)
-        );
-
-ukCodeParams.setMargins(
-        0,
-        dp(3),
-        0,
-        0
-);
-
-ukItem.addView(
-        ukCode,
-        ukCodeParams
-);
-
-destinationsContainer.addView(
-        ukItem,
-        new LinearLayout.LayoutParams(
-                0,
-                -1,
-                1f
-        )
-);
-
-
-// =================================================
-// ADD DESTINATIONS
-// =================================================
-
-LinearLayout.LayoutParams destinationsContainerParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(88)
-        );
-
-content.addView(
-        destinationsContainer,
-        destinationsContainerParams
-);
+    }
+
+
+    // =================================================
+    // INNER FLAG CIRCLE
+    // =================================================
+
+    FrameLayout flagCircle =
+            new FrameLayout(this);
+
+    GradientDrawable flagBg =
+            new GradientDrawable();
+
+    flagBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    flagBg.setColor(
+            Color.WHITE
+    );
+
+    flagBg.setStroke(
+            dp(2),
+            Color.argb(
+                    130,
+                    255,
+                    255,
+                    255
+            )
+    );
+
+    flagCircle.setBackground(
+            flagBg
+    );
+
+
+    // =================================================
+    // FLAG
+    // =================================================
+
+    ImageView flag =
+            new ImageView(this);
+
+    flag.setImageResource(
+            iconRes
+    );
+
+    flag.setScaleType(
+            ImageView.ScaleType.CENTER_CROP
+    );
+
+    flag.setPadding(
+            dp(5),
+            dp(5),
+            dp(5),
+            dp(5)
+    );
+
+
+    flagCircle.addView(
+            flag,
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
+            )
+    );
+
+
+    logoFrame.addView(
+            flagCircle,
+            new FrameLayout.LayoutParams(
+                    dp(56),
+                    dp(56)
+            )
+    );
+
+
+    item.addView(
+            logoFrame,
+            new LinearLayout.LayoutParams(
+                    dp(58),
+                    dp(58)
+            )
+    );
+
+
+    // =================================================
+    // COUNTRY CODE
+    // =================================================
+
+    TextView codeText =
+            text(
+                    code,
+                    10,
+                    Color.WHITE
+            );
+
+    codeText.setGravity(
+            Gravity.CENTER
+    );
+
+    codeText.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    codeText.setLetterSpacing(
+            0.08f
+    );
+
+    LinearLayout.LayoutParams codeParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(20)
+            );
+
+    codeParams.setMargins(
+            0,
+            dp(3),
+            0,
+            0
+    );
+
+    item.addView(
+            codeText,
+            codeParams
+    );
+
+
+    return item;
+}
 
 // =================================================
 // ADD CONTENT SCROLL
