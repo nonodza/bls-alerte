@@ -2655,7 +2655,7 @@ destinationsRow2.setGravity(
 
 LinearLayout canadaCard =
         destinationCard(
-                "CA",
+                R.drawable.ic_canada,
                 "Canada",
                 "#FFF0F1",
                 "#D94A5A"
