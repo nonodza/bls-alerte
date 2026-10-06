@@ -2573,7 +2573,7 @@ destinationsRow1.setGravity(
 
 LinearLayout schengenCard =
         destinationCard(
-                "EU",
+                R.drawable.ic_eu_new,
                 "Schengen",
                 "#EAF2FF",
                 "#2563EB"
@@ -2749,7 +2749,7 @@ setContentView(
 // =====================================================
 
 private LinearLayout destinationCard(
-        String code,
+        int iconRes,
         String name,
         String backgroundColor,
         String accentColor
@@ -2767,7 +2767,7 @@ private LinearLayout destinationCard(
     );
 
     card.setPadding(
-            dp(12),
+            dp(10),
             0,
             dp(10),
             0
@@ -2794,51 +2794,58 @@ private LinearLayout destinationCard(
     );
 
     // =================================================
-    // COUNTRY SYMBOL
+    // COUNTRY LOGO
     // =================================================
 
-    TextView countrySymbol =
-            text(
-                    code,
-                    10,
-                    Color.WHITE
-            );
+    FrameLayout logoBox =
+            new FrameLayout(this);
 
-    countrySymbol.setGravity(
-            Gravity.CENTER
+    GradientDrawable logoBg =
+            new GradientDrawable();
+
+    logoBg.setColor(
+            Color.WHITE
     );
 
-    countrySymbol.setTypeface(
-            Typeface.create(
-                    "sans-serif",
-                    Typeface.BOLD
+    logoBg.setCornerRadius(
+            dp(11)
+    );
+
+    logoBox.setBackground(
+            logoBg
+    );
+
+    ImageView logo =
+            new ImageView(this);
+
+    logo.setImageResource(
+            iconRes
+    );
+
+    logo.setScaleType(
+            ImageView.ScaleType.CENTER_INSIDE
+    );
+
+    logo.setPadding(
+            dp(3),
+            dp(3),
+            dp(3),
+            dp(3)
+    );
+
+    logoBox.addView(
+            logo,
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
             )
     );
 
-    countrySymbol.setLetterSpacing(
-            0.04f
-    );
-
-    GradientDrawable symbolBg =
-            new GradientDrawable();
-
-    symbolBg.setColor(
-            Color.parseColor(accentColor)
-    );
-
-    symbolBg.setCornerRadius(
-            dp(12)
-    );
-
-    countrySymbol.setBackground(
-            symbolBg
-    );
-
     card.addView(
-            countrySymbol,
+            logoBox,
             new LinearLayout.LayoutParams(
-                    dp(38),
-                    dp(38)
+                    dp(40),
+                    dp(40)
             )
     );
 
@@ -2885,6 +2892,7 @@ private LinearLayout destinationCard(
 
     return card;
 }
+   
 // =====================================================
 // APPLICATION OVERVIEW STAT
 // =====================================================
