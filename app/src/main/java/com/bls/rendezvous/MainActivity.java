@@ -2498,7 +2498,159 @@ scroll.addView(
                 -2
         )
 );
+// =====================================================
+// SUPPORTED DESTINATIONS
+// =====================================================
 
+TextView destinationsTitle =
+        text(
+                "Supported destinations",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+destinationsTitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+LinearLayout.LayoutParams destinationsTitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+destinationsTitleParams.setMargins(
+        dp(2),
+        dp(22),
+        dp(2),
+        dp(10)
+);
+
+content.addView(
+        destinationsTitle,
+        destinationsTitleParams
+);
+
+LinearLayout destinationsContainer =
+        new LinearLayout(this);
+
+destinationsContainer.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+destinationsContainer.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+destinationsContainer.setPadding(
+        dp(8),
+        dp(8),
+        dp(8),
+        dp(8)
+);
+
+GradientDrawable destinationsBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{
+                        Color.parseColor("#1677E8"),
+                        Color.parseColor("#2456C8"),
+                        Color.parseColor("#C83E91"),
+                        Color.parseColor("#7048D8")
+                }
+        );
+
+destinationsBg.setCornerRadius(
+        dp(20)
+);
+
+destinationsContainer.setBackground(
+        destinationsBg
+);
+
+// EU
+destinationsContainer.addView(
+        destinationPremiumItem(
+                R.drawable.ic_eu_new,
+                "EU"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(90),
+                1f
+        )
+);
+
+// USA
+destinationsContainer.addView(
+        destinationPremiumItem(
+                R.drawable.ic_usa,
+                "US"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(90),
+                1f
+        )
+);
+
+// CANADA
+destinationsContainer.addView(
+        destinationPremiumItem(
+                R.drawable.ic_canada,
+                "CA"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(90),
+                1f
+        )
+);
+
+// UK
+destinationsContainer.addView(
+        destinationPremiumItem(
+                R.drawable.ic_uk,
+                "UK"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(90),
+                1f
+        )
+);
+
+content.addView(
+        destinationsContainer,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(106)
+        )
+);
+// =================================================
+// ADD CONTENT SCROLL
+// =================================================
+
+applicationsRoot.addView(
+        scroll,
+        new LinearLayout.LayoutParams(
+                -1,
+                0,
+                1f
+        )
+);
+
+// =================================================
+// SHOW
+// =================================================
+
+setContentView(
+        applicationsRoot
+);
+}    
 // =====================================================
 // PREMIUM DESTINATION ITEM
 // =====================================================
@@ -2685,27 +2837,6 @@ private LinearLayout destinationPremiumItem(
 
 
     return item;
-}
-// =================================================
-// ADD CONTENT SCROLL
-// =================================================
-
-applicationsRoot.addView(
-        scroll,
-        new LinearLayout.LayoutParams(
-                -1,
-                0,
-                1f
-        )
-);
-
-// =================================================
-// SHOW
-// =================================================
-
-setContentView(
-        applicationsRoot
-);
 }
 
 // =====================================================
