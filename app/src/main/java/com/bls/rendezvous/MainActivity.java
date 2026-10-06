@@ -2500,6 +2500,42 @@ scroll.addView(
 );
 
 // =================================================
+// SUPPORTED DESTINATIONS TITLE
+// =================================================
+
+TextView supportedTitle =
+        text(
+                "Supported destinations",
+                17,
+                Color.parseColor("#102B52")
+        );
+
+supportedTitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+LinearLayout.LayoutParams supportedTitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+supportedTitleParams.setMargins(
+        dp(2),
+        dp(22),
+        dp(2),
+        dp(10)
+);
+
+content.addView(
+        supportedTitle,
+        supportedTitleParams
+);
+
+// =================================================
 // ADD CONTENT SCROLL
 // =================================================
 
@@ -2511,6 +2547,15 @@ applicationsRoot.addView(
                 1f
         )
 );
+
+// =================================================
+// SHOW
+// =================================================
+
+setContentView(
+        applicationsRoot
+);
+}
 
 // =================================================
 // SHOW
