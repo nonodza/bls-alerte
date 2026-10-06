@@ -2603,6 +2603,125 @@ content.addView(
                 -2
         )
 );
+  // =================================================
+// USA
+// =================================================
+
+LinearLayout usaCard =
+        destinationCard(
+                "US",
+                "USA",
+                "#EEF4FF",
+                "#3156B8"
+        );
+
+LinearLayout.LayoutParams usaParams =
+        new LinearLayout.LayoutParams(
+                0,
+                dp(64),
+                1f
+        );
+
+usaParams.setMargins(
+        dp(10),
+        0,
+        0,
+        0
+);
+
+destinationsRow1.addView(
+        usaCard,
+        usaParams
+);
+
+// =================================================
+// ROW 2
+// =================================================
+
+LinearLayout destinationsRow2 =
+        new LinearLayout(this);
+
+destinationsRow2.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+destinationsRow2.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// =================================================
+// CANADA
+// =================================================
+
+LinearLayout canadaCard =
+        destinationCard(
+                "CA",
+                "Canada",
+                "#FFF0F1",
+                "#D94A5A"
+        );
+
+destinationsRow2.addView(
+        canadaCard,
+        new LinearLayout.LayoutParams(
+                0,
+                dp(64),
+                1f
+        )
+);
+
+// =================================================
+// UK / ENGLAND
+// =================================================
+
+LinearLayout ukCard =
+        destinationCard(
+                "UK",
+                "UK",
+                "#F2EEFF",
+                "#6B4FD3"
+        );
+
+LinearLayout.LayoutParams ukParams =
+        new LinearLayout.LayoutParams(
+                0,
+                dp(64),
+                1f
+        );
+
+ukParams.setMargins(
+        dp(10),
+        0,
+        0,
+        0
+);
+
+destinationsRow2.addView(
+        ukCard,
+        ukParams
+);
+
+// =================================================
+// ADD ROW 2
+// =================================================
+
+LinearLayout.LayoutParams row2Params =
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(64)
+        );
+
+row2Params.setMargins(
+        0,
+        dp(10),
+        0,
+        0
+);
+
+destinationsGrid.addView(
+        destinationsRow2,
+        row2Params
+);  
 // =================================================
 // ADD CONTENT SCROLL
 // =================================================
