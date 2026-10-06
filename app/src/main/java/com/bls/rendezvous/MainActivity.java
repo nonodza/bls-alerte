@@ -2609,11 +2609,11 @@ content.addView(
 
 LinearLayout usaCard =
         destinationCard(
-                "US",
-                "USA",
-                "#EEF4FF",
-                "#3156B8"
-        );
+        R.drawable.ic_usa,
+        "USA",
+        "#EEF4FF",
+        "#3156B8"
+);
 
 LinearLayout.LayoutParams usaParams =
         new LinearLayout.LayoutParams(
