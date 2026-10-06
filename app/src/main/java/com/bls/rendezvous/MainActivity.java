@@ -2773,7 +2773,6 @@ private LinearLayout destinationCard(
             0
     );
 
-
     GradientDrawable cardBg =
             new GradientDrawable();
 
@@ -2787,75 +2786,71 @@ private LinearLayout destinationCard(
 
     cardBg.setStroke(
             dp(1),
-            Color.parseColor(
-                    "#DCE5F5"
-            )
+            Color.parseColor("#DCE5F5")
     );
 
     card.setBackground(
             cardBg
     );
 
-
     // =================================================
-    // CODE BADGE
+    // COUNTRY SYMBOL
     // =================================================
 
-    TextView codeBadge =
+    TextView countrySymbol =
             text(
                     code,
                     10,
                     Color.WHITE
             );
 
-    codeBadge.setGravity(
+    countrySymbol.setGravity(
             Gravity.CENTER
     );
 
-    codeBadge.setTypeface(
+    countrySymbol.setTypeface(
             Typeface.create(
                     "sans-serif",
                     Typeface.BOLD
             )
     );
 
-    GradientDrawable badgeBg =
+    countrySymbol.setLetterSpacing(
+            0.04f
+    );
+
+    GradientDrawable symbolBg =
             new GradientDrawable();
 
-    badgeBg.setColor(
-            Color.parseColor(
-                    accentColor
-            )
+    symbolBg.setColor(
+            Color.parseColor(accentColor)
     );
 
-    badgeBg.setCornerRadius(
-            dp(10)
+    symbolBg.setCornerRadius(
+            dp(12)
     );
 
-    codeBadge.setBackground(
-            badgeBg
+    countrySymbol.setBackground(
+            symbolBg
     );
 
     card.addView(
-            codeBadge,
+            countrySymbol,
             new LinearLayout.LayoutParams(
                     dp(38),
                     dp(38)
             )
     );
 
-
     // =================================================
-    // TEXT
+    // COUNTRY NAME
     // =================================================
 
     TextView nameText =
             text(
                     name,
                     12,
-                    Color.parseColor(
-                            "#102B52"
-                    )
+                    Color.parseColor("#102B52")
             );
 
     nameText.setTypeface(
@@ -2888,10 +2883,8 @@ private LinearLayout destinationCard(
             nameParams
     );
 
-
     return card;
-} 
-
+}
 // =====================================================
 // APPLICATION OVERVIEW STAT
 // =====================================================
