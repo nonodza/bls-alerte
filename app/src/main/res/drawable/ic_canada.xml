@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- White circular background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,0A50,50 0,1 0,50 100A50,50 0,1 0,50 0" />
+
+    <!-- Canadian red side panels -->
+    <path
+        android:fillColor="#D52B1E"
+        android:pathData="M8,10 L30,10 L30,90 L8,90 Z
+                          M70,10 L92,10 L92,90 L70,90 Z" />
+
+    <!-- Maple leaf -->
+    <path
+        android:fillColor="#D52B1E"
+        android:pathData="
+        M50,17
+        L54,31
+        L63,27
+        L60,39
+        L70,37
+        L62,47
+        L70,53
+        L58,54
+        L61,68
+        L52,62
+        L50,82
+        L48,62
+        L39,68
+        L42,54
+        L30,53
+        L38,47
+        L30,37
+        L40,39
+        L37,27
+        L46,31
+        Z" />
+
+</vector>
