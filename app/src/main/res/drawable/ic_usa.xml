@@ -1,15 +1,11 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
 <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-<group><clip-path android:pathData="M50,50m-36,0a36,36 0,1,1 72,0a36,36 0,1,1 -72,0Z"/>
-<path android:fillColor="#FFFFFF" android:pathData="M14,14L86,86L14,86L14,14Z"/>
-<path android:fillColor="#B22234" android:pathData="M14,22L86,22L86,28L14,28Z M14,34L86,34L86,40L14,40Z M14,46L86,46L86,52L14,52Z M14,58L86,58L86,64L14,64Z M14,70L86,70L86,76L14,76Z"/>
-<path android:fillColor="#3C3B6E" android:pathData="M14,14L46,14L46,50L14,50Z"/>
-<path android:fillColor="#FFFFFF" android:pathData="M20,18l1,1.5 1.5,0 -1.2,1 0.4,1.5 -1.7,-1 -1.7,1 0.4,-1.5 -1.2,-1 1.5,0z M27,18l1,1.5 1.5,0 -1.2,1 0.4,1.5 -1.7,-1 -1.7,1 0.4,-1.5 -1.2,-1 1.5,0z M34,18l1,1.5 1.5,0 -1.2,1 0.4,1.5 -1.7,-1 -1.7,1 0.4,-1.5 -1.2,-1 1.5,0z M20,25l1,1.5 1.5,0 -1.2,1 0.4,1.5 -1.7,-1 -1.7,1 0.4,-1.5 -1.2,-1 1.5,0z M27,25l1,1.5 1.5,0 -1.2,1 0.4,1.5 -1.7,-1 -1.7,1 0.4,-1.5 -1.2,-1 1.5,0z"/>
+<group><clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
+<path android:fillColor="#FFFFFF" android:pathData="M6,10L94,10L94,90L6,90Z"/>
+<path android:fillColor="#B22234" android:pathData="M6,18L94,18L94,26L6,26Z M6,32L94,32L94,40L6,40Z M6,46L94,46L94,54L6,54Z M6,60L94,60L94,68L6,68Z M6,74L94,74L94,82L6,82Z"/>
+<path android:fillColor="#3C3B6E" android:pathData="M6,10L44,10L44,52L6,52Z"/>
+<path android:fillColor="#FFFFFF" android:pathData="M10,14l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M18,14l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M26,14l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M34,14l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M10,22l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M18,22l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M26,22l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M34,22l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M10,30l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M18,30l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M26,30l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M34,30l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z M10,38l1.2,1.8 1.8,0 -1.4,1.2 0.5,1.8 -1.9,-1.3 -1.9,1.3 0.5,-1.8 -1.4,-1.2 1.8,0z"/>
 </group>
-<!-- لمعة 3D من الفوق -->
-<path android:fillColor="#FFFFFF" android:fillAlpha="0.45" android:pathData="M22,24Q50,14 78,24Q76,30 50,36Q24,30 22,24Z"/>
-<!-- ظل 3D من التحت -->
-<path android:fillColor="#000000" android:fillAlpha="0.18" android:pathData="M22,76Q50,86 78,76Q76,70 50,64Q24,70 22,76Z"/>
-<!-- اطار داخلي 3D -->
-<path android:fillColor="#00000000" android:strokeColor="#000000" android:strokeAlpha="0.1" android:strokeWidth="1" android:pathData="M50,50m-36,0a36,36 0,1,1 72,0a36,36 0,1,1 -72,0Z"/>
+<path android:fillColor="#FFFFFF" android:fillAlpha="0.35" android:pathData="M18,22Q50,12 82,22Q80,28 50,34Q20,28 18,22Z"/>
+<path android:fillColor="#000000" android:fillAlpha="0.15" android:pathData="M18,78Q50,88 82,78Q80,72 50,66Q20,72 18,78Z"/>
 </vector>
