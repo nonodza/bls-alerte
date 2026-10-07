@@ -1,10 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
 <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-<group><clip-path android:pathData="M50,50m-36,0a36,36 0,1,1 72,0a36,36 0,1,1 -72,0Z"/>
-<path android:fillColor="#012169" android:pathData="M14,14L86,86L14,86Z"/>
-<path android:fillColor="#FFFFFF" android:pathData="M14,14L24,14L86,64L86,74L76,74L14,24Z M76,14L86,14L86,24L24,86L14,86L14,76Z M38,14L62,14L62,86L38,86Z M14,38L86,38L86,62L14,62Z"/>
-<path android:fillColor="#C8102E" android:pathData="M14,14L18,14L86,60L86,68L82,68L14,22Z M82,14L86,14L86,22L18,86L14,86L14,78Z M44,14L56,14L56,86L44,86Z M14,44L86,44L86,56L14,56Z"/>
+<group><clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
+<path android:fillColor="#012169" android:pathData="M6,10L94,10L94,90L6,90Z"/>
+<path android:fillColor="#FFFFFF" android:pathData="M6,10L20,10L94,66L94,80L80,80L6,26Z M80,10L94,10L94,24L20,90L6,90L6,76Z M38,10L62,10L62,90L38,90Z M6,38L94,38L94,62L6,62Z"/>
+<path android:fillColor="#C8102E" android:pathData="M6,10L12,10L94,62L94,70L88,70L6,18Z M88,10L94,10L94,18L12,90L6,90L6,82Z M44,10L56,10L56,90L44,90Z M6,44L94,44L94,56L6,56Z"/>
 </group>
-<path android:fillColor="#FFFFFF" android:fillAlpha="0.45" android:pathData="M22,24Q50,14 78,24Q76,30 50,36Q24,30 22,24Z"/>
-<path android:fillColor="#000000" android:fillAlpha="0.18" android:pathData="M22,76Q50,86 78,76Q76,70 50,64Q24,70 22,76Z"/>
+<path android:fillColor="#FFFFFF" android:fillAlpha="0.35" android:pathData="M18,22Q50,12 82,22Q80,28 50,34Q20,28 18,22Z"/>
+<path android:fillColor="#000000" android:fillAlpha="0.15" android:pathData="M18,78Q50,88 82,78Q80,72 50,66Q20,72 18,78Z"/>
 </vector>
