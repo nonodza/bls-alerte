@@ -1,9 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
 <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-<group><clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
+<group>
+<clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
 <path android:fillColor="#FFFFFF" android:pathData="M0,0h100v100h-100z"/>
-<path android:fillColor="#FF0000" android:pathData="M0,0h26v100h-26z M74,0h26v100h-26z"/>
-<!-- الورقة مهبطة ومعرضة -->
-<path android:fillColor="#FF0000" android:pathData="M50,31l3.8,7l7.2-0.8l-3.8,6.5l6.8,2.5l-2.5,6.5l7.5,5l-9,5.5l1.5,5.5l-10-1.5l1.2,6.5h-5.4l1.2-6.5l-10,1.5l1.5-5.5l-9-5.5l7.5-5l-2.5-6.5l6.8-2.5l-3.8-6.5l7.2,0.8z M49,64.2h2v9h-2z"/>
+<path android:fillColor="#E30613" android:pathData="M0,0h26.5v100h-26.5z M73.5,0h26.5v100h-26.5z"/>
+<!-- نفس ورقة الصورة الأصلية -->
+<path android:fillColor="#E30613" android:pathData="M50,33.5 L54.2,41 L58.8,39.5 L62.8,42 L60.2,50.5 L63.2,52.2 L68.5,50.5 L66.2,58.5 L70.8,61.2 L61,67.8 L63.2,72.5 L53.8,70.2 Q51.5,70.2 50.5,71.5 L50.5,82.5 L48.5,82.5 L48.5,71.5 Q47.5,70.2 45.2,70.2 L35.8,72.5 L38,67.8 L28.2,61.2 L32.8,58.5 L30.5,50.5 L35.8,52.2 L38.8,50.5 L36.2,42 L40.2,39.5 L44.8,41 Z"/>
 </group>
 </vector>
