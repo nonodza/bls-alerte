@@ -3332,136 +3332,114 @@ private LinearLayout applicationStepItem(
     );
 
     // =================================================
-    // ICON BOX
-    // =================================================
+// ICON + NUMBER
+// =================================================
 
-    FrameLayout iconBox =
-            new FrameLayout(this);
+FrameLayout finalIcon =
+        new FrameLayout(this);
 
-    GradientDrawable iconBg =
-            new GradientDrawable();
+GradientDrawable iconBg =
+        new GradientDrawable();
 
-    iconBg.setShape(
-            GradientDrawable.OVAL
-    );
+iconBg.setShape(
+        GradientDrawable.OVAL
+);
 
-    iconBg.setColor(
-            Color.parseColor("#E4EDFF")
-    );
+iconBg.setColor(
+        Color.parseColor("#E4EDFF")
+);
 
-    iconBox.setBackground(
-            iconBg
-    );
+finalIcon.setBackground(
+        iconBg
+);
 
-    TextView iconText =
-            text(
-                    icon,
-                    21,
-                    Color.parseColor("#3156B8")
-            );
+// =================================================
+// ICON
+// =================================================
 
-    iconText.setGravity(
-            Gravity.CENTER
-    );
+TextView iconText =
+        text(
+                icon,
+                21,
+                Color.parseColor("#3156B8")
+        );
 
-    iconText.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+iconText.setGravity(
+        Gravity.CENTER
+);
 
-    iconBox.addView(
-            iconText,
-            new FrameLayout.LayoutParams(
-                    -1,
-                    -1
-            )
-    );
+iconText.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-    item.addView(
-            iconBox,
-            new LinearLayout.LayoutParams(
-                    dp(52),
-                    dp(52)
-            )
-    );
+finalIcon.addView(
+        iconText,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
 
-    // =================================================
-    // NUMBER BADGE
-    // =================================================
+// =================================================
+// NUMBER BADGE
+// =================================================
 
-    TextView numberBadge =
-            text(
-                    number,
-                    9,
-                    Color.WHITE
-            );
+TextView numberBadge =
+        text(
+                number,
+                9,
+                Color.WHITE
+        );
 
-    numberBadge.setGravity(
-            Gravity.CENTER
-    );
+numberBadge.setGravity(
+        Gravity.CENTER
+);
 
-    numberBadge.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+numberBadge.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-    GradientDrawable numberBg =
-            new GradientDrawable();
+GradientDrawable numberBg =
+        new GradientDrawable();
 
-    numberBg.setShape(
-            GradientDrawable.OVAL
-    );
+numberBg.setShape(
+        GradientDrawable.OVAL
+);
 
-    numberBg.setColor(
-            Color.parseColor("#6B4FD3")
-    );
+numberBg.setColor(
+        Color.parseColor("#6B4FD3")
+);
 
-    numberBadge.setBackground(
-            numberBg
-    );
+numberBadge.setBackground(
+        numberBg
+);
 
-    FrameLayout.LayoutParams numberParams =
-            new FrameLayout.LayoutParams(
-                    dp(19),
-                    dp(19),
-                    Gravity.TOP | Gravity.END
-            );
+FrameLayout.LayoutParams numberParams =
+        new FrameLayout.LayoutParams(
+                dp(19),
+                dp(19),
+                Gravity.TOP | Gravity.END
+        );
 
-    numberParams.setMargins(
-            0,
-            -dp(2),
-            -dp(2),
-            0
-    );
+numberParams.setMargins(
+        0,
+        -dp(2),
+        -dp(2),
+        0
+);
 
-    // نحتاج FrameLayout حول الأيقونة والرقم
-    FrameLayout finalIcon =
-            new FrameLayout(this);
+finalIcon.addView(
+        numberBadge,
+        numberParams
+);
 
-    finalIcon.setBackground(
-            iconBg
-    );
-
-    finalIcon.addView(
-            iconText,
-            new FrameLayout.LayoutParams(
-                    -1,
-                    -1
-            )
-    );
-
-    finalIcon.addView(
-            numberBadge,
-            numberParams
-    );
-
-    item.removeView(iconBox);
-
-    item.addView(
-            finalIcon,
-            new LinearLayout.LayoutParams(
-                    dp(52),
-                    dp(52)
-            )
-    );
+item.addView(
+        finalIcon,
+        new LinearLayout.LayoutParams(
+                dp(52),
+                dp(52)
+        )
+);
 
     // =================================================
     // TITLE
