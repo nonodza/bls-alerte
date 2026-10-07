@@ -1,12 +1,1 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
-<!-- الخلفية البيضاء -->
-<path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-<group>
-<clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
-<path android:fillColor="#FFFFFF" android:pathData="M0,0h100v100h-100z"/>
-<!-- الأقواس الحمراء - 30% بالضبط كيما الأصلي -->
-<path android:fillColor="#FF0000" android:pathData="M0,0h29.5v100h-29.5z M70.5,0h29.5v100h-29.5z"/>
-<!-- ورقة القيقب الأصلية 11 نقطة -->
-<path android:fillColor="#FF0000" android:pathData="M50,29.8 L53.6,38.2 L57.2,36.9 L61.4,40.1 L59.1,47.8 L62.2,49.6 L67.8,47.9 L65.4,55.1 L69.3,57.6 L60.8,64.1 L62.6,70.1 L54.2,68 C53.2,68 52.2,68.9 52.2,69.9 L51.1,84.2 L48.9,84.2 L47.8,69.9 C47.8,68.9 46.8,68 45.8,68 L37.4,70.1 L39.2,64.1 L30.7,57.6 L34.6,55.1 L32.2,47.9 L37.8,49.6 L40.9,47.8 L38.6,40.1 L42.8,36.9 L46.4,38.2 Z"/>
-</group>
-</vector>
+
