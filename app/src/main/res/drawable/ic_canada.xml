@@ -1,27 +1,8 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="100dp"
-    android:height="100dp"
-    android:viewportWidth="100"
-    android:viewportHeight="100">
-    <!-- الحاشية البيضاء الخارجية -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z" />
-    <group>
-        <clip-path
-            android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z" />
-        <!-- الخلفية بيضاء -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M0,0h100v100h-100z" />
-        <!-- الأحمر على الجوانب -->
-        <path
-            android:fillColor="#ED1C24"
-            android:pathData="M0,0h27v100h-27z" />
-        <path
-            android:fillColor="#ED1C24"
-            android:pathData="M73,0h27v100h-27z" />
-        <!-- ورقة القيقب كبيرة -->
-        <path
-            android:fillColor="#ED1C24"
-            android:pathData="M50,21 L53.5,28.5 L61,27.5 L57,34.5 L64.5,37 L62.5,44 L71,49.5 L61.5,55.5 L63.5,62 L52.5,60 L55
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
+<path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
+<group><clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
+<path android:fillColor="#FFFFFF" android:pathData="M0,0h100v100h-100z"/>
+<path android:fillColor="#FF0000" android:pathData="M0,0h27v100h-27z M73,0h27v100h-27z"/>
+<path android:fillColor="#FF0000" android:pathData="M50,21l3.5,7.5l7.5-1l-4,7l7.5,2.5l-2,7l8.5,5.5l-9.5,6l2,6.5l-11-2l3,9.5l-3,0.5l-3-0.5l3-9.5l-11,2l2-6.5l-9.5-6l8.5-5.5l-2-7l7.5-2.5l-4-7l7.5,1z M48,70h4v10h-4z"/>
+</group>
+</vector>
