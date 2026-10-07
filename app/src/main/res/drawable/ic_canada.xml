@@ -2,7 +2,9 @@
 <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
 <group><clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
 <path android:fillColor="#FFFFFF" android:pathData="M0,0h100v100h-100z"/>
-<path android:fillColor="#FF0000" android:pathData="M0,0h27v100h-27z M73,0h27v100h-27z"/>
-<path android:fillColor="#FF0000" android:pathData="M50,23l2,6.5l6.5,0.5l-5,4l1.5,6.5l-5-3.5l-5,3.5l1.5-6.5l-5-4l6.5-0.5z M50,40v15h-2v-3h-2v-4h4z"/>
+<path android:fillColor="#FF0000" android:pathData="M0,0h25v100h-25z M75,0h25v100h-25z"/>
+<path android:fillColor="#FF0000" android:pathData="M50,18l3,8h8l-6.5,5l2,8l-6.5-4.5l-6.5,4.5l2-8l-6.5-5h8z M48,36h4v18h-4z"/>
 </group>
+<path android:fillColor="#FFFFFF" android:fillAlpha="0.28" android:pathData="M18,22Q50,12 82,22Q80,28 50,34Q20,28 18,22Z"/>
+<path android:fillColor="#000000" android:fillAlpha="0.12" android:pathData="M18,78Q50,88 82,78Q80,72 50,66Q20,72 18,78Z"/>
 </vector>
