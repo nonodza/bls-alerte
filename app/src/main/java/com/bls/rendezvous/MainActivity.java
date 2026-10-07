@@ -2178,140 +2178,149 @@ scroll.addView(
                 -2
         )
 );
-    // =================================================
-    // HERO CARD
-    // =================================================
-
-    LinearLayout heroCard =
-            new LinearLayout(this);
-
-    heroCard.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    heroCard.setPadding(
-            dp(20),
-            dp(20),
-            dp(20),
-            dp(20)
-    );
-
-    GradientDrawable heroBg =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.parseColor("#182B68"),
-                            Color.parseColor("#3556B8"),
-                            Color.parseColor("#6B4FD3")
-                    }
-            );
-
-    heroBg.setCornerRadius(
-            dp(22)
-    );
-
-    heroCard.setBackground(
-            heroBg
-    );
-
-    TextView heroTitle =
-            text(
-                    "Your visa journey",
-                    21,
-                    Color.WHITE
-            );
-
-    heroTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    heroCard.addView(
-            heroTitle
-    );
-
-    TextView heroSubtitle =
-            text(
-                    "Keep applications, documents and appointment details organized in one place.",
-                    13,
-                    Color.parseColor("#DDE6FF")
-            );
-
-    heroSubtitle.setLineSpacing(
-            0,
-            1.15f
-    );
-
-    LinearLayout.LayoutParams heroSubtitleParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
-
-    heroSubtitleParams.setMargins(
-            0,
-            dp(7),
-            0,
-            dp(16)
-    );
-
-    heroCard.addView(
-            heroSubtitle,
-            heroSubtitleParams
-    );
-
-    // NEW APPLICATION BUTTON
-    TextView newApplication =
-            text(
-                    "+  New Application",
-                    14,
-                    Color.parseColor("#182B68")
-            );
-
-    newApplication.setGravity(
-            Gravity.CENTER
-    );
-
-    newApplication.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    GradientDrawable newApplicationBg =
-            new GradientDrawable();
-
-    newApplicationBg.setColor(
-            Color.WHITE
-    );
-
-    newApplicationBg.setCornerRadius(
-            dp(12)
-    );
-
-    newApplication.setBackground(
-            newApplicationBg
-    );
-
-    heroCard.addView(
-            newApplication,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    dp(46)
-            )
-    );
     
- // content.addView(
-//         summaryRow,
-//         new LinearLayout.LayoutParams(
-//                 -1,
-//                 dp(82)
-//         )
-// );
-    content.addView(
-            heroCard,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            )
-    );
+    // =================================================
+// HERO CARD
+// =================================================
+
+LinearLayout heroCard =
+        new LinearLayout(this);
+
+heroCard.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+heroCard.setPadding(
+        dp(20),
+        dp(20),
+        dp(20),
+        dp(20)
+);
+
+GradientDrawable heroBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#182B68"),
+                        Color.parseColor("#3556B8"),
+                        Color.parseColor("#6B4FD3")
+                }
+        );
+
+heroBg.setCornerRadius(
+        dp(22)
+);
+
+heroCard.setBackground(
+        heroBg
+);
+
+// =================================================
+// HERO TITLE
+// =================================================
+
+TextView heroTitle =
+        text(
+                "Your visa journey",
+                21,
+                Color.WHITE
+        );
+
+heroTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+heroCard.addView(
+        heroTitle
+);
+
+// =================================================
+// HERO SUBTITLE
+// =================================================
+
+TextView heroSubtitle =
+        text(
+                "Keep applications, documents and appointment details organized in one place.",
+                13,
+                Color.parseColor("#DDE6FF")
+        );
+
+heroSubtitle.setLineSpacing(
+        0,
+        1.15f
+);
+
+LinearLayout.LayoutParams heroSubtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+heroSubtitleParams.setMargins(
+        0,
+        dp(7),
+        0,
+        dp(16)
+);
+
+heroCard.addView(
+        heroSubtitle,
+        heroSubtitleParams
+);
+
+// =================================================
+// NEW APPLICATION BUTTON
+// =================================================
+
+TextView newApplication =
+        text(
+                "+  New Application",
+                14,
+                Color.parseColor("#182B68")
+        );
+
+newApplication.setGravity(
+        Gravity.CENTER
+);
+
+newApplication.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+GradientDrawable newApplicationBg =
+        new GradientDrawable();
+
+newApplicationBg.setColor(
+        Color.WHITE
+);
+
+newApplicationBg.setCornerRadius(
+        dp(12)
+);
+
+newApplication.setBackground(
+        newApplicationBg
+);
+
+heroCard.addView(
+        newApplication,
+        new LinearLayout.LayoutParams(
+                -1,
+                dp(46)
+        )
+);
+
+// =================================================
+// ADD HERO CARD
+// =================================================
+
+content.addView(
+        heroCard,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
 
     // =================================================
     // SECTION TITLE
