@@ -1,1 +1,10 @@
-
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
+<path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
+<group>
+<clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
+<path android:fillColor="#FFFFFF" android:pathData="M0,0h100v100h-100z"/>
+<path android:fillColor="#E30613" android:pathData="M0,0h27v100h-27z M73,0h27v100h-27z"/>
+<!-- ورقة قيقب أصلية - 3 فروع واضحة -->
+<path android:fillColor="#E30613" android:pathData="M50,31.5 L54.8,39.8 C55.3,40.6 56.4,40.8 57.1,40.2 L62.2,36.2 L60.1,44.2 C59.2,47.1 59.4,49.8 60.3,52.2 C60.9,53.9 63,54.2 64,52.7 L68.8,45.2 L69.5,49.8 L76.8,51.5 L72.5,58.5 L75.8,60.8 L77.2,62.5 L65.8,71.5 C64.2,72.7 63.5,74.8 64.2,76.7 L66,81.2 L55.5,79.3 C53.5,79 51.5,80.5 51.5,82.5 L51.2,90.8 L48.8,90.8 L48.5,82.5 C48.5,80.5 46.5,79 44.5,79.3 L34,81.2 L35.8,76.7 C36.5,74.8 35.8,72.7 34.2,71.5 L22.8,62.5 L24.2,60.8 L27.5,58.5 L23.2,51.5 L30.5,49.8 L31.2,45.2 L36,52.7 C37,54.2 39.1,53.9 39.7,52.2 C40.6,49.8 40.8,47.1 39.9,44.2 L37.8,36.2 L42.9,40.2 C43.6,40.8 44.7,40.6 45.2,39.8 Z M48.8,90.8 L51.2,90.8 L52,101 L48,101 Z"/>
+</group>
+</vector>
