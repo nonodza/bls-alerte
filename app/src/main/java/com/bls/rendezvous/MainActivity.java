@@ -3302,6 +3302,237 @@ private LinearLayout applicationOverviewStat(
 
     return block;
 }   
+    // =====================================================
+// APPLICATION STEP ITEM
+// =====================================================
+
+private LinearLayout applicationStepItem(
+        String number,
+        String icon,
+        String title,
+        String subtitle
+) {
+
+    LinearLayout item =
+            new LinearLayout(this);
+
+    item.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    item.setGravity(
+            Gravity.CENTER_HORIZONTAL
+    );
+
+    item.setPadding(
+            dp(4),
+            0,
+            dp(4),
+            0
+    );
+
+    // =================================================
+    // ICON BOX
+    // =================================================
+
+    FrameLayout iconBox =
+            new FrameLayout(this);
+
+    GradientDrawable iconBg =
+            new GradientDrawable();
+
+    iconBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconBg.setColor(
+            Color.parseColor("#E4EDFF")
+    );
+
+    iconBox.setBackground(
+            iconBg
+    );
+
+    TextView iconText =
+            text(
+                    icon,
+                    21,
+                    Color.parseColor("#3156B8")
+            );
+
+    iconText.setGravity(
+            Gravity.CENTER
+    );
+
+    iconText.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    iconBox.addView(
+            iconText,
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
+            )
+    );
+
+    item.addView(
+            iconBox,
+            new LinearLayout.LayoutParams(
+                    dp(52),
+                    dp(52)
+            )
+    );
+
+    // =================================================
+    // NUMBER BADGE
+    // =================================================
+
+    TextView numberBadge =
+            text(
+                    number,
+                    9,
+                    Color.WHITE
+            );
+
+    numberBadge.setGravity(
+            Gravity.CENTER
+    );
+
+    numberBadge.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    GradientDrawable numberBg =
+            new GradientDrawable();
+
+    numberBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    numberBg.setColor(
+            Color.parseColor("#6B4FD3")
+    );
+
+    numberBadge.setBackground(
+            numberBg
+    );
+
+    FrameLayout.LayoutParams numberParams =
+            new FrameLayout.LayoutParams(
+                    dp(19),
+                    dp(19),
+                    Gravity.TOP | Gravity.END
+            );
+
+    numberParams.setMargins(
+            0,
+            -dp(2),
+            -dp(2),
+            0
+    );
+
+    // نحتاج FrameLayout حول الأيقونة والرقم
+    FrameLayout finalIcon =
+            new FrameLayout(this);
+
+    finalIcon.setBackground(
+            iconBg
+    );
+
+    finalIcon.addView(
+            iconText,
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
+            )
+    );
+
+    finalIcon.addView(
+            numberBadge,
+            numberParams
+    );
+
+    item.removeView(iconBox);
+
+    item.addView(
+            finalIcon,
+            new LinearLayout.LayoutParams(
+                    dp(52),
+                    dp(52)
+            )
+    );
+
+    // =================================================
+    // TITLE
+    // =================================================
+
+    TextView titleText =
+            text(
+                    title,
+                    11,
+                    Color.parseColor("#102B52")
+            );
+
+    titleText.setGravity(
+            Gravity.CENTER
+    );
+
+    titleText.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    titleText.setMaxLines(
+            2
+    );
+
+    LinearLayout.LayoutParams titleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    titleParams.setMargins(
+            0,
+            dp(8),
+            0,
+            0
+    );
+
+    item.addView(
+            titleText,
+            titleParams
+    );
+
+    // =================================================
+    // SUBTITLE
+    // =================================================
+
+    TextView subtitleText =
+            text(
+                    subtitle,
+                    9,
+                    Color.parseColor("#71809A")
+            );
+
+    subtitleText.setGravity(
+            Gravity.CENTER
+    );
+
+    subtitleText.setMaxLines(
+            2
+    );
+
+    item.addView(
+            subtitleText,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    return item;
+}
 // =====================================================
 // MAIN MENU - NAVIGATION DRAWER
 // =====================================================
