@@ -2508,8 +2508,247 @@ content.addView(
         )
 );
 // =====================================================
-// SUPPORTED DESTINATIONS
+// HOW IT WORKS
 // =====================================================
+
+LinearLayout howItWorks =
+        new LinearLayout(this);
+
+howItWorks.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+howItWorks.setPadding(
+        dp(18),
+        dp(18),
+        dp(18),
+        dp(18)
+);
+
+GradientDrawable howItWorksBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#F8FAFF"),
+                        Color.parseColor("#F1F3FF")
+                }
+        );
+
+howItWorksBg.setCornerRadius(
+        dp(20)
+);
+
+howItWorksBg.setStroke(
+        dp(1),
+        Color.parseColor("#E2E8F7")
+);
+
+howItWorks.setBackground(
+        howItWorksBg
+);
+
+// =====================================================
+// TITLE ROW
+// =====================================================
+
+LinearLayout howTitleRow =
+        new LinearLayout(this);
+
+howTitleRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+howTitleRow.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+TextView howTitle =
+        text(
+                "How it works",
+                17,
+                Color.parseColor("#102B52")
+        );
+
+howTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+howTitleRow.addView(
+        howTitle,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+// =====================================================
+// 3 STEPS BADGE
+// =====================================================
+
+TextView stepsBadge =
+        text(
+                "3 STEPS",
+                9,
+                Color.parseColor("#3156B8")
+        );
+
+stepsBadge.setGravity(
+        Gravity.CENTER
+);
+
+stepsBadge.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+stepsBadge.setLetterSpacing(
+        0.08f
+);
+
+GradientDrawable stepsBadgeBg =
+        new GradientDrawable();
+
+stepsBadgeBg.setColor(
+        Color.parseColor("#E5EDFF")
+);
+
+stepsBadgeBg.setCornerRadius(
+        dp(7)
+);
+
+stepsBadge.setBackground(
+        stepsBadgeBg
+);
+
+howTitleRow.addView(
+        stepsBadge,
+        new LinearLayout.LayoutParams(
+                dp(62),
+                dp(24)
+        )
+);
+
+howItWorks.addView(
+        howTitleRow
+);
+
+// =====================================================
+// SUBTITLE
+// =====================================================
+
+TextView howSubtitle =
+        text(
+                "A simple way to stay organized",
+                11,
+                Color.parseColor("#71809A")
+        );
+
+LinearLayout.LayoutParams howSubtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+howSubtitleParams.setMargins(
+        0,
+        dp(4),
+        0,
+        dp(14)
+);
+
+howItWorks.addView(
+        howSubtitle,
+        howSubtitleParams
+);
+
+// =====================================================
+// STEPS ROW
+// =====================================================
+
+LinearLayout howSteps =
+        new LinearLayout(this);
+
+howSteps.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+howSteps.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// STEP 1
+howSteps.addView(
+        applicationStepItem(
+                "1",
+                "◎",
+                "Choose destination",
+                "Select your country"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(112),
+                1f
+        )
+);
+
+// STEP 2
+howSteps.addView(
+        applicationStepItem(
+                "2",
+                "▤",
+                "Prepare documents",
+                "Keep details ready"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(112),
+                1f
+        )
+);
+
+// STEP 3
+howSteps.addView(
+        applicationStepItem(
+                "3",
+                "✓",
+                "Get notified",
+                "When slots appear"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                dp(112),
+                1f
+        )
+);
+
+howItWorks.addView(
+        howSteps
+);
+
+// =====================================================
+// ADD HOW IT WORKS
+// =====================================================
+
+LinearLayout.LayoutParams howItWorksParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+howItWorksParams.setMargins(
+        0,
+        dp(14),
+        0,
+        dp(4)
+);
+
+content.addView(
+        howItWorks,
+        howItWorksParams
+);
 
 TextView destinationsTitle =
         text(
