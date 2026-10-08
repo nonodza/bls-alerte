@@ -2191,10 +2191,10 @@ heroCard.setOrientation(
 );
 
 heroCard.setPadding(
-        dp(20),
-        dp(20),
-        dp(20),
-        dp(20)
+        dp(18),
+        dp(14),
+        dp(18),
+        dp(14)
 );
 
 GradientDrawable heroBg =
@@ -2258,9 +2258,9 @@ LinearLayout.LayoutParams heroSubtitleParams =
 
 heroSubtitleParams.setMargins(
         0,
-        dp(7),
+        dp(5),
         0,
-        dp(16)
+        dp(10)
 );
 
 heroCard.addView(
