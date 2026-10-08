@@ -2355,7 +2355,7 @@ content.addView(
             sectionParams
     );
 
-    // =================================================
+        // =================================================
     // EMPTY STATE CARD
     // =================================================
 
@@ -2371,11 +2371,11 @@ content.addView(
     );
 
     emptyCard.setPadding(
-        dp(16),
-        dp(16),
-        dp(16),
-        dp(16)
-);
+            dp(16),
+            dp(16),
+            dp(16),
+            dp(16)
+    );
 
     GradientDrawable emptyBg =
             new GradientDrawable();
@@ -2436,17 +2436,18 @@ content.addView(
     );
 
     emptyCard.addView(
-        emptyIconBox,
-        new LinearLayout.LayoutParams(
-                dp(46),
-                dp(46)
-        )
-);
+            emptyIconBox,
+            new LinearLayout.LayoutParams(
+                    dp(46),
+                    dp(46)
+            )
+    );
 
+    // TITLE
     TextView emptyTitle =
             text(
                     "No applications yet",
-                    17,
+                    15,
                     Color.parseColor("#102B52")
             );
 
@@ -2465,17 +2466,18 @@ content.addView(
             );
 
     emptyTitleParams.setMargins(
-        0,
-        dp(8),
-        0,
-        dp(3)
-);
+            0,
+            dp(8),
+            0,
+            dp(3)
+    );
 
     emptyCard.addView(
             emptyTitle,
             emptyTitleParams
     );
 
+    // SUBTITLE
     TextView emptySubtitle =
             text(
                     "Create your first application and keep your visa journey organized.",
@@ -2500,13 +2502,15 @@ content.addView(
             )
     );
 
+    // ADD EMPTY CARD
     content.addView(
-        emptyCard,
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        )
-);
+            emptyCard,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
 // =====================================================
 // HOW IT WORKS
 // =====================================================
@@ -2562,10 +2566,10 @@ howTitleRow.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-TextView emptyTitle =
+TextView howTitle =
         text(
-                "No applications yet",
-                15,
+                "How it works",
+                16,
                 Color.parseColor("#102B52")
         );
 
@@ -2633,6 +2637,118 @@ howTitleRow.addView(
 
 howItWorks.addView(
         howTitleRow
+);
+
+// =====================================================
+// SUBTITLE
+// =====================================================
+
+TextView howSubtitle =
+        text(
+                "A simple way to stay organized",
+                12,
+                Color.parseColor("#71809A")
+        );
+
+LinearLayout.LayoutParams howSubtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+howSubtitleParams.setMargins(
+        0,
+        dp(5),
+        0,
+        dp(14)
+);
+
+howItWorks.addView(
+        howSubtitle,
+        howSubtitleParams
+);
+
+// =====================================================
+// THREE STEPS
+// =====================================================
+
+LinearLayout stepsRow =
+        new LinearLayout(this);
+
+stepsRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+stepsRow.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+stepsRow.addView(
+        applicationStepItem(
+                "1",
+                "◎",
+                "Choose destination",
+                "Select your country"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+stepsRow.addView(
+        applicationStepItem(
+                "2",
+                "▤",
+                "Prepare documents",
+                "Keep details ready"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+stepsRow.addView(
+        applicationStepItem(
+                "3",
+                "✓",
+                "Get notified",
+                "When slots appear"
+        ),
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+howItWorks.addView(
+        stepsRow
+);
+
+// =====================================================
+// ADD HOW IT WORKS
+// =====================================================
+
+LinearLayout.LayoutParams howItWorksParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+howItWorksParams.setMargins(
+        0,
+        dp(14),
+        0,
+        dp(4)
+);
+
+content.addView(
+        howItWorks,
+        howItWorksParams
 );
 
 // =====================================================
