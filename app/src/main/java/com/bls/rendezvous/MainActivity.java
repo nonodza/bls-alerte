@@ -2878,6 +2878,207 @@ content.addView(
                 dp(106)
         )
 );
+// =====================================================
+// NEED HELP
+// =====================================================
+
+LinearLayout helpCard =
+        new LinearLayout(this);
+
+helpCard.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+helpCard.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+helpCard.setPadding(
+        dp(16),
+        dp(14),
+        dp(16),
+        dp(14)
+);
+
+GradientDrawable helpBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#F8FAFF"),
+                        Color.parseColor("#EEF2FF")
+                }
+        );
+
+helpBg.setCornerRadius(
+        dp(18)
+);
+
+helpBg.setStroke(
+        dp(1),
+        Color.parseColor("#E0E7F5")
+);
+
+helpCard.setBackground(
+        helpBg
+);
+
+// =====================================================
+// HELP ICON
+// =====================================================
+
+FrameLayout helpIconBox =
+        new FrameLayout(this);
+
+GradientDrawable helpIconBg =
+        new GradientDrawable();
+
+helpIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+helpIconBg.setColor(
+        Color.parseColor("#E2EBFF")
+);
+
+helpIconBox.setBackground(
+        helpIconBg
+);
+
+TextView helpIcon =
+        text(
+                "?",
+                19,
+                Color.parseColor("#3156B8")
+        );
+
+helpIcon.setGravity(
+        Gravity.CENTER
+);
+
+helpIcon.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+helpIconBox.addView(
+        helpIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+helpCard.addView(
+        helpIconBox,
+        new LinearLayout.LayoutParams(
+                dp(46),
+                dp(46)
+        )
+);
+
+// =====================================================
+// HELP TEXT
+// =====================================================
+
+LinearLayout helpText =
+        new LinearLayout(this);
+
+helpText.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+helpText.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+TextView helpTitle =
+        text(
+                "Need help?",
+                15,
+                Color.parseColor("#102B52")
+        );
+
+helpTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+helpText.addView(
+        helpTitle
+);
+
+TextView helpSubtitle =
+        text(
+                "Get support with your visa application",
+                11,
+                Color.parseColor("#71809A")
+        );
+
+helpText.addView(
+        helpSubtitle
+);
+
+LinearLayout.LayoutParams helpTextParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+);
+
+helpTextParams.setMargins(
+        dp(12),
+        0,
+        dp(8),
+        0
+);
+
+helpCard.addView(
+        helpText,
+        helpTextParams
+);
+
+// =====================================================
+// ARROW
+// =====================================================
+
+TextView helpArrow =
+        text(
+                "›",
+                28,
+                Color.parseColor("#3156B8")
+        );
+
+helpArrow.setGravity(
+        Gravity.CENTER
+);
+
+helpCard.addView(
+        helpArrow,
+        new LinearLayout.LayoutParams(
+                dp(28),
+                dp(46)
+        )
+);
+
+// =====================================================
+// ADD HELP CARD
+// =====================================================
+
+LinearLayout.LayoutParams helpCardParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+helpCardParams.setMargins(
+        0,
+        dp(14),
+        0,
+        dp(4)
+);
+
+content.addView(
+        helpCard,
+        helpCardParams
+);    
 // =================================================
 // ADD CONTENT SCROLL
 // =================================================
