@@ -2371,11 +2371,11 @@ content.addView(
     );
 
     emptyCard.setPadding(
-            dp(20),
-            dp(28),
-            dp(20),
-            dp(28)
-    );
+        dp(16),
+        dp(16),
+        dp(16),
+        dp(16)
+);
 
     GradientDrawable emptyBg =
             new GradientDrawable();
@@ -2436,12 +2436,12 @@ content.addView(
     );
 
     emptyCard.addView(
-            emptyIconBox,
-            new LinearLayout.LayoutParams(
-                    dp(58),
-                    dp(58)
-            )
-    );
+        emptyIconBox,
+        new LinearLayout.LayoutParams(
+                dp(46),
+                dp(46)
+        )
+);
 
     TextView emptyTitle =
             text(
@@ -2465,11 +2465,11 @@ content.addView(
             );
 
     emptyTitleParams.setMargins(
-            0,
-            dp(14),
-            0,
-            dp(5)
-    );
+        0,
+        dp(8),
+        0,
+        dp(3)
+);
 
     emptyCard.addView(
             emptyTitle,
@@ -2562,10 +2562,10 @@ howTitleRow.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-TextView howTitle =
+TextView emptyTitle =
         text(
-                "How it works",
-                17,
+                "No applications yet",
+                15,
                 Color.parseColor("#102B52")
         );
 
