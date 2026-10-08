@@ -2306,7 +2306,7 @@ heroCard.addView(
         newApplication,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(46)
+                dp(38)
         )
 );
 
