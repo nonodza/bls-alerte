@@ -1,50 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ic_usa.xml - USA Only -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="100dp"
     android:height="100dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- إطار أبيض خارجي -->
+    <!-- الإطار الأبيض الخارجي كيما تاع كندا -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z" />
+        android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
 
     <group>
         <clip-path
-            android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z" />
+            android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
 
-        <!-- خلفية بيضاء -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M0,0L100,0L100,100L0,100Z" />
-
-        <!-- 6 خطوط حمراء -->
-        <path
-            android:fillColor="#B22234"
-            android:pathData="M0,15L100,15L100,23L0,23Z M0,31L100,31L100,39L0,39Z M0,47L100,47L100,55L0,55Z M0,63L100,63L100,71L0,71Z M0,79L100,79L100,87L0,87Z" />
-
-        <!-- مربع أزرق -->
-        <path
-            android:fillColor="#3C3B6E"
-            android:pathData="M0,0L50,0L50,49L0,49Z" />
-
-        <!-- نجوم -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M6,6L7.5,9L10.5,9L8,11L9,14L6,12L3,14L4,11L1.5,9L4.5,9Z M16,6L17.5,9L20.5,9L18,11L19,14L16,12L13,14L14,11L11.5,9L14.5,9Z M26,6L27.5,9L30.5,9L28,11L29,14L26,12L23,14L24,11L21.5,9L24.5,9Z M36,6L37.5,9L40.5,9L38,11L39,14L36,12L33,14L34,11L31.5,9L34.5,9Z M6,16L7.5,19L10.5,19L8,21L9,24L6,22L3,24L4,21L1.5,19L4.5,19Z M16,16L17.5,19L20.5,19L18,21L19,24L16,22L13,24L14,21L11.5,19L14.5,19Z M26,16L27.5,19L30.5,19L28,21L29,24L26,22L23,24L24,21L21.5,19L24.5,19Z M36,16L37.5,19L40.5,19L38,21L39,24L36,22L33,24L34,21L31.5,19L34.5,19Z M6,26L7.5,29L10.5,29L8,31L9,34L6,32L3,34L4,31L1.5,29L4.5,29Z M16,26L17.5,29L20.5,29L18,31L19,34L16,32L13,34L14,31L11.5,29L14.5,29Z M26,26L27.5,29L30.5,29L28,31L29,34L26,32L23,34L24,31L21.5,29L24.5,29Z M36,26L37.5,29L40.5,29L38,31L39,34L36,32L33,34L34,31L31.5,29L34.5,29Z" />
+        <!-- علم أمريكا -->
+        <path android:fillColor="#FFFFFF" android:pathData="M0,0H100V100H0Z"/>
+        <path android:fillColor="#B22234" android:pathData="M0,8H100V16H0Z M0,24H100V32H0Z M0,40H100V48H0Z M0,56H100V64H0Z M0,72H100V80H0Z M0,88H100V96H0Z"/>
+        <path android:fillColor="#3C3B6E" android:pathData="M0,0H52V52H0Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M6,6L7,9L10,9L8,11L9,14L6,12L3,14L4,11L2,9L5,9Z M16,6L17,9L20,9L18,11L19,14L16,12L13,14L14,11L12,9L15,9Z M26,6L27,9L30,9L28,11L29,14L26,12L23,14L24,11L22,9L25,9Z M36,6L37,9L40,9L38,11L39,14L36,12L33,14L34,11L32,9L35,9Z M6,18L7,21L10,21L8,23L9,26L6,24L3,26L4,23L2,21L5,21Z M16,18L17,21L20,21L18,23L19,26L16,24L13,26L14,23L12,21L15,21Z M26,18L27,21L30,21L28,23L29,26L26,24L23,26L24,23L22,21L25,21Z M36,18L37,21L40,21L38,23L39,26L36,24L33,26L34,23L32,21L35,21Z M6,30L7,33L10,33L8,35L9,38L6,36L3,38L4,35L2,33L5,33Z M16,30L17,33L20,33L18,35L19,38L16,36L13,38L14,35L12,33L15,33Z M26,30L27,33L30,33L28,35L29,38L26,36L23,38L24,35L22,33L25,33Z M36,30L37,33L40,33L38,35L39,38L36,36L33,38L34,35L32,33L35,33Z"/>
     </group>
-
-    <!-- لمعة فوق -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.32"
-        android:pathData="M18,20Q50,10 82,20Q80,26 50,32Q20,26 18,20Z" />
-
-    <!-- ظل تحت -->
-    <path
-        android:fillColor="#000000"
-        android:fillAlpha="0.14"
-        android:pathData="M18,80Q50,90 82,80Q80,74 50,68Q20,74 18,80Z" />
 </vector>
