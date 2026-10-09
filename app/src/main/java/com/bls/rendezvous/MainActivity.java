@@ -9907,11 +9907,11 @@ private LinearLayout createQuickAction(
     item.setGravity(Gravity.CENTER);
 
     item.setPadding(
-            dp(5),
-            dp(8),
-            dp(5),
-            dp(8)
-    );
+        dp(4),
+        dp(4),
+        dp(4),
+        dp(4)
+);
 
     // CARD BACKGROUND
 
