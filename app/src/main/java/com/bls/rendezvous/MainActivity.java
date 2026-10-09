@@ -2947,10 +2947,10 @@ helpIconBox.setBackground(
 
 TextView helpIcon =
         text(
-        icon,
-        19,
-        Color.parseColor("#3156B8")
-)
+                "?",
+                19,
+                Color.parseColor("#3156B8")
+        );
 
 helpIcon.setGravity(
         Gravity.CENTER
