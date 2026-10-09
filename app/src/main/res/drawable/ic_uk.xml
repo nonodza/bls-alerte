@@ -4,21 +4,74 @@
     android:height="100dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-    <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
+
+    <!-- White circular border -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,2 A48,48 0,1 1,50 98 A48,48 0,1 1,50 2 Z"/>
+
     <group>
-        <clip-path android:pathData="M50,50m-44,0a44,44 0,1,1 88,0a44,44 0,1,1 -88,0Z"/>
-        <path android:fillColor="#0A2E8A" android:pathData="M0,0H100V100H0Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M0,0L18,0L56,38L38,38L0,20Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M82,0L100,0L100,20L62,38L44,38Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M0,80L0,100L18,100L56,62L38,62Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M82,100L100,100L100,80L62,62L44,62Z"/>
-        <path android:fillColor="#D10A16" android:pathData="M0,0L8,0L60,44L48,44L0,8Z"/>
-        <path android:fillColor="#D10A16" android:pathData="M92,0L100,0L100,8L52,44L40,44Z"/>
-        <path android:fillColor="#D10A16" android:pathData="M0,92L0,100L8,100L40,56L52,56Z"/>
-        <path android:fillColor="#D10A16" android:pathData="M92,100L100,100L100,92L44,56L56,56Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M0,33H100V67H0Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M33,0H67V100H33Z"/>
-        <path android:fillColor="#D10A16" android:pathData="M0,40H100V60H0Z"/>
-        <path android:fillColor="#D10A16" android:pathData="M40,0H60V100H40Z"/>
+
+        <!-- Circular clipping -->
+        <clip-path
+            android:pathData="M50,6 A44,44 0,1 1,50 94 A44,44 0,1 1,50 6 Z"/>
+
+        <!-- Blue background -->
+        <path
+            android:fillColor="#012169"
+            android:pathData="M0,0 H100 V100 H0 Z"/>
+
+        <!-- White diagonal cross -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M0,0 L12,0 L100,76 L100,88 Z"/>
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M100,0 L88,0 L0,76 L0,88 Z"/>
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M0,100 L12,100 L100,24 L100,12 Z"/>
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M100,100 L88,100 L0,24 L0,12 Z"/>
+
+        <!-- Red diagonal cross -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M0,0 L6,0 L100,82 L100,88 Z"/>
+
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M100,0 L94,0 L0,82 L0,88 Z"/>
+
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M0,100 L6,100 L100,18 L100,12 Z"/>
+
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M100,100 L94,100 L0,18 L0,12 Z"/>
+
+        <!-- Central white cross -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M0,34 H100 V66 H0 Z"/>
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M34,0 H66 V100 H34 Z"/>
+
+        <!-- Central red cross -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M0,41 H100 V59 H0 Z"/>
+
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M41,0 H59 V100 H41 Z"/>
+
     </group>
 </vector>
