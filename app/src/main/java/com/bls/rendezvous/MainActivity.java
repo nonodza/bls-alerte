@@ -2997,7 +2997,200 @@ content.addView(
         destinationsContainer,
         destinationsContainerParams
 );
+// =====================================================
+// QUICK ACTIONS — PREMIUM APPLICATIONS CARD
+// =====================================================
 
+LinearLayout quickActionsCard =
+        new LinearLayout(this);
+
+quickActionsCard.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+quickActionsCard.setPadding(
+        dp(14),
+        dp(12),
+        dp(14),
+        dp(12)
+);
+
+// PREMIUM BLUE / PURPLE BACKGROUND
+
+GradientDrawable quickActionsBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#E7F4FF"),
+                        Color.parseColor("#DDE7FF"),
+                        Color.parseColor("#EDE2FF")
+                }
+        );
+
+quickActionsBg.setCornerRadius(dp(20));
+
+quickActionsBg.setStroke(
+        dp(1),
+        Color.parseColor("#C9D9FF")
+);
+
+quickActionsCard.setBackground(
+        quickActionsBg
+);
+
+// CARD HEADER
+
+LinearLayout quickActionsHeader =
+        new LinearLayout(this);
+
+quickActionsHeader.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+quickActionsHeader.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+TextView quickActionsTitle =
+        text(
+                "Quick Actions",
+                16,
+                Color.parseColor("#102B52")
+        );
+
+quickActionsTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+quickActionsHeader.addView(
+        quickActionsTitle,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+TextView quickActionsSubtitle =
+        text(
+                "Manage your visa applications",
+                11,
+                Color.parseColor("#6279A8")
+        );
+
+quickActionsCard.addView(
+        quickActionsHeader
+);
+
+LinearLayout.LayoutParams quickActionsSubtitleParams =
+        new LinearLayout.LayoutParams(-1, -2);
+
+quickActionsSubtitleParams.setMargins(
+        0,
+        dp(3),
+        0,
+        dp(10)
+);
+
+quickActionsCard.addView(
+        quickActionsSubtitle,
+        quickActionsSubtitleParams
+);
+
+// ACTIONS ROW
+
+LinearLayout quickActionsRow =
+        new LinearLayout(this);
+
+quickActionsRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+quickActionsRow.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// ACTION 1 — MY APPLICATIONS
+
+LinearLayout myApplicationsAction =
+        createQuickAction(
+                "My Applications",
+                "View your applications",
+                R.drawable.ic_slots_premium,
+                false
+        );
+
+// ACTION 2 — NEW APPLICATION
+
+LinearLayout newApplicationAction =
+        createQuickAction(
+                "New Application",
+                "Start a new visa application",
+                R.drawable.ic_dashboard_premium,
+                true
+        );
+
+// ACTION 3 — DOCUMENTS
+
+LinearLayout documentsAction =
+        createQuickAction(
+                "Documents",
+                "Access your documents",
+                R.drawable.ic_documents_premium,
+                false
+        );
+
+LinearLayout[] quickActions = {
+        myApplicationsAction,
+        newApplicationAction,
+        documentsAction
+};
+
+for (LinearLayout action : quickActions) {
+
+    LinearLayout.LayoutParams actionParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(142),
+                    1f
+            );
+
+    actionParams.setMargins(
+            dp(3),
+            0,
+            dp(3),
+            0
+    );
+
+    quickActionsRow.addView(
+            action,
+            actionParams
+    );
+}
+
+quickActionsCard.addView(
+        quickActionsRow
+);
+
+// ADD QUICK ACTIONS CARD
+
+LinearLayout.LayoutParams quickActionsCardParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+quickActionsCardParams.setMargins(
+        0,
+        dp(10),
+        0,
+        dp(8)
+);
+
+content.addView(
+        quickActionsCard,
+        quickActionsCardParams
+);
 // =====================================================
 // NEED HELP
 // =====================================================
@@ -9694,6 +9887,160 @@ private void showVisaTypePage() {
 }
 
 private void showVisaIssuingCountryPage() {
+}
+
+
+// =====================================================
+// QUICK ACTION ITEM — PREMIUM CARD
+// =====================================================
+
+private LinearLayout createQuickAction(
+        String title,
+        String subtitle,
+        int iconRes,
+        boolean highlighted
+) {
+
+    LinearLayout item = new LinearLayout(this);
+
+    item.setOrientation(LinearLayout.VERTICAL);
+    item.setGravity(Gravity.CENTER);
+
+    item.setPadding(
+            dp(5),
+            dp(8),
+            dp(5),
+            dp(8)
+    );
+
+    // CARD BACKGROUND
+
+    GradientDrawable itemBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    highlighted
+                            ? new int[]{
+                                    Color.parseColor("#3989F8"),
+                                    Color.parseColor("#7354E8")
+                            }
+                            : new int[]{
+                                    Color.parseColor("#FFFFFF"),
+                                    Color.parseColor("#F0F4FF")
+                            }
+            );
+
+    itemBg.setCornerRadius(dp(14));
+
+    itemBg.setStroke(
+            dp(1),
+            highlighted
+                    ? Color.parseColor("#8BA9FF")
+                    : Color.parseColor("#DCE5FA")
+    );
+
+    item.setBackground(itemBg);
+
+    // ICON
+
+    ImageView icon = new ImageView(this);
+
+    icon.setImageResource(iconRes);
+
+    icon.setScaleType(
+            ImageView.ScaleType.FIT_CENTER
+    );
+
+    icon.setPadding(
+            dp(7),
+            dp(7),
+            dp(7),
+            dp(7)
+    );
+
+    GradientDrawable iconBg =
+            new GradientDrawable();
+
+    iconBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconBg.setColor(
+            highlighted
+                    ? Color.WHITE
+                    : Color.parseColor("#DCEBFF")
+    );
+
+    icon.setBackground(iconBg);
+
+    LinearLayout.LayoutParams iconParams =
+            new LinearLayout.LayoutParams(
+                    dp(42),
+                    dp(42)
+            );
+
+    iconParams.setMargins(
+            0,
+            0,
+            0,
+            dp(7)
+    );
+
+    item.addView(
+            icon,
+            iconParams
+    );
+
+    // TITLE
+
+    TextView titleView =
+            text(
+                    title,
+                    11,
+                    highlighted
+                            ? Color.WHITE
+                            : Color.parseColor("#102B52")
+            );
+
+    titleView.setGravity(Gravity.CENTER);
+
+    titleView.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    item.addView(titleView);
+
+    // SUBTITLE
+
+    TextView subtitleView =
+            text(
+                    subtitle,
+                    9,
+                    highlighted
+                            ? Color.parseColor("#F1F3FF")
+                            : Color.parseColor("#64779F")
+            );
+
+    subtitleView.setGravity(Gravity.CENTER);
+
+    LinearLayout.LayoutParams subtitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    subtitleParams.setMargins(
+            0,
+            dp(4),
+            0,
+            0
+    );
+
+    item.addView(
+            subtitleView,
+            subtitleParams
+    );
+
+    return item;
 }
 
 }
