@@ -3149,11 +3149,11 @@ LinearLayout[] quickActions = {
 for (LinearLayout action : quickActions) {
 
     LinearLayout.LayoutParams actionParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    dp(142),
-                    1f
-            );
+        new LinearLayout.LayoutParams(
+                0,
+                dp(112),
+                1f
+        );
 
     actionParams.setMargins(
             dp(3),
