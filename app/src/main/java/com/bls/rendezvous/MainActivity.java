@@ -2752,31 +2752,6 @@ content.addView(
 );
 
 // =====================================================
-// SUBTITLE
-// =====================================================
-
-TextView howSubtitle =
-        text(
-                "A simple way to stay organized",
-                11,
-                Color.parseColor("#71809A")
-        );
-
-LinearLayout.LayoutParams howSubtitleParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-howSubtitleParams.setMargins(
-        0,
-        dp(4),
-        0,
-        dp(14)
-);
-
-
-// =====================================================
 // ADD HOW IT WORKS
 // =====================================================
 
