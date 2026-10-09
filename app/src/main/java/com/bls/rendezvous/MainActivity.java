@@ -2397,8 +2397,8 @@ content.addView(
             emptyBg
     );
 
-    // =====================================================
-// EMPTY STATE HEADER ROW
+// =====================================================
+// EMPTY HEADER ROW
 // =====================================================
 
 LinearLayout emptyHeader =
@@ -2412,7 +2412,7 @@ emptyHeader.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-// ICON BOX
+// ICON
 FrameLayout emptyIconBox =
         new FrameLayout(this);
 
@@ -2453,8 +2453,8 @@ emptyIconBox.addView(
 emptyHeader.addView(
         emptyIconBox,
         new LinearLayout.LayoutParams(
-                dp(40),
-                dp(40)
+                dp(42),
+                dp(42)
         )
 );
 
@@ -2531,6 +2531,14 @@ emptyCard.addView(
         emptySubtitleParams
 );
 
+// ADD EMPTY CARD
+content.addView(
+        emptyCard,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);    
 // =====================================================
 // HOW IT WORKS
 // =====================================================
