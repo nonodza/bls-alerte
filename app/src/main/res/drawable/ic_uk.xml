@@ -4,49 +4,21 @@
     android:height="100dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-
-    <!-- إطار أبيض -->
     <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-
     <group>
         <clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
-
-        <!-- أزرق ملكي #012169 -->
         <path android:fillColor="#012169" android:pathData="M0,0H100V100H0Z"/>
-
-        <!-- 1-  أبيض مائل سميك -->
-        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="18"
-            android:pathData="M0,0L100,100"/>
-        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="18"
-            android:pathData="M100,0L0,100"/>
-
-        <!-- 2-  أحمر مائل رفيع OFFSET - هنا الدقة -->
-        <!-- فوق يسار -->
-        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
-            android:pathData="M8,0L42,34"/>
-        <!-- تحت يمين -->
-        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
-            android:pathData="M58,66L92,100"/>
-        <!-- فوق يمين -->
-        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
-            android:pathData="M92,0L58,34"/>
-        <!-- تحت يسار -->
-        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
-            android:pathData="M8,100L42,66"/>
-
-        <!-- 3-  أبيض مستقيم -->
-        <path android:fillColor="#FFFFFF" android:pathData="M0,33H100V67H0Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M33,0H67V100H33Z"/>
-
-        <!-- 4-  -->
-        <path android:fillColor="#C8102E" android:pathData="M0,40H100V60H0Z"/>
-        <path android:fillColor="#C8102E" android:pathData="M40,0H60V100H40Z"/>
+        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="18" android:pathData="M0,0L100,100"/>
+        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="18" android:pathData="M100,0L0,100"/>
+        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="30" android:pathData="M0,50H100"/>
+        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="30" android:pathData="M50,0V100"/>
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5" android:pathData="M8,0L42,34"/>
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5" android:pathData="M58,66L92,100"/>
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5" android:pathData="M92,0L58,34"/>
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5" android:pathData="M8,100L42,66"/>
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="18" android:pathData="M0,50H100"/>
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="18" android:pathData="M50,0V100"/>
     </group>
-
-    <!-- لمعة -->
-    <path android:fillColor="#FFFFFF" android:fillAlpha="0.28"
-        android:pathData="M12,18Q50,8 88,18Q86,24 50,30Q14,24 12,18Z"/>
-    <!-- ظل -->
-    <path android:fillColor="#000000" android:fillAlpha="0.18"
-        android:pathData="M12,82Q50,92 88,82Q86,76 50,70Q14,76 12,82Z"/>
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.28" android:pathData="M12,18Q50,8 88,18Q86,24 50,30Q14,24 12,18Z"/>
+    <path android:fillColor="#000000" android:fillAlpha="0.18" android:pathData="M12,82Q50,92 88,82Q86,76 50,70Q14,76 12,82Z"/>
 </vector>
