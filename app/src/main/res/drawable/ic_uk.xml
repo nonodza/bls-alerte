@@ -1,13 +1,55 @@
-<!-- ic_uk.xml - FIXED -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="100dp" android:height="100dp" android:viewportWidth="100" android:viewportHeight="100">
-<path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-<group><clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
-<path android:fillColor="#012169" android:pathData="M0,0L100,0L100,100L0,100Z"/>
-<path android:fillColor="#FFFFFF" android:pathData="M0,0L16,0L100,84L100,100L84,100L0,16Z M84,0L100,0L100,16L16,100L0,100L0,84L84,0Z"/>
-<path android:fillColor="#FFFFFF" android:pathData="M0,37L100,37L100,63L0,63Z M37,0L63,0L63,100L37,100Z"/>
-<path android:fillColor="#C8102E" android:pathData="M0,0L6,0L100,94L100,100L94,100L0,6Z M94,0L100,0L100,6L6,100L0,100L0,94L94,0Z"/>
-<path android:fillColor="#C8102E" android:pathData="M0,43L100,43L100,57L0,57Z M43,0L57,0L57,100L43,100Z"/>
-</group>
-<path android:fillColor="#FFFFFF" android:fillAlpha="0.30" android:pathData="M18,22Q50,12 82,22Q80,28 50,34Q20,28 18,22Z"/>
-<path android:fillColor="#000000" android:fillAlpha="0.12" android:pathData="M18,78Q50,88 82,78Q80,72 50,66Q20,72 18,78Z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- الخلفية البيضاء الخارجية -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z" />
+
+    <group>
+        <clip-path
+            android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z" />
+
+        <!-- أزرق -->
+        <path
+            android:fillColor="#012169"
+            android:pathData="M0,0L100,0L100,100L0,100Z" />
+
+        <!-- أبيض مائل -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M0,0L16,0L100,84L100,100L84,100L0,16Z M84,0L100,0L100,16L16,100L0,100L0,84L84,0Z" />
+
+        <!-- أبيض + -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M0,37L100,37L100,63L0,63Z M37,0L63,0L63,100L37,100Z" />
+
+        <!-- أحمر مائل -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M0,0L6,0L100,94L100,100L94,100L0,6Z M94,0L100,0L100,6L6,100L0,100L0,94L94,0Z" />
+
+        <!-- أحمر + -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="M0,43L100,43L100,57L0,57Z M43,0L57,0L57,100L43,100Z" />
+    </group>
+
+    <!-- لمعة فوق -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.30"
+        android:pathData="M18,22Q50,12 82,22Q80,28 50,34Q20,28 18,22Z" />
+
+    <!-- ظل تحت -->
+    <path
+        android:fillColor="#000000"
+        android:fillAlpha="0.12"
+        android:pathData="M18,78Q50,88 82,78Q80,72 50,66Q20,72 18,78Z" />
+
 </vector>
