@@ -2192,9 +2192,9 @@ heroCard.setOrientation(
 
 heroCard.setPadding(
         dp(18),
-        dp(16),
+        dp(11),
         dp(18),
-        dp(16)
+        dp(11)
 );
 
 // =================================================
