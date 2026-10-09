@@ -6,12 +6,29 @@
     android:viewportHeight="100">
     <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
     <group>
-        <clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
+        <clip-path android:pathData="M50,50m-44,0a44,44 0,1,1 88,0a44,44 0,1,1 -88,0Z"/>
+        <!-- 13 خط -->
         <path android:fillColor="#FFFFFF" android:pathData="M0,0H100V100H0Z"/>
-        <path android:fillColor="#B22234" android:pathData="M0,0H100V7.7H0ZM0,15.4H100V23.1H0ZM0,30.8H100V38.5H0ZM0,46.2H100V53.9H0ZM0,61.5H100V69.2H0ZM0,77H100V84.6H0ZM0,92.3H100V100H0Z"/>
-        <path android:fillColor="#3C3B6E" android:pathData="M0,0H44V54H0Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M6,5H8V7H6ZM14,5H16V7H14ZM22,5H24V7H22ZM30,5H32V7H30ZM38,5H40V7H38ZM6,12H8V14H6ZM14,12H16V14H14ZM22,12H24V14H22ZM30,12H32V14H30ZM38,12H40V14H38ZM6,19H8V21H6ZM14,19H16V21H14ZM22,19H24V21H22ZM30,19H32V21H30ZM38,19H40V21H38ZM6,26H8V28H6ZM14,26H16V28H14ZM22,26H24V28H22ZM30,26H32V28H30ZM38,26H40V28H38ZM6,33H8V35H6ZM14,33H16V35H14ZM22,33H24V35H22ZM30,33H32V35H30ZM38,33H40V35H38ZM6,40H8V42H6ZM14,40H16V42H14ZM22,40H24V42H22ZM30,40H32V42H30ZM38,40H40V42H38ZM6,47H8V49H6ZM14,47H16V49H14ZM22,47H24V49H22ZM30,47H32V49H30ZM38,47H40V49H38Z"/>
+        <path android:fillColor="#C41E3A" android:pathData="M0,0H100V7.69H0ZM0,15.38H100V23.07H0ZM0,30.76H100V38.45H0ZM0,46.15H100V53.84H0ZM0,61.53H100V69.22H0ZM0,76.92H100V84.61H0ZM0,92.3H100V100H0Z"/>
+        <!-- الأزرق -->
+        <path android:fillColor="#2B2D7C" android:pathData="M0,0H50V54H0Z"/>
+        <!-- النجوم 19 باينة -->
+        <path android:fillColor="#FFFFFF" android:pathData="M34,4.5L35,7L37.5,7L35.5,8.5L36.2,11L34,9.5L31.8,11L32.5,8.5L30.5,7L33,7Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M10,13.5L11,16L13.5,16L11.5,17.5L12.2,20L10,18.5L7.8,20L8.5,17.5L6.5,16L9,16Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M26,14L27,16.5L29.5,16.5L27.5,18L28.2,20.5L26,19L23.8,20.5L24.5,18L22.5,16.5L25,16.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M40,15L41,17.5L43.5,17.5L41.5,19L42.2,21.5L40,20L37.8,21.5L38.5,19L36.5,17.5L39,17.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M4,24L5,26.5L7.5,26.5L5.5,28L6.2,30.5L4,29L1.8,30.5L2.5,28L0.5,26.5L3,26.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M18,24L19,26.5L21.5,26.5L19.5,28L20.2,30.5L18,29L15.8,30.5L16.5,28L14.5,26.5L17,26.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M32,25L33,27.5L35.5,27.5L33.5,29L34.2,31.5L32,30L29.8,31.5L30.5,29L28.5,27.5L31,27.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M46,26L47,28.5L49.5,28.5L47.5,30L48.2,32.5L46,31L43.8,32.5L44.5,30L42.5,28.5L45,28.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M10,34L11,36.5L13.5,36.5L11.5,38L12.2,40.5L10,39L7.8,40.5L8.5,38L6.5,36.5L9,36.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M24,35L25,37.5L27.5,37.5L25.5,39L26.2,41.5L24,40L21.8,41.5L22.5,39L20.5,37.5L23,37.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M38,36L39,38.5L41.5,38.5L39.5,40L40.2,42.5L38,41L35.8,42.5L36.5,40L34.5,38.5L37,38.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M4,44L5,46.5L7.5,46.5L5.5,48L6.2,50.5L4,49L1.8,50.5L2.5,48L0.5,46.5L3,46.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M18,44L19,46.5L21.5,46.5L19.5,48L20.2,50.5L18,49L15.8,50.5L16.5,48L14.5,46.5L17,46.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M32,45L33,47.5L35.5,47.5L33.5,49L34.2,51.5L32,50L29.8,51.5L30.5,49L28.5,47.5L31,47.5Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M46,46L47,48.5L49.5,48.5L47.5,50L48.2,52.5L46,51L43.8,52.5L44.5,50L42.5,48.5L45,48.5Z"/>
     </group>
-    <path android:fillColor="#FFFFFF" android:fillAlpha="0.28" android:pathData="M12,18Q50,8 88,18Q86,24 50,30Q14,24 12,18Z"/>
-    <path android:fillColor="#000000" android:fillAlpha="0.18" android:pathData="M12,82Q50,92 88,82Q86,76 50,70Q14,76 12,82Z"/>
+    <!-- لمعان الفوق برك - بلا ضبابة تحت -->
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.35" android:pathData="M15,16Q50,6 85,16Q84,22 50,28Q16,22 15,16Z"/>
 </vector>
