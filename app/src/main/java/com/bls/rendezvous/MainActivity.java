@@ -2564,10 +2564,10 @@ howItWorks.setOrientation(
 );
 
 howItWorks.setPadding(
-        dp(14),
         dp(12),
-        dp(14),
-        dp(12)
+        dp(8),
+        dp(12),
+        dp(8)
 );
 
 GradientDrawable howItWorksBg =
@@ -2699,9 +2699,9 @@ LinearLayout.LayoutParams howSubtitleParams =
 
 howSubtitleParams.setMargins(
         0,
-        dp(5),
+        dp(3),
         0,
-        dp(14)
+        dp(8)
 );
 
 howItWorks.addView(
