@@ -2947,10 +2947,10 @@ helpIconBox.setBackground(
 
 TextView helpIcon =
         text(
-                "?",
-                19,
-                Color.parseColor("#3156B8")
-        );
+        icon,
+        19,
+        Color.parseColor("#3156B8")
+)
 
 helpIcon.setGravity(
         Gravity.CENTER
@@ -3638,8 +3638,8 @@ finalIcon.addView(
 item.addView(
         finalIcon,
         new LinearLayout.LayoutParams(
-                dp(52),
-                dp(52)
+                dp(44),
+                dp(44)
         )
 );
 
@@ -3673,11 +3673,11 @@ item.addView(
             );
 
     titleParams.setMargins(
-            0,
-            dp(8),
-            0,
-            0
-    );
+        0,
+        dp(5),
+        0,
+        0
+);
 
     item.addView(
             titleText,
