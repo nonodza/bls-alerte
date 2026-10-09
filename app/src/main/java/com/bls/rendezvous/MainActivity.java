@@ -2182,33 +2182,25 @@ scroll.addView(
     // =================================================
 // HERO CARD
 // =================================================
-
-LinearLayout heroCard =
-        new LinearLayout(this);
-
-heroCard.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-heroCard.setPadding(
-        dp(18),
-        dp(14),
-        dp(18),
-        dp(14)
-);
-
+    
 GradientDrawable heroBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
+                GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.parseColor("#182B68"),
-                        Color.parseColor("#3556B8"),
-                        Color.parseColor("#6B4FD3")
+                        Color.parseColor("#17265F"),
+                        Color.parseColor("#303A91"),
+                        Color.parseColor("#553CC2"),
+                        Color.parseColor("#7938D4")
                 }
         );
 
 heroBg.setCornerRadius(
         dp(22)
+);
+
+heroBg.setStroke(
+        dp(1),
+        Color.parseColor("#7766F0")
 );
 
 heroCard.setBackground(
