@@ -5,19 +5,48 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
+    <!-- إطار أبيض -->
     <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
 
     <group>
         <clip-path android:pathData="M50,50m-40,0a40,40 0,1,1 80,0a40,40 0,1,1 -80,0Z"/>
-        
+
+        <!-- أزرق ملكي #012169 -->
         <path android:fillColor="#012169" android:pathData="M0,0H100V100H0Z"/>
-        <!-- الصليب الأبيض المائل -->
-        <path android:fillColor="#FFFFFF" android:pathData="M0,0L20,0L100,80V100L80,100L0,20Z M80,0L100,0V20L20,100H0V80L80,0Z"/>
-        <!-- الصليب الأبيض المستقيم -->
-        <path android:fillColor="#FFFFFF" android:pathData="M0,38H100V62H0Z M38,0H62V100H38Z"/>
-        <!-- الصليب الأحمر المائل -->
-        <path android:fillColor="#C8102E" android:pathData="M0,0L8,0L100,92V100L92,100L0,8Z M92,0L100,0V8L8,100H0V92L92,0Z"/>
-        <!-- الصليب الأحمر المستقيم -->
-        <path android:fillColor="#C8102E" android:pathData="M0,44H100V56H0Z M44,0H56V100H44Z"/>
+
+        <!-- 1-  أبيض مائل سميك -->
+        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="18"
+            android:pathData="M0,0L100,100"/>
+        <path android:fillColor="none" android:strokeColor="#FFFFFF" android:strokeWidth="18"
+            android:pathData="M100,0L0,100"/>
+
+        <!-- 2-  أحمر مائل رفيع OFFSET - هنا الدقة -->
+        <!-- فوق يسار -->
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
+            android:pathData="M8,0L42,34"/>
+        <!-- تحت يمين -->
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
+            android:pathData="M58,66L92,100"/>
+        <!-- فوق يمين -->
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
+            android:pathData="M92,0L58,34"/>
+        <!-- تحت يسار -->
+        <path android:fillColor="none" android:strokeColor="#C8102E" android:strokeWidth="6.5"
+            android:pathData="M8,100L42,66"/>
+
+        <!-- 3-  أبيض مستقيم -->
+        <path android:fillColor="#FFFFFF" android:pathData="M0,33H100V67H0Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M33,0H67V100H33Z"/>
+
+        <!-- 4-  -->
+        <path android:fillColor="#C8102E" android:pathData="M0,40H100V60H0Z"/>
+        <path android:fillColor="#C8102E" android:pathData="M40,0H60V100H40Z"/>
     </group>
+
+    <!-- لمعة -->
+    <path android:fillColor="#FFFFFF" android:fillAlpha="0.28"
+        android:pathData="M12,18Q50,8 88,18Q86,24 50,30Q14,24 12,18Z"/>
+    <!-- ظل -->
+    <path android:fillColor="#000000" android:fillAlpha="0.18"
+        android:pathData="M12,82Q50,92 88,82Q86,76 50,70Q14,76 12,82Z"/>
 </vector>
