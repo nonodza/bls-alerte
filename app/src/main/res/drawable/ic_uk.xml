@@ -5,73 +5,31 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Outer white circle -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M50,2 A48,48 0,1 1,50 98 A48,48 0,1 1,50 2 Z"/>
-
     <group>
-
-        <!-- Circular clipping -->
-        <clip-path
-            android:pathData="M50,6 A44,44 0,1 1,50 94 A44,44 0,1 1,50 6 Z"/>
-
+        <!-- Circular clipping - يخلي العلم مدور بلا كادر أبيض -->
+        <clip-path android:pathData="M50,6 A44,44 0,1 1,50 94 A44,44 0,1 1,50 6 Z"/>
+        
         <!-- Blue field -->
-        <path
-            android:fillColor="#012169"
-            android:pathData="M0,0 H100 V100 H0 Z"/>
-
+        <path android:fillColor="#012169" android:pathData="M0,0 H100 V100 H0 Z"/>
+        
         <!-- White diagonal bands -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M0,0 H12 L100,76 V88 Z"/>
-
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M100,0 H88 L0,76 V88 Z"/>
-
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M0,100 H12 L100,24 V12 Z"/>
-
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M100,100 H88 L0,24 V12 Z"/>
-
+        <path android:fillColor="#FFFFFF" android:pathData="M0,0 H12 L100,76 V88 Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M100,0 H88 L0,76 V88 Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M0,100 H12 L100,24 V12 Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M100,100 H88 L0,24 V12 Z"/>
+        
         <!-- Red diagonal bands, narrower -->
-        <path
-            android:fillColor="#C8102E"
-            android:pathData="M0,0 L5,0 L100,81 L100,86 Z"/>
-
-        <path
-            android:fillColor="#C8102E"
-            android:pathData="M100,0 L95,0 L0,81 L0,86 Z"/>
-
-        <path
-            android:fillColor="#C8102E"
-            android:pathData="M0,100 L5,100 L100,19 L100,14 Z"/>
-
-        <path
-            android:fillColor="#C8102E"
-            android:pathData="M100,100 L95,100 L0,19 L0,14 Z"/>
-
+        <path android:fillColor="#C8102E" android:pathData="M0,0 L5,0 L100,81 L100,86 Z"/>
+        <path android:fillColor="#C8102E" android:pathData="M100,0 L95,0 L0,81 L0,86 Z"/>
+        <path android:fillColor="#C8102E" android:pathData="M0,100 L5,100 L100,19 L100,14 Z"/>
+        <path android:fillColor="#C8102E" android:pathData="M100,100 L95,100 L0,19 L0,14 Z"/>
+        
         <!-- Slimmer central white cross -->
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M0,38 H100 V62 H0 Z"/>
-
-        <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M38,0 H62 V100 H38 Z"/>
-
+        <path android:fillColor="#FFFFFF" android:pathData="M0,38 H100 V62 H0 Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M38,0 H62 V100 H38 Z"/>
+        
         <!-- Slim central red cross -->
-        <path
-            android:fillColor="#C8102E"
-            android:pathData="M0,44 H100 V56 H0 Z"/>
-
-        <path
-            android:fillColor="#C8102E"
-            android:pathData="M44,0 H56 V100 H44 Z"/>
-
+        <path android:fillColor="#C8102E" android:pathData="M0,44 H100 V56 H0 Z"/>
+        <path android:fillColor="#C8102E" android:pathData="M44,0 H56 V100 H44 Z"/>
     </group>
 </vector>
