@@ -2771,39 +2771,58 @@ howItWorks.addView(
 );
 
 // =====================================================
-// ADD HOW IT WORKS
+// SUPPORTED DESTINATIONS — COMPACT PREMIUM CARD
 // =====================================================
 
-LinearLayout.LayoutParams howItWorksParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
+LinearLayout destinationsContainer =
+        new LinearLayout(this);
 
-howItWorksParams.setMargins(
-        0,
+destinationsContainer.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+destinationsContainer.setPadding(
         dp(14),
-        0,
-        dp(4)
+        dp(10),
+        dp(14),
+        dp(10)
 );
 
-content.addView(
-        howItWorks,
-        howItWorksParams
+GradientDrawable destinationsBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#F8FAFF"),
+                        Color.parseColor("#EEF1FF")
+                }
 );
+
+destinationsBg.setCornerRadius(
+        dp(16)
+);
+
+destinationsBg.setStroke(
+        dp(1),
+        Color.parseColor("#E0E6F5")
+);
+
+destinationsContainer.setBackground(
+        destinationsBg
+);
+
+// =====================================================
+// DESTINATIONS TITLE
+// =====================================================
 
 TextView destinationsTitle =
         text(
                 "Supported destinations",
-                16,
+                14,
                 Color.parseColor("#102B52")
         );
 
 destinationsTitle.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
+        Typeface.DEFAULT_BOLD
 );
 
 LinearLayout.LayoutParams destinationsTitleParams =
@@ -2813,113 +2832,172 @@ LinearLayout.LayoutParams destinationsTitleParams =
         );
 
 destinationsTitleParams.setMargins(
-        dp(2),
-        dp(22),
-        dp(2),
-        dp(10)
+        0,
+        0,
+        0,
+        dp(8)
 );
 
-content.addView(
+destinationsContainer.addView(
         destinationsTitle,
         destinationsTitleParams
 );
 
-LinearLayout destinationsContainer =
+// =====================================================
+// DESTINATIONS ROW
+// =====================================================
+
+LinearLayout destinationsRow =
         new LinearLayout(this);
 
-destinationsContainer.setOrientation(
+destinationsRow.setOrientation(
         LinearLayout.HORIZONTAL
 );
 
-destinationsContainer.setGravity(
+destinationsRow.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-destinationsContainer.setPadding(
-        dp(8),
-        dp(8),
-        dp(8),
-        dp(8)
-);
-
-GradientDrawable destinationsBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{
-                        Color.parseColor("#1677E8"),
-                        Color.parseColor("#2456C8"),
-                        Color.parseColor("#C83E91"),
-                        Color.parseColor("#7048D8")
-                }
+// SCHENGEN
+TextView schengen =
+        text(
+                "Schengen",
+                11,
+                Color.parseColor("#3156B8")
         );
 
-destinationsBg.setCornerRadius(
-        dp(20)
+schengen.setGravity(
+        Gravity.CENTER
 );
 
-destinationsContainer.setBackground(
-        destinationsBg
-);
-
-// EU
-destinationsContainer.addView(
-        destinationPremiumItem(
-                R.drawable.ic_eu_new,
-                "EU"
-        ),
-        new LinearLayout.LayoutParams(
-                0,
-                dp(90),
-                1f
-        )
-);
-
-// USA
-destinationsContainer.addView(
-        destinationPremiumItem(
-                R.drawable.ic_usa,
-                "US"
-        ),
-        new LinearLayout.LayoutParams(
-                0,
-                dp(90),
-                1f
-        )
-);
-
-// CANADA
-destinationsContainer.addView(
-        destinationPremiumItem(
-                R.drawable.ic_canada,
-                "CA"
-        ),
-        new LinearLayout.LayoutParams(
-                0,
-                dp(90),
-                1f
-        )
+schengen.setTypeface(
+        Typeface.DEFAULT_BOLD
 );
 
 // UK
+TextView uk =
+        text(
+                "UK",
+                11,
+                Color.parseColor("#3156B8")
+        );
+
+uk.setGravity(
+        Gravity.CENTER
+);
+
+uk.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+// USA
+TextView usa =
+        text(
+                "USA",
+                11,
+                Color.parseColor("#3156B8")
+        );
+
+usa.setGravity(
+        Gravity.CENTER
+);
+
+usa.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+// CANADA
+TextView canada =
+        text(
+                "Canada",
+                11,
+                Color.parseColor("#3156B8")
+        );
+
+canada.setGravity(
+        Gravity.CENTER
+);
+
+canada.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+// ADD DESTINATION LABELS
+TextView[] destinationLabels = {
+        schengen,
+        uk,
+        usa,
+        canada
+};
+
+for (TextView label : destinationLabels) {
+
+    GradientDrawable labelBg =
+            new GradientDrawable();
+
+    labelBg.setColor(
+            Color.WHITE
+    );
+
+    labelBg.setCornerRadius(
+            dp(8)
+    );
+
+    labelBg.setStroke(
+            dp(1),
+            Color.parseColor("#DDE5FA")
+    );
+
+    label.setBackground(
+            labelBg
+    );
+
+    LinearLayout.LayoutParams labelParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(30),
+                    1f
+            );
+
+    labelParams.setMargins(
+            dp(2),
+            0,
+            dp(2),
+            0
+    );
+
+    destinationsRow.addView(
+            label,
+            labelParams
+    );
+}
+
 destinationsContainer.addView(
-        destinationPremiumItem(
-                R.drawable.ic_uk,
-                "UK"
-        ),
+        destinationsRow
+);
+
+// =====================================================
+// ADD DESTINATIONS CARD
+// =====================================================
+
+LinearLayout.LayoutParams destinationsContainerParams =
         new LinearLayout.LayoutParams(
-                0,
-                dp(90),
-                1f
-        )
+                -1,
+                -2
+        );
+
+destinationsContainerParams.setMargins(
+        0,
+        dp(8),
+        0,
+        dp(4)
 );
 
 content.addView(
         destinationsContainer,
-        new LinearLayout.LayoutParams(
-                -1,
-                dp(94)
-        )
+        destinationsContainerParams
 );
+
 // =====================================================
 // NEED HELP
 // =====================================================
