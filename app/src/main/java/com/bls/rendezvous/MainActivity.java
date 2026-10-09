@@ -2397,119 +2397,139 @@ content.addView(
             emptyBg
     );
 
-    // ICON
-    FrameLayout emptyIconBox =
-            new FrameLayout(this);
+    // =====================================================
+// EMPTY STATE HEADER ROW
+// =====================================================
 
-    GradientDrawable emptyIconBg =
-            new GradientDrawable();
+LinearLayout emptyHeader =
+        new LinearLayout(this);
 
-    emptyIconBg.setShape(
-            GradientDrawable.OVAL
-    );
+emptyHeader.setOrientation(
+        LinearLayout.HORIZONTAL
+);
 
-    emptyIconBg.setColor(
-            Color.parseColor("#EDE9FE")
-    );
+emptyHeader.setGravity(
+        Gravity.CENTER_VERTICAL
+);
 
-    emptyIconBox.setBackground(
-            emptyIconBg
-    );
+// ICON BOX
+FrameLayout emptyIconBox =
+        new FrameLayout(this);
 
-    ImageView emptyIcon =
-            new ImageView(this);
+GradientDrawable emptyIconBg =
+        new GradientDrawable();
 
-    emptyIcon.setImageResource(
-            R.drawable.ic_applications_premium
-    );
+emptyIconBg.setShape(
+        GradientDrawable.OVAL
+);
 
-    emptyIcon.setScaleType(
-            ImageView.ScaleType.CENTER
-    );
+emptyIconBg.setColor(
+        Color.parseColor("#EDE9FE")
+);
 
-    emptyIconBox.addView(
-            emptyIcon,
-            new FrameLayout.LayoutParams(
-                    -1,
-                    -1
-            )
-    );
+emptyIconBox.setBackground(
+        emptyIconBg
+);
 
-    emptyCard.addView(
-            emptyIconBox,
-            new LinearLayout.LayoutParams(
-                    dp(46),
-                    dp(46)
-            )
-    );
+ImageView emptyIcon =
+        new ImageView(this);
 
-    // TITLE
-    TextView emptyTitle =
-            text(
-                    "No applications yet",
-                    15,
-                    Color.parseColor("#102B52")
-            );
+emptyIcon.setImageResource(
+        R.drawable.ic_applications_premium
+);
 
-    emptyTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+emptyIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
 
-    emptyTitle.setGravity(
-            Gravity.CENTER
-    );
+emptyIconBox.addView(
+        emptyIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
 
-    LinearLayout.LayoutParams emptyTitleParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
+emptyHeader.addView(
+        emptyIconBox,
+        new LinearLayout.LayoutParams(
+                dp(40),
+                dp(40)
+        )
+);
 
-    emptyTitleParams.setMargins(
-            0,
-            dp(8),
-            0,
-            dp(3)
-    );
+// TITLE
+TextView emptyTitle =
+        text(
+                "No applications yet",
+                15,
+                Color.parseColor("#102B52")
+        );
 
-    emptyCard.addView(
-            emptyTitle,
-            emptyTitleParams
-    );
+emptyTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-    // SUBTITLE
-    TextView emptySubtitle =
-            text(
-                    "Create your first application and keep your visa journey organized.",
-                    12,
-                    Color.parseColor("#71809A")
-            );
+LinearLayout.LayoutParams emptyTitleParams =
+        new LinearLayout.LayoutParams(
+                -2,
+                -2
+        );
 
-    emptySubtitle.setGravity(
-            Gravity.CENTER
-    );
+emptyTitleParams.setMargins(
+        dp(12),
+        0,
+        0,
+        0
+);
 
-    emptySubtitle.setLineSpacing(
-            0,
-            1.15f
-    );
+emptyHeader.addView(
+        emptyTitle,
+        emptyTitleParams
+);
 
-    emptyCard.addView(
-            emptySubtitle,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            )
-    );
+emptyCard.addView(
+        emptyHeader,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
 
-    // ADD EMPTY CARD
-    content.addView(
-            emptyCard,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            )
-    );
+// DESCRIPTION
+TextView emptySubtitle =
+        text(
+                "Create your first application and keep your visa journey organized.",
+                12,
+                Color.parseColor("#71809A")
+        );
+
+emptySubtitle.setGravity(
+        Gravity.START
+);
+
+emptySubtitle.setLineSpacing(
+        0,
+        1.1f
+);
+
+LinearLayout.LayoutParams emptySubtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+emptySubtitleParams.setMargins(
+        0,
+        dp(8),
+        0,
+        0
+);
+
+emptyCard.addView(
+        emptySubtitle,
+        emptySubtitleParams
+);
 
 // =====================================================
 // HOW IT WORKS
