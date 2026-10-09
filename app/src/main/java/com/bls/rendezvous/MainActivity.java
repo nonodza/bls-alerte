@@ -2751,28 +2751,6 @@ content.addView(
         howItWorksParams
 );
 
-// =====================================================
-// ADD HOW IT WORKS
-// =====================================================
-
-LinearLayout.LayoutParams howItWorksParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-howItWorksParams.setMargins(
-        0,
-        dp(14),
-        0,
-        dp(4)
-);
-
-content.addView(
-        howItWorks,
-        howItWorksParams
-);
-
 TextView destinationsTitle =
         text(
                 "Supported destinations",
