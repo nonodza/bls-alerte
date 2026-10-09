@@ -2564,10 +2564,10 @@ howItWorks.setOrientation(
 );
 
 howItWorks.setPadding(
-        dp(12),
-        dp(8),
-        dp(12),
-        dp(8)
+        dp(10),
+        dp(5),
+        dp(10),
+        dp(5)
 );
 
 GradientDrawable howItWorksBg =
