@@ -2357,16 +2357,16 @@ content.addView(
             );
 
     sectionParams.setMargins(
-            dp(2),
-            dp(22),
-            dp(2),
-            dp(10)
-    );
+        dp(2),
+        dp(14),
+        dp(2),
+        dp(10)
+);
 
-    content.addView(
-            applicationsSection,
-            sectionParams
-    );
+content.addView(
+        applicationsSection,
+        sectionParams
+);
 
         // =================================================
     // EMPTY STATE CARD
