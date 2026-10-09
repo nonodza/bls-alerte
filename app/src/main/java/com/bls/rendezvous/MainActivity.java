@@ -2279,7 +2279,7 @@ heroCard.addView(
 );
 
 // =================================================
-// NEW APPLICATION BUTTON
+// NEW APPLICATION BUTTON — COMPACT
 // =================================================
 
 TextView newApplication =
@@ -2312,12 +2312,15 @@ newApplication.setBackground(
         newApplicationBg
 );
 
-heroCard.addView(
-        newApplication,
+LinearLayout.LayoutParams newApplicationParams =
         new LinearLayout.LayoutParams(
                 -1,
-                dp(38)
-        )
+                dp(34)
+        );
+
+heroCard.addView(
+        newApplication,
+        newApplicationParams
 );
 
 // =================================================
