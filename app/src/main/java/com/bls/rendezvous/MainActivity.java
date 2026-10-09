@@ -2179,18 +2179,36 @@ scroll.addView(
         )
 );
     
-    // =================================================
-// HERO CARD
 // =================================================
-    
+// HERO CARD — PREMIUM DESIGN
+// =================================================
+
+LinearLayout heroCard =
+        new LinearLayout(this);
+
+heroCard.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+heroCard.setPadding(
+        dp(18),
+        dp(16),
+        dp(18),
+        dp(16)
+);
+
+// =================================================
+// HERO BACKGROUND — NAVY TO PURPLE
+// =================================================
+
 GradientDrawable heroBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.parseColor("#17265F"),
-                        Color.parseColor("#303A91"),
-                        Color.parseColor("#553CC2"),
-                        Color.parseColor("#7938D4")
+                        Color.parseColor("#25245F"),
+                        Color.parseColor("#40358F"),
+                        Color.parseColor("#6546B8"),
+                        Color.parseColor("#7948C8")
                 }
         );
 
@@ -2200,12 +2218,12 @@ heroBg.setCornerRadius(
 
 heroBg.setStroke(
         dp(1),
-        Color.parseColor("#7766F0")
+        Color.parseColor("#8876E8")
 );
 
 heroCard.setBackground(
         heroBg
-);
+);    
 
 // =================================================
 // HERO TITLE
