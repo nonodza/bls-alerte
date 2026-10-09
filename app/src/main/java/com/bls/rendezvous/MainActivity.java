@@ -2876,7 +2876,7 @@ content.addView(
         destinationsContainer,
         new LinearLayout.LayoutParams(
                 -1,
-                dp(106)
+                dp(94)
         )
 );
 // =====================================================
