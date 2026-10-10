@@ -10039,7 +10039,7 @@ LinearLayout.LayoutParams subtitleParams =
 
 subtitleParams.setMargins(
         0,
-        dp(4),
+        dp(3),
         0,
         0
 );
@@ -10050,5 +10050,6 @@ item.addView(
 );
 
 return item;
+}
 }
     
