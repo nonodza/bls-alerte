@@ -3242,32 +3242,32 @@ helpCard.setBackground(
 FrameLayout helpIconBox =
         new FrameLayout(this);
 
-GradientDrawable helpBg =
+GradientDrawable helpIconBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#EEF5FF"),
-                        Color.parseColor("#F0ECFF")
+                        Color.parseColor("#DCEAFF"),
+                        Color.parseColor("#E8DEFF")
                 }
         );
 
-helpBg.setCornerRadius(
-        dp(18)
+helpIconBg.setShape(
+        GradientDrawable.OVAL
 );
 
-helpBg.setStroke(
+helpIconBg.setStroke(
         dp(1),
-        Color.parseColor("#D5E2FA")
+        Color.parseColor("#C9D9FA")
 );
 
-helpCard.setBackground(
-        helpBg
+helpIconBox.setBackground(
+        helpIconBg
 );
 
 TextView helpIcon =
         text(
                 "?",
-                19,
+                22,
                 Color.parseColor("#3156B8")
         );
 
