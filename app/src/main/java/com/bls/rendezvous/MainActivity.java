@@ -2810,25 +2810,23 @@ destinationsContainer.setPadding(
 
 GradientDrawable destinationsBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
+                GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.parseColor("#F8FAFF"),
-                        Color.parseColor("#EEF1FF")
+                        Color.parseColor("#CFFF99"),
+                        Color.parseColor("#2507D8"),
+                        Color.parseColor("#22E6B9"),
+                        Color.parseColor("#7525B9")
                 }
-);
+        );
 
-destinationsBg.setCornerRadius(
-        dp(16)
-);
+destinationsBg.setCornerRadius(dp(16));
 
 destinationsBg.setStroke(
         dp(1),
-        Color.parseColor("#E0E6F5")
+        Color.parseColor("#25E7D8")
 );
 
-destinationsContainer.setBackground(
-        destinationsBg
-);
+destinationsContainer.setBackground(destinationsBg);
 
 // =====================================================
 // DESTINATIONS TITLE
