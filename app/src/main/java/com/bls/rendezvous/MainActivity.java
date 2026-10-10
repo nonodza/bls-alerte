@@ -2286,7 +2286,7 @@ TextView newApplication =
         text(
                 "+  New Application",
                 14,
-                Color.parseColor("#182B68")
+                Color.parseColor("#FFFFFF")
         );
 
 newApplication.setGravity(
