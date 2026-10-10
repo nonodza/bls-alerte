@@ -10021,14 +10021,13 @@ private LinearLayout createQuickAction(
 
     // SUBTITLE
 
-    TextView subtitleView =
-            text(
-                    subtitle,
-                    9,
-                    highlighted
-                            ? Color.parseColor("#F1F3FF")
-                            : Color.parseColor("#64779F")
-            );
+    text(
+        subtitle,
+        10,
+        highlighted
+                ? Color.parseColor("#F1F3FF")
+                : Color.parseColor("#64779F")
+);
 
     subtitleView.setGravity(Gravity.CENTER);
 
