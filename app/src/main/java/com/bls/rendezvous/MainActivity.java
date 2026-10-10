@@ -3217,9 +3217,9 @@ GradientDrawable helpBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#DCE8FF"),
-                        Color.parseColor("#C9D5FF"),
-                        Color.parseColor("#E1D5FF")
+                        Color.parseColor("#101A3C"),
+                        Color.parseColor("#1D2D63"),
+                        Color.parseColor("#35266F")
                 }
         );
 
@@ -3229,7 +3229,7 @@ helpBg.setCornerRadius(
 
 helpBg.setStroke(
         dp(1),
-        Color.parseColor("#AFC4F5")
+        Color.parseColor("#455AA0")
 );
 
 helpCard.setBackground(
