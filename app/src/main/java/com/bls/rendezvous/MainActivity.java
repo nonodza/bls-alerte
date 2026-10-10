@@ -3217,8 +3217,8 @@ GradientDrawable helpBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#F8FAFF"),
-                        Color.parseColor("#EEF2FF")
+                        Color.parseColor("#EAF3FF"),
+                        Color.parseColor("#F0EBFF")
                 }
         );
 
@@ -3228,7 +3228,7 @@ helpBg.setCornerRadius(
 
 helpBg.setStroke(
         dp(1),
-        Color.parseColor("#E0E7F5")
+        Color.parseColor("#D1DDF6")
 );
 
 helpCard.setBackground(
@@ -3236,7 +3236,7 @@ helpCard.setBackground(
 );
 
 // =====================================================
-// HELP ICON
+// HELP ICON — PREMIUM HEADSET
 // =====================================================
 
 FrameLayout helpIconBox =
@@ -3246,7 +3246,7 @@ GradientDrawable helpIconBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#DCEAFF"),
+                        Color.parseColor("#DCEBFF"),
                         Color.parseColor("#E8DEFF")
                 }
         );
@@ -3257,26 +3257,29 @@ helpIconBg.setShape(
 
 helpIconBg.setStroke(
         dp(1),
-        Color.parseColor("#C9D9FA")
+        Color.parseColor("#C7D8FA")
 );
 
 helpIconBox.setBackground(
         helpIconBg
 );
 
-TextView helpIcon =
-        text(
-                "?",
-                22,
-                Color.parseColor("#3156B8")
-        );
+ImageView helpIcon =
+        new ImageView(this);
 
-helpIcon.setGravity(
-        Gravity.CENTER
+helpIcon.setImageResource(
+        R.drawable.ic_support_headset_premium
 );
 
-helpIcon.setTypeface(
-        Typeface.DEFAULT_BOLD
+helpIcon.setScaleType(
+        ImageView.ScaleType.FIT_CENTER
+);
+
+helpIcon.setPadding(
+        dp(10),
+        dp(10),
+        dp(10),
+        dp(10)
 );
 
 helpIconBox.addView(
