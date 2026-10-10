@@ -3228,8 +3228,7 @@ helpBg.setCornerRadius(
 
 helpBg.setStroke(
         dp(1),
-        Color.parseColor("#D1DDF6")
-);
+        Color.parseColor("#B8CCF5")
 
 helpCard.setBackground(
         helpBg
