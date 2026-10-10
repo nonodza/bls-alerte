@@ -3217,17 +3217,19 @@ GradientDrawable helpBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#EAF3FF"),
-                        Color.parseColor("#F0EBFF")
+                        Color.parseColor("#DCE8FF"),
+                        Color.parseColor("#C9D5FF"),
+                        Color.parseColor("#E1D5FF")
                 }
         );
 
 helpBg.setCornerRadius(
         dp(18)
 );
+
 helpBg.setStroke(
         dp(1),
-        Color.parseColor("#B8CCF5")
+        Color.parseColor("#AFC4F5")
 );
 
 helpCard.setBackground(
