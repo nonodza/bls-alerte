@@ -2548,16 +2548,18 @@ emptyCard.addView(
         emptySubtitleParams
 );
 
-// ADD EMPTY CARD
+
+ // ADD EMPTY CARD
 content.addView(
         emptyCard,
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         )
-);    
+);
+
 // =====================================================
-// HOW IT WORKS
+// HOW IT WORKS — PREMIUM GRADIENT
 // =====================================================
 
 LinearLayout howItWorks =
@@ -2573,6 +2575,8 @@ howItWorks.setPadding(
         dp(10),
         dp(5)
 );
+
+// Gradient background
 GradientDrawable howItWorksBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
@@ -2590,12 +2594,19 @@ howItWorksBg.setCornerRadius(
 
 howItWorksBg.setStroke(
         dp(1),
-        Color.parseColor("#D5DDF5")
+        Color.parseColor("#25E7D8")
 );
 
+// Apply background
 howItWorks.setBackground(
         howItWorksBg
 );
+
+// Subtle elevation
+howItWorks.setElevation(
+        dp(3)
+);
+
 
 // =====================================================
 // TITLE ROW
