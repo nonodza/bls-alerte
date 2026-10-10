@@ -3010,9 +3010,9 @@ quickActionsCard.setOrientation(
 
 quickActionsCard.setPadding(
         dp(14),
-        dp(9),
+        dp(7),
         dp(14),
-        dp(9)
+        dp(7)
 );
 
 // PREMIUM BLUE / PURPLE BACKGROUND
