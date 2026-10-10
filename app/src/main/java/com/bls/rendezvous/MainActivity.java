@@ -2298,11 +2298,15 @@ newApplication.setTypeface(
 );
 
 GradientDrawable newApplicationBg =
-        new GradientDrawable();
-
-newApplicationBg.setColor(
-        Color.WHITE
-);
+        new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{
+                        Color.parseColor("#00D8EE"),
+                        Color.parseColor("#168DE0"),
+                        Color.parseColor("#7946D8"),
+                        Color.parseColor("#F02AA3")
+                }
+        );
 
 newApplicationBg.setCornerRadius(
         dp(12)
