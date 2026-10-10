@@ -9989,11 +9989,11 @@ private LinearLayout createQuickAction(
             );
 
     iconParams.setMargins(
-            0,
-            0,
-            0,
-            dp(7)
-    );
+        0,
+        0,
+        0,
+        dp(5)
+);
 
     item.addView(
             icon,
@@ -10039,11 +10039,11 @@ private LinearLayout createQuickAction(
             );
 
     subtitleParams.setMargins(
-            0,
-            dp(4),
-            0,
-            0
-    );
+        0,
+        dp(3),
+        0,
+        0
+);
 
     item.addView(
             subtitleView,
