@@ -10018,8 +10018,7 @@ private LinearLayout createQuickAction(
     );
 
     item.addView(titleView);
-
-    // SUBTITLE
+// SUBTITLE
 
 TextView subtitleView =
         text(
@@ -10040,7 +10039,7 @@ LinearLayout.LayoutParams subtitleParams =
 
 subtitleParams.setMargins(
         0,
-        dp(3),
+        dp(4),
         0,
         0
 );
@@ -10051,4 +10050,5 @@ item.addView(
 );
 
 return item;
-}.      
+}
+    
