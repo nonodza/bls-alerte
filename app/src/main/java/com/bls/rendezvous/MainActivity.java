@@ -10021,35 +10021,34 @@ private LinearLayout createQuickAction(
 
     // SUBTITLE
 
-    text(
-        subtitle,
-        10,
-        highlighted
-                ? Color.parseColor("#F1F3FF")
-                : Color.parseColor("#64779F")
-);
+TextView subtitleView =
+        text(
+                subtitle,
+                9,
+                highlighted
+                        ? Color.parseColor("#F1F3FF")
+                        : Color.parseColor("#64779F")
+        );
 
-    subtitleView.setGravity(Gravity.CENTER);
+subtitleView.setGravity(Gravity.CENTER);
 
-    LinearLayout.LayoutParams subtitleParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
+LinearLayout.LayoutParams subtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
 
-    subtitleParams.setMargins(
+subtitleParams.setMargins(
         0,
         dp(3),
         0,
         0
 );
 
-    item.addView(
-            subtitleView,
-            subtitleParams
-    );
+item.addView(
+        subtitleView,
+        subtitleParams
+);
 
-    return item;
-}
-
-}
+return item;
+}.      
