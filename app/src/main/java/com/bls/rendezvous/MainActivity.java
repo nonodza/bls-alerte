@@ -3368,7 +3368,7 @@ TextView helpArrow =
         text(
                 "›",
                 28,
-                Color.parseColor("#3156B8")
+                Color.parseColor("#FFFFFF")
         );
 
 helpArrow.setGravity(
