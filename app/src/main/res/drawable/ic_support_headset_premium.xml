@@ -37,10 +37,8 @@
         android:strokeLineJoin="round"
         android:pathData="M18,18a4,4 0,0 1,-4 3h-2" />
 
-    <circle
+    <path
         android:fillColor="#6B5AE0"
-        android:cx="11"
-        android:cy="21"
-        android:r="1" />
+        android:pathData="M10,20.5a1,1 0,1 0,2 0a1,1 0,1 0,-2 0" />
 
 </vector>
