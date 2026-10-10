@@ -2394,12 +2394,16 @@ content.addView(
             dp(16)
     );
 
-    GradientDrawable emptyBg =
-            new GradientDrawable();
-
-    emptyBg.setColor(
-            Color.WHITE
-    );
+        GradientDrawable emptyBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{
+                            Color.parseColor("#CFFF99"),
+                            Color.parseColor("#25E7D8"),
+                            Color.parseColor("#22E6B9"),
+                            Color.parseColor("#7525B9")
+                    }
+            );
 
     emptyBg.setCornerRadius(
             dp(20)
@@ -2407,7 +2411,7 @@ content.addView(
 
     emptyBg.setStroke(
             dp(1),
-            Color.parseColor("#E1E8F5")
+            Color.parseColor("#D5DDF5")
     );
 
     emptyCard.setBackground(
