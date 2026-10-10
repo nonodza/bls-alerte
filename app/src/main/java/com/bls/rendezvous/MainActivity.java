@@ -2480,7 +2480,7 @@ TextView emptyTitle =
         text(
                 "No applications yet",
                 15,
-                Color.parseColor("#102B52")
+                Color.parseColor("#102044")
         );
 
 emptyTitle.setTypeface(
@@ -2518,7 +2518,7 @@ TextView emptySubtitle =
         text(
                 "Create your first application and keep your visa journey organized.",
                 12,
-                Color.parseColor("#71809A")
+                Color.parseColor("#263653")
         );
 
 emptySubtitle.setGravity(
@@ -2573,13 +2573,14 @@ howItWorks.setPadding(
         dp(10),
         dp(5)
 );
-
 GradientDrawable howItWorksBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#F8FAFF"),
-                        Color.parseColor("#F1F3FF")
+                        Color.parseColor("#CFFF99"),
+                        Color.parseColor("#25E7D8"),
+                        Color.parseColor("#22E6B9"),
+                        Color.parseColor("#7525B9")
                 }
         );
 
@@ -2589,7 +2590,7 @@ howItWorksBg.setCornerRadius(
 
 howItWorksBg.setStroke(
         dp(1),
-        Color.parseColor("#E2E8F7")
+        Color.parseColor("#D5DDF5")
 );
 
 howItWorks.setBackground(
