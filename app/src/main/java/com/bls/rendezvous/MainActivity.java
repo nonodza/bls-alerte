@@ -3319,7 +3319,7 @@ TextView helpTitle =
         text(
                 "Need help?",
                 15,
-                Color.parseColor("#102B52")
+                Color.parseColor("#FFFFFF")
         );
 
 helpTitle.setTypeface(
@@ -3334,7 +3334,7 @@ TextView helpSubtitle =
         text(
                 "Get support with your visa application",
                 11,
-                Color.parseColor("#71809A")
+                Color.parseColor("#E0E5FF")
         );
 
 helpText.addView(
