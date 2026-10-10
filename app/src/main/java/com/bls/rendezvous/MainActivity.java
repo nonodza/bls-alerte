@@ -3225,10 +3225,10 @@ GradientDrawable helpBg =
 helpBg.setCornerRadius(
         dp(18)
 );
-
 helpBg.setStroke(
         dp(1),
         Color.parseColor("#B8CCF5")
+);
 
 helpCard.setBackground(
         helpBg
