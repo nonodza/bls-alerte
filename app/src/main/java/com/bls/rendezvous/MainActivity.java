@@ -3215,11 +3215,12 @@ helpCard.setPadding(
 
 GradientDrawable helpBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
+                GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.parseColor("#101A3C"),
-                        Color.parseColor("#1D2D63"),
-                        Color.parseColor("#35266F")
+                        Color.parseColor("#25245F"),
+                        Color.parseColor("#40358F"),
+                        Color.parseColor("#6546B8"),
+                        Color.parseColor("#7948C8")
                 }
         );
 
@@ -3229,7 +3230,7 @@ helpBg.setCornerRadius(
 
 helpBg.setStroke(
         dp(1),
-        Color.parseColor("#455AA0")
+        Color.parseColor("#6546B8")
 );
 
 helpCard.setBackground(
