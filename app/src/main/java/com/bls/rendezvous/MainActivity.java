@@ -3188,7 +3188,7 @@ for (LinearLayout action : quickActions) {
     LinearLayout.LayoutParams actionParams =
             new LinearLayout.LayoutParams(
                     0,
-                    dp(80),
+                    dp(84),
                     1f
             );
 
