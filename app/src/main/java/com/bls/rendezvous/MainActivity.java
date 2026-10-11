@@ -2610,10 +2610,8 @@ howItWorks.setBackground(
 howItWorks.setElevation(
         dp(3)
 );
-
-
 // =====================================================
-// TITLE ROW
+// COMPACT HEADER — TITLE + SUBTITLE + BADGE
 // =====================================================
 
 LinearLayout howTitleRow =
@@ -2630,7 +2628,7 @@ howTitleRow.setGravity(
 TextView howTitle =
         text(
                 "How it works",
-                16,
+                14,
                 Color.parseColor("#102B52")
         );
 
@@ -2641,15 +2639,36 @@ howTitle.setTypeface(
 howTitleRow.addView(
         howTitle,
         new LinearLayout.LayoutParams(
-                0,
                 -2,
-                1f
+                -2
         )
 );
 
-// =====================================================
-// 3 STEPS BADGE
-// =====================================================
+TextView howSubtitle =
+        text(
+                "A simple way to stay organized",
+                10,
+                Color.parseColor("#102B52")
+        );
+
+LinearLayout.LayoutParams howSubtitleParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+howSubtitleParams.setMargins(
+        dp(7),
+        0,
+        dp(4),
+        0
+);
+
+howTitleRow.addView(
+        howSubtitle,
+        howSubtitleParams
+);
 
 TextView stepsBadge =
         text(
@@ -2663,14 +2682,7 @@ stepsBadge.setGravity(
 );
 
 stepsBadge.setTypeface(
-        Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        )
-);
-
-stepsBadge.setLetterSpacing(
-        0.08f
+        Typeface.DEFAULT_BOLD
 );
 
 GradientDrawable stepsBadgeBg =
@@ -2691,44 +2703,14 @@ stepsBadge.setBackground(
 howTitleRow.addView(
         stepsBadge,
         new LinearLayout.LayoutParams(
-                dp(62),
-                dp(24)
+                dp(54),
+                dp(22)
         )
 );
 
 howItWorks.addView(
         howTitleRow
 );
-
-// =====================================================
-// SUBTITLE
-// =====================================================
-
-TextView howSubtitle =
-        text(
-                "A simple way to stay organized",
-                12,
-                Color.parseColor("#71809A")
-        );
-
-LinearLayout.LayoutParams howSubtitleParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-howSubtitleParams.setMargins(
-        0,
-        dp(3),
-        0,
-        dp(8)
-);
-
-howItWorks.addView(
-        howSubtitle,
-        howSubtitleParams
-);
-
 // =====================================================
 // THREE STEPS
 // =====================================================
@@ -2789,69 +2771,7 @@ stepsRow.addView(
 howItWorks.addView(
         stepsRow
 );
-// =====================================================
-// HOW IT WORKS — COMPACT HEADER
-// =====================================================
 
-LinearLayout howItWorksHeader =
-        new LinearLayout(this);
-
-howItWorksHeader.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-howItWorksHeader.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-TextView howItWorksTitle =
-        text(
-                "How it works",
-                15,
-                Color.WHITE
-        );
-
-howItWorksTitle.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-TextView howItWorksSubtitle =
-        text(
-                "A simple way to stay organized",
-                10,
-                Color.WHITE
-        );
-
-LinearLayout.LayoutParams subtitleParams =
-        new LinearLayout.LayoutParams(
-                0,
-                -2,
-                1f
-        );
-
-subtitleParams.setMargins(
-        dp(8),
-        0,
-        0,
-        0
-);
-
-howItWorksHeader.addView(
-        howItWorksTitle,
-        new LinearLayout.LayoutParams(
-                -2,
-                -2
-        )
-);
-
-howItWorksHeader.addView(
-        howItWorksSubtitle,
-        subtitleParams
-);
-
-howItWorks.addView(
-        howItWorksHeader
-);
 // =====================================================
 // SUPPORTED DESTINATIONS — COMPACT PREMIUM CARD
 // =====================================================
