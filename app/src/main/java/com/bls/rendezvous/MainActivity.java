@@ -2790,25 +2790,67 @@ howItWorks.addView(
         stepsRow
 );
 // =====================================================
-// ADD HOW IT WORKS CARD
+// HOW IT WORKS — COMPACT HEADER
 // =====================================================
 
-LinearLayout.LayoutParams howItWorksParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
+LinearLayout howItWorksHeader =
+        new LinearLayout(this);
 
-howItWorksParams.setMargins(
-        0,
-        dp(10),
-        0,
-        dp(4)
+howItWorksHeader.setOrientation(
+        LinearLayout.HORIZONTAL
 );
 
-content.addView(
-        howItWorks,
-        howItWorksParams
+howItWorksHeader.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+TextView howItWorksTitle =
+        text(
+                "How it works",
+                15,
+                Color.WHITE
+        );
+
+howItWorksTitle.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+TextView howItWorksSubtitle =
+        text(
+                "A simple way to stay organized",
+                10,
+                Color.WHITE
+        );
+
+LinearLayout.LayoutParams subtitleParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+subtitleParams.setMargins(
+        dp(8),
+        0,
+        0,
+        0
+);
+
+howItWorksHeader.addView(
+        howItWorksTitle,
+        new LinearLayout.LayoutParams(
+                -2,
+                -2
+        )
+);
+
+howItWorksHeader.addView(
+        howItWorksSubtitle,
+        subtitleParams
+);
+
+howItWorks.addView(
+        howItWorksHeader
 );
 // =====================================================
 // SUPPORTED DESTINATIONS — COMPACT PREMIUM CARD
