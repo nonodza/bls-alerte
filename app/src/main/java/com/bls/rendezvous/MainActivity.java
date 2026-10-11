@@ -9930,64 +9930,54 @@ private void showVisaIssuingCountryPage() {
 
 
 // =====================================================
-// QUICK ACTION ITEM — ICON ONLY
+// ICON — COMPACT WHITE CIRCLE
 // =====================================================
 
-private LinearLayout createQuickAction(
-        String title,
-        String subtitle,
-        int iconRes,
-        boolean highlighted
-) {
+ImageView icon = new ImageView(this);
 
-    LinearLayout item = new LinearLayout(this);
+icon.setImageResource(iconRes);
 
-    item.setOrientation(
-            LinearLayout.VERTICAL
-    );
+icon.setScaleType(
+        ImageView.ScaleType.FIT_CENTER
+);
 
-    item.setGravity(
-            Gravity.CENTER
-    );
+icon.setPadding(
+        dp(5),
+        dp(5),
+        dp(5),
+        dp(5)
+);
 
-    item.setPadding(
-            dp(4),
-            dp(4),
-            dp(4),
-            dp(4)
-    );
+GradientDrawable iconBg =
+        new GradientDrawable();
 
-    // ICON — NO BACKGROUND BOX OR CIRCLE
+iconBg.setShape(
+        GradientDrawable.OVAL
+);
 
-    ImageView icon = new ImageView(this);
+iconBg.setColor(
+        Color.WHITE
+);
 
-    icon.setImageResource(iconRes);
+icon.setBackground(iconBg);
 
-    icon.setScaleType(
-            ImageView.ScaleType.FIT_CENTER
-    );
+LinearLayout.LayoutParams iconParams =
+        new LinearLayout.LayoutParams(
+                dp(32),
+                dp(32)
+        );
 
-    icon.setBackgroundColor(
-            Color.TRANSPARENT
-    );
+iconParams.setMargins(
+        0,
+        0,
+        0,
+        dp(3)
+);
 
-    LinearLayout.LayoutParams iconParams =
-            new LinearLayout.LayoutParams(
-                    dp(42),
-                    dp(42)
-            );
-
-    iconParams.setMargins(
-            0,
-            0,
-            0,
-            dp(6)
-    );
-
-    item.addView(
-            icon,
-            iconParams
-    );
+item.addView(
+        icon,
+        iconParams
+);
 
     // TITLE
 
