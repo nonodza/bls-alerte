@@ -10041,7 +10041,7 @@ private LinearLayout createQuickAction(
             subtitleParams
     );
 
-    return item
+    return item;
         
 }
 }
