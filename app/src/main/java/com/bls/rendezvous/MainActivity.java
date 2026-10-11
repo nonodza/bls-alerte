@@ -3042,22 +3042,23 @@ quickActionsCard.setPadding(
 
 GradientDrawable quickActionsBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
+                GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.parseColor("#E7F4FF"),
-                        Color.parseColor("#DDE7FF"),
-                        Color.parseColor("#EDE2FF")
+                        Color.parseColor("#43CEA2"),
+                        Color.parseColor("#185A9D")
                 }
         );
 
-quickActionsBg.setCornerRadius(dp(20));
+quickActionsBg.setCornerRadius(
+        dp(18)
+);
 
 quickActionsBg.setStroke(
         dp(1),
-        Color.parseColor("#C9D9FF")
+        Color.parseColor("#43CEA2")
 );
 
-quickActionsCard.setBackground(
+quickActionsContainer.setBackground(
         quickActionsBg
 );
 
