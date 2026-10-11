@@ -2789,7 +2789,27 @@ stepsRow.addView(
 howItWorks.addView(
         stepsRow
 );
+// =====================================================
+// ADD HOW IT WORKS CARD
+// =====================================================
 
+LinearLayout.LayoutParams howItWorksParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+howItWorksParams.setMargins(
+        0,
+        dp(10),
+        0,
+        dp(4)
+);
+
+content.addView(
+        howItWorks,
+        howItWorksParams
+);
 // =====================================================
 // SUPPORTED DESTINATIONS — COMPACT PREMIUM CARD
 // =====================================================
