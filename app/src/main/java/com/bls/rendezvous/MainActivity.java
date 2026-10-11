@@ -3065,7 +3065,9 @@ quickActionsCard.setBackground(
         quickActionsBg
 );
 
-// CARD HEADER
+// =====================================================
+// QUICK ACTIONS HEADER — INLINE
+// =====================================================
 
 LinearLayout quickActionsHeader =
         new LinearLayout(this);
@@ -3076,6 +3078,13 @@ quickActionsHeader.setOrientation(
 
 quickActionsHeader.setGravity(
         Gravity.CENTER_VERTICAL
+);
+
+quickActionsHeader.setPadding(
+        dp(8),
+        dp(6),
+        dp(8),
+        dp(4)
 );
 
 TextView quickActionsTitle =
@@ -3090,20 +3099,34 @@ quickActionsTitle.setTypeface(
 );
 
 quickActionsHeader.addView(
-        quickActionsTitle,
-        new LinearLayout.LayoutParams(
-                0,
-                -2,
-                1f
-        )
+        quickActionsTitle
 );
 
 TextView quickActionsSubtitle =
         text(
                 "Manage your visa applications",
-                11,
-                Color.parseColor("#6279A8")
+                10,
+                Color.parseColor("#263238")
         );
+
+LinearLayout.LayoutParams subtitleHeaderParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+subtitleHeaderParams.setMargins(
+        dp(8),
+        0,
+        0,
+        0
+);
+
+quickActionsHeader.addView(
+        quickActionsSubtitle,
+        subtitleHeaderParams
+);
 
 quickActionsCard.addView(
         quickActionsHeader
