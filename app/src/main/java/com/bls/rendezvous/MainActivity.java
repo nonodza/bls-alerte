@@ -2433,7 +2433,10 @@ emptyHeader.setGravity(
 );
 
 
- // TITLE + DESCRIPTION COLUMN
+// =====================================================
+// TITLE + DESCRIPTION COLUMN
+// =====================================================
+
 LinearLayout emptyTextColumn =
         new LinearLayout(this);
 
@@ -2445,6 +2448,7 @@ emptyTextColumn.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
+// TITLE
 TextView emptyTitle =
         text(
                 "No applications yet",
@@ -2464,6 +2468,7 @@ emptyTextColumn.addView(
         )
 );
 
+// DESCRIPTION
 TextView emptySubtitle =
         text(
                 "Start your visa application today.",
@@ -2498,14 +2503,18 @@ emptyTextColumn.addView(
         emptySubtitleParams
 );
 
-// HEADER: ICON + TEXT COLUMN    
+// =====================================================
+// HEADER: PREMIUM ICON + TEXT COLUMN
+// =====================================================
+
 emptyHeader.addView(
         emptyIconBox,
         new LinearLayout.LayoutParams(
                 dp(42),
                 dp(42)
         )
-);    
+);
+
 LinearLayout.LayoutParams emptyTextColumnParams =
         new LinearLayout.LayoutParams(
                 0,
@@ -2525,17 +2534,12 @@ emptyHeader.addView(
         emptyTextColumnParams
 );
 
+// =====================================================
+// ADD HEADER TO EMPTY CARD
+// =====================================================
+
 emptyCard.addView(
         emptyHeader,
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        )
-);
-
- // ADD EMPTY CARD
-content.addView(
-        emptyCard,
         new LinearLayout.LayoutParams(
                 -1,
                 -2
