@@ -9928,7 +9928,6 @@ private void showVisaTypePage() {
 private void showVisaIssuingCountryPage() {
 }
 
-
 // =====================================================
 // ICON — COMPACT WHITE CIRCLE
 // =====================================================
@@ -10006,40 +10005,43 @@ item.addView(
         titleView
 );
 
-  
-    // SUBTITLE
+// =====================================================
+// SUBTITLE — DARK GRAY
+// =====================================================
 
-    TextView subtitleView =
-            text(
-                    subtitle,
-                    9,
-                    Color.parseColor("#F3F0FF")
-            );
+TextView subtitleView =
+        text(
+                subtitle,
+                9,
+                Color.parseColor("#263238")
+        );
 
-    subtitleView.setGravity(
-            Gravity.CENTER
-    );
+subtitleView.setGravity(
+        Gravity.CENTER
+);
 
-    LinearLayout.LayoutParams subtitleParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
+LinearLayout.LayoutParams subtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
 
-    subtitleParams.setMargins(
-            0,
-            dp(3),
-            0,
-            0
-    );
+subtitleParams.setMargins(
+        0,
+        dp(3),
+        0,
+        0
+);
 
-    item.addView(
-            subtitleView,
-            subtitleParams
-    );
+item.addView(
+        subtitleView,
+        subtitleParams
+);
 
-    return item;
-        
+return item;
+
 }
 }
+
+
     
