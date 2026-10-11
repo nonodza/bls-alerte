@@ -2813,17 +2813,22 @@ GradientDrawable destinationsBg =
                 GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
                         Color.parseColor("#CFFF99"),
-                        Color.parseColor("#2507D8"),
                         Color.parseColor("#22E6B9"),
                         Color.parseColor("#7525B9")
                 }
         );
 
-destinationsBg.setCornerRadius(dp(16));
+destinationsBg.setCornerRadius(
+        dp(16)
+);
 
 destinationsBg.setStroke(
         dp(1),
         Color.parseColor("#25E7D8")
+);
+
+destinationsContainer.setBackground(
+        destinationsBg
 );
 
 destinationsContainer.setBackground(destinationsBg);
