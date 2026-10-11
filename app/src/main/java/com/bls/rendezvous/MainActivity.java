@@ -9930,7 +9930,7 @@ private void showVisaIssuingCountryPage() {
 
 
 // =====================================================
-// QUICK ACTION ITEM — PREMIUM CARD
+// QUICK ACTION ITEM — ICON ONLY
 // =====================================================
 
 private LinearLayout createQuickAction(
@@ -9942,44 +9942,22 @@ private LinearLayout createQuickAction(
 
     LinearLayout item = new LinearLayout(this);
 
-    item.setOrientation(LinearLayout.VERTICAL);
-    item.setGravity(Gravity.CENTER);
-
-    item.setPadding(
-        dp(4),
-        dp(4),
-        dp(4),
-        dp(4)
-);
-
-    // CARD BACKGROUND
-
-    GradientDrawable itemBg =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    highlighted
-                            ? new int[]{
-                                    Color.parseColor("#3989F8"),
-                                    Color.parseColor("#7354E8")
-                            }
-                            : new int[]{
-                                    Color.parseColor("#FFFFFF"),
-                                    Color.parseColor("#F0F4FF")
-                            }
-            );
-
-    itemBg.setCornerRadius(dp(14));
-
-    itemBg.setStroke(
-            dp(1),
-            highlighted
-                    ? Color.parseColor("#8BA9FF")
-                    : Color.parseColor("#DCE5FA")
+    item.setOrientation(
+            LinearLayout.VERTICAL
     );
 
-    item.setBackground(itemBg);
+    item.setGravity(
+            Gravity.CENTER
+    );
 
-    // ICON
+    item.setPadding(
+            dp(4),
+            dp(4),
+            dp(4),
+            dp(4)
+    );
+
+    // ICON — NO BACKGROUND BOX OR CIRCLE
 
     ImageView icon = new ImageView(this);
 
@@ -9989,27 +9967,9 @@ private LinearLayout createQuickAction(
             ImageView.ScaleType.FIT_CENTER
     );
 
-    icon.setPadding(
-            dp(7),
-            dp(7),
-            dp(7),
-            dp(7)
+    icon.setBackgroundColor(
+            Color.TRANSPARENT
     );
-
-    GradientDrawable iconBg =
-            new GradientDrawable();
-
-    iconBg.setShape(
-            GradientDrawable.OVAL
-    );
-
-    iconBg.setColor(
-            highlighted
-                    ? Color.WHITE
-                    : Color.parseColor("#DCEBFF")
-    );
-
-    icon.setBackground(iconBg);
 
     LinearLayout.LayoutParams iconParams =
             new LinearLayout.LayoutParams(
@@ -10018,11 +9978,11 @@ private LinearLayout createQuickAction(
             );
 
     iconParams.setMargins(
-        0,
-        0,
-        0,
-        dp(5)
-);
+            0,
+            0,
+            0,
+            dp(6)
+    );
 
     item.addView(
             icon,
@@ -10035,50 +9995,54 @@ private LinearLayout createQuickAction(
             text(
                     title,
                     11,
-                    highlighted
-                            ? Color.WHITE
-                            : Color.parseColor("#102B52")
+                    Color.WHITE
             );
 
-    titleView.setGravity(Gravity.CENTER);
+    titleView.setGravity(
+            Gravity.CENTER
+    );
 
     titleView.setTypeface(
             Typeface.DEFAULT_BOLD
     );
 
-    item.addView(titleView);
-// SUBTITLE
+    item.addView(
+            titleView
+    );
 
-TextView subtitleView =
-        text(
-                subtitle,
-                9,
-                highlighted
-                        ? Color.parseColor("#F1F3FF")
-                        : Color.parseColor("#64779F")
-        );
+    // SUBTITLE
 
-subtitleView.setGravity(Gravity.CENTER);
+    TextView subtitleView =
+            text(
+                    subtitle,
+                    9,
+                    Color.parseColor("#F3F0FF")
+            );
 
-LinearLayout.LayoutParams subtitleParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
+    subtitleView.setGravity(
+            Gravity.CENTER
+    );
 
-subtitleParams.setMargins(
-        0,
-        dp(3),
-        0,
-        0
-);
+    LinearLayout.LayoutParams subtitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
 
-item.addView(
-        subtitleView,
-        subtitleParams
-);
+    subtitleParams.setMargins(
+            0,
+            dp(3),
+            0,
+            0
+    );
 
-return item;
+    item.addView(
+            subtitleView,
+            subtitleParams
+    );
+
+    return item
+        
 }
 }
     
