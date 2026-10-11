@@ -2432,7 +2432,46 @@ emptyHeader.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
+// =====================================================
+// PREMIUM APPLICATION ICON
+// =====================================================
 
+FrameLayout emptyIconBox =
+        new FrameLayout(this);
+
+GradientDrawable emptyIconBg =
+        new GradientDrawable();
+
+emptyIconBg.setShape(
+        GradientDrawable.OVAL
+);
+
+emptyIconBg.setColor(
+        Color.parseColor("#EDE9FE")
+);
+
+emptyIconBox.setBackground(
+        emptyIconBg
+);
+
+ImageView emptyIcon =
+        new ImageView(this);
+
+emptyIcon.setImageResource(
+        R.drawable.ic_applications_premium
+);
+
+emptyIcon.setScaleType(
+        ImageView.ScaleType.CENTER
+);
+
+emptyIconBox.addView(
+        emptyIcon,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
 // =====================================================
 // TITLE + DESCRIPTION COLUMN
 // =====================================================
