@@ -10026,7 +10026,7 @@ private LinearLayout createQuickAction(
             iconParams
     );
 
-    // =====================================================
+  // =====================================================
 // TITLE — BLACK
 // =====================================================
 
@@ -10064,6 +10064,13 @@ subtitleView.setGravity(
         Gravity.CENTER
 );
 
+subtitleView.setMaxLines(2);
+
+subtitleView.setLineSpacing(
+        0,
+        1.0f
+);
+
 LinearLayout.LayoutParams subtitleParams =
         new LinearLayout.LayoutParams(
                 -1,
@@ -10083,5 +10090,5 @@ item.addView(
 );
 
 return item;
-}
+    }
 }
