@@ -10083,25 +10083,4 @@ item.addView(
 );
 
 return item;
-}
-    LinearLayout.LayoutParams subtitleParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
-
-    subtitleParams.setMargins(
-            0,
-            dp(2),
-            0,
-            0
-    );
-
-    item.addView(
-            subtitleView,
-            subtitleParams
-    );
-
-    return item;
-}
-                }
+    }
