@@ -2519,7 +2519,7 @@ emptyCard.addView(
 // DESCRIPTION
 TextView emptySubtitle =
         text(
-                "Start your visa application today."
+                "Start your visa application today.",
                 12,
                 Color.parseColor("#263653")
         );
@@ -2532,7 +2532,6 @@ emptySubtitle.setLineSpacing(
         0,
         1.1f
 );
-
 LinearLayout.LayoutParams emptySubtitleParams =
         new LinearLayout.LayoutParams(
                 -1,
