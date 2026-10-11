@@ -9935,7 +9935,9 @@ private void showVisaIssuingCountryPage() {
 
 ImageView icon = new ImageView(this);
 
-icon.setImageResource(iconRes);
+icon.setImageResource(
+        iconRes
+);
 
 icon.setScaleType(
         ImageView.ScaleType.FIT_CENTER
@@ -9959,7 +9961,9 @@ iconBg.setColor(
         Color.WHITE
 );
 
-icon.setBackground(iconBg);
+icon.setBackground(
+        iconBg
+);
 
 LinearLayout.LayoutParams iconParams =
         new LinearLayout.LayoutParams(
@@ -9979,27 +9983,30 @@ item.addView(
         iconParams
 );
 
-    // TITLE
+// =====================================================
+// TITLE — BLACK
+// =====================================================
 
-    TextView titleView =
-            text(
-                    title,
-                    11,
-                    Color.WHITE
-            );
+TextView titleView =
+        text(
+                title,
+                11,
+                Color.parseColor("#111827")
+        );
 
-    titleView.setGravity(
-            Gravity.CENTER
-    );
+titleView.setGravity(
+        Gravity.CENTER
+);
 
-    titleView.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+titleView.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-    item.addView(
-            titleView
-    );
+item.addView(
+        titleView
+);
 
+  
     // SUBTITLE
 
     TextView subtitleView =
