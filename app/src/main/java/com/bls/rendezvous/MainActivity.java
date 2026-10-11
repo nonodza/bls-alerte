@@ -2584,7 +2584,27 @@ emptyCard.addView(
                 -2
         )
 );
+// =====================================================
+// ADD EMPTY STATE CARD TO CONTENT
+// =====================================================
 
+LinearLayout.LayoutParams emptyCardParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+emptyCardParams.setMargins(
+        0,
+        dp(8),
+        0,
+        dp(4)
+);
+
+content.addView(
+        emptyCard,
+        emptyCardParams
+);
 // =====================================================
 // HOW IT WORKS — PREMIUM GRADIENT
 // =====================================================
