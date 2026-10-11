@@ -2498,7 +2498,14 @@ emptyTextColumn.addView(
         emptySubtitleParams
 );
 
-// HEADER: ICON + TEXT COLUMN
+// HEADER: ICON + TEXT COLUMN    
+emptyHeader.addView(
+        emptyIconBox,
+        new LinearLayout.LayoutParams(
+                dp(42),
+                dp(42)
+        )
+);    
 LinearLayout.LayoutParams emptyTextColumnParams =
         new LinearLayout.LayoutParams(
                 0,
