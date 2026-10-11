@@ -3039,15 +3039,16 @@ quickActionsCard.setPadding(
 );
 
 // =====================================================
-// QUICK ACTIONS — PREMIUM GREEN / BLUE GRADIENT
+// QUICK ACTIONS — PREMIUM GRADIENT
 // =====================================================
 
 GradientDrawable quickActionsBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.LEFT_RIGHT,
                 new int[]{
-                        Color.parseColor("#43CEA2"),
-                        Color.parseColor("#185A9D")
+                        Color.parseColor("#CFFF99"),
+                        Color.parseColor("#22E6B9"),
+                        Color.parseColor("#7525B9")
                 }
         );
 
@@ -3057,7 +3058,7 @@ quickActionsBg.setCornerRadius(
 
 quickActionsBg.setStroke(
         dp(1),
-        Color.parseColor("#43CEA2")
+        Color.parseColor("#22E6B9")
 );
 
 quickActionsCard.setBackground(
