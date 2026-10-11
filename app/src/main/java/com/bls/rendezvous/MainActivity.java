@@ -2388,12 +2388,11 @@ content.addView(
     );
 
     emptyCard.setPadding(
-            dp(16),
-            dp(16),
-            dp(16),
-            dp(16)
-    );
-
+        dp(12),
+        dp(8),
+        dp(12),
+        dp(8)
+);
         GradientDrawable emptyBg =
             new GradientDrawable(
                     GradientDrawable.Orientation.LEFT_RIGHT,
@@ -2520,7 +2519,7 @@ emptyCard.addView(
 // DESCRIPTION
 TextView emptySubtitle =
         text(
-                "Create your first application and keep your visa journey organized.",
+                "Start your visa application today."
                 12,
                 Color.parseColor("#263653")
         );
