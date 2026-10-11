@@ -2432,53 +2432,19 @@ emptyHeader.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-// ICON
-FrameLayout emptyIconBox =
-        new FrameLayout(this);
 
-GradientDrawable emptyIconBg =
-        new GradientDrawable();
+ // TITLE + DESCRIPTION COLUMN
+LinearLayout emptyTextColumn =
+        new LinearLayout(this);
 
-emptyIconBg.setShape(
-        GradientDrawable.OVAL
+emptyTextColumn.setOrientation(
+        LinearLayout.VERTICAL
 );
 
-emptyIconBg.setColor(
-        Color.parseColor("#EDE9FE")
+emptyTextColumn.setGravity(
+        Gravity.CENTER_VERTICAL
 );
 
-emptyIconBox.setBackground(
-        emptyIconBg
-);
-
-ImageView emptyIcon =
-        new ImageView(this);
-
-emptyIcon.setImageResource(
-        R.drawable.ic_applications_premium
-);
-
-emptyIcon.setScaleType(
-        ImageView.ScaleType.CENTER
-);
-
-emptyIconBox.addView(
-        emptyIcon,
-        new FrameLayout.LayoutParams(
-                -1,
-                -1
-        )
-);
-
-emptyHeader.addView(
-        emptyIconBox,
-        new LinearLayout.LayoutParams(
-                dp(42),
-                dp(42)
-        )
-);
-
-// TITLE
 TextView emptyTitle =
         text(
                 "No applications yet",
@@ -2490,37 +2456,18 @@ emptyTitle.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-LinearLayout.LayoutParams emptyTitleParams =
-        new LinearLayout.LayoutParams(
-                -2,
-                -2
-        );
-
-emptyTitleParams.setMargins(
-        dp(12),
-        0,
-        0,
-        0
-);
-
-emptyHeader.addView(
+emptyTextColumn.addView(
         emptyTitle,
-        emptyTitleParams
-);
-
-emptyCard.addView(
-        emptyHeader,
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         )
 );
 
-// DESCRIPTION
 TextView emptySubtitle =
         text(
                 "Start your visa application today.",
-                12,
+                11,
                 Color.parseColor("#263653")
         );
 
@@ -2530,8 +2477,9 @@ emptySubtitle.setGravity(
 
 emptySubtitle.setLineSpacing(
         0,
-        1.1f
+        1.0f
 );
+
 LinearLayout.LayoutParams emptySubtitleParams =
         new LinearLayout.LayoutParams(
                 -1,
@@ -2545,11 +2493,38 @@ emptySubtitleParams.setMargins(
         0
 );
 
-emptyCard.addView(
+emptyTextColumn.addView(
         emptySubtitle,
         emptySubtitleParams
 );
 
+// HEADER: ICON + TEXT COLUMN
+LinearLayout.LayoutParams emptyTextColumnParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+emptyTextColumnParams.setMargins(
+        dp(12),
+        0,
+        0,
+        0
+);
+
+emptyHeader.addView(
+        emptyTextColumn,
+        emptyTextColumnParams
+);
+
+emptyCard.addView(
+        emptyHeader,
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
 
  // ADD EMPTY CARD
 content.addView(
