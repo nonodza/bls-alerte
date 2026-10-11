@@ -3038,7 +3038,9 @@ quickActionsCard.setPadding(
         dp(0)
 );
 
-// PREMIUM BLUE / PURPLE BACKGROUND
+// =====================================================
+// QUICK ACTIONS — PREMIUM GREEN / BLUE GRADIENT
+// =====================================================
 
 GradientDrawable quickActionsBg =
         new GradientDrawable(
@@ -3050,7 +3052,7 @@ GradientDrawable quickActionsBg =
         );
 
 quickActionsBg.setCornerRadius(
-        dp(18)
+        dp(20)
 );
 
 quickActionsBg.setStroke(
@@ -3058,7 +3060,7 @@ quickActionsBg.setStroke(
         Color.parseColor("#43CEA2")
 );
 
-quickActionsContainer.setBackground(
+quickActionsCard.setBackground(
         quickActionsBg
 );
 
