@@ -2389,9 +2389,9 @@ content.addView(
 
     emptyCard.setPadding(
         dp(12),
-        dp(8),
+        dp(6),
         dp(12),
-        dp(8)
+        dp(6)
 );
         GradientDrawable emptyBg =
             new GradientDrawable(
@@ -2540,7 +2540,7 @@ LinearLayout.LayoutParams emptySubtitleParams =
 
 emptySubtitleParams.setMargins(
         0,
-        dp(8),
+        dp(2),
         0,
         0
 );
