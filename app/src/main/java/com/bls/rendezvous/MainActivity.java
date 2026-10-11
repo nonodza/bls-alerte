@@ -3064,7 +3064,7 @@ quickActionsBg.setStroke(
 quickActionsCard.setBackground(
         quickActionsBg
 );
-
+    
 // =====================================================
 // QUICK ACTIONS HEADER — INLINE
 // =====================================================
@@ -3132,22 +3132,9 @@ quickActionsCard.addView(
         quickActionsHeader
 );
 
-LinearLayout.LayoutParams quickActionsSubtitleParams =
-        new LinearLayout.LayoutParams(-1, -2);
-
-quickActionsSubtitleParams.setMargins(
-        0,
-        dp(3),
-        0,
-        dp(10)
-);
-
-quickActionsCard.addView(
-        quickActionsSubtitle,
-        quickActionsSubtitleParams
-);
-
+// =====================================================
 // ACTIONS ROW
+// =====================================================
 
 LinearLayout quickActionsRow =
         new LinearLayout(this);
@@ -3199,11 +3186,11 @@ LinearLayout[] quickActions = {
 for (LinearLayout action : quickActions) {
 
     LinearLayout.LayoutParams actionParams =
-        new LinearLayout.LayoutParams(
-                0,
-                dp(72),
-                1f
-        );
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(72),
+                    1f
+            );
 
     actionParams.setMargins(
             dp(3),
@@ -3222,7 +3209,9 @@ quickActionsCard.addView(
         quickActionsRow
 );
 
+// =====================================================
 // ADD QUICK ACTIONS CARD
+// =====================================================
 
 LinearLayout.LayoutParams quickActionsCardParams =
         new LinearLayout.LayoutParams(
@@ -3241,6 +3230,8 @@ content.addView(
         quickActionsCard,
         quickActionsCardParams
 );
+
+
 // =====================================================
 // NEED HELP
 // =====================================================
