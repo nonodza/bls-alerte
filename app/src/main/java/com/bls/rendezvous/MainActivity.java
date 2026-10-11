@@ -10027,43 +10027,63 @@ private LinearLayout createQuickAction(
     );
 
     // =====================================================
-    // TITLE — BLACK
-    // =====================================================
+// TITLE — BLACK
+// =====================================================
 
-    TextView titleView =
-            text(
-                    title,
-                    11,
-                    Color.parseColor("#111827")
-            );
+TextView titleView =
+        text(
+                title,
+                12,
+                Color.parseColor("#111827")
+        );
 
-    titleView.setGravity(
-            Gravity.CENTER
-    );
+titleView.setGravity(
+        Gravity.CENTER
+);
 
-    titleView.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+titleView.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
-    item.addView(
-            titleView
-    );
+item.addView(
+        titleView
+);
 
-    // =====================================================
-    // SUBTITLE — DARK GRAY
-    // =====================================================
+// =====================================================
+// SUBTITLE — DARK GRAY
+// =====================================================
 
-    TextView subtitleView =
-            text(
-                    subtitle,
-                    9,
-                    Color.parseColor("#263238")
-            );
+TextView subtitleView =
+        text(
+                subtitle,
+                10,
+                Color.parseColor("#263238")
+        );
 
-    subtitleView.setGravity(
-            Gravity.CENTER
-    );
+subtitleView.setGravity(
+        Gravity.CENTER
+);
 
+LinearLayout.LayoutParams subtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+subtitleParams.setMargins(
+        0,
+        dp(2),
+        0,
+        0
+);
+
+item.addView(
+        subtitleView,
+        subtitleParams
+);
+
+return item;
+}
     LinearLayout.LayoutParams subtitleParams =
             new LinearLayout.LayoutParams(
                     -1,
