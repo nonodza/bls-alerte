@@ -3152,7 +3152,7 @@ quickActionsRow.setGravity(
 LinearLayout myApplicationsAction =
         createQuickAction(
                 "My Applications",
-                "View your applications",
+                "View your\napplications",
                 R.drawable.ic_slots_premium,
                 false
         );
@@ -3162,7 +3162,7 @@ LinearLayout myApplicationsAction =
 LinearLayout newApplicationAction =
         createQuickAction(
                 "New Application",
-                "Start a new visa application",
+                "Create new\napplication",
                 R.drawable.ic_dashboard_premium,
                 true
         );
@@ -3172,7 +3172,7 @@ LinearLayout newApplicationAction =
 LinearLayout documentsAction =
         createQuickAction(
                 "Documents",
-                "Access your documents",
+                "Access your\ndocuments",
                 R.drawable.ic_documents_premium,
                 false
         );
