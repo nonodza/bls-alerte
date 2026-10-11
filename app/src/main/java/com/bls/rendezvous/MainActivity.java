@@ -9929,96 +9929,135 @@ private void showVisaIssuingCountryPage() {
 }
 
 // =====================================================
-// ICON — COMPACT WHITE CIRCLE
+// QUICK ACTION ITEM — PREMIUM CARD
 // =====================================================
 
-ImageView icon = new ImageView(this);
+private LinearLayout createQuickAction(
+        String title,
+        String subtitle,
+        int iconRes,
+        boolean highlighted
+) {
 
-icon.setImageResource(
-        iconRes
+    LinearLayout item = new LinearLayout(this);
+
+    item.setOrientation(LinearLayout.VERTICAL);
+    item.setGravity(Gravity.CENTER);
+
+    item.setPadding(
+        dp(4),
+        dp(4),
+        dp(4),
+        dp(4)
 );
 
-icon.setScaleType(
-        ImageView.ScaleType.FIT_CENTER
-);
+    // CARD BACKGROUND
 
-icon.setPadding(
-        dp(5),
-        dp(5),
-        dp(5),
+    GradientDrawable itemBg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    highlighted
+                            ? new int[]{
+                                    Color.parseColor("#3989F8"),
+                                    Color.parseColor("#7354E8")
+                            }
+                            : new int[]{
+                                    Color.parseColor("#FFFFFF"),
+                                    Color.parseColor("#F0F4FF")
+                            }
+            );
+
+    itemBg.setCornerRadius(dp(14));
+
+    itemBg.setStroke(
+            dp(1),
+            highlighted
+                    ? Color.parseColor("#8BA9FF")
+                    : Color.parseColor("#DCE5FA")
+    );
+
+    item.setBackground(itemBg);
+
+    // ICON
+
+    ImageView icon = new ImageView(this);
+
+    icon.setImageResource(iconRes);
+
+    icon.setScaleType(
+            ImageView.ScaleType.FIT_CENTER
+    );
+
+    icon.setPadding(
+            dp(7),
+            dp(7),
+            dp(7),
+            dp(7)
+    );
+
+    GradientDrawable iconBg =
+            new GradientDrawable();
+
+    iconBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconBg.setColor(
+            highlighted
+                    ? Color.WHITE
+                    : Color.parseColor("#DCEBFF")
+    );
+
+    icon.setBackground(iconBg);
+
+    LinearLayout.LayoutParams iconParams =
+            new LinearLayout.LayoutParams(
+                    dp(42),
+                    dp(42)
+            );
+
+    iconParams.setMargins(
+        0,
+        0,
+        0,
         dp(5)
 );
 
-GradientDrawable iconBg =
-        new GradientDrawable();
+    item.addView(
+            icon,
+            iconParams
+    );
 
-iconBg.setShape(
-        GradientDrawable.OVAL
-);
+    // TITLE
 
-iconBg.setColor(
-        Color.WHITE
-);
+    TextView titleView =
+            text(
+                    title,
+                    11,
+                    highlighted
+                            ? Color.WHITE
+                            : Color.parseColor("#102B52")
+            );
 
-icon.setBackground(
-        iconBg
-);
+    titleView.setGravity(Gravity.CENTER);
 
-LinearLayout.LayoutParams iconParams =
-        new LinearLayout.LayoutParams(
-                dp(32),
-                dp(32)
-        );
+    titleView.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
 
-iconParams.setMargins(
-        0,
-        0,
-        0,
-        dp(3)
-);
-
-item.addView(
-        icon,
-        iconParams
-);
-
-// =====================================================
-// TITLE — BLACK
-// =====================================================
-
-TextView titleView =
-        text(
-                title,
-                11,
-                Color.parseColor("#111827")
-        );
-
-titleView.setGravity(
-        Gravity.CENTER
-);
-
-titleView.setTypeface(
-        Typeface.DEFAULT_BOLD
-);
-
-item.addView(
-        titleView
-);
-
-// =====================================================
-// SUBTITLE — DARK GRAY
-// =====================================================
+    item.addView(titleView);
+// SUBTITLE
 
 TextView subtitleView =
         text(
                 subtitle,
                 9,
-                Color.parseColor("#263238")
+                highlighted
+                        ? Color.parseColor("#F1F3FF")
+                        : Color.parseColor("#64779F")
         );
 
-subtitleView.setGravity(
-        Gravity.CENTER
-);
+subtitleView.setGravity(Gravity.CENTER);
 
 LinearLayout.LayoutParams subtitleParams =
         new LinearLayout.LayoutParams(
@@ -10039,9 +10078,5 @@ item.addView(
 );
 
 return item;
-
 }
 }
-
-
-    
