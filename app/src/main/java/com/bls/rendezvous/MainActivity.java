@@ -10363,6 +10363,173 @@ mainCard.addView(
         description,
         descriptionParams
 );
+  // =================================================
+// DESTINATION FILTERS — PREMIUM PILLS
+// =================================================
+
+LinearLayout filterRow =
+        new LinearLayout(this);
+
+filterRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+filterRow.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+String[] filterNames = {
+        "Popular",
+        "Schengen",
+        "Americas"
+};
+
+for (int i = 0; i < filterNames.length; i++) {
+
+    final int filterIndex = i;
+
+    TextView filter =
+            text(
+                    filterNames[i],
+                    12,
+                    i == 0
+                            ? Color.WHITE
+                            : Color.parseColor("#D8DEFF")
+            );
+
+    filter.setGravity(
+            Gravity.CENTER
+    );
+
+    filter.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    filter.setSingleLine(true);
+
+    filter.setPadding(
+            dp(10),
+            dp(10),
+            dp(10),
+            dp(10)
+    );
+
+    GradientDrawable filterBackground =
+            new GradientDrawable();
+
+    filterBackground.setCornerRadius(
+            dp(24)
+    );
+
+    if (i == 0) {
+
+        filterBackground.setColor(
+                Color.parseColor("#6548F5")
+        );
+
+    } else {
+
+        filterBackground.setColor(
+                Color.TRANSPARENT
+        );
+
+        filterBackground.setStroke(
+                dp(1),
+                Color.parseColor("#8E8BFA")
+        );
+    }
+
+    filter.setBackground(
+            filterBackground
+    );
+
+    LinearLayout.LayoutParams filterParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    dp(42),
+                    1f
+            );
+
+    filterParams.setMargins(
+            dp(3),
+            0,
+            dp(3),
+            0
+    );
+
+    filterRow.addView(
+            filter,
+            filterParams
+    );
+
+    filter.setOnClickListener(
+            v -> {
+
+                for (int j = 0;
+                     j < filterRow.getChildCount();
+                     j++) {
+
+                    TextView other =
+                            (TextView) filterRow.getChildAt(j);
+
+                    GradientDrawable bg =
+                            new GradientDrawable();
+
+                    bg.setCornerRadius(
+                            dp(24)
+                    );
+
+                    if (j == filterIndex) {
+
+                        bg.setColor(
+                                Color.parseColor("#6548F5")
+                        );
+
+                        other.setTextColor(
+                                Color.WHITE
+                        );
+
+                    } else {
+
+                        bg.setColor(
+                                Color.TRANSPARENT
+                        );
+
+                        bg.setStroke(
+                                dp(1),
+                                Color.parseColor("#8E8BFA")
+                        );
+
+                        other.setTextColor(
+                                Color.parseColor("#D8DEFF")
+                        );
+                    }
+
+                    other.setBackground(bg);
+                }
+
+                // سيتم ربط التصنيف بفلترة الوجهات في الخطوة التالية.
+            }
+    );
+}
+
+LinearLayout.LayoutParams filterRowParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+filterRowParams.setMargins(
+        0,
+        dp(4),
+        0,
+        dp(4)
+);
+
+mainCard.addView(
+        filterRow,
+        filterRowParams
+);  
 // =================================================
 // ADD MAIN CARD TO PAGE
 // =================================================
