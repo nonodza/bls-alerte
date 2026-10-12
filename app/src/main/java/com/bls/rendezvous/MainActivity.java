@@ -10534,6 +10534,12 @@ mainCard.addView(
 // ADD MAIN CARD TO PAGE
 // =================================================
 
+FrameLayout mainCardFrame =
+        new FrameLayout(this);
+
+mainCardFrame.setClipChildren(false);
+mainCardFrame.setClipToPadding(false);
+
 LinearLayout.LayoutParams mainCardParams =
         new LinearLayout.LayoutParams(
                 -1,
@@ -10547,8 +10553,16 @@ mainCardParams.setMargins(
         dp(8)
 );
 
-page.addView(
+mainCardFrame.addView(
         mainCard,
+        new FrameLayout.LayoutParams(
+                -1,
+                -2
+        )
+);
+
+page.addView(
+        mainCardFrame,
         mainCardParams
 );
     // =================================================
@@ -10800,4 +10814,75 @@ TextView destinationTitle =
             pageScroll
     );
 } 
+ // =================================================
+// PREMIUM WAVE BACKGROUND
+// =================================================
+
+private class PremiumWaveView extends View {
+
+    private final Paint wavePaint = new Paint(
+            Paint.ANTI_ALIAS_FLAG
+    );
+
+    private final Path wavePath = new Path();
+
+    public PremiumWaveView(Context context) {
+        super(context);
+
+        setLayerType(
+                View.LAYER_TYPE_SOFTWARE,
+                null
+        );
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        float w = getWidth();
+        float h = getHeight();
+
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+
+        wavePath.reset();
+
+        wavePath.moveTo(0, 0);
+        wavePath.lineTo(w, 0);
+        wavePath.lineTo(w, h * 0.78f);
+
+        wavePath.cubicTo(
+                w * 0.78f, h * 0.96f,
+                w * 0.38f, h * 0.72f,
+                0, h * 0.88f
+        );
+
+        wavePath.close();
+
+        LinearGradient gradient =
+                new LinearGradient(
+                        0,
+                        0,
+                        w,
+                        h,
+                        new int[]{
+                                Color.parseColor("#10265F"),
+                                Color.parseColor("#2456B8"),
+                                Color.parseColor("#7045D4")
+                        },
+                        null,
+                        Shader.TileMode.CLAMP
+                );
+
+        wavePaint.setShader(gradient);
+
+        canvas.drawPath(
+                wavePath,
+                wavePaint
+        );
+
+        wavePaint.setShader(null);
+    }
+}   
 }
