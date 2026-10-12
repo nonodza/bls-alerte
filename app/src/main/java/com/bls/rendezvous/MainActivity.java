@@ -10948,4 +10948,5 @@ protected void onDraw(Canvas canvas) {
 
     canvas.drawPath(waveEdge, edgePaint);
 }
-}   
+}
+}
