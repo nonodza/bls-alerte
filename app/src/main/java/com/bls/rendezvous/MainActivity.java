@@ -10267,52 +10267,124 @@ private void showNewApplication() {
     );
 
     // =================================================
-    // INTRODUCTION
-    // =================================================
+// MAIN CARD — PREMIUM GRADIENT
+// =================================================
 
-    TextView intro =
-            text(
-                    "Where are you planning to apply?",
-                    17,
-                    Color.parseColor("#102B52")
-            );
+LinearLayout mainCard =
+        new LinearLayout(this);
 
-    intro.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+mainCard.setOrientation(
+        LinearLayout.VERTICAL
+);
 
-    LinearLayout.LayoutParams introParams =
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            );
+mainCard.setPadding(
+        dp(18),
+        dp(20),
+        dp(18),
+        dp(18)
+);
 
-    introParams.setMargins(
-            0,
-            dp(28),
-            0,
-            dp(6)
-    );
+GradientDrawable mainCardBackground =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#10265F"),
+                        Color.parseColor("#2456B8"),
+                        Color.parseColor("#7045D4")
+                }
+        );
 
-    page.addView(
-            intro,
-            introParams
-    );
+mainCardBackground.setCornerRadius(
+        dp(24)
+);
 
-    TextView description =
-            text(
-                    "Choose your destination to begin a new application.",
-                    13,
-                    Color.parseColor("#71809A")
-            );
+mainCardBackground.setStroke(
+        dp(1),
+        Color.parseColor("#5C83F0")
+);
 
-    description.setLineSpacing(
-            dp(2),
-            1.05f
-    );
+mainCard.setBackground(
+        mainCardBackground
+);
 
-    page.addView(description);
+mainCard.setElevation(
+        dp(5)
+);
 
+// =================================================
+// TITLE
+// =================================================
+
+TextView intro =
+        text(
+                "Where are you planning to apply?",
+                20,
+                Color.WHITE
+        );
+
+intro.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+mainCard.addView(
+        intro
+);
+
+// =================================================
+// DESCRIPTION
+// =================================================
+
+TextView description =
+        text(
+                "Choose your destination to begin a new application.",
+                13,
+                Color.parseColor("#E1E9FF")
+        );
+
+description.setLineSpacing(
+        dp(2),
+        1.05f
+);
+
+LinearLayout.LayoutParams descriptionParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+descriptionParams.setMargins(
+        0,
+        dp(6),
+        0,
+        dp(16)
+);
+
+mainCard.addView(
+        description,
+        descriptionParams
+);
+
+// =================================================
+// ADD MAIN CARD TO PAGE
+// =================================================
+
+LinearLayout.LayoutParams mainCardParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+mainCardParams.setMargins(
+        0,
+        dp(24),
+        0,
+        dp(8)
+);
+
+page.addView(
+        mainCard,
+        mainCardParams
+);
     // =================================================
     // DESTINATION OPTIONS
     // =================================================
