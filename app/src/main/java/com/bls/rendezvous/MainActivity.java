@@ -10396,14 +10396,28 @@ private void showNewApplication() {
                 Typeface.DEFAULT_BOLD
         );
 
-        GradientDrawable iconBackground =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.parseColor("#2456B8"),
-                                Color.parseColor("#7045D4")
-                        }
-                );
+        GradientDrawable mainCardBackground =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#10265F"),
+                        Color.parseColor("#2456B8"),
+                        Color.parseColor("#7045D4")
+                }
+        );
+
+mainCardBackground.setCornerRadius(
+        dp(24)
+);
+
+mainCardBackground.setStroke(
+        dp(1),
+        Color.parseColor("#5C83F0")
+);
+
+mainCard.setBackground(
+        mainCardBackground
+);
 
         iconBackground.setCornerRadius(
                 dp(13)
