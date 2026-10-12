@@ -10540,7 +10540,7 @@ mainCard.addView(
         filterRowParams
 );  
 // =================================================
-// ADD MAIN CARD TO PAGE
+// ADD MAIN CARD TO PAGE — PREMIUM WAVE
 // =================================================
 
 FrameLayout mainCardFrame =
@@ -10548,6 +10548,37 @@ FrameLayout mainCardFrame =
 
 mainCardFrame.setClipChildren(false);
 mainCardFrame.setClipToPadding(false);
+
+PremiumWaveView waveBackground =
+        new PremiumWaveView(this);
+
+FrameLayout.LayoutParams waveParams =
+        new FrameLayout.LayoutParams(
+                -1,
+                dp(210),
+                Gravity.TOP
+        );
+
+mainCardFrame.addView(
+        waveBackground,
+        waveParams
+);
+
+mainCard.setBackgroundColor(
+        Color.TRANSPARENT
+);
+
+FrameLayout.LayoutParams contentParams =
+        new FrameLayout.LayoutParams(
+                -1,
+                -2,
+                Gravity.TOP
+        );
+
+mainCardFrame.addView(
+        mainCard,
+        contentParams
+);
 
 LinearLayout.LayoutParams mainCardParams =
         new LinearLayout.LayoutParams(
@@ -10560,14 +10591,6 @@ mainCardParams.setMargins(
         dp(24),
         0,
         dp(8)
-);
-
-mainCardFrame.addView(
-        mainCard,
-        new FrameLayout.LayoutParams(
-                -1,
-                -2
-        )
 );
 
 page.addView(
@@ -10657,26 +10680,7 @@ page.addView(
                 Typeface.DEFAULT_BOLD
         );
 
-        // =====================================================
-// ICON BACKGROUND
-// =====================================================
-
-GradientDrawable iconBackground =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                        Color.parseColor("#2456B8"),
-                        Color.parseColor("#7045D4")
-                }
-        );
-
-iconBackground.setCornerRadius(
-        dp(13)
-);
-
-iconBox.setBackground(
-        iconBackground
-);
+       
 
 card.addView(
         iconBox,
