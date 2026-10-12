@@ -52,6 +52,8 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.graphics.Canvas;
 import android.view.View;
+import android.content.Context;
+import android.graphics.Path;
 
 public class MainActivity extends Activity {
 
