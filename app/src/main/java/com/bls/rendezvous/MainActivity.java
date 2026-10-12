@@ -3211,7 +3211,13 @@ LinearLayout newApplicationAction =
                 R.drawable.ic_dashboard_premium,
                 true
         );
+// =====================================================
+// NEW APPLICATION — CLICK
+// =====================================================
 
+newApplicationAction.setOnClickListener(
+        v -> showNewApplication()
+);
 // ACTION 3 — DOCUMENTS
 
 LinearLayout documentsAction =
@@ -10136,4 +10142,415 @@ item.addView(
 
 return item;
     }
+   // =====================================================
+// NEW APPLICATION — DESTINATION SELECTION
+// =====================================================
+
+private void showNewApplication() {
+
+    LinearLayout page =
+            new LinearLayout(this);
+
+    page.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    page.setPadding(
+            dp(20),
+            dp(18),
+            dp(20),
+            dp(20)
+    );
+
+    page.setBackgroundColor(
+            Color.parseColor("#F4F7FC")
+    );
+
+    // =================================================
+    // HEADER
+    // =================================================
+
+    LinearLayout header =
+            new LinearLayout(this);
+
+    header.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
+
+    header.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    TextView backButton =
+            text(
+                    "‹",
+                    34,
+                    Color.parseColor("#173A78")
+            );
+
+    backButton.setGravity(
+            Gravity.CENTER
+    );
+
+    header.addView(
+            backButton,
+            new LinearLayout.LayoutParams(
+                    dp(42),
+                    dp(48)
+            )
+    );
+
+    backButton.setOnClickListener(
+            v -> showApplications()
+    );
+
+    LinearLayout titleColumn =
+            new LinearLayout(this);
+
+    titleColumn.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    TextView pageTitle =
+            text(
+                    "New Application",
+                    21,
+                    Color.parseColor("#102B52")
+            );
+
+    pageTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    titleColumn.addView(pageTitle);
+
+    TextView pageSubtitle =
+            text(
+                    "Start your visa journey",
+                    12,
+                    Color.parseColor("#71809A")
+            );
+
+    titleColumn.addView(pageSubtitle);
+
+    LinearLayout.LayoutParams titleColumnParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -2,
+                    1f
+            );
+
+    titleColumnParams.setMargins(
+            dp(8),
+            0,
+            0,
+            0
+    );
+
+    header.addView(
+            titleColumn,
+            titleColumnParams
+    );
+
+    page.addView(
+            header,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
+
+    // =================================================
+    // INTRODUCTION
+    // =================================================
+
+    TextView intro =
+            text(
+                    "Where are you planning to apply?",
+                    17,
+                    Color.parseColor("#102B52")
+            );
+
+    intro.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    LinearLayout.LayoutParams introParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    introParams.setMargins(
+            0,
+            dp(28),
+            0,
+            dp(6)
+    );
+
+    page.addView(
+            intro,
+            introParams
+    );
+
+    TextView description =
+            text(
+                    "Choose your destination to begin a new application.",
+                    13,
+                    Color.parseColor("#71809A")
+            );
+
+    description.setLineSpacing(
+            dp(2),
+            1.05f
+    );
+
+    page.addView(description);
+
+    // =================================================
+    // DESTINATION OPTIONS
+    // =================================================
+
+    String[] destinations = {
+            "Schengen",
+            "United States",
+            "Canada",
+            "United Kingdom"
+    };
+
+    String[] descriptions = {
+            "Choose a European country",
+            "Apply for a US visa",
+            "Apply for a Canadian visa",
+            "Apply for a UK visa"
+    };
+
+    String[] icons = {
+            "EU",
+            "US",
+            "CA",
+            "UK"
+    };
+
+    for (int i = 0; i < destinations.length; i++) {
+
+        final String selectedDestination =
+                destinations[i];
+
+        LinearLayout card =
+                new LinearLayout(this);
+
+        card.setOrientation(
+                LinearLayout.HORIZONTAL
+        );
+
+        card.setGravity(
+                Gravity.CENTER_VERTICAL
+        );
+
+        card.setPadding(
+                dp(14),
+                dp(12),
+                dp(14),
+                dp(12)
+        );
+
+        GradientDrawable cardBackground =
+                new GradientDrawable();
+
+        cardBackground.setColor(
+                Color.WHITE
+        );
+
+        cardBackground.setCornerRadius(
+                dp(16)
+        );
+
+        cardBackground.setStroke(
+                dp(1),
+                Color.parseColor("#DFE7F4")
+        );
+
+        card.setBackground(
+                cardBackground
+        );
+
+        TextView iconBox =
+                text(
+                        icons[i],
+                        13,
+                        Color.parseColor("#FFFFFF")
+                );
+
+        iconBox.setGravity(
+                Gravity.CENTER
+        );
+
+        iconBox.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        GradientDrawable iconBackground =
+                new GradientDrawable(
+                        GradientDrawable.Orientation.TL_BR,
+                        new int[]{
+                                Color.parseColor("#2456B8"),
+                                Color.parseColor("#7045D4")
+                        }
+                );
+
+        iconBackground.setCornerRadius(
+                dp(13)
+        );
+
+        iconBox.setBackground(
+                iconBackground
+        );
+
+        card.addView(
+                iconBox,
+                new LinearLayout.LayoutParams(
+                        dp(48),
+                        dp(48)
+                )
+        );
+
+        LinearLayout textColumn =
+                new LinearLayout(this);
+
+        textColumn.setOrientation(
+                LinearLayout.VERTICAL
+        );
+
+        TextView destinationTitle =
+                text(
+                        destinations[i],
+                        15,
+                        Color.parseColor("#102B52")
+                );
+
+        destinationTitle.setTypeface(
+                Typeface.DEFAULT_BOLD
+        );
+
+        textColumn.addView(destinationTitle);
+
+        TextView destinationSubtitle =
+                text(
+                        descriptions[i],
+                        11,
+                        Color.parseColor("#71809A")
+                );
+
+        LinearLayout.LayoutParams subtitleParams =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
+
+        subtitleParams.setMargins(
+                0,
+                dp(4),
+                0,
+                0
+        );
+
+        textColumn.addView(
+                destinationSubtitle,
+                subtitleParams
+        );
+
+        LinearLayout.LayoutParams textParams =
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1f
+                );
+
+        textParams.setMargins(
+                dp(12),
+                0,
+                dp(8),
+                0
+        );
+
+        card.addView(
+                textColumn,
+                textParams
+        );
+
+        TextView arrow =
+                text(
+                        "›",
+                        26,
+                        Color.parseColor("#2456B8")
+                );
+
+        arrow.setGravity(
+                Gravity.CENTER
+        );
+
+        card.addView(
+                arrow,
+                new LinearLayout.LayoutParams(
+                        dp(24),
+                        dp(42)
+                )
+        );
+
+        LinearLayout.LayoutParams cardParams =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        -2
+                );
+
+        cardParams.setMargins(
+                0,
+                dp(12),
+                0,
+                0
+        );
+
+        page.addView(
+                card,
+                cardParams
+        );
+
+        card.setOnClickListener(
+                v -> {
+
+                    // Next step:
+                    // Open the selected destination flow.
+                    // Schengen will ask for a country.
+                    // Other destinations will open
+                    // their visa details step.
+
+                    android.widget.Toast.makeText(
+                            this,
+                            selectedDestination,
+                            android.widget.Toast.LENGTH_SHORT
+                    ).show();
+                }
+        );
+    }
+
+    // =================================================
+    // CONTENT SCROLL
+    // =================================================
+
+    ScrollView pageScroll =
+            new ScrollView(this);
+
+    pageScroll.setFillViewport(true);
+
+    pageScroll.setClipToPadding(false);
+
+    pageScroll.addView(
+            page
+    );
+
+    setContentView(
+            pageScroll
+    );
+} 
 }
