@@ -10522,23 +10522,38 @@ for (int i = 0; i < filterNames.length; i++) {
     );
 }
 
-LinearLayout.LayoutParams filterRowParams =
+// =================================================
+// ADD FILTERS OUTSIDE THE WAVE
+// =================================================
+
+LinearLayout.LayoutParams filterRowOutsideParams =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         );
 
-filterRowParams.setMargins(
+filterRowOutsideParams.setMargins(
+        dp(16),
+        dp(12),
+        dp(16),
+        dp(12)
+);
+
+filterRow.setPadding(
         0,
         dp(4),
         0,
         dp(4)
 );
 
-mainCard.addView(
+// =================================================
+// ADD FILTER ROW TO PAGE
+// =================================================
+
+page.addView(
         filterRow,
-        filterRowParams
-);  
+        filterRowOutsideParams
+);
 // =================================================
 // ADD MAIN CARD TO PAGE — PREMIUM WAVE
 // =================================================
