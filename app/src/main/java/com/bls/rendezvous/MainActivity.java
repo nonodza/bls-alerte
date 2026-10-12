@@ -10396,46 +10396,48 @@ private void showNewApplication() {
                 Typeface.DEFAULT_BOLD
         );
 
-        GradientDrawable mainCardBackground =
+        // =====================================================
+// ICON BACKGROUND
+// =====================================================
+
+GradientDrawable iconBackground =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#10265F"),
                         Color.parseColor("#2456B8"),
                         Color.parseColor("#7045D4")
                 }
         );
 
-        iconBackground.setCornerRadius(
-                dp(13)
+iconBackground.setCornerRadius(
+        dp(13)
+);
+
+iconBox.setBackground(
+        iconBackground
+);
+
+card.addView(
+        iconBox,
+        new LinearLayout.LayoutParams(
+                dp(48),
+                dp(48)
+        )
+);
+
+LinearLayout textColumn =
+        new LinearLayout(this);
+
+textColumn.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+TextView destinationTitle =
+        text(
+                destinations[i],
+                15,
+                Color.parseColor("#102B52")
         );
-
-        iconBox.setBackground(
-                iconBackground
-        );
-
-        card.addView(
-                iconBox,
-                new LinearLayout.LayoutParams(
-                        dp(48),
-                        dp(48)
-                )
-        );
-
-        LinearLayout textColumn =
-                new LinearLayout(this);
-
-        textColumn.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
-        TextView destinationTitle =
-                text(
-                        destinations[i],
-                        15,
-                        Color.parseColor("#102B52")
-                );
-
         destinationTitle.setTypeface(
                 Typeface.DEFAULT_BOLD
         );
