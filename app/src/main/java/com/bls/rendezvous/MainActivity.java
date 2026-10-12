@@ -45,6 +45,13 @@ import android.widget.Toast;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import android.content.Context;
+import android.graphics.Path;
+import android.graphics.Paint;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
+import android.graphics.Canvas;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
