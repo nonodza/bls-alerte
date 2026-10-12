@@ -10864,53 +10864,88 @@ private class PremiumWaveView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
 
-        float w = getWidth();
-        float h = getHeight();
+    float w = getWidth();
+    float h = getHeight();
 
-        if (w <= 0 || h <= 0) {
-            return;
-        }
-
-        wavePath.reset();
-
-        wavePath.moveTo(0, 0);
-        wavePath.lineTo(w, 0);
-        wavePath.lineTo(w, h * 0.78f);
-
-        wavePath.cubicTo(
-                w * 0.78f, h * 0.96f,
-                w * 0.38f, h * 0.72f,
-                0, h * 0.88f
-        );
-
-        wavePath.close();
-
-        LinearGradient gradient =
-                new LinearGradient(
-                        0,
-                        0,
-                        w,
-                        h,
-                        new int[]{
-                                Color.parseColor("#10265F"),
-                                Color.parseColor("#2456B8"),
-                                Color.parseColor("#7045D4")
-                        },
-                        null,
-                        Shader.TileMode.CLAMP
-                );
-
-        wavePaint.setShader(gradient);
-
-        canvas.drawPath(
-                wavePath,
-                wavePaint
-        );
-
-        wavePaint.setShader(null);
+    if (w <= 0 || h <= 0) {
+        return;
     }
-}   
+
+    wavePath.reset();
+
+    wavePath.moveTo(0, 0);
+    wavePath.lineTo(w, 0);
+    wavePath.lineTo(w, h * 0.76f);
+
+    wavePath.cubicTo(
+            w * 0.82f, h * 0.94f,
+            w * 0.40f, h * 0.72f,
+            0, h * 0.87f
+    );
+
+    wavePath.close();
+
+    // Multicolor premium gradient
+    LinearGradient gradient = new LinearGradient(
+            0, 0, w, h,
+            new int[]{
+                    Color.parseColor("#101D4F"), // Deep navy
+                    Color.parseColor("#2456D8"), // Royal blue
+                    Color.parseColor("#397BFF"), // Bright blue
+                    Color.parseColor("#7045D4"), // Violet
+                    Color.parseColor("#18BFD0")  // Cyan accent
+            },
+            new float[]{
+                    0.0f,
+                    0.30f,
+                    0.55f,
+                    0.78f,
+                    1.0f
+            },
+            Shader.TileMode.CLAMP
+    );
+
+    wavePaint.setShader(gradient);
+    wavePaint.setStyle(Paint.Style.FILL);
+
+    canvas.drawPath(wavePath, wavePaint);
+
+    wavePaint.setShader(null);
+
+    // Soft luminous cyan edge along the wave
+    Path waveEdge = new Path();
+
+    waveEdge.moveTo(0, h * 0.87f);
+
+    waveEdge.cubicTo(
+            w * 0.40f, h * 0.72f,
+            w * 0.82f, h * 0.94f,
+            w, h * 0.76f
+    );
+
+    Paint edgePaint = new Paint(
+            Paint.ANTI_ALIAS_FLAG
+    );
+
+    edgePaint.setStyle(Paint.Style.STROKE);
+    edgePaint.setStrokeWidth(dp(1.5f));
+    edgePaint.setStrokeCap(Paint.Cap.ROUND);
+    edgePaint.setShader(
+            new LinearGradient(
+                    0, 0, w, h,
+                    new int[]{
+                            Color.parseColor("#46F0FF"),
+                            Color.parseColor("#A18BFF"),
+                            Color.parseColor("#53D8FF")
+                    },
+                    null,
+                    Shader.TileMode.CLAMP
+            )
+    );
+
+    canvas.drawPath(waveEdge, edgePaint);
 }
+}   
