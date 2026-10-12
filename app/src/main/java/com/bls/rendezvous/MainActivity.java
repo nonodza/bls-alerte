@@ -10193,23 +10193,6 @@ private void showNewApplication() {
     page.setBackgroundColor(
             Color.parseColor("#F4F7FC")
     );
-    LinearLayout page =
-            new LinearLayout(this);
-
-    page.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    page.setPadding(
-            dp(20),
-            dp(18),
-            dp(20),
-            dp(20)
-    );
-
-    page.setBackgroundColor(
-            Color.parseColor("#F4F7FC")
-    );
   
     // =================================================
 // MAIN CARD — PREMIUM GRADIENT
