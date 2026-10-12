@@ -10547,14 +10547,6 @@ filterRow.setPadding(
 );
 
 // =================================================
-// ADD FILTER ROW TO PAGE
-// =================================================
-
-page.addView(
-        filterRow,
-        filterRowOutsideParams
-);
-// =================================================
 // ADD MAIN CARD TO PAGE — PREMIUM WAVE
 // =================================================
 
@@ -10612,6 +10604,14 @@ page.addView(
         mainCardFrame,
         mainCardParams
 );
+  // =================================================
+// ADD FILTER ROW TO PAGE
+// =================================================
+
+page.addView(
+        filterRow,
+        filterRowOutsideParams
+);  
     // =================================================
     // DESTINATION OPTIONS
     // =================================================
