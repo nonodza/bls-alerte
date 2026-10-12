@@ -10193,9 +10193,9 @@ mainCard.setOrientation(
 );
 
 mainCard.setPadding(
-        dp(18),
-        dp(20),
-        dp(18),
+        dp(14),
+        dp(12),
+        dp(14),
         dp(18)
 );
 
