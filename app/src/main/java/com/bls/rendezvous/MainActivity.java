@@ -2326,7 +2326,13 @@ heroCard.addView(
         newApplication,
         newApplicationParams
 );
+// =================================================
+// HERO NEW APPLICATION — CLICK
+// =================================================
 
+newApplication.setOnClickListener(
+        v -> showNewApplication()
+);
 // =================================================
 // ADD HERO CARD
 // =================================================
