@@ -10931,7 +10931,7 @@ protected void onDraw(Canvas canvas) {
     );
 
     edgePaint.setStyle(Paint.Style.STROKE);
-    edgePaint.setStrokeWidth(dp(1.5f));
+    edgePaint.setStrokeWidth(dp(2));
     edgePaint.setStrokeCap(Paint.Cap.ROUND);
     edgePaint.setShader(
             new LinearGradient(
