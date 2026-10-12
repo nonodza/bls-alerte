@@ -10331,18 +10331,18 @@ mainCard.addView(
 );
 
 // =================================================
-// DESCRIPTION
+// DESCRIPTION — PREMIUM HEADER
 // =================================================
 
 TextView description =
         text(
-                "Choose your destination to begin a new application.",
-                13,
-                Color.parseColor("#E1E9FF")
+                "Where are you planning to apply?",
+                16,
+                Color.parseColor("#D8DEFF")
         );
 
 description.setLineSpacing(
-        dp(2),
+        dp(3),
         1.05f
 );
 
@@ -10354,16 +10354,15 @@ LinearLayout.LayoutParams descriptionParams =
 
 descriptionParams.setMargins(
         0,
-        dp(6),
+        dp(8),
         0,
-        dp(16)
+        dp(20)
 );
 
 mainCard.addView(
         description,
         descriptionParams
 );
-
 // =================================================
 // ADD MAIN CARD TO PAGE
 // =================================================
