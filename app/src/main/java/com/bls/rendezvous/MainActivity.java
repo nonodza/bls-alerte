@@ -10193,9 +10193,9 @@ mainCard.setOrientation(
 );
 
 mainCard.setPadding(
-        dp(18),
-        dp(20),
-        dp(18),
+        dp(14),
+        dp(12),
+        dp(14),
         dp(18)
 );
 
@@ -10315,39 +10315,7 @@ cardHeader.addView(
 mainCard.addView(
         cardHeader
 );
-// =================================================
-// DESCRIPTION — PREMIUM HEADER
-// =================================================
 
-TextView description =
-        text(
-                "Where are you planning to apply?",
-                16,
-                Color.parseColor("#D8DEFF")
-        );
-
-description.setLineSpacing(
-        dp(3),
-        1.05f
-);
-
-LinearLayout.LayoutParams descriptionParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-descriptionParams.setMargins(
-        0,
-        dp(8),
-        0,
-        dp(20)
-);
-
-mainCard.addView(
-        description,
-        descriptionParams
-);
   // =================================================
 // DESTINATION FILTERS — PREMIUM PILLS
 // =================================================
