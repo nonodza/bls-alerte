@@ -10406,19 +10406,6 @@ private void showNewApplication() {
                 }
         );
 
-mainCardBackground.setCornerRadius(
-        dp(24)
-);
-
-mainCardBackground.setStroke(
-        dp(1),
-        Color.parseColor("#5C83F0")
-);
-
-mainCard.setBackground(
-        mainCardBackground
-);
-
         iconBackground.setCornerRadius(
                 dp(13)
         );
