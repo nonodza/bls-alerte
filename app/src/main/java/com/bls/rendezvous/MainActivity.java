@@ -10180,101 +10180,7 @@ private void showNewApplication() {
     page.setBackgroundColor(
             Color.parseColor("#F4F7FC")
     );
-
-    // =================================================
-    // HEADER
-    // =================================================
-
-    LinearLayout header =
-            new LinearLayout(this);
-
-    header.setOrientation(
-            LinearLayout.HORIZONTAL
-    );
-
-    header.setGravity(
-            Gravity.CENTER_VERTICAL
-    );
-
-    TextView backButton =
-            text(
-                    "‹",
-                    34,
-                    Color.parseColor("#173A78")
-            );
-
-    backButton.setGravity(
-            Gravity.CENTER
-    );
-
-    header.addView(
-            backButton,
-            new LinearLayout.LayoutParams(
-                    dp(42),
-                    dp(48)
-            )
-    );
-
-    backButton.setOnClickListener(
-            v -> showApplications()
-    );
-
-    LinearLayout titleColumn =
-            new LinearLayout(this);
-
-    titleColumn.setOrientation(
-            LinearLayout.VERTICAL
-    );
-
-    TextView pageTitle =
-            text(
-                    "New Application",
-                    21,
-                    Color.parseColor("#102B52")
-            );
-
-    pageTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    titleColumn.addView(pageTitle);
-
-    TextView pageSubtitle =
-            text(
-                    "Start your visa journey",
-                    12,
-                    Color.parseColor("#71809A")
-            );
-
-    titleColumn.addView(pageSubtitle);
-
-    LinearLayout.LayoutParams titleColumnParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    -2,
-                    1f
-            );
-
-    titleColumnParams.setMargins(
-            dp(8),
-            0,
-            0,
-            0
-    );
-
-    header.addView(
-            titleColumn,
-            titleColumnParams
-    );
-
-    page.addView(
-            header,
-            new LinearLayout.LayoutParams(
-                    -1,
-                    -2
-            )
-    );
-
+  
     // =================================================
 // MAIN CARD — PREMIUM GRADIENT
 // =================================================
@@ -10321,24 +10227,94 @@ mainCard.setElevation(
 );
 
 // =================================================
-// TITLE
+// HEADER INSIDE MAIN CARD
 // =================================================
 
-TextView intro =
+LinearLayout cardHeader =
+        new LinearLayout(this);
+
+cardHeader.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+cardHeader.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+TextView backButton =
         text(
-                "Where are you planning to apply?",
-                20,
+                "‹",
+                34,
                 Color.WHITE
         );
 
-intro.setTypeface(
+backButton.setGravity(
+        Gravity.CENTER
+);
+
+cardHeader.addView(
+        backButton,
+        new LinearLayout.LayoutParams(
+                dp(38),
+                dp(44)
+        )
+);
+
+backButton.setOnClickListener(
+        v -> showApplications()
+);
+
+LinearLayout titleColumn =
+        new LinearLayout(this);
+
+titleColumn.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+TextView pageTitle =
+        text(
+                "New Application",
+                21,
+                Color.WHITE
+        );
+
+pageTitle.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-mainCard.addView(
-        intro
+titleColumn.addView(pageTitle);
+
+TextView pageSubtitle =
+        text(
+                "Start your visa journey",
+                12,
+                Color.parseColor("#D8DEFF")
+        );
+
+titleColumn.addView(pageSubtitle);
+
+LinearLayout.LayoutParams titleParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+titleParams.setMargins(
+        dp(8),
+        0,
+        0,
+        0
 );
 
+cardHeader.addView(
+        titleColumn,
+        titleParams
+);
+
+mainCard.addView(
+        cardHeader
+);
 // =================================================
 // DESCRIPTION — PREMIUM HEADER
 // =================================================
