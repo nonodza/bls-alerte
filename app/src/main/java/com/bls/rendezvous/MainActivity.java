@@ -10198,53 +10198,7 @@ getWindow().getDecorView().setSystemUiVisibility(
     page.setBackgroundColor(
             Color.parseColor("#F4F7FC")
     );
-  
-    // =================================================
-// MAIN CARD — PREMIUM GRADIENT
-// =================================================
-
-LinearLayout mainCard =
-        new LinearLayout(this);
-
-mainCard.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-mainCard.setPadding(
-        dp(14),
-        dp(12),
-        dp(14),
-        dp(18)
-);
-
-GradientDrawable mainCardBackground =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-        Color.parseColor("#3B356A"),
-        Color.parseColor("#29234F"),
-        Color.parseColor("#1A1840")
-}
-);
-    
-mainCardBackground.setCornerRadius(
-        dp(24)
-);
-
-mainCardBackground.setStroke(
-        dp(1),
-        Color.parseColor("#6B65A8")
-);
-
-mainCard.setBackground(
-        mainCardBackground
-);
-
-mainCard.setElevation(
-        dp(5)
-);
-
-// =================================================
+  // =================================================
 // HEADER INSIDE MAIN CARD
 // =================================================
 
@@ -10259,6 +10213,21 @@ cardHeader.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
+// =================================================
+// BACK GROUP — ARROW + BACK
+// =================================================
+
+LinearLayout backGroup =
+        new LinearLayout(this);
+
+backGroup.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+backGroup.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
 TextView backButton =
         text(
                 "‹",
@@ -10270,17 +10239,45 @@ backButton.setGravity(
         Gravity.CENTER
 );
 
-cardHeader.addView(
+TextView backLabel =
+        text(
+                "Back",
+                13,
+                Color.WHITE
+        );
+
+backLabel.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
+
+backGroup.addView(
         backButton,
         new LinearLayout.LayoutParams(
-                dp(38),
+                dp(24),
                 dp(44)
         )
 );
 
-backButton.setOnClickListener(
+backGroup.addView(
+        backLabel
+);
+
+backGroup.setOnClickListener(
         v -> showApplications()
 );
+
+cardHeader.addView(
+        backGroup,
+        new LinearLayout.LayoutParams(
+                -2,
+                dp(44)
+        )
+);
+
+
+// =================================================
+// TITLE COLUMN
+// =================================================
 
 LinearLayout titleColumn =
         new LinearLayout(this);
@@ -10300,7 +10297,9 @@ pageTitle.setTypeface(
         Typeface.DEFAULT_BOLD
 );
 
-titleColumn.addView(pageTitle);
+titleColumn.addView(
+        pageTitle
+);
 
 TextView pageSubtitle =
         text(
@@ -10309,7 +10308,9 @@ TextView pageSubtitle =
                 Color.parseColor("#D8DEFF")
         );
 
-titleColumn.addView(pageSubtitle);
+titleColumn.addView(
+        pageSubtitle
+);
 
 LinearLayout.LayoutParams titleParams =
         new LinearLayout.LayoutParams(
@@ -10333,6 +10334,8 @@ cardHeader.addView(
 mainCard.addView(
         cardHeader
 );
+
+
 // =================================================
 // DESCRIPTION — PREMIUM HEADER
 // =================================================
@@ -10366,6 +10369,7 @@ mainCard.addView(
         description,
         descriptionParams
 );
+    
   // =================================================
 // DESTINATION FILTERS — PREMIUM PILLS
 // =================================================
