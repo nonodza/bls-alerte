@@ -10650,7 +10650,7 @@ LinearLayout.LayoutParams mainCardParams =
 
 mainCardParams.setMargins(
         0,
-        dp(12),
+        dp(4),
         0,
         dp(8)
 );
