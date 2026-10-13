@@ -10198,6 +10198,51 @@ getWindow().getDecorView().setSystemUiVisibility(
     page.setBackgroundColor(
             Color.parseColor("#F4F7FC")
     );
+
+        // =================================================
+// MAIN CARD — PREMIUM GRADIENT
+// =================================================
+
+LinearLayout mainCard =
+        new LinearLayout(this);
+
+mainCard.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+mainCard.setPadding(
+        dp(14),
+        dp(12),
+        dp(14),
+        dp(18)
+);
+
+GradientDrawable mainCardBackground =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+        Color.parseColor("#3B356A"),
+        Color.parseColor("#29234F"),
+        Color.parseColor("#1A1840")
+}
+);
+    
+mainCardBackground.setCornerRadius(
+        dp(24)
+);
+
+mainCardBackground.setStroke(
+        dp(1),
+        Color.parseColor("#6B65A8")
+);
+
+mainCard.setBackground(
+        mainCardBackground
+);
+
+mainCard.setElevation(
+        dp(5)
+);
   // =================================================
 // HEADER INSIDE MAIN CARD
 // =================================================
