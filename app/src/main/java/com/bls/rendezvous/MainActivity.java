@@ -10590,324 +10590,21 @@ filterRow.setPadding(
 );
 
 // =================================================
-// MAIN CARD FRAME — PREMIUM NAVY / VIOLET WAVE
-// =================================================
-
-FrameLayout mainCardFrame =
-        new FrameLayout(this);
-
-mainCardFrame.setClipChildren(false);
-mainCardFrame.setClipToPadding(false);
-
-// Wave background
-PremiumWaveView waveBackground =
-        new PremiumWaveView(this);
-
-FrameLayout.LayoutParams waveParams =
-        new FrameLayout.LayoutParams(
-                -1,
-                dp(210),
-                Gravity.TOP
-        );
-
-mainCardFrame.addView(
-        waveBackground,
-        waveParams
-);
-
-// Keep the card background transparent
-// so the wave remains visible behind it.
-mainCard.setBackgroundColor(
-        Color.TRANSPARENT
-);
-
-// Content margins inside the frame
-FrameLayout.LayoutParams contentParams =
-        new FrameLayout.LayoutParams(
-                -1,
-                -2,
-                Gravity.TOP
-);
-
-contentParams.setMargins(
-        dp(16),
-        dp(12),
-        dp(16),
-        0
-);
-
-mainCardFrame.addView(
-        mainCard,
-        contentParams
-);
-
-// Outer margins: white space around the frame
-LinearLayout.LayoutParams mainCardParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
-
-mainCardParams.setMargins(
-        0,
-        dp(4),
-        0,
-        dp(8)
-);
-
-page.addView(
-        mainCardFrame,
-        mainCardParams
-);
-  // =================================================
-// ADD FILTER ROW TO PAGE
-// =================================================
-
-page.addView(
-        filterRow,
-        filterRowOutsideParams
-);  
-    // =================================================
-    // DESTINATION OPTIONS
-    // =================================================
-
-    String[] destinations = {
-            "Schengen",
-            "United States",
-            "Canada",
-            "United Kingdom"
-    };
-
-    String[] descriptions = {
-            "Choose a European country",
-            "Apply for a US visa",
-            "Apply for a Canadian visa",
-            "Apply for a UK visa"
-    };
-
-    String[] icons = {
-            "EU",
-            "US",
-            "CA",
-            "UK"
-    };
-
-    for (int i = 0; i < destinations.length; i++) {
-
-        final String selectedDestination =
-                destinations[i];
-
-        LinearLayout card =
-                new LinearLayout(this);
-
-        card.setOrientation(
-                LinearLayout.HORIZONTAL
-        );
-
-        card.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
-
-        card.setPadding(
-                dp(14),
-                dp(12),
-                dp(14),
-                dp(12)
-        );
-
-        GradientDrawable cardBackground =
-                new GradientDrawable();
-
-        cardBackground.setColor(
-                Color.WHITE
-        );
-
-        cardBackground.setCornerRadius(
-                dp(16)
-        );
-
-        cardBackground.setStroke(
-                dp(1),
-                Color.parseColor("#DFE7F4")
-        );
-
-        card.setBackground(
-                cardBackground
-        );
-
-        TextView iconBox =
-                text(
-                        icons[i],
-                        13,
-                        Color.parseColor("#FFFFFF")
-                );
-
-        iconBox.setGravity(
-                Gravity.CENTER
-        );
-
-        iconBox.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-       
-
-card.addView(
-        iconBox,
-        new LinearLayout.LayoutParams(
-                dp(48),
-                dp(48)
-        )
-);
-
-LinearLayout textColumn =
-        new LinearLayout(this);
-
-textColumn.setOrientation(
-        LinearLayout.VERTICAL
-);
-
-TextView destinationTitle =
-        text(
-                destinations[i],
-                15,
-                Color.parseColor("#102B52")
-        );
-        destinationTitle.setTypeface(
-                Typeface.DEFAULT_BOLD
-        );
-
-        textColumn.addView(destinationTitle);
-
-        TextView destinationSubtitle =
-                text(
-                        descriptions[i],
-                        11,
-                        Color.parseColor("#71809A")
-                );
-
-        LinearLayout.LayoutParams subtitleParams =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        -2
-                );
-
-        subtitleParams.setMargins(
-                0,
-                dp(4),
-                0,
-                0
-        );
-
-        textColumn.addView(
-                destinationSubtitle,
-                subtitleParams
-        );
-
-        LinearLayout.LayoutParams textParams =
-                new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1f
-                );
-
-        textParams.setMargins(
-                dp(12),
-                0,
-                dp(8),
-                0
-        );
-
-        card.addView(
-                textColumn,
-                textParams
-        );
-
-        TextView arrow =
-                text(
-                        "›",
-                        26,
-                        Color.parseColor("#2456B8")
-                );
-
-        arrow.setGravity(
-                Gravity.CENTER
-        );
-
-        card.addView(
-                arrow,
-                new LinearLayout.LayoutParams(
-                        dp(24),
-                        dp(42)
-                )
-        );
-
-        LinearLayout.LayoutParams cardParams =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        -2
-                );
-
-        cardParams.setMargins(
-                0,
-                dp(12),
-                0,
-                0
-        );
-
-        page.addView(
-                card,
-                cardParams
-        );
-
-        card.setOnClickListener(
-                v -> {
-
-                    // Next step:
-                    // Open the selected destination flow.
-                    // Schengen will ask for a country.
-                    // Other destinations will open
-                    // their visa details step.
-
-                    android.widget.Toast.makeText(
-                            this,
-                            selectedDestination,
-                            android.widget.Toast.LENGTH_SHORT
-                    ).show();
-                }
-        );
-    }
-
-    // =================================================
-    // CONTENT SCROLL
-    // =================================================
-
-    ScrollView pageScroll =
-            new ScrollView(this);
-
-    pageScroll.setFillViewport(true);
-
-    pageScroll.setClipToPadding(false);
-
-    pageScroll.addView(
-            page
-    );
-
-    setContentView(
-            pageScroll
-    );
-} 
- // =================================================
-// PREMIUM WAVE BACKGROUND
+// PREMIUM WAVE BACKGROUND — ROUNDED CARD
 // =================================================
 
 private class PremiumWaveView extends View {
 
-    private final Paint wavePaint = new Paint(
-            Paint.ANTI_ALIAS_FLAG
-    );
+    private final Paint wavePaint =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private final Paint edgePaint =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private final Path wavePath = new Path();
+    private final Path waveEdge = new Path();
+
+    private final RectF cardRect = new RectF();
 
     public PremiumWaveView(Context context) {
         super(context);
@@ -10919,89 +10616,129 @@ private class PremiumWaveView extends View {
     }
 
     @Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-    float w = getWidth();
-    float h = getHeight();
+        float w = getWidth();
+        float h = getHeight();
 
-    if (w <= 0 || h <= 0) {
-        return;
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+
+        float radius = dp(24);
+
+        cardRect.set(
+                0,
+                0,
+                w,
+                h
+        );
+
+        // Clip everything to rounded card bounds
+        canvas.save();
+
+        Path clipPath = new Path();
+
+        clipPath.addRoundRect(
+                cardRect,
+                radius,
+                radius,
+                Path.Direction.CW
+        );
+
+        canvas.clipPath(clipPath);
+
+        // Wave shape
+        wavePath.reset();
+
+        wavePath.moveTo(0, 0);
+        wavePath.lineTo(w, 0);
+        wavePath.lineTo(w, h * 0.76f);
+
+        wavePath.cubicTo(
+                w * 0.82f, h * 0.94f,
+                w * 0.40f, h * 0.72f,
+                0, h * 0.87f
+        );
+
+        wavePath.close();
+
+        LinearGradient gradient =
+                new LinearGradient(
+                        0,
+                        0,
+                        w,
+                        h,
+                        new int[]{
+                                Color.parseColor("#10152F"),
+                                Color.parseColor("#24205A"),
+                                Color.parseColor("#40318A"),
+                                Color.parseColor("#6546B8"),
+                                Color.parseColor("#18BFD0")
+                        },
+                        new float[]{
+                                0.0f,
+                                0.30f,
+                                0.55f,
+                                0.80f,
+                                1.0f
+                        },
+                        Shader.TileMode.CLAMP
+                );
+
+        wavePaint.setShader(gradient);
+        wavePaint.setStyle(Paint.Style.FILL);
+
+        canvas.drawPath(
+                wavePath,
+                wavePaint
+        );
+
+        wavePaint.setShader(null);
+
+        // Luminous wave edge
+        waveEdge.reset();
+
+        waveEdge.moveTo(
+                0,
+                h * 0.87f
+        );
+
+        waveEdge.cubicTo(
+                w * 0.40f, h * 0.72f,
+                w * 0.82f, h * 0.94f,
+                w, h * 0.76f
+        );
+
+        edgePaint.setStyle(Paint.Style.STROKE);
+        edgePaint.setStrokeWidth(dp(2));
+        edgePaint.setStrokeCap(Paint.Cap.ROUND);
+
+        edgePaint.setShader(
+                new LinearGradient(
+                        0,
+                        0,
+                        w,
+                        h,
+                        new int[]{
+                                Color.parseColor("#46F0FF"),
+                                Color.parseColor("#A18BFF"),
+                                Color.parseColor("#53D8FF")
+                        },
+                        null,
+                        Shader.TileMode.CLAMP
+                )
+        );
+
+        canvas.drawPath(
+                waveEdge,
+                edgePaint
+        );
+
+        edgePaint.setShader(null);
+
+        canvas.restore();
     }
-
-    wavePath.reset();
-
-    wavePath.moveTo(0, 0);
-    wavePath.lineTo(w, 0);
-    wavePath.lineTo(w, h * 0.76f);
-
-    wavePath.cubicTo(
-            w * 0.82f, h * 0.94f,
-            w * 0.40f, h * 0.72f,
-            0, h * 0.87f
-    );
-
-    wavePath.close();
-
-    // Multicolor premium gradient
-    LinearGradient gradient = new LinearGradient(
-            0, 0, w, h,
-            new int[]{
-                    Color.parseColor("#101D4F"), // Deep navy
-                    Color.parseColor("#2456D8"), // Royal blue
-                    Color.parseColor("#397BFF"), // Bright blue
-                    Color.parseColor("#7045D4"), // Violet
-                    Color.parseColor("#18BFD0")  // Cyan accent
-            },
-            new float[]{
-                    0.0f,
-                    0.30f,
-                    0.55f,
-                    0.78f,
-                    1.0f
-            },
-            Shader.TileMode.CLAMP
-    );
-
-    wavePaint.setShader(gradient);
-    wavePaint.setStyle(Paint.Style.FILL);
-
-    canvas.drawPath(wavePath, wavePaint);
-
-    wavePaint.setShader(null);
-
-    // Soft luminous cyan edge along the wave
-    Path waveEdge = new Path();
-
-    waveEdge.moveTo(0, h * 0.87f);
-
-    waveEdge.cubicTo(
-            w * 0.40f, h * 0.72f,
-            w * 0.82f, h * 0.94f,
-            w, h * 0.76f
-    );
-
-    Paint edgePaint = new Paint(
-            Paint.ANTI_ALIAS_FLAG
-    );
-
-    edgePaint.setStyle(Paint.Style.STROKE);
-    edgePaint.setStrokeWidth(dp(2));
-    edgePaint.setStrokeCap(Paint.Cap.ROUND);
-    edgePaint.setShader(
-            new LinearGradient(
-                    0, 0, w, h,
-                    new int[]{
-                            Color.parseColor("#46F0FF"),
-                            Color.parseColor("#A18BFF"),
-                            Color.parseColor("#53D8FF")
-                    },
-                    null,
-                    Shader.TileMode.CLAMP
-            )
-    );
-
-    canvas.drawPath(waveEdge, edgePaint);
-}
 }
 }
