@@ -10171,10 +10171,15 @@ private void showNewApplication() {
             Color.TRANSPARENT
     );
 
-    getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-    );
+    getWindow().setStatusBarColor(
+        Color.TRANSPARENT
+);
+
+getWindow().getDecorView().setSystemUiVisibility(
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+);
 
     LinearLayout page =
             new LinearLayout(this);
