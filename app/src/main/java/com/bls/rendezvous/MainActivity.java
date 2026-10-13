@@ -10564,6 +10564,7 @@ for (int i = 0; i < filterNames.length; i++) {
             }
     );
 }
+
 // =================================================
 // ADD FILTERS OUTSIDE THE WAVE
 // =================================================
@@ -10622,7 +10623,7 @@ FrameLayout.LayoutParams contentParams =
                 -1,
                 -2,
                 Gravity.TOP
-);
+        );
 
 contentParams.setMargins(
         dp(22),
@@ -10640,7 +10641,7 @@ LinearLayout.LayoutParams mainCardParams =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
-);
+        );
 
 mainCardParams.setMargins(
         0,
@@ -10662,7 +10663,26 @@ page.addView(
         filterRow,
         filterRowOutsideParams
 );
+    // =================================================
+// CONTENT SCROLL
+// =================================================
 
+ScrollView pageScroll =
+        new ScrollView(this);
+
+pageScroll.setFillViewport(true);
+pageScroll.setClipToPadding(false);
+
+pageScroll.addView(
+        page
+);
+
+setContentView(
+        pageScroll
+);
+
+} // نهاية showNewApplication()
+    
 // =================================================
 // PREMIUM WAVE BACKGROUND — ROUNDED CARD
 // =================================================
@@ -10815,6 +10835,7 @@ private class PremiumWaveView extends View {
 
         canvas.restore();
     }
-}
+
+} 
 
 }
