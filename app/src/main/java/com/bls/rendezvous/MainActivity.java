@@ -10184,11 +10184,11 @@ private void showNewApplication() {
     );
 
     page.setPadding(
-            dp(20),
-            dp(18),
-            dp(20),
-            dp(20)
-    );
+        0,
+        0,
+        0,
+        dp(20)
+);
 
     page.setBackgroundColor(
             Color.parseColor("#F4F7FC")
