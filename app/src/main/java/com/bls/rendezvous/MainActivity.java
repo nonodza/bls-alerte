@@ -10713,16 +10713,16 @@ protected void onDraw(Canvas canvas) {
         return;
     }
 
-    float radius = dp(24);
+    float radius = 0f;
 
-    cardRect.set(
-            0,
-            0,
-            w,
-            h
-    );
+cardRect.set(
+        0,
+        0,
+        w,
+        h
+);
 
-    canvas.save();
+canvas.save();
 
     // Rounded clipping
     clipPath.reset();
