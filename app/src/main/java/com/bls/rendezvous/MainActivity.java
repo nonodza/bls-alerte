@@ -10736,20 +10736,29 @@ protected void onDraw(Canvas canvas) {
 
     canvas.clipPath(clipPath);
 
-    // Wave shape
-    wavePath.reset();
+    // =================================================
+// PREMIUM CURVED WAVE SHAPE
+// =================================================
 
-    wavePath.moveTo(0, 0);
-    wavePath.lineTo(w, 0);
-    wavePath.lineTo(w, h * 0.76f);
+wavePath.reset();
 
-    wavePath.cubicTo(
-            w * 0.82f, h * 0.94f,
-            w * 0.40f, h * 0.72f,
-            0, h * 0.87f
-    );
+wavePath.moveTo(0, 0);
+wavePath.lineTo(w, 0);
+wavePath.lineTo(w, h * 0.70f);
 
-    wavePath.close();
+wavePath.cubicTo(
+        w * 0.82f, h * 0.91f,
+        w * 0.60f, h * 0.98f,
+        w * 0.40f, h * 0.85f
+);
+
+wavePath.cubicTo(
+        w * 0.24f, h * 0.75f,
+        w * 0.12f, h * 0.76f,
+        0, h * 0.88f
+);
+
+wavePath.close();
 
     LinearGradient gradient =
             new LinearGradient(
