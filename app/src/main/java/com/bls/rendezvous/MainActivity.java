@@ -3,9 +3,7 @@ package com.bls.rendezvous;
 import android.app.Activity;
 import android.app.AlertDialog;
 
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.ContextCompat;
-
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 
@@ -17,11 +15,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
-import android.view.MotionEvent;
+import android.graphics.MotionEvent;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.RadialGradient;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 
@@ -44,16 +44,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.FrameLayout;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import android.content.Context;
-import android.graphics.Path;
-import android.graphics.Paint;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
-import android.graphics.Canvas;
-import android.view.View;
-import android.content.Context;
-import android.graphics.Path;
 
 public class MainActivity extends Activity {
 
@@ -10663,7 +10657,8 @@ page.addView(
         filterRow,
         filterRowOutsideParams
 );
-    // =================================================
+
+// =================================================
 // CONTENT SCROLL
 // =================================================
 
@@ -10673,18 +10668,15 @@ ScrollView pageScroll =
 pageScroll.setFillViewport(true);
 pageScroll.setClipToPadding(false);
 
-pageScroll.addView(
-        page
-);
+pageScroll.addView(page);
 
-setContentView(
-        pageScroll
-);
+setContentView(pageScroll);
 
-} // نهاية showNewApplication()
-    
+} // END showNewApplication()
+
+
 // =================================================
-// PREMIUM WAVE BACKGROUND — ROUNDED CARD
+// PREMIUM WAVE BACKGROUND
 // =================================================
 
 private class PremiumWaveView extends View {
@@ -10835,5 +10827,10 @@ private class PremiumWaveView extends View {
 
         canvas.restore();
     }
+}
 
-} 
+// =================================================
+// END MAINACTIVITY CLASS
+// =================================================
+
+}
