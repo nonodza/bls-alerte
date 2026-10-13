@@ -10841,7 +10841,7 @@ protected void onDraw(Canvas canvas) {
             )
     );
 
-    edgePaint.setStrokeWidth(dp(1.5f));
+    edgePaint.setStrokeWidth(dp(2));
 
     canvas.drawPath(
             waveEdge,
