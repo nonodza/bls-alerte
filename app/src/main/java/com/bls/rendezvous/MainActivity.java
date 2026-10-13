@@ -15,7 +15,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
-import android.graphics.MotionEvent;
+import android.view.MotionEvent;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
