@@ -10564,7 +10564,6 @@ for (int i = 0; i < filterNames.length; i++) {
             }
     );
 }
-
 // =================================================
 // ADD FILTERS OUTSIDE THE WAVE
 // =================================================
@@ -10590,6 +10589,81 @@ filterRow.setPadding(
 );
 
 // =================================================
+// ADD MAIN CARD TO PAGE — PREMIUM WAVE
+// =================================================
+
+FrameLayout mainCardFrame =
+        new FrameLayout(this);
+
+mainCardFrame.setClipChildren(false);
+mainCardFrame.setClipToPadding(false);
+
+PremiumWaveView waveBackground =
+        new PremiumWaveView(this);
+
+FrameLayout.LayoutParams waveParams =
+        new FrameLayout.LayoutParams(
+                -1,
+                dp(210),
+                Gravity.TOP
+        );
+
+mainCardFrame.addView(
+        waveBackground,
+        waveParams
+);
+
+mainCard.setBackgroundColor(
+        Color.TRANSPARENT
+);
+
+FrameLayout.LayoutParams contentParams =
+        new FrameLayout.LayoutParams(
+                -1,
+                -2,
+                Gravity.TOP
+);
+
+contentParams.setMargins(
+        dp(22),
+        dp(12),
+        dp(22),
+        0
+);
+
+mainCardFrame.addView(
+        mainCard,
+        contentParams
+);
+
+LinearLayout.LayoutParams mainCardParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+);
+
+mainCardParams.setMargins(
+        0,
+        dp(4),
+        0,
+        dp(8)
+);
+
+page.addView(
+        mainCardFrame,
+        mainCardParams
+);
+
+// =================================================
+// ADD FILTER ROW TO PAGE
+// =================================================
+
+page.addView(
+        filterRow,
+        filterRowOutsideParams
+);
+
+// =================================================
 // PREMIUM WAVE BACKGROUND — ROUNDED CARD
 // =================================================
 
@@ -10603,6 +10677,7 @@ private class PremiumWaveView extends View {
 
     private final Path wavePath = new Path();
     private final Path waveEdge = new Path();
+    private final Path clipPath = new Path();
 
     private final RectF cardRect = new RectF();
 
@@ -10635,10 +10710,10 @@ private class PremiumWaveView extends View {
                 h
         );
 
-        // Clip everything to rounded card bounds
         canvas.save();
 
-        Path clipPath = new Path();
+        // Rounded clipping
+        clipPath.reset();
 
         clipPath.addRoundRect(
                 cardRect,
@@ -10741,4 +10816,5 @@ private class PremiumWaveView extends View {
         canvas.restore();
     }
 }
+
 }
