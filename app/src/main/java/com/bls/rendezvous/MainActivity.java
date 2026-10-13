@@ -10837,5 +10837,3 @@ private class PremiumWaveView extends View {
     }
 
 } 
-
-}
