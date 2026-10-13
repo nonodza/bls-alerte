@@ -10848,14 +10848,12 @@ protected void onDraw(Canvas canvas) {
             edgePaint
     );
 
-    edgePaint.setShader(null);
+        edgePaint.setShader(null);
     edgePaint.clearShadowLayer();
 
     canvas.restore();
 }
-
 }
-
 // =================================================
 // END MAINACTIVITY CLASS
 // =================================================
