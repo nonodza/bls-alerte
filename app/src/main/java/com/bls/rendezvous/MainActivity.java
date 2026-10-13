@@ -10221,9 +10221,8 @@ GradientDrawable mainCardBackground =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#10265F"),
-                        Color.parseColor("#2456B8"),
-                        Color.parseColor("#7045D4")
+                        Color.parseColor("#3B356A"),
+                        Color.parseColor("#1A1840")
                 }
         );
 
@@ -10233,7 +10232,7 @@ mainCardBackground.setCornerRadius(
 
 mainCardBackground.setStroke(
         dp(1),
-        Color.parseColor("#5C83F0")
+        Color.parseColor("#6B65A8")
 );
 
 mainCard.setBackground(
