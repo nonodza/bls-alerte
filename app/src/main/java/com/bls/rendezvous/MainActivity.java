@@ -10590,7 +10590,7 @@ filterRow.setPadding(
 );
 
 // =================================================
-// ADD MAIN CARD TO PAGE — PREMIUM WAVE
+// MAIN CARD FRAME — PREMIUM NAVY / VIOLET WAVE
 // =================================================
 
 FrameLayout mainCardFrame =
@@ -10599,6 +10599,7 @@ FrameLayout mainCardFrame =
 mainCardFrame.setClipChildren(false);
 mainCardFrame.setClipToPadding(false);
 
+// Wave background
 PremiumWaveView waveBackground =
         new PremiumWaveView(this);
 
@@ -10614,23 +10615,33 @@ mainCardFrame.addView(
         waveParams
 );
 
-
+// Keep the card background transparent
+// so the wave remains visible behind it.
 mainCard.setBackgroundColor(
         Color.TRANSPARENT
 );
 
+// Content margins inside the frame
 FrameLayout.LayoutParams contentParams =
         new FrameLayout.LayoutParams(
                 -1,
                 -2,
                 Gravity.TOP
-        );
+);
+
+contentParams.setMargins(
+        dp(16),
+        dp(12),
+        dp(16),
+        0
+);
 
 mainCardFrame.addView(
         mainCard,
         contentParams
 );
 
+// Outer margins: white space around the frame
 LinearLayout.LayoutParams mainCardParams =
         new LinearLayout.LayoutParams(
                 -1,
@@ -10639,7 +10650,7 @@ LinearLayout.LayoutParams mainCardParams =
 
 mainCardParams.setMargins(
         0,
-        dp(24),
+        dp(12),
         0,
         dp(8)
 );
