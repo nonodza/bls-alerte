@@ -10702,131 +10702,158 @@ private class PremiumWaveView extends View {
         );
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+@Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
 
-        float w = getWidth();
-        float h = getHeight();
+    float w = getWidth();
+    float h = getHeight();
 
-        if (w <= 0 || h <= 0) {
-            return;
-        }
-
-        float radius = dp(24);
-
-        cardRect.set(
-                0,
-                0,
-                w,
-                h
-        );
-
-        canvas.save();
-
-        // Rounded clipping
-        clipPath.reset();
-
-        clipPath.addRoundRect(
-                cardRect,
-                radius,
-                radius,
-                Path.Direction.CW
-        );
-
-        canvas.clipPath(clipPath);
-
-        // Wave shape
-        wavePath.reset();
-
-        wavePath.moveTo(0, 0);
-        wavePath.lineTo(w, 0);
-        wavePath.lineTo(w, h * 0.76f);
-
-        wavePath.cubicTo(
-                w * 0.82f, h * 0.94f,
-                w * 0.40f, h * 0.72f,
-                0, h * 0.87f
-        );
-
-        wavePath.close();
-
-        LinearGradient gradient =
-                new LinearGradient(
-                        0,
-                        0,
-                        w,
-                        h,
-                        new int[]{
-                                Color.parseColor("#10152F"),
-                                Color.parseColor("#24205A"),
-                                Color.parseColor("#40318A"),
-                                Color.parseColor("#6546B8"),
-                                Color.parseColor("#18BFD0")
-                        },
-                        new float[]{
-                                0.0f,
-                                0.30f,
-                                0.55f,
-                                0.80f,
-                                1.0f
-                        },
-                        Shader.TileMode.CLAMP
-                );
-
-        wavePaint.setShader(gradient);
-        wavePaint.setStyle(Paint.Style.FILL);
-
-        canvas.drawPath(
-                wavePath,
-                wavePaint
-        );
-
-        wavePaint.setShader(null);
-
-        // Luminous wave edge
-        waveEdge.reset();
-
-        waveEdge.moveTo(
-                0,
-                h * 0.87f
-        );
-
-        waveEdge.cubicTo(
-                w * 0.40f, h * 0.72f,
-                w * 0.82f, h * 0.94f,
-                w, h * 0.76f
-        );
-
-        edgePaint.setStyle(Paint.Style.STROKE);
-        edgePaint.setStrokeWidth(dp(2));
-        edgePaint.setStrokeCap(Paint.Cap.ROUND);
-
-        edgePaint.setShader(
-                new LinearGradient(
-                        0,
-                        0,
-                        w,
-                        h,
-                        new int[]{
-                                Color.parseColor("#46F0FF"),
-                                Color.parseColor("#A18BFF"),
-                                Color.parseColor("#53D8FF")
-                        },
-                        null,
-                        Shader.TileMode.CLAMP
-                )
-        );
-
-        canvas.drawPath(
-                waveEdge,
-                edgePaint
-        );
-
-        edgePaint.setShader(null);
-
-        canvas.restore();
+    if (w <= 0 || h <= 0) {
+        return;
     }
+
+    float radius = dp(24);
+
+    cardRect.set(
+            0,
+            0,
+            w,
+            h
+    );
+
+    canvas.save();
+
+    // Rounded clipping
+    clipPath.reset();
+
+    clipPath.addRoundRect(
+            cardRect,
+            radius,
+            radius,
+            Path.Direction.CW
+    );
+
+    canvas.clipPath(clipPath);
+
+    // Wave shape
+    wavePath.reset();
+
+    wavePath.moveTo(0, 0);
+    wavePath.lineTo(w, 0);
+    wavePath.lineTo(w, h * 0.76f);
+
+    wavePath.cubicTo(
+            w * 0.82f, h * 0.94f,
+            w * 0.40f, h * 0.72f,
+            0, h * 0.87f
+    );
+
+    wavePath.close();
+
+    LinearGradient gradient =
+            new LinearGradient(
+                    0,
+                    0,
+                    w,
+                    h,
+                    new int[]{
+                            Color.parseColor("#10152F"),
+                            Color.parseColor("#24205A"),
+                            Color.parseColor("#40318A"),
+                            Color.parseColor("#6546B8"),
+                            Color.parseColor("#18BFD0")
+                    },
+                    new float[]{
+                            0.0f,
+                            0.30f,
+                            0.55f,
+                            0.80f,
+                            1.0f
+                    },
+                    Shader.TileMode.CLAMP
+            );
+
+    wavePaint.setShader(gradient);
+    wavePaint.setStyle(Paint.Style.FILL);
+
+    canvas.drawPath(
+            wavePath,
+            wavePaint
+    );
+
+    wavePaint.setShader(null);
+
+    // Luminous wave edge
+    waveEdge.reset();
+
+    waveEdge.moveTo(
+            0,
+            h * 0.87f
+    );
+
+    waveEdge.cubicTo(
+            w * 0.40f, h * 0.72f,
+            w * 0.82f, h * 0.94f,
+            w, h * 0.76f
+    );
+
+    // =================================================
+    // PREMIUM NEON GLOW
+    // =================================================
+
+    edgePaint.setStyle(Paint.Style.STROKE);
+    edgePaint.setStrokeCap(Paint.Cap.ROUND);
+    edgePaint.setStrokeJoin(Paint.Join.ROUND);
+    edgePaint.setStrokeWidth(dp(2));
+
+    // Soft outer glow
+    edgePaint.setShader(null);
+    edgePaint.setColor(Color.parseColor("#7046F0FF"));
+    edgePaint.setShadowLayer(
+            dp(7),
+            0,
+            0,
+            Color.parseColor("#7046F0FF")
+    );
+
+    canvas.drawPath(
+            waveEdge,
+            edgePaint
+    );
+
+    // Crisp neon edge
+    edgePaint.clearShadowLayer();
+
+    edgePaint.setShader(
+            new LinearGradient(
+                    0,
+                    0,
+                    w,
+                    h,
+                    new int[]{
+                            Color.parseColor("#46F0FF"),
+                            Color.parseColor("#A18BFF"),
+                            Color.parseColor("#53D8FF")
+                    },
+                    null,
+                    Shader.TileMode.CLAMP
+            )
+    );
+
+    edgePaint.setStrokeWidth(dp(1.5f));
+
+    canvas.drawPath(
+            waveEdge,
+            edgePaint
+    );
+
+    edgePaint.setShader(null);
+    edgePaint.clearShadowLayer();
+
+    canvas.restore();
+}
+
 }
 
 // =================================================
