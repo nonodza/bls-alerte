@@ -10565,9 +10565,18 @@ mainCardFrame.addView(
         waveParams
 );
 
-mainCard.setBackgroundColor(
-        Color.TRANSPARENT
+
+GradientDrawable cardBg = new GradientDrawable(
+        GradientDrawable.Orientation.TL_BR,
+        new int[]{
+                Color.parseColor("#3B356A"),
+                Color.parseColor("#1A1840")
+        }
 );
+
+cardBg.setCornerRadius(dp(20));
+
+mainCard.setBackground(cardBg);
 
 FrameLayout.LayoutParams contentParams =
         new FrameLayout.LayoutParams(
