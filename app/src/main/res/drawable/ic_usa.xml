@@ -1,34 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="100dp"
-    android:height="100dp"
-    android:viewportWidth="100"
-    android:viewportHeight="100">
-    <path android:fillColor="#FFFFFF" android:pathData="M50,50m-48,0a48,48 0,1,1 96,0a48,48 0,1,1 -96,0Z"/>
-    <group>
-        <clip-path android:pathData="M50,50m-44,0a44,44 0,1,1 88,0a44,44 0,1,1 -88,0Z"/>
-        <!-- 13 خط -->
-        <path android:fillColor="#FFFFFF" android:pathData="M0,0H100V100H0Z"/>
-        <path android:fillColor="#C41E3A" android:pathData="M0,0H100V7.69H0ZM0,15.38H100V23.07H0ZM0,30.76H100V38.45H0ZM0,46.15H100V53.84H0ZM0,61.53H100V69.22H0ZM0,76.92H100V84.61H0ZM0,92.3H100V100H0Z"/>
-        <!-- الأزرق -->
-        <path android:fillColor="#2B2D7C" android:pathData="M0,0H50V54H0Z"/>
-        <!-- النجوم 19 باينة -->
-        <path android:fillColor="#FFFFFF" android:pathData="M34,4.5L35,7L37.5,7L35.5,8.5L36.2,11L34,9.5L31.8,11L32.5,8.5L30.5,7L33,7Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M10,13.5L11,16L13.5,16L11.5,17.5L12.2,20L10,18.5L7.8,20L8.5,17.5L6.5,16L9,16Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M26,14L27,16.5L29.5,16.5L27.5,18L28.2,20.5L26,19L23.8,20.5L24.5,18L22.5,16.5L25,16.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M40,15L41,17.5L43.5,17.5L41.5,19L42.2,21.5L40,20L37.8,21.5L38.5,19L36.5,17.5L39,17.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M4,24L5,26.5L7.5,26.5L5.5,28L6.2,30.5L4,29L1.8,30.5L2.5,28L0.5,26.5L3,26.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M18,24L19,26.5L21.5,26.5L19.5,28L20.2,30.5L18,29L15.8,30.5L16.5,28L14.5,26.5L17,26.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M32,25L33,27.5L35.5,27.5L33.5,29L34.2,31.5L32,30L29.8,31.5L30.5,29L28.5,27.5L31,27.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M46,26L47,28.5L49.5,28.5L47.5,30L48.2,32.5L46,31L43.8,32.5L44.5,30L42.5,28.5L45,28.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M10,34L11,36.5L13.5,36.5L11.5,38L12.2,40.5L10,39L7.8,40.5L8.5,38L6.5,36.5L9,36.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M24,35L25,37.5L27.5,37.5L25.5,39L26.2,41.5L24,40L21.8,41.5L22.5,39L20.5,37.5L23,37.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M38,36L39,38.5L41.5,38.5L39.5,40L40.2,42.5L38,41L35.8,42.5L36.5,40L34.5,38.5L37,38.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M4,44L5,46.5L7.5,46.5L5.5,48L6.2,50.5L4,49L1.8,50.5L2.5,48L0.5,46.5L3,46.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M18,44L19,46.5L21.5,46.5L19.5,48L20.2,50.5L18,49L15.8,50.5L16.5,48L14.5,46.5L17,46.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M32,45L33,47.5L35.5,47.5L33.5,49L34.2,51.5L32,50L29.8,51.5L30.5,49L28.5,47.5L31,47.5Z"/>
-        <path android:fillColor="#FFFFFF" android:pathData="M46,46L47,48.5L49.5,48.5L47.5,50L48.2,52.5L46,51L43.8,52.5L44.5,50L42.5,48.5L45,48.5Z"/>
-    </group>
-    <!-- لمعان الفوق برك - بلا ضبابة تحت -->
-    <path android:fillColor="#FFFFFF" android:fillAlpha="0.35" android:pathData="M15,16Q50,6 85,16Q84,22 50,28Q16,22 15,16Z"/>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- الشعلة -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,2 C12,2 11,4 11.2,5.5 L12.8,5.5 C13,4 12,2 12,2 Z M11,6 L13,6 L13.5,13 L10.5,13 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.6"/>
+
+    <!-- التاج -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10.5,13 L13.5,13 L14.5,14.5 L9.5,14.5 Z M9,15 L15,15 L15,16 L9,16 Z"/>
+
+    <!-- الجسم -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,16 L14,16 L14.5,20 L9.5,20 Z M9,20 L15,20 L15,21 L9,21 Z"
+        android:strokeWidth="0.5"/>
+
 </vector>
