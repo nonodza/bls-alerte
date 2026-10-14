@@ -1,15 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="48dp"
     android:height="48dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-    <!-- دائرة بيضاء هي القاعدة -->
-    <path android:fillColor="#FFFFFF" android:pathData="M50,50 m-48,0 a48,48 0,1 1,96 0 a48,48 0,1 1,-96 0" />
-    <!-- أحمر يسار دائري تماما -->
-    <path android:fillColor="#FF0000" android:pathData="M8,50 A42,42 0,0 0,25 89 L25,11 A42,42 0,0 0,8 50 Z" />
-    <!-- أحمر يمين دائري تماما -->
-    <path android:fillColor="#FF0000" android:pathData="M75,11 L75,89 A42,42 0,0 0,92 50 A42,42 0,0 0,75 11 Z" />
-    <!-- ورقة كبيرة وواضحة في الوسط -->
-    <path android:fillColor="#FF0000" android:pathData="M50,78 L48,63 L39,67 L41,58 L30,58 L35,49 L28,47 L35,40 L27,32 L39,35 L42,25 L50,31 L58,25 L61,35 L73,32 L65,40 L72,47 L65,49 L70,58 L59,58 L61,67 L52,63 Z" />
+
+    <!-- Smaller circular badge -->
+    <path
+        android:pathData="M50,13 A37,37 0,1 1,49.9,13 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="35"
+                android:centerY="27"
+                android:gradientRadius="75">
+                <item android:color="#FFFFFF" android:offset="0" />
+                <item android:color="#F2F2F2" android:offset="0.45" />
+                <item android:color="#B8B8B8" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Clip the flag to the circle -->
+    <group>
+        <clip-path
+            android:pathData="M50,13 A37,37 0,1 1,49.9,13 Z" />
+
+        <!-- Red flag field -->
+        <path android:pathData="M10,10 H90 V90 H10 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="18"
+                    android:startY="15"
+                    android:endX="83"
+                    android:endY="88"
+                    android:type="linear">
+                    <item android:color="#FF4B55" android:offset="0" />
+                    <item android:color="#D80020" android:offset="0.48" />
+                    <item android:color="#790015" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- White center panel -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M32,10 H68 V90 H32 Z" />
+
+        <!-- Maple leaf with shaded red gradient -->
+        <path
+            android:pathData="
+                M50,25
+                L54,34
+                L61,30
+                L59,39
+                L67,40
+                L60,47
+                L65,51
+                L57,53
+                L59,60
+                L53,58
+                L54,69
+                L46,69
+                L47,58
+                L41,60
+                L43,53
+                L35,51
+                L40,47
+                L33,40
+                L41,39
+                L39,30
+                L46,34 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:startX="37"
+                    android:startY="29"
+                    android:endX="63"
+                    android:endY="68"
+                    android:type="linear">
+                    <item android:color="#FF4555" android:offset="0" />
+                    <item android:color="#D00020" android:offset="0.55" />
+                    <item android:color="#870015" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Subtle highlight on the leaf -->
+        <path
+            android:fillColor="#55FFFFFF"
+            android:pathData="M46,35 L50,27 L50,57 L46,58 L43,53 L47,51 L42,47 L47,46 Z" />
+    </group>
+
 </vector>
