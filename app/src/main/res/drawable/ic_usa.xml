@@ -5,51 +5,63 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Premium rounded background -->
+    <!-- Rounded white background -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
 
-    <!-- Red flag stripes -->
+    <!-- Red stripes -->
     <path
         android:fillColor="#B22234"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,24 L3,24 L3,22 Q3,3 22,3 Z" />
-
-    <path
-        android:fillColor="#B22234"
-        android:pathData="M3,34 L97,34 L97,42 L3,42 Z" />
+        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,25 L3,25 L3,20 Q3,3 20,3 Z"/>
 
     <path
         android:fillColor="#B22234"
-        android:pathData="M3,52 L97,52 L97,60 L3,60 Z" />
+        android:pathData="M3,34 L97,34 L97,42 L3,42 Z"/>
 
     <path
         android:fillColor="#B22234"
-        android:pathData="M3,70 L97,70 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 Z" />
+        android:pathData="M3,51 L97,51 L97,59 L3,59 Z"/>
+
+    <path
+        android:fillColor="#B22234"
+        android:pathData="M3,68 L97,68 L97,76 L3,76 Z"/>
+
+    <path
+        android:fillColor="#B22234"
+        android:pathData="M3,85 L97,85 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,85 Z"/>
 
     <!-- Blue canton -->
     <path
         android:fillColor="#3C3B6E"
-        android:pathData="M22,3 L55,3 L55,52 L3,52 L3,22 Q3,3 22,3 Z" />
+        android:pathData="M20,3 L55,3 L55,51 L3,51 L3,20 Q3,3 20,3 Z"/>
 
-    <!-- White star -->
+    <!-- White stars -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M29,9 L32,17 L41,17 L34,22 L37,30 L29,25 L21,30 L24,22 L17,17 L26,17 Z" />
-
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M46,28 L48,34 L55,34 L50,38 L52,44 L46,40 L40,44 L42,38 L37,34 L44,34 Z" />
+        android:pathData="M12,10 L14,15 L19,15 L15,18 L17,23 L12,20 L8,23 L9,18 L5,15 L10,15 Z"/>
 
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M18,32 L20,38 L27,38 L22,42 L24,48 L18,44 L12,48 L14,42 L9,38 L16,38 Z" />
+        android:pathData="M29,10 L31,15 L36,15 L32,18 L34,23 L29,20 L25,23 L26,18 L22,15 L27,15 Z"/>
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M46,10 L48,15 L53,15 L49,18 L51,23 L46,20 L42,23 L43,18 L39,15 L44,15 Z"/>
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,28 L22,33 L27,33 L23,36 L25,41 L20,38 L16,41 L17,36 L13,33 L18,33 Z"/>
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,28 L40,33 L45,33 L41,36 L43,41 L38,38 L34,41 L35,36 L31,33 L36,33 Z"/>
 
     <!-- Premium border -->
     <path
         android:fillColor="#00000000"
         android:strokeColor="#FFD9E2FF"
-        android:strokeWidth="1.4"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+        android:strokeWidth="1.5"
+        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
 
 </vector>
