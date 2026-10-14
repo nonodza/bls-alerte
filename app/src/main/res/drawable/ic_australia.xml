@@ -5,48 +5,101 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Purple circular ring -->
-    <path
-        android:fillColor="#00000000"
-        android:strokeColor="#B58AFF"
-        android:strokeWidth="3"
-        android:pathData="M50,4 A46,46 0,1 1,49.9,4" />
-
-    <!-- Blue circular flag background -->
-    <path
-        android:fillColor="#00008B"
-        android:pathData="M50,10 A40,40 0,1 1,49.9,10" />
-
-    <!-- Simplified Union Jack in upper-left -->
+    <!-- Smaller circular flag background -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="
-            M12,20 L18,20 L48,42 L48,48 L42,48 L12,26 Z
-            M48,20 L42,20 L12,42 L12,48 L18,48 L48,26 Z
-            M10,28 L50,28 L50,34 L10,34 Z
-            M25,18 L32,18 L32,50 L25,50 Z" />
+        android:pathData="M50,13
+            A37,37 0,1 1,49.9,13 Z" />
 
-    <path
-        android:fillColor="#C8102E"
-        android:pathData="
-            M12,22 L16,22 L48,44 L48,47 L44,47 L12,25 Z
-            M48,22 L44,22 L12,44 L12,47 L16,47 L48,25 Z
-            M10,29 L50,29 L50,33 L10,33 Z
-            M26,18 L31,18 L31,50 L26,50 Z" />
+    <!-- Clip the flag inside the circle -->
+    <group>
+        <clip-path
+            android:pathData="M50,13
+                A37,37 0,1 1,49.9,13 Z" />
 
-    <!-- Commonwealth Star -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M29,57 l2.5,7.5 8,0 -6.5,4.7 2.5,7.6 -6.5,-4.7 -6.5,4.7 2.5,-7.6 -6.5,-4.7 8,0 Z" />
+        <!-- Australian dark blue field -->
+        <path
+            android:fillColor="#00008B"
+            android:pathData="M13,13 H87 V87 H13 Z" />
 
-    <!-- Southern Cross stars -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="
-            M67,36 l2,5 5,0 -4,3 1.5,5 -4.5,-3 -4.5,3 1.5,-5 -4,-3 5,0 Z
-            M76,51 l1.5,4 4,0 -3.2,2.4 1.2,4 -3.5,-2.5 -3.5,2.5 1.2,-4 -3.2,-2.4 4,0 Z
-            M64,65 l1.5,4 4,0 -3.2,2.4 1.2,4 -3.5,-2.5 -3.5,2.5 1.2,-4 -3.2,-2.4 4,0 Z
-            M78,73 l1.5,4 4,0 -3.2,2.4 1.2,4 -3.5,-2.5 -3.5,2.5 1.2,-4 -3.2,-2.4 4,0 Z
-            M54,48 l1.5,4 4,0 -3.2,2.4 1.2,4 -3.5,-2.5 -3.5,2.5 1.2,-4 -3.2,-2.4 4,0 Z" />
+        <!-- Union Jack: white diagonals -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M13,16 L18,13 L50,36 L50,42 Z
+                M50,16 L45,13 L13,36 L13,42 Z
+                M13,44 L13,38 L50,13 L50,19 Z
+                M50,44 L50,38 L13,13 L13,19 Z" />
+
+        <!-- Union Jack: red diagonals -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="
+                M13,17 L17,14 L50,38 L50,41 Z
+                M50,17 L46,14 L13,38 L13,41 Z" />
+
+        <!-- Union Jack: white upright cross -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M27,13 H36 V50 H27 Z
+                M13,27 H50 V36 H13 Z" />
+
+        <!-- Union Jack: red upright cross -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="
+                M29,13 H34 V50 H29 Z
+                M13,29 H50 V34 H13 Z" />
+
+        <!-- Commonwealth Star: seven-point star -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M30,52
+                L33,60
+                L42,60
+                L35,65
+                L38,74
+                L30,69
+                L22,74
+                L25,65
+                L18,60
+                L27,60 Z" />
+
+        <!-- Southern Cross stars -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M68,37
+                L70,42 L75,42 L71,45
+                L73,50 L68,47
+                L64,50 L65,45
+                L61,42 L66,42 Z
+
+                M78,51
+                L79.5,55 L84,55 L80.5,58
+                L82,62 L78,59.5
+                L74,62 L75.5,58
+                L72,55 L76.5,55 Z
+
+                M64,64
+                L65.5,68 L70,68 L66.5,71
+                L68,75 L64,72.5
+                L60,75 L61.5,71
+                L58,68 L62.5,68 Z
+
+                M78,73
+                L79.5,77 L84,77 L80.5,80
+                L82,84 L78,81.5
+                L74,84 L75.5,80
+                L72,77 L76.5,77 Z
+
+                M54,48
+                L55.5,52 L60,52 L56.5,55
+                L58,59 L54,56.5
+                L50,59 L51.5,55
+                L48,52 L52.5,52 Z" />
+    </group>
 
 </vector>
