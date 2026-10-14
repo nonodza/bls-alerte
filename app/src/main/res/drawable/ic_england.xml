@@ -5,26 +5,50 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Purple circular ring -->
-    <path
-        android:fillColor="#00000000"
-        android:strokeColor="#B58AFF"
-        android:strokeWidth="3"
-        android:pathData="M50,4 A46,46 0,1 1,49.9,4" />
-
-    <!-- White circular flag background -->
+    <!-- Smaller circular flag background -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M50,10 A40,40 0,1 1,49.9,10" />
+        android:pathData="M50,14
+            A36,36 0,1 1,49.9,14 Z" />
 
-    <!-- Red cross: horizontal bar -->
-    <path
-        android:fillColor="#C8102E"
-        android:pathData="M12,43 L88,43 L88,57 L12,57 Z" />
+    <!-- Clip all flag details to the smaller circle -->
+    <group>
+        <clip-path
+            android:pathData="M50,14
+                A36,36 0,1 1,49.9,14 Z" />
 
-    <!-- Red cross: vertical bar -->
-    <path
-        android:fillColor="#C8102E"
-        android:pathData="M43,12 L57,12 L57,88 L43,88 Z" />
+        <!-- Blue field -->
+        <path
+            android:fillColor="#012169"
+            android:pathData="M14,14 H86 V86 H14 Z" />
+
+        <!-- White diagonal cross -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M14,20 L20,14 L86,80 L80,86 Z
+                M80,14 L86,20 L20,86 L14,80 Z" />
+
+        <!-- Red diagonal cross -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="
+                M14,23 L23,14 L86,77 L77,86 Z
+                M77,14 L86,23 L23,86 L14,77 Z" />
+
+        <!-- Broad white upright cross -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="
+                M40,14 H60 V86 H40 Z
+                M14,40 H86 V60 H14 Z" />
+
+        <!-- Red upright cross -->
+        <path
+            android:fillColor="#C8102E"
+            android:pathData="
+                M44,14 H56 V86 H44 Z
+                M14,44 H86 V56 H14 Z" />
+    </group>
 
 </vector>
