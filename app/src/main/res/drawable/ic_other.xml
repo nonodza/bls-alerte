@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Premium rounded navy background -->
+    <path
+        android:fillColor="#123B78"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+    <!-- Globe outer circle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:pathData="M50,19 A31,31 0,1 1,49.9 19 Z" />
+
+    <!-- Globe meridian -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#8BC5FF"
+        android:strokeWidth="2.5"
+        android:pathData="M50,20 C32,31 32,69 50,80 C68,69 68,31 50,20 Z" />
+
+    <!-- Globe latitude lines -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#8BC5FF"
+        android:strokeWidth="2.5"
+        android:pathData="M23,40 Q50,51 77,40 M22,59 Q50,48 78,59" />
+
+    <!-- Compass needle -->
+    <path
+        android:fillColor="#65D6FF"
+        android:pathData="M70,17 L64,37 L84,29 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M70,17 L73,31 L64,37 Z" />
+
+    <!-- Small highlight -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M34,29 L38,26 L40,30 L36,33 Z" />
+
+    <!-- Premium border -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF78A9F5"
+        android:strokeWidth="1.4"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+</vector>
