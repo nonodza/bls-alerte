@@ -4,8 +4,12 @@
     android:height="48dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-    <path android:fillColor="#FFFFFF" android:pathData="M50,50 m-48,0 a48,48 0,1 1,96 0,a48,48 0,1 1,-96 0" />
-    <path android:fillColor="#FF0000" android:pathData="M2,10 A48,48 0,0 0,2 90 L25,90 L25,10 Z" />
-    <path android:fillColor="#FF0000" android:pathData="M75,10 L98,10 A48,48 0,0 1,98 90 L75,90 Z" />
-    <path android:fillColor="#FF0000" android:pathData="M50,78 L48,63 L40,66 L42,58 L32,58 L36,50 L30,48 L36,41 L29,34 L40,37 L43,27 L50,32 L57,27 L60,37 L71,34 L64,41 L70,48 L64,50 L68,58 L58,58 L60,66 L52,63 Z" />
+    <!-- دائرة بيضاء هي القاعدة -->
+    <path android:fillColor="#FFFFFF" android:pathData="M50,50 m-48,0 a48,48 0,1 1,96 0 a48,48 0,1 1,-96 0" />
+    <!-- أحمر يسار دائري تماما -->
+    <path android:fillColor="#FF0000" android:pathData="M8,50 A42,42 0,0 0,25 89 L25,11 A42,42 0,0 0,8 50 Z" />
+    <!-- أحمر يمين دائري تماما -->
+    <path android:fillColor="#FF0000" android:pathData="M75,11 L75,89 A42,42 0,0 0,92 50 A42,42 0,0 0,75 11 Z" />
+    <!-- ورقة كبيرة وواضحة في الوسط -->
+    <path android:fillColor="#FF0000" android:pathData="M50,78 L48,63 L39,67 L41,58 L30,58 L35,49 L28,47 L35,40 L27,32 L39,35 L42,25 L50,31 L58,25 L61,35 L73,32 L65,40 L72,47 L65,49 L70,58 L59,58 L61,67 L52,63 Z" />
 </vector>
