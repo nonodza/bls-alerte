@@ -1,0 +1,71 @@
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 12 نجمة دايرة -->
+    <group android:translateX="12" android:translateY="12">
+        <group android:rotation="0">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="30">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="60">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="90">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="120">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="150">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="180">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="210">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="240">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="270">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="300">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+        <group android:rotation="330">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+        </group>
+    </group>
+</vector>
