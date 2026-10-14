@@ -11137,26 +11137,7 @@ private class CountryIconView extends View {
 
         p.setShader(null);
 
-        // Glowing outline
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(size * 0.018f);
-        p.setColor(glow);
-
-        canvas.drawRoundRect(
-                tile, r, r, p
-        );
-
         p.setStyle(Paint.Style.FILL);
-
-        // Inner circular medallion
-        p.setColor(Color.argb(38, 255, 255, 255));
-
-        canvas.drawCircle(
-                w / 2f,
-                h / 2f,
-                size * 0.31f,
-                p
-        );
 
         p.setColor(Color.WHITE);
         p.setTextAlign(Paint.Align.CENTER);
