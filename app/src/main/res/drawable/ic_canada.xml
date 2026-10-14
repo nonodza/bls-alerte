@@ -5,26 +5,43 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Rounded red background -->
+    <!-- CANADA RED CIRCLE -->
     <path
         android:fillColor="#D80621"
-        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
+        android:pathData="M50,7 A43,43 0,1 1 50,93 A43,43 0,1 1 50,7" />
 
-    <!-- White center panel -->
+    <!-- WHITE FLAG CENTER -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M35,3 L65,3 L65,97 L35,97 Z"/>
+        android:pathData="M36,13 L64,13 L64,87 L36,87 Z" />
 
-    <!-- Maple leaf -->
+    <!-- MAPLE LEAF -->
     <path
         android:fillColor="#D80621"
-        android:pathData="M50,17 L55,29 L64,24 L62,36 L73,34 L67,44 L78,50 L66,56 L69,65 L57,62 L58,75 L53,73 L53,86 L47,86 L47,73 L42,75 L43,62 L31,65 L34,56 L22,50 L33,44 L27,34 L38,36 L36,24 L45,29 Z"/>
-
-    <!-- Premium border -->
-    <path
-        android:fillColor="#00000000"
-        android:strokeColor="#FFFF8795"
-        android:strokeWidth="1.5"
-        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
+        android:pathData="M50,22
+            L55,34
+            L64,28
+            L62,40
+            L73,37
+            L67,48
+            L77,53
+            L65,59
+            L68,68
+            L56,65
+            L57,77
+            L53,75
+            L53,84
+            L47,84
+            L47,75
+            L43,77
+            L44,65
+            L32,68
+            L35,59
+            L23,53
+            L33,48
+            L27,37
+            L38,40
+            L36,28
+            L45,34 Z" />
 
 </vector>
