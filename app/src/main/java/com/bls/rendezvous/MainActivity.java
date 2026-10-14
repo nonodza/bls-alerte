@@ -10659,11 +10659,244 @@ page.addView(
 );
 
 // =================================================
+// DESTINATION ICONS GRID
+// =================================================
+
+LinearLayout grid =
+    new LinearLayout(this);
+
+grid
+   .setOrientation(
+        LinearLayout.VERTICAL
+    );
+
+grid
+   .setPadding(
+        dp(8),
+        dp(16),
+        dp(8),
+        dp(16)
+    );
+
+String[] names = {
+    "Schengen",
+    "Canada",
+    "USA",
+    "England",
+    "Australia",
+    "Other"
+};
+
+int[] icons = {
+    R.drawable.ic_schengen,
+    R.drawable.ic_canada,
+    R.drawable.ic_usa,
+    R.drawable.ic_england,
+    R.drawable.ic_australia,
+    R.drawable.ic_other
+};
+
+for (
+    int r = 0;
+    r < 2;
+    r++
+) {
+
+    LinearLayout row =
+        new LinearLayout(this);
+
+    row
+       .setOrientation(
+            LinearLayout.HORIZONTAL
+        );
+
+    row
+       .setWeightSum(
+            3
+        );
+
+    for (
+        int c = 0;
+        c < 3;
+        c++
+    ) {
+
+        int idx =
+            r * 3 + c;
+
+        if (
+            idx >= 6
+        ) break;
+
+        LinearLayout card =
+            new LinearLayout(this);
+
+        card
+           .setOrientation(
+                LinearLayout.VERTICAL
+            );
+
+        card
+           .setGravity(
+                Gravity.CENTER
+            );
+
+        LinearLayout.LayoutParams cardP =
+            new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+            );
+
+        cardP
+           .setMargins(
+                dp(8),
+                dp(10),
+                dp(8),
+                dp(10)
+            );
+
+        card
+           .setLayoutParams(
+                cardP
+            );
+
+        ImageView iconBox =
+            new ImageView(this);
+
+        iconBox
+           .setImageResource(
+                icons[idx]
+            );
+
+        iconBox
+           .setColorFilter(
+                Color.WHITE
+            );
+
+        iconBox
+           .setPadding(
+                dp(22),
+                dp(22),
+                dp(22),
+                dp(22)
+            );
+
+        GradientDrawable bg =
+            new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                    Color.parseColor("#6A5CFF"),
+                    Color.parseColor("#3B2E8A")
+                }
+            );
+
+        bg
+           .setCornerRadius(
+                dp(24)
+            );
+
+        bg
+           .setStroke(
+                dp(1),
+                Color.parseColor("#8E8BFA")
+            );
+
+        iconBox
+           .setBackground(
+                bg
+            );
+
+        iconBox
+           .setElevation(
+                dp(12)
+            );
+
+        TextView lbl =
+            new TextView(this);
+
+        lbl
+           .setText(
+                names[idx]
+            );
+
+        lbl
+           .setTextSize(
+                12
+            );
+
+        lbl
+           .setTextColor(
+                Color.WHITE
+            );
+
+        lbl
+           .setGravity(
+                Gravity.CENTER
+            );
+
+        lbl
+           .setPadding(
+                0,
+                dp(10),
+                0,
+                0
+            );
+
+        card
+           .addView(
+                iconBox,
+                new LinearLayout.LayoutParams(
+                    dp(96),
+                    dp(96)
+                )
+            );
+
+        card
+           .addView(
+                lbl
+            );
+
+        row
+           .addView(
+                card
+            );
+
+    }
+
+    grid
+       .addView(
+            row
+        );
+
+}
+
+page
+   .addView(
+        grid
+    );
+
+// =================================================
 // CONTENT SCROLL
 // =================================================
 
 ScrollView pageScroll =
     new ScrollView(this);
+
+pageScroll
+   .setBackgroundColor(
+        Color.parseColor("#29234F")
+    );
+
+pageScroll
+   .setFillViewport(
+        true
+    );
+
+pageScroll
+   .setClipToPadding(
+        false
+    );
 
 pageScroll
     .setBackgroundColor(
