@@ -10608,8 +10608,8 @@ mainCardFrame.addView(
         waveParams
 );
 
-mainCard.setBackgroundColor(
-        Color.TRANSPARENT
+mainCard.setBackground(
+        mainCardBackground
 );
 
 FrameLayout.LayoutParams contentParams =
