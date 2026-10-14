@@ -48,6 +48,11 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 
 public class MainActivity extends Activity {
 
@@ -11097,6 +11102,159 @@ wavePath.close();
     canvas.restore();
 }
 }
+  
+private class CountryIconView extends View {
+
+    private final Paint p =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private final String country;
+
+    public CountryIconView(Context context, String country) {
+        super(context);
+        this.country = country;
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        float w = getWidth();
+        float h = getHeight();
+
+        if (w <= 0 || h <= 0) return;
+
+        float size = Math.min(w, h);
+        float r = size * 0.22f;
+
+        int c1;
+        int c2;
+        int glow;
+
+        switch (country) {
+            case "CANADA":
+                c1 = Color.parseColor("#FF416C");
+                c2 = Color.parseColor("#A50045");
+                glow = Color.parseColor("#FF7CBA");
+                break;
+
+            case "USA":
+                c1 = Color.parseColor("#3288FF");
+                c2 = Color.parseColor("#1026A8");
+                glow = Color.parseColor("#64D9FF");
+                break;
+
+            case "UK":
+                c1 = Color.parseColor("#793BFF");
+                c2 = Color.parseColor("#241078");
+                glow = Color.parseColor("#C09AFF");
+                break;
+
+            case "AUSTRALIA":
+                c1 = Color.parseColor("#16B8FF");
+                c2 = Color.parseColor("#0739B9");
+                glow = Color.parseColor("#61F0FF");
+                break;
+
+            case "OTHER":
+                c1 = Color.parseColor("#B33DFF");
+                c2 = Color.parseColor("#3620A8");
+                glow = Color.parseColor("#FF9BEF");
+                break;
+
+            default:
+                c1 = Color.parseColor("#526BFF");
+                c2 = Color.parseColor("#2512A5");
+                glow = Color.parseColor("#62E8FF");
+                break;
+        }
+
+        // Rounded premium tile
+        p.setStyle(Paint.Style.FILL);
+        p.setShader(new LinearGradient(
+                0, 0, w, h,
+                c1, c2,
+                Shader.TileMode.CLAMP
+        ));
+
+        RectF tile = new RectF(
+                1, 1, w - 1, h - 1
+        );
+
+        canvas.drawRoundRect(
+                tile, r, r, p
+        );
+
+        p.setShader(null);
+
+        // Glowing outline
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(size * 0.018f);
+        p.setColor(glow);
+
+        canvas.drawRoundRect(
+                tile, r, r, p
+        );
+
+        p.setStyle(Paint.Style.FILL);
+
+        // Inner circular medallion
+        p.setColor(Color.argb(38, 255, 255, 255));
+
+        canvas.drawCircle(
+                w / 2f,
+                h / 2f,
+                size * 0.31f,
+                p
+        );
+
+        p.setColor(Color.WHITE);
+        p.setTextAlign(Paint.Align.CENTER);
+        p.setTypeface(Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        ));
+
+        p.setTextSize(size * 0.39f);
+
+        String symbol;
+
+        switch (country) {
+            case "CANADA":
+                symbol = "✦";
+                break;
+            case "USA":
+                symbol = "★";
+                break;
+            case "UK":
+                symbol = "✚";
+                break;
+            case "AUSTRALIA":
+                symbol = "★";
+                break;
+            case "OTHER":
+                symbol = "◎";
+                break;
+            default:
+                symbol = "◎";
+                break;
+        }
+
+        Paint.FontMetrics fm = p.getFontMetrics();
+
+        float baseline =
+                h / 2f - (fm.ascent + fm.descent) / 2f;
+
+        canvas.drawText(
+                symbol,
+                w / 2f,
+                baseline,
+                p
+        );
+    }
+}
+  
 // =================================================
 // END MAINACTIVITY CLASS
 // =================================================
