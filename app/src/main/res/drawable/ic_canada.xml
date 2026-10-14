@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Rounded red premium background -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+    <path
+        android:fillColor="#D80621"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+    <!-- Soft inner highlight -->
+    <path
+        android:fillColor="#20FFFFFF"
+        android:pathData="M22,5 L78,5 Q95,5 95,22 L95,32 Q50,20 5,32 L5,22 Q5,5 22,5 Z" />
+
+    <!-- Canadian maple leaf -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,18
+            L56,32
+            L66,25
+            L64,38
+            L77,35
+            L71,46
+            L83,51
+            L69,57
+            L72,67
+            L57,64
+            L58,78
+            L53,78
+            L53,88
+            L47,88
+            L47,78
+            L42,78
+            L43,64
+            L28,67
+            L31,57
+            L17,51
+            L29,46
+            L23,35
+            L36,38
+            L34,25
+            L44,32
+            Z" />
+
+    <!-- Red central vein -->
+    <path
+        android:fillColor="#D80621"
+        android:pathData="M49,39 L51,39 L51,75 L49,75 Z" />
+
+    <!-- Premium border -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFF8795"
+        android:strokeWidth="1.4"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+</vector>
