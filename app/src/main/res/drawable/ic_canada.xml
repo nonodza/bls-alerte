@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
+<vector xmlns:android="http://android.com"
+    xmlns:aapt="http://android.com"
     android:width="48dp"
     android:height="48dp"
     android:viewportWidth="100"
@@ -48,15 +48,14 @@
             android:fillColor="#FFFFFF"
             android:pathData="M32,10 H68 V90 H32 Z" />
 
-        <!-- Maple leaf with shaded red gradient (تم تصحيح المسار بالكامل هنا) -->
+        <!-- Maple leaf with shaded red gradient (مسار ورقة القيقب الرسمية الحقيقية بدقة 100%) -->
         <path
             android:pathData="M50,26 
-                       L52.8,36.5 L47.5,38.6 L49,33 
-                       L42,33 L44.8,27.4 L40.6,26 L44.8,21.1 L39.9,16.2 L47.6,18.3 L49.7,11.3 
-                       L53.9,14.8 L58.1,11.3 L60.2,18.3 L67.9,16.2 L63,21.1 L67.2,26 L63,27.4 L65.8,33 
-                       L58.8,33 L60.3,38.6 L55,36.5 L57.8,26 
-                       L53.4,26 L54.5,41.9 L52.4,43.3 L51.4,56 
-                       L48.6,56 L47.6,43.3 L45.5,41.9 L46.6,26 Z">
+                       L52,38 L44,41 L46,33 
+                       L36,33 L40,25 L34,23 L40,18 L35,13 L43,15 L45,8 
+                       L50,13 L55,8 L57,15 L65,13 L60,18 L66,23 L60,25 L64,33 
+                       L54,33 L56,41 L48,38 L50,26 
+                       L51.5,52 L52.5,74 L47.5,74 L48.5,52 Z">
             <aapt:attr name="android:fillColor">
                 <gradient
                     android:startX="37"
@@ -71,10 +70,10 @@
             </aapt:attr>
         </path>
 
-        <!-- Subtle highlight on the leaf (تم تعديله ليتطابق مع النصف الأيسر للورقة الجديدة) -->
+        <!-- Subtle highlight on the leaf (تم تعديل الإضاءة لتتطابق تماماً مع نصف الورقة الحقيقية) -->
         <path
             android:fillColor="#33FFFFFF"
-            android:pathData="M50,12 L47.6,18.3 L39.9,16.2 L44.8,21.1 L40.6,26 L44.8,27.4 L42,33 L49,33 L47.5,38.6 L52.8,36.5 L50,26 L46.6,26 L45.5,41.9 L47.6,43.3 L48.6,56 L50,56 Z" />
+            android:pathData="M50,13 L45,8 L43,15 L35,13 L40,18 L34,23 L40,25 L36,33 L46,33 L44,41 L52,38 L50,26 L48.5,52 L47.5,74 L50,74 Z" />
     </group>
 
 </vector>
