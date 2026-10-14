@@ -10705,7 +10705,7 @@ for (int i = 0; i < names.length; i++) {
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.HORIZONTAL);
     item.setGravity(Gravity.CENTER_VERTICAL);
-    item.setPadding(dp(8), dp(10), dp(8), dp(10));
+    item.setPadding(dp(8), dp(6), dp(8), dp(6));
 
     // Circular flag icon
     FrameLayout iconFrame = new FrameLayout(this);
@@ -10717,16 +10717,11 @@ for (int i = 0; i < names.length; i++) {
             );
 
     iconFrameParams.setMargins(
-            dp(4), 0, dp(18), 0
-    );
+        dp(4), 0, dp(12), 0
+);
 
-    GradientDrawable glowRing = new GradientDrawable();
-    glowRing.setShape(GradientDrawable.OVAL);
-    glowRing.setColor(Color.TRANSPARENT);
-    glowRing.setStroke(
-            dp(2),
-            Color.parseColor("#B58AFF")
-    );
+    iconFrame.setBackgroundColor(Color.TRANSPARENT);
+iconFrame.setElevation(0);
 
     iconFrame.setBackground(glowRing);
     iconFrame.setElevation(dp(5));
@@ -10799,33 +10794,6 @@ for (int i = 0; i < names.length; i++) {
                     -2
             )
     );
-
-    // Divider between destinations
-    if (i < names.length - 1) {
-
-        View divider = new View(this);
-
-        GradientDrawable dividerBg =
-                new GradientDrawable();
-
-        dividerBg.setColor(
-                Color.parseColor("#554C8D")
-        );
-
-        divider.setBackground(dividerBg);
-
-        LinearLayout.LayoutParams dividerParams =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        dp(1)
-                );
-
-        dividerParams.setMargins(
-                dp(4), dp(2), dp(4), dp(2)
-        );
-
-        grid.addView(divider, dividerParams);
-    }
 }
 
 page.addView(grid);
