@@ -11062,7 +11062,6 @@ private class CountryIconView extends View {
     public CountryIconView(Context context, String country) {
         super(context);
         this.country = country;
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     @Override
@@ -11075,76 +11074,77 @@ private class CountryIconView extends View {
         if (w <= 0 || h <= 0) return;
 
         float size = Math.min(w, h);
-        float r = size * 0.22f;
 
         int c1;
         int c2;
-        int glow;
 
         switch (country) {
             case "CANADA":
                 c1 = Color.parseColor("#FF416C");
                 c2 = Color.parseColor("#A50045");
-                glow = Color.parseColor("#FF7CBA");
                 break;
 
             case "USA":
                 c1 = Color.parseColor("#3288FF");
                 c2 = Color.parseColor("#1026A8");
-                glow = Color.parseColor("#64D9FF");
                 break;
 
             case "UK":
                 c1 = Color.parseColor("#793BFF");
                 c2 = Color.parseColor("#241078");
-                glow = Color.parseColor("#C09AFF");
                 break;
 
             case "AUSTRALIA":
                 c1 = Color.parseColor("#16B8FF");
                 c2 = Color.parseColor("#0739B9");
-                glow = Color.parseColor("#61F0FF");
                 break;
 
             case "OTHER":
                 c1 = Color.parseColor("#B33DFF");
                 c2 = Color.parseColor("#3620A8");
-                glow = Color.parseColor("#FF9BEF");
                 break;
 
             default:
                 c1 = Color.parseColor("#526BFF");
                 c2 = Color.parseColor("#2512A5");
-                glow = Color.parseColor("#62E8FF");
                 break;
         }
 
-        // Rounded premium tile
+        // Clean gradient background — no border or outline
         p.setStyle(Paint.Style.FILL);
-        p.setShader(new LinearGradient(
-                0, 0, w, h,
-                c1, c2,
-                Shader.TileMode.CLAMP
-        ));
 
-        RectF tile = new RectF(
-                1, 1, w - 1, h - 1
+        p.setShader(
+                new LinearGradient(
+                        0,
+                        0,
+                        w,
+                        h,
+                        c1,
+                        c2,
+                        Shader.TileMode.CLAMP
+                )
         );
 
         canvas.drawRoundRect(
-                tile, r, r, p
+                new RectF(1, 1, w - 1, h - 1),
+                size * 0.22f,
+                size * 0.22f,
+                p
         );
 
         p.setShader(null);
 
+        // Symbol only
         p.setStyle(Paint.Style.FILL);
-
         p.setColor(Color.WHITE);
         p.setTextAlign(Paint.Align.CENTER);
-        p.setTypeface(Typeface.create(
-                "sans-serif",
-                Typeface.BOLD
-        ));
+
+        p.setTypeface(
+                Typeface.create(
+                        "sans-serif",
+                        Typeface.BOLD
+                )
+        );
 
         p.setTextSize(size * 0.39f);
 
@@ -11154,18 +11154,23 @@ private class CountryIconView extends View {
             case "CANADA":
                 symbol = "✦";
                 break;
+
             case "USA":
                 symbol = "★";
                 break;
+
             case "UK":
                 symbol = "✚";
                 break;
+
             case "AUSTRALIA":
                 symbol = "★";
                 break;
+
             case "OTHER":
                 symbol = "◎";
                 break;
+
             default:
                 symbol = "◎";
                 break;
