@@ -10664,222 +10664,171 @@ page.addView(
 );
 
 // =================================================
-// DESTINATION ICONS GRID
+// DESTINATION LIST — GLOWING CIRCULAR FLAGS
 // =================================================
 
-LinearLayout grid =
-    new LinearLayout(this);
-
-grid
-   .setOrientation(
-        LinearLayout.VERTICAL
-    );
-
-grid
-   .setPadding(
-        dp(8),
-        dp(16),
-        dp(8),
-        dp(16)
-    );
+LinearLayout grid = new LinearLayout(this);
+grid.setOrientation(LinearLayout.VERTICAL);
+grid.setPadding(dp(16), dp(4), dp(16), dp(12));
 
 String[] names = {
-    "Schengen",
-    "Canada",
-    "USA",
-    "England",
-    "Australia",
-    "Other"
+        "Schengen",
+        "Canada",
+        "USA",
+        "United Kingdom",
+        "Australia",
+        "Other Countries"
+};
+
+String[] subtitles = {
+        "European Union",
+        "Canada",
+        "United States",
+        "United Kingdom",
+        "Australia",
+        "Other destinations"
 };
 
 int[] icons = {
-    R.drawable.ic_schengen,
-    R.drawable.ic_canada,
-    R.drawable.ic_usa,
-    R.drawable.ic_england,
-    R.drawable.ic_australia,
-    R.drawable.ic_other
+        R.drawable.ic_schengen,
+        R.drawable.ic_canada,
+        R.drawable.ic_usa,
+        R.drawable.ic_england,
+        R.drawable.ic_australia,
+        R.drawable.ic_other
 };
 
-for (
-    int r = 0;
-    r < 2;
-    r++
-) {
+for (int i = 0; i < names.length; i++) {
 
-    LinearLayout row =
-        new LinearLayout(this);
+    final int index = i;
 
-    row
-       .setOrientation(
-            LinearLayout.HORIZONTAL
-        );
+    LinearLayout item = new LinearLayout(this);
+    item.setOrientation(LinearLayout.HORIZONTAL);
+    item.setGravity(Gravity.CENTER_VERTICAL);
+    item.setPadding(dp(8), dp(10), dp(8), dp(10));
 
-    row
-       .setWeightSum(
-            3
-        );
+    // Circular flag icon
+    FrameLayout iconFrame = new FrameLayout(this);
 
-    for (
-        int c = 0;
-        c < 3;
-        c++
-    ) {
-
-        int idx =
-            r * 3 + c;
-
-        if (
-            idx >= 6
-        ) break;
-
-        LinearLayout card =
-            new LinearLayout(this);
-
-        card
-           .setOrientation(
-                LinearLayout.VERTICAL
-            );
-
-        card
-           .setGravity(
-                Gravity.CENTER
-            );
-
-        LinearLayout.LayoutParams cardP =
+    LinearLayout.LayoutParams iconFrameParams =
             new LinearLayout.LayoutParams(
-                0,
-                -2,
-                1f
+                    dp(66),
+                    dp(66)
             );
 
-        cardP
-           .setMargins(
-                dp(8),
-                dp(10),
-                dp(8),
-                dp(10)
+    iconFrameParams.setMargins(
+            dp(4), 0, dp(18), 0
+    );
+
+    GradientDrawable glowRing = new GradientDrawable();
+    glowRing.setShape(GradientDrawable.OVAL);
+    glowRing.setColor(Color.TRANSPARENT);
+    glowRing.setStroke(
+            dp(2),
+            Color.parseColor("#B58AFF")
+    );
+
+    iconFrame.setBackground(glowRing);
+    iconFrame.setElevation(dp(5));
+
+    ImageView flag = new ImageView(this);
+    flag.setImageResource(icons[i]);
+
+    // Keep original flag colors
+    flag.setColorFilter(null);
+    flag.setScaleType(ImageView.ScaleType.FIT_CENTER);
+    flag.setPadding(dp(5), dp(5), dp(5), dp(5));
+
+    FrameLayout.LayoutParams flagParams =
+            new FrameLayout.LayoutParams(
+                    -1,
+                    -1
             );
 
-        card
-           .setLayoutParams(
-                cardP
+    iconFrame.addView(flag, flagParams);
+
+    // Country labels
+    LinearLayout labels = new LinearLayout(this);
+    labels.setOrientation(LinearLayout.VERTICAL);
+    labels.setGravity(Gravity.CENTER_VERTICAL);
+
+    TextView title = text(
+            names[i],
+            17,
+            Color.WHITE
+    );
+
+    title.setTypeface(Typeface.DEFAULT_BOLD);
+
+    TextView subtitle = text(
+            subtitles[i],
+            12,
+            Color.parseColor("#C9BDF2")
+    );
+
+    LinearLayout.LayoutParams subtitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
             );
 
-        ImageView iconBox =
-            new ImageView(this);
+    subtitleParams.setMargins(0, dp(3), 0, 0);
 
-        iconBox
-           .setImageResource(
-                icons[idx]
-            );
+    labels.addView(title);
+    labels.addView(subtitle, subtitleParams);
 
-        iconBox
-           .setColorFilter(
-                Color.WHITE
-            );
+    item.addView(iconFrame, iconFrameParams);
 
-        iconBox
-           .setPadding(
-                dp(22),
-                dp(22),
-                dp(22),
-                dp(22)
-            );
+    item.addView(
+            labels,
+            new LinearLayout.LayoutParams(
+                    0,
+                    -2,
+                    1f
+            )
+    );
 
-        GradientDrawable bg =
-            new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{
-                    Color.parseColor("#6A5CFF"),
-                    Color.parseColor("#3B2E8A")
-                }
-            );
+    item.setOnClickListener(v -> {
+        // Keep the existing country-selection action here.
+    });
 
-        bg
-           .setCornerRadius(
-                dp(24)
-            );
+    grid.addView(
+            item,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            )
+    );
 
-        bg
-           .setStroke(
-                dp(1),
-                Color.parseColor("#8E8BFA")
-            );
+    // Divider between destinations
+    if (i < names.length - 1) {
 
-        iconBox
-           .setBackground(
-                bg
-            );
+        View divider = new View(this);
 
-        iconBox
-           .setElevation(
-                dp(12)
-            );
+        GradientDrawable dividerBg =
+                new GradientDrawable();
 
-        TextView lbl =
-            new TextView(this);
-
-        lbl
-           .setText(
-                names[idx]
-            );
-
-        lbl
-           .setTextSize(
-                12
-            );
-
-        lbl
-           .setTextColor(
-                Color.WHITE
-            );
-
-        lbl
-           .setGravity(
-                Gravity.CENTER
-            );
-
-        lbl
-           .setPadding(
-                0,
-                dp(10),
-                0,
-                0
-            );
-
-        card
-           .addView(
-                iconBox,
-                new LinearLayout.LayoutParams(
-                    dp(96),
-                    dp(96)
-                )
-            );
-
-        card
-           .addView(
-                lbl
-            );
-
-        row
-           .addView(
-                card
-            );
-
-    }
-
-    grid
-       .addView(
-            row
+        dividerBg.setColor(
+                Color.parseColor("#554C8D")
         );
 
+        divider.setBackground(dividerBg);
+
+        LinearLayout.LayoutParams dividerParams =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        dp(1)
+                );
+
+        dividerParams.setMargins(
+                dp(4), dp(2), dp(4), dp(2)
+        );
+
+        grid.addView(divider, dividerParams);
+    }
 }
 
-page
-   .addView(
-        grid
-    );
+page.addView(grid);
 
 // =================================================
 // CONTENT SCROLL
