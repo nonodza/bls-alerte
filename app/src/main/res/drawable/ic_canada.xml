@@ -5,43 +5,19 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- CANADA RED CIRCLE -->
+    <!-- خلفية دائرية حمراء -->
     <path
-        android:fillColor="#D80621"
-        android:pathData="M50,7 A43,43 0,1 1 50,93 A43,43 0,1 1 50,7" />
+        android:fillColor="#FF0000"
+        android:pathData="M50,2 A48,48 0,1 1 50,98 A48,48 0,1 1 50,2" />
 
-    <!-- WHITE FLAG CENTER -->
+    <!-- الشريط الأبيض في الوسط 50% - علم كندا الحقيقي -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M36,13 L64,13 L64,87 L36,87 Z" />
+        android:pathData="M25,2 L75,2 L75,98 L25,98 Z" />
 
-    <!-- MAPLE LEAF -->
+    <!-- ورقة القيقب حمراء في الوسط -->
     <path
-        android:fillColor="#D80621"
-        android:pathData="M50,22
-            L55,34
-            L64,28
-            L62,40
-            L73,37
-            L67,48
-            L77,53
-            L65,59
-            L68,68
-            L56,65
-            L57,77
-            L53,75
-            L53,84
-            L47,84
-            L47,75
-            L43,77
-            L44,65
-            L32,68
-            L35,59
-            L23,53
-            L33,48
-            L27,37
-            L38,40
-            L36,28
-            L45,34 Z" />
+        android:fillColor="#FF0000"
+        android:pathData="M50,26 L52.5,33 L59,31.5 L57.5,38 L64,37 L60.5,43.5 L67,47 L60.5,50.5 L62,57 L55.5,56 L55,63 L50,60 L45,63 L44.5,56 L38,57 L39.5,50.5 L33,47 L39.5,43.5 L36,37 L42.5,38 L41,31.5 L47.5,33 Z" />
 
 </vector>
