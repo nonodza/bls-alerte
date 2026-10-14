@@ -1,71 +1,98 @@
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
 
-    <!-- 12 نجمة دايرة -->
-    <group android:translateX="12" android:translateY="12">
+    <!-- Schengen blue rounded background -->
+    <path
+        android:fillColor="#003399"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+    <!-- Twelve white stars -->
+    <group
+        android:translateX="50"
+        android:translateY="50">
+
         <group android:rotation="0">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="30">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="60">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="90">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="120">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="150">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="180">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="210">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="240">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="270">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="300">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
+
         <group android:rotation="330">
             <path
-                android:fillColor="#FFFFFF"
-                android:pathData="M0,-8 L0.3,-7.2 L1.2,-7.2 L0.5,-6.6 L0.8,-5.7 L0,-5.1 L-0.8,-5.7 L-0.5,-6.6 L-1.2,-7.2 L-0.3,-7.2 Z"/>
+                android:fillColor="#FFCC00"
+                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
         </group>
     </group>
+
+    <!-- Premium border -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF78A9F5"
+        android:strokeWidth="1.4"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
 </vector>
