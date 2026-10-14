@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- White rounded background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+    <!-- Red cross: vertical -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="M40,3 L60,3 L60,97 L40,97 Z" />
+
+    <!-- Red cross: horizontal -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="M3,40 L97,40 L97,60 L3,60 Z" />
+
+    <!-- Premium border -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFD9E2FF"
+        android:strokeWidth="1.4"
+        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+
+</vector>
