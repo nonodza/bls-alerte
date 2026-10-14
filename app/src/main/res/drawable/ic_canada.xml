@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="52dp"
-    android:height="52dp"
+    android:width="48dp"
+    android:height="48dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-
-    <!-- دائرة حمراء كاملة - هي الخلفية -->
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M50,50 m-48,0 a48,48 0,1 1,96 0,a48,48 0,1 1,-96 0" />
-
-    <!-- شريط أبيض في الوسط -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M25,8 L75,8 L75,92 L25,92 Z" />
-
-    <!-- ورقة القيقب -->
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M50,23 L51.8,28 L55.5,27 L55.2,31.5 L59.5,31.2 L58,35.5 L61.5,37.5 L59,40.5 L62.5,42.8 L57.5,44.8 L59.2,49.5 L54.2,49.2 L55.5,58 L52.5,58 L51.2,77 L48.8,77 L47.5,58 L44.5,58 L45.8,49.2 L40.8,49.5 L42.5,44.8 L37.5,42.8 L41,40.5 L38.5,37.5 L42,35.5 L40.5,31.2 L44.8,31.5 L44.5,27 L48.2,28 Z" />
-
+    <path android:fillColor="#FF0000" android:pathData="M50,50 m-48,0 a48,48 0,1 1,96 0,a48,48 0,1 1,-96 0" />
+    <path android:fillColor="#FFFFFF" android:pathData="M25,8 L75,8 L75,92 L25,92 Z" />
+    <path android:fillColor="#FF0000" android:pathData="M50,23 L51.8,28 L55.5,27 L55.2,31.5 L59.5,31.2 L58,35.5 L61.5,37.5 L59,40.5 L62.5,42.8 L57.5,44.8 L59.2,49.5 L54.2,49.2 L55.5,58 L52.5,58 L51.2,77 L48.8,77 L47.5,58 L44.5,58 L45.8,49.2 L40.8,49.5 L42.5,44.8 L37.5,42.8 L41,40.5 L38.5,37.5 L42,35.5 L40.5,31.2 L44.8,31.5 L44.5,27 L48.2,28 Z" />
 </vector>
