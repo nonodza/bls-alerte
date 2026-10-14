@@ -10716,9 +10716,7 @@ for (int i = 0; i < names.length; i++) {
                     dp(66)
             );
 
-    iconFrameParams.setMargins(
-        dp(4), 0, dp(12), 0
-);
+    iconFrameParams.setMargins(dp(2), 0, dp(6), 0);
 
     iconFrame.setBackgroundColor(Color.TRANSPARENT);
 iconFrame.setElevation(0);
