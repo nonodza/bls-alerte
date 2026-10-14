@@ -10179,15 +10179,17 @@ getWindow()
             LinearLayout.VERTICAL
     );
 
-    page.setPadding(
+    page
+    .setPadding(
         0,
-        0,
+        -dp(2),
         0,
         dp(20)
-);
+    );
 
-    page.setBackgroundColor(
-            Color.parseColor("#F4F7FC")
+page
+    .setBackgroundColor(
+        Color.parseColor("#29234F")
     );
 
         // =================================================
@@ -10629,17 +10631,18 @@ mainCardFrame.addView(
 );
 
 LinearLayout.LayoutParams mainCardParams =
-        new LinearLayout.LayoutParams(
-                -1,
-                -2
-        );
+    new LinearLayout.LayoutParams(
+        -1,
+        -2
+    );
 
-mainCardParams.setMargins(
+mainCardParams
+    .setMargins(
         0,
-        dp(4),
+        -dp(3),
         0,
         dp(8)
-);
+    );
 
 page.addView(
         mainCardFrame,
@@ -10660,11 +10663,12 @@ page.addView(
 // =================================================
 
 ScrollView pageScroll =
-        new ScrollView(this);
+    new ScrollView(this);
 
-pageScroll.setFillViewport(true);
-pageScroll.setClipToPadding(false);
-
+pageScroll
+    .setBackgroundColor(
+        Color.parseColor("#29234F")
+    );
 pageScroll.addView(page);
 
 setContentView(pageScroll);
