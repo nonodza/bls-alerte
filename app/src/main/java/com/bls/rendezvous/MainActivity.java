@@ -10599,7 +10599,7 @@ PremiumWaveView waveBackground =
 FrameLayout.LayoutParams waveParams =
         new FrameLayout.LayoutParams(
                 -1,
-                dp(210),
+                dp(230),
                 Gravity.TOP
         );
 
@@ -10608,8 +10608,8 @@ mainCardFrame.addView(
         waveParams
 );
 
-mainCard.setBackground(
-        mainCardBackground
+mainCard.setBackgroundColor(
+        Color.TRANSPARENT
 );
 
 FrameLayout.LayoutParams contentParams =
