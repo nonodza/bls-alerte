@@ -1,31 +1,12 @@
-<vector xmlns:android="http://android.com"
-    android:width="200dp"
-    android:height="100dp"
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
     android:viewportWidth="200"
     android:viewportHeight="100">
-
-    <!-- Fond blanc au centre -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M0,0 h200 v100 h-200 z" />
-
-    <!-- Bande rouge gauche -->
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M0,0 h50 v100 h-50 z" />
-
-    <!-- Bande rouge droite -->
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M150,0 h50 v100 h-50 z" />
-
-    <!-- Feuille d'érable stylisée au centre (Approximation géométrique) -->
-    <path
-        android:fillColor="#FF0000"
-        android:pathData="M100,25 
-                          L103,38 L108,35 L106,42 L116,38 L114,45 L125,43 L122,50 
-                          L133,55 L125,62 L128,65 L118,63 L116,68 L109,62 L109,65
-                          L102,65 L102,78 L98,78 L98,65 L91,65 L91,62 L84,68 
-                          L82,63 L72,65 L75,62 L67,55 L78,50 L75,43 L86,45 
-                          L84,38 L94,42 L92,35 L97,38 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M0,0 h200 v100 h-200 z" />
+    <path android:fillColor="#FF0000" android:pathData="M0,0 h50 v100 h-50 z" />
+    <path android:fillColor="#FF0000" android:pathData="M150,0 h50 v100 h-50 z" />
+    <!-- ورقة مكبرة وواضحة -->
+    <path android:fillColor="#FF0000" android:pathData="M100,15 L104,32 L110,28 L108,38 L120,33 L117,42 L130,40 L126,48 L139,54 L129,63 L133,67 L121,65 L118,72 L110,65 L110,68 L104,68 L104,85 L96,85 L96,68 L90,68 L90,65 L82,72 L79,65 L67,67 L71,63 L61,54 L74,48 L70,40 L83,42 L80,33 L92,38 L90,28 L96,32 Z" />
 </vector>
