@@ -10723,7 +10723,8 @@ for (int i = 0; i < names.length; i++) {
     iconFrame.setBackgroundColor(Color.TRANSPARENT);
 iconFrame.setElevation(0);
 
-    iconFrame.setBackground(glowRing);
+    iconFrame.setBackgroundColor(Color.TRANSPARENT);
+    iconFrame.setElevation(0);
     iconFrame.setElevation(dp(5));
 
     ImageView flag = new ImageView(this);
