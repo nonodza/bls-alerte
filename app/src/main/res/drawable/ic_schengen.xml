@@ -5,94 +5,85 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Schengen blue rounded background -->
+    <!-- Blue circular background -->
     <path
         android:fillColor="#003399"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+        android:pathData="M50,8 A42,42 0,1 1 49.9,8 Z"/>
 
-    <!-- Twelve white stars -->
+    <!-- Twelve golden stars -->
     <group
         android:translateX="50"
         android:translateY="50">
 
         <group android:rotation="0">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="30">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="60">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="90">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="120">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="150">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="180">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="210">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="240">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="270">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="300">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
-
         <group android:rotation="330">
-            <path
-                android:fillColor="#FFCC00"
-                android:pathData="M0,-28 L3,-20 L11,-20 L5,-15 L7,-7 L0,-12 L-7,-7 L-5,-15 L-11,-20 L-3,-20 Z" />
+            <path android:fillColor="#FFCC00"
+                android:pathData="M0,-29 L2.5,-22 L10,-22 L4,-17.5 L6.5,-10 L0,-14.5 L-6.5,-10 L-4,-17.5 L-10,-22 L-2.5,-22 Z"/>
         </group>
     </group>
 
-    <!-- Premium border -->
+    <!-- Glowing purple ring base -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#FF78A9F5"
-        android:strokeWidth="1.4"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+        android:strokeColor="#663D00FF"
+        android:strokeWidth="9"
+        android:pathData="M50,4 A46,46 0,1 1 49.9,4 Z"/>
+
+    <!-- Bright violet ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#A64DFF"
+        android:strokeWidth="3"
+        android:pathData="M50,4 A46,46 0,1 1 49.9,4 Z"/>
+
+    <!-- Inner highlight -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="0.8"
+        android:pathData="M50,7 A43,43 0,1 1 49.9,7 Z"/>
 
 </vector>
