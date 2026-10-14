@@ -48,30 +48,15 @@
             android:fillColor="#FFFFFF"
             android:pathData="M32,10 H68 V90 H32 Z" />
 
-        <!-- Maple leaf with shaded red gradient -->
+        <!-- Maple leaf with shaded red gradient (تم تصحيح المسار بالكامل هنا) -->
         <path
-            android:pathData="
-                M50,25
-                L54,34
-                L61,30
-                L59,39
-                L67,40
-                L60,47
-                L65,51
-                L57,53
-                L59,60
-                L53,58
-                L54,69
-                L46,69
-                L47,58
-                L41,60
-                L43,53
-                L35,51
-                L40,47
-                L33,40
-                L41,39
-                L39,30
-                L46,34 Z">
+            android:pathData="M50,26 
+                       L52.8,36.5 L47.5,38.6 L49,33 
+                       L42,33 L44.8,27.4 L40.6,26 L44.8,21.1 L39.9,16.2 L47.6,18.3 L49.7,11.3 
+                       L53.9,14.8 L58.1,11.3 L60.2,18.3 L67.9,16.2 L63,21.1 L67.2,26 L63,27.4 L65.8,33 
+                       L58.8,33 L60.3,38.6 L55,36.5 L57.8,26 
+                       L53.4,26 L54.5,41.9 L52.4,43.3 L51.4,56 
+                       L48.6,56 L47.6,43.3 L45.5,41.9 L46.6,26 Z">
             <aapt:attr name="android:fillColor">
                 <gradient
                     android:startX="37"
@@ -86,10 +71,10 @@
             </aapt:attr>
         </path>
 
-        <!-- Subtle highlight on the leaf -->
+        <!-- Subtle highlight on the leaf (تم تعديله ليتطابق مع النصف الأيسر للورقة الجديدة) -->
         <path
-            android:fillColor="#55FFFFFF"
-            android:pathData="M46,35 L50,27 L50,57 L46,58 L43,53 L47,51 L42,47 L47,46 Z" />
+            android:fillColor="#33FFFFFF"
+            android:pathData="M50,12 L47.6,18.3 L39.9,16.2 L44.8,21.1 L40.6,26 L44.8,27.4 L42,33 L49,33 L47.5,38.6 L52.8,36.5 L50,26 L46.6,26 L45.5,41.9 L47.6,43.3 L48.6,56 L50,56 Z" />
     </group>
 
 </vector>
