@@ -2,11 +2,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="48dp"
     android:height="48dp"
-    android:viewportWidth="200"
+    android:viewportWidth="100"
     android:viewportHeight="100">
-    <path android:fillColor="#FFFFFF" android:pathData="M0,0 h200 v100 h-200 z" />
-    <path android:fillColor="#FF0000" android:pathData="M0,0 h50 v100 h-50 z" />
-    <path android:fillColor="#FF0000" android:pathData="M150,0 h50 v100 h-50 z" />
-    <!-- ورقة مكبرة وواضحة -->
-    <path android:fillColor="#FF0000" android:pathData="M100,15 L104,32 L110,28 L108,38 L120,33 L117,42 L130,40 L126,48 L139,54 L129,63 L133,67 L121,65 L118,72 L110,65 L110,68 L104,68 L104,85 L96,85 L96,68 L90,68 L90,65 L82,72 L79,65 L67,67 L71,63 L61,54 L74,48 L70,40 L83,42 L80,33 L92,38 L90,28 L96,32 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M50,50 m-48,0 a48,48 0,1 1,96 0,a48,48 0,1 1,-96 0" />
+    <path android:fillColor="#FF0000" android:pathData="M2,10 A48,48 0,0 0,2 90 L25,90 L25,10 Z" />
+    <path android:fillColor="#FF0000" android:pathData="M75,10 L98,10 A48,48 0,0 1,98 90 L75,90 Z" />
+    <path android:fillColor="#FF0000" android:pathData="M50,78 L48,63 L40,66 L42,58 L32,58 L36,50 L30,48 L36,41 L29,34 L40,37 L43,27 L50,32 L57,27 L60,37 L71,34 L64,41 L70,48 L64,50 L68,58 L58,58 L60,66 L52,63 Z" />
 </vector>
