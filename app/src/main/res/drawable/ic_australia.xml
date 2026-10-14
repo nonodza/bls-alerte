@@ -5,70 +5,70 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Premium rounded blue background -->
+    <!-- Rounded navy background -->
     <path
         android:fillColor="#012169"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
 
-    <!-- White diagonal cross -->
+    <!-- White diagonal bands -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M8,9 L16,4 L92,79 L84,87 Z" />
+        android:pathData="M5,12 L12,5 L95,78 L88,86 Z"/>
 
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M92,9 L84,4 L8,79 L16,87 Z" />
+        android:pathData="M95,12 L88,5 L5,78 L12,86 Z"/>
 
-    <!-- Red diagonal cross -->
+    <!-- Red diagonal bands -->
     <path
         android:fillColor="#C8102E"
-        android:pathData="M8,12 L12,8 L92,79 L88,84 Z" />
+        android:pathData="M5,10 L9,6 L95,81 L91,85 Z"/>
 
     <path
         android:fillColor="#C8102E"
-        android:pathData="M92,12 L88,8 L8,79 L12,84 Z" />
+        android:pathData="M95,10 L91,6 L5,81 L9,85 Z"/>
 
     <!-- White central cross -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M39,3 L61,3 L61,97 L39,97 Z" />
+        android:pathData="M40,3 L60,3 L60,97 L40,97 Z"/>
 
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M3,39 L97,39 L97,61 L3,61 Z" />
+        android:pathData="M3,40 L97,40 L97,60 L3,60 Z"/>
 
     <!-- Red central cross -->
     <path
         android:fillColor="#C8102E"
-        android:pathData="M44,3 L56,3 L56,97 L44,97 Z" />
+        android:pathData="M45,3 L55,3 L55,97 L45,97 Z"/>
 
     <path
         android:fillColor="#C8102E"
-        android:pathData="M3,44 L97,44 L97,56 L3,56 Z" />
+        android:pathData="M3,45 L97,45 L97,55 L3,55 Z"/>
 
     <!-- Commonwealth star -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M24,62 L27,69 L35,69 L29,74 L31,82 L24,77 L17,82 L19,74 L13,69 L21,69 Z" />
+        android:pathData="M25,62 L28,70 L36,70 L30,75 L32,83 L25,78 L18,83 L20,75 L14,70 L22,70 Z"/>
 
     <!-- Southern Cross stars -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M72,61 L74,66 L80,66 L75,70 L77,76 L72,72 L67,76 L69,70 L64,66 L70,66 Z" />
+        android:pathData="M72,61 L74,66 L80,66 L75,70 L77,76 L72,72 L67,76 L69,70 L64,66 L70,66 Z"/>
 
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M80,78 L82,82 L87,82 L83,85 L85,90 L80,87 L76,90 L77,85 L73,82 L78,82 Z" />
+        android:pathData="M80,78 L82,82 L87,82 L83,85 L85,90 L80,87 L76,90 L77,85 L73,82 L78,82 Z"/>
 
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M65,81 L67,85 L72,85 L68,88 L69,93 L65,90 L61,93 L62,88 L58,85 L63,85 Z" />
+        android:pathData="M65,81 L67,85 L72,85 L68,88 L69,93 L65,90 L61,93 L62,88 L58,85 L63,85 Z"/>
 
     <!-- Premium border -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#FFD9E2FF"
-        android:strokeWidth="1.4"
-        android:pathData="M22,3 L78,3 Q97,3 97,22 L97,78 Q97,97 78,97 L22,97 Q3,97 3,78 L3,22 Q3,3 22,3 Z" />
+        android:strokeColor="#FF78A9F5"
+        android:strokeWidth="1.5"
+        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
 
 </vector>
