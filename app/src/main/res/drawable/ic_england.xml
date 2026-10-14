@@ -5,25 +5,26 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- Rounded white background -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
-
-    <!-- England red cross -->
-    <path
-        android:fillColor="#C8102E"
-        android:pathData="M40,3 L60,3 L60,97 L40,97 Z"/>
-
-    <path
-        android:fillColor="#C8102E"
-        android:pathData="M3,40 L97,40 L97,60 L3,60 Z"/>
-
-    <!-- Premium border -->
+    <!-- Purple circular ring -->
     <path
         android:fillColor="#00000000"
-        android:strokeColor="#FFD9E2FF"
-        android:strokeWidth="1.5"
-        android:pathData="M20,3 L80,3 Q97,3 97,20 L97,80 Q97,97 80,97 L20,97 Q3,97 3,80 L3,20 Q3,3 20,3 Z"/>
+        android:strokeColor="#B58AFF"
+        android:strokeWidth="3"
+        android:pathData="M50,4 A46,46 0,1 1,49.9,4" />
+
+    <!-- White circular flag background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,10 A40,40 0,1 1,49.9,10" />
+
+    <!-- Red cross: horizontal bar -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="M12,43 L88,43 L88,57 L12,57 Z" />
+
+    <!-- Red cross: vertical bar -->
+    <path
+        android:fillColor="#C8102E"
+        android:pathData="M43,12 L57,12 L57,88 L43,88 Z" />
 
 </vector>
