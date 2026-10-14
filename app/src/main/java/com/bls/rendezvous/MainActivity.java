@@ -11067,11 +11067,10 @@ private class CountryIconView extends View {
         float w = getWidth();
         float h = getHeight();
         if (w <= 0 || h <= 0) return;
-
         float size = Math.min(w, h);
+
         int c1;
         int c2;
-
         switch (country) {
             case "CANADA":
                 c1 = Color.parseColor("#FF416C");
@@ -11148,6 +11147,12 @@ private class CountryIconView extends View {
         Paint.FontMetrics fm = p.getFontMetrics();
         float baseline = h / 2f - (fm.ascent + fm.descent) / 2f;
         canvas.drawText(symbol, w / 2f, baseline, p);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int d = (int) (52 * getResources().getDisplayMetrics().density);
+        setMeasuredDimension(d, d);
     }
 }
   
