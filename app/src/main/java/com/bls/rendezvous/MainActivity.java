@@ -11053,10 +11053,7 @@ wavePath.close();
 }
   
 private class CountryIconView extends View {
-
-    private final Paint p =
-            new Paint(Paint.ANTI_ALIAS_FLAG);
-
+    private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final String country;
 
     public CountryIconView(Context context, String country) {
@@ -11067,14 +11064,11 @@ private class CountryIconView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         float w = getWidth();
         float h = getHeight();
-
         if (w <= 0 || h <= 0) return;
 
         float size = Math.min(w, h);
-
         int c1;
         int c2;
 
@@ -11083,110 +11077,77 @@ private class CountryIconView extends View {
                 c1 = Color.parseColor("#FF416C");
                 c2 = Color.parseColor("#A50045");
                 break;
-
             case "USA":
                 c1 = Color.parseColor("#3288FF");
                 c2 = Color.parseColor("#1026A8");
                 break;
-
             case "UK":
                 c1 = Color.parseColor("#793BFF");
                 c2 = Color.parseColor("#241078");
                 break;
-
             case "AUSTRALIA":
                 c1 = Color.parseColor("#16B8FF");
                 c2 = Color.parseColor("#0739B9");
                 break;
-
             case "OTHER":
                 c1 = Color.parseColor("#B33DFF");
                 c2 = Color.parseColor("#3620A8");
                 break;
-
             default:
                 c1 = Color.parseColor("#526BFF");
                 c2 = Color.parseColor("#2512A5");
                 break;
         }
 
-        // Clean gradient background — no border or outline
         p.setStyle(Paint.Style.FILL);
-
         p.setShader(
-                new LinearGradient(
-                        0,
-                        0,
-                        w,
-                        h,
-                        c1,
-                        c2,
-                        Shader.TileMode.CLAMP
-                )
+            new LinearGradient(
+                0, 0, w, h,
+                c1, c2,
+                Shader.TileMode.CLAMP
+            )
         );
-
         canvas.drawRoundRect(
-                new RectF(1, 1, w - 1, h - 1),
-                size * 0.22f,
-                size * 0.22f,
-                p
+            new RectF(0, 0, w, h),
+            size * 0.22f,
+            size * 0.22f,
+            p
         );
-
         p.setShader(null);
 
-        // Symbol only
         p.setStyle(Paint.Style.FILL);
         p.setColor(Color.WHITE);
         p.setTextAlign(Paint.Align.CENTER);
-
         p.setTypeface(
-                Typeface.create(
-                        "sans-serif",
-                        Typeface.BOLD
-                )
+            Typeface.create("sans-serif", Typeface.BOLD)
         );
-
-        p.setTextSize(size * 0.39f);
+        p.setTextSize(size * 0.42f);
 
         String symbol;
-
         switch (country) {
             case "CANADA":
                 symbol = "✦";
                 break;
-
             case "USA":
                 symbol = "★";
                 break;
-
             case "UK":
                 symbol = "✚";
                 break;
-
             case "AUSTRALIA":
                 symbol = "★";
                 break;
-
             case "OTHER":
                 symbol = "◎";
                 break;
-
             default:
                 symbol = "◎";
                 break;
         }
 
         Paint.FontMetrics fm = p.getFontMetrics();
-
-        float baseline =
-                h / 2f - (fm.ascent + fm.descent) / 2f;
-
-        canvas.drawText(
-                symbol,
-                w / 2f,
-                baseline,
-                p
-        );
+        float baseline = h / 2f - (fm.ascent + fm.descent) / 2f;
+        canvas.drawText(symbol, w / 2f, baseline, p);
     }
 }
   
