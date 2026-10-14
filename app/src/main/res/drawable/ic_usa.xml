@@ -1,26 +1,11 @@
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-    <!-- الشعلة -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M12,2 C12,2 11,4 11.2,5.5 L12.8,5.5 C13,4 12,2 12,2 Z M11,6 L13,6 L13.5,13 L10.5,13 Z"
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="0.6"/>
-
-    <!-- التاج -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M10.5,13 L13.5,13 L14.5,14.5 L9.5,14.5 Z M9,15 L15,15 L15,16 L9,16 Z"/>
-
-    <!-- الجسم -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M10,16 L14,16 L14.5,20 L9.5,20 Z M9,20 L15,20 L15,21 L9,21 Z"
-        android:strokeWidth="0.5"/>
+        android:pathData="M12,2L12.5,5L11.5,5L12,2Z M11,5L13,5L13.5,12L10.5,12L11,5Z M10,13L14,13L15,14L9,14L10,13Z M10,15L14,15L14.5,20L9.5,20L10,15Z"/>
 
 </vector>
