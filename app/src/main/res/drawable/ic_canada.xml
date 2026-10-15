@@ -8,14 +8,12 @@
     <!-- Small circular badge -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M50,13
-            A37,37 0,1 1,49.9,13 Z" />
+        android:pathData="M50,13 A37,37 0,1 1,49.9,13 Z" />
 
     <group>
-        <!-- Keep the flag inside the circular boundary -->
+        <!-- Circular clipping -->
         <clip-path
-            android:pathData="M50,13
-                A37,37 0,1 1,49.9,13 Z" />
+            android:pathData="M50,13 A37,37 0,1 1,49.9,13 Z" />
 
         <!-- Narrower red side panels -->
         <path
@@ -24,31 +22,35 @@
                 M10,10 H34 V90 H10 Z
                 M66,10 H90 V90 H66 Z" />
 
-        <!-- Larger, clearer maple leaf -->
+        <!-- Improved maple leaf and connected stem -->
         <path
             android:fillColor="#D80621"
             android:pathData="
                 M50,21
-                L45.5,34
-                L35,28
-                L38,41
-                L26,39
-                L32,49
-                L25,53
-                L39,60
-                L35,69
-                L46,66
-                L45,79
-                L55,79
-                L54,66
-                L65,69
-                L61,60
-                L75,53
-                L68,49
-                L74,39
-                L62,41
-                L65,28
-                L54.5,34 Z" />
+                L46,32
+                L36,25
+                L39,38
+                L28,36
+                L34,46
+                L26,50
+                L39,57
+                L35,66
+                L45,63
+                L44,76
+                L47,76
+                L47,84
+                L53,84
+                L53,76
+                L56,76
+                L55,63
+                L65,66
+                L61,57
+                L74,50
+                L66,46
+                L72,36
+                L61,38
+                L64,25
+                L54,32 Z" />
 
     </group>
 
