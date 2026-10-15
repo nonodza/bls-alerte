@@ -10708,13 +10708,13 @@ for (int i = 0; i < names.length; i++) {
     item.setPadding(dp(8), dp(6), dp(8), dp(6));
 
     // Circular flag icon
-    FrameLayout iconFrame = new FrameLayout(this);
+FrameLayout iconFrame = new FrameLayout(this);
 
-    LinearLayout.LayoutParams iconFrameParams =
-            new LinearLayout.LayoutParams(
-                    dp(66),
-                    dp(66)
-            );
+LinearLayout.LayoutParams iconFrameParams =
+        new LinearLayout.LayoutParams(
+                dp(58),
+                dp(58)
+        );
 
     iconFrameParams.setMargins(dp(2), 0, dp(6), 0);
 
