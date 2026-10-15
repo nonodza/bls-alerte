@@ -10712,8 +10712,8 @@ FrameLayout iconFrame = new FrameLayout(this);
 
 LinearLayout.LayoutParams iconFrameParams =
         new LinearLayout.LayoutParams(
-                dp(48),
-                dp(48)
+                dp(52),
+                dp(52)
         );
 
     iconFrameParams.setMargins(dp(2), 0, dp(6), 0);
