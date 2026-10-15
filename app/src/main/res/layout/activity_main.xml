@@ -17,11 +17,11 @@
         android:textColor="#FFFFFF"
         android:layout_marginBottom="40dp"/>
    <ImageView
-    android:layout_width="42dp"
-    android:layout_height="42dp"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
     android:src="@drawable/ic_canada"
-    android:scaleType="fitCenter" /> 
-
+    android:scaleType="fitCenter" />
+    
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAlerte"
         android:layout_width="match_parent"
