@@ -1,74 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://android.com"
     android:width="48dp"
     android:height="48dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
 
-    <!-- الخلفية الدائرية بتأثير التدرج اللوني -->
+    <!-- Circular flag badge -->
     <path
-        android:pathData="M50,13 A37,37 0,1 1,49.9,13 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:type="radial"
-                android:centerX="35"
-                android:centerY="27"
-                android:gradientRadius="75">
-                <item android:color="#FFFFFF" android:offset="0" />
-                <item android:color="#F2F2F2" android:offset="0.45" />
-                <item android:color="#B8B8B8" android:offset="1" />
-            </gradient>
-        </aapt:attr>
-    </path>
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,13
+            A37,37 0,1 1,49.9,13 Z" />
 
-    <!-- قص العلم وحمايته داخل الدائرة -->
+    <!-- Clip the flag inside the circle -->
     <group>
         <clip-path
-            android:pathData="M50,13 A37,37 0,1 1,49.9,13 Z" />
+            android:pathData="M50,13
+                A37,37 0,1 1,49.9,13 Z" />
 
-        <!-- الحقل الأحمر الخلفي للعلم -->
-        <path android:pathData="M10,10 H90 V90 H10 Z">
-            <aapt:attr name="android:fillColor">
-                <gradient
-                    android:startX="18"
-                    android:startY="15"
-                    android:endX="83"
-                    android:endY="88"
-                    android:type="linear">
-                    <item android:color="#FF4B55" android:offset="0" />
-                    <item android:color="#D80020" android:offset="0.48" />
-                    <item android:color="#790015" android:offset="1" />
-                </gradient>
-            </aapt:attr>
-        </path>
-
-        <!-- المربع الأبيض الأوسط بالتأثير الحقيقي -->
+        <!-- Canadian red side panels -->
         <path
-            android:fillColor="#FFFFFF"
-            android:pathData="M30,10 H70 V90 H30 Z" />
+            android:fillColor="#D80621"
+            android:pathData="M10,10 H32 V90 H10 Z
+                               M68,10 H90 V90 H68 Z" />
 
-        <!-- ورقة شجر القيقب الرسمية الحقيقية والمطابقة 100% بدون أخطاء معالجة -->
+        <!-- Official-style maple leaf silhouette -->
         <path
-            android:pathData="M 50,75 L 48.5,52.5 L 44,55 L 45.5,43 L 36.5,45 L 39,37 L 33,36 L 39.5,30 L 33.5,23.5 L 43.5,25.5 L 45,15 L 50,22 L 55,15 L 56.5,25.5 L 66.5,23.5 L 60.5,30 L 67,36 L 61,37 L 63.5,45 L 54.5,43 L 56,55 L 51.5,52.5 Z">
-            <aapt:attr name="android:fillColor">
-                <gradient
-                    android:startX="37"
-                    android:startY="29"
-                    android:endX="63"
-                    android:endY="68"
-                    android:type="linear">
-                    <item android:color="#FF4555" android:offset="0" />
-                    <item android:color="#D00020" android:offset="0.55" />
-                    <item android:color="#870015" android:offset="1" />
-                </gradient>
-            </aapt:attr>
-        </path>
+            android:fillColor="#D80621"
+            android:pathData="
+                M50,25
+                L45.8,35.2
+                L34.7,29.4
+                L37.3,41.1
+                L27.1,40.2
+                L31.8,49.1
+                L25.2,52.5
+                L39.3,60.1
+                L35.7,68.1
+                L46.3,65.9
+                L45.5,77
+                L54.5,77
+                L53.7,65.9
+                L64.3,68.1
+                L60.7,60.1
+                L74.8,52.5
+                L68.2,49.1
+                L72.9,40.2
+                L62.7,41.1
+                L65.3,29.4
+                L54.2,35.2 Z" />
 
-        <!-- تظليل الإضاءة الشفافة المطبق بدقة على الجانب الأيسر للورقة الحقيقية -->
-        <path
-            android:fillColor="#33FFFFFF"
-            android:pathData="M 50,22 L 45,15 L 43.5,25.5 L 33.5,23.5 L 39.5,30 L 33,36 L 39,37 L 36.5,45 L 45.5,43 L 44,55 L 48.5,52.5 L 50,75 Z" />
     </group>
 
 </vector>
