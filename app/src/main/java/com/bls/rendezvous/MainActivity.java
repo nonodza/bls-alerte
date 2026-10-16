@@ -10192,7 +10192,8 @@ getWindow()
         dp(20)
     );
 
-
+page.setBackgroundResource(R.drawable.bg_main);
+    
         // =================================================
 // MAIN CARD — PREMIUM GRADIENT
 // =================================================
