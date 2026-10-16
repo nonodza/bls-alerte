@@ -10671,6 +10671,9 @@ LinearLayout grid = new LinearLayout(this);
 grid.setOrientation(LinearLayout.VERTICAL);
 grid.setPadding(dp(16), dp(4), dp(16), dp(12));
 
+grid.setBackgroundColor(
+        Color.parseColor("#F3F6FF")
+);
 String[] names = {
         "Schengen",
         "Canada",
@@ -10746,18 +10749,17 @@ iconFrame.setElevation(0);
     labels.setGravity(Gravity.CENTER_VERTICAL);
 
     TextView title = text(
-            names[i],
-            17,
-            Color.WHITE
-    );
-
+        names[i],
+        17,
+        Color.parseColor("#142B55")
+);
     title.setTypeface(Typeface.DEFAULT_BOLD);
 
     TextView subtitle = text(
             subtitles[i],
             12,
-            Color.parseColor("#C9BDF2")
-    );
+            Color.parseColor("#68799D")
+        );
 
     LinearLayout.LayoutParams subtitleParams =
             new LinearLayout.LayoutParams(
