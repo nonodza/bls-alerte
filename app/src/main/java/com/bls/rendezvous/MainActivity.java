@@ -10192,10 +10192,18 @@ getWindow()
         dp(20)
     );
 
-page
-    .setBackgroundColor(
-        Color.parseColor("#29234F")
-    );
+GradientDrawable pageBackground =
+        new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{
+                        Color.parseColor("#29234F"),
+                        Color.parseColor("#494176"),
+                        Color.parseColor("#7775A8"),
+                        Color.parseColor("#E8E5F8")
+                }
+        );
+
+page.setBackground(pageBackground);
 
         // =================================================
 // MAIN CARD — PREMIUM GRADIENT
@@ -10803,31 +10811,20 @@ page.addView(grid);
 // =================================================
 
 ScrollView pageScroll =
-    new ScrollView(this);
+        new ScrollView(this);
 
-pageScroll
-   .setBackgroundColor(
-        Color.parseColor("#29234F")
-    );
+pageScroll.setBackgroundColor(
+        Color.parseColor("#E8E5F8")
+);
 
-pageScroll
-   .setFillViewport(
-        true
-    );
+pageScroll.setFillViewport(true);
 
-pageScroll
-   .setClipToPadding(
-        false
-    );
+pageScroll.setClipToPadding(false);
 
-pageScroll
-    .setBackgroundColor(
-        Color.parseColor("#29234F")
-    );
 pageScroll.addView(page);
 
 setContentView(pageScroll);
-
+    
 } // END showNewApplication()
 
 
