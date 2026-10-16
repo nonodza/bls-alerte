@@ -10192,19 +10192,6 @@ getWindow()
         dp(20)
     );
 
-GradientDrawable pageBackground =
-        new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{
-                        Color.parseColor("#1D2671"),
-                        Color.parseColor("#C33764"),
-                        Color.parseColor("#2F0743"),
-                        Color.parseColor("#41295A"),
-                        Color.parseColor("#F3E6FF")
-                }
-        );
-
-page.setBackground(pageBackground);
 
         // =================================================
 // MAIN CARD — PREMIUM GRADIENT
