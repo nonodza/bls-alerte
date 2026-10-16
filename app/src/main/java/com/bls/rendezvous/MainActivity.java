@@ -10679,9 +10679,6 @@ LinearLayout grid = new LinearLayout(this);
 grid.setOrientation(LinearLayout.VERTICAL);
 grid.setPadding(dp(16), dp(4), dp(16), dp(12));
 
-grid.setBackgroundColor(
-        Color.parseColor("#F3F6FF")
-);
 String[] names = {
         "Schengen",
         "Canada",
