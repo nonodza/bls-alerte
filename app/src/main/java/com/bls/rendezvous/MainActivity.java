@@ -10196,10 +10196,11 @@ GradientDrawable pageBackground =
         new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[]{
-                        Color.parseColor("#29234F"),
-                        Color.parseColor("#494176"),
-                        Color.parseColor("#7775A8"),
-                        Color.parseColor("#E8E5F8")
+                        Color.parseColor("#1D2671"),
+                        Color.parseColor("#C33764"),
+                        Color.parseColor("#2F0743"),
+                        Color.parseColor("#41295A"),
+                        Color.parseColor("#F3E6FF")
                 }
         );
 
