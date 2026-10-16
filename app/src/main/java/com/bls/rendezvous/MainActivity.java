@@ -10705,8 +10705,7 @@ for (int i = 0; i < names.length; i++) {
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.HORIZONTAL);
     item.setGravity(Gravity.CENTER_VERTICAL);
-    item.setPadding(dp(8), dp(6), dp(8), dp(6));
-
+    item.setPadding(dp(8), dp(2), dp(8), dp(2));
     // Circular flag icon
 FrameLayout iconFrame = new FrameLayout(this);
 
