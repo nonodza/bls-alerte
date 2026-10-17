@@ -10368,13 +10368,13 @@ pageSubtitle.setShadowLayer(
         Color.parseColor("#44000000")
 );
 
-LinearLayout.LayoutParams subtitleParams =
+LinearLayout.LayoutParams pageSubtitleParams =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         );
 
-subtitleParams.setMargins(
+pageSubtitleParams.setMargins(
         0,
         dp(3),
         0,
@@ -10383,7 +10383,7 @@ subtitleParams.setMargins(
 
 titleColumn.addView(
         pageSubtitle,
-        subtitleParams
+        pageSubtitleParams
 );
 
 LinearLayout.LayoutParams titleParams =
@@ -10391,7 +10391,7 @@ LinearLayout.LayoutParams titleParams =
                 0,
                 -2,
                 1f
-);
+        );
 
 titleParams.setMargins(
         dp(10),
@@ -10406,8 +10406,6 @@ cardHeader.addView(
 );
 
 mainCard.addView(cardHeader);
-
-
 // =================================================
 // DESCRIPTION — CLEAR WHITE TEXT
 // =================================================
