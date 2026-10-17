@@ -10294,7 +10294,10 @@ backButton.setTypeface(
         )
 );
 
-// Premium circular button background
+// =================================================
+// BACK BUTTON — GLOWING GLASS STYLE
+// =================================================
+
 GradientDrawable backButtonBg =
         new GradientDrawable();
 
@@ -10303,12 +10306,12 @@ backButtonBg.setShape(
 );
 
 backButtonBg.setColor(
-        Color.parseColor("#332E6F")
+        Color.parseColor("#222E6F55")
 );
 
 backButtonBg.setStroke(
         dp(1),
-        Color.parseColor("#668CBFFF")
+        Color.parseColor("#99A8FFFF")
 );
 
 backButton.setBackground(
@@ -10341,8 +10344,26 @@ backGroup.addView(
         )
 );
 
+LinearLayout.LayoutParams backLabelParams =
+        new LinearLayout.LayoutParams(
+                -2,
+                dp(44)
+        );
+
+backLabelParams.setMargins(
+        dp(2),
+        dp(5),
+        0,
+        0
+);
+
+backLabel.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
 backGroup.addView(
-        backLabel
+        backLabel,
+        backLabelParams
 );
 
 backGroup.setOnClickListener(
