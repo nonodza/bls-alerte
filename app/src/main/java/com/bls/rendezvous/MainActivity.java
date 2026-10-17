@@ -10252,7 +10252,26 @@ cardHeader.setOrientation(
 cardHeader.setGravity(
         Gravity.CENTER_VERTICAL
 );
+    
+// =================================================
+// BACK GROUP — FIX
+// =================================================
 
+LinearLayout backGroup =
+        new LinearLayout(this);
+
+backGroup.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+backGroup.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+backGroup.setClickable(true);
+
+backGroup.setFocusable(true);
+    
 // =================================================
 // BACK BUTTON — PREMIUM
 // =================================================
