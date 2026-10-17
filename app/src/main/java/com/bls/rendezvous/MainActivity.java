@@ -10315,8 +10315,9 @@ cardHeader.addView(
 );
 
 
-// =================================================
-// TITLE COLUMN
+
+ // =================================================
+// TITLE COLUMN — PREMIUM WHITE HEADER
 // =================================================
 
 LinearLayout titleColumn =
@@ -10326,30 +10327,63 @@ titleColumn.setOrientation(
         LinearLayout.VERTICAL
 );
 
+titleColumn.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
 TextView pageTitle =
         text(
                 "New Application",
-                21,
+                22,
                 Color.WHITE
-        );
+);
 
 pageTitle.setTypeface(
-        Typeface.DEFAULT_BOLD
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
 );
 
-titleColumn.addView(
-        pageTitle
+pageTitle.setShadowLayer(
+        dp(2),
+        0,
+        dp(1),
+        Color.parseColor("#55000000")
 );
+
+titleColumn.addView(pageTitle);
 
 TextView pageSubtitle =
         text(
                 "Start your visa journey",
-                12,
-                Color.parseColor("#D8DEFF")
+                13,
+                Color.parseColor("#F0EAFF")
+);
+
+pageSubtitle.setShadowLayer(
+        dp(1),
+        0,
+        dp(1),
+        Color.parseColor("#44000000")
+);
+
+LinearLayout.LayoutParams subtitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
         );
 
+subtitleParams.setMargins(
+        0,
+        dp(3),
+        0,
+        0
+);
+
 titleColumn.addView(
-        pageSubtitle
+        pageSubtitle,
+        subtitleParams
 );
 
 LinearLayout.LayoutParams titleParams =
@@ -10357,10 +10391,10 @@ LinearLayout.LayoutParams titleParams =
                 0,
                 -2,
                 1f
-        );
+);
 
 titleParams.setMargins(
-        dp(8),
+        dp(10),
         0,
         0,
         0
@@ -10371,21 +10405,33 @@ cardHeader.addView(
         titleParams
 );
 
-mainCard.addView(
-        cardHeader
-);
+mainCard.addView(cardHeader);
 
 
 // =================================================
-// DESCRIPTION — PREMIUM HEADER
+// DESCRIPTION — CLEAR WHITE TEXT
 // =================================================
 
 TextView description =
         text(
                 "Where are you planning to apply?",
                 16,
-                Color.parseColor("#D8DEFF")
-        );
+                Color.WHITE
+);
+
+description.setTypeface(
+        Typeface.create(
+                "sans-serif-medium",
+                Typeface.NORMAL
+        )
+);
+
+description.setShadowLayer(
+        dp(2),
+        0,
+        dp(1),
+        Color.parseColor("#66000000")
+);
 
 description.setLineSpacing(
         dp(3),
@@ -10396,19 +10442,20 @@ LinearLayout.LayoutParams descriptionParams =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
-        );
+);
 
 descriptionParams.setMargins(
         0,
-        dp(8),
+        dp(5),
         0,
-        dp(20)
+        dp(16)
 );
 
 mainCard.addView(
         description,
         descriptionParams
 );
+
     
   // =================================================
 // DESTINATION FILTERS — PREMIUM PILLS
