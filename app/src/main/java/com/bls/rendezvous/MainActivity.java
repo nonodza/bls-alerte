@@ -10585,69 +10585,27 @@ filterRow.setPadding(
 );
 
 // =================================================
-// ADD MAIN CARD TO PAGE — PREMIUM WAVE
+// ADD MAIN CARD TO PAGE — CLEAN BACKGROUND
 // =================================================
 
-FrameLayout mainCardFrame =
-        new FrameLayout(this);
+mainCard.setBackgroundColor(Color.TRANSPARENT);
+mainCard.setElevation(0);
 
-mainCardFrame.setClipChildren(false);
-mainCardFrame.setClipToPadding(false);
-
-PremiumWaveView waveBackground =
-        new PremiumWaveView(this);
-
-FrameLayout.LayoutParams waveParams =
-        new FrameLayout.LayoutParams(
+LinearLayout.LayoutParams mainCardParams =
+        new LinearLayout.LayoutParams(
                 -1,
-                dp(230),
-                Gravity.TOP
+                -2
         );
 
-mainCardFrame.addView(
-        waveBackground,
-        waveParams
-);
-
-mainCard.setBackgroundColor(
-        Color.TRANSPARENT
-);
-
-FrameLayout.LayoutParams contentParams =
-        new FrameLayout.LayoutParams(
-                -1,
-                -2,
-                Gravity.TOP
-        );
-
-contentParams.setMargins(
+mainCardParams.setMargins(
         dp(22),
         dp(12),
         dp(22),
-        0
-);
-
-mainCardFrame.addView(
-        mainCard,
-        contentParams
-);
-
-LinearLayout.LayoutParams mainCardParams =
-    new LinearLayout.LayoutParams(
-        -1,
-        -2
-    );
-
-mainCardParams
-    .setMargins(
-        0,
-        -dp(3),
-        0,
         dp(8)
-    );
+);
 
 page.addView(
-        mainCardFrame,
+        mainCard,
         mainCardParams
 );
 
