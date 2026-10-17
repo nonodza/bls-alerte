@@ -10254,24 +10254,13 @@ cardHeader.setGravity(
 );
 
 // =================================================
-// BACK GROUP — ARROW + BACK
+// BACK BUTTON — PREMIUM
 // =================================================
-
-LinearLayout backGroup =
-        new LinearLayout(this);
-
-backGroup.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-backGroup.setGravity(
-        Gravity.CENTER_VERTICAL
-);
 
 TextView backButton =
         text(
                 "‹",
-                34,
+                40,
                 Color.WHITE
         );
 
@@ -10279,21 +10268,31 @@ backButton.setGravity(
         Gravity.CENTER
 );
 
+backButton.setTypeface(
+        Typeface.create(
+                "sans-serif-light",
+                Typeface.NORMAL
+        )
+);
+
 TextView backLabel =
         text(
                 "Back",
-                13,
+                15,
                 Color.WHITE
-        );
+);
 
 backLabel.setTypeface(
-        Typeface.DEFAULT_BOLD
+        Typeface.create(
+                "sans-serif-medium",
+                Typeface.NORMAL
+        )
 );
 
 backGroup.addView(
         backButton,
         new LinearLayout.LayoutParams(
-                dp(24),
+                dp(30),
                 dp(44)
         )
 );
@@ -10394,7 +10393,7 @@ LinearLayout.LayoutParams titleParams =
         );
 
 titleParams.setMargins(
-        dp(10),
+        dp(14),
         0,
         0,
         0
@@ -10413,9 +10412,9 @@ mainCard.addView(cardHeader);
 TextView description =
         text(
                 "Where are you planning to apply?",
-                16,
+                15,
                 Color.WHITE
-);
+        );
 
 description.setTypeface(
         Typeface.create(
@@ -10440,7 +10439,7 @@ LinearLayout.LayoutParams descriptionParams =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
-);
+        );
 
 descriptionParams.setMargins(
         0,
