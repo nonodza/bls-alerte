@@ -10276,12 +10276,12 @@ backGroup.setFocusable(true);
 // BACK BUTTON — PREMIUM
 // =================================================
 
-TextView backButton =
-        text(
-                "‹",
-                40,
-                Color.WHITE
-        );
+ImageView backButton = new ImageView(this);
+backButton.setImageResource(R.drawable.ic_back);
+backButton.setColorFilter(Color.parseColor("#69B7FF"));
+backButton.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+backButton.setPadding(10,10,10,10);
+backButton.setOnClickListener(v -> finish());
 
 backButton.setGravity(
         Gravity.CENTER
