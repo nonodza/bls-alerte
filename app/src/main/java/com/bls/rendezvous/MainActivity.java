@@ -10294,6 +10294,31 @@ backButton.setTypeface(
         )
 );
 
+// Premium circular button background
+GradientDrawable backButtonBg =
+        new GradientDrawable();
+
+backButtonBg.setShape(
+        GradientDrawable.OVAL
+);
+
+backButtonBg.setColor(
+        Color.parseColor("#332E6F")
+);
+
+backButtonBg.setStroke(
+        dp(1),
+        Color.parseColor("#668CBFFF")
+);
+
+backButton.setBackground(
+        backButtonBg
+);
+
+backButton.setElevation(
+        dp(3)
+);
+
 TextView backLabel =
         text(
                 "Back",
@@ -10461,7 +10486,7 @@ LinearLayout.LayoutParams descriptionParams =
         );
 
 descriptionParams.setMargins(
-        0,
+        dp(76),
         dp(5),
         0,
         dp(16)
