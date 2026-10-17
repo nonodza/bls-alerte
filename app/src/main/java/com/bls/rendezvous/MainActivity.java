@@ -10275,23 +10275,11 @@ backGroup.setFocusable(true);
 // =================================================
 // BACK BUTTON — PREMIUM
 // =================================================
-
 ImageView backButton = new ImageView(this);
 backButton.setImageResource(R.drawable.ic_back);
 backButton.setColorFilter(Color.parseColor("#69B7FF"));
 backButton.setPadding(10,10,10,10);
 backButton.setOnClickListener(v -> finish());
-
-backButton.setGravity(
-        Gravity.CENTER
-);
-
-backButton.setTypeface(
-        Typeface.create(
-                "sans-serif-light",
-                Typeface.NORMAL
-        )
-);
 
 // =================================================
 // BACK BUTTON — GLOWING GLASS STYLE
