@@ -10273,12 +10273,19 @@ backGroup.setClickable(true);
 backGroup.setFocusable(true);
     
 // =================================================
-// BACK BUTTON — PREMIUM
-// =================================================
+// BACK BUTTON — PREMIUM LARGE DARK BLUE
+// ================================================= 
 ImageView backButton = new ImageView(this);
 backButton.setImageResource(R.drawable.ic_back);
-backButton.setColorFilter(Color.parseColor("#69B7FF"));
-backButton.setPadding(10,10,10,10);
+backButton.setColorFilter(Color.parseColor("#FFFFFF"));
+backButton.setPadding(dp(10),dp(10),dp(10),dp(10));
+
+GradientDrawable bg = new GradientDrawable();
+bg.setShape(GradientDrawable.OVAL);
+bg.setColor(Color.parseColor("#33FFFFFF"));
+bg.setStroke(dp(1), Color.parseColor("#88FFFFFF"));
+backButton.setBackground(bg);
+backButton.setElevation(dp(6));
 backButton.setOnClickListener(v -> finish());
 
 // =================================================
