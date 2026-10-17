@@ -10280,11 +10280,11 @@ backButton.setImageResource(R.drawable.ic_back);
 backButton.setColorFilter(Color.parseColor("#FFFFFF"));
 backButton.setPadding(dp(10),dp(10),dp(10),dp(10));
 
-GradientDrawable bg = new GradientDrawable();
-bg.setShape(GradientDrawable.OVAL);
-bg.setColor(Color.parseColor("#33FFFFFF"));
-bg.setStroke(dp(1), Color.parseColor("#88FFFFFF"));
-backButton.setBackground(bg);
+GradientDrawable backButtonBg = new GradientDrawable();
+backButtonBg.setShape(GradientDrawable.OVAL);
+backButtonBg.setColor(Color.parseColor("#33FFFFFF"));
+backButtonBg.setStroke(dp(1), Color.parseColor("#88FFFFFF"));
+backButton.setBackground(backButtonBg);
 backButton.setElevation(dp(6));
 backButton.setOnClickListener(v -> finish());
 
