@@ -10273,36 +10273,28 @@ backGroup.setClickable(true);
 backGroup.setFocusable(true);
     
 // =================================================
-// BACK BUTTON — SINGLE LARGE BLUE ARROW
+// BACK BUTTON - CIRCLE WHITE
 // =================================================
-
+    
 ImageView backButton = new ImageView(this);
+backButton.setImageResource(R.drawable.ic_back);
+backButton.setScaleType(ImageView.ScaleType.CENTER);
+backButton.setPadding(dp(12), dp(12), dp(12), dp(12));
 
-backButton.setImageResource(
-        R.drawable.ic_back
-);
+GradientDrawable circleBg = new GradientDrawable();
+circleBg.setShape(GradientDrawable.OVAL);
+circleBg.setColor(Color.parseColor("#33FFFFFF"));
+circleBg.setStroke(dp(1), Color.parseColor("#88FFFFFF"));
 
-backButton.setColorFilter(
-        Color.parseColor("#69B7FF")
-);
+backButton.setBackground(circleBg);
+backButton.setColorFilter(Color.WHITE);
+backButton.setElevation(dp(6));
 
-backButton.setScaleType(
-        ImageView.ScaleType.FIT_CENTER
-);
+LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(44), dp(44));
+p.setMargins(0, 0, dp(12), 0);
+backButton.setLayoutParams(p);
 
-backButton.setPadding(
-        dp(2),
-        dp(2),
-        dp(2),
-        dp(2)
-);
-
-// No circle or extra background
-backButton.setBackgroundColor(
-        Color.TRANSPARENT
-);
-
-backButton.setElevation(0);
+backButton.setOnClickListener(v -> finish());
 
 // =================================================
 // BACK LABEL — LARGER AND CLEARER
