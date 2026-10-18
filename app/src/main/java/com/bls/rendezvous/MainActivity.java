@@ -10273,31 +10273,28 @@ backGroup.setClickable(true);
 backGroup.setFocusable(true);
     
 // =================================================
-// BACK BUTTON - NEON BLUE CIRCLE
+// BACK BUTTON - MINI NEON
 // =================================================
-    
-// BACK BUTTON - SMALL NEON
+
 ImageView backButton = new ImageView(this);
 backButton.setImageResource(R.drawable.ic_back);
 backButton.setScaleType(ImageView.ScaleType.CENTER);
-backButton.setPadding(dp(8), dp(8), dp(8), dp(8)); // كان 12، ولّى 8
+backButton.setPadding(dp(4), dp(4), dp(4), dp(4));
 
 GradientDrawable circleBg = new GradientDrawable();
 circleBg.setShape(GradientDrawable.OVAL);
 circleBg.setColor(Color.TRANSPARENT);
-circleBg.setStroke(dp(1), Color.parseColor("#00BFFF")); // كان 2، ولّى 1 رقيق
+circleBg.setStroke(dp(1), Color.parseColor("#00BFFF"));
 
 backButton.setBackground(circleBg);
 backButton.setColorFilter(Color.parseColor("#00BFFF"));
 backButton.setElevation(dp(0));
 
-// هنا التصغير الصحيح
-LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(36), dp(36)); // كان 44، ولّى 36
-p.setMargins(0, 0, dp(10), 0);
+LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(24), dp(24)); // صغير بزاف
+p.setMargins(0, 0, dp(8), 0);
 backButton.setLayoutParams(p);
 
 backButton.setOnClickListener(v -> finish());
-
 // =================================================
 // BACK LABEL — LARGER AND CLEARER
 // =================================================
