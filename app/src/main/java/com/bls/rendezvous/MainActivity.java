@@ -10529,9 +10529,9 @@ String[] filterNames = {
 };
 
 int[] filterIcons = {
-        android.R.drawable.btn_star_big_on,
-        android.R.drawable.ic_menu_mapmode,
-        android.R.drawable.ic_menu_compass
+        R.drawable.ic_filter_popular,
+        R.drawable.ic_filter_schengen,
+        R.drawable.ic_filter_americas
 };
 
 for (int i = 0; i < filterNames.length; i++) {
