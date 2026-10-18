@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Globe outline -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#D8DEFF"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M12,2.5
+            A9.5,9.5 0,1 1,12 21.5
+            A9.5,9.5 0,1 1,12 2.5 Z" />
+
+    <!-- Latitude and longitude -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#D8DEFF"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round"
+        android:pathData="M3.5,12
+            L20.5,12
+            M12,2.5
+            C7.5,7 7.5,17 12,21.5
+            M12,2.5
+            C16.5,7 16.5,17 12,21.5
+            M5,7.5
+            C9,10 15,10 19,7.5
+            M5,16.5
+            C9,14 15,14 19,16.5" />
+
+</vector>
