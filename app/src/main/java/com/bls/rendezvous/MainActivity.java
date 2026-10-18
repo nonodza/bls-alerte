@@ -10734,12 +10734,12 @@ page.addView(
 );
 
 // =================================================
-// DESTINATION LIST — PREMIUM VISA CARDS
+// DESTINATION LIST — COMPACT PREMIUM VISA CARDS
 // =================================================
 
 LinearLayout grid = new LinearLayout(this);
 grid.setOrientation(LinearLayout.VERTICAL);
-grid.setPadding(dp(16), dp(4), dp(16), dp(12));
+grid.setPadding(dp(16), dp(2), dp(16), dp(6));
 
 String[] names = {
         "Schengen",
@@ -10785,18 +10785,18 @@ for (int i = 0; i < names.length; i++) {
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.HORIZONTAL);
     item.setGravity(Gravity.CENTER_VERTICAL);
-    item.setPadding(dp(12), dp(12), dp(12), dp(12));
+    item.setPadding(dp(10), dp(7), dp(8), dp(7));
 
     GradientDrawable cardBg = new GradientDrawable();
     cardBg.setColor(Color.WHITE);
-    cardBg.setCornerRadius(dp(24));
+    cardBg.setCornerRadius(dp(20));
     cardBg.setStroke(
             dp(1),
             Color.parseColor("#EEF0FF")
     );
 
     item.setBackground(cardBg);
-    item.setElevation(dp(4));
+    item.setElevation(dp(2));
 
     LinearLayout.LayoutParams itemParams =
             new LinearLayout.LayoutParams(
@@ -10806,9 +10806,9 @@ for (int i = 0; i < names.length; i++) {
 
     itemParams.setMargins(
             0,
-            dp(5),
+            dp(3),
             0,
-            dp(8)
+            dp(4)
     );
 
     // CIRCULAR FLAG HALO
@@ -10826,14 +10826,14 @@ for (int i = 0; i < names.length; i++) {
 
     LinearLayout.LayoutParams iconFrameParams =
             new LinearLayout.LayoutParams(
-                    dp(70),
-                    dp(70)
+                    dp(54),
+                    dp(54)
             );
 
     iconFrameParams.setMargins(
             0,
             0,
-            dp(12),
+            dp(9),
             0
     );
 
@@ -10841,7 +10841,7 @@ for (int i = 0; i < names.length; i++) {
     flag.setImageResource(icons[i]);
     flag.setColorFilter(null);
     flag.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    flag.setPadding(dp(7), dp(7), dp(7), dp(7));
+    flag.setPadding(dp(5), dp(5), dp(5), dp(5));
 
     FrameLayout.LayoutParams flagParams =
             new FrameLayout.LayoutParams(
@@ -10858,7 +10858,7 @@ for (int i = 0; i < names.length; i++) {
 
     TextView title = text(
             names[i],
-            17,
+            16,
             Color.parseColor("#142B55")
     );
 
@@ -10871,12 +10871,12 @@ for (int i = 0; i < names.length; i++) {
 
     TextView subtitle = text(
             subtitles[i],
-            12,
+            11,
             Color.parseColor("#7180A4")
     );
 
     subtitle.setMaxLines(2);
-    subtitle.setLineSpacing(dp(1), 1.0f);
+    subtitle.setLineSpacing(0, 1.0f);
 
     LinearLayout.LayoutParams subtitleParams =
             new LinearLayout.LayoutParams(
@@ -10886,7 +10886,7 @@ for (int i = 0; i < names.length; i++) {
 
     subtitleParams.setMargins(
             0,
-            dp(4),
+            dp(2),
             0,
             0
     );
@@ -10898,7 +10898,7 @@ for (int i = 0; i < names.length; i++) {
 
     TextView detailIcon = text(
             (i == 1 || i == 3) ? "◷" : "✓",
-            15,
+            13,
             Color.parseColor("#6554E8")
     );
 
@@ -10906,13 +10906,13 @@ for (int i = 0; i < names.length; i++) {
 
     LinearLayout.LayoutParams detailIconParams =
             new LinearLayout.LayoutParams(
-                    dp(20),
-                    dp(22)
+                    dp(18),
+                    dp(18)
             );
 
     TextView detailText = text(
             details[i],
-            12,
+            11,
             Color.parseColor("#6554D9")
     );
 
@@ -10924,7 +10924,7 @@ for (int i = 0; i < names.length; i++) {
             );
 
     detailTextParams.setMargins(
-            dp(5),
+            dp(4),
             0,
             0,
             0
@@ -10941,7 +10941,7 @@ for (int i = 0; i < names.length; i++) {
 
     detailRowParams.setMargins(
             0,
-            dp(5),
+            dp(2),
             0,
             0
     );
@@ -10953,7 +10953,7 @@ for (int i = 0; i < names.length; i++) {
     // RIGHT ARROW
     TextView arrow = text(
             "›",
-            30,
+            27,
             Color.parseColor("#8AA2E8")
     );
 
@@ -10974,8 +10974,8 @@ for (int i = 0; i < names.length; i++) {
     item.addView(
             arrow,
             new LinearLayout.LayoutParams(
-                    dp(24),
-                    dp(44)
+                    dp(20),
+                    dp(40)
             )
     );
 
