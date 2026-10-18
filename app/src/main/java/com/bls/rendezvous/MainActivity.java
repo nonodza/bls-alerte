@@ -10733,24 +10733,30 @@ page.addView(
         filterRowOutsideParams
 );
 // =================================================
-// DESTINATION TITLE — VERIFIED PREMIUM STYLE
+// DESTINATION TITLE + INSTAGRAM-STYLE BADGE
 // =================================================
 
-LinearLayout destinationHeader =
-        new LinearLayout(this);
-
-destinationHeader.setOrientation(
-        LinearLayout.HORIZONTAL
+TextView destinationTitle = text(
+        "Destination",
+        20,
+        Color.parseColor("#243B78")
 );
 
-destinationHeader.setGravity(
-        Gravity.CENTER_VERTICAL
+destinationTitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
 );
 
-// Verified badge
+destinationHeader.addView(
+        destinationTitle
+);
+
+// Blue verified badge AFTER the title
 TextView verifiedBadge = text(
         "✓",
-        12,
+        11,
         Color.WHITE
 );
 
@@ -10770,7 +10776,7 @@ verifiedBg.setShape(
 );
 
 verifiedBg.setColor(
-        Color.parseColor("#287BEF")
+        Color.parseColor("#3897F0")
 );
 
 verifiedBadge.setBackground(
@@ -10779,14 +10785,14 @@ verifiedBadge.setBackground(
 
 LinearLayout.LayoutParams verifiedParams =
         new LinearLayout.LayoutParams(
-                dp(19),
-                dp(19)
+                dp(17),
+                dp(17)
         );
 
 verifiedParams.setMargins(
-        0,
-        0,
         dp(7),
+        dp(2),
+        0,
         0
 );
 
