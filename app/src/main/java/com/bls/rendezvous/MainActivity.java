@@ -10732,7 +10732,48 @@ page.addView(
         filterRow,
         filterRowOutsideParams
 );
+// =================================================
+// DESTINATION SECTION TITLE
+// =================================================
 
+TextView destinationTitle = text(
+        "Your Destination",
+        19,
+        Color.parseColor("#142B55")
+);
+
+destinationTitle.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
+
+destinationTitle.setPadding(
+        dp(2),
+        dp(4),
+        dp(2),
+        dp(7)
+);
+
+LinearLayout.LayoutParams destinationTitleParams =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+destinationTitleParams.setMargins(
+        dp(18),
+        dp(10),
+        dp(18),
+        dp(2)
+);
+
+page.addView(
+        destinationTitle,
+        destinationTitleParams
+);
+    
 // =================================================
 // DESTINATION LIST — COMPACT PREMIUM VISA CARDS
 // =================================================
