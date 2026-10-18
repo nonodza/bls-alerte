@@ -10277,19 +10277,16 @@ backGroup.setFocusable(true);
 // =================================================
 
 ImageView backButton = new ImageView(this);
-backButton.setImageResource(R.drawable.ic_back);
+backButton.setImageResource(R.drawable.ic_back_white);
 backButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-backButton.setPadding(dp(2), dp(2), dp(2), dp(2));
-
 backButton.setBackgroundColor(Color.TRANSPARENT);
-backButton.setColorFilter(Color.parseColor("#00BFFF"));
-backButton.setElevation(0);
 
-LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(24), dp(24));
+LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(28), dp(28));
 p.setMargins(0, 0, dp(12), 0);
 backButton.setLayoutParams(p);
 
 backButton.setOnClickListener(v -> finish());
+headerLayout.addView(backButton, 0);
 // =================================================
 // BACK LABEL — LARGER AND CLEARER
 // =================================================
