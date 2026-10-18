@@ -10286,7 +10286,6 @@ p.setMargins(0, 0, dp(12), 0);
 backButton.setLayoutParams(p);
 
 backButton.setOnClickListener(v -> finish());
-headerLayout.addView(backButton, 0);
 // =================================================
 // BACK LABEL — LARGER AND CLEARER
 // =================================================
