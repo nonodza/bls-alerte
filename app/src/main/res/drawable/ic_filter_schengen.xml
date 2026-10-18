@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Schengen Yellow Star Ring -->
+
+    <group
+        android:pivotX="50"
+        android:pivotY="50"
+        android:scaleX="0.88"
+        android:scaleY="0.88">
+
+        <!-- Star 1 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,8 L53,17 L62,17 L55,23 L58,32 L50,26 L42,32 L45,23 L38,17 L47,17 Z" />
+
+        <!-- Star 2 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M71,14 L74,23 L83,23 L76,29 L79,38 L71,32 L63,38 L66,29 L59,23 L68,23 Z" />
+
+        <!-- Star 3 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M83,33 L86,42 L95,42 L88,48 L91,57 L83,51 L75,57 L78,48 L71,42 L80,42 Z" />
+
+        <!-- Star 4 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M83,56 L86,65 L95,65 L88,71 L91,80 L83,74 L75,80 L78,71 L71,65 L80,65 Z" />
+
+        <!-- Star 5 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M71,72 L74,81 L83,81 L76,87 L79,96 L71,90 L63,96 L66,87 L59,81 L68,81 Z" />
+
+        <!-- Star 6 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,78 L53,87 L62,87 L55,93 L58,102 L50,96 L42,102 L45,93 L38,87 L47,87 Z" />
+
+        <!-- Star 7 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M29,72 L32,81 L41,81 L34,87 L37,96 L29,90 L21,96 L24,87 L17,81 L26,81 Z" />
+
+        <!-- Star 8 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M17,56 L20,65 L29,65 L22,71 L25,80 L17,74 L9,80 L12,71 L5,65 L14,65 Z" />
+
+        <!-- Star 9 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M17,33 L20,42 L29,42 L22,48 L25,57 L17,51 L9,57 L12,48 L5,42 L14,42 Z" />
+
+        <!-- Star 10 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M29,14 L32,23 L41,23 L34,29 L37,38 L29,32 L21,38 L24,29 L17,23 L26,23 Z" />
+
+        <!-- Star 11 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,8 L53,17 L62,17 L55,23 L58,32 L50,26 L42,32 L45,23 L38,17 L47,17 Z" />
+
+        <!-- Star 12 -->
+        <path
+            android:fillColor="#FFCC00"
+            android:pathData="M50,78 L53,87 L62,87 L55,93 L58,102 L50,96 L42,102 L45,93 L38,87 L47,87 Z" />
+
+    </group>
+
+</vector>
