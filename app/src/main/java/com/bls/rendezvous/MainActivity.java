@@ -10507,8 +10507,8 @@ mainCard.addView(
 );
 
     
-  // =================================================
-// DESTINATION FILTERS — PREMIUM PILLS
+// =================================================
+// DESTINATION FILTERS — PREMIUM PILLS WITH ICONS
 // =================================================
 
 LinearLayout filterRow =
@@ -10528,34 +10528,32 @@ String[] filterNames = {
         "Americas"
 };
 
+int[] filterIcons = {
+        android.R.drawable.btn_star_big_on,
+        android.R.drawable.ic_menu_mapmode,
+        android.R.drawable.ic_menu_compass
+};
+
 for (int i = 0; i < filterNames.length; i++) {
 
     final int filterIndex = i;
 
-    TextView filter =
-            text(
-                    filterNames[i],
-                    12,
-                    i == 0
-                            ? Color.WHITE
-                            : Color.parseColor("#D8DEFF")
-            );
+    LinearLayout filter =
+            new LinearLayout(this);
+
+    filter.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
 
     filter.setGravity(
             Gravity.CENTER
     );
 
-    filter.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    filter.setSingleLine(true);
-
     filter.setPadding(
-            dp(10),
-            dp(10),
-            dp(10),
-            dp(10)
+            dp(7),
+            dp(8),
+            dp(7),
+            dp(8)
     );
 
     GradientDrawable filterBackground =
@@ -10566,13 +10564,10 @@ for (int i = 0; i < filterNames.length; i++) {
     );
 
     if (i == 0) {
-
         filterBackground.setColor(
                 Color.parseColor("#6548F5")
         );
-
     } else {
-
         filterBackground.setColor(
                 Color.TRANSPARENT
         );
@@ -10586,6 +10581,60 @@ for (int i = 0; i < filterNames.length; i++) {
     filter.setBackground(
             filterBackground
     );
+
+    // Small filter icon
+    ImageView filterIcon =
+            new ImageView(this);
+
+    filterIcon.setImageResource(
+            filterIcons[i]
+    );
+
+    filterIcon.setColorFilter(
+            i == 0
+                    ? Color.WHITE
+                    : Color.parseColor("#D8DEFF")
+    );
+
+    filterIcon.setScaleType(
+            ImageView.ScaleType.FIT_CENTER
+    );
+
+    LinearLayout.LayoutParams iconParams =
+            new LinearLayout.LayoutParams(
+                    dp(15),
+                    dp(15)
+            );
+
+    iconParams.setMargins(
+            0,
+            0,
+            dp(5),
+            0
+    );
+
+    filter.addView(
+            filterIcon,
+            iconParams
+    );
+
+    // Filter label
+    TextView label =
+            text(
+                    filterNames[i],
+                    12,
+                    i == 0
+                            ? Color.WHITE
+                            : Color.parseColor("#D8DEFF")
+            );
+
+    label.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    label.setSingleLine(true);
+
+    filter.addView(label);
 
     LinearLayout.LayoutParams filterParams =
             new LinearLayout.LayoutParams(
@@ -10606,56 +10655,56 @@ for (int i = 0; i < filterNames.length; i++) {
             filterParams
     );
 
-    filter.setOnClickListener(
-            v -> {
+    filter.setOnClickListener(v -> {
 
-                for (int j = 0;
-                     j < filterRow.getChildCount();
-                     j++) {
+        for (int j = 0;
+             j < filterRow.getChildCount();
+             j++) {
 
-                    TextView other =
-                            (TextView) filterRow.getChildAt(j);
+            LinearLayout other =
+                    (LinearLayout) filterRow.getChildAt(j);
 
-                    GradientDrawable bg =
-                            new GradientDrawable();
+            boolean selected = j == filterIndex;
 
-                    bg.setCornerRadius(
-                            dp(24)
-                    );
+            GradientDrawable bg =
+                    new GradientDrawable();
 
-                    if (j == filterIndex) {
+            bg.setCornerRadius(
+                    dp(24)
+            );
 
-                        bg.setColor(
-                                Color.parseColor("#6548F5")
-                        );
+            if (selected) {
+                bg.setColor(
+                        Color.parseColor("#6548F5")
+                );
+            } else {
+                bg.setColor(Color.TRANSPARENT);
 
-                        other.setTextColor(
-                                Color.WHITE
-                        );
-
-                    } else {
-
-                        bg.setColor(
-                                Color.TRANSPARENT
-                        );
-
-                        bg.setStroke(
-                                dp(1),
-                                Color.parseColor("#8E8BFA")
-                        );
-
-                        other.setTextColor(
-                                Color.parseColor("#D8DEFF")
-                        );
-                    }
-
-                    other.setBackground(bg);
-                }
-
-                // سيتم ربط التصنيف بفلترة الوجهات في الخطوة التالية.
+                bg.setStroke(
+                        dp(1),
+                        Color.parseColor("#8E8BFA")
+                );
             }
-    );
-}
+
+            other.setBackground(bg);
+
+            ImageView otherIcon =
+                    (ImageView) other.getChildAt(0);
+
+            TextView otherLabel =
+                    (TextView) other.getChildAt(1);
+
+            int tint = selected
+                    ? Color.WHITE
+                    : Color.parseColor("#D8DEFF");
+
+            otherIcon.setColorFilter(tint);
+            otherLabel.setTextColor(tint);
+        }
+
+        // Destination filtering will be connected later.
+    });
+}  
 
 // =================================================
 // ADD FILTERS OUTSIDE THE WAVE
