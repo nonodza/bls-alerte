@@ -10273,7 +10273,7 @@ backGroup.setClickable(true);
 backGroup.setFocusable(true);
     
 // =================================================
-// BACK BUTTON - CIRCLE WHITE
+// BACK BUTTON - NEON BLUE CIRCLE
 // =================================================
     
 ImageView backButton = new ImageView(this);
@@ -10283,12 +10283,12 @@ backButton.setPadding(dp(12), dp(12), dp(12), dp(12));
 
 GradientDrawable circleBg = new GradientDrawable();
 circleBg.setShape(GradientDrawable.OVAL);
-circleBg.setColor(Color.parseColor("#33FFFFFF"));
-circleBg.setStroke(dp(1), Color.parseColor("#88FFFFFF"));
+circleBg.setColor(Color.TRANSPARENT); // بلا تعميرة
+circleBg.setStroke(dp(2), Color.parseColor("#00BFFF")); // الخط النيون
 
 backButton.setBackground(circleBg);
-backButton.setColorFilter(Color.WHITE);
-backButton.setElevation(dp(6));
+backButton.setColorFilter(Color.parseColor("#00BFFF")); // السهم نفس اللون
+backButton.setElevation(dp(0));
 
 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(44), dp(44));
 p.setMargins(0, 0, dp(12), 0);
