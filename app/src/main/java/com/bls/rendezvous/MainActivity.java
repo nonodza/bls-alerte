@@ -10597,14 +10597,18 @@ for (int i = 0; i < filterNames.length; i++) {
     );
 
     filterIcon.setScaleType(
-            ImageView.ScaleType.FIT_CENTER
-    );
+        ImageView.ScaleType.FIT_CENTER
+);
 
-    LinearLayout.LayoutParams iconParams =
-            new LinearLayout.LayoutParams(
-                    dp(15),
-                    dp(15)
-            );
+int iconSize = filterIndex == 1
+        ? dp(17)
+        : dp(15);
+
+LinearLayout.LayoutParams iconParams =
+        new LinearLayout.LayoutParams(
+                iconSize,
+                iconSize
+        ); 
 
     iconParams.setMargins(
             0,
