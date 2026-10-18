@@ -10733,13 +10733,93 @@ page.addView(
         filterRowOutsideParams
 );
 // =================================================
-// DESTINATION SECTION TITLE
+// DESTINATION SECTION — PREMIUM TITLE
 // =================================================
+
+LinearLayout destinationHeader =
+        new LinearLayout(this);
+
+destinationHeader.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+destinationHeader.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+destinationHeader.setPadding(
+        dp(12),
+        dp(10),
+        dp(12),
+        dp(10)
+);
+
+// Soft blue-lavender background
+GradientDrawable destinationHeaderBg =
+        new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{
+                        Color.parseColor("#EAF2FF"),
+                        Color.parseColor("#F1ECFF")
+                }
+        );
+
+destinationHeaderBg.setCornerRadius(
+        dp(16)
+);
+
+destinationHeader.setBackground(
+        destinationHeaderBg
+);
+
+// Small purple accent bar
+View destinationAccent = new View(this);
+
+GradientDrawable accentBg =
+        new GradientDrawable();
+
+accentBg.setColor(
+        Color.parseColor("#7560E8")
+);
+
+accentBg.setCornerRadius(
+        dp(3)
+);
+
+destinationAccent.setBackground(
+        accentBg
+);
+
+LinearLayout.LayoutParams accentParams =
+        new LinearLayout.LayoutParams(
+                dp(4),
+                dp(28)
+        );
+
+accentParams.setMargins(
+        0,
+        0,
+        dp(10),
+        0
+);
+
+destinationHeader.addView(
+        destinationAccent,
+        accentParams
+);
+
+// Title and subtitle
+LinearLayout destinationTexts =
+        new LinearLayout(this);
+
+destinationTexts.setOrientation(
+        LinearLayout.VERTICAL
+);
 
 TextView destinationTitle = text(
         "Your Destination",
-        19,
-        Color.parseColor("#142B55")
+        18,
+        Color.parseColor("#243B78")
 );
 
 destinationTitle.setTypeface(
@@ -10749,29 +10829,58 @@ destinationTitle.setTypeface(
         )
 );
 
-destinationTitle.setPadding(
-        dp(2),
-        dp(4),
-        dp(2),
-        dp(7)
+TextView destinationSubtitle = text(
+        "Choose where you want to apply",
+        11,
+        Color.parseColor("#7582A8")
 );
 
-LinearLayout.LayoutParams destinationTitleParams =
+LinearLayout.LayoutParams destinationSubtitleParams =
+        new LinearLayout.LayoutParams(
+                -2,
+                -2
+        );
+
+destinationSubtitleParams.setMargins(
+        0,
+        dp(2),
+        0,
+        0
+);
+
+destinationTexts.addView(destinationTitle);
+
+destinationTexts.addView(
+        destinationSubtitle,
+        destinationSubtitleParams
+);
+
+destinationHeader.addView(
+        destinationTexts,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+// Header spacing
+LinearLayout.LayoutParams destinationHeaderParams =
         new LinearLayout.LayoutParams(
                 -1,
                 -2
         );
 
-destinationTitleParams.setMargins(
+destinationHeaderParams.setMargins(
         dp(18),
         dp(10),
         dp(18),
-        dp(2)
+        dp(8)
 );
 
 page.addView(
-        destinationTitle,
-        destinationTitleParams
+        destinationHeader,
+        destinationHeaderParams
 );
     
 // =================================================
