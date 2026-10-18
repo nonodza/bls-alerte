@@ -11116,12 +11116,100 @@ for (int i = 0; i < names.length; i++) {
     item.setOnClickListener(v -> {
         // Keep the existing destination-selection action here.
     });
-
+    
+item.setTag(index);
     grid.addView(item, itemParams);
 }
 
 page.addView(grid);
+    
+// =================================================
+// FUNCTIONAL DESTINATION FILTERS
+// =================================================
 
+for (int f = 0; f < filterRow.getChildCount(); f++) {
+
+    final int filterIndex = f;
+
+    LinearLayout filter =
+            (LinearLayout) filterRow.getChildAt(f);
+
+    filter.setOnClickListener(v -> {
+
+        // Update selected filter appearance
+        for (int j = 0; j < filterRow.getChildCount(); j++) {
+
+            LinearLayout other =
+                    (LinearLayout) filterRow.getChildAt(j);
+
+            boolean selected = j == filterIndex;
+
+            GradientDrawable bg =
+                    new GradientDrawable();
+
+            bg.setCornerRadius(dp(24));
+
+            if (selected) {
+                bg.setColor(Color.parseColor("#6548F5"));
+            } else {
+                bg.setColor(Color.TRANSPARENT);
+                bg.setStroke(
+                        dp(1),
+                        Color.parseColor("#8E8BFA")
+                );
+            }
+
+            other.setBackground(bg);
+
+            ImageView icon =
+                    (ImageView) other.getChildAt(0);
+
+            TextView label =
+                    (TextView) other.getChildAt(1);
+
+            int tint = selected
+                    ? Color.WHITE
+                    : Color.parseColor("#D8DEFF");
+
+            icon.setColorFilter(tint);
+            label.setTextColor(tint);
+        }
+
+        // Filter destination cards
+        for (int i = 0; i < grid.getChildCount(); i++) {
+
+            View card = grid.getChildAt(i);
+
+            Object tag = card.getTag();
+
+            if (!(tag instanceof Integer)) {
+                continue;
+            }
+
+            int destinationIndex = (Integer) tag;
+
+            boolean show;
+
+            if (filterIndex == 0) {
+                // Popular: show all destinations
+                show = true;
+
+            } else if (filterIndex == 1) {
+                // Schengen
+                show = destinationIndex == 0;
+
+            } else {
+                // Americas: United States and Canada
+                show = destinationIndex == 1
+                        || destinationIndex == 3;
+            }
+
+            card.setVisibility(
+                    show ? View.VISIBLE : View.GONE
+            );
+        }
+    });
+}
 // =================================================
 // CONTENT SCROLL
 // =================================================
