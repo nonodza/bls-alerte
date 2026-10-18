@@ -10733,7 +10733,7 @@ page.addView(
         filterRowOutsideParams
 );
 // =================================================
-// DESTINATION SECTION — PREMIUM TITLE
+// DESTINATION TITLE — VERIFIED PREMIUM STYLE
 // =================================================
 
 LinearLayout destinationHeader =
@@ -10747,78 +10747,58 @@ destinationHeader.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-destinationHeader.setPadding(
-        dp(12),
-        dp(10),
-        dp(12),
-        dp(10)
+// Verified badge
+TextView verifiedBadge = text(
+        "✓",
+        12,
+        Color.WHITE
 );
 
-// Soft blue-lavender background
-GradientDrawable destinationHeaderBg =
-        new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{
-                        Color.parseColor("#EAF2FF"),
-                        Color.parseColor("#F1ECFF")
-                }
-        );
-
-destinationHeaderBg.setCornerRadius(
-        dp(16)
+verifiedBadge.setTypeface(
+        Typeface.DEFAULT_BOLD
 );
 
-destinationHeader.setBackground(
-        destinationHeaderBg
+verifiedBadge.setGravity(
+        Gravity.CENTER
 );
 
-// Small purple accent bar
-View destinationAccent = new View(this);
-
-GradientDrawable accentBg =
+GradientDrawable verifiedBg =
         new GradientDrawable();
 
-accentBg.setColor(
-        Color.parseColor("#7560E8")
+verifiedBg.setShape(
+        GradientDrawable.OVAL
 );
 
-accentBg.setCornerRadius(
-        dp(3)
+verifiedBg.setColor(
+        Color.parseColor("#287BEF")
 );
 
-destinationAccent.setBackground(
-        accentBg
+verifiedBadge.setBackground(
+        verifiedBg
 );
 
-LinearLayout.LayoutParams accentParams =
+LinearLayout.LayoutParams verifiedParams =
         new LinearLayout.LayoutParams(
-                dp(4),
-                dp(28)
+                dp(19),
+                dp(19)
         );
 
-accentParams.setMargins(
+verifiedParams.setMargins(
         0,
         0,
-        dp(10),
+        dp(7),
         0
 );
 
 destinationHeader.addView(
-        destinationAccent,
-        accentParams
+        verifiedBadge,
+        verifiedParams
 );
 
-// Title and subtitle
-LinearLayout destinationTexts =
-        new LinearLayout(this);
-
-destinationTexts.setOrientation(
-        LinearLayout.VERTICAL
-);
-
+// Destination title
 TextView destinationTitle = text(
-        "Your Destination",
-        18,
+        "Destination",
+        20,
         Color.parseColor("#243B78")
 );
 
@@ -10829,42 +10809,11 @@ destinationTitle.setTypeface(
         )
 );
 
-TextView destinationSubtitle = text(
-        "Choose where you want to apply",
-        11,
-        Color.parseColor("#7582A8")
-);
-
-LinearLayout.LayoutParams destinationSubtitleParams =
-        new LinearLayout.LayoutParams(
-                -2,
-                -2
-        );
-
-destinationSubtitleParams.setMargins(
-        0,
-        dp(2),
-        0,
-        0
-);
-
-destinationTexts.addView(destinationTitle);
-
-destinationTexts.addView(
-        destinationSubtitle,
-        destinationSubtitleParams
-);
-
 destinationHeader.addView(
-        destinationTexts,
-        new LinearLayout.LayoutParams(
-                0,
-                -2,
-                1f
-        )
+        destinationTitle
 );
 
-// Header spacing
+// Position and spacing
 LinearLayout.LayoutParams destinationHeaderParams =
         new LinearLayout.LayoutParams(
                 -1,
@@ -10872,10 +10821,10 @@ LinearLayout.LayoutParams destinationHeaderParams =
         );
 
 destinationHeaderParams.setMargins(
+        dp(20),
+        dp(14),
         dp(18),
-        dp(10),
-        dp(18),
-        dp(8)
+        dp(10)
 );
 
 page.addView(
