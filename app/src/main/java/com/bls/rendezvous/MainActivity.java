@@ -10273,53 +10273,47 @@ backGroup.setClickable(true);
 backGroup.setFocusable(true);
     
 // =================================================
-// BACK BUTTON — PREMIUM LARGE DARK BLUE
-// ================================================= 
+// BACK BUTTON — SINGLE LARGE BLUE ARROW
+// =================================================
+
 ImageView backButton = new ImageView(this);
-backButton.setImageResource(R.drawable.ic_back);
-backButton.setColorFilter(Color.parseColor("#FFFFFF"));
-backButton.setPadding(dp(10),dp(10),dp(10),dp(10));
 
-GradientDrawable backArrowCircleBg = new GradientDrawable();
-backArrowCircleBg.setShape(GradientDrawable.OVAL);
-backArrowCircleBg.setColor(Color.parseColor("#33FFFFFF"));
-backArrowCircleBg.setStroke(dp(1), Color.parseColor("#88FFFFFF"));
-backButton.setBackground(backArrowCircleBg);
+backButton.setImageResource(
+        R.drawable.ic_back
+);
+
+backButton.setColorFilter(
+        Color.parseColor("#69B7FF")
+);
+
+backButton.setScaleType(
+        ImageView.ScaleType.FIT_CENTER
+);
+
+backButton.setPadding(
+        dp(2),
+        dp(2),
+        dp(2),
+        dp(2)
+);
+
+// No circle or extra background
+backButton.setBackgroundColor(
+        Color.TRANSPARENT
+);
+
+backButton.setElevation(0);
 
 // =================================================
-// BACK BUTTON — GLOWING GLASS STYLE
+// BACK LABEL — LARGER AND CLEARER
 // =================================================
-
-GradientDrawable backButtonBg =
-        new GradientDrawable();
-
-backButtonBg.setShape(
-        GradientDrawable.OVAL
-);
-
-backButtonBg.setColor(
-        Color.parseColor("#222E6F55")
-);
-
-backButtonBg.setStroke(
-        dp(1),
-        Color.parseColor("#99A8FFFF")
-);
-
-backButton.setBackground(
-        backButtonBg
-);
-
-backButton.setElevation(
-        dp(3)
-);
 
 TextView backLabel =
         text(
                 "Back",
-                15,
+                17,
                 Color.WHITE
-);
+        );
 
 backLabel.setTypeface(
         Typeface.create(
@@ -10328,12 +10322,33 @@ backLabel.setTypeface(
         )
 );
 
+backLabel.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+// =================================================
+// BACK GROUP
+// =================================================
+
+backGroup.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+backGroup.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+backGroup.removeAllViews();
+
+LinearLayout.LayoutParams backButtonParams =
+        new LinearLayout.LayoutParams(
+                dp(38),
+                dp(44)
+        );
+
 backGroup.addView(
         backButton,
-        new LinearLayout.LayoutParams(
-                dp(30),
-                dp(44)
-        )
+        backButtonParams
 );
 
 LinearLayout.LayoutParams backLabelParams =
@@ -10343,14 +10358,10 @@ LinearLayout.LayoutParams backLabelParams =
         );
 
 backLabelParams.setMargins(
-        dp(2),
         dp(5),
         0,
+        0,
         0
-);
-
-backLabel.setGravity(
-        Gravity.CENTER_VERTICAL
 );
 
 backGroup.addView(
@@ -10362,6 +10373,10 @@ backGroup.setOnClickListener(
         v -> showApplications()
 );
 
+// =================================================
+// ADD BACK GROUP TO HEADER
+// =================================================
+
 cardHeader.addView(
         backGroup,
         new LinearLayout.LayoutParams(
@@ -10369,7 +10384,6 @@ cardHeader.addView(
                 dp(44)
         )
 );
-
 
 
  // =================================================
