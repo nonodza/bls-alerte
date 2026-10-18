@@ -10734,7 +10734,7 @@ page.addView(
 );
 
 // =================================================
-// DESTINATION LIST — GLOWING CIRCULAR FLAGS
+// DESTINATION LIST — PREMIUM VISA CARDS
 // =================================================
 
 LinearLayout grid = new LinearLayout(this);
@@ -10743,27 +10743,36 @@ grid.setPadding(dp(16), dp(4), dp(16), dp(12));
 
 String[] names = {
         "Schengen",
-        "Canada",
-        "USA",
+        "United States",
         "United Kingdom",
+        "Canada",
         "Australia",
         "Other Countries"
 };
 
 String[] subtitles = {
-        "European Union",
-        "Canada",
-        "United States",
-        "United Kingdom",
-        "Australia",
-        "Other destinations"
+        "26 European countries • Multiple entry",
+        "Tourist / Business Visa • Up to 90 days",
+        "Standard Visitor • Up to 6 months",
+        "Visitor Visa / eTA • Up to 6 months",
+        "Visitor Visa • Explore Australia",
+        "Discover more destinations"
+};
+
+String[] details = {
+        "High approval rate",
+        "Processing time: 2–4 weeks",
+        "High approval rate",
+        "Processing time: 1–3 weeks",
+        "Visa requirements vary",
+        "Explore available visa options"
 };
 
 int[] icons = {
         R.drawable.ic_schengen,
-        R.drawable.ic_canada,
         R.drawable.ic_usa,
         R.drawable.ic_england,
+        R.drawable.ic_canada,
         R.drawable.ic_australia,
         R.drawable.ic_other
 };
@@ -10772,35 +10781,67 @@ for (int i = 0; i < names.length; i++) {
 
     final int index = i;
 
+    // CARD
     LinearLayout item = new LinearLayout(this);
     item.setOrientation(LinearLayout.HORIZONTAL);
     item.setGravity(Gravity.CENTER_VERTICAL);
-    item.setPadding(dp(8), dp(2), dp(8), dp(2));
-    // Circular flag icon
-FrameLayout iconFrame = new FrameLayout(this);
+    item.setPadding(dp(12), dp(12), dp(12), dp(12));
 
-LinearLayout.LayoutParams iconFrameParams =
-        new LinearLayout.LayoutParams(
-                dp(65),
-                dp(65)
-        );
+    GradientDrawable cardBg = new GradientDrawable();
+    cardBg.setColor(Color.WHITE);
+    cardBg.setCornerRadius(dp(24));
+    cardBg.setStroke(
+            dp(1),
+            Color.parseColor("#EEF0FF")
+    );
 
-    iconFrameParams.setMargins(dp(2), 0, dp(6), 0);
+    item.setBackground(cardBg);
+    item.setElevation(dp(4));
 
-    iconFrame.setBackgroundColor(Color.TRANSPARENT);
-iconFrame.setElevation(0);
+    LinearLayout.LayoutParams itemParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
 
-    iconFrame.setBackgroundColor(Color.TRANSPARENT);
-    iconFrame.setElevation(0);
-    iconFrame.setElevation(dp(5));
+    itemParams.setMargins(
+            0,
+            dp(5),
+            0,
+            dp(8)
+    );
+
+    // CIRCULAR FLAG HALO
+    FrameLayout iconFrame = new FrameLayout(this);
+
+    GradientDrawable haloBg = new GradientDrawable();
+    haloBg.setShape(GradientDrawable.OVAL);
+    haloBg.setColor(Color.parseColor("#F0F3FF"));
+    haloBg.setStroke(
+            dp(1),
+            Color.parseColor("#E1E8FF")
+    );
+
+    iconFrame.setBackground(haloBg);
+
+    LinearLayout.LayoutParams iconFrameParams =
+            new LinearLayout.LayoutParams(
+                    dp(70),
+                    dp(70)
+            );
+
+    iconFrameParams.setMargins(
+            0,
+            0,
+            dp(12),
+            0
+    );
 
     ImageView flag = new ImageView(this);
     flag.setImageResource(icons[i]);
-
-    // Keep original flag colors
     flag.setColorFilter(null);
     flag.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    flag.setPadding(dp(5), dp(5), dp(5), dp(5));
+    flag.setPadding(dp(7), dp(7), dp(7), dp(7));
 
     FrameLayout.LayoutParams flagParams =
             new FrameLayout.LayoutParams(
@@ -10810,23 +10851,32 @@ iconFrame.setElevation(0);
 
     iconFrame.addView(flag, flagParams);
 
-    // Country labels
+    // TEXT CONTENT
     LinearLayout labels = new LinearLayout(this);
     labels.setOrientation(LinearLayout.VERTICAL);
     labels.setGravity(Gravity.CENTER_VERTICAL);
 
     TextView title = text(
-        names[i],
-        17,
-        Color.parseColor("#142B55")
-);
-    title.setTypeface(Typeface.DEFAULT_BOLD);
+            names[i],
+            17,
+            Color.parseColor("#142B55")
+    );
+
+    title.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
 
     TextView subtitle = text(
             subtitles[i],
             12,
-            Color.parseColor("#68799D")
-        );
+            Color.parseColor("#7180A4")
+    );
+
+    subtitle.setMaxLines(2);
+    subtitle.setLineSpacing(dp(1), 1.0f);
 
     LinearLayout.LayoutParams subtitleParams =
             new LinearLayout.LayoutParams(
@@ -10834,11 +10884,82 @@ iconFrame.setElevation(0);
                     -2
             );
 
-    subtitleParams.setMargins(0, dp(3), 0, 0);
+    subtitleParams.setMargins(
+            0,
+            dp(4),
+            0,
+            0
+    );
+
+    // DETAIL ROW
+    LinearLayout detailRow = new LinearLayout(this);
+    detailRow.setOrientation(LinearLayout.HORIZONTAL);
+    detailRow.setGravity(Gravity.CENTER_VERTICAL);
+
+    TextView detailIcon = text(
+            (i == 1 || i == 3) ? "◷" : "✓",
+            15,
+            Color.parseColor("#6554E8")
+    );
+
+    detailIcon.setGravity(Gravity.CENTER);
+
+    LinearLayout.LayoutParams detailIconParams =
+            new LinearLayout.LayoutParams(
+                    dp(20),
+                    dp(22)
+            );
+
+    TextView detailText = text(
+            details[i],
+            12,
+            Color.parseColor("#6554D9")
+    );
+
+    LinearLayout.LayoutParams detailTextParams =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -2,
+                    1f
+            );
+
+    detailTextParams.setMargins(
+            dp(5),
+            0,
+            0,
+            0
+    );
+
+    detailRow.addView(detailIcon, detailIconParams);
+    detailRow.addView(detailText, detailTextParams);
+
+    LinearLayout.LayoutParams detailRowParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    detailRowParams.setMargins(
+            0,
+            dp(5),
+            0,
+            0
+    );
 
     labels.addView(title);
     labels.addView(subtitle, subtitleParams);
+    labels.addView(detailRow, detailRowParams);
 
+    // RIGHT ARROW
+    TextView arrow = text(
+            "›",
+            30,
+            Color.parseColor("#8AA2E8")
+    );
+
+    arrow.setGravity(Gravity.CENTER);
+
+    // ASSEMBLE CARD
     item.addView(iconFrame, iconFrameParams);
 
     item.addView(
@@ -10850,17 +10971,19 @@ iconFrame.setElevation(0);
             )
     );
 
-    item.setOnClickListener(v -> {
-        // Keep the existing country-selection action here.
-    });
-
-    grid.addView(
-            item,
+    item.addView(
+            arrow,
             new LinearLayout.LayoutParams(
-                    -1,
-                    -2
+                    dp(24),
+                    dp(44)
             )
     );
+
+    item.setOnClickListener(v -> {
+        // Keep the existing destination-selection action here.
+    });
+
+    grid.addView(item, itemParams);
 }
 
 page.addView(grid);
