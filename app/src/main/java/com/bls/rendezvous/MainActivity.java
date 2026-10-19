@@ -37,6 +37,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Space;
+import android.graphics.SweepGradient;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Button;
@@ -11513,7 +11514,7 @@ private class NeonOrbitView extends View {
         );
 
         orbitPaint.setStyle(Paint.Style.STROKE);
-        orbitPaint.setStrokeWidth(dp(2.5f));
+        orbitPaint.setStrokeWidth(dp(2) + dp(1) / 2f);
         orbitPaint.setStrokeCap(Paint.Cap.ROUND);
         orbitPaint.setShader(null);
 
