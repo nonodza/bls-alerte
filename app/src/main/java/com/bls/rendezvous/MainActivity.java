@@ -7447,6 +7447,7 @@ private void showAppointments() {
 page.setBackgroundResource(
         R.drawable.visa_monitoring_bg
 );
+    
     // =====================================================
     // TITLE
     // =====================================================
@@ -7454,29 +7455,49 @@ page.setBackgroundResource(
     TextView title =
             text(
                     "Visa Monitoring",
-                    28,
-                    NAVY
+                    27,
+                    Color.WHITE
             );
 
     title.setTypeface(
             Typeface.DEFAULT_BOLD
     );
 
-    page.addView(title);
+    title.setShadowLayer(
+            dp(4),
+            0,
+            dp(2),
+            Color.parseColor("#66000000")
+    );
+
+    page.addView(
+            title,
+            margin(12, 0, 0, 0)
+    );
 
     // =====================================================
     // SUBTITLE
     // =====================================================
 
-    page.addView(
+    TextView subtitle =
             text(
-                    "Monitor visa appointment availability and get notified when a slot appears.",
+                    "Track visa appointments and get instant alerts.",
                     13,
-                    GRAY
-            ),
-            margin(0, 5, 0, 20)
+                    Color.WHITE
+            );
+
+    subtitle.setShadowLayer(
+            dp(3),
+            0,
+            dp(1),
+            Color.parseColor("#66000000")
     );
 
+    page.addView(
+            subtitle,
+            margin(12, 5, 8, 20)
+    );
+ 
     // =====================================================
     // COUNTRY CARD
     // =====================================================
