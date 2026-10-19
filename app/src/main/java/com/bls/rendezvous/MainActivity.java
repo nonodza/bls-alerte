@@ -4809,7 +4809,7 @@ GradientDrawable dashboardBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-        Color.parseColor("#00FFFF"),
+        Color.parseColor("#1cd8d2"),
         Color.parseColor("#FFE53B")
 } 
         );
@@ -5347,7 +5347,7 @@ GradientDrawable applicationsBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#C33764"),
+                        Color.parseColor("#1cd8d2"),
                         Color.parseColor("#00B4DB"),
                         Color.parseColor("#74EBD5")
                 }
