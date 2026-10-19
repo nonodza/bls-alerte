@@ -4802,16 +4802,15 @@ dashboardItem.setPadding(
 );
 
 // =====================================================
-// DASHBOARD — PREMIUM BLUE GRADIENT
+// DASHBOARD — PREMIUM VIOLET PINK GRADIENT
 // =====================================================
 
 GradientDrawable dashboardBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
+                GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-                        Color.parseColor("#EAF2FF"),
-                        Color.parseColor("#D6E6FF"),
-                        Color.parseColor("#C8DCFF")
+                        Color.parseColor("#2D27FF"),
+                        Color.parseColor("#FF0A6C")
                 }
         );
 
@@ -4819,10 +4818,11 @@ dashboardBg.setCornerRadius(dp(16));
 
 dashboardBg.setStroke(
         dp(1),
-        Color.parseColor("#B7D0FF")
+        Color.parseColor("#D7C5FF")
 );
 
 dashboardItem.setBackground(dashboardBg);
+
 dashboardItem.setElevation(dp(3));
   
 // =====================================================
