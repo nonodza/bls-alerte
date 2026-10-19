@@ -4304,18 +4304,24 @@ drawerContent.setOrientation(
         LinearLayout.VERTICAL
 );   
    // =================================================
-// DRAWER SCROLL
+// DRAWER CONTENT BACKGROUND
 // =================================================
+
+FrameLayout contentFrame =
+        new FrameLayout(this);
+
+contentFrame.setBackgroundResource(
+        R.drawable.drawer_content_bg
+);
 
 ScrollView drawerScroll =
         new ScrollView(this);
 
-drawerScroll.setFillViewport(
-        true
-);
+drawerScroll.setFillViewport(true);
+drawerScroll.setVerticalScrollBarEnabled(false);
 
-drawerScroll.setVerticalScrollBarEnabled(
-        false
+drawerContent.setBackgroundColor(
+        Color.TRANSPARENT
 );
 
 drawerScroll.addView(
@@ -4325,14 +4331,23 @@ drawerScroll.addView(
                 -2
         )
 );
-  drawer.addView(
+
+contentFrame.addView(
         drawerScroll,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+drawer.addView(
+        contentFrame,
         new LinearLayout.LayoutParams(
                 -1,
                 0,
                 1f
         )
-);
+); 
     
 // =====================================================
 // DASHBOARD
