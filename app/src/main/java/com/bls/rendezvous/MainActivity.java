@@ -10911,7 +10911,8 @@ int[] icons = {
         R.drawable.ic_australia,
         R.drawable.ic_other
 };
-
+    
+final int[] selectedDestination = {-1};
 for (int i = 0; i < names.length; i++) {
 
     final int index = i;
@@ -11134,6 +11135,46 @@ iconFrame.addView(
 
   
 item.setOnClickListener(v -> {
+    selectedDestination[0] = index;
+
+// Reset all destination cards
+for (int j = 0; j < grid.getChildCount(); j++) {
+
+    View child = grid.getChildAt(j);
+
+    if (child instanceof LinearLayout) {
+
+        GradientDrawable normalBg =
+                new GradientDrawable();
+
+        normalBg.setColor(Color.WHITE);
+        normalBg.setCornerRadius(dp(20));
+
+        normalBg.setStroke(
+                dp(1),
+                Color.parseColor("#EEF0FF")
+        );
+
+        child.setBackground(normalBg);
+        child.setElevation(dp(2));
+    }
+}
+
+// Premium selected-card border
+   
+    GradientDrawable selectedBg =
+            new GradientDrawable();
+
+    selectedBg.setColor(Color.WHITE);
+    selectedBg.setCornerRadius(dp(20));
+
+    selectedBg.setStroke(
+            dp(2),
+            Color.parseColor("#7657E8")
+    );
+
+    item.setBackground(selectedBg);
+    item.setElevation(dp(5));
 
     // Stop any previous orbit animation
     for (int j = 0; j < grid.getChildCount(); j++) {
