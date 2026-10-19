@@ -4809,9 +4809,9 @@ GradientDrawable dashboardBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-                        Color.parseColor("25e7d8"),
-                        Color.parseColor("cfff99")
-                }
+        Color.parseColor("#00FFFF"),
+        Color.parseColor("#FFE53B")
+} 
         );
 
 dashboardBg.setCornerRadius(dp(16));
