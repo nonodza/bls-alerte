@@ -4809,8 +4809,8 @@ GradientDrawable dashboardBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-                        Color.parseColor("#2D27FF"),
-                        Color.parseColor("#FF0A6C")
+                        Color.parseColor("25e7d8"),
+                        Color.parseColor("cfff99")
                 }
         );
 
