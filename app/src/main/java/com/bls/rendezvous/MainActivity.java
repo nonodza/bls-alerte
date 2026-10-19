@@ -4802,34 +4802,28 @@ dashboardItem.setPadding(
 );
 
 // =====================================================
-// DASHBOARD PREMIUM BACKGROUND — SOFT BLUE
+// DASHBOARD — PREMIUM BLUE GRADIENT
 // =====================================================
 
 GradientDrawable dashboardBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#F8FAFF"),
-                        Color.parseColor("#EAF2FF")
+                        Color.parseColor("#EAF2FF"),
+                        Color.parseColor("#D6E6FF"),
+                        Color.parseColor("#C8DCFF")
                 }
         );
 
-dashboardBg.setCornerRadius(
-        dp(16)
-);
+dashboardBg.setCornerRadius(dp(16));
 
 dashboardBg.setStroke(
         dp(1),
-        Color.parseColor("#DCE8FF")
+        Color.parseColor("#B7D0FF")
 );
 
-dashboardItem.setBackground(
-        dashboardBg
-);
-
-dashboardItem.setElevation(
-        dp(2)
-);
+dashboardItem.setBackground(dashboardBg);
+dashboardItem.setElevation(dp(3));
   
 // =====================================================
 // DASHBOARD ACTIVE LEFT ACCENT
@@ -4842,7 +4836,7 @@ GradientDrawable dashboardLeftAccentBg =
         new GradientDrawable();
 
 dashboardLeftAccentBg.setColor(
-        Color.parseColor("#2F80ED")
+        Color.parseColor("#4F46E5")
 );
 
 dashboardLeftAccentBg.setCornerRadii(
