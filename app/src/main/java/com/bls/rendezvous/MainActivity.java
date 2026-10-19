@@ -7456,15 +7456,15 @@ page.setBackgroundResource(
 TextView title = text("Visa Monitoring", 20, Color.WHITE);
 title.setTypeface(Typeface.DEFAULT_BOLD);
 title.setShadowLayer(dp(4), 0, dp(2), Color.parseColor("#66000000"));
-page.addView(title, margin(28, -4, 0, 0));
-
+page.addView(title, margin(36, -12, 0, 0));
+    
 // =====================================================
     // SUBTITLE
  // =====================================================
     
 TextView subtitle = text("Track visa appointments and get instant alerts.", 13, Color.WHITE);
 subtitle.setShadowLayer(dp(3), 0, dp(1), Color.parseColor("#66000000"));
-page.addView(subtitle, margin(28, 2, 8, 20));
+page.addView(subtitle, margin(36, 0, 8, 20)); 
 
    
     
