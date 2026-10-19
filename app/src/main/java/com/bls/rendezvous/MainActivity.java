@@ -7448,6 +7448,7 @@ page.setBackgroundResource(
         R.drawable.visa_monitoring_bg
 );
     
+    
     // =====================================================
     // TITLE
     // =====================================================
@@ -7455,7 +7456,7 @@ page.setBackgroundResource(
     TextView title =
             text(
                     "Visa Monitoring",
-                    27,
+                    24,
                     Color.WHITE
             );
 
@@ -7472,7 +7473,7 @@ page.setBackgroundResource(
 
     page.addView(
             title,
-            margin(12, 0, 0, 0)
+            margin(16, -4, 0, 0)
     );
 
     // =====================================================
@@ -7495,8 +7496,9 @@ page.setBackgroundResource(
 
     page.addView(
             subtitle,
-            margin(12, 5, 8, 20)
+            margin(16, 2, 8, 20)
     );
+ 
  
     // =====================================================
     // COUNTRY CARD
