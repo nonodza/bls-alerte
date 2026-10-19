@@ -4269,7 +4269,7 @@ drawerHeader.setPadding(
 // =================================================
 
 drawerHeader.setBackgroundResource(
-        R.drawable.bg_main
+        R.drawable.drawer_world_bg
 );
     
 // =================================================
