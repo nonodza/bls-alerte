@@ -7453,53 +7453,21 @@ page.setBackgroundResource(
     // TITLE
     // =====================================================
 
-    TextView title =
-            text(
-                    "Visa Monitoring",
-                    24,
-                    Color.WHITE
-            );
+TextView title = text("Visa Monitoring", 20, Color.WHITE);
+title.setTypeface(Typeface.DEFAULT_BOLD);
+title.setShadowLayer(dp(4), 0, dp(2), Color.parseColor("#66000000"));
+page.addView(title, margin(28, -4, 0, 0));
 
-    title.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    title.setShadowLayer(
-            dp(4),
-            0,
-            dp(2),
-            Color.parseColor("#66000000")
-    );
-
-    page.addView(
-            title,
-            margin(16, -4, 0, 0)
-    );
-
-    // =====================================================
+// =====================================================
     // SUBTITLE
-    // =====================================================
+ // =====================================================
+    
+TextView subtitle = text("Track visa appointments and get instant alerts.", 13, Color.WHITE);
+subtitle.setShadowLayer(dp(3), 0, dp(1), Color.parseColor("#66000000"));
+page.addView(subtitle, margin(28, 2, 8, 20));
 
-    TextView subtitle =
-            text(
-                    "Track visa appointments and get instant alerts.",
-                    13,
-                    Color.WHITE
-            );
-
-    subtitle.setShadowLayer(
-            dp(3),
-            0,
-            dp(1),
-            Color.parseColor("#66000000")
-    );
-
-    page.addView(
-            subtitle,
-            margin(16, 2, 8, 20)
-    );
- 
- 
+   
+    
     // =====================================================
     // COUNTRY CARD
     // =====================================================
