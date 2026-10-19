@@ -11132,10 +11132,50 @@ iconFrame.addView(
             )
     );
 
-    item.setOnClickListener(v -> {
-        // Keep the existing destination-selection action here.
-    });
-    
+  
+item.setOnClickListener(v -> {
+
+    // Stop any previous orbit animation
+    for (int j = 0; j < grid.getChildCount(); j++) {
+
+        View child = grid.getChildAt(j);
+
+        if (child instanceof LinearLayout) {
+
+            LinearLayout card = (LinearLayout) child;
+
+            if (card.getChildCount() > 0
+                    && card.getChildAt(0) instanceof FrameLayout) {
+
+                FrameLayout frame =
+                        (FrameLayout) card.getChildAt(0);
+
+                for (int k = 0; k < frame.getChildCount(); k++) {
+
+                    View overlay = frame.getChildAt(k);
+
+                    if (overlay instanceof NeonOrbitView) {
+                        ((NeonOrbitView) overlay).stopOrbit();
+                        overlay.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    }
+
+    // Start orbit on the selected card
+    neonOrbit.setVisibility(View.VISIBLE);
+    neonOrbit.startOrbit();
+
+    // Stop after a short glow effect
+    neonOrbit.postDelayed(() -> {
+        neonOrbit.stopOrbit();
+        neonOrbit.setVisibility(View.GONE);
+    }, 1200);
+
+    // Keep the existing destination-selection action here.
+});
+      
 item.setTag(index);
     grid.addView(item, itemParams);
 }
