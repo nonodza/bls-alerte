@@ -4263,7 +4263,15 @@ drawerHeader.setPadding(
         dp(16),
         dp(14)
 );
+    
+// =================================================
+// HEADER BACKGROUND — SAME AS NEW APPLICATION
+// =================================================
 
+drawerHeader.setBackgroundResource(
+        R.drawable.bg_main
+);
+    
 // =================================================
 // ADD HEADER
 // =================================================
