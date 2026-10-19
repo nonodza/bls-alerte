@@ -5340,15 +5340,18 @@ applicationsItem.setPadding(
 );
 
 // =====================================================
-// APPLICATIONS PREMIUM BACKGROUND
+// APPLICATIONS — PREMIUM MULTICOLOR GRADIENT
 // =====================================================
 
 GradientDrawable applicationsBg =
-        new GradientDrawable();
-
-applicationsBg.setColor(
-        Color.parseColor("#F3F0FF")
-);
+        new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#C33764"),
+                        Color.parseColor("#00B4DB"),
+                        Color.parseColor("#74EBD5")
+                }
+        );
 
 applicationsBg.setCornerRadius(
         dp(16)
@@ -5356,12 +5359,16 @@ applicationsBg.setCornerRadius(
 
 applicationsBg.setStroke(
         dp(1),
-        Color.parseColor("#E1D9FF")
+        Color.parseColor("#D7C5FF")
 );
 
 applicationsItem.setBackground(
         applicationsBg
 );
+
+applicationsItem.setElevation(
+        dp(3)
+); 
 
 // =====================================================
 // APPLICATIONS ICON BOX
