@@ -11229,10 +11229,10 @@ pageScroll.addView(page);
 
 setContentView(pageScroll);
     
-} // END showNewApplication()
+} // END showNewApplication()   
 
 
-// =================================================
+ // =================================================
 // PREMIUM WAVE BACKGROUND
 // =================================================
 
@@ -11259,170 +11259,323 @@ private class PremiumWaveView extends View {
         );
     }
 
-@Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-    float w = getWidth();
-    float h = getHeight();
+        float w = getWidth();
+        float h = getHeight();
 
-    if (w <= 0 || h <= 0) {
-        return;
-    }
+        if (w <= 0 || h <= 0) {
+            return;
+        }
 
-    float radius = 0f;
+        float radius = 0f;
 
-cardRect.set(
-        0,
-        0,
-        w,
-        h
-);
+        cardRect.set(0, 0, w, h);
 
-canvas.save();
+        canvas.save();
 
-    // Rounded clipping
-    clipPath.reset();
+        clipPath.reset();
 
-    clipPath.addRoundRect(
-            cardRect,
-            radius,
-            radius,
-            Path.Direction.CW
-    );
+        clipPath.addRoundRect(
+                cardRect,
+                radius,
+                radius,
+                Path.Direction.CW
+        );
 
-    canvas.clipPath(clipPath);
+        canvas.clipPath(clipPath);
 
-    // =================================================
-// PREMIUM CURVED WAVE SHAPE
-// =================================================
+        // PREMIUM CURVED WAVE SHAPE
 
-wavePath.reset();
+        wavePath.reset();
 
-wavePath.moveTo(0, 0);
-wavePath.lineTo(w, 0);
-wavePath.lineTo(w, h * 0.70f);
+        wavePath.moveTo(0, 0);
+        wavePath.lineTo(w, 0);
+        wavePath.lineTo(w, h * 0.70f);
 
-wavePath.cubicTo(
-        w * 0.82f, h * 0.91f,
-        w * 0.60f, h * 0.98f,
-        w * 0.40f, h * 0.85f
-);
+        wavePath.cubicTo(
+                w * 0.82f, h * 0.91f,
+                w * 0.60f, h * 0.98f,
+                w * 0.40f, h * 0.85f
+        );
 
-wavePath.cubicTo(
-        w * 0.24f, h * 0.75f,
-        w * 0.12f, h * 0.76f,
-        0, h * 0.88f
-);
+        wavePath.cubicTo(
+                w * 0.24f, h * 0.75f,
+                w * 0.12f, h * 0.76f,
+                0, h * 0.88f
+        );
 
-wavePath.close();
+        wavePath.close();
 
-    LinearGradient gradient =
-            new LinearGradient(
-                    0,
-                    0,
-                    w,
-                    h,
-                    new int[]{
-                            Color.parseColor("#10152F"),
-                            Color.parseColor("#24205A"),
-                            Color.parseColor("#40318A"),
-                            Color.parseColor("#6546B8"),
-                            Color.parseColor("#18BFD0")
-                    },
-                    new float[]{
-                            0.0f,
-                            0.30f,
-                            0.55f,
-                            0.80f,
-                            1.0f
-                    },
-                    Shader.TileMode.CLAMP
-            );
+        LinearGradient gradient =
+                new LinearGradient(
+                        0,
+                        0,
+                        w,
+                        h,
+                        new int[]{
+                                Color.parseColor("#10152F"),
+                                Color.parseColor("#24205A"),
+                                Color.parseColor("#40318A"),
+                                Color.parseColor("#6546B8"),
+                                Color.parseColor("#18BFD0")
+                        },
+                        new float[]{
+                                0.0f,
+                                0.30f,
+                                0.55f,
+                                0.80f,
+                                1.0f
+                        },
+                        Shader.TileMode.CLAMP
+                );
 
-    wavePaint.setShader(gradient);
-    wavePaint.setStyle(Paint.Style.FILL);
+        wavePaint.setShader(gradient);
+        wavePaint.setStyle(Paint.Style.FILL);
 
-    canvas.drawPath(
-            wavePath,
-            wavePaint
-    );
+        canvas.drawPath(wavePath, wavePaint);
 
-    wavePaint.setShader(null);
+        wavePaint.setShader(null);
 
-    // Luminous wave edge
-    waveEdge.reset();
+        // LUMINOUS WAVE EDGE
 
-    waveEdge.moveTo(
-            0,
-            h * 0.87f
-    );
+        waveEdge.reset();
 
-    waveEdge.cubicTo(
-            w * 0.40f, h * 0.72f,
-            w * 0.82f, h * 0.94f,
-            w, h * 0.76f
-    );
+        waveEdge.moveTo(0, h * 0.87f);
 
-    // =================================================
-    // PREMIUM NEON GLOW
-    // =================================================
+        waveEdge.cubicTo(
+                w * 0.40f, h * 0.72f,
+                w * 0.82f, h * 0.94f,
+                w, h * 0.76f
+        );
 
-    edgePaint.setStyle(Paint.Style.STROKE);
-    edgePaint.setStrokeCap(Paint.Cap.ROUND);
-    edgePaint.setStrokeJoin(Paint.Join.ROUND);
-    edgePaint.setStrokeWidth(dp(2));
+        edgePaint.setStyle(Paint.Style.STROKE);
+        edgePaint.setStrokeCap(Paint.Cap.ROUND);
+        edgePaint.setStrokeJoin(Paint.Join.ROUND);
+        edgePaint.setStrokeWidth(dp(2));
 
-    // Soft outer glow
-    edgePaint.setShader(null);
-    edgePaint.setColor(Color.parseColor("#7046F0FF"));
-    edgePaint.setShadowLayer(
-            dp(7),
-            0,
-            0,
-            Color.parseColor("#7046F0FF")
-    );
-
-    canvas.drawPath(
-            waveEdge,
-            edgePaint
-    );
-
-    // Crisp neon edge
-    edgePaint.clearShadowLayer();
-
-    edgePaint.setShader(
-            new LinearGradient(
-                    0,
-                    0,
-                    w,
-                    h,
-                    new int[]{
-                            Color.parseColor("#46F0FF"),
-                            Color.parseColor("#A18BFF"),
-                            Color.parseColor("#53D8FF")
-                    },
-                    null,
-                    Shader.TileMode.CLAMP
-            )
-    );
-
-    edgePaint.setStrokeWidth(dp(2));
-
-    canvas.drawPath(
-            waveEdge,
-            edgePaint
-    );
+        // Soft outer glow
 
         edgePaint.setShader(null);
-    edgePaint.clearShadowLayer();
+        edgePaint.setColor(
+                Color.parseColor("#7046F0FF")
+        );
 
-    canvas.restore();
+        edgePaint.setShadowLayer(
+                dp(7),
+                0,
+                0,
+                Color.parseColor("#7046F0FF")
+        );
+
+        canvas.drawPath(waveEdge, edgePaint);
+
+        // Crisp neon edge
+
+        edgePaint.clearShadowLayer();
+
+        edgePaint.setShader(
+                new LinearGradient(
+                        0,
+                        0,
+                        w,
+                        h,
+                        new int[]{
+                                Color.parseColor("#46F0FF"),
+                                Color.parseColor("#A18BFF"),
+                                Color.parseColor("#53D8FF")
+                        },
+                        null,
+                        Shader.TileMode.CLAMP
+                )
+        );
+
+        edgePaint.setStrokeWidth(dp(2));
+
+        canvas.drawPath(waveEdge, edgePaint);
+
+        edgePaint.setShader(null);
+        edgePaint.clearShadowLayer();
+
+        canvas.restore();
+    }
 }
+
+
+// =================================================
+// NEON ORBIT — PRESS ACTIVATION
+// =================================================
+
+private class NeonOrbitView extends View {
+
+    private final Paint orbitPaint =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private final RectF bounds = new RectF();
+
+    private float rotation = 0f;
+
+    private boolean running = false;
+
+    private final Runnable animator = new Runnable() {
+        @Override
+        public void run() {
+
+            if (!running) {
+                return;
+            }
+
+            rotation = (rotation + 8f) % 360f;
+
+            invalidate();
+
+            postDelayed(this, 16);
+        }
+    };
+
+    public NeonOrbitView(Context context) {
+        super(context);
+
+        setLayerType(
+                View.LAYER_TYPE_SOFTWARE,
+                null
+        );
+
+        setClickable(false);
+        setFocusable(false);
+    }
+
+    public void startOrbit() {
+
+        stopOrbit();
+
+        rotation = 0f;
+        running = true;
+
+        post(animator);
+    }
+
+    public void stopOrbit() {
+
+        running = false;
+
+        removeCallbacks(animator);
+
+        invalidate();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        float w = getWidth();
+        float h = getHeight();
+
+        if (w <= 0 || h <= 0) {
+            return;
+        }
+
+        float inset = dp(3);
+
+        bounds.set(
+                inset,
+                inset,
+                w - inset,
+                h - inset
+        );
+
+        canvas.save();
+
+        canvas.rotate(
+                rotation,
+                w / 2f,
+                h / 2f
+        );
+
+        orbitPaint.setStyle(Paint.Style.STROKE);
+        orbitPaint.setStrokeWidth(dp(2.5f));
+        orbitPaint.setStrokeCap(Paint.Cap.ROUND);
+        orbitPaint.setShader(null);
+
+        // Soft cyan glow
+
+        orbitPaint.setColor(
+                Color.parseColor("#8046F0FF")
+        );
+
+        orbitPaint.setShadowLayer(
+                dp(7),
+                0,
+                0,
+                Color.parseColor("#FF46EFFF")
+        );
+
+        canvas.drawArc(
+                bounds,
+                0,
+                115,
+                false,
+                orbitPaint
+        );
+
+        orbitPaint.clearShadowLayer();
+
+        // Bright neon segment
+
+        orbitPaint.setShader(
+                new SweepGradient(
+                        w / 2f,
+                        h / 2f,
+                        new int[]{
+                                Color.TRANSPARENT,
+                                Color.parseColor("#6546F0FF"),
+                                Color.parseColor("#FF46F0FF"),
+                                Color.parseColor("#FFA78BFF"),
+                                Color.TRANSPARENT
+                        },
+                        new float[]{
+                                0f,
+                                0.25f,
+                                0.50f,
+                                0.75f,
+                                1f
+                        }
+                )
+        );
+
+        canvas.drawArc(
+                bounds,
+                0,
+                115,
+                false,
+                orbitPaint
+        );
+
+        orbitPaint.setShader(null);
+
+        canvas.restore();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        stopOrbit();
+
+        super.onDetachedFromWindow();
+    }
 }
-  
+
+
+// =================================================
+// COUNTRY ICON VIEW — ORIGINAL
+// =================================================
+
 private class CountryIconView extends View {
-    private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private final Paint p =
+            new Paint(Paint.ANTI_ALIAS_FLAG);
+
     private final String country;
 
     public CountryIconView(Context context, String country) {
@@ -11433,34 +11586,43 @@ private class CountryIconView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         float w = getWidth();
         float h = getHeight();
+
         if (w <= 0 || h <= 0) return;
+
         float size = Math.min(w, h);
 
         int c1;
         int c2;
+
         switch (country) {
             case "CANADA":
                 c1 = Color.parseColor("#FF416C");
                 c2 = Color.parseColor("#A50045");
                 break;
+
             case "USA":
                 c1 = Color.parseColor("#3288FF");
                 c2 = Color.parseColor("#1026A8");
                 break;
+
             case "UK":
                 c1 = Color.parseColor("#793BFF");
                 c2 = Color.parseColor("#241078");
                 break;
+
             case "AUSTRALIA":
                 c1 = Color.parseColor("#16B8FF");
                 c2 = Color.parseColor("#0739B9");
                 break;
+
             case "OTHER":
                 c1 = Color.parseColor("#B33DFF");
                 c2 = Color.parseColor("#3620A8");
                 break;
+
             default:
                 c1 = Color.parseColor("#526BFF");
                 c2 = Color.parseColor("#2512A5");
@@ -11468,62 +11630,92 @@ private class CountryIconView extends View {
         }
 
         p.setStyle(Paint.Style.FILL);
+
         p.setShader(
-            new LinearGradient(
-                0, 0, w, h,
-                c1, c2,
-                Shader.TileMode.CLAMP
-            )
+                new LinearGradient(
+                        0, 0, w, h,
+                        c1, c2,
+                        Shader.TileMode.CLAMP
+                )
         );
+
         canvas.drawRoundRect(
-            new RectF(0, 0, w, h),
-            size * 0.22f,
-            size * 0.22f,
-            p
+                new RectF(0, 0, w, h),
+                size * 0.22f,
+                size * 0.22f,
+                p
         );
+
         p.setShader(null);
 
         p.setStyle(Paint.Style.FILL);
         p.setColor(Color.WHITE);
         p.setTextAlign(Paint.Align.CENTER);
+
         p.setTypeface(
-            Typeface.create("sans-serif", Typeface.BOLD)
+                Typeface.create(
+                        "sans-serif",
+                        Typeface.BOLD
+                )
         );
+
         p.setTextSize(size * 0.42f);
 
         String symbol;
+
         switch (country) {
             case "CANADA":
                 symbol = "✦";
                 break;
+
             case "USA":
                 symbol = "★";
                 break;
+
             case "UK":
                 symbol = "✚";
                 break;
+
             case "AUSTRALIA":
                 symbol = "★";
                 break;
+
             case "OTHER":
                 symbol = "◎";
                 break;
+
             default:
                 symbol = "◎";
                 break;
         }
 
         Paint.FontMetrics fm = p.getFontMetrics();
-        float baseline = h / 2f - (fm.ascent + fm.descent) / 2f;
-        canvas.drawText(symbol, w / 2f, baseline, p);
+
+        float baseline =
+                h / 2f - (fm.ascent + fm.descent) / 2f;
+
+        canvas.drawText(
+                symbol,
+                w / 2f,
+                baseline,
+                p
+        );
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int d = (int) (52 * getResources().getDisplayMetrics().density);
+    protected void onMeasure(
+            int widthMeasureSpec,
+            int heightMeasureSpec
+    ) {
+        int d = (int) (
+                52 * getResources()
+                        .getDisplayMetrics().density
+        );
+
         setMeasuredDimension(d, d);
     }
 }
+    
   
 // =================================================
 // END MAINACTIVITY CLASS
