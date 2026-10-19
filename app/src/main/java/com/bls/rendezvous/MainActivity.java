@@ -10984,7 +10984,25 @@ for (int i = 0; i < names.length; i++) {
             );
 
     iconFrame.addView(flag, flagParams);
+// =================================================
+// NEON ORBIT — HIDDEN UNTIL CARD PRESS
+// =================================================
 
+NeonOrbitView neonOrbit =
+        new NeonOrbitView(this);
+
+FrameLayout.LayoutParams orbitParams =
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        );
+
+neonOrbit.setVisibility(View.GONE);
+
+iconFrame.addView(
+        neonOrbit,
+        orbitParams
+);
     // TEXT CONTENT
     LinearLayout labels = new LinearLayout(this);
     labels.setOrientation(LinearLayout.VERTICAL);
