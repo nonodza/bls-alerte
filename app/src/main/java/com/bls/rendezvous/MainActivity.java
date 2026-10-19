@@ -11144,6 +11144,8 @@ for (int j = 0; j < grid.getChildCount(); j++) {
 
     if (child instanceof LinearLayout) {
 
+        LinearLayout oldCard = (LinearLayout) child;
+
         GradientDrawable normalBg =
                 new GradientDrawable();
 
@@ -11155,8 +11157,27 @@ for (int j = 0; j < grid.getChildCount(); j++) {
                 Color.parseColor("#EEF0FF")
         );
 
-        child.setBackground(normalBg);
-        child.setElevation(dp(2));
+        oldCard.setBackground(normalBg);
+        oldCard.setElevation(dp(2));
+
+        // Reset destination title color
+        if (oldCard.getChildCount() > 1
+                && oldCard.getChildAt(1) instanceof LinearLayout) {
+
+            LinearLayout oldLabels =
+                    (LinearLayout) oldCard.getChildAt(1);
+
+            if (oldLabels.getChildCount() > 0
+                    && oldLabels.getChildAt(0) instanceof TextView) {
+
+                TextView oldTitle =
+                        (TextView) oldLabels.getChildAt(0);
+
+                oldTitle.setTextColor(
+                        Color.parseColor("#142B55")
+                );
+            }
+        }
     }
 }
 
@@ -11175,7 +11196,18 @@ for (int j = 0; j < grid.getChildCount(); j++) {
 
     item.setBackground(selectedBg);
     item.setElevation(dp(5));
+    
+// Premium selected destination title
+title.setTextColor(
+        Color.parseColor("#6548F5")
+);
 
+title.setTypeface(
+        Typeface.create(
+                "sans-serif",
+                Typeface.BOLD
+        )
+);
     // Stop any previous orbit animation
     for (int j = 0; j < grid.getChildCount(); j++) {
 
