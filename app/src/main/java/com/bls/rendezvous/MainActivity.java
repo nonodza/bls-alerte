@@ -5127,28 +5127,22 @@ GradientDrawable slotsBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-                        Color.parseColor("#86FDE8"),
-                        Color.parseColor("#6DD5FA"),
-                        Color.parseColor("#FFFFFF")
+                        Color.parseColor("#F2FCFE"),
+                        Color.parseColor("#00FFF0"),
+                        Color.parseColor("#78FFD6")
                 }
         );
 
-slotsBg.setCornerRadius(
-        dp(16)
-);
+slotsBg.setCornerRadius(dp(16));
 
 slotsBg.setStroke(
         dp(1),
-        Color.parseColor("#C8F5FA")
+        Color.parseColor("#B8F5EE")
 );
 
-slotsItem.setBackground(
-        slotsBg
-);
+slotsItem.setBackground(slotsBg);
 
-slotsItem.setElevation(
-        dp(3)
-); 
+slotsItem.setElevation(dp(3));
 
 // =====================================================
 // ICON BOX
@@ -5341,35 +5335,29 @@ applicationsItem.setPadding(
 );
 
 // =====================================================
-// APPLICATIONS — PREMIUM MULTICOLOR GRADIENT
+// APPLICATIONS — PREMIUM AQUA GRADIENT
 // =====================================================
 
 GradientDrawable applicationsBg =
         new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
+                GradientDrawable.Orientation.RIGHT_LEFT,
                 new int[]{
-                        Color.parseColor("#1cd8d2"),
-                        Color.parseColor("#00B4DB"),
-                        Color.parseColor("#74EBD5")
+                        Color.parseColor("#F2FCFE"),
+                        Color.parseColor("#00FFF0"),
+                        Color.parseColor("#78FFD6")
                 }
         );
 
-applicationsBg.setCornerRadius(
-        dp(16)
-);
+applicationsBg.setCornerRadius(dp(16));
 
 applicationsBg.setStroke(
         dp(1),
-        Color.parseColor("#D7C5FF")
+        Color.parseColor("#B8F5EE")
 );
 
-applicationsItem.setBackground(
-        applicationsBg
-);
+applicationsItem.setBackground(applicationsBg);
 
-applicationsItem.setElevation(
-        dp(3)
-); 
+applicationsItem.setElevation(dp(3));
 
 // =====================================================
 // APPLICATIONS ICON BOX
