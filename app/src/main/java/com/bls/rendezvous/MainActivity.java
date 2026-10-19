@@ -5119,15 +5119,18 @@ slotsItem.setPadding(
 );
 
 // =====================================================
-// PREMIUM BACKGROUND
+// SLOTS AVAILABILITY — PREMIUM AQUA GRADIENT
 // =====================================================
 
 GradientDrawable slotsBg =
-        new GradientDrawable();
-
-slotsBg.setColor(
-        Color.parseColor("#EEF7FF")
-);
+        new GradientDrawable(
+                GradientDrawable.Orientation.RIGHT_LEFT,
+                new int[]{
+                        Color.parseColor("#86FDE8"),
+                        Color.parseColor("#6DD5FA"),
+                        Color.parseColor("#FFFFFF")
+                }
+        );
 
 slotsBg.setCornerRadius(
         dp(16)
@@ -5135,12 +5138,16 @@ slotsBg.setCornerRadius(
 
 slotsBg.setStroke(
         dp(1),
-        Color.parseColor("#D8EBFF")
+        Color.parseColor("#C8F5FA")
 );
 
 slotsItem.setBackground(
         slotsBg
 );
+
+slotsItem.setElevation(
+        dp(3)
+); 
 
 // =====================================================
 // ICON BOX
