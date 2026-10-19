@@ -4802,15 +4802,15 @@ dashboardItem.setPadding(
 );
 
 // =====================================================
-// DASHBOARD PREMIUM BACKGROUND
+// DASHBOARD PREMIUM BACKGROUND — SOFT BLUE
 // =====================================================
 
 GradientDrawable dashboardBg =
         new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[]{
-                        Color.parseColor("#F4F8FF"),
-                        Color.parseColor("#E3EEFF")
+                        Color.parseColor("#F8FAFF"),
+                        Color.parseColor("#EAF2FF")
                 }
         );
 
@@ -4818,10 +4818,15 @@ dashboardBg.setCornerRadius(
         dp(16)
 );
 
+dashboardBg.setStroke(
+        dp(1),
+        Color.parseColor("#DCE8FF")
+);
 
 dashboardItem.setBackground(
         dashboardBg
 );
+
 dashboardItem.setElevation(
         dp(2)
 );
