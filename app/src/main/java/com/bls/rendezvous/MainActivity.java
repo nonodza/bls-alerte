@@ -10282,8 +10282,11 @@ backButton.setImageResource(R.drawable.ic_back_white);
 backButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
 backButton.setBackgroundColor(Color.TRANSPARENT);
 
-LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(28), dp(28));
-p.setMargins(0, 0, dp(12), 0);
+LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+    dp(18),
+    dp(18)
+);
+p.setMargins(0, 0, dp(8), 0);
 backButton.setLayoutParams(p);
 
 backButton.setOnClickListener(v -> finish());
