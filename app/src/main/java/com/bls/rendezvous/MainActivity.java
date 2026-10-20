@@ -7602,17 +7602,26 @@ countryCard.addView(
             margin(0, 0, 0, 12)
     );
 
+    
     // =====================================================
-    // MONITORING CARD
+    // MONITORING CARD — COMPACT PREMIUM
     // =====================================================
 
     LinearLayout monitoringCard =
             card();
 
+    monitoringCard.setPadding(
+            dp(16),
+            dp(10),
+            dp(16),
+            dp(10)
+    );
+
+    // Title
     TextView monitoringTitle =
             text(
                     "Appointment Monitoring",
-                    17,
+                    16,
                     NAVY
             );
 
@@ -7624,14 +7633,16 @@ countryCard.addView(
             monitoringTitle
     );
 
+    // Description
     monitoringCard.addView(
             text(
-                    "The app will monitor appointment availability and notify you when a slot is detected.",
-                    12,
+                    "Get notified when an appointment slot is detected.",
+                    11,
                     GRAY
             ),
-            margin(0, 6, 0, 12)
+            margin(0, 4, 0, 8)
     );
+ 
 
     // =====================================================
     // STATUS
