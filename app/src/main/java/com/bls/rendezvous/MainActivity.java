@@ -7539,9 +7539,9 @@ page.addView(subtitle, margin(68, -8, 8, 20));
     );
 
     page.addView(
-            destinationTitleRow,
-            margin(12, 0, 0, 8)
-    );
+        destinationTitleRow,
+        margin(12, 24, 0, 8)
+); 
     
     // =====================================================
 // COUNTRY CARD
