@@ -7540,7 +7540,7 @@ page.addView(subtitle, margin(68, -8, 8, 20));
 
     page.addView(
         destinationTitleRow,
-        margin(12, 88, 0, 8)
+        margin(12, 98, 0, 8)
 );
     
     // =====================================================
