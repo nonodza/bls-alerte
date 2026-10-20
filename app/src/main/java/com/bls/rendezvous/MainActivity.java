@@ -7471,16 +7471,27 @@ page.addView(subtitle, margin(68, -8, 8, 20));
     // COUNTRY CARD
     // =====================================================
 
-    LinearLayout countryCard =
-            appointmentCard();
+    // =====================================================
+// COUNTRY CARD
+// =====================================================
 
-    countryCard.addView(
-            text(
-                    "COUNTRY",
-                    10,
-                    GRAY
-            )
-    );
+LinearLayout countryCard =
+        appointmentCard();
+
+countryCard.setPadding(
+        dp(16),
+        dp(8),
+        dp(16),
+        dp(8)
+);
+
+countryCard.addView(
+        text(
+                "COUNTRY",
+                10,
+                GRAY
+        )
+); 
 
     TextView countryValue =
             text(
