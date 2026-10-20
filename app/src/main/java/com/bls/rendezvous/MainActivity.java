@@ -7466,11 +7466,83 @@ TextView subtitle = text("Track visa appointments and get instant alerts.", 13, 
 subtitle.setShadowLayer(dp(3), 0, dp(1), Color.parseColor("#66000000"));
 page.addView(subtitle, margin(68, -8, 8, 20));
    
-    
+
     // =====================================================
-    // COUNTRY CARD
+    // DESTINATION SECTION TITLE
     // =====================================================
 
+    LinearLayout destinationTitleRow =
+            new LinearLayout(this);
+
+    destinationTitleRow.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
+
+    destinationTitleRow.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    TextView destinationTitle =
+            text(
+                    "Monitoring Destination",
+                    18,
+                    NAVY
+            );
+
+    destinationTitle.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    destinationTitleRow.addView(
+            destinationTitle
+    );
+
+    TextView verifiedBadge =
+            text(
+                    "✓",
+                    13,
+                    Color.WHITE
+            );
+
+    verifiedBadge.setGravity(
+            Gravity.CENTER
+    );
+
+    GradientDrawable verifiedBg =
+            new GradientDrawable();
+
+    verifiedBg.setShape(
+            GradientDrawable.OVAL
+    );
+
+    verifiedBg.setColor(
+            Color.parseColor("#2878F0")
+    );
+
+    verifiedBadge.setBackground(
+            verifiedBg
+    );
+
+    LinearLayout.LayoutParams verifiedParams =
+            new LinearLayout.LayoutParams(
+                    dp(20),
+                    dp(20)
+            );
+
+    verifiedParams.setMargins(
+            dp(7), 0, 0, 0
+    );
+
+    destinationTitleRow.addView(
+            verifiedBadge,
+            verifiedParams
+    );
+
+    page.addView(
+            destinationTitleRow,
+            margin(12, 0, 0, 8)
+    );
+    
     // =====================================================
 // COUNTRY CARD
 // =====================================================
@@ -7498,7 +7570,7 @@ countryCard.addView(
                     selectedCountry.length() == 0
                             ? "Select Country"
                             : selectedCountry,
-                    18,
+                   18,
                     selectedCountry.length() == 0
                             ? BLUE
                             : NAVY
