@@ -7426,20 +7426,20 @@ private void showAppointments() {
     // =====================================================
 
     TextView back =
-            text(
-                    "‹  Back",
-                    17,
-                    white 
-            );
+        text(
+                "‹  Back",
+                17,
+                Color.WHITE
+        );
 
-    back.setOnClickListener(
-            v -> showHome()
-    );
+back.setOnClickListener(
+        v -> showHome()
+);
 
-    page.addView(
-            back,
-            margin(0, 0, 0, 10)
-    );
+page.addView(
+        back,
+        margin(0, 0, 0, 10)
+); 
 // =====================================================
 // VISA MONITORING BACKGROUND
 // =====================================================
