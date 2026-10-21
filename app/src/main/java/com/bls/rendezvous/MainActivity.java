@@ -7429,7 +7429,7 @@ private void showAppointments() {
             text(
                     "‹  Back",
                     17,
-                    BLUE
+                    white 
             );
 
     back.setOnClickListener(
@@ -7457,7 +7457,7 @@ page.setBackgroundResource(
     TextView title =
             text(
                     "Visa Monitoring",
-                    19,
+                    20,
                     Color.WHITE
             );
 
@@ -7551,7 +7551,7 @@ page.setBackgroundResource(
     TextView verifiedBadge =
             text(
                     "✓",
-                    13,
+                    12,
                     Color.WHITE
             );
 
@@ -7591,8 +7591,8 @@ page.setBackgroundResource(
 
     page.addView(
         destinationTitleRow,
-        margin(12, 98, 0, 8)
-);
+        margin(35, 98, 0, 8)
+); 
     
     // =====================================================
 // COUNTRY CARD
