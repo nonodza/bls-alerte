@@ -7457,7 +7457,7 @@ page.setBackgroundResource(
     TextView title =
             text(
                     "Visa Monitoring",
-                    20,
+                    22,
                     Color.WHITE
             );
 
@@ -7479,7 +7479,7 @@ page.setBackgroundResource(
 
     page.addView(
             title,
-            margin(78, -30, 0, 0)
+            margin(115, -30, 0, 0)
     );
 
     // =====================================================
@@ -7513,9 +7513,9 @@ page.setBackgroundResource(
     );
 
     page.addView(
-            subtitle,
-            margin(95, -8, 8, 20)  
- );
+        subtitle,
+        margin(115, -8, 8, 20)
+);
    
 
     // =====================================================
@@ -7536,7 +7536,7 @@ page.setBackgroundResource(
     TextView destinationTitle =
         text(
                 "Monitoring Destination",
-                16,
+                20,
                 NAVY
         );
 
@@ -7551,7 +7551,7 @@ page.setBackgroundResource(
     TextView verifiedBadge =
             text(
                     "✓",
-                    13,
+                    11,
                     Color.WHITE
             );
 
@@ -7591,7 +7591,7 @@ page.setBackgroundResource(
 
     page.addView(
         destinationTitleRow,
-        margin(12, 115, 0, 8)
+        margin(12, 125, 0, 8)
 ); 
     
     // =====================================================
