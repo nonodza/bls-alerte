@@ -7479,7 +7479,7 @@ page.setBackgroundResource(
 
     page.addView(
             title,
-            margin(115, -30, 0, 0)
+            margin(125, -30, 0, 0)
     );
 
     // =====================================================
@@ -7514,7 +7514,7 @@ page.setBackgroundResource(
 
     page.addView(
         subtitle,
-        margin(115, -8, 8, 20)
+        margin(125, 0, 8, 20)
 );
    
 
@@ -7591,7 +7591,7 @@ page.setBackgroundResource(
 
     page.addView(
         destinationTitleRow,
-        margin(12, 125, 0, 8)
+        margin(12, 135, 0, 8)
 ); 
     
     // =====================================================
