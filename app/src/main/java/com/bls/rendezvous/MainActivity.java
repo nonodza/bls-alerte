@@ -7457,7 +7457,7 @@ page.setBackgroundResource(
     TextView title =
             text(
                     "Visa Monitoring",
-                    22,
+                    19,
                     Color.WHITE
             );
 
@@ -7514,9 +7514,8 @@ page.setBackgroundResource(
 
     page.addView(
             subtitle,
-            margin(78, -8, 8, 20)
-    );
- 
+            margin(95, -8, 8, 20)  
+ );
    
 
     // =====================================================
