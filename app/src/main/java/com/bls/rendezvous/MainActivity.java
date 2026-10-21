@@ -7551,7 +7551,7 @@ page.setBackgroundResource(
     TextView verifiedBadge =
             text(
                     "✓",
-                    12,
+                    13,
                     Color.WHITE
             );
 
@@ -7591,7 +7591,7 @@ page.setBackgroundResource(
 
     page.addView(
         destinationTitleRow,
-        margin(35, 98, 0, 8)
+        margin(12, 115, 0, 8)
 ); 
     
     // =====================================================
