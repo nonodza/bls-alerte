@@ -7449,22 +7449,74 @@ page.setBackgroundResource(
 );
     
     
+    
     // =====================================================
-    // TITLE
+    // VISA MONITORING TITLE — PREMIUM HEADER
     // =====================================================
 
-TextView title = text("Visa Monitoring", 20, Color.WHITE);
-title.setTypeface(Typeface.DEFAULT_BOLD);
-title.setShadowLayer(dp(4), 0, dp(2), Color.parseColor("#66000000"));
-page.addView(title, margin(68, -30, 0, 0));
-    
-// =====================================================
-    // SUBTITLE
- // =====================================================
-    
-TextView subtitle = text("Track visa appointments and get instant alerts.", 13, Color.WHITE);
-subtitle.setShadowLayer(dp(3), 0, dp(1), Color.parseColor("#66000000"));
-page.addView(subtitle, margin(68, -8, 8, 20));
+    TextView title =
+            text(
+                    "Visa Monitoring",
+                    22,
+                    Color.WHITE
+            );
+
+    title.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    title.setLetterSpacing(0.01f);
+
+    title.setShadowLayer(
+            dp(5),
+            0,
+            dp(2),
+            Color.parseColor("#66000000")
+    );
+
+    page.addView(
+            title,
+            margin(78, -30, 0, 0)
+    );
+
+    // =====================================================
+    // SUBTITLE — PREMIUM HEADER
+    // =====================================================
+
+    TextView subtitle =
+            text(
+                    "Track visa appointments and get instant alerts.",
+                    13,
+                    Color.parseColor("#F0F5FF")
+            );
+
+    subtitle.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.NORMAL
+            )
+    );
+
+    subtitle.setLineSpacing(
+            dp(2),
+            1.0f
+    );
+
+    subtitle.setShadowLayer(
+            dp(3),
+            0,
+            dp(1),
+            Color.parseColor("#55000000")
+    );
+
+    page.addView(
+            subtitle,
+            margin(78, -8, 8, 20)
+    );
+ 
    
 
     // =====================================================
@@ -7483,11 +7535,11 @@ page.addView(subtitle, margin(68, -8, 8, 20));
     );
 
     TextView destinationTitle =
-            text(
-                    "Monitoring Destination",
-                    18,
-                    NAVY
-            );
+        text(
+                "Monitoring Destination",
+                16,
+                NAVY
+        );
 
     destinationTitle.setTypeface(
             Typeface.DEFAULT_BOLD
