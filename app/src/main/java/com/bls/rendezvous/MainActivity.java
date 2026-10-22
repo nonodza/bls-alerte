@@ -7593,137 +7593,316 @@ page.setBackgroundResource(
         destinationTitleRow,
         margin(12, 175, 0, 8)
 ); 
-    
     // =====================================================
-// COUNTRY CARD
+// COUNTRY CARD — PREMIUM COMPACT
 // =====================================================
 
-LinearLayout countryCard =
-        appointmentCard();
+LinearLayout countryCard = appointmentCard();
+
+countryCard.setOrientation(
+        LinearLayout.VERTICAL
+);
 
 countryCard.setPadding(
         dp(16),
-        dp(8),
+        dp(10),
         dp(16),
-        dp(8)
+        dp(10)
+);
+
+// Country label
+TextView countryLabel = text(
+        "MONITORING COUNTRY",
+        10,
+        Color.parseColor("#8194B8")
+);
+
+countryLabel.setTypeface(
+        Typeface.create("sans-serif-medium", Typeface.NORMAL)
+);
+
+countryCard.addView(countryLabel);
+
+// Selected country
+TextView countryValue = text(
+        selectedCountry.length() == 0
+                ? "Select Country  ›"
+                : selectedCountry + "  ›",
+        16,
+        selectedCountry.length() == 0
+                ? Color.parseColor("#77B8FF")
+                : NAVY
+);
+
+countryValue.setTypeface(
+        Typeface.create("sans-serif-medium", Typeface.BOLD)
 );
 
 countryCard.addView(
-        text(
-                "COUNTRY",
-                10,
-                GRAY
-        )
+        countryValue,
+        margin(0, 3, 0, 0)
+);
+
+// Short description
+TextView countryHint = text(
+        "Choose your visa destination",
+        11,
+        Color.parseColor("#8194B8")
+);
+
+countryCard.addView(
+        countryHint,
+        margin(0, 2, 0, 0)
 ); 
 
-    TextView countryValue =
-            text(
-                    selectedCountry.length() == 0
-                            ? "Select Country"
-                            : selectedCountry,
-                   18,
-                    selectedCountry.length() == 0
-                            ? BLUE
-                            : NAVY
-            );
+ // =====================================================
+// COUNTRY SELECTOR — PREMIUM DARK SEARCH
+// =====================================================
 
-    countryValue.setTypeface(
-            Typeface.DEFAULT_BOLD
+countryCard.setOnClickListener(v -> {
+
+    final String[] countryNames = {
+            "Austria", "Belgium", "Bulgaria", "Croatia",
+            "Czech Republic", "Denmark", "Estonia", "Finland",
+            "France", "Germany", "Greece", "Hungary",
+            "Iceland", "Italy", "Latvia", "Liechtenstein",
+            "Lithuania", "Luxembourg", "Malta", "Netherlands",
+            "Norway", "Poland", "Portugal", "Romania",
+            "Slovakia", "Slovenia", "Spain", "Sweden",
+            "Switzerland"
+    };
+
+    final String[] flags = {
+            "🇦🇹", "🇧🇪", "🇧🇬", "🇭🇷",
+            "🇨🇿", "🇩🇰", "🇪🇪", "🇫🇮",
+            "🇫🇷", "🇩🇪", "🇬🇷", "🇭🇺",
+            "🇮🇸", "🇮🇹", "🇱🇻", "🇱🇮",
+            "🇱🇹", "🇱🇺", "🇲🇹", "🇳🇱",
+            "🇳🇴", "🇵🇱", "🇵🇹", "🇷🇴",
+            "🇸🇰", "🇸🇮", "🇪🇸", "🇸🇪",
+            "🇨🇭"
+    };
+
+    final String[] filteredCountries = countryNames.clone();
+
+    LinearLayout dialogLayout = new LinearLayout(this);
+    dialogLayout.setOrientation(LinearLayout.VERTICAL);
+    dialogLayout.setPadding(dp(20), dp(18), dp(20), dp(12));
+
+    GradientDrawable dialogBackground = new GradientDrawable();
+    dialogBackground.setColor(Color.parseColor("#101B35"));
+    dialogBackground.setCornerRadius(dp(22));
+    dialogLayout.setBackground(dialogBackground);
+
+    TextView dialogTitle = text(
+            "Select Destination",
+            21,
+            Color.WHITE
+    );
+    dialogTitle.setTypeface(Typeface.DEFAULT_BOLD);
+
+    dialogLayout.addView(
+            dialogTitle,
+            new LinearLayout.LayoutParams(-1, -2)
     );
 
-    countryCard.addView(
-            countryValue,
-            margin(0, 5, 0, 0)
+    TextView dialogSubtitle = text(
+            "Choose the country you want to monitor.",
+            12,
+            Color.parseColor("#A9B9D8")
     );
 
-    countryCard.addView(
-            text(
-                    "Choose the country you want to monitor.",
-                    11,
-                    GRAY
-            ),
-            margin(0, 2, 0, 0)
+    LinearLayout.LayoutParams subtitleParams =
+            new LinearLayout.LayoutParams(-1, -2);
+    subtitleParams.setMargins(0, dp(5), 0, dp(16));
+    dialogLayout.addView(dialogSubtitle, subtitleParams);
+
+    EditText searchInput = new EditText(this);
+    searchInput.setSingleLine(true);
+    searchInput.setTextColor(Color.WHITE);
+    searchInput.setHintTextColor(Color.parseColor("#8798B8"));
+    searchInput.setHint("Search country...");
+    searchInput.setTextSize(14);
+    searchInput.setPadding(dp(14), 0, dp(14), 0);
+
+    GradientDrawable searchBackground = new GradientDrawable();
+    searchBackground.setColor(Color.parseColor("#1B2947"));
+    searchBackground.setCornerRadius(dp(12));
+    searchBackground.setStroke(
+            dp(1),
+            Color.parseColor("#35496F")
+    );
+    searchInput.setBackground(searchBackground);
+
+    dialogLayout.addView(
+            searchInput,
+            new LinearLayout.LayoutParams(-1, dp(46))
     );
 
-    // =====================================================
-    // COUNTRY SELECTOR
-    // =====================================================
+    ListView countryList = new ListView(this);
+    countryList.setDivider(
+            new android.graphics.drawable.ColorDrawable(
+                    Color.parseColor("#263653")
+            )
+    );
+    countryList.setDividerHeight(dp(1));
+    countryList.setBackgroundColor(Color.TRANSPARENT);
+    countryList.setCacheColorHint(Color.TRANSPARENT);
 
-    countryCard.setOnClickListener(
-            v -> {
+    LinearLayout.LayoutParams listParams =
+            new LinearLayout.LayoutParams(-1, dp(320));
+    listParams.setMargins(0, dp(12), 0, 0);
+    dialogLayout.addView(countryList, listParams);
 
-                final String[] countries = {
+    java.util.ArrayList<String> displayedCountries =
+            new java.util.ArrayList<>();
 
-                        "🇦🇹  Austria",
-                        "🇧🇪  Belgium",
-                        "🇧🇬  Bulgaria",
-                        "🇭🇷  Croatia",
-                        "🇨🇿  Czech Republic",
-                        "🇩🇰  Denmark",
-                        "🇪🇪  Estonia",
-                        "🇫🇮  Finland",
-                        "🇫🇷  France",
-                        "🇩🇪  Germany",
-                        "🇬🇷  Greece",
-                        "🇭🇺  Hungary",
-                        "🇮🇸  Iceland",
-                        "🇮🇹  Italy",
-                        "🇱🇻  Latvia",
-                        "🇱🇮  Liechtenstein",
-                        "🇱🇹  Lithuania",
-                        "🇱🇺  Luxembourg",
-                        "🇲🇹  Malta",
-                        "🇳🇱  Netherlands",
-                        "🇳🇴  Norway",
-                        "🇵🇱  Poland",
-                        "🇵🇹  Portugal",
-                        "🇷🇴  Romania",
-                        "🇸🇰  Slovakia",
-                        "🇸🇮  Slovenia",
-                        "🇪🇸  Spain",
-                        "🇸🇪  Sweden",
-                        "🇨🇭  Switzerland"
-                };
+    for (int i = 0; i < countryNames.length; i++) {
+        displayedCountries.add(countryNames[i]);
+    }
 
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(
-                                MainActivity.this
-                        );
+    android.widget.ArrayAdapter<String> adapter =
+            new android.widget.ArrayAdapter<String>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    displayedCountries
+            ) {
+                @Override
+                public View getView(
+                        int position,
+                        View convertView,
+                        android.view.ViewGroup parent
+                ) {
+                    TextView row = new TextView(
+                            MainActivity.this
+                    );
 
-                builder.setTitle(
-                        "Select Country"
-                );
+                    String name = getItem(position);
+                    int originalIndex = -1;
 
-                builder.setItems(
-                        countries,
-                        (dialog, which) -> {
-
-                            selectedCountry =
-                                    countries[which];
-
-                            countryValue.setText(
-                                    selectedCountry
-                            );
-
-                            countryValue.setTextColor(
-                                    NAVY
-                            );
+                    for (int i = 0; i < countryNames.length; i++) {
+                        if (countryNames[i].equals(name)) {
+                            originalIndex = i;
+                            break;
                         }
-                );
+                    }
 
-                builder.setNegativeButton(
-                        "CANCEL",
-                        null
-                );
+                    row.setText(
+                            (originalIndex >= 0
+                                    ? flags[originalIndex]
+                                    : "🌍")
+                                    + "    " + name
+                    );
 
-                builder.show();
+                    row.setTextSize(15);
+                    row.setTextColor(Color.WHITE);
+                    row.setGravity(Gravity.CENTER_VERTICAL);
+                    row.setPadding(dp(10), 0, dp(10), 0);
+
+                    if (selectedCountry.contains(name)) {
+                        row.setTextColor(
+                                Color.parseColor("#77B8FF")
+                        );
+                        row.setTypeface(
+                                Typeface.DEFAULT_BOLD
+                        );
+                    }
+
+                    row.setBackgroundColor(Color.TRANSPARENT);
+
+                    return row;
+                }
+            };
+
+    countryList.setAdapter(adapter);
+
+    AlertDialog dialog =
+            new AlertDialog.Builder(this)
+                    .create();
+
+    dialog.setView(dialogLayout);
+    dialog.setOnShowListener(d -> {
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(
+                    new android.graphics.drawable.ColorDrawable(
+                            Color.TRANSPARENT
+                    )
+            );
+        }
+    });
+
+    searchInput.addTextChangedListener(
+            new android.text.TextWatcher() {
+                @Override
+                public void beforeTextChanged(
+                        CharSequence s,
+                        int start,
+                        int count,
+                        int after
+                ) {}
+
+                @Override
+                public void onTextChanged(
+                        CharSequence s,
+                        int start,
+                        int before,
+                        int count
+                ) {
+                    String query = s.toString().trim()
+                            .toLowerCase(java.util.Locale.ROOT);
+
+                    displayedCountries.clear();
+
+                    for (String country : countryNames) {
+                        if (country.toLowerCase(
+                                java.util.Locale.ROOT
+                        ).contains(query)) {
+                            displayedCountries.add(country);
+                        }
+                    }
+
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void afterTextChanged(
+                        android.text.Editable s
+                ) {}
             }
     );
 
-    page.addView(
-            countryCard,
-            margin(0, 0, 0, 12)
+    countryList.setOnItemClickListener(
+            (parent, view, position, id) -> {
+                String chosen = displayedCountries.get(position);
+
+                int originalIndex = -1;
+                for (int i = 0; i < countryNames.length; i++) {
+                    if (countryNames[i].equals(chosen)) {
+                        originalIndex = i;
+                        break;
+                    }
+                }
+
+                if (originalIndex >= 0) {
+                    selectedCountry =
+                            flags[originalIndex] + "  " + chosen;
+
+                    countryValue.setText(selectedCountry);
+                    countryValue.setTextColor(NAVY);
+                }
+
+                dialog.dismiss();
+            }
     );
+
+    dialog.setButton(
+            AlertDialog.BUTTON_NEGATIVE,
+            "CLOSE",
+            (d, which) -> dialog.dismiss()
+    );
+
+    dialog.show();
+});   
 
     
     // =====================================================
