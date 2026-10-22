@@ -54,6 +54,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.widget.EditText;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
