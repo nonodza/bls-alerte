@@ -7691,12 +7691,6 @@ infoParams.setMargins(
         0
 );
 
-TextView countryLabel = text(
-        "MONITORING COUNTRY",
-        10,
-        Color.parseColor("#8194B8")
-);
-
 // Country label + hint in one compact row
 LinearLayout countryMetaRow =
         new LinearLayout(this);
@@ -7772,17 +7766,6 @@ countryValue.setEllipsize(
 countryInfo.addView(
         countryValue,
         margin(0, 2, 0, 0)
-);
-
-TextView countryHint = text(
-        "Choose your visa destination",
-        11,
-        Color.parseColor("#8194B8")
-);
-
-countryInfo.addView(
-        countryHint,
-        margin(0, 3, 0, 0)
 );
 
 countryCard.addView(
