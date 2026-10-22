@@ -7610,10 +7610,10 @@ countryCard.setGravity(
 );
 
 countryCard.setPadding(
-        dp(14),
-        dp(14),
-        dp(14),
-        dp(14)
+        dp(12),
+        dp(9),
+        dp(12),
+        dp(9)
 );
 
 // Country flag circle
@@ -7660,8 +7660,8 @@ flagFrame.addView(
 countryCard.addView(
         flagFrame,
         new LinearLayout.LayoutParams(
-                dp(52),
-                dp(52)
+                dp(42),
+                dp(42)
         )
 );
 
@@ -7697,6 +7697,24 @@ TextView countryLabel = text(
         Color.parseColor("#8194B8")
 );
 
+// Country label + hint in one compact row
+LinearLayout countryMetaRow =
+        new LinearLayout(this);
+
+countryMetaRow.setOrientation(
+        LinearLayout.HORIZONTAL
+);
+
+countryMetaRow.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+TextView countryLabel = text(
+        "MONITORING COUNTRY",
+        9,
+        Color.parseColor("#8194B8")
+);
+
 countryLabel.setTypeface(
         Typeface.create(
                 "sans-serif-medium",
@@ -7704,13 +7722,36 @@ countryLabel.setTypeface(
         )
 );
 
-countryInfo.addView(countryLabel);
+countryMetaRow.addView(countryLabel);
 
+TextView countryHint = text(
+        "  ·  Choose your visa destination",
+        10,
+        Color.parseColor("#8194B8")
+);
+
+countryHint.setSingleLine(true);
+countryHint.setEllipsize(
+        android.text.TextUtils.TruncateAt.END
+);
+
+countryMetaRow.addView(
+        countryHint,
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        )
+);
+
+countryInfo.addView(countryMetaRow);
+
+// Selected country
 TextView countryValue = text(
         selectedCountry.length() == 0
                 ? "Select Country"
                 : selectedCountry,
-        16,
+        15,
         selectedCountry.length() == 0
                 ? Color.parseColor("#3770C8")
                 : NAVY
@@ -7723,9 +7764,14 @@ countryValue.setTypeface(
         )
 );
 
+countryValue.setSingleLine(true);
+countryValue.setEllipsize(
+        android.text.TextUtils.TruncateAt.END
+);
+
 countryInfo.addView(
         countryValue,
-        margin(0, 3, 0, 0)
+        margin(0, 2, 0, 0)
 );
 
 TextView countryHint = text(
