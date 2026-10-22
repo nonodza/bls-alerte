@@ -7553,7 +7553,7 @@ page.setBackgroundResource(
     TextView verifiedBadge =
             text(
                     "✓",
-                    10,
+                    9,
                     Color.WHITE
             );
 
@@ -7595,24 +7595,102 @@ page.setBackgroundResource(
         destinationTitleRow,
         margin(12, 175, 0, 8)
 ); 
-    // =====================================================
-// COUNTRY CARD — PREMIUM COMPACT
+  // =====================================================
+// COUNTRY CARD — PREMIUM HORIZONTAL DESIGN
 // =====================================================
 
 LinearLayout countryCard = appointmentCard();
 
 countryCard.setOrientation(
-        LinearLayout.VERTICAL
+        LinearLayout.HORIZONTAL
+);
+
+countryCard.setGravity(
+        Gravity.CENTER_VERTICAL
 );
 
 countryCard.setPadding(
-        dp(16),
-        dp(10),
-        dp(16),
-        dp(10)
+        dp(14),
+        dp(14),
+        dp(14),
+        dp(14)
 );
 
-// Country label
+// Country flag circle
+FrameLayout flagFrame = new FrameLayout(this);
+
+GradientDrawable flagCircle =
+        new GradientDrawable();
+
+flagCircle.setShape(
+        GradientDrawable.OVAL
+);
+
+flagCircle.setColor(
+        Color.parseColor("#E7F0FF")
+);
+
+flagCircle.setStroke(
+        dp(1),
+        Color.parseColor("#C7D9FF")
+);
+
+flagFrame.setBackground(flagCircle);
+
+TextView countryFlag = text(
+        selectedCountry.length() == 0
+                ? "🌍"
+                : selectedCountry.substring(0, 2).trim(),
+        25,
+        Color.WHITE
+);
+
+countryFlag.setGravity(
+        Gravity.CENTER
+);
+
+flagFrame.addView(
+        countryFlag,
+        new FrameLayout.LayoutParams(
+                -1,
+                -1
+        )
+);
+
+countryCard.addView(
+        flagFrame,
+        new LinearLayout.LayoutParams(
+                dp(52),
+                dp(52)
+        )
+);
+
+// Country information
+LinearLayout countryInfo =
+        new LinearLayout(this);
+
+countryInfo.setOrientation(
+        LinearLayout.VERTICAL
+);
+
+countryInfo.setGravity(
+        Gravity.CENTER_VERTICAL
+);
+
+LinearLayout.LayoutParams infoParams =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
+
+infoParams.setMargins(
+        dp(12),
+        0,
+        dp(8),
+        0
+);
+
 TextView countryLabel = text(
         "MONITORING COUNTRY",
         10,
@@ -7620,42 +7698,70 @@ TextView countryLabel = text(
 );
 
 countryLabel.setTypeface(
-        Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        Typeface.create(
+                "sans-serif-medium",
+                Typeface.NORMAL
+        )
 );
 
-countryCard.addView(countryLabel);
+countryInfo.addView(countryLabel);
 
-// Selected country
 TextView countryValue = text(
         selectedCountry.length() == 0
-                ? "Select Country  ›"
-                : selectedCountry + "  ›",
+                ? "Select Country"
+                : selectedCountry,
         16,
         selectedCountry.length() == 0
-                ? Color.parseColor("#77B8FF")
+                ? Color.parseColor("#3770C8")
                 : NAVY
 );
 
 countryValue.setTypeface(
-        Typeface.create("sans-serif-medium", Typeface.BOLD)
+        Typeface.create(
+                "sans-serif-medium",
+                Typeface.BOLD
+        )
 );
 
-countryCard.addView(
+countryInfo.addView(
         countryValue,
         margin(0, 3, 0, 0)
 );
 
-// Short description
 TextView countryHint = text(
         "Choose your visa destination",
         11,
         Color.parseColor("#8194B8")
 );
 
-countryCard.addView(
+countryInfo.addView(
         countryHint,
-        margin(0, 2, 0, 0)
-); 
+        margin(0, 3, 0, 0)
+);
+
+countryCard.addView(
+        countryInfo,
+        infoParams
+);
+
+// Right arrow
+TextView countryArrow = text(
+        "›",
+        30,
+        Color.parseColor("#3770C8")
+);
+
+countryArrow.setGravity(
+        Gravity.CENTER
+);
+
+countryCard.addView(
+        countryArrow,
+        new LinearLayout.LayoutParams(
+                dp(24),
+                dp(42)
+        )
+);  
 
  // =====================================================
 // COUNTRY SELECTOR — PREMIUM DARK SEARCH
@@ -7890,7 +7996,11 @@ countryCard.setOnClickListener(v -> {
                             flags[originalIndex] + "  " + chosen;
 
                     countryValue.setText(selectedCountry);
-                    countryValue.setTextColor(NAVY);
+countryValue.setTextColor(NAVY);
+
+countryFlag.setText(
+        flags[originalIndex]
+);
                 }
 
                 dialog.dismiss();
