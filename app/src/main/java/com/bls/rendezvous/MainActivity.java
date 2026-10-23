@@ -7689,43 +7689,6 @@ infoParams.setMargins(
         0
 );
 
-// Country label + hint in one compact row
-LinearLayout countryMetaRow =
-        new LinearLayout(this);
-
-countryMetaRow.setOrientation(
-        LinearLayout.HORIZONTAL
-);
-
-countryMetaRow.setGravity(
-        Gravity.CENTER_VERTICAL
-);
-
-countryLabel.setTypeface(
-        Typeface.create(
-                "sans-serif-medium",
-                Typeface.NORMAL
-        )
-);
-
-countryMetaRow.addView(countryLabel);
-
-countryHint.setSingleLine(true);
-countryHint.setEllipsize(
-        android.text.TextUtils.TruncateAt.END
-);
-
-countryMetaRow.addView(
-        countryHint,
-        new LinearLayout.LayoutParams(
-                0,
-                -2,
-                1f
-        )
-);
-
-countryInfo.addView(countryMetaRow);
-
 // Selected country
 TextView countryValue = text(
         selectedCountry.length() == 0
