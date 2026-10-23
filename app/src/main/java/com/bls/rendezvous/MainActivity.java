@@ -7701,12 +7701,6 @@ countryMetaRow.setGravity(
         Gravity.CENTER_VERTICAL
 );
 
-TextView countryLabel = text(
-        "MONITORING COUNTRY",
-        9,
-        Color.parseColor("#8194B8")
-);
-
 countryLabel.setTypeface(
         Typeface.create(
                 "sans-serif-medium",
@@ -7715,12 +7709,6 @@ countryLabel.setTypeface(
 );
 
 countryMetaRow.addView(countryLabel);
-
-TextView countryHint = text(
-        "  ·  Choose a country",
-        9,
-        Color.parseColor("#8194B8")
-);
 
 countryHint.setSingleLine(true);
 countryHint.setEllipsize(
