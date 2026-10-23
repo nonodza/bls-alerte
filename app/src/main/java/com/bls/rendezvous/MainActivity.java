@@ -7717,8 +7717,8 @@ countryLabel.setTypeface(
 countryMetaRow.addView(countryLabel);
 
 TextView countryHint = text(
-        "  ·  Choose your visa destination",
-        10,
+        "  ·  Choose a country",
+        9,
         Color.parseColor("#8194B8")
 );
 
