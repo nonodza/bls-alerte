@@ -7638,10 +7638,8 @@ flagCircle.setStroke(
 flagFrame.setBackground(flagCircle);
 
 TextView countryFlag = text(
-        selectedCountry.length() == 0
-                ? "🌍"
-                : selectedCountry.substring(0, 2).trim(),
-        25,
+        "🌐",
+        22,
         Color.WHITE
 );
 
@@ -8021,8 +8019,7 @@ countryCard.setOnClickListener(v -> {
                 }
 
                 if (originalIndex >= 0) {
-                    selectedCountry =
-                            flags[originalIndex] + "  " + chosen;
+                    selectedCountry = chosen;
 
                     countryValue.setText(selectedCountry);
 countryValue.setTextColor(NAVY);
