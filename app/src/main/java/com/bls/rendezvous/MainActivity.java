@@ -7771,10 +7771,13 @@ countryCard.addView(
         infoParams
 );
 
-// Right arrow
+// =====================================================
+// PREMIUM DROPDOWN ARROW
+// =====================================================
+
 TextView countryArrow = text(
-        "›",
-        30,
+        "▼",
+        11,
         Color.parseColor("#3770C8")
 );
 
@@ -7782,19 +7785,39 @@ countryArrow.setGravity(
         Gravity.CENTER
 );
 
+GradientDrawable arrowBackground =
+        new GradientDrawable();
+
+arrowBackground.setShape(
+        GradientDrawable.OVAL
+);
+
+arrowBackground.setColor(
+        Color.parseColor("#EAF1FF")
+);
+
+countryArrow.setBackground(
+        arrowBackground
+);
+
 countryCard.addView(
         countryArrow,
         new LinearLayout.LayoutParams(
-                dp(24),
-                dp(42)
+                dp(30),
+                dp(30)
         )
-);  
+); 
 
  // =====================================================
 // COUNTRY SELECTOR — PREMIUM DARK SEARCH
 // =====================================================
 
 countryCard.setOnClickListener(v -> {
+
+    countryArrow.animate()
+            .rotation(180f)
+            .setDuration(180)
+            .start();
 
     final String[] countryNames = {
             "Austria", "Belgium", "Bulgaria", "Croatia",
@@ -8034,13 +8057,20 @@ countryFlag.setText(
     );
 
     dialog.setButton(
-            AlertDialog.BUTTON_NEGATIVE,
-            "CLOSE",
-            (d, which) -> dialog.dismiss()
-    );
+        AlertDialog.BUTTON_NEGATIVE,
+        "CLOSE",
+        (d, which) -> dialog.dismiss()
+);
 
-    dialog.show();
-});   
+// Reset arrow when dialog closes
+dialog.setOnDismissListener(
+        d -> countryArrow.animate()
+                .rotation(0f)
+                .setDuration(180)
+                .start()
+);
+
+dialog.show();
 
     // =====================================================
 // ADD COUNTRY CARD TO PAGE
