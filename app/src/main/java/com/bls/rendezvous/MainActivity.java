@@ -8071,6 +8071,7 @@ dialog.setOnDismissListener(
 );
 
 dialog.show();
+});   
 
     // =====================================================
 // ADD COUNTRY CARD TO PAGE
