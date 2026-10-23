@@ -7743,7 +7743,7 @@ TextView countryValue = text(
         selectedCountry.length() == 0
                 ? "Select Country"
                 : selectedCountry,
-        15,
+        16,
         selectedCountry.length() == 0
                 ? Color.parseColor("#3770C8")
                 : NAVY
@@ -7763,9 +7763,8 @@ countryValue.setEllipsize(
 
 countryInfo.addView(
         countryValue,
-        margin(0, 2, 0, 0)
+        margin(0, 4, 0, 0)
 );
-
 countryCard.addView(
         countryInfo,
         infoParams
