@@ -7763,7 +7763,7 @@ countryValue.setEllipsize(
 
 countryInfo.addView(
         countryValue,
-        margin(0, 4, 0, 0)
+        margin(0, 8, 0, 0)
 );
 countryCard.addView(
         countryInfo,
