@@ -7683,9 +7683,9 @@ LinearLayout.LayoutParams infoParams =
         );
 
 infoParams.setMargins(
-        dp(12),
+        dp(10),
         0,
-        dp(8),
+        dp(6),
         0
 );
 
