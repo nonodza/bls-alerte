@@ -7595,6 +7595,63 @@ page.setBackgroundResource(
         destinationTitleRow,
         margin(12, 175, 0, 8)
 ); 
+ 
+    // =====================================================
+    // COUNTRY DESCRIPTION — ABOVE THE CARD
+    // =====================================================
+
+    LinearLayout countryMetaRow =
+            new LinearLayout(this);
+
+    countryMetaRow.setOrientation(
+            LinearLayout.HORIZONTAL
+    );
+
+    countryMetaRow.setGravity(
+            Gravity.CENTER_VERTICAL
+    );
+
+    TextView countryLabel = text(
+            "MONITORING COUNTRY",
+            9,
+            Color.parseColor("#8194B8")
+    );
+
+    countryLabel.setTypeface(
+            Typeface.create(
+                    "sans-serif-medium",
+                    Typeface.NORMAL
+            )
+    );
+
+    countryMetaRow.addView(countryLabel);
+
+    TextView countryHint = text(
+            "  ·  Choose your visa destination",
+            10,
+            Color.parseColor("#8194B8")
+    );
+
+    countryHint.setSingleLine(true);
+
+    countryHint.setEllipsize(
+            android.text.TextUtils.TruncateAt.END
+    );
+
+    countryMetaRow.addView(
+            countryHint,
+            new LinearLayout.LayoutParams(
+                    0,
+                    -2,
+                    1f
+            )
+    );
+
+    page.addView(
+            countryMetaRow,
+            margin(12, 0, 0, 6)
+    );
+   
   // =====================================================
 // COUNTRY CARD — PREMIUM HORIZONTAL DESIGN
 // =====================================================
