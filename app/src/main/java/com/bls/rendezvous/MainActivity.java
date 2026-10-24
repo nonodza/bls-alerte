@@ -7593,7 +7593,7 @@ page.setBackgroundResource(
 
     page.addView(
         destinationTitleRow,
-        margin(12, 175, 0, 8)
+        margin(12, 135, 0, 8)
 ); 
  
     // =====================================================
