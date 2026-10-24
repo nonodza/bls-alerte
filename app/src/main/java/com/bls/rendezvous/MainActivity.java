@@ -7856,28 +7856,44 @@ countryCard.setOnClickListener(v -> {
             .start();
 
     final String[] countryNames = {
-            "Austria", "Belgium", "Bulgaria", "Croatia",
-            "Czech Republic", "Denmark", "Estonia", "Finland",
-            "France", "Germany", "Greece", "Hungary",
-            "Iceland", "Italy", "Latvia", "Liechtenstein",
-            "Lithuania", "Luxembourg", "Malta", "Netherlands",
-            "Norway", "Poland", "Portugal", "Romania",
-            "Slovakia", "Slovenia", "Spain", "Sweden",
-            "Switzerland"
-    };
+        // SCHENGEN
+        "Austria", "Belgium", "Bulgaria", "Croatia",
+        "Czech Republic", "Denmark", "Estonia", "Finland",
+        "France", "Germany", "Greece", "Hungary",
+        "Iceland", "Italy", "Latvia", "Liechtenstein",
+        "Lithuania", "Luxembourg", "Malta", "Netherlands",
+        "Norway", "Poland", "Portugal", "Romania",
+        "Slovakia", "Slovenia", "Spain", "Sweden",
+        "Switzerland",
 
-    final String[] flags = {
-            "🇦🇹", "🇧🇪", "🇧🇬", "🇭🇷",
-            "🇨🇿", "🇩🇰", "🇪🇪", "🇫🇮",
-            "🇫🇷", "🇩🇪", "🇬🇷", "🇭🇺",
-            "🇮🇸", "🇮🇹", "🇱🇻", "🇱🇮",
-            "🇱🇹", "🇱🇺", "🇲🇹", "🇳🇱",
-            "🇳🇴", "🇵🇱", "🇵🇹", "🇷🇴",
-            "🇸🇰", "🇸🇮", "🇪🇸", "🇸🇪",
-            "🇨🇭"
-    };
+        // OTHER DESTINATIONS
+        "Canada",
+        "USA",
+        "United Kingdom",
+        "Australia",
+        "Other Countries"
+};
 
-    final String[] filteredCountries = countryNames.clone();
+final String[] flags = {
+        // SCHENGEN FLAGS
+        "🇦🇹", "🇧🇪", "🇧🇬", "🇭🇷",
+        "🇨🇿", "🇩🇰", "🇪🇪", "🇫🇮",
+        "🇫🇷", "🇩🇪", "🇬🇷", "🇭🇺",
+        "🇮🇸", "🇮🇹", "🇱🇻", "🇱🇮",
+        "🇱🇹", "🇱🇺", "🇲🇹", "🇳🇱",
+        "🇳🇴", "🇵🇱", "🇵🇹", "🇷🇴",
+        "🇸🇰", "🇸🇮", "🇪🇸", "🇸🇪",
+        "🇨🇭",
+
+        // OTHER DESTINATION FLAGS
+        "🇨🇦",
+        "🇺🇸",
+        "🇬🇧",
+        "🇦🇺",
+        "🌍"
+};
+
+   final String[] filteredCountries = countryNames.clone();
 
     LinearLayout dialogLayout = new LinearLayout(this);
     dialogLayout.setOrientation(LinearLayout.VERTICAL);
