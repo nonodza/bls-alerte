@@ -7657,6 +7657,35 @@ page.setBackgroundResource(
 // =====================================================
 
 LinearLayout countryCard = appointmentCard();
+   // PREMIUM COUNTRY CARD BACKGROUND
+
+GradientDrawable countryCardBackground =
+        new GradientDrawable();
+
+countryCardBackground.setShape(
+        GradientDrawable.RECTANGLE
+);
+
+countryCardBackground.setColor(
+        Color.parseColor("#FFFFFF")
+);
+
+countryCardBackground.setCornerRadius(
+        dp(18)
+);
+
+countryCardBackground.setStroke(
+        dp(1),
+        Color.parseColor("#D9E5FA")
+);
+
+countryCard.setBackground(
+        countryCardBackground
+);
+
+countryCard.setElevation(
+        dp(3)
+); 
 
 countryCard.setOrientation(
         LinearLayout.HORIZONTAL
@@ -7696,7 +7725,7 @@ flagFrame.setBackground(flagCircle);
 
 TextView countryFlag = text(
         "🌐",
-        22,
+        18,
         Color.WHITE
 );
 
