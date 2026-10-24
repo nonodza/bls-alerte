@@ -7613,7 +7613,7 @@ page.setBackgroundResource(
 
     TextView countryLabel = text(
             "MONITORING COUNTRY",
-            9,
+            13,
             Color.parseColor("#8194B8")
     );
 
@@ -7628,7 +7628,7 @@ page.setBackgroundResource(
 
     TextView countryHint = text(
             "  ·  Choose your visa destination",
-            10,
+            12,
             Color.parseColor("#8194B8")
     );
 
