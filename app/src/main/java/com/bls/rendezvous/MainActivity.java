@@ -9875,9 +9875,7 @@ private Button smallButton(String label) {
 
     // Remove default button tint and inset
     b.setBackgroundTintList(null);
-    b.setStateListAnimator(null);
-    b.setInsetTop(0);
-    b.setInsetBottom(0);
+b.setStateListAnimator(null); 
 
     // Premium press animation
     b.setOnTouchListener((v, event) -> {
