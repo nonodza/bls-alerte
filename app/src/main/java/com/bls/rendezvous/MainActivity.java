@@ -9825,88 +9825,87 @@ private void page(
     }
 
     // =========================================================
-// SMALL BUTTON — 3D NEON PREMIUM
+// APPOINTMENT MONITORING CARD — DARK GRADIENT + NEON KNOB
 // =========================================================
+private View appointmentMonitoringCard() {
+    Context ctx = this;
 
-private Button smallButton(String label) {
+    // --- Card Container ---
+    LinearLayout card = new LinearLayout(ctx);
+    card.setOrientation(LinearLayout.HORIZONTAL);
+    card.setGravity(Gravity.CENTER_VERTICAL);
+    card.setPadding(dp(20), dp(20), dp(20), dp(20));
 
-    Button b = new Button(this);
-
-    b.setText(label);
-    b.setTextSize(10);
-    b.setTextColor(WHITE);
-    b.setTypeface(Typeface.DEFAULT_BOLD);
-    b.setAllCaps(false);
-    b.setLetterSpacing(0.06f);
-
-    // Compact professional size
-    b.setMinHeight(0);
-    b.setMinimumHeight(0);
-    b.setMinWidth(0);
-    b.setMinimumWidth(0);
-    b.setPadding(
-            dp(18),
-            dp(2),
-            dp(18),
-            dp(2)
-    );
-
-    // Neon gradient background
-    GradientDrawable bg =
-            new GradientDrawable(
-                    GradientDrawable.Orientation.TL_BR,
-                    new int[]{
-                            Color.parseColor("#245FE8"),
-                            Color.parseColor("#5148D8"),
-                            Color.parseColor("#783FE0")
-                    }
-            );
-
-    bg.setCornerRadius(dp(11));
-    bg.setStroke(
-            dp(1),
-            Color.parseColor("#8CA8FF")
-    );
-
-    // Subtle 3D elevation
-    b.setBackground(bg);
-    b.setElevation(dp(5));
-    b.setTranslationZ(dp(2));
-
-    // Remove default button tint and inset
-    b.setBackgroundTintList(null);
-b.setStateListAnimator(null); 
-
-    // Premium press animation
-    b.setOnTouchListener((v, event) -> {
-
-        switch (event.getAction()) {
-
-            case android.view.MotionEvent.ACTION_DOWN:
-                v.animate()
-                        .scaleX(0.97f)
-                        .scaleY(0.94f)
-                        .translationZ(0)
-                        .setDuration(90)
-                        .start();
-                break;
-
-            case android.view.MotionEvent.ACTION_UP:
-            case android.view.MotionEvent.ACTION_CANCEL:
-                v.animate()
-                        .scaleX(1f)
-                        .scaleY(1f)
-                        .translationZ(dp(2))
-                        .setDuration(120)
-                        .start();
-                break;
+    GradientDrawable cardBg = new GradientDrawable(
+        GradientDrawable.Orientation.TL_BR,
+        new int[]{
+            Color.parseColor("#1A2332"),
+            Color.parseColor("#0F172A")
         }
+    );
+    cardBg.setCornerRadius(dp(22));
+    card.setBackground(cardBg);
+    card.setElevation(dp(12));
 
-        return false;
+    LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    );
+    cardParams.setMargins(dp(16), dp(12), dp(16), dp(12));
+    card.setLayoutParams(cardParams);
+
+    // --- Left Text Container ---
+    LinearLayout left = new LinearLayout(ctx);
+    left.setOrientation(LinearLayout.VERTICAL);
+    LinearLayout.LayoutParams leftParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+    left.setLayoutParams(leftParams);
+
+    TextView title = new TextView(ctx);
+    title.setText("Appointment\nMonitoring");
+    title.setTextSize(20);
+    title.setTypeface(Typeface.DEFAULT_BOLD);
+    title.setTextColor(Color.WHITE);
+    title.setLineSpacing(dp(2), 1f);
+
+    TextView sub = new TextView(ctx);
+    sub.setText("Get notified when an appointment slot is detected");
+    sub.setTextSize(12);
+    sub.setTextColor(Color.parseColor("#9CA3AF"));
+    LinearLayout.LayoutParams subP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    subP.setMargins(0, dp(10), 0, 0);
+    sub.setLayoutParams(subP);
+
+    TextView status = new TextView(ctx);
+    status.setText("●  Monitoring is paused");
+    status.setTextSize(11);
+    status.setTextColor(Color.parseColor("#9CA3AF"));
+    LinearLayout.LayoutParams stP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    stP.setMargins(0, dp(18), 0, 0);
+    status.setLayoutParams(stP);
+
+    left.addView(title);
+    left.addView(sub);
+    left.addView(status);
+
+    // --- Right Neon Knob ---
+    NeonVolumeKnobView knob = new NeonVolumeKnobView(ctx);
+    LinearLayout.LayoutParams knobParams = new LinearLayout.LayoutParams(dp(110), dp(110));
+    knobParams.setMargins(dp(12), 0, 0, 0);
+    knob.setLayoutParams(knobParams);
+    knob.setOnClickListener(v -> {
+        // هنا دير START MONITORING
+        knob.setActive(!knob.isActive());
     });
 
-    return b;
-} 
+    card.addView(left);
+    card.addView(knob);
+
+    return card;
+}
+
+private int dp(int v) {
+    return (int) (v * getResources().getDisplayMetrics().density);
+}
 
     // =========================================================
     // TEXT HELPER
