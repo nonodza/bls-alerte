@@ -9825,37 +9825,90 @@ private void page(
     }
 
     // =========================================================
-    // SMALL BUTTON
-    // =========================================================
+// SMALL BUTTON — 3D NEON PREMIUM
+// =========================================================
 
-    private Button smallButton(
-            String label
-    ) {
+private Button smallButton(String label) {
 
-        Button b =
-                new Button(this);
+    Button b = new Button(this);
 
-        b.setText(label);
-        b.setTextSize(10);
-        b.setTextColor(WHITE);
+    b.setText(label);
+    b.setTextSize(10);
+    b.setTextColor(WHITE);
+    b.setTypeface(Typeface.DEFAULT_BOLD);
+    b.setAllCaps(false);
+    b.setLetterSpacing(0.06f);
 
-        GradientDrawable bg =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(55, 105, 205),
-                                Color.rgb(75, 80, 170)
-                        }
-                );
+    // Compact professional size
+    b.setMinHeight(0);
+    b.setMinimumHeight(0);
+    b.setMinWidth(0);
+    b.setMinimumWidth(0);
+    b.setPadding(
+            dp(18),
+            dp(2),
+            dp(18),
+            dp(2)
+    );
 
-        bg.setCornerRadius(
-                dp(15)
-        );
+    // Neon gradient background
+    GradientDrawable bg =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.TL_BR,
+                    new int[]{
+                            Color.parseColor("#245FE8"),
+                            Color.parseColor("#5148D8"),
+                            Color.parseColor("#783FE0")
+                    }
+            );
 
-        b.setBackground(bg);
+    bg.setCornerRadius(dp(11));
+    bg.setStroke(
+            dp(1),
+            Color.parseColor("#8CA8FF")
+    );
 
-        return b;
-    }
+    // Subtle 3D elevation
+    b.setBackground(bg);
+    b.setElevation(dp(5));
+    b.setTranslationZ(dp(2));
+
+    // Remove default button tint and inset
+    b.setBackgroundTintList(null);
+    b.setStateListAnimator(null);
+    b.setInsetTop(0);
+    b.setInsetBottom(0);
+
+    // Premium press animation
+    b.setOnTouchListener((v, event) -> {
+
+        switch (event.getAction()) {
+
+            case android.view.MotionEvent.ACTION_DOWN:
+                v.animate()
+                        .scaleX(0.97f)
+                        .scaleY(0.94f)
+                        .translationZ(0)
+                        .setDuration(90)
+                        .start();
+                break;
+
+            case android.view.MotionEvent.ACTION_UP:
+            case android.view.MotionEvent.ACTION_CANCEL:
+                v.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .translationZ(dp(2))
+                        .setDuration(120)
+                        .start();
+                break;
+        }
+
+        return false;
+    });
+
+    return b;
+} 
 
     // =========================================================
     // TEXT HELPER
