@@ -9824,38 +9824,77 @@ private void page(
         return c;
     }
  
-  // =========================================================
-    // SMALL BUTTON
+  
+    // =========================================================
+    // SMALL BUTTON — PREMIUM NEON
     // =========================================================
 
-    private Button smallButton(
-            String label
-    ) {
+    private Button smallButton(String label) {
 
-        Button b =
-                new Button(this);
+        Button b = new Button(this);
 
         b.setText(label);
         b.setTextSize(10);
-        b.setTextColor(WHITE);
+        b.setTextColor(Color.WHITE);
+        b.setTypeface(Typeface.DEFAULT_BOLD);
+        b.setAllCaps(false);
+        b.setLetterSpacing(0.04f);
 
-        GradientDrawable bg =
-                new GradientDrawable(
-                        GradientDrawable.Orientation.TL_BR,
-                        new int[]{
-                                Color.rgb(55, 105, 205),
-                                Color.rgb(75, 80, 170)
-                        }
-                );
+        b.setMinHeight(0);
+        b.setMinimumHeight(0);
+        b.setMinWidth(0);
+        b.setMinimumWidth(0);
 
-        bg.setCornerRadius(
-                dp(15)
+        b.setPadding(
+                dp(16),
+                dp(8),
+                dp(16),
+                dp(8)
+        );
+
+        GradientDrawable bg = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.parseColor("#245FE8"),
+                        Color.parseColor("#5148D8"),
+                        Color.parseColor("#783FE0")
+                }
+        );
+
+        bg.setCornerRadius(dp(11));
+
+        bg.setStroke(
+                (int) dp(1),
+                Color.parseColor("#8CA8FF")
         );
 
         b.setBackground(bg);
+        b.setBackgroundTintList(null);
+        b.setStateListAnimator(null);
+        b.setElevation(dp(5));
 
         return b;
     }
+    // =========================================================
+    // TEXT HELPER
+    // =========================================================
+
+    private TextView text(
+            String value,
+            float size,
+            int color
+    ) {
+
+        TextView t =
+                new TextView(this);
+
+        t.setText(value);
+        t.setTextSize(size);
+        t.setTextColor(color);
+
+        return t;
+    }
+
     // =========================================================
     // MARGIN HELPER
     // =========================================================
