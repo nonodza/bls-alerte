@@ -8128,13 +8128,9 @@ dialog.show();
     // =====================================================
 // ADD COUNTRY CARD TO PAGE
 // =====================================================
+page.addView(countryCard, margin(0, 0, 0, 12));
 
-page.addView(
-        countryCard,
-        margin(0, 0, 0, 12)
-); 
-     
-// MONITORING CARD — WHITE HORIZONTAL PREMIUM - SMALL NEON START (كيما الصورة)
+// MONITORING CARD — WHITE HORIZONTAL PREMIUM - SMALL NEON START
 LinearLayout monitoringCard = new LinearLayout(this);
 monitoringCard.setOrientation(LinearLayout.HORIZONTAL);
 monitoringCard.setGravity(Gravity.CENTER_VERTICAL);
@@ -8153,19 +8149,18 @@ stripBg.setCornerRadii(new float[]{dp(16),0,0,dp(16),dp(16),0,0,0});
 blueStrip.setLayoutParams(new LinearLayout.LayoutParams(dp(6), dp(80)));
 blueStrip.setBackground(stripBg);
 
-// أيقونة التقويم زرقاء outline
+// أيقونة التقويم
 TextView calIcon = new TextView(this);
 calIcon.setText("📅");
 calIcon.setTextSize(22);
-calIcon.setPadding(0,0,dp(12),0);
+calIcon.setPadding(dp(12),0,dp(12),0);
 calIcon.setGravity(Gravity.CENTER);
 
-// الوسط - العنوان + علم + حالة
+// الوسط
 LinearLayout centerCol = new LinearLayout(this);
 centerCol.setOrientation(LinearLayout.VERTICAL);
 LinearLayout.LayoutParams centerLp = new LinearLayout.LayoutParams(0, -2, 1f);
 centerCol.setLayoutParams(centerLp);
-
 TextView title = text("Appointment Monitoring", 16, Color.parseColor("#111827"));
 title.setTypeface(Typeface.DEFAULT_BOLD);
 centerCol.addView(title);
@@ -8174,15 +8169,34 @@ LinearLayout statusLine = new LinearLayout(this);
 statusLine.setOrientation(LinearLayout.HORIZONTAL);
 statusLine.setGravity(Gravity.CENTER_VERTICAL);
 statusLine.setPadding(0, dp(6), 0, 0);
-
 TextView spainFlag = text("🇪🇸", 14, Color.BLACK);
-TextView statusText = text("  Last check 2 min ago  • Active", 12, Color.parseColor("#6B7280"));
+TextView statusText = text(" Last check 2 min ago • Active", 12, Color.parseColor("#6B7280"));
 statusText.setPadding(dp(4),0,0,0);
-// نخلي كلمة Active خضراء
-SpannableString spannable = new SpannableString(statusText.getText());
+
+SpannableString spannable = new SpannableString(statusText.getText().toString());
 int activeIndex = statusText.getText().toString().indexOf("Active");
 if(activeIndex != -1){
-    spannable.setSpan(new Foreground
+    spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#22C55E")), activeIndex, activeIndex+6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    statusText.setText(spannable);
+}
+statusLine.addView(spainFlag);
+statusLine.addView(statusText);
+centerCol.addView(statusLine);
+
+// الزر الجديد الصغير Neon
+SmallNeonStartButton startBtn = new SmallNeonStartButton(this);
+startBtn.setActive(false);
+startBtn.setOnClickListener(v -> {
+    startBtn.setActive(!startBtn.isActive());
+    // هنا دير startMonitoring ولا stop
+});
+
+monitoringCard.addView(blueStrip);
+monitoringCard.addView(calIcon);
+monitoringCard.addView(centerCol);
+monitoringCard.addView(startBtn);
+
+page.addView(monitoringCard, margin(0, 0, 0, 12));
 
     // =====================================================
     // AVAILABILITY CARD
