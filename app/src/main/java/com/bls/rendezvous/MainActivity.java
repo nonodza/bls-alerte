@@ -8246,18 +8246,18 @@ dialog.show();
 
     // TITLE
 
-    TextView title = text(
-            "Appointment Monitoring",
-            16,
-            Color.parseColor("#101B3C")
-    );
+    TextView monitoringTitle = text(
+        "Appointment Monitoring",
+        16,
+        Color.parseColor("#101B3C")
+);
 
-    title.setTypeface(
-            Typeface.create(
-                    "sans-serif",
-                    Typeface.BOLD
-            )
-    );
+    monitoringTitle.setTypeface(
+        Typeface.create(
+                "sans-serif-medium",
+                Typeface.BOLD
+        )
+); 
 
     centerCol.addView(title);
 
