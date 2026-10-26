@@ -8259,7 +8259,7 @@ dialog.show();
         )
 ); 
 
-    centerCol.addView(title);
+    centerCol.addView(monitoringTitle);
 
 
     // SUBTITLE
