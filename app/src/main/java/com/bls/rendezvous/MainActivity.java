@@ -8164,10 +8164,10 @@ LinearLayout centerCol = new LinearLayout(this);
 centerCol.setOrientation(LinearLayout.VERTICAL);
 LinearLayout.LayoutParams centerLp = new LinearLayout.LayoutParams(0, -2, 1f);
 centerCol.setLayoutParams(centerLp);
-TextView title = text("Appointment Monitoring", 16, Color.parseColor("#111827"));
-title.setTypeface(Typeface.DEFAULT_BOLD);
-centerCol.addView(title);
-
+TextView monitoringTitle = text("Appointment Monitoring", 16, Color.parseColor("#111827"));
+monitoringTitle.setTypeface(Typeface.DEFAULT_BOLD);
+centerCol.addView(monitoringTitle);
+    
 LinearLayout statusLine = new LinearLayout(this);
 statusLine.setOrientation(LinearLayout.HORIZONTAL);
 statusLine.setGravity(Gravity.CENTER_VERTICAL);
