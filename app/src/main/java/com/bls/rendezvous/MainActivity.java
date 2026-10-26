@@ -8128,181 +8128,492 @@ dialog.setOnDismissListener(
 dialog.show();
 });   
 
-    // =====================================================
-// ADD COUNTRY CARD TO PAGE
-// =====================================================
-page.addView(countryCard, margin(0, 0, 0, 12));
     
-// =========================================================
-// APPOINTMENT MONITORING CARD — FINAL PREMIUM (كيما الصورة)
-// =========================================================
-LinearLayout mainCard = new LinearLayout(this);
-mainCard.setOrientation(LinearLayout.VERTICAL);
-GradientDrawable mainBg = new GradientDrawable();
-mainBg.setColor(Color.WHITE);
-mainBg.setCornerRadius(dp(20));
-mainCard.setBackground(mainBg);
-mainCard.setElevation(dp(10));
+    // =====================================================
+    // ADD COUNTRY CARD TO PAGE
+    // =====================================================
 
-// ===== TOP PART =====
-LinearLayout topPart = new LinearLayout(this);
-topPart.setOrientation(LinearLayout.HORIZONTAL);
-topPart.setGravity(Gravity.CENTER_VERTICAL);
-topPart.setPadding(dp(0), dp(16), dp(16), dp(16));
+    page.addView(
+            countryCard,
+            margin(0, 0, 0, 12)
+    );
 
-// الشريط الأزرق اليسار
-View blueStrip = new View(this);
-GradientDrawable stripBg = new GradientDrawable();
-stripBg.setColor(Color.parseColor("#0B57D0"));
-stripBg.setCornerRadii(new float[]{dp(20),0,0,dp(20),0,0,0,0});
-blueStrip.setLayoutParams(new LinearLayout.LayoutParams(dp(8), dp(110)));
-blueStrip.setBackground(stripBg);
 
-// أيقونة فيكتوري دائرية زرقاء
-ImageView calIcon = new ImageView(this);
-GradientDrawable circleBg = new GradientDrawable();
-circleBg.setShape(GradientDrawable.OVAL);
-circleBg.setColor(Color.parseColor("#1A5EDC"));
-calIcon.setBackground(circleBg);
-calIcon.setImageResource(android.R.drawable.ic_menu_today); // تقدر تبدلو بفيكتور خاص
-calIcon.setColorFilter(Color.WHITE);
-LinearLayout.LayoutParams iconLp = new LinearLayout.LayoutParams(dp(58), dp(58));
-iconLp.setMargins(dp(14),0,dp(14),0);
-calIcon.setLayoutParams(iconLp);
-calIcon.setPadding(dp(12),dp(12),dp(12),dp(12));
+    // =====================================================
+    // APPOINTMENT MONITORING — PREMIUM CARD
+    // =====================================================
 
-// الوسط
-LinearLayout centerCol = new LinearLayout(this);
-centerCol.setOrientation(LinearLayout.VERTICAL);
-centerCol.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1f));
+    LinearLayout mainCard = new LinearLayout(this);
+    mainCard.setOrientation(LinearLayout.VERTICAL);
+    mainCard.setClipToOutline(true);
+    mainCard.setElevation(dp(6));
 
-TextView title = text("Appointment Monitoring", 18, Color.parseColor("#101840"));
-title.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
-TextView sub = text("Real-time scheduling & status tracking", 12, Color.parseColor("#6B7280"));
-sub.setPadding(0,dp(2),0,dp(10));
-centerCol.addView(title);
-centerCol.addView(sub);
+    GradientDrawable mainBg = new GradientDrawable();
+    mainBg.setColor(Color.WHITE);
+    mainBg.setCornerRadius(dp(20));
+    mainCard.setBackground(mainBg);
 
-// سطر العلم + الحالة - ديناميكي
-LinearLayout flagLine = new LinearLayout(this);
-flagLine.setOrientation(LinearLayout.HORIZONTAL);
-flagLine.setGravity(Gravity.CENTER_VERTICAL);
 
-ImageView flagImg = new ImageView(this);
-TextView countryLine = new TextView(this);
-countryLine.setTextSize(13);
-countryLine.setTextColor(Color.parseColor("#374151"));
+    // =====================================================
+    // TOP SECTION
+    // =====================================================
 
-LinearLayout activeLine = new LinearLayout(this);
-activeLine.setOrientation(LinearLayout.HORIZONTAL);
-activeLine.setGravity(Gravity.CENTER_VERTICAL);
-activeLine.setPadding(0,dp(4),0,0);
-View greenDot = new View(this);
-GradientDrawable dotBg = new GradientDrawable();
-dotBg.setShape(GradientDrawable.OVAL);
-dotBg.setColor(Color.parseColor("#10B981"));
-greenDot.setBackground(dotBg);
-greenDot.setLayoutParams(new LinearLayout.LayoutParams(dp(10), dp(10)));
-TextView activeTxt = text("Active", 13, Color.parseColor("#059669"));
-activeTxt.setTypeface(Typeface.DEFAULT_BOLD);
-activeTxt.setPadding(dp(6),0,0,0);
+    LinearLayout topPart = new LinearLayout(this);
+    topPart.setOrientation(LinearLayout.HORIZONTAL);
+    topPart.setGravity(Gravity.CENTER_VERTICAL);
+    topPart.setPadding(0, dp(16), dp(12), dp(16));
 
-if (selectedCountry == null || selectedCountry.isEmpty()) {
-    flagImg.setVisibility(View.GONE);
-    greenDot.setVisibility(View.GONE);
-    activeTxt.setVisibility(View.GONE);
-    countryLine.setText("Select a country to start");
-    countryLine.setTextColor(Color.parseColor("#9CA3AF"));
-} else {
-    flagImg.setVisibility(View.VISIBLE);
-    // هنا حط العلم حسب الدولة المختارة
-    // flagImg.setImageResource(getFlagDrawable(selectedCountry));
-    flagImg.setLayoutParams(new LinearLayout.LayoutParams(dp(38), dp(26)));
-    countryLine.setText(selectedCountry + " • Last check 2 min ago");
-    if (isMonitoringActive) {
-        greenDot.setVisibility(View.VISIBLE);
-        activeTxt.setVisibility(View.VISIBLE);
+
+    // LEFT BLUE ACCENT
+
+    View blueStrip = new View(this);
+
+    GradientDrawable stripBg = new GradientDrawable();
+    stripBg.setColor(Color.parseColor("#2563EB"));
+    stripBg.setCornerRadii(new float[]{
+            dp(20), dp(20),
+            0, 0,
+            0, 0,
+            dp(20), dp(20)
+    });
+
+    blueStrip.setBackground(stripBg);
+
+    LinearLayout.LayoutParams stripLp =
+            new LinearLayout.LayoutParams(
+                    dp(5),
+                    dp(108)
+            );
+
+    topPart.addView(blueStrip, stripLp);
+
+
+    // =====================================================
+    // CALENDAR ICON
+    // =====================================================
+
+    ImageView calIcon = new ImageView(this);
+
+    GradientDrawable circleBg = new GradientDrawable();
+    circleBg.setShape(GradientDrawable.OVAL);
+    circleBg.setColor(Color.parseColor("#E8F0FF"));
+    circleBg.setStroke(
+            dp(1),
+            Color.parseColor("#D6E4FF")
+    );
+
+    calIcon.setBackground(circleBg);
+    calIcon.setImageResource(android.R.drawable.ic_menu_today);
+    calIcon.setColorFilter(
+            Color.parseColor("#2459C4")
+    );
+    calIcon.setPadding(
+            dp(13), dp(13), dp(13), dp(13)
+    );
+    calIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+    LinearLayout.LayoutParams iconLp =
+            new LinearLayout.LayoutParams(
+                    dp(54),
+                    dp(54)
+            );
+
+    iconLp.setMargins(
+            dp(12), 0, dp(12), 0
+    );
+
+    topPart.addView(calIcon, iconLp);
+
+
+    // =====================================================
+    // CENTER CONTENT
+    // =====================================================
+
+    LinearLayout centerCol = new LinearLayout(this);
+    centerCol.setOrientation(LinearLayout.VERTICAL);
+
+    centerCol.setGravity(Gravity.CENTER_VERTICAL);
+
+    LinearLayout.LayoutParams centerLp =
+            new LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1f
+            );
+
+    centerCol.setLayoutParams(centerLp);
+
+
+    // TITLE
+
+    TextView title = text(
+            "Appointment Monitoring",
+            16,
+            Color.parseColor("#101B3C")
+    );
+
+    title.setTypeface(
+            Typeface.create(
+                    "sans-serif",
+                    Typeface.BOLD
+            )
+    );
+
+    centerCol.addView(title);
+
+
+    // SUBTITLE
+
+    TextView sub = text(
+            "Real-time appointment tracking",
+            11,
+            Color.parseColor("#758099")
+    );
+
+    LinearLayout.LayoutParams subLp =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    subLp.topMargin = dp(4);
+
+    centerCol.addView(sub, subLp);
+
+
+    // =====================================================
+    // COUNTRY + LAST CHECK
+    // =====================================================
+
+    LinearLayout flagLine = new LinearLayout(this);
+    flagLine.setOrientation(LinearLayout.HORIZONTAL);
+    flagLine.setGravity(Gravity.CENTER_VERTICAL);
+
+    LinearLayout.LayoutParams flagLineLp =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    flagLineLp.topMargin = dp(10);
+
+
+    TextView countryLine = text(
+            "",
+            11,
+            Color.parseColor("#536078")
+    );
+
+    countryLine.setMaxLines(2);
+    countryLine.setEllipsize(
+            android.text.TextUtils.TruncateAt.END
+    );
+
+
+    boolean hasCountry =
+            selectedCountry != null
+                    && !selectedCountry.trim().isEmpty();
+
+
+    if (hasCountry) {
+
+        countryLine.setText(
+                selectedCountry + " • Ready to monitor"
+        );
+
     } else {
-        greenDot.setVisibility(View.GONE);
-        activeTxt.setVisibility(View.GONE);
+
+        countryLine.setText(
+                "Select a country to start"
+        );
+
+        countryLine.setTextColor(
+                Color.parseColor("#8993A7")
+        );
     }
-}
 
-flagLine.addView(flagImg);
-flagLine.addView(countryLine);
-centerCol.addView(flagLine);
+    flagLine.addView(
+            countryLine,
+            new LinearLayout.LayoutParams(0, -2, 1f)
+    );
 
-LinearLayout activeWrapper = new LinearLayout(this);
-activeWrapper.setOrientation(LinearLayout.HORIZONTAL);
-activeWrapper.addView(greenDot);
-activeWrapper.addView(activeTxt);
-activeWrapper.setPadding(dp(46),0,0,0); // تحت العلم
-if(selectedCountry!=null && !selectedCountry.isEmpty() && isMonitoringActive){
-    centerCol.addView(activeWrapper);
-}
+    centerCol.addView(flagLine, flagLineLp);
 
-// زر START/STOP
-SmallNeonStartButton startBtn = new SmallNeonStartButton(this);
-startBtn.setActive(isMonitoringActive);
-startBtn.setOnClickListener(v -> {
-    if (selectedCountry == null || selectedCountry.isEmpty()) {
-        Toast.makeText(this, "Please select a country first", Toast.LENGTH_SHORT).show();
-        // openCountrySelector();
-        return;
+
+    // =====================================================
+    // MONITORING STATUS
+    // =====================================================
+
+    LinearLayout activeWrapper = new LinearLayout(this);
+    activeWrapper.setOrientation(LinearLayout.HORIZONTAL);
+    activeWrapper.setGravity(Gravity.CENTER_VERTICAL);
+
+    LinearLayout.LayoutParams activeLp =
+            new LinearLayout.LayoutParams(
+                    -2,
+                    -2
+            );
+
+    activeLp.topMargin = dp(7);
+
+
+    View greenDot = new View(this);
+
+    GradientDrawable dotBg = new GradientDrawable();
+    dotBg.setShape(GradientDrawable.OVAL);
+    dotBg.setColor(Color.parseColor("#10B981"));
+
+    greenDot.setBackground(dotBg);
+
+    activeWrapper.addView(
+            greenDot,
+            new LinearLayout.LayoutParams(
+                    dp(7),
+                    dp(7)
+            )
+    );
+
+
+    TextView activeTxt = text(
+            "Monitoring Active",
+            11,
+            Color.parseColor("#059669")
+    );
+
+    activeTxt.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    LinearLayout.LayoutParams activeTextLp =
+            new LinearLayout.LayoutParams(
+                    -2,
+                    -2
+            );
+
+    activeTextLp.leftMargin = dp(6);
+
+    activeWrapper.addView(
+            activeTxt,
+            activeTextLp
+    );
+
+
+    TextView inactiveTxt = text(
+            "Monitoring is stopped",
+            11,
+            Color.parseColor("#8993A7")
+    );
+
+
+    if (isMonitoringActive && hasCountry) {
+
+        centerCol.addView(activeWrapper, activeLp);
+
+    } else {
+
+        centerCol.addView(inactiveTxt, activeLp);
     }
-    isMonitoringActive = !isMonitoringActive;
+
+
+    topPart.addView(
+            centerCol,
+            centerLp
+    );
+
+
+    // =====================================================
+    // START / STOP BUTTON
+    // =====================================================
+
+    SmallNeonStartButton startBtn =
+            new SmallNeonStartButton(this);
+
     startBtn.setActive(isMonitoringActive);
-    // startMonitoring() / stopMonitoring()
-});
 
-topPart.addView(blueStrip);
-topPart.addView(calIcon);
-topPart.addView(centerCol);
-topPart.addView(startBtn);
+    LinearLayout.LayoutParams startBtnLp =
+            new LinearLayout.LayoutParams(
+                    dp(58),
+                    dp(42)
+            );
 
-// ===== BOTTOM PART — Background settings =====
-View divider = new View(this);
-divider.setBackgroundColor(Color.parseColor("#E5E7EB"));
-divider.setLayoutParams(new LinearLayout.LayoutParams(-1, dp(1)));
+    startBtnLp.leftMargin = dp(8);
 
-LinearLayout bottomPart = new LinearLayout(this);
-bottomPart.setOrientation(LinearLayout.HORIZONTAL);
-bottomPart.setGravity(Gravity.CENTER_VERTICAL);
-bottomPart.setPadding(dp(14), dp(10), dp(14), dp(10));
-bottomPart.setBackgroundColor(Color.parseColor("#F8FAFC"));
+    topPart.addView(
+            startBtn,
+            startBtnLp
+    );
 
-TextView enhanced = text("🛡 Enhanced features: Real-time tracking • Automated alerts", 10, Color.parseColor("#4B5563"));
-enhanced.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1f));
 
-LinearLayout toggles = new LinearLayout(this);
-toggles.setOrientation(LinearLayout.HORIZONTAL);
-toggles.setGravity(Gravity.CENTER_VERTICAL);
-toggles.addView(createToggle("Sound On", true));
-toggles.addView(createToggle("Push Alert", true));
-toggles.addView(createToggle("Alert", true));
+    startBtn.setOnClickListener(v -> {
 
-bottomPart.addView(enhanced);
-bottomPart.addView(toggles);
+        if (selectedCountry == null
+                || selectedCountry.trim().isEmpty()) {
 
-mainCard.addView(topPart);
-mainCard.addView(divider);
-mainCard.addView(bottomPart);
+            Toast.makeText(
+                    this,
+                    "Please select a country first",
+                    Toast.LENGTH_SHORT
+            ).show();
 
-page.addView(mainCard, margin(0,0,0,12));
+            // اربط هنا شاشة اختيار الدولة الموجودة عندك.
+            // لا نستعمل اسم ميثود غير موجود في مشروعك.
 
-// ميثود صغيرة للـ Toggle
-private LinearLayout createToggle(String label, boolean checked) {
-    LinearLayout l = new LinearLayout(this);
-    l.setOrientation(LinearLayout.HORIZONTAL);
-    l.setGravity(Gravity.CENTER_VERTICAL);
-    l.setPadding(dp(8),0,0,0);
-    TextView tv = text(label, 10, Color.parseColor("#374151"));
-    Switch sw = new Switch(this);
-    sw.setChecked(checked);
-    sw.setScaleX(0.7f); sw.setScaleY(0.7f);
-    l.addView(tv); l.addView(sw);
-    return l;
-}
+            return;
+        }
+
+
+        if (isMonitoringActive) {
+
+            stopMonitoring();
+
+            isMonitoringActive = false;
+
+        } else {
+
+            startMonitoring();
+
+            isMonitoringActive = true;
+        }
+
+
+        startBtn.setActive(isMonitoringActive);
+
+
+        // Update the status displayed on the card.
+
+        centerCol.removeView(activeWrapper);
+        centerCol.removeView(inactiveTxt);
+
+        if (isMonitoringActive) {
+
+            centerCol.addView(
+                    activeWrapper,
+                    activeLp
+            );
+
+        } else {
+
+            centerCol.addView(
+                    inactiveTxt,
+                    activeLp
+            );
+        }
+    });
+
+
+    // =====================================================
+    // DIVIDER
+    // =====================================================
+
+    View divider = new View(this);
+
+    divider.setBackgroundColor(
+            Color.parseColor("#E8EDF5")
+    );
+
+    mainCard.addView(topPart);
+
+    mainCard.addView(
+            divider,
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(1)
+            )
+    );
+
+
+    // =====================================================
+    // BOTTOM SECTION
+    // =====================================================
+
+    LinearLayout bottomPart = new LinearLayout(this);
+    bottomPart.setOrientation(LinearLayout.VERTICAL);
+    bottomPart.setPadding(
+            dp(14), dp(12), dp(14), dp(12)
+    );
+
+    GradientDrawable bottomBg = new GradientDrawable();
+    bottomBg.setColor(Color.parseColor("#F8FAFF"));
+
+    bottomPart.setBackground(bottomBg);
+
+
+    // FEATURES LABEL
+
+    TextView enhanced = text(
+            "SMART MONITORING FEATURES",
+            10,
+            Color.parseColor("#53678C")
+    );
+
+    enhanced.setTypeface(
+            Typeface.DEFAULT_BOLD
+    );
+
+    enhanced.setLetterSpacing(0.04f);
+
+    bottomPart.addView(enhanced);
+
+
+    // FEATURE DESCRIPTION
+
+    TextView featureDesc = text(
+            "Appointment checks and alert preferences",
+            11,
+            Color.parseColor("#7A849A")
+    );
+
+    LinearLayout.LayoutParams featureDescLp =
+            new LinearLayout.LayoutParams(-1, -2);
+
+    featureDescLp.topMargin = dp(4);
+
+    bottomPart.addView(
+            featureDesc,
+            featureDescLp
+    );
+
+
+    // =====================================================
+    // PREFERENCE SWITCHES
+    // =====================================================
+
+    LinearLayout toggles = new LinearLayout(this);
+    toggles.setOrientation(LinearLayout.VERTICAL);
+
+    LinearLayout.LayoutParams togglesLp =
+            new LinearLayout.LayoutParams(-1, -2);
+
+    togglesLp.topMargin = dp(8);
+
+
+    toggles.addView(
+            createToggle("Sound alerts", "sound_on", true)
+    );
+
+    toggles.addView(
+            createToggle("Push notifications", "push_on", true)
+    );
+
+    toggles.addView(
+            createToggle("Appointment alerts", "alerts_on", true)
+    );
+
+
+    bottomPart.addView(toggles, togglesLp);
+
+    mainCard.addView(bottomPart);
+
+
+    // =====================================================
+    // ADD FINAL CARD TO PAGE
+    // =====================================================
+
+    page.addView(
+            mainCard,
+            margin(0, 0, 0, 12)
+    );
+ 
 
     // =====================================================
     // AVAILABILITY CARD
