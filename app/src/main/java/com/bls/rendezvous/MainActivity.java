@@ -8425,58 +8425,107 @@ dialog.show();
             centerLp
     );
 
-    
-    // =====================================================
-    // START / STOP BUTTON
-    // =====================================================
+   
+// =====================================================
+// START / STOP BUTTON
+// =====================================================
 
-    SmallNeonStartButton startBtn =
-            new SmallNeonStartButton(this);
+SmallNeonStartButton startBtn =
+        new SmallNeonStartButton(this);
 
-    startBtn.setActive(false);
+startBtn.setActive(false);
 
-    LinearLayout.LayoutParams startBtnLp =
-            new LinearLayout.LayoutParams(
-                    dp(92),
-                    dp(42)
-            );
+LinearLayout.LayoutParams startBtnLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
 
-    startBtnLp.leftMargin = dp(8);
+startBtnLp.leftMargin = dp(8);
 
-    topPart.addView(
-            startBtn,
-            startBtnLp
+topPart.addView(
+        startBtn,
+        startBtnLp
+);
+
+startBtn.setOnClickListener(v -> {
+
+    // =================================================
+    // CHECK COUNTRY
+    // =================================================
+
+    if (selectedCountry == null
+            || selectedCountry.trim().isEmpty()) {
+
+        Toast.makeText(
+                MainActivity.this,
+                "Please select a country first",
+                Toast.LENGTH_SHORT
+        ).show();
+
+        return;
+    }
+
+    // =================================================
+    // SERVICE INTENT
+    // =================================================
+
+    Intent serviceIntent = new Intent(
+            MainActivity.this,
+            AppointmentMonitoringService.class
     );
 
-    startBtn.setOnClickListener(v -> {
+    // =================================================
+    // STOP MONITORING
+    // =================================================
 
-        if (selectedCountry == null
-                || selectedCountry.trim().isEmpty()) {
+    if (startBtn.isActive()) {
 
-            Toast.makeText(
-                    MainActivity.this,
-                    "Please select a country first",
-                    Toast.LENGTH_SHORT
-            ).show();
+        new androidx.appcompat.app.AlertDialog.Builder(
+                MainActivity.this
+        )
+        .setTitle("Stop Monitoring?")
+        .setMessage(
+                "Are you sure you want to stop monitoring?"
+        )
+        .setNegativeButton(
+                "Cancel",
+                (dialog, which) -> dialog.dismiss()
+        )
+        .setPositiveButton(
+                "Yes, Stop",
+                (dialog, which) -> {
 
-            return;
-        }
+                    serviceIntent.setAction(
+                            "STOP_MONITORING"
+                    );
 
-        if (startBtn.isActive()) {
+                    startService(serviceIntent);
 
-            Toast.makeText(
-                    MainActivity.this,
-                    "Stop action needs service confirmation",
-                    Toast.LENGTH_SHORT
-            ).show();
+                    startBtn.setActive(false);
 
-            return;
-        }
+                    centerCol.removeView(activeWrapper);
+                    centerCol.removeView(inactiveTxt);
 
-        Intent serviceIntent = new Intent(
-                MainActivity.this,
-                AppointmentMonitoringService.class
-        );
+                    centerCol.addView(
+                            inactiveTxt,
+                            activeLp
+                    );
+
+                    Toast.makeText(
+                            MainActivity.this,
+                            "Monitoring stopped",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+        )
+        .show();
+
+    } else {
+
+        // =============================================
+        // START MONITORING
+        // =============================================
 
         serviceIntent.putExtra(
                 "center",
@@ -8506,8 +8555,9 @@ dialog.show();
                 "Monitoring started",
                 Toast.LENGTH_SHORT
         ).show();
-    });
-
+    }
+});
+   
 
     // =====================================================
     // DIVIDER
