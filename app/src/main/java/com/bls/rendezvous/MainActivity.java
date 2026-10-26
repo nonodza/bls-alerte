@@ -1092,42 +1092,66 @@ monCard.addView(
         startBtn
 );
 
-// =====================================================
-// START MONITORING
-// =====================================================
+ // =====================================================
+ // START / STOP MONITORING
+ // =====================================================
 
-startBtn.setOnClickListener(
-        new View.OnClickListener() {
+startBtn.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+    Intent serviceIntent = new Intent(
+            MainActivity.this,
+            AppointmentMonitoringService.class
+    );
 
-                Intent serviceIntent =
-                        new Intent(
-                                MainActivity.this,
-                                AppointmentMonitoringService.class
-                        );
+    if (startBtn.isActive()) {
 
-                serviceIntent.putExtra(
-                        "center",
-                        selectedCenter.length() == 0
-                                ? "Algiers"
-                                : selectedCenter
-                );
+        serviceIntent.setAction("STOP_MONITORING");
 
-                ContextCompat.startForegroundService(
-                        MainActivity.this,
-                        serviceIntent
-                );
+        startService(serviceIntent);
 
-                Toast.makeText(
-                        MainActivity.this,
-                        "Monitoring started",
-                        Toast.LENGTH_SHORT
-                ).show();
-            }
-        }
-);
+        startBtn.setActive(false);
+
+        centerCol.removeView(activeWrapper);
+        centerCol.removeView(inactiveTxt);
+
+        centerCol.addView(inactiveTxt, activeLp);
+
+        Toast.makeText(
+                MainActivity.this,
+                "Monitoring stopped",
+                Toast.LENGTH_SHORT
+        ).show();
+
+    } else {
+
+        serviceIntent.putExtra(
+                "center",
+                selectedCenter == null
+                        || selectedCenter.isEmpty()
+                        ? "Algiers"
+                        : selectedCenter
+        );
+
+        ContextCompat.startForegroundService(
+                MainActivity.this,
+                serviceIntent
+        );
+
+        startBtn.setActive(true);
+
+        centerCol.removeView(activeWrapper);
+        centerCol.removeView(inactiveTxt);
+
+        centerCol.addView(activeWrapper, activeLp);
+
+        Toast.makeText(
+                MainActivity.this,
+                "Monitoring started",
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+});
+
 
 // =====================================================
 // ADD MONITORING CARD
