@@ -1,89 +1,70 @@
 package com.bls.rendezvous;
-
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class SmallNeonStartButton extends View {
-    private Paint bgPaint, borderPaint, glowPaint, textPaint;
-    private RectF rect, borderRect;
+    private Paint bgPaint, textPaint, shadowPaint;
+    private RectF rect;
     private boolean active = false;
-
-    public SmallNeonStartButton(Context context) {
-        super(context);
-        init();
-    }
-
-    public SmallNeonStartButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
+    private LinearGradient gradient;
+    
+    public SmallNeonStartButton(Context context) { super(context); init(); }
+    public SmallNeonStartButton(Context context, AttributeSet attrs) { super(context, attrs); init(); }
+    
     private void init() {
-        setClickable(true);
-        setFocusable(true);
+        setClickable(true); setFocusable(true);
         setLayerType(LAYER_TYPE_SOFTWARE, null);
-
         bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        bgPaint.setStyle(Paint.Style.FILL);
-        bgPaint.setColor(Color.parseColor("#2B6CFF"));
-
-        borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(dp(1.5f));
-        borderPaint.setColor(Color.parseColor("#8DE8FF"));
-                glowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        glowPaint.setStyle(Paint.Style.FILL);
-        glowPaint.setColor(Color.parseColor("#2B6CFF"));
-
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(dp(16));
+        textPaint.setTextSize(dp(15));
         textPaint.setFakeBoldText(true);
         textPaint.setTextAlign(Paint.Align.CENTER);
+        shadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        rect = new RectF();
     }
-
-    public boolean isActive() { return active; }
-
-    public void setActive(boolean a) {
+    
+    public boolean isActive(){ return active; }
+    public void setActive(boolean a){
         active = a;
-        bgPaint.setColor(a ? Color.parseColor("#1E50FF") : Color.parseColor("#2B6CFF"));
         invalidate();
-        animate().scaleX(0.94f).scaleY(0.94f).setDuration(80)
-                .withEndAction(() -> animate().scaleX(1f).scaleY(1f).setDuration(120).start()).start();
+        animate().scaleX(0.92f).scaleY(0.92f).setDuration(80)
+        .withEndAction(() -> animate().scaleX(1f).scaleY(1f).setDuration(120).start()).start();
     }
-
+    
     @Override
     protected void onDraw(Canvas canvas) {
         float w = getWidth(), h = getHeight();
-        float r = dp(14);
-        rect = new RectF(dp(10), dp(10), w - dp(10), h - dp(10));
-
-        glowPaint.setShadowLayer(dp(18), 0, 0, Color.parseColor("#3B82FF"));
-        canvas.drawRoundRect(rect, r, r, glowPaint);
-        glowPaint.clearShadowLayer();
-
+        rect.set(dp(6), dp(6), w-dp(6), h-dp(6));
+        float r = dp(16);
+        
+        // shadow glow
+        shadowPaint.setColor(Color.parseColor("#3B82FF"));
+        shadowPaint.setShadowLayer(dp(14), 0, dp(6), Color.parseColor("#3B82FF"));
+        canvas.drawRoundRect(rect, r, r, shadowPaint);
+        shadowPaint.clearShadowLayer();
+        
+        // gradient blue -> cyan كيما التصميم
+        if(!active){
+            gradient = new LinearGradient(rect.left, rect.top, rect.right, rect.bottom,
+                new int[]{Color.parseColor("#0A5CFF"), Color.parseColor("#00B5D6")},
+                null, Shader.TileMode.CLAMP);
+        } else {
+            gradient = new LinearGradient(rect.left, rect.top, rect.right, rect.bottom,
+                new int[]{Color.parseColor("#FF3B3B"), Color.parseColor("#D6002A")},
+                null, Shader.TileMode.CLAMP);
+        }
+        bgPaint.setShader(gradient);
         canvas.drawRoundRect(rect, r, r, bgPaint);
-
-        borderRect = new RectF(rect.left + dp(1.2f), rect.top + dp(1.2f), rect.right - dp(1.2f), rect.bottom - dp(1.2f));
-        borderPaint.setShadowLayer(dp(8), 0, 0, Color.parseColor("#60D5FF"));
-        canvas.drawRoundRect(borderRect, r - dp(1), r - dp(1), borderPaint);
-        borderPaint.clearShadowLayer();
-
-        float cy = h / 2f - (textPaint.descent() + textPaint.ascent()) / 2f;
-        canvas.drawText(active ? "STOP" : "START", w / 2f, cy, textPaint);
+        
+        // text with play icon
+        String txt = active ? "■ STOP" : "▶ START";
+        float cy = h/2f - (textPaint.descent()+textPaint.ascent())/2f;
+        canvas.drawText(txt, w/2f, cy, textPaint);
     }
-
-        private float dp(float v) { 
-        return v * getResources().getDisplayMetrics().density; 
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension((int) dp(110), (int) dp(48));
-    }
+    
+    private float dp(float v){ return v * getResources().getDisplayMetrics().density; }
+    @Override protected void onMeasure(int w,int h){ setMeasuredDimension((int)dp(124),(int)dp(48)); }
 }
