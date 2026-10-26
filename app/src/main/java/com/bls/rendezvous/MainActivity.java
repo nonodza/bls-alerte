@@ -9267,13 +9267,15 @@ dialog.show();
 
         row.addView(labelView, labelParams);
 
-        Switch toggle = new Switch(this);
-        toggle.setChecked(checked);
+        android.widget.Switch toggle =
+        new android.widget.Switch(this);
 
-        row.addView(
-                toggle,
-                new LinearLayout.LayoutParams(-2, -2)
-        );
+toggle.setChecked(checked);
+
+row.addView(
+        toggle,
+        new LinearLayout.LayoutParams(-2, -2)
+);
 
         return row;
     }
