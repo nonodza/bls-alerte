@@ -8134,61 +8134,60 @@ page.addView(
         margin(0, 0, 0, 12)
 ); 
      
-// MONITORING CARD — DARK HORIZONTAL PREMIUM (مثل الصورة)
+// MONITORING CARD — DARK HORIZONTAL PREMIUM (FIXED NAMES)
 LinearLayout monitoringCard = new LinearLayout(this);
 monitoringCard.setOrientation(LinearLayout.HORIZONTAL);
 monitoringCard.setPadding(dp(20), dp(20), dp(20), dp(20));
-GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+GradientDrawable cardBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
     new int[]{Color.parseColor("#1E293B"), Color.parseColor("#0F172A")});
-bg.setCornerRadius(dp(22));
-monitoringCard.setBackground(bg);
+cardBg.setCornerRadius(dp(22));
+monitoringCard.setBackground(cardBg);
 monitoringCard.setElevation(dp(12));
 
 // LEFT TEXTS
-LinearLayout left = new LinearLayout(this);
-left.setOrientation(LinearLayout.VERTICAL);
+LinearLayout leftCol = new LinearLayout(this);
+leftCol.setOrientation(LinearLayout.VERTICAL);
 LinearLayout.LayoutParams leftLp = new LinearLayout.LayoutParams(0, -2, 1f);
-left.setLayoutParams(leftLp);
+leftCol.setLayoutParams(leftLp);
 
-TextView title = text("Appointment\nMonitoring", 22, Color.WHITE);
-title.setTypeface(Typeface.DEFAULT_BOLD);
-title.setLineSpacing(dp(2),1f);
-left.addView(title);
+TextView monitoringTitle2 = text("Appointment\nMonitoring", 22, Color.WHITE);
+monitoringTitle2.setTypeface(Typeface.DEFAULT_BOLD);
+monitoringTitle2.setLineSpacing(dp(2),1f);
+leftCol.addView(monitoringTitle2);
 
-TextView desc = text("Get notified when an\nappointment slot is\ndetected", 13, Color.parseColor("#94A3B8"));
-desc.setPadding(0, dp(10), 0, 0);
-left.addView(desc);
+TextView desc2 = text("Get notified when an\nappointment slot is\ndetected", 13, Color.parseColor("#94A3B8"));
+desc2.setPadding(0, dp(10), 0, 0);
+leftCol.addView(desc2);
 
-TextView status = text("Monitoring is paused", 13, Color.parseColor("#94A3B8"));
-LinearLayout statusRow = new LinearLayout(this);
-statusRow.setOrientation(LinearLayout.HORIZONTAL);
-statusRow.setPadding(0, dp(18), 0, 0);
-TextView icon = text("II", 10, Color.GRAY); // ايقونة pause
-statusRow.addView(icon);
-statusRow.addView(status);
-left.addView(statusRow);
+LinearLayout statusRow2 = new LinearLayout(this);
+statusRow2.setOrientation(LinearLayout.HORIZONTAL);
+statusRow2.setPadding(0, dp(18), 0, 0);
+TextView pauseIcon = text("II ", 10, Color.GRAY);
+TextView monitoringStatus2 = text("Monitoring is paused", 13, Color.parseColor("#94A3B8"));
+statusRow2.addView(pauseIcon);
+statusRow2.addView(monitoringStatus2);
+leftCol.addView(statusRow2);
 
 // RIGHT KNOB
-NeonVolumeKnobView knob = new NeonVolumeKnobView(this);
-LinearLayout.LayoutParams knobLp = new LinearLayout.LayoutParams(dp(140), dp(140));
-knobLp.gravity = Gravity.CENTER_VERTICAL;
-knob.setLayoutParams(knobLp);
+NeonVolumeKnobView knobView2 = new NeonVolumeKnobView(this);
+LinearLayout.LayoutParams knobLp2 = new LinearLayout.LayoutParams(dp(140), dp(140));
+knobLp2.gravity = Gravity.CENTER_VERTICAL;
+knobView2.setLayoutParams(knobLp2);
 
-knob.setOnClickListener(v -> {
+knobView2.setOnClickListener(v -> {
     if(selectedCountry.length()==0){
         new AlertDialog.Builder(MainActivity.this).setTitle("Select a country").setMessage("Please select a country before starting monitoring.").setPositiveButton("OK",null).show();
         return;
     }
-    boolean on = !knob.isActive();
-    knob.setActive(on);
-    status.setText(on ? "Monitoring is active • "+selectedCountry : "Monitoring is paused");
-    status.setTextColor(on ? Color.parseColor("#A6FF00") : Color.parseColor("#94A3B8"));
+    boolean on = !knobView2.isActive();
+    knobView2.setActive(on);
+    monitoringStatus2.setText(on ? "Monitoring is active • "+selectedCountry : "Monitoring is paused");
+    monitoringStatus2.setTextColor(on ? Color.parseColor("#A6FF00") : Color.parseColor("#94A3B8"));
 });
 
-monitoringCard.addView(left);
-monitoringCard.addView(knob);
+monitoringCard.addView(leftCol);
+monitoringCard.addView(knobView2);
 page.addView(monitoringCard, margin(0,0,0,12));
-
 
     // =====================================================
     // AVAILABILITY CARD
