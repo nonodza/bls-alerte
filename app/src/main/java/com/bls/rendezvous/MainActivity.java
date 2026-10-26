@@ -8134,61 +8134,60 @@ page.addView(
         margin(0, 0, 0, 12)
 ); 
      
-// =====================================================
-// MONITORING CARD — NEW DESIGN WITH NEON KNOB
-// =====================================================
-LinearLayout monitoringCard = card();
-monitoringCard.setPadding(dp(16), dp(14), dp(16), dp(14));
-monitoringCard.setGravity(Gravity.CENTER_HORIZONTAL);
-monitoringCard.setOrientation(LinearLayout.VERTICAL);
+// MONITORING CARD — DARK HORIZONTAL PREMIUM (مثل الصورة)
+LinearLayout monitoringCard = new LinearLayout(this);
+monitoringCard.setOrientation(LinearLayout.HORIZONTAL);
+monitoringCard.setPadding(dp(20), dp(20), dp(20), dp(20));
+GradientDrawable bg = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+    new int[]{Color.parseColor("#1E293B"), Color.parseColor("#0F172A")});
+bg.setCornerRadius(dp(22));
+monitoringCard.setBackground(bg);
+monitoringCard.setElevation(dp(12));
 
-// Title
-TextView monitoringTitle = text("Appointment Monitoring", 16, NAVY);
-monitoringTitle.setTypeface(Typeface.DEFAULT_BOLD);
-monitoringTitle.setGravity(Gravity.CENTER);
-monitoringCard.addView(monitoringTitle);
+// LEFT TEXTS
+LinearLayout left = new LinearLayout(this);
+left.setOrientation(LinearLayout.VERTICAL);
+LinearLayout.LayoutParams leftLp = new LinearLayout.LayoutParams(0, -2, 1f);
+left.setLayoutParams(leftLp);
 
-// Description
-TextView desc = text("Get notified when an appointment slot is detected.", 11, GRAY);
-desc.setGravity(Gravity.CENTER);
-monitoringCard.addView(desc, margin(0, 4, 0, 10));
+TextView title = text("Appointment\nMonitoring", 22, Color.WHITE);
+title.setTypeface(Typeface.DEFAULT_BOLD);
+title.setLineSpacing(dp(2),1f);
+left.addView(title);
 
-// Status
-TextView monitoringStatus = text("Monitoring is paused", 13, GRAY);
-monitoringStatus.setTypeface(Typeface.DEFAULT_BOLD);
-monitoringStatus.setGravity(Gravity.CENTER);
-monitoringCard.addView(monitoringStatus, margin(0, 0, 0, 12));
+TextView desc = text("Get notified when an\nappointment slot is\ndetected", 13, Color.parseColor("#94A3B8"));
+desc.setPadding(0, dp(10), 0, 0);
+left.addView(desc);
 
-// NEW KNOB - هو زر START الجديد
-NeonVolumeKnobView knobView = new NeonVolumeKnobView(this);
-LinearLayout.LayoutParams knobParams = new LinearLayout.LayoutParams(dp(110), dp(110));
-knobParams.gravity = Gravity.CENTER_HORIZONTAL;
-knobView.setLayoutParams(knobParams);
+TextView status = text("Monitoring is paused", 13, Color.parseColor("#94A3B8"));
+LinearLayout statusRow = new LinearLayout(this);
+statusRow.setOrientation(LinearLayout.HORIZONTAL);
+statusRow.setPadding(0, dp(18), 0, 0);
+TextView icon = text("II", 10, Color.GRAY); // ايقونة pause
+statusRow.addView(icon);
+statusRow.addView(status);
+left.addView(statusRow);
 
-knobView.setOnClickListener(v -> {
-    if (selectedCountry.length() == 0) {
-        new AlertDialog.Builder(MainActivity.this)
-            .setTitle("Select a country")
-            .setMessage("Please select a country before starting monitoring.")
-            .setPositiveButton("OK", null)
-            .show();
+// RIGHT KNOB
+NeonVolumeKnobView knob = new NeonVolumeKnobView(this);
+LinearLayout.LayoutParams knobLp = new LinearLayout.LayoutParams(dp(140), dp(140));
+knobLp.gravity = Gravity.CENTER_VERTICAL;
+knob.setLayoutParams(knobLp);
+
+knob.setOnClickListener(v -> {
+    if(selectedCountry.length()==0){
+        new AlertDialog.Builder(MainActivity.this).setTitle("Select a country").setMessage("Please select a country before starting monitoring.").setPositiveButton("OK",null).show();
         return;
     }
-    
-    boolean newState = !knobView.isActive();
-    knobView.setActive(newState);
-    
-    if (newState) {
-        monitoringStatus.setText("Monitoring is active • " + selectedCountry);
-        monitoringStatus.setTextColor(GREEN);
-    } else {
-        monitoringStatus.setText("Monitoring is paused");
-        monitoringStatus.setTextColor(GRAY);
-    }
+    boolean on = !knob.isActive();
+    knob.setActive(on);
+    status.setText(on ? "Monitoring is active • "+selectedCountry : "Monitoring is paused");
+    status.setTextColor(on ? Color.parseColor("#A6FF00") : Color.parseColor("#94A3B8"));
 });
 
-monitoringCard.addView(knobView);
-page.addView(monitoringCard, margin(0, 0, 0, 12));
+monitoringCard.addView(left);
+monitoringCard.addView(knob);
+page.addView(monitoringCard, margin(0,0,0,12));
 
 
     // =====================================================
