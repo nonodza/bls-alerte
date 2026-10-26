@@ -8405,15 +8405,7 @@ dialog.show();
     );
 
 
-    if (isMonitoringActive && hasCountry) {
-
-        centerCol.addView(activeWrapper, activeLp);
-
-    } else {
-
-        centerCol.addView(inactiveTxt, activeLp);
-    }
-
+    centerCol.addView(inactiveTxt, activeLp);
 
     topPart.addView(
             centerCol,
