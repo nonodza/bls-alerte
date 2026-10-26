@@ -9223,6 +9223,61 @@ dialog.show();
         root.addView(scroll);
     }
 
+    // =====================================================
+    // PREMIUM SETTINGS TOGGLE
+    // =====================================================
+
+    private LinearLayout createToggle(
+            String label,
+            boolean checked
+    ) {
+
+        LinearLayout row = new LinearLayout(this);
+
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(
+                dp(4),
+                dp(8),
+                dp(4),
+                dp(8)
+        );
+
+        TextView labelView = new TextView(this);
+
+        labelView.setText(label);
+        labelView.setTextSize(14);
+        labelView.setTextColor(
+                Color.parseColor("#253858")
+        );
+
+        labelView.setTypeface(
+                Typeface.create(
+                        "sans-serif-medium",
+                        Typeface.NORMAL
+                )
+        );
+
+        LinearLayout.LayoutParams labelParams =
+                new LinearLayout.LayoutParams(
+                        0,
+                        -2,
+                        1f
+                );
+
+        row.addView(labelView, labelParams);
+
+        Switch toggle = new Switch(this);
+        toggle.setChecked(checked);
+
+        row.addView(
+                toggle,
+                new LinearLayout.LayoutParams(-2, -2)
+        );
+
+        return row;
+    }
+ 
     // =========================================================
     // ALERTS
     // =========================================================
