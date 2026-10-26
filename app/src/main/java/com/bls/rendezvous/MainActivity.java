@@ -8420,7 +8420,7 @@ dialog.show();
             centerLp
     );
 
-
+    
     // =====================================================
     // START / STOP BUTTON
     // =====================================================
@@ -8428,11 +8428,11 @@ dialog.show();
     SmallNeonStartButton startBtn =
             new SmallNeonStartButton(this);
 
-    startBtn.setActive(isMonitoringActive);
+    startBtn.setActive(false);
 
     LinearLayout.LayoutParams startBtnLp =
             new LinearLayout.LayoutParams(
-                    dp(58),
+                    dp(92),
                     dp(42)
             );
 
@@ -8443,61 +8443,64 @@ dialog.show();
             startBtnLp
     );
 
-
     startBtn.setOnClickListener(v -> {
 
         if (selectedCountry == null
                 || selectedCountry.trim().isEmpty()) {
 
             Toast.makeText(
-                    this,
+                    MainActivity.this,
                     "Please select a country first",
                     Toast.LENGTH_SHORT
             ).show();
 
-            // اربط هنا شاشة اختيار الدولة الموجودة عندك.
-            // لا نستعمل اسم ميثود غير موجود في مشروعك.
+            return;
+        }
+
+        if (startBtn.isActive()) {
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Stop action needs service confirmation",
+                    Toast.LENGTH_SHORT
+            ).show();
 
             return;
         }
 
+        Intent serviceIntent = new Intent(
+                MainActivity.this,
+                AppointmentMonitoringService.class
+        );
 
-        if (isMonitoringActive) {
+        serviceIntent.putExtra(
+                "center",
+                selectedCenter == null
+                        || selectedCenter.isEmpty()
+                        ? "Algiers"
+                        : selectedCenter
+        );
 
-            stopMonitoring();
+        ContextCompat.startForegroundService(
+                MainActivity.this,
+                serviceIntent
+        );
 
-            isMonitoringActive = false;
-
-        } else {
-
-            startMonitoring();
-
-            isMonitoringActive = true;
-        }
-
-
-        startBtn.setActive(isMonitoringActive);
-
-
-        // Update the status displayed on the card.
+        startBtn.setActive(true);
 
         centerCol.removeView(activeWrapper);
         centerCol.removeView(inactiveTxt);
 
-        if (isMonitoringActive) {
+        centerCol.addView(
+                activeWrapper,
+                activeLp
+        );
 
-            centerCol.addView(
-                    activeWrapper,
-                    activeLp
-            );
-
-        } else {
-
-            centerCol.addView(
-                    inactiveTxt,
-                    activeLp
-            );
-        }
+        Toast.makeText(
+                MainActivity.this,
+                "Monitoring started",
+                Toast.LENGTH_SHORT
+        ).show();
     });
 
 
