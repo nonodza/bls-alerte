@@ -1092,69 +1092,42 @@ monCard.addView(
         startBtn
 );
 
+// =====================================================
+// START MONITORING
+// =====================================================
 
+startBtn.setOnClickListener(
+        new View.OnClickListener() {
 
- // =====================================================
- // START / STOP MONITORING
- // =====================================================
+            @Override
+            public void onClick(View v) {
 
-startBtn.setOnClickListener(v -> {
+                Intent serviceIntent =
+                        new Intent(
+                                MainActivity.this,
+                                AppointmentMonitoringService.class
+                        );
 
-    Intent serviceIntent = new Intent(
-            MainActivity.this,
-            AppointmentMonitoringService.class
-    );
+                serviceIntent.putExtra(
+                        "center",
+                        selectedCenter.length() == 0
+                                ? "Algiers"
+                                : selectedCenter
+                );
 
-    if (startBtn.isActive()) {
+                ContextCompat.startForegroundService(
+                        MainActivity.this,
+                        serviceIntent
+                );
 
-        serviceIntent.setAction("STOP_MONITORING");
-
-        startService(serviceIntent);
-
-        startBtn.setActive(false);
-
-        centerCol.removeView(activeWrapper);
-        centerCol.removeView(inactiveTxt);
-
-        centerCol.addView(inactiveTxt, activeLp);
-
-        Toast.makeText(
-                MainActivity.this,
-                "Monitoring stopped",
-                Toast.LENGTH_SHORT
-        ).show();
-
-    } else {
-
-        serviceIntent.putExtra(
-                "center",
-                selectedCenter == null
-                        || selectedCenter.isEmpty()
-                        ? "Algiers"
-                        : selectedCenter
-        );
-
-        ContextCompat.startForegroundService(
-                MainActivity.this,
-                serviceIntent
-        );
-
-        startBtn.setActive(true);
-
-        centerCol.removeView(activeWrapper);
-        centerCol.removeView(inactiveTxt);
-
-        centerCol.addView(activeWrapper, activeLp);
-
-        Toast.makeText(
-                MainActivity.this,
-                "Monitoring started",
-                Toast.LENGTH_SHORT
-        ).show();
-    }
-});
-
-
+                Toast.makeText(
+                        MainActivity.this,
+                        "Monitoring started",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        }
+);
 
 // =====================================================
 // ADD MONITORING CARD
