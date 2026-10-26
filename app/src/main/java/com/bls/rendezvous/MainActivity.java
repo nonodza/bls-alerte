@@ -8584,25 +8584,25 @@ dialog.show();
     LinearLayout.LayoutParams togglesLp =
             new LinearLayout.LayoutParams(-1, -2);
 
+    
     togglesLp.topMargin = dp(8);
 
-
     toggles.addView(
-            createToggle("Sound alerts", "sound_on", true)
+            createToggle("Sound alerts", true)
     );
 
     toggles.addView(
-            createToggle("Push notifications", "push_on", true)
+            createToggle("Push notifications", true)
     );
 
     toggles.addView(
-            createToggle("Appointment alerts", "alerts_on", true)
+            createToggle("Appointment alerts", true)
     );
-
 
     bottomPart.addView(toggles, togglesLp);
 
     mainCard.addView(bottomPart);
+
 
 
     // =====================================================
