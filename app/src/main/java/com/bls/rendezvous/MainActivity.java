@@ -1092,9 +1092,9 @@ monCard.addView(
         startBtn
 );
 
- // =====================================================
- // START / STOP MONITORING
- // =====================================================
+// =====================================================
+// START / STOP MONITORING
+// =====================================================
 
 startBtn.setOnClickListener(v -> {
 
@@ -1103,18 +1103,14 @@ startBtn.setOnClickListener(v -> {
             AppointmentMonitoringService.class
     );
 
-    if (startBtn.isActive()) {
+    if (startBtn.getTag() != null
+            && Boolean.TRUE.equals(startBtn.getTag())) {
 
         serviceIntent.setAction("STOP_MONITORING");
-
         startService(serviceIntent);
 
-        startBtn.setActive(false);
-
-        centerCol.removeView(activeWrapper);
-        centerCol.removeView(inactiveTxt);
-
-        centerCol.addView(inactiveTxt, activeLp);
+        startBtn.setTag(false);
+        startBtn.setText("START");
 
         Toast.makeText(
                 MainActivity.this,
@@ -1137,12 +1133,8 @@ startBtn.setOnClickListener(v -> {
                 serviceIntent
         );
 
-        startBtn.setActive(true);
-
-        centerCol.removeView(activeWrapper);
-        centerCol.removeView(inactiveTxt);
-
-        centerCol.addView(activeWrapper, activeLp);
+        startBtn.setTag(true);
+        startBtn.setText("STOP");
 
         Toast.makeText(
                 MainActivity.this,
@@ -1151,7 +1143,6 @@ startBtn.setOnClickListener(v -> {
         ).show();
     }
 });
-
 
 // =====================================================
 // ADD MONITORING CARD
