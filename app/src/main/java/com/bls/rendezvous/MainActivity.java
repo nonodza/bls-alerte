@@ -56,6 +56,9 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 
 public class MainActivity extends Activity {
 
@@ -9771,7 +9774,34 @@ private void page(
 
         return c;
     }
- 
+ // =========================================================
+// SMALL BUTTON — PREMIUM (للـ cards لخرين)
+// =========================================================
+private Button smallButton(String label) {
+    Button b = new Button(this);
+    b.setText(label);
+    b.setTextSize(10);
+    b.setTextColor(Color.WHITE);
+    b.setTypeface(Typeface.DEFAULT_BOLD);
+    b.setAllCaps(false);
+    b.setLetterSpacing(0.04f);
+    b.setMinHeight(0);
+    b.setMinimumHeight(0);
+    b.setMinWidth(0);
+    b.setMinimumWidth(0);
+    b.setPadding(dp(16), dp(8), dp(16), dp(8));
+    GradientDrawable bg = new GradientDrawable(
+        GradientDrawable.Orientation.TL_BR,
+        new int[]{ Color.parseColor("#245FE8"), Color.parseColor("#5148D8"), Color.parseColor("#783FE0") }
+    );
+    bg.setCornerRadius(dp(11));
+    bg.setStroke((int) dp(1), Color.parseColor("#8CA8FF"));
+    b.setBackground(bg);
+    b.setBackgroundTintList(null);
+    b.setStateListAnimator(null);
+    b.setElevation(dp(5));
+    return b;
+}
     
     // =========================================================
     // TEXT HELPER
