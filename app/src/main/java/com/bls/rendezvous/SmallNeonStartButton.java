@@ -1,148 +1,170 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.RoundRectangle2D;
+// =========================================================
+// APPOINTMENT MONITORING CARD — FINAL PREMIUM (كيما الصورة)
+// =========================================================
+LinearLayout mainCard = new LinearLayout(this);
+mainCard.setOrientation(LinearLayout.VERTICAL);
+GradientDrawable mainBg = new GradientDrawable();
+mainBg.setColor(Color.WHITE);
+mainBg.setCornerRadius(dp(20));
+mainCard.setBackground(mainBg);
+mainCard.setElevation(dp(10));
 
-public class AnimatedNeonButton extends JButton {
+// ===== TOP PART =====
+LinearLayout topPart = new LinearLayout(this);
+topPart.setOrientation(LinearLayout.HORIZONTAL);
+topPart.setGravity(Gravity.CENTER_VERTICAL);
+topPart.setPadding(dp(0), dp(16), dp(16), dp(16));
 
-    private boolean isRunning = false;
-    private float neonOffset = 0; // زاوية دوران النيون
-    private Timer animationTimer;
-    private float hue = 0; // للتحكم بتغير الألوان المتتابع (Rainbow)
+// الشريط الأزرق اليسار
+View blueStrip = new View(this);
+GradientDrawable stripBg = new GradientDrawable();
+stripBg.setColor(Color.parseColor("#0B57D0"));
+stripBg.setCornerRadii(new float[]{dp(20),0,0,dp(20),0,0,0,0});
+blueStrip.setLayoutParams(new LinearLayout.LayoutParams(dp(8), dp(110)));
+blueStrip.setBackground(stripBg);
 
-    public AnimatedNeonButton() {
-        setText("Start here");
-        setFont(new Font("Segoe UI", Font.BOLD, 28));
-        setForeground(Color.WHITE);
-        setContentAreaFilled(false);
-        setBorderPainted(false);
-        setFocusPainted(false);
-        setCursor(new Cursor(Cursor.HAND_CURSOR));
+// أيقونة فيكتوري دائرية زرقاء
+ImageView calIcon = new ImageView(this);
+GradientDrawable circleBg = new GradientDrawable();
+circleBg.setShape(GradientDrawable.OVAL);
+circleBg.setColor(Color.parseColor("#1A5EDC"));
+calIcon.setBackground(circleBg);
+calIcon.setImageResource(android.R.drawable.ic_menu_today); // تقدر تبدلو بفيكتور خاص
+calIcon.setColorFilter(Color.WHITE);
+LinearLayout.LayoutParams iconLp = new LinearLayout.LayoutParams(dp(58), dp(58));
+iconLp.setMargins(dp(14),0,dp(14),0);
+calIcon.setLayoutParams(iconLp);
+calIcon.setPadding(dp(12),dp(12),dp(12),dp(12));
 
-        // محرك الأنميشن (يحدث الشاشة كل 20 ملي ثانية لتأثير ناعم)
-        animationTimer = new Timer(20, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isRunning) {
-                    neonOffset += 0.05f; // سرعة دوران النيون
-                    hue += 0.01f;        // سرعة تغير الألوان
-                    if (hue > 1) hue = 0;
-                    repaint();
-                }
-            }
-        });
+// الوسط
+LinearLayout centerCol = new LinearLayout(this);
+centerCol.setOrientation(LinearLayout.VERTICAL);
+centerCol.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1f));
 
-        // الاستماع لحدث الضغط (Click) لتغيير الحالة
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isRunning = !isRunning;
-                if (isRunning) {
-                    setText("Stop");
-                    animationTimer.start();
-                } else {
-                    setText("Start here");
-                    animationTimer.stop();
-                    repaint(); // إعادة الرسم لإخفاء تأثير النيون
-                }
-            }
-        });
+TextView title = text("Appointment Monitoring", 18, Color.parseColor("#101840"));
+title.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
+TextView sub = text("Real-time scheduling & status tracking", 12, Color.parseColor("#6B7280"));
+sub.setPadding(0,dp(2),0,dp(10));
+centerCol.addView(title);
+centerCol.addView(sub);
+
+// سطر العلم + الحالة - ديناميكي
+LinearLayout flagLine = new LinearLayout(this);
+flagLine.setOrientation(LinearLayout.HORIZONTAL);
+flagLine.setGravity(Gravity.CENTER_VERTICAL);
+
+ImageView flagImg = new ImageView(this);
+TextView countryLine = new TextView(this);
+countryLine.setTextSize(13);
+countryLine.setTextColor(Color.parseColor("#374151"));
+
+LinearLayout activeLine = new LinearLayout(this);
+activeLine.setOrientation(LinearLayout.HORIZONTAL);
+activeLine.setGravity(Gravity.CENTER_VERTICAL);
+activeLine.setPadding(0,dp(4),0,0);
+View greenDot = new View(this);
+GradientDrawable dotBg = new GradientDrawable();
+dotBg.setShape(GradientDrawable.OVAL);
+dotBg.setColor(Color.parseColor("#10B981"));
+greenDot.setBackground(dotBg);
+greenDot.setLayoutParams(new LinearLayout.LayoutParams(dp(10), dp(10)));
+TextView activeTxt = text("Active", 13, Color.parseColor("#059669"));
+activeTxt.setTypeface(Typeface.DEFAULT_BOLD);
+activeTxt.setPadding(dp(6),0,0,0);
+
+if (selectedCountry == null || selectedCountry.isEmpty()) {
+    flagImg.setVisibility(View.GONE);
+    greenDot.setVisibility(View.GONE);
+    activeTxt.setVisibility(View.GONE);
+    countryLine.setText("Select a country to start");
+    countryLine.setTextColor(Color.parseColor("#9CA3AF"));
+} else {
+    flagImg.setVisibility(View.VISIBLE);
+    // هنا حط العلم حسب الدولة المختارة
+    // flagImg.setImageResource(getFlagDrawable(selectedCountry));
+    flagImg.setLayoutParams(new LinearLayout.LayoutParams(dp(38), dp(26)));
+    countryLine.setText(selectedCountry + " • Last check 2 min ago");
+    if (isMonitoringActive) {
+        greenDot.setVisibility(View.VISIBLE);
+        activeTxt.setVisibility(View.VISIBLE);
+    } else {
+        greenDot.setVisibility(View.GONE);
+        activeTxt.setVisibility(View.GONE);
     }
+}
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+flagLine.addView(flagImg);
+flagLine.addView(countryLine);
+centerCol.addView(flagLine);
 
-        int width = getWidth();
-        int height = getHeight();
-        int padding = 6; // مساحة لظهور إضاءة النيون خارج الزر الأساسي
+LinearLayout activeWrapper = new LinearLayout(this);
+activeWrapper.setOrientation(LinearLayout.HORIZONTAL);
+activeWrapper.addView(greenDot);
+activeWrapper.addView(activeTxt);
+activeWrapper.setPadding(dp(46),0,0,0); // تحت العلم
+if(selectedCountry!=null && !selectedCountry.isEmpty() && isMonitoringActive){
+    centerCol.addView(activeWrapper);
+}
 
-        int btnWidth = width - (padding * 2);
-        int btnHeight = height - (padding * 2);
-
-        // 1. رسم تأثير إضاءة النيون الدائرية (تظهر فقط عند حالة التشغيل)
-        if (isRunning) {
-            g2d.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            
-            // إنتاج لون نيون متغير باستمرار بناءً على قيمة hue
-            Color neonColor = Color.getHSBColor(hue, 0.8f, 1.0f);
-            
-            // دمج اللون المتغير مع تأثير حركة الدوران باستخدام GradientPaint متقلب
-            float x1 = (float) (width / 2 + Math.cos(neonOffset) * width);
-            float y1 = (float) (height / 2 + Math.sin(neonOffset) * height);
-            float x2 = (float) (width / 2 - Math.cos(neonOffset) * width);
-            float y2 = (float) (height / 2 - Math.sin(neonOffset) * height);
-            
-            GradientPaint neonGradient = new GradientPaint(x1, y1, neonColor, x2, y2, new Color(0,0,0,0));
-            g2d.setPaint(neonGradient);
-            
-            // رسم خط النيون الخارجي حول الزر
-            g2d.draw(new RoundRectangle2D.Float(padding - 2, padding - 2, btnWidth + 4, btnHeight + 4, btnHeight, btnHeight));
-        }
-
-        // 2. رسم جسم الزر الزرق المتدرج
-        GradientPaint bodyGradient = new GradientPaint(
-                0, padding, new Color(28, 110, 204),
-                0, padding + btnHeight, new Color(12, 77, 162)
-        );
-        g2d.setPaint(bodyGradient);
-        g2d.fill(new RoundRectangle2D.Float(padding, padding, btnWidth, btnHeight, btnHeight, btnHeight));
-
-        // 3. رسم الدائرة اليمنى
-        int circleRadius = (int) (btnHeight * 0.9);
-        int circleX = padding + btnWidth - circleRadius - (btnHeight - circleRadius) / 2;
-        int circleY = padding + (btnHeight - circleRadius) / 2;
-
-        GradientPaint circleGradient = new GradientPaint(
-                circleX, circleY, new Color(38, 126, 226, 180),
-                circleX, circleY + circleRadius, new Color(8, 62, 136, 180)
-        );
-        g2d.setPaint(circleGradient);
-        g2d.fillOval(circleX, circleY, circleRadius, circleRadius);
-
-        // 4. رسم الأيقونة الداخلية (مثلث أبيض للتشغيل، أو مربع أحمر/فاتح للإيقاف)
-        int iconSize = circleRadius / 3;
-        int iconX = circleX + (circleRadius - iconSize) / 2;
-        int iconY = circleY + (circleRadius - iconSize) / 2;
-
-        if (!isRunning) {
-            // رسم سهم Start
-            g2d.setColor(new Color(240, 244, 250));
-            int[] xPoints = {iconX + 3, iconX + 3, iconX + 3 + iconSize};
-            int[] yPoints = {iconY, iconY + iconSize, iconY + (iconSize / 2)};
-            g2d.fillPolygon(xPoints, yPoints, 3);
-        } else {
-            // رسم مربع Stop
-            g2d.setColor(new Color(255, 100, 100)); // لون أحمر نيون خفيف للإيقاف
-            g2d.fillRect(iconX + 2, iconY + 2, iconSize - 4, iconSize - 4);
-        }
-
-        // 5. رسم النص الحالي (Start here أو Stop)
-        FontMetrics fm = g2d.getFontMetrics();
-        int textX = padding + (btnWidth - circleRadius - fm.stringWidth(getText())) / 2 + 10;
-        int textY = padding + (btnHeight - fm.getHeight()) / 2 + fm.getAscent();
-        
-        g2d.setColor(Color.WHITE);
-        g2d.drawString(getText(), textX, textY);
-
-        g2d.dispose();
+// زر START/STOP
+SmallNeonStartButton startBtn = new SmallNeonStartButton(this);
+startBtn.setActive(isMonitoringActive);
+startBtn.setOnClickListener(v -> {
+    if (selectedCountry == null || selectedCountry.isEmpty()) {
+        Toast.makeText(this, "Please select a country first", Toast.LENGTH_SHORT).show();
+        // openCountrySelector();
+        return;
     }
+    isMonitoringActive = !isMonitoringActive;
+    startBtn.setActive(isMonitoringActive);
+    // startMonitoring() / stopMonitoring()
+});
 
-    // تشغيل المعاينة
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Neon Start/Stop Button");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 250);
-        frame.setLayout(new GridBagLayout());
-        frame.getContentPane().setBackground(new Color(20, 20, 25)); // خلفية داكنة لتبرز إضاءة النيون الملونة
+topPart.addView(blueStrip);
+topPart.addView(calIcon);
+topPart.addView(centerCol);
+topPart.addView(startBtn);
 
-        AnimatedNeonButton neonButton = new AnimatedNeonButton();
-        neonButton.setPreferredSize(new Dimension(400, 110)); // حجم أكبر قليلاً لاستيعاب مساحة النيون
+// ===== BOTTOM PART — Background settings =====
+View divider = new View(this);
+divider.setBackgroundColor(Color.parseColor("#E5E7EB"));
+divider.setLayoutParams(new LinearLayout.LayoutParams(-1, dp(1)));
 
-        frame.add(neonButton);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
+LinearLayout bottomPart = new LinearLayout(this);
+bottomPart.setOrientation(LinearLayout.HORIZONTAL);
+bottomPart.setGravity(Gravity.CENTER_VERTICAL);
+bottomPart.setPadding(dp(14), dp(10), dp(14), dp(10));
+bottomPart.setBackgroundColor(Color.parseColor("#F8FAFC"));
+
+TextView enhanced = text("🛡 Enhanced features: Real-time tracking • Automated alerts", 10, Color.parseColor("#4B5563"));
+enhanced.setLayoutParams(new LinearLayout.LayoutParams(0,-2,1f));
+
+LinearLayout toggles = new LinearLayout(this);
+toggles.setOrientation(LinearLayout.HORIZONTAL);
+toggles.setGravity(Gravity.CENTER_VERTICAL);
+toggles.addView(createToggle("Sound On", true));
+toggles.addView(createToggle("Push Alert", true));
+toggles.addView(createToggle("Alert", true));
+
+bottomPart.addView(enhanced);
+bottomPart.addView(toggles);
+
+mainCard.addView(topPart);
+mainCard.addView(divider);
+mainCard.addView(bottomPart);
+
+page.addView(mainCard, margin(0,0,0,12));
+
+// ميثود صغيرة للـ Toggle
+private LinearLayout createToggle(String label, boolean checked) {
+    LinearLayout l = new LinearLayout(this);
+    l.setOrientation(LinearLayout.HORIZONTAL);
+    l.setGravity(Gravity.CENTER_VERTICAL);
+    l.setPadding(dp(8),0,0,0);
+    TextView tv = text(label, 10, Color.parseColor("#374151"));
+    Switch sw = new Switch(this);
+    sw.setChecked(checked);
+    sw.setScaleX(0.7f); sw.setScaleY(0.7f);
+    l.addView(tv); l.addView(sw);
+    return l;
 }
