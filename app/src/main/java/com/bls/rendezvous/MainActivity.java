@@ -8134,60 +8134,55 @@ page.addView(
         margin(0, 0, 0, 12)
 ); 
      
-// MONITORING CARD — DARK HORIZONTAL PREMIUM (FIXED NAMES)
+// MONITORING CARD — WHITE HORIZONTAL PREMIUM - SMALL NEON START (كيما الصورة)
 LinearLayout monitoringCard = new LinearLayout(this);
 monitoringCard.setOrientation(LinearLayout.HORIZONTAL);
-monitoringCard.setPadding(dp(20), dp(20), dp(20), dp(20));
-GradientDrawable cardBg = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-    new int[]{Color.parseColor("#1E293B"), Color.parseColor("#0F172A")});
-cardBg.setCornerRadius(dp(22));
+monitoringCard.setGravity(Gravity.CENTER_VERTICAL);
+monitoringCard.setPadding(dp(16), dp(16), dp(16), dp(16));
+GradientDrawable cardBg = new GradientDrawable();
+cardBg.setColor(Color.WHITE);
+cardBg.setCornerRadius(dp(16));
 monitoringCard.setBackground(cardBg);
-monitoringCard.setElevation(dp(12));
+monitoringCard.setElevation(dp(8));
 
-// LEFT TEXTS
-LinearLayout leftCol = new LinearLayout(this);
-leftCol.setOrientation(LinearLayout.VERTICAL);
-LinearLayout.LayoutParams leftLp = new LinearLayout.LayoutParams(0, -2, 1f);
-leftCol.setLayoutParams(leftLp);
+// الشريط الأزرق على اليسار
+View blueStrip = new View(this);
+GradientDrawable stripBg = new GradientDrawable();
+stripBg.setColor(Color.parseColor("#2563EB"));
+stripBg.setCornerRadii(new float[]{dp(16),0,0,dp(16),dp(16),0,0,0});
+blueStrip.setLayoutParams(new LinearLayout.LayoutParams(dp(6), dp(80)));
+blueStrip.setBackground(stripBg);
 
-TextView monitoringTitle2 = text("Appointment\nMonitoring", 22, Color.WHITE);
-monitoringTitle2.setTypeface(Typeface.DEFAULT_BOLD);
-monitoringTitle2.setLineSpacing(dp(2),1f);
-leftCol.addView(monitoringTitle2);
+// أيقونة التقويم زرقاء outline
+TextView calIcon = new TextView(this);
+calIcon.setText("📅");
+calIcon.setTextSize(22);
+calIcon.setPadding(0,0,dp(12),0);
+calIcon.setGravity(Gravity.CENTER);
 
-TextView desc2 = text("Get notified when an\nappointment slot is\ndetected", 13, Color.parseColor("#94A3B8"));
-desc2.setPadding(0, dp(10), 0, 0);
-leftCol.addView(desc2);
+// الوسط - العنوان + علم + حالة
+LinearLayout centerCol = new LinearLayout(this);
+centerCol.setOrientation(LinearLayout.VERTICAL);
+LinearLayout.LayoutParams centerLp = new LinearLayout.LayoutParams(0, -2, 1f);
+centerCol.setLayoutParams(centerLp);
 
-LinearLayout statusRow2 = new LinearLayout(this);
-statusRow2.setOrientation(LinearLayout.HORIZONTAL);
-statusRow2.setPadding(0, dp(18), 0, 0);
-TextView pauseIcon = text("II ", 10, Color.GRAY);
-TextView monitoringStatus2 = text("Monitoring is paused", 13, Color.parseColor("#94A3B8"));
-statusRow2.addView(pauseIcon);
-statusRow2.addView(monitoringStatus2);
-leftCol.addView(statusRow2);
+TextView title = text("Appointment Monitoring", 16, Color.parseColor("#111827"));
+title.setTypeface(Typeface.DEFAULT_BOLD);
+centerCol.addView(title);
 
-// RIGHT KNOB
-NeonVolumeKnobView knobView2 = new NeonVolumeKnobView(this);
-LinearLayout.LayoutParams knobLp2 = new LinearLayout.LayoutParams(dp(140), dp(140));
-knobLp2.gravity = Gravity.CENTER_VERTICAL;
-knobView2.setLayoutParams(knobLp2);
+LinearLayout statusLine = new LinearLayout(this);
+statusLine.setOrientation(LinearLayout.HORIZONTAL);
+statusLine.setGravity(Gravity.CENTER_VERTICAL);
+statusLine.setPadding(0, dp(6), 0, 0);
 
-knobView2.setOnClickListener(v -> {
-    if(selectedCountry.length()==0){
-        new AlertDialog.Builder(MainActivity.this).setTitle("Select a country").setMessage("Please select a country before starting monitoring.").setPositiveButton("OK",null).show();
-        return;
-    }
-    boolean on = !knobView2.isActive();
-    knobView2.setActive(on);
-    monitoringStatus2.setText(on ? "Monitoring is active • "+selectedCountry : "Monitoring is paused");
-    monitoringStatus2.setTextColor(on ? Color.parseColor("#A6FF00") : Color.parseColor("#94A3B8"));
-});
-
-monitoringCard.addView(leftCol);
-monitoringCard.addView(knobView2);
-page.addView(monitoringCard, margin(0,0,0,12));
+TextView spainFlag = text("🇪🇸", 14, Color.BLACK);
+TextView statusText = text("  Last check 2 min ago  • Active", 12, Color.parseColor("#6B7280"));
+statusText.setPadding(dp(4),0,0,0);
+// نخلي كلمة Active خضراء
+SpannableString spannable = new SpannableString(statusText.getText());
+int activeIndex = statusText.getText().toString().indexOf("Active");
+if(activeIndex != -1){
+    spannable.setSpan(new Foreground
 
     // =====================================================
     // AVAILABILITY CARD
