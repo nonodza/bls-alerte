@@ -8133,122 +8133,63 @@ page.addView(
         countryCard,
         margin(0, 0, 0, 12)
 ); 
-    // =====================================================
-    // MONITORING CARD — COMPACT PREMIUM
-    // =====================================================
+     
+// =====================================================
+// MONITORING CARD — NEW DESIGN WITH NEON KNOB
+// =====================================================
+LinearLayout monitoringCard = card();
+monitoringCard.setPadding(dp(16), dp(14), dp(16), dp(14));
+monitoringCard.setGravity(Gravity.CENTER_HORIZONTAL);
+monitoringCard.setOrientation(LinearLayout.VERTICAL);
 
-    LinearLayout monitoringCard =
-            card();
+// Title
+TextView monitoringTitle = text("Appointment Monitoring", 16, NAVY);
+monitoringTitle.setTypeface(Typeface.DEFAULT_BOLD);
+monitoringTitle.setGravity(Gravity.CENTER);
+monitoringCard.addView(monitoringTitle);
 
-    monitoringCard.setPadding(
-            dp(16),
-            dp(10),
-            dp(16),
-            dp(10)
-    );
+// Description
+TextView desc = text("Get notified when an appointment slot is detected.", 11, GRAY);
+desc.setGravity(Gravity.CENTER);
+monitoringCard.addView(desc, margin(0, 4, 0, 10));
 
-    // Title
-    TextView monitoringTitle =
-            text(
-                    "Appointment Monitoring",
-                    16,
-                    NAVY
-            );
+// Status
+TextView monitoringStatus = text("Monitoring is paused", 13, GRAY);
+monitoringStatus.setTypeface(Typeface.DEFAULT_BOLD);
+monitoringStatus.setGravity(Gravity.CENTER);
+monitoringCard.addView(monitoringStatus, margin(0, 0, 0, 12));
 
-    monitoringTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+// NEW KNOB - هو زر START الجديد
+NeonVolumeKnobView knobView = new NeonVolumeKnobView(this);
+LinearLayout.LayoutParams knobParams = new LinearLayout.LayoutParams(dp(110), dp(110));
+knobParams.gravity = Gravity.CENTER_HORIZONTAL;
+knobView.setLayoutParams(knobParams);
 
-    monitoringCard.addView(
-            monitoringTitle
-    );
+knobView.setOnClickListener(v -> {
+    if (selectedCountry.length() == 0) {
+        new AlertDialog.Builder(MainActivity.this)
+            .setTitle("Select a country")
+            .setMessage("Please select a country before starting monitoring.")
+            .setPositiveButton("OK", null)
+            .show();
+        return;
+    }
+    
+    boolean newState = !knobView.isActive();
+    knobView.setActive(newState);
+    
+    if (newState) {
+        monitoringStatus.setText("Monitoring is active • " + selectedCountry);
+        monitoringStatus.setTextColor(GREEN);
+    } else {
+        monitoringStatus.setText("Monitoring is paused");
+        monitoringStatus.setTextColor(GRAY);
+    }
+});
 
-    // Description
-    monitoringCard.addView(
-            text(
-                    "Get notified when an appointment slot is detected.",
-                    11,
-                    GRAY
-            ),
-            margin(0, 4, 0, 8)
-    );
- 
+monitoringCard.addView(knobView);
+page.addView(monitoringCard, margin(0, 0, 0, 12));
 
-    // =====================================================
-    // STATUS
-    // =====================================================
-
-    TextView monitoringStatus =
-            text(
-                    "Monitoring is paused",
-                    13,
-                    GRAY
-            );
-
-    monitoringStatus.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    monitoringCard.addView(
-            monitoringStatus,
-            margin(0, 0, 0, 10)
-    );
-
-    // =====================================================
-    // START MONITORING
-    // =====================================================
-
-    Button startMonitoring =
-            smallButton(
-                    "START MONITORING"
-            );
-
-    startMonitoring.setOnClickListener(
-            v -> {
-
-                if (selectedCountry.length() == 0) {
-
-                    new AlertDialog.Builder(
-                            MainActivity.this
-                    )
-                            .setTitle(
-                                    "Select a country"
-                            )
-                            .setMessage(
-                                    "Please select a country before starting monitoring."
-                            )
-                            .setPositiveButton(
-                                    "OK",
-                                    null
-                            )
-                            .show();
-
-                    return;
-                }
-
-                monitoringStatus.setText(
-                        "Monitoring is active • " +
-                        selectedCountry
-                );
-
-                monitoringStatus.setTextColor(
-                        GREEN
-                );
-
-                startMonitoring.setText(
-                        "MONITORING ACTIVE"
-                );
-            }
-    );
-
-    monitoringCard.addView(
-            startMonitoring
-    );
-
-    page.addView(
-            monitoringCard,
-            margin(0, 0, 0, 12)
-    );
 
     // =====================================================
     // AVAILABILITY CARD
