@@ -8476,6 +8476,7 @@ startBtn.setOnClickListener(v -> {
     );
 
     
+    
     // =================================================
     // STOP MONITORING
     // =================================================
@@ -8497,10 +8498,26 @@ startBtn.setOnClickListener(v -> {
                 "Yes, Stop",
                 (dialog, which) -> {
 
-                    serviceIntent.setAction("STOP_MONITORING");
+                    Intent stopIntent = new Intent(
+                            MainActivity.this,
+                            AppointmentMonitoringService.class
+                    );
+
+                    stopIntent.setAction("STOP_MONITORING");
 
                     try {
-                        startService(serviceIntent);
+                        android.content.ComponentName result =
+                                startService(stopIntent);
+
+                        if (result == null) {
+                            Toast.makeText(
+                                    MainActivity.this,
+                                    "Unable to send stop command",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            return;
+                        }
 
                         startBtn.setActive(false);
 
@@ -8537,6 +8554,7 @@ startBtn.setOnClickListener(v -> {
         .show();
 
     } else {
+ 
  
 
         // =============================================
