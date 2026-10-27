@@ -1,6 +1,8 @@
 
 package com.bls.rendezvous;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
@@ -20,6 +22,7 @@ import android.view.animation.LinearInterpolator;
 public class SmallNeonStartButton extends View {
 
     private boolean isActive = false;
+    private boolean isNeonVisible = false;
     private String text = "START";
 
     private final Paint bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -76,11 +79,13 @@ public class SmallNeonStartButton extends View {
         neonBasePaint.setStrokeCap(Paint.Cap.ROUND);
         neonBasePaint.setStrokeJoin(Paint.Join.ROUND);
 
+        // Soft outer glow
         neonGlowPaint.setStyle(Paint.Style.STROKE);
-        neonGlowPaint.setStrokeWidth(dp(4f));
+        neonGlowPaint.setStrokeWidth(dp(6f));
         neonGlowPaint.setStrokeCap(Paint.Cap.ROUND);
         neonGlowPaint.setStrokeJoin(Paint.Join.ROUND);
 
+        // Bright, thin light core
         neonCorePaint.setStyle(Paint.Style.STROKE);
         neonCorePaint.setStrokeWidth(dp(1.8f));
         neonCorePaint.setStrokeCap(Paint.Cap.ROUND);
@@ -100,12 +105,12 @@ public class SmallNeonStartButton extends View {
         setFocusable(true);
         setElevation(dp(3));
 
-        // Neon glow support
+        // Required for the neon blur
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         updateAccessibility();
 
-        // Two complete laps, started only by setActive()
+        // Exactly two laps; no automatic animation on opening
         animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(1800L);
         animator.setRepeatCount(1);
@@ -115,6 +120,21 @@ public class SmallNeonStartButton extends View {
         animator.addUpdateListener(animation -> {
             rotation = (float) animation.getAnimatedValue();
             invalidate();
+        });
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                isNeonVisible = true;
+                invalidate();
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isNeonVisible = false;
+                rotation = 0f;
+                invalidate();
+            }
         });
     }
 
@@ -129,11 +149,14 @@ public class SmallNeonStartButton extends View {
         updateAccessibility();
         requestLayout();
 
-        // Stop any previous animation and restart from the beginning.
         if (animator != null) {
+            // Cancel previous animation before starting a new one
             animator.cancel();
+
             rotation = 0f;
+            isNeonVisible = false;
             invalidate();
+
             animator.start();
         }
     }
@@ -179,13 +202,14 @@ public class SmallNeonStartButton extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        // Intentionally do not start the animation automatically.
+        // Do not start the neon automatically
     }
 
     @Override
     protected void onDetachedFromWindow() {
         if (animator != null) {
             animator.cancel();
+            isNeonVisible = false;
         }
 
         super.onDetachedFromWindow();
@@ -212,7 +236,7 @@ public class SmallNeonStartButton extends View {
                 height - inset
         );
 
-        // Blue gradient background
+        // Premium blue gradient background
         bgPaint.setShader(
                 new LinearGradient(
                         0, 0, width, height,
@@ -229,7 +253,7 @@ public class SmallNeonStartButton extends View {
         canvas.drawRoundRect(rect, dp(12), dp(12), bgPaint);
         bgPaint.setShader(null);
 
-        // Rounded path followed by the neon beam
+        // Rounded border path
         float pathInset = dp(5f);
 
         ringRect.set(
@@ -247,7 +271,7 @@ public class SmallNeonStartButton extends View {
                 Path.Direction.CW
         );
 
-        // Static pale border
+        // Static border remains visible
         borderPaint.setColor(
                 isActive
                         ? Color.parseColor("#FFFFB9B9")
@@ -256,7 +280,7 @@ public class SmallNeonStartButton extends View {
 
         canvas.drawPath(borderPath, borderPaint);
 
-        // Subtle static neon line
+        // Subtle static edge
         neonBasePaint.setColor(
                 isActive
                         ? Color.parseColor("#66FF7777")
@@ -265,65 +289,72 @@ public class SmallNeonStartButton extends View {
 
         canvas.drawPath(borderPath, neonBasePaint);
 
-        // Animated neon segment
-        PathMeasure pm = new PathMeasure(borderPath, true);
-        float pathLength = pm.getLength();
+        // Draw the moving light only while the animation is running
+        if (isNeonVisible) {
 
-        float segmentLength = pathLength * 0.25f;
-        float startOffset = rotation * pathLength;
-        float endOffset = startOffset + segmentLength;
+            PathMeasure pm = new PathMeasure(borderPath, true);
+            float pathLength = pm.getLength();
 
-        segmentPath.reset();
-        extraSegmentPath.reset();
+            // Short beam: 8% of the border perimeter
+            float segmentLength = pathLength * 0.08f;
 
-        if (endOffset <= pathLength) {
-            pm.getSegment(
-                    startOffset,
-                    endOffset,
-                    segmentPath,
-                    true
+            float startOffset = rotation * pathLength;
+            float endOffset = startOffset + segmentLength;
+
+            segmentPath.reset();
+            extraSegmentPath.reset();
+
+            if (endOffset <= pathLength) {
+                pm.getSegment(
+                        startOffset,
+                        endOffset,
+                        segmentPath,
+                        true
+                );
+            } else {
+                pm.getSegment(
+                        startOffset,
+                        pathLength,
+                        segmentPath,
+                        true
+                );
+
+                pm.getSegment(
+                        0f,
+                        endOffset - pathLength,
+                        extraSegmentPath,
+                        true
+                );
+            }
+
+            int glowColor = isActive
+                    ? Color.parseColor("#FFFF5555")
+                    : Color.parseColor("#FF00E5FF");
+
+            int coreColor = isActive
+                    ? Color.parseColor("#FFFFCCCC")
+                    : Color.parseColor("#FFE0FCFF");
+
+            // Outer glow
+            neonGlowPaint.setColor(glowColor);
+            neonGlowPaint.setMaskFilter(
+                    new BlurMaskFilter(
+                            dp(3f),
+                            BlurMaskFilter.Blur.NORMAL
+                    )
             );
-        } else {
-            pm.getSegment(
-                    startOffset,
-                    pathLength,
-                    segmentPath,
-                    true
-            );
 
-            pm.getSegment(
-                    0f,
-                    endOffset - pathLength,
-                    extraSegmentPath,
-                    true
-            );
+            // Bright center of the beam
+            neonCorePaint.setColor(coreColor);
+
+            canvas.drawPath(segmentPath, neonGlowPaint);
+            canvas.drawPath(extraSegmentPath, neonGlowPaint);
+
+            canvas.drawPath(segmentPath, neonCorePaint);
+            canvas.drawPath(extraSegmentPath, neonCorePaint);
+
+            neonGlowPaint.setMaskFilter(null);
         }
-
-        int glowColor = isActive
-                ? Color.parseColor("#FFFF5555")
-                : Color.parseColor("#FF00E5FF");
-
-        int coreColor = isActive
-                ? Color.parseColor("#FFFFCCCC")
-                : Color.parseColor("#FFE0FCFF");
-
-        neonGlowPaint.setColor(glowColor);
-        neonGlowPaint.setMaskFilter(
-                new BlurMaskFilter(
-                        dp(3f),
-                        BlurMaskFilter.Blur.NORMAL
-                )
-        );
-
-        neonCorePaint.setColor(coreColor);
-
-        canvas.drawPath(segmentPath, neonGlowPaint);
-        canvas.drawPath(extraSegmentPath, neonGlowPaint);
-
-        canvas.drawPath(segmentPath, neonCorePaint);
-        canvas.drawPath(extraSegmentPath, neonCorePaint);
-
-        neonGlowPaint.setMaskFilter(null);
 
         // Centered icon and text
         float iconSize = dp(12f);
