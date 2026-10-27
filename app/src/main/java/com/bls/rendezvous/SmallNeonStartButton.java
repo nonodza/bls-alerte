@@ -3,6 +3,7 @@ package com.bls.rendezvous;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -39,8 +40,6 @@ public class SmallNeonStartButton extends View {
 
     private float density;
     private float scaledDensity;
-
-    // Animation progress: 0.0 to 1.0
     private float rotation = 0f;
 
     private ValueAnimator animator;
@@ -50,10 +49,7 @@ public class SmallNeonStartButton extends View {
         init();
     }
 
-    public SmallNeonStartButton(
-            Context context,
-            AttributeSet attrs
-    ) {
+    public SmallNeonStartButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -67,12 +63,8 @@ public class SmallNeonStartButton extends View {
     }
 
     private void init() {
-
-        density = getResources()
-                .getDisplayMetrics().density;
-
-        scaledDensity = getResources()
-                .getDisplayMetrics().scaledDensity;
+        density = getResources().getDisplayMetrics().density;
+        scaledDensity = getResources().getDisplayMetrics().scaledDensity;
 
         bgPaint.setStyle(Paint.Style.FILL);
 
@@ -97,10 +89,7 @@ public class SmallNeonStartButton extends View {
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(sp(12));
         textPaint.setTypeface(
-                Typeface.create(
-                        "sans-serif",
-                        Typeface.BOLD
-                )
+                Typeface.create("sans-serif", Typeface.BOLD)
         );
         textPaint.setTextAlign(Paint.Align.LEFT);
 
@@ -111,14 +100,14 @@ public class SmallNeonStartButton extends View {
         setFocusable(true);
         setElevation(dp(3));
 
-        // Required for the neon glow on Android
+        // Neon glow support
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         updateAccessibility();
 
-        // One continuous animator, independent of START / STOP
+        // Two complete laps, started only by setActive()
         animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(2400L);
+        animator.setDuration(1800L);
         animator.setRepeatCount(1);
         animator.setRepeatMode(ValueAnimator.RESTART);
         animator.setInterpolator(new LinearInterpolator());
@@ -130,7 +119,6 @@ public class SmallNeonStartButton extends View {
     }
 
     public void setActive(boolean active) {
-
         if (isActive == active) {
             return;
         }
@@ -139,11 +127,15 @@ public class SmallNeonStartButton extends View {
         text = active ? "STOP" : "START";
 
         updateAccessibility();
-
         requestLayout();
-        invalidate();
 
-        // Deliberately do not start, stop, or reset the animator here.
+        // Stop any previous animation and restart from the beginning.
+        if (animator != null) {
+            animator.cancel();
+            rotation = 0f;
+            invalidate();
+            animator.start();
+        }
     }
 
     public boolean isActive() {
@@ -163,7 +155,6 @@ public class SmallNeonStartButton extends View {
             int widthMeasureSpec,
             int heightMeasureSpec
     ) {
-
         float iconWidth = dp(12);
         float gap = dp(6);
         float horizontalPadding = dp(12);
@@ -179,14 +170,8 @@ public class SmallNeonStartButton extends View {
         int desiredHeight = (int) dp(42);
 
         setMeasuredDimension(
-                resolveSize(
-                        desiredWidth,
-                        widthMeasureSpec
-                ),
-                resolveSize(
-                        desiredHeight,
-                        heightMeasureSpec
-                )
+                resolveSize(desiredWidth, widthMeasureSpec),
+                resolveSize(desiredHeight, heightMeasureSpec)
         );
     }
 
@@ -194,15 +179,11 @@ public class SmallNeonStartButton extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        // Restart animation only when the View is attached.
-        if (animator != null && !animator.isStarted()) {
-            animator.start();
-        }
+        // Intentionally do not start the animation automatically.
     }
 
     @Override
     protected void onDetachedFromWindow() {
-
         if (animator != null) {
             animator.cancel();
         }
@@ -224,7 +205,6 @@ public class SmallNeonStartButton extends View {
         float inset = dp(3f);
         float radius = dp(11f);
 
-        // Button bounds
         rect.set(
                 inset,
                 inset,
@@ -235,10 +215,7 @@ public class SmallNeonStartButton extends View {
         // Blue gradient background
         bgPaint.setShader(
                 new LinearGradient(
-                        0,
-                        0,
-                        width,
-                        height,
+                        0, 0, width, height,
                         new int[]{
                                 Color.parseColor("#1649E8"),
                                 Color.parseColor("#087FE8"),
@@ -249,16 +226,10 @@ public class SmallNeonStartButton extends View {
                 )
         );
 
-        canvas.drawRoundRect(
-                rect,
-                dp(12),
-                dp(12),
-                bgPaint
-        );
-
+        canvas.drawRoundRect(rect, dp(12), dp(12), bgPaint);
         bgPaint.setShader(null);
 
-        // Build the exact rounded path followed by the neon beam
+        // Rounded path followed by the neon beam
         float pathInset = dp(5f);
 
         ringRect.set(
@@ -269,7 +240,6 @@ public class SmallNeonStartButton extends View {
         );
 
         borderPath.reset();
-
         borderPath.addRoundRect(
                 ringRect,
                 radius,
@@ -284,183 +254,119 @@ public class SmallNeonStartButton extends View {
                         : Color.parseColor("#E8FCFF")
         );
 
-        canvas.drawPath(
-                borderPath,
-                borderPaint
-        );
+        canvas.drawPath(borderPath, borderPaint);
 
-        // Subtle continuous neon line
+        // Subtle static neon line
         neonBasePaint.setColor(
                 isActive
                         ? Color.parseColor("#66FF7777")
                         : Color.parseColor("#6653F5FF")
         );
 
-        canvas.drawPath(
-                borderPath,
-                neonBasePaint
-        );
+        canvas.drawPath(borderPath, neonBasePaint);
 
-        // Moving light segment along the rounded rectangle
-        PathMeasure pathMeasure = new PathMeasure(
-                borderPath,
-                true
-        );
+        // Animated neon segment
+        PathMeasure pm = new PathMeasure(borderPath, true);
+        float pathLength = pm.getLength();
 
-        float pathLength = pathMeasure.getLength();
+        float segmentLength = pathLength * 0.25f;
+        float startOffset = rotation * pathLength;
+        float endOffset = startOffset + segmentLength;
 
-        if (pathLength > 0f) {
+        segmentPath.reset();
+        extraSegmentPath.reset();
 
-            float segmentLength = Math.min(
-                    dp(42f),
-                    pathLength * 0.24f
-            );
-
-            float startDistance = rotation * pathLength;
-            float endDistance = startDistance + segmentLength;
-
-            segmentPath.reset();
-            extraSegmentPath.reset();
-
-            if (endDistance <= pathLength) {
-
-                pathMeasure.getSegment(
-                        startDistance,
-                        endDistance,
-                        segmentPath,
-                        true
-                );
-
-            } else {
-
-                // Draw the part before the path endpoint
-                pathMeasure.getSegment(
-                        startDistance,
-                        pathLength,
-                        segmentPath,
-                        true
-                );
-
-                // Continue from the beginning without a visible jump
-                pathMeasure.getSegment(
-                        0f,
-                        endDistance - pathLength,
-                        extraSegmentPath,
-                        true
-                );
-
-                segmentPath.addPath(extraSegmentPath);
-            }
-
-            int beamColor = isActive
-                    ? Color.parseColor("#FFFF7777")
-                    : Color.parseColor("#42F5FF");
-
-            // Outer neon glow
-            neonGlowPaint.setColor(beamColor);
-            neonGlowPaint.setShadowLayer(
-                    dp(7f),
-                    0f,
-                    0f,
-                    beamColor
-            );
-
-            canvas.drawPath(
+        if (endOffset <= pathLength) {
+            pm.getSegment(
+                    startOffset,
+                    endOffset,
                     segmentPath,
-                    neonGlowPaint
+                    true
             );
-
-            // Bright center of the moving beam
-            neonCorePaint.setColor(
-                    isActive
-                            ? Color.WHITE
-                            : Color.parseColor("#C8FFFF")
-            );
-
-            neonCorePaint.setShadowLayer(
-                    dp(3f),
-                    0f,
-                    0f,
-                    beamColor
-            );
-
-            canvas.drawPath(
+        } else {
+            pm.getSegment(
+                    startOffset,
+                    pathLength,
                     segmentPath,
-                    neonCorePaint
+                    true
             );
 
-            neonGlowPaint.clearShadowLayer();
-            neonCorePaint.clearShadowLayer();
+            pm.getSegment(
+                    0f,
+                    endOffset - pathLength,
+                    extraSegmentPath,
+                    true
+            );
         }
 
-        // Center the icon and label together
-        float centerY = height / 2f;
-        float iconSize = dp(11f);
+        int glowColor = isActive
+                ? Color.parseColor("#FFFF5555")
+                : Color.parseColor("#FF00E5FF");
+
+        int coreColor = isActive
+                ? Color.parseColor("#FFFFCCCC")
+                : Color.parseColor("#FFE0FCFF");
+
+        neonGlowPaint.setColor(glowColor);
+        neonGlowPaint.setMaskFilter(
+                new BlurMaskFilter(
+                        dp(3f),
+                        BlurMaskFilter.Blur.NORMAL
+                )
+        );
+
+        neonCorePaint.setColor(coreColor);
+
+        canvas.drawPath(segmentPath, neonGlowPaint);
+        canvas.drawPath(extraSegmentPath, neonGlowPaint);
+
+        canvas.drawPath(segmentPath, neonCorePaint);
+        canvas.drawPath(extraSegmentPath, neonCorePaint);
+
+        neonGlowPaint.setMaskFilter(null);
+
+        // Centered icon and text
+        float iconSize = dp(12f);
         float gap = dp(6f);
 
         float textWidth = textPaint.measureText(text);
-        float totalWidth = iconSize + gap + textWidth;
-        float startX = (width - totalWidth) / 2f;
+        float totalContentWidth = iconSize + gap + textWidth;
 
-        if (!isActive) {
+        float startX = (width - totalContentWidth) / 2f;
 
-            // START play icon
-            iconPath.reset();
+        Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
 
-            iconPath.moveTo(
+        float textY =
+                (height - fontMetrics.bottom - fontMetrics.top) / 2f;
+
+        float iconTop = (height - iconSize) / 2f;
+
+        iconPath.reset();
+
+        if (isActive) {
+            // STOP square
+            iconPath.addRect(
                     startX,
-                    centerY - iconSize / 2f
+                    iconTop,
+                    startX + iconSize,
+                    iconTop + iconSize,
+                    Path.Direction.CW
             );
-
-            iconPath.lineTo(
-                    startX,
-                    centerY + iconSize / 2f
-            );
-
+        } else {
+            // START triangle
+            iconPath.moveTo(startX, iconTop);
             iconPath.lineTo(
                     startX + iconSize,
-                    centerY
+                    iconTop + iconSize / 2f
             );
-
-            iconPath.close();
-
-            canvas.drawPath(
-                    iconPath,
-                    iconPaint
-            );
-
-        } else {
-
-            // STOP icon
-            float barWidth = dp(3f);
-            float barHeight = dp(10f);
-            float barGap = dp(2.5f);
-
-            canvas.drawRoundRect(
+            iconPath.lineTo(
                     startX,
-                    centerY - barHeight / 2f,
-                    startX + barWidth,
-                    centerY + barHeight / 2f,
-                    dp(1f),
-                    dp(1f),
-                    iconPaint
+                    iconTop + iconSize
             );
-
-            canvas.drawRoundRect(
-                    startX + barWidth + barGap,
-                    centerY - barHeight / 2f,
-                    startX + barWidth * 2f + barGap,
-                    centerY + barHeight / 2f,
-                    dp(1f),
-                    dp(1f),
-                    iconPaint
-            );
+            iconPath.close();
         }
 
-        Paint.FontMetrics metrics = textPaint.getFontMetrics();
-
-        float textY = centerY
-                - (metrics.ascent + metrics.descent) / 2f;
+        canvas.drawPath(iconPath, iconPaint);
 
         canvas.drawText(
                 text,
