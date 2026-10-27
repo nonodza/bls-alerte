@@ -1,5 +1,7 @@
+
 package com.bls.rendezvous;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,30 +10,36 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 public class SmallNeonStartButton extends View {
 
     private boolean isActive = false;
-
     private String text = "START";
 
-    private Paint bgPaint;
-    private Paint textPaint;
-    private Paint iconPaint;
+    private final Paint bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint glowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint iconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private final RectF rect = new RectF();
+    private final RectF ringRect = new RectF();
     private final Path iconPath = new Path();
 
     private float density;
     private float scaledDensity;
+    private float rotation = 0f;
 
-    private int startColor1;
-    private int startColor2;
-    private int stopColor1;
-    private int stopColor2;
+    private ValueAnimator animator;
+
+    private final int blue1 = Color.parseColor("#174CF5");
+    private final int blue2 = Color.parseColor("#087EDC");
+    private final int cyan = Color.parseColor("#42F5FF");
 
     public SmallNeonStartButton(Context context) {
         super(context);
@@ -46,95 +54,84 @@ public class SmallNeonStartButton extends View {
         init();
     }
 
+    private float dp(float value) {
+        return value * density;
+    }
+
+    private float sp(float value) {
+        return value * scaledDensity;
+    }
+
     private void init() {
-
-        density = getResources()
-                .getDisplayMetrics().density;
-
-        scaledDensity = getResources()
-                .getDisplayMetrics().scaledDensity;
-
-        startColor1 = Color.parseColor("#1554F0");
-        startColor2 = Color.parseColor("#00BFEA");
-
-        stopColor1 = Color.parseColor("#EF4444");
-        stopColor2 = Color.parseColor("#B91C1C");
-
-        bgPaint = new Paint(
-                Paint.ANTI_ALIAS_FLAG
-        );
+        density = getResources().getDisplayMetrics().density;
+        scaledDensity = getResources().getDisplayMetrics().scaledDensity;
 
         bgPaint.setStyle(Paint.Style.FILL);
 
-        textPaint = new Paint(
-                Paint.ANTI_ALIAS_FLAG
+        glowPaint.setStyle(Paint.Style.STROKE);
+        glowPaint.setStrokeWidth(dp(2.2f));
+        glowPaint.setStrokeCap(Paint.Cap.ROUND);
+        glowPaint.setShadowLayer(
+                dp(5),
+                0,
+                0,
+                Color.parseColor("#6642F5FF")
         );
+
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(dp(1f));
+        borderPaint.setColor(Color.parseColor("#A6EFFF"));
 
         textPaint.setColor(Color.WHITE);
-
         textPaint.setTextSize(sp(12));
-
         textPaint.setTypeface(
-                Typeface.create(
-                        "sans-serif",
-                        Typeface.BOLD
-                )
+                Typeface.create("sans-serif", Typeface.BOLD)
         );
-
-        textPaint.setTextAlign(
-                Paint.Align.LEFT
-        );
-
-        iconPaint = new Paint(
-                Paint.ANTI_ALIAS_FLAG
-        );
+        textPaint.setTextAlign(Paint.Align.LEFT);
 
         iconPaint.setColor(Color.WHITE);
-
-        iconPaint.setStyle(
-                Paint.Style.FILL
-        );
+        iconPaint.setStyle(Paint.Style.FILL);
 
         setClickable(true);
         setFocusable(true);
+        setElevation(dp(3));
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        setElevation(dp(4));
+        setContentDescription("Start appointment monitoring");
 
-        setLayerType(
-                View.LAYER_TYPE_SOFTWARE,
-                null
-        );
+        animator = ValueAnimator.ofFloat(0f, 360f);
+        animator.setDuration(2400);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new LinearInterpolator());
 
-        updateAccessibility();
+        animator.addUpdateListener(animation -> {
+            rotation = (float) animation.getAnimatedValue();
+            invalidate();
+        });
+
+        animator.start();
     }
 
     public void setActive(boolean active) {
-
         if (isActive == active) {
             return;
         }
 
         isActive = active;
-
         text = active ? "STOP" : "START";
 
-        updateAccessibility();
+        setContentDescription(
+                active
+                        ? "Stop appointment monitoring"
+                        : "Start appointment monitoring"
+        );
 
-        requestLayout();
         invalidate();
+        requestLayout();
     }
 
     public boolean isActive() {
         return isActive;
-    }
-
-    private void updateAccessibility() {
-
-        setContentDescription(
-                isActive
-                        ? "Stop appointment monitoring"
-                        : "Start appointment monitoring"
-        );
     }
 
     @Override
@@ -142,33 +139,12 @@ public class SmallNeonStartButton extends View {
             int widthMeasureSpec,
             int heightMeasureSpec
     ) {
-
-        float iconWidth = dp(12);
-        float gap = dp(8);
-        float horizontalPadding = dp(14);
-
-        int desiredWidth = (int) (
-                horizontalPadding * 2
-                        + iconWidth
-                        + gap
-                        + textPaint.measureText(text)
-        );
-
+        int desiredWidth = (int) dp(92);
         int desiredHeight = (int) dp(42);
 
-        int measuredWidth = resolveSize(
-                Math.max((int) dp(92), desiredWidth),
-                widthMeasureSpec
-        );
-
-        int measuredHeight = resolveSize(
-                desiredHeight,
-                heightMeasureSpec
-        );
-
         setMeasuredDimension(
-                measuredWidth,
-                measuredHeight
+                resolveSize(desiredWidth, widthMeasureSpec),
+                resolveSize(desiredHeight, heightMeasureSpec)
         );
     }
 
@@ -183,201 +159,173 @@ public class SmallNeonStartButton extends View {
             return;
         }
 
+        float inset = dp(2);
         float radius = dp(13);
 
         rect.set(
-                dp(1),
-                dp(1),
-                width - dp(1),
-                height - dp(1)
+                inset,
+                inset,
+                width - inset,
+                height - inset
         );
 
-        int color1 = isActive
-                ? stopColor1
-                : startColor1;
-
-        int color2 = isActive
-                ? stopColor2
-                : startColor2;
-
+        // Blue gradient background
         bgPaint.setShader(
                 new LinearGradient(
                         0,
                         0,
                         width,
                         height,
-                        color1,
-                        color2,
+                        new int[]{
+                                blue1,
+                                blue2,
+                                Color.parseColor("#1558C9")
+                        },
+                        null,
                         Shader.TileMode.CLAMP
                 )
+        );
+
+        canvas.drawRoundRect(rect, radius, radius, bgPaint);
+        bgPaint.setShader(null);
+
+        // Soft cyan border
+        borderPaint.setColor(
+                isActive
+                        ? Color.parseColor("#FFB7B7")
+                        : Color.parseColor("#91F4FF")
         );
 
         canvas.drawRoundRect(
                 rect,
                 radius,
                 radius,
-                bgPaint
+                borderPaint
         );
 
-        bgPaint.setShader(null);
+        // Animated neon ring around the button
+        ringRect.set(
+                dp(1.5f),
+                dp(1.5f),
+                width - dp(1.5f),
+                height - dp(1.5f)
+        );
 
-        float centerY = height / 2f;
+        int[] ringColors = isActive
+                ? new int[]{
+                        Color.TRANSPARENT,
+                        Color.parseColor("#FFFF7777"),
+                        Color.parseColor("#FFFF3333"),
+                        Color.TRANSPARENT
+                }
+                : new int[]{
+                        Color.TRANSPARENT,
+                        Color.parseColor("#5542F5FF"),
+                        cyan,
+                        Color.WHITE,
+                        cyan,
+                        Color.TRANSPARENT
+                };
 
-        float iconX = dp(13);
-        float iconSize = dp(12);
+        float[] positions = isActive
+                ? new float[]{0f, 0.35f, 0.48f, 1f}
+                : new float[]{0f, 0.25f, 0.40f, 0.48f, 0.62f, 1f};
 
-        if (!isActive) {
+        SweepGradient sweep = new SweepGradient(
+                width / 2f,
+                height / 2f,
+                ringColors,
+                positions
+        );
 
-            // START: Play icon
-
-            iconPath.reset();
-
-            iconPath.moveTo(
-                    iconX,
-                    centerY - iconSize / 2f
-            );
-
-            iconPath.lineTo(
-                    iconX,
-                    centerY + iconSize / 2f
-            );
-
-            iconPath.lineTo(
-                    iconX + iconSize,
-                    centerY
-            );
-
-            iconPath.close();
-
-            canvas.drawPath(
-                    iconPath,
-                    iconPaint
-            );
-
-        } else {
-
-            // STOP: Two vertical bars
-
-            float barWidth = dp(3);
-            float barHeight = dp(11);
-            float barGap = dp(3);
-
-            canvas.drawRoundRect(
-                    iconX,
-                    centerY - barHeight / 2f,
-                    iconX + barWidth,
-                    centerY + barHeight / 2f,
-                    dp(1),
-                    dp(1),
-                    iconPaint
-            );
-
-            canvas.drawRoundRect(
-                    iconX + barWidth + barGap,
-                    centerY - barHeight / 2f,
-                    iconX + barWidth * 2 + barGap,
-                    centerY + barHeight / 2f,
-                    dp(1),
-                    dp(1),
-                    iconPaint
-            );
-        }
-
-        // Center the icon and label together
-
-        float gap = dp(7);
-
-        float textWidth = textPaint.measureText(text);
-
-        float totalWidth = dp(12) + gap + textWidth;
-
-        float contentStart = (width - totalWidth) / 2f;
-
-        float textX = contentStart + dp(12) + gap;
-
-        // Redraw the icon at its centered position
+        glowPaint.setShader(sweep);
 
         canvas.save();
+        canvas.rotate(rotation, width / 2f, height / 2f);
 
-        canvas.translate(
-                contentStart - iconX,
-                0
+        canvas.drawRoundRect(
+                ringRect,
+                radius,
+                radius,
+                glowPaint
         );
-
-        if (!isActive) {
-
-            iconPath.reset();
-
-            iconPath.moveTo(
-                    iconX,
-                    centerY - iconSize / 2f
-            );
-
-            iconPath.lineTo(
-                    iconX,
-                    centerY + iconSize / 2f
-            );
-
-            iconPath.lineTo(
-                    iconX + iconSize,
-                    centerY
-            );
-
-            iconPath.close();
-
-            canvas.drawPath(
-                    iconPath,
-                    iconPaint
-            );
-
-        } else {
-
-            float barWidth = dp(3);
-            float barHeight = dp(11);
-            float barGap = dp(3);
-
-            canvas.drawRoundRect(
-                    iconX,
-                    centerY - barHeight / 2f,
-                    iconX + barWidth,
-                    centerY + barHeight / 2f,
-                    dp(1),
-                    dp(1),
-                    iconPaint
-            );
-
-            canvas.drawRoundRect(
-                    iconX + barWidth + barGap,
-                    centerY - barHeight / 2f,
-                    iconX + barWidth * 2 + barGap,
-                    centerY + barHeight / 2f,
-                    dp(1),
-                    dp(1),
-                    iconPaint
-            );
-        }
 
         canvas.restore();
 
-        Paint.FontMetrics metrics =
-                textPaint.getFontMetrics();
+        glowPaint.setShader(null);
+
+        // Center icon and label together
+        float centerY = height / 2f;
+        float iconSize = dp(11);
+        float gap = dp(6);
+        float textWidth = textPaint.measureText(text);
+        float totalWidth = iconSize + gap + textWidth;
+        float startX = (width - totalWidth) / 2f;
+
+        if (!isActive) {
+            // Play icon
+            iconPath.reset();
+            iconPath.moveTo(startX, centerY - iconSize / 2f);
+            iconPath.lineTo(startX, centerY + iconSize / 2f);
+            iconPath.lineTo(startX + iconSize, centerY);
+            iconPath.close();
+
+            canvas.drawPath(iconPath, iconPaint);
+        } else {
+            // Stop icon
+            float barWidth = dp(3);
+            float barHeight = dp(10);
+            float barGap = dp(2.5f);
+
+            canvas.drawRoundRect(
+                    startX,
+                    centerY - barHeight / 2f,
+                    startX + barWidth,
+                    centerY + barHeight / 2f,
+                    dp(1),
+                    dp(1),
+                    iconPaint
+            );
+
+            canvas.drawRoundRect(
+                    startX + barWidth + barGap,
+                    centerY - barHeight / 2f,
+                    startX + barWidth * 2 + barGap,
+                    centerY + barHeight / 2f,
+                    dp(1),
+                    dp(1),
+                    iconPaint
+            );
+        }
+
+        Paint.FontMetrics metrics = textPaint.getFontMetrics();
 
         float textY = centerY
                 - (metrics.ascent + metrics.descent) / 2f;
 
         canvas.drawText(
                 text,
-                textX,
+                startX + iconSize + gap,
                 textY,
                 textPaint
         );
     }
 
-    private float dp(float value) {
-        return value * density;
+    @Override
+    protected void onDetachedFromWindow() {
+        if (animator != null) {
+            animator.cancel();
+        }
+
+        super.onDetachedFromWindow();
     }
 
-    private float sp(float value) {
-        return value * scaledDensity;
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        if (animator != null && !animator.isStarted()) {
+            animator.start();
+        }
     }
 }
