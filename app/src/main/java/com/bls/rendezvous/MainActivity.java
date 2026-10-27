@@ -8538,16 +8538,22 @@ startBtn.setOnClickListener(v -> {
                     } catch (Exception e) {
 
                         android.util.Log.e(
-                                "BLS_STOP",
-                                "Failed to stop monitoring",
-                                e
-                        );
+        "BLS_STOP",
+        "Failed to stop monitoring",
+        e
+);
 
-                        Toast.makeText(
-                                MainActivity.this,
-                                "Unable to stop monitoring",
-                                Toast.LENGTH_SHORT
-                        ).show();
+new androidx.appcompat.app.AlertDialog.Builder(
+        MainActivity.this
+)
+.setTitle("Stop Error")
+.setMessage(
+        e.getClass().getSimpleName()
+                + ": "
+                + e.getMessage()
+)
+.setPositiveButton("OK", null)
+.show(); 
                     }
                 }
         )
