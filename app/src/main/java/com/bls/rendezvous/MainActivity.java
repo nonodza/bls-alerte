@@ -8475,6 +8475,7 @@ startBtn.setOnClickListener(v -> {
             AppointmentMonitoringService.class
     );
 
+    
     // =================================================
     // STOP MONITORING
     // =================================================
@@ -8496,53 +8497,47 @@ startBtn.setOnClickListener(v -> {
                 "Yes, Stop",
                 (dialog, which) -> {
 
-                    
-serviceIntent.setAction("STOP_MONITORING");
+                    serviceIntent.setAction("STOP_MONITORING");
 
-try {
-    startService(serviceIntent);
+                    try {
+                        startService(serviceIntent);
 
-    startBtn.setActive(false);
+                        startBtn.setActive(false);
 
-    centerCol.removeView(activeWrapper);
-    centerCol.removeView(inactiveTxt);
+                        centerCol.removeView(activeWrapper);
+                        centerCol.removeView(inactiveTxt);
 
-    centerCol.addView(
-            inactiveTxt,
-            activeLp
-    );
+                        centerCol.addView(
+                                inactiveTxt,
+                                activeLp
+                        );
 
-    Toast.makeText(
-            MainActivity.this,
-            "Monitoring stopped",
-            Toast.LENGTH_SHORT
-    ).show();
+                        Toast.makeText(
+                                MainActivity.this,
+                                "Monitoring stopped",
+                                Toast.LENGTH_SHORT
+                        ).show();
 
-} catch (Exception e) {
-    android.util.Log.e(
-            "BLS_STOP",
-            "Failed to stop monitoring",
-            e
-    );
+                    } catch (Exception e) {
 
-    Toast.makeText(
-            MainActivity.this,
-            "Unable to stop monitoring",
-            Toast.LENGTH_SHORT
-    ).show();
-}
+                        android.util.Log.e(
+                                "BLS_STOP",
+                                "Failed to stop monitoring",
+                                e
+                        );
 
-
-                    Toast.makeText(
-                            MainActivity.this,
-                            "Monitoring stopped",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                        Toast.makeText(
+                                MainActivity.this,
+                                "Unable to stop monitoring",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
                 }
         )
         .show();
 
     } else {
+ 
 
         // =============================================
         // START MONITORING
