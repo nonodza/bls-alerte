@@ -106,18 +106,28 @@ public class AppointmentMonitoringService extends Service {
         // =================================================
 
         if (intent != null &&
-                ACTION_STOP.equals(
-                        intent.getAction()
-                )) {
+        ACTION_STOP.equals(intent.getAction())) {
 
-            stopMonitoring();
+    android.util.Log.d(
+            "BLS_STOP",
+            "STOP command received"
+    );
 
-            stopForeground(true);
+    stopMonitoring();
 
-            stopSelf();
+    stopForeground(true);
 
-            return START_NOT_STICKY;
-        }
+    NotificationManager manager =
+            getSystemService(NotificationManager.class);
+
+    if (manager != null) {
+        manager.cancel(NOTIFICATION_ID);
+    }
+
+    stopSelf();
+
+    return START_NOT_STICKY;
+}
 
 
         // =================================================
