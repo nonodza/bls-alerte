@@ -119,7 +119,7 @@ public class SmallNeonStartButton extends View {
         // One continuous animator, independent of START / STOP
         animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(2400L);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setRepeatCount(1);
         animator.setRepeatMode(ValueAnimator.RESTART);
         animator.setInterpolator(new LinearInterpolator());
 
