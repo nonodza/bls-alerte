@@ -8483,9 +8483,9 @@ startBtn.setOnClickListener(v -> {
 
     if (startBtn.isActive()) {
 
-        new androidx.appcompat.app.AlertDialog.Builder(
-                MainActivity.this
-        )
+        new AlertDialog.Builder(
+        MainActivity.this
+) 
         .setTitle("Stop Monitoring?")
         .setMessage(
                 "Are you sure you want to stop monitoring?"
