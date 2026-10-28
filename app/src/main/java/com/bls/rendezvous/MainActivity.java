@@ -9731,6 +9731,7 @@ row.addView(
         );
     }
 
+    
     // =========================================================
     // SETTINGS
     // =========================================================
@@ -9743,12 +9744,14 @@ row.addView(
                 "Settings",
                 "Application preferences and configuration.",
                 new String[]{
+                        "Monitoring Preferences",
                         "Notifications",
                         "Language",
                         "About BLS Rendez-Vous"
                 }
         );
     }
+ 
 
     // =========================================================
     // APPOINTMENT CARD
