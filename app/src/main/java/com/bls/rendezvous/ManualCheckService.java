@@ -103,8 +103,7 @@ public class ManualCheckService extends Service {
             );
 
             try {
-                BLSMonitor monitor = new BLSMonitor(this);
-
+                BLSMonitor monitor = new BLSMonitor();
                 BLSMonitor.Result result =
                         monitor.check(selectedCenter);
 
