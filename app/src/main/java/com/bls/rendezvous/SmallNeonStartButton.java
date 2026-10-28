@@ -9,11 +9,12 @@ import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PathMeasure;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,17 +36,15 @@ public class SmallNeonStartButton extends View {
 
     private final RectF rect = new RectF();
     private final RectF ringRect = new RectF();
-
     private final Path borderPath = new Path();
-    private final Path segmentPath = new Path();
-    private final Path extraSegmentPath = new Path();
-    private final Path iconPath = new Path();
+    private final Matrix shaderMatrix = new Matrix();
 
     private float density;
     private float scaledDensity;
     private float rotation = 0f;
 
     private ValueAnimator animator;
+    private SweepGradient neonGradient;
 
     public SmallNeonStartButton(Context context) {
         super(context);
@@ -108,7 +107,7 @@ public class SmallNeonStartButton extends View {
 
         updateAccessibility();
 
-        // Two laps around the complete border
+        // Two complete rotations: 1800 ms x 2 = 3.6 seconds
         animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(1800L);
         animator.setRepeatCount(1);
@@ -117,6 +116,7 @@ public class SmallNeonStartButton extends View {
 
         animator.addUpdateListener(animation -> {
             rotation = (float) animation.getAnimatedValue();
+            updateNeonShader();
             invalidate();
         });
 
@@ -124,6 +124,7 @@ public class SmallNeonStartButton extends View {
             @Override
             public void onAnimationStart(Animator animation) {
                 isNeonVisible = true;
+                updateNeonShader();
                 invalidate();
             }
 
@@ -131,9 +132,63 @@ public class SmallNeonStartButton extends View {
             public void onAnimationEnd(Animator animation) {
                 isNeonVisible = false;
                 rotation = 0f;
+                updateNeonShader();
                 invalidate();
             }
         });
+    }
+
+    private void createNeonShader() {
+        float centerX = getWidth() / 2f;
+        float centerY = getHeight() / 2f;
+
+        if (centerX <= 0 || centerY <= 0) {
+            return;
+        }
+
+        // Same cyan neon color in both START and STOP.
+        // Brightness varies smoothly around the complete outline.
+        int[] colors = new int[]{
+                Color.parseColor("#FF00AEEF"),
+                Color.parseColor("#FF00F5FF"),
+                Color.parseColor("#FF70FFFF"),
+                Color.parseColor("#FF00E5FF"),
+                Color.parseColor("#FF007FAF"),
+                Color.parseColor("#FF00AEEF")
+        };
+
+        float[] positions = new float[]{
+                0f, 0.20f, 0.38f, 0.60f, 0.82f, 1f
+        };
+
+        neonGradient = new SweepGradient(
+                centerX,
+                centerY,
+                colors,
+                positions
+        );
+
+        updateNeonShader();
+    }
+
+    private void updateNeonShader() {
+        if (neonGradient == null) {
+            return;
+        }
+
+        // Rotate the light distribution around the button center.
+        shaderMatrix.reset();
+        shaderMatrix.setRotate(
+                rotation * 360f,
+                getWidth() / 2f,
+                getHeight() / 2f
+        );
+
+        neonGradient.setLocalMatrix(shaderMatrix);
+
+        neonBasePaint.setShader(neonGradient);
+        neonGlowPaint.setShader(neonGradient);
+        neonCorePaint.setShader(neonGradient);
     }
 
     public void setActive(boolean active) {
@@ -152,6 +207,8 @@ public class SmallNeonStartButton extends View {
 
             rotation = 0f;
             isNeonVisible = false;
+
+            updateNeonShader();
             invalidate();
 
             animator.start();
@@ -198,7 +255,7 @@ public class SmallNeonStartButton extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        // No automatic neon animation when the page opens.
+        // Do not animate automatically when the page opens.
     }
 
     @Override
@@ -209,6 +266,17 @@ public class SmallNeonStartButton extends View {
         }
 
         super.onDetachedFromWindow();
+    }
+
+    @Override
+    protected void onSizeChanged(
+            int width,
+            int height,
+            int oldWidth,
+            int oldHeight
+    ) {
+        super.onSizeChanged(width, height, oldWidth, oldHeight);
+        createNeonShader();
     }
 
     @Override
@@ -232,7 +300,7 @@ public class SmallNeonStartButton extends View {
                 height - inset
         );
 
-        // Premium blue gradient background
+        // Blue gradient background remains unchanged
         bgPaint.setShader(
                 new LinearGradient(
                         0, 0, width, height,
@@ -249,7 +317,7 @@ public class SmallNeonStartButton extends View {
         canvas.drawRoundRect(rect, dp(12), dp(12), bgPaint);
         bgPaint.setShader(null);
 
-        // Complete rounded neon path
+        // Complete rounded outline
         float pathInset = dp(5f);
 
         ringRect.set(
@@ -267,28 +335,16 @@ public class SmallNeonStartButton extends View {
                 Path.Direction.CW
         );
 
-        int neonColor = isActive
-                ? Color.parseColor("#FFFF414D")
-                : Color.parseColor("#FF00E5FF");
-
-        int softNeonColor = isActive
-                ? Color.parseColor("#66FF414D")
-                : Color.parseColor("#6653F5FF");
-
-        // Static border: always visible
+        // Static border remains visible when the animation is off
         borderPaint.setColor(
-                isActive
-                        ? Color.parseColor("#FFFFB9B9")
-                        : Color.parseColor("#FFE8FCFF")
+                Color.parseColor("#FFE8FCFF")
         );
 
         canvas.drawPath(borderPath, borderPaint);
 
-        // During animation, illuminate the WHOLE border
-        if (isNeonVisible) {
+        if (isNeonVisible && neonGradient != null) {
 
-            // Broad, soft glow around the entire frame
-            neonGlowPaint.setColor(softNeonColor);
+            // The entire outline glows, not a separate moving segment.
             neonGlowPaint.setStrokeWidth(dp(5f));
             neonGlowPaint.setMaskFilter(
                     new BlurMaskFilter(
@@ -300,84 +356,28 @@ public class SmallNeonStartButton extends View {
             canvas.drawPath(borderPath, neonGlowPaint);
             neonGlowPaint.setMaskFilter(null);
 
-            // Bright continuous neon outline
-            neonBasePaint.setColor(neonColor);
-            neonBasePaint.setStrokeWidth(dp(1.8f));
+            // Continuous colored neon line
+            neonBasePaint.setStrokeWidth(dp(2f));
             canvas.drawPath(borderPath, neonBasePaint);
 
-            // Fine bright core
-            neonCorePaint.setColor(
-                    isActive
-                            ? Color.parseColor("#FFFFDCDD")
-                            : Color.parseColor("#FFE6FFFF")
-            );
+            // Fine luminous core, using the same rotating gradient
+            neonCorePaint.setStrokeWidth(dp(1.3f));
             canvas.drawPath(borderPath, neonCorePaint);
 
-            // Moving highlight travelling around the entire frame
-            PathMeasure pm = new PathMeasure(borderPath, true);
-            float pathLength = pm.getLength();
-
-            // A longer highlight with a bright head and soft glow
-            float segmentLength = pathLength * 0.16f;
-            float startOffset = rotation * pathLength;
-            float endOffset = startOffset + segmentLength;
-
-            segmentPath.reset();
-            extraSegmentPath.reset();
-
-            if (endOffset <= pathLength) {
-                pm.getSegment(
-                        startOffset,
-                        endOffset,
-                        segmentPath,
-                        true
-                );
-            } else {
-                pm.getSegment(
-                        startOffset,
-                        pathLength,
-                        segmentPath,
-                        true
-                );
-
-                pm.getSegment(
-                        0f,
-                        endOffset - pathLength,
-                        extraSegmentPath,
-                        true
-                );
-            }
-
-            // Highlight glow
-            neonGlowPaint.setColor(Color.WHITE);
-            neonGlowPaint.setStrokeWidth(dp(5f));
-            neonGlowPaint.setMaskFilter(
-                    new BlurMaskFilter(
-                            dp(5f),
-                            BlurMaskFilter.Blur.NORMAL
-                    )
-            );
-
-            canvas.drawPath(segmentPath, neonGlowPaint);
-            canvas.drawPath(extraSegmentPath, neonGlowPaint);
-
-            neonGlowPaint.setMaskFilter(null);
-
-            // Bright highlight core
-            neonCorePaint.setColor(Color.WHITE);
-            neonCorePaint.setStrokeWidth(dp(2.2f));
-
-            canvas.drawPath(segmentPath, neonCorePaint);
-            canvas.drawPath(extraSegmentPath, neonCorePaint);
-
-            // Restore normal core width
-            neonCorePaint.setStrokeWidth(dp(1.8f));
-
         } else {
-            // No moving glow when idle
-            neonBasePaint.setColor(softNeonColor);
+            // Subtle static cyan outline, no moving glow
+            neonBasePaint.setShader(null);
+            neonBasePaint.setColor(
+                    Color.parseColor("#6653F5FF")
+            );
             neonBasePaint.setStrokeWidth(dp(1.2f));
+
             canvas.drawPath(borderPath, neonBasePaint);
+
+            // Restore the rotating shader for the next animation
+            if (neonGradient != null) {
+                neonBasePaint.setShader(neonGradient);
+            }
         }
 
         // Centered icon and text
