@@ -8693,14 +8693,49 @@ checkButton.setOnClickListener(v -> {
         center = "Algiers";
     }
 
+    android.content.SharedPreferences prefs =
+            getSharedPreferences(
+                    ManualCheckService.PREFS_NAME,
+                    MODE_PRIVATE
+            );
+
+    // Reset previous result before starting a new check.
+    prefs.edit()
+            .putString(
+                    ManualCheckService.KEY_STATUS,
+                    "CHECKING"
+            )
+            .putString(
+                    ManualCheckService.KEY_MESSAGE,
+                    "Checking BLS website..."
+            )
+            .putLong(
+                    ManualCheckService.KEY_DURATION,
+                    0L
+            )
+            .putBoolean(
+                    ManualCheckService.KEY_FINISHED,
+                    false
+            )
+            .apply();
+
     availabilityStatus.setText("Checking BLS website...");
-    availabilityStatus.setTextColor(Color.parseColor("#2563EB"));
+    availabilityStatus.setTextColor(
+            Color.parseColor("#2563EB")
+    );
+
     checkButton.setChecking(true);
 
     Intent manualCheckIntent =
-            new Intent(MainActivity.this, ManualCheckService.class);
+            new Intent(
+                    MainActivity.this,
+                    ManualCheckService.class
+            );
 
-    manualCheckIntent.setAction(ManualCheckService.ACTION_START);
+    manualCheckIntent.setAction(
+            ManualCheckService.ACTION_START
+    );
+
     manualCheckIntent.putExtra("center", center);
 
     try {
@@ -8711,10 +8746,74 @@ checkButton.setOnClickListener(v -> {
         }
     } catch (Exception e) {
         checkButton.setChecking(false);
-        availabilityStatus.setText("Could not start check. Please try again.");
-        availabilityStatus.setTextColor(Color.parseColor("#DC2626"));
+
+        availabilityStatus.setText(
+                "Could not start check. Please try again."
+        );
+
+        availabilityStatus.setTextColor(
+                Color.parseColor("#DC2626")
+        );
+
+        return;
     }
+
+    android.os.Handler handler =
+            new android.os.Handler(
+                    android.os.Looper.getMainLooper()
+            );
+
+    Runnable[] resultChecker = new Runnable[1];
+
+    resultChecker[0] = () -> {
+
+        if (isFinishing() || isDestroyed()) {
+            return;
+        }
+
+        String status = prefs.getString(
+                ManualCheckService.KEY_STATUS,
+                "CHECKING"
+        );
+
+        boolean finished = prefs.getBoolean(
+                ManualCheckService.KEY_FINISHED,
+                false
+        );
+
+        if (finished && !"CHECKING".equals(status)) {
+
+            String message = prefs.getString(
+                    ManualCheckService.KEY_MESSAGE,
+                    "Check finished."
+            );
+
+            long duration = prefs.getLong(
+                    ManualCheckService.KEY_DURATION,
+                    0L
+            );
+
+            availabilityStatus.setText(
+                    message + "\nResponse time: "
+                            + (duration / 1000.0) + " s"
+            );
+
+            availabilityStatus.setTextColor(
+                    "WEBSITE_OK".equals(status)
+                            ? Color.parseColor("#059669")
+                            : Color.parseColor("#DC2626")
+            );
+
+            checkButton.setChecking(false);
+
+        } else {
+            handler.postDelayed(resultChecker[0], 700);
+        }
+    };
+
+    handler.postDelayed(resultChecker[0], 700);
 });
+
 
     page.addView(
             availabilityCard,
