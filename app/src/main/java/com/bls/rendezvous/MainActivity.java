@@ -9732,6 +9732,7 @@ row.addView(
     }
 
     
+    
     // =========================================================
     // SETTINGS
     // =========================================================
@@ -9740,17 +9741,123 @@ row.addView(
 
         currentPage = "SETTINGS";
 
-        page(
-                "Settings",
-                "Application preferences and configuration.",
-                new String[]{
-                        "Monitoring Preferences",
-                        "Notifications",
-                        "Language",
-                        "About BLS Rendez-Vous"
+        root.removeAllViews();
+
+        ScrollView scroll = new ScrollView(this);
+
+        LinearLayout settingsLayout = new LinearLayout(this);
+        settingsLayout.setOrientation(LinearLayout.VERTICAL);
+        settingsLayout.setPadding(
+                dp(20),
+                dp(25),
+                dp(20),
+                dp(20)
+        );
+
+        GradientDrawable background = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                new int[]{
+                        Color.rgb(245, 248, 255),
+                        Color.rgb(238, 244, 255),
+                        Color.rgb(247, 243, 252)
                 }
         );
+
+        settingsLayout.setBackground(background);
+        scroll.addView(settingsLayout);
+
+        root.addView(
+                scroll,
+                new LinearLayout.LayoutParams(
+                        -1,
+                        0,
+                        1
+                )
+        );
+
+        TextView back = text("‹  Back", 17, BLUE);
+
+        back.setOnClickListener(v -> showHome());
+
+        settingsLayout.addView(
+                back,
+                margin(0, 0, 0, 15)
+        );
+
+        TextView titleView = text("Settings", 28, NAVY);
+        titleView.setTypeface(Typeface.DEFAULT_BOLD);
+        settingsLayout.addView(titleView);
+
+        settingsLayout.addView(
+                text(
+                        "Application preferences and configuration.",
+                        13,
+                        GRAY
+                ),
+                margin(0, 5, 0, 20)
+        );
+
+        // MONITORING PREFERENCES
+
+        LinearLayout preferencesCard = card();
+        preferencesCard.setOrientation(LinearLayout.VERTICAL);
+        preferencesCard.setPadding(
+                dp(16),
+                dp(12),
+                dp(16),
+                dp(12)
+        );
+
+        TextView sectionTitle =
+                text("Monitoring Preferences", 17, NAVY);
+
+        sectionTitle.setTypeface(Typeface.DEFAULT_BOLD);
+
+        preferencesCard.addView(
+                sectionTitle,
+                margin(0, 0, 0, 8)
+        );
+
+        preferencesCard.addView(
+                createToggle("Sound alerts", true)
+        );
+
+        preferencesCard.addView(
+                createToggle("Push notifications", true)
+        );
+
+        preferencesCard.addView(
+                createToggle("Appointment alerts", true)
+        );
+
+        settingsLayout.addView(
+                preferencesCard,
+                margin(0, 0, 0, 12)
+        );
+
+        // OTHER SETTINGS
+
+        String[] otherItems = {
+                "Notifications",
+                "Language",
+                "About BLS Rendez-Vous"
+        };
+
+        for (String item : otherItems) {
+
+            LinearLayout itemCard = card();
+
+            itemCard.addView(
+                    text(item, 15, NAVY)
+            );
+
+            settingsLayout.addView(
+                    itemCard,
+                    margin(0, 5, 0, 5)
+            );
+        }
     }
+ 
  
 
     // =========================================================
