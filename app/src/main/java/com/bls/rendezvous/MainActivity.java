@@ -8668,30 +8668,53 @@ if (startBtn.isActive()) {
             checkButtonLp
     );
 
-    checkButton.setOnClickListener(v -> {
+    
+checkButton.setOnClickListener(v -> {
 
-        if (selectedCountry == null
-                || selectedCountry.trim().isEmpty()) {
+    if (selectedCountry == null
+            || selectedCountry.trim().isEmpty()) {
 
-            new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("Select a country")
-                    .setMessage("Please select a country first.")
-                    .setPositiveButton("OK", null)
-                    .show();
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Select a country")
+                .setMessage("Please select a country first.")
+                .setPositiveButton("OK", null)
+                .show();
 
-            return;
+        return;
+    }
+
+    if (checkButton.isChecking()) {
+        return;
+    }
+
+    String center = selectedCenter;
+
+    if (center == null || center.trim().isEmpty()) {
+        center = "Algiers";
+    }
+
+    availabilityStatus.setText("Checking BLS website...");
+    availabilityStatus.setTextColor(Color.parseColor("#2563EB"));
+    checkButton.setChecking(true);
+
+    Intent manualCheckIntent =
+            new Intent(MainActivity.this, ManualCheckService.class);
+
+    manualCheckIntent.setAction(ManualCheckService.ACTION_START);
+    manualCheckIntent.putExtra("center", center);
+
+    try {
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            startForegroundService(manualCheckIntent);
+        } else {
+            startService(manualCheckIntent);
         }
-
-        availabilityStatus.setText(
-                "Checking " + selectedCountry + "..."
-        );
-
-        availabilityStatus.setTextColor(
-                Color.parseColor("#2563EB")
-        );
-
-        checkButton.setChecking(true);
-    });
+    } catch (Exception e) {
+        checkButton.setChecking(false);
+        availabilityStatus.setText("Could not start check. Please try again.");
+        availabilityStatus.setTextColor(Color.parseColor("#DC2626"));
+    }
+});
 
     page.addView(
             availabilityCard,
