@@ -251,33 +251,127 @@ public class ManualCheckService extends Service {
                 .build();
     }
 
-    private void showFinalNotification(String message) {
+    
+private void showFinalNotification(String message) {
 
-        NotificationManager manager =
-                getSystemService(NotificationManager.class);
+    NotificationManager manager =
+            getSystemService(NotificationManager.class);
 
-        if (manager == null) {
-            return;
-        }
-
-        Notification notification =
-                new Notification.Builder(this, CHANNEL_ID)
-                        .setSmallIcon(
-                                android.R.drawable.stat_notify_sync
-                        )
-                        .setContentTitle("BLS Check Result")
-                        .setContentText(message)
-                        .setStyle(
-                                new Notification.BigTextStyle()
-                                        .bigText(message)
-                        )
-                        .setAutoCancel(true)
-                        .setOngoing(false)
-                        .setOnlyAlertOnce(true)
-                        .build();
-
-        manager.notify(NOTIFICATION_ID, notification);
+    if (manager == null) {
+        return;
     }
+
+    SharedPreferences prefs =
+            getSharedPreferences(
+                    PREFS_NAME,
+                    MODE_PRIVATE
+            );
+
+    String status =
+            prefs.getString(KEY_STATUS, "UNKNOWN");
+
+    String resultMessage =
+            prefs.getString(
+                    KEY_MESSAGE,
+                    "Check finished."
+            );
+
+    long duration =
+            prefs.getLong(KEY_DURATION, 0L);
+
+    String description;
+    String statusInfo;
+
+    switch (status) {
+
+        case "WEBSITE_OK":
+            description = "BLS website is reachable";
+            break;
+
+        case "NO_APPOINTMENT":
+            description = "No appointment detected";
+            break;
+
+        case "ACCESS_BLOCKED":
+            description = "Website access is blocked";
+            break;
+
+        case "TOO_MANY_REQUESTS":
+            description = "Too many requests";
+            break;
+
+        case "WEBSITE_UNAVAILABLE":
+            description = "BLS website is unavailable";
+            break;
+
+        case "CONNECTION_ERROR":
+            description = "Connection error";
+            break;
+
+        case "SERVER_ERROR":
+            description = "BLS server error";
+            break;
+
+        case "ERROR":
+            description = "Manual check failed";
+            break;
+
+        default:
+            description = "BLS check completed";
+            break;
+    }
+
+    long seconds = duration / 1000L;
+
+    statusInfo =
+            "Status: " + status
+                    + "  •  Time: " + seconds + "s";
+
+    android.widget.RemoteViews remoteViews =
+            new android.widget.RemoteViews(
+                    getPackageName(),
+                    R.layout.notification_manual_check
+            );
+
+    remoteViews.setTextViewText(
+            R.id.notification_rv,
+            "RV"
+    );
+
+    remoteViews.setTextViewText(
+            R.id.notification_title,
+            "BLS Rendez-Vous"
+    );
+
+    remoteViews.setTextViewText(
+            R.id.notification_description,
+            description
+    );
+
+    remoteViews.setTextViewText(
+            R.id.notification_info,
+            statusInfo
+    );
+
+    Notification notification =
+            new Notification.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(
+                            android.R.drawable.stat_notify_sync
+                    )
+                    .setCustomContentView(remoteViews)
+                    .setStyle(
+                            new Notification.DecoratedCustomViewStyle()
+                    )
+                    .setContentTitle("BLS Rendez-Vous")
+                    .setContentText(description)
+                    .setAutoCancel(true)
+                    .setOngoing(false)
+                    .setOnlyAlertOnce(true)
+                    .build();
+
+    manager.notify(NOTIFICATION_ID, notification);
+}
+
 
     private void createNotificationChannel() {
 
