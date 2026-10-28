@@ -8646,37 +8646,6 @@ if (startBtn.isActive()) {
 
 
     // =====================================================
-    // PREFERENCE SWITCHES
-    // =====================================================
-
-    LinearLayout toggles = new LinearLayout(this);
-    toggles.setOrientation(LinearLayout.VERTICAL);
-
-    LinearLayout.LayoutParams togglesLp =
-            new LinearLayout.LayoutParams(-1, -2);
-
-    
-    togglesLp.topMargin = dp(8);
-
-    toggles.addView(
-            createToggle("Sound alerts", true)
-    );
-
-    toggles.addView(
-            createToggle("Push notifications", true)
-    );
-
-    toggles.addView(
-            createToggle("Appointment alerts", true)
-    );
-
-    bottomPart.addView(toggles, togglesLp);
-
-    mainCard.addView(bottomPart);
-
-
-
-    // =====================================================
     // ADD FINAL CARD TO PAGE
     // =====================================================
 
