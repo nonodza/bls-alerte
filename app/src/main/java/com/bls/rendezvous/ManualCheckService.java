@@ -358,10 +358,7 @@ private void showFinalNotification(String message) {
                     .setSmallIcon(
                             android.R.drawable.stat_notify_sync
                     )
-                    .setCustomContentView(remoteViews)
-                    .setStyle(
-                            new Notification.DecoratedCustomViewStyle()
-                    )
+                    ..setCustomContentView(remoteViews)
                     .setContentTitle("BLS Rendez-Vous")
                     .setContentText(description)
                     .setAutoCancel(true)
