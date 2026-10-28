@@ -217,7 +217,7 @@ public class ManualCheckService extends Service {
                     new NotificationChannel(
                             CHANNEL_ID,
                             "Manual BLS Check",
-                            NotificationManager.IMPORTANCE_LOW
+                            NotificationManager.IMPORTANCE_DEFAULT 
                     );
 
             channel.setDescription(
