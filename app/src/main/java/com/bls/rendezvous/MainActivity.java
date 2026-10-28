@@ -8174,8 +8174,7 @@ dialog.show();
     LinearLayout topPart = new LinearLayout(this);
     topPart.setOrientation(LinearLayout.HORIZONTAL);
     topPart.setGravity(Gravity.CENTER_VERTICAL);
-    topPart.setPadding(0, dp(16), dp(12), dp(16));
-
+    topPart.setPadding(0, dp(6), dp(12), dp(6));
 
     // LEFT BLUE ACCENT
 
@@ -8193,10 +8192,10 @@ dialog.show();
     blueStrip.setBackground(stripBg);
 
     LinearLayout.LayoutParams stripLp =
-            new LinearLayout.LayoutParams(
-                    dp(5),
-                    dp(108)
-            );
+        new LinearLayout.LayoutParams(
+                dp(5),
+                dp(76)
+        );
 
     topPart.addView(blueStrip, stripLp);
 
