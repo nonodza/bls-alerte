@@ -1,20 +1,18 @@
-
 package com.bls.rendezvous;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,29 +20,33 @@ import android.view.animation.LinearInterpolator;
 
 public class SmallNeonStartButton extends View {
 
-    private boolean isActive = false;
-    private boolean isNeonVisible = false;
-    private String text = "START";
-
-    private final Paint bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint neonBasePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint neonGlowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint neonCorePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint glowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint iconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private final RectF rect = new RectF();
-    private final RectF ringRect = new RectF();
-    private final Path borderPath = new Path();
+    // Correctly declared icon path
+    private final Path iconPath = new Path();
+
+    private final RectF buttonRect = new RectF();
+    private final RectF iconRect = new RectF();
     private final Matrix shaderMatrix = new Matrix();
 
-    private float density;
-    private float scaledDensity;
-    private float rotation = 0f;
-
-    private ValueAnimator animator;
     private SweepGradient neonGradient;
+    private ValueAnimator neonAnimator;
+
+    private boolean isActive = false;
+    private boolean isNeonVisible = false;
+
+    private float animationRotation = 0f;
+
+    private int buttonWidth;
+    private int buttonHeight;
+
+    private final int blue = Color.rgb(36, 119, 255);
+    private final int cyan = Color.rgb(0, 225, 255);
+    private final int darkBlue = Color.rgb(20, 54, 135);
 
     public SmallNeonStartButton(Context context) {
         super(context);
@@ -56,175 +58,49 @@ public class SmallNeonStartButton extends View {
         init();
     }
 
-    private float dp(float value) {
-        return value * density;
-    }
-
-    private float sp(float value) {
-        return value * scaledDensity;
+    public SmallNeonStartButton(
+            Context context,
+            AttributeSet attrs,
+            int defStyleAttr
+    ) {
+        super(context, attrs, defStyleAttr);
+        init();
     }
 
     private void init() {
-        density = getResources().getDisplayMetrics().density;
-        scaledDensity = getResources().getDisplayMetrics().scaledDensity;
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        bgPaint.setStyle(Paint.Style.FILL);
+        backgroundPaint.setStyle(Paint.Style.FILL);
 
         borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(dp(1f));
+        borderPaint.setStrokeWidth(dp(1.5f));
+        borderPaint.setColor(cyan);
 
-        neonBasePaint.setStyle(Paint.Style.STROKE);
-        neonBasePaint.setStrokeWidth(dp(1.5f));
-        neonBasePaint.setStrokeCap(Paint.Cap.ROUND);
-        neonBasePaint.setStrokeJoin(Paint.Join.ROUND);
-
-        neonGlowPaint.setStyle(Paint.Style.STROKE);
-        neonGlowPaint.setStrokeWidth(dp(5f));
-        neonGlowPaint.setStrokeCap(Paint.Cap.ROUND);
-        neonGlowPaint.setStrokeJoin(Paint.Join.ROUND);
-
-        neonCorePaint.setStyle(Paint.Style.STROKE);
-        neonCorePaint.setStrokeWidth(dp(1.8f));
-        neonCorePaint.setStrokeCap(Paint.Cap.ROUND);
-        neonCorePaint.setStrokeJoin(Paint.Join.ROUND);
+        glowPaint.setStyle(Paint.Style.STROKE);
+        glowPaint.setStrokeWidth(dp(3f));
+        glowPaint.setColor(cyan);
+        glowPaint.setShadowLayer(dp(5f), 0f, 0f, cyan);
 
         textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(sp(12));
+        textPaint.setTextSize(dp(11f));
         textPaint.setTypeface(
                 Typeface.create("sans-serif", Typeface.BOLD)
         );
-        textPaint.setTextAlign(Paint.Align.LEFT);
+        textPaint.setTextAlign(Paint.Align.CENTER);
 
         iconPaint.setColor(Color.WHITE);
         iconPaint.setStyle(Paint.Style.FILL);
+        iconPaint.setStrokeWidth(dp(1.8f));
+        iconPaint.setStrokeCap(Paint.Cap.ROUND);
+        iconPaint.setStrokeJoin(Paint.Join.ROUND);
 
         setClickable(true);
         setFocusable(true);
-        setElevation(dp(3));
-
-        // Enable soft neon glow
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-        updateAccessibility();
-
-        // Two complete rotations: 1800 ms x 2 = 3.6 seconds
-        animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(1800L);
-        animator.setRepeatCount(1);
-        animator.setRepeatMode(ValueAnimator.RESTART);
-        animator.setInterpolator(new LinearInterpolator());
-
-        animator.addUpdateListener(animation -> {
-            rotation = (float) animation.getAnimatedValue();
-            updateNeonShader();
-            invalidate();
-        });
-
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                isNeonVisible = true;
-                updateNeonShader();
-                invalidate();
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                isNeonVisible = false;
-                rotation = 0f;
-                updateNeonShader();
-                invalidate();
-            }
-        });
     }
 
-    private void createNeonShader() {
-        float centerX = getWidth() / 2f;
-        float centerY = getHeight() / 2f;
-
-        if (centerX <= 0 || centerY <= 0) {
-            return;
-        }
-
-        // Same cyan neon color in both START and STOP.
-        // Brightness varies smoothly around the complete outline.
-        int[] colors = new int[]{
-                Color.parseColor("#FF00AEEF"),
-                Color.parseColor("#FF00F5FF"),
-                Color.parseColor("#FF70FFFF"),
-                Color.parseColor("#FF00E5FF"),
-                Color.parseColor("#FF007FAF"),
-                Color.parseColor("#FF00AEEF")
-        };
-
-        float[] positions = new float[]{
-                0f, 0.20f, 0.38f, 0.60f, 0.82f, 1f
-        };
-
-        neonGradient = new SweepGradient(
-                centerX,
-                centerY,
-                colors,
-                positions
-        );
-
-        updateNeonShader();
-    }
-
-    private void updateNeonShader() {
-        if (neonGradient == null) {
-            return;
-        }
-
-        // Rotate the light distribution around the button center.
-        shaderMatrix.reset();
-        shaderMatrix.setRotate(
-                rotation * 360f,
-                getWidth() / 2f,
-                getHeight() / 2f
-        );
-
-        neonGradient.setLocalMatrix(shaderMatrix);
-
-        neonBasePaint.setShader(neonGradient);
-        neonGlowPaint.setShader(neonGradient);
-        neonCorePaint.setShader(neonGradient);
-    }
-
-    public void setActive(boolean active) {
-        if (isActive == active) {
-            return;
-        }
-
-        isActive = active;
-        text = active ? "STOP" : "START";
-
-        updateAccessibility();
-        requestLayout();
-
-        if (animator != null) {
-            animator.cancel();
-
-            rotation = 0f;
-            isNeonVisible = false;
-
-            updateNeonShader();
-            invalidate();
-
-            animator.start();
-        }
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    private void updateAccessibility() {
-        setContentDescription(
-                isActive
-                        ? "Stop appointment monitoring"
-                        : "Start appointment monitoring"
-        );
+    private float dp(float value) {
+        return value * getResources()
+                .getDisplayMetrics().density;
     }
 
     @Override
@@ -232,187 +108,195 @@ public class SmallNeonStartButton extends View {
             int widthMeasureSpec,
             int heightMeasureSpec
     ) {
-        float iconWidth = dp(12);
-        float gap = dp(6);
-        float horizontalPadding = dp(12);
-
-        int desiredWidth = (int) Math.max(
-                dp(92),
-                horizontalPadding * 2
-                        + iconWidth
-                        + gap
-                        + textPaint.measureText(text)
-        );
-
+        int desiredWidth = (int) dp(92);
         int desiredHeight = (int) dp(42);
 
-        setMeasuredDimension(
-                resolveSize(desiredWidth, widthMeasureSpec),
-                resolveSize(desiredHeight, heightMeasureSpec)
+        int measuredWidth = resolveSize(
+                desiredWidth,
+                widthMeasureSpec
         );
-    }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        // Do not animate automatically when the page opens.
-    }
+        int measuredHeight = resolveSize(
+                desiredHeight,
+                heightMeasureSpec
+        );
 
-    @Override
-    protected void onDetachedFromWindow() {
-        if (animator != null) {
-            animator.cancel();
-            isNeonVisible = false;
-        }
-
-        super.onDetachedFromWindow();
+        setMeasuredDimension(measuredWidth, measuredHeight);
     }
 
     @Override
     protected void onSizeChanged(
-            int width,
-            int height,
-            int oldWidth,
-            int oldHeight
+            int w,
+            int h,
+            int oldw,
+            int oldh
     ) {
-        super.onSizeChanged(width, height, oldWidth, oldHeight);
-        createNeonShader();
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        buttonWidth = w;
+        buttonHeight = h;
+
+        float inset = dp(4f);
+
+        buttonRect.set(
+                inset,
+                inset,
+                w - inset,
+                h - inset
+        );
+
+        createNeonGradient();
+    }
+
+    private void createNeonGradient() {
+        float centerX = buttonWidth / 2f;
+        float centerY = buttonHeight / 2f;
+
+        neonGradient = new SweepGradient(
+                centerX,
+                centerY,
+                new int[]{
+                        cyan,
+                        blue,
+                        cyan,
+                        Color.rgb(70, 170, 255),
+                        cyan
+                },
+                new float[]{
+                        0f,
+                        0.25f,
+                        0.50f,
+                        0.75f,
+                        1f
+                }
+        );
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float width = getWidth();
-        float height = getHeight();
-
-        if (width <= 0 || height <= 0) {
+        if (buttonWidth <= 0 || buttonHeight <= 0) {
             return;
         }
 
-        float inset = dp(3f);
-        float radius = dp(11f);
+        float radius = dp(13f);
 
-        rect.set(
-                inset,
-                inset,
-                width - inset,
-                height - inset
-        );
-
-        // Blue gradient background remains unchanged
-        bgPaint.setShader(
+        // Premium blue gradient background
+        backgroundPaint.setShader(
                 new LinearGradient(
-                        0, 0, width, height,
+                        0f,
+                        0f,
+                        buttonWidth,
+                        buttonHeight,
                         new int[]{
-                                Color.parseColor("#1649E8"),
-                                Color.parseColor("#087FE8"),
-                                Color.parseColor("#123BC1")
+                                blue,
+                                darkBlue,
+                                blue
                         },
                         null,
                         Shader.TileMode.CLAMP
                 )
         );
 
-        canvas.drawRoundRect(rect, dp(12), dp(12), bgPaint);
-        bgPaint.setShader(null);
-
-        // Complete rounded outline
-        float pathInset = dp(5f);
-
-        ringRect.set(
-                pathInset,
-                pathInset,
-                width - pathInset,
-                height - pathInset
-        );
-
-        borderPath.reset();
-        borderPath.addRoundRect(
-                ringRect,
+        canvas.drawRoundRect(
+                buttonRect,
                 radius,
                 radius,
-                Path.Direction.CW
+                backgroundPaint
         );
 
-        // Static border remains visible when the animation is off
-        borderPaint.setColor(
-                Color.parseColor("#FFE8FCFF")
-        );
-
-        canvas.drawPath(borderPath, borderPaint);
+        backgroundPaint.setShader(null);
 
         if (isNeonVisible && neonGradient != null) {
-
-            // The entire outline glows, not a separate moving segment.
-            neonGlowPaint.setStrokeWidth(dp(5f));
-            neonGlowPaint.setMaskFilter(
-                    new BlurMaskFilter(
-                            dp(4f),
-                            BlurMaskFilter.Blur.NORMAL
-                    )
+            shaderMatrix.setRotate(
+                    animationRotation,
+                    buttonWidth / 2f,
+                    buttonHeight / 2f
             );
 
-            canvas.drawPath(borderPath, neonGlowPaint);
-            neonGlowPaint.setMaskFilter(null);
+            neonGradient.setLocalMatrix(shaderMatrix);
 
-            // Continuous colored neon line
-            neonBasePaint.setStrokeWidth(dp(2f));
-            canvas.drawPath(borderPath, neonBasePaint);
+            // Soft cyan glow around the entire outline
+            glowPaint.setShader(neonGradient);
+            canvas.drawRoundRect(
+                    buttonRect,
+                    radius,
+                    radius,
+                    glowPaint
+            );
 
-            // Fine luminous core, using the same rotating gradient
-            neonCorePaint.setStrokeWidth(dp(1.3f));
-            canvas.drawPath(borderPath, neonCorePaint);
+            glowPaint.setShader(null);
 
+            // Continuous neon border
+            borderPaint.setShader(neonGradient);
+            canvas.drawRoundRect(
+                    buttonRect,
+                    radius,
+                    radius,
+                    borderPaint
+            );
+
+            borderPaint.setShader(null);
         } else {
-            // Subtle static cyan outline, no moving glow
-            neonBasePaint.setShader(null);
-            neonBasePaint.setColor(
-                    Color.parseColor("#6653F5FF")
+            // Static cyan outline when idle
+            borderPaint.setColor(cyan);
+            borderPaint.setStrokeWidth(dp(1.5f));
+
+            canvas.drawRoundRect(
+                    buttonRect,
+                    radius,
+                    radius,
+                    borderPaint
             );
-            neonBasePaint.setStrokeWidth(dp(1.2f));
-
-            canvas.drawPath(borderPath, neonBasePaint);
-
-            // Restore the rotating shader for the next animation
-            if (neonGradient != null) {
-                neonBasePaint.setShader(neonGradient);
-            }
         }
 
-        // Centered icon and text
-        float iconSize = dp(12f);
-        float gap = dp(6f);
+        drawButtonContent(canvas);
+    }
 
-        float textWidth = textPaint.measureText(text);
-        float totalContentWidth = iconSize + gap + textWidth;
+    private void drawButtonContent(Canvas canvas) {
+        float centerY = buttonHeight / 2f;
 
-        float startX = (width - totalContentWidth) / 2f;
+        float iconSize = dp(11f);
+        float gap = dp(5f);
 
-        Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
+        String label = isActive ? "STOP" : "START";
 
-        float textY =
-                (height - fontMetrics.bottom - fontMetrics.top) / 2f;
+        float textWidth = textPaint.measureText(label);
+        float totalWidth = iconSize + gap + textWidth;
 
-        float iconTop = (height - iconSize) / 2f;
+        float startX = (buttonWidth - totalWidth) / 2f;
 
         iconPath.reset();
 
         if (isActive) {
-            // STOP square
-            iconPath.addRect(
+            // STOP icon: rounded square
+            float iconTop = centerY - iconSize / 2f;
+
+            iconRect.set(
                     startX,
                     iconTop,
                     startX + iconSize,
-                    iconTop + iconSize,
+                    iconTop + iconSize
+            );
+
+            float stopInset = dp(3f);
+
+            iconPath.addRect(
+                    iconRect.left + stopInset,
+                    iconRect.top + stopInset,
+                    iconRect.right - stopInset,
+                    iconRect.bottom - stopInset,
                     Path.Direction.CW
             );
         } else {
-            // START triangle
+            // START icon: play triangle
+            float iconTop = centerY - iconSize / 2f;
+
             iconPath.moveTo(startX, iconTop);
             iconPath.lineTo(
                     startX + iconSize,
-                    iconTop + iconSize / 2f
+                    centerY
             );
             iconPath.lineTo(
                     startX,
@@ -423,11 +307,81 @@ public class SmallNeonStartButton extends View {
 
         canvas.drawPath(iconPath, iconPaint);
 
+        textPaint.setColor(Color.WHITE);
+
+        Paint.FontMetrics metrics = textPaint.getFontMetrics();
+
+        float textBaseline = centerY
+                - (metrics.ascent + metrics.descent) / 2f;
+
         canvas.drawText(
-                text,
-                startX + iconSize + gap,
-                textY,
+                label,
+                startX + iconSize + gap + textWidth / 2f,
+                textBaseline,
                 textPaint
         );
+    }
+
+    public void setActive(boolean active) {
+        if (isActive == active) {
+            return;
+        }
+
+        isActive = active;
+
+        startNeonAnimation();
+
+        invalidate();
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    private void startNeonAnimation() {
+        if (neonAnimator != null) {
+            neonAnimator.cancel();
+            neonAnimator = null;
+        }
+
+        isNeonVisible = true;
+        animationRotation = 0f;
+
+        neonAnimator = ValueAnimator.ofFloat(0f, 720f);
+        neonAnimator.setDuration(3600L);
+        neonAnimator.setInterpolator(
+                new LinearInterpolator()
+        );
+
+        // Two complete rotations
+        neonAnimator.setRepeatCount(0);
+
+        neonAnimator.addUpdateListener(animation -> {
+            animationRotation = (float) animation.getAnimatedValue();
+            invalidate();
+        });
+
+        neonAnimator.addListener(
+                new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        isNeonVisible = false;
+                        animationRotation = 0f;
+                        invalidate();
+                    }
+                }
+        );
+
+        neonAnimator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (neonAnimator != null) {
+            neonAnimator.cancel();
+            neonAnimator = null;
+        }
+
+        super.onDetachedFromWindow();
     }
 }
