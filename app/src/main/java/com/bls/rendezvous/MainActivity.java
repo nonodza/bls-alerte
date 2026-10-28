@@ -9268,13 +9268,14 @@ if (startBtn.isActive()) {
         root.addView(scroll);
     }
 
+    
     // =====================================================
-    // PREMIUM SETTINGS TOGGLE
+    // PREMIUM SETTINGS TOGGLE - SAVED PREFERENCES
     // =====================================================
 
     private LinearLayout createToggle(
             String label,
-            boolean checked
+            boolean defaultChecked
     ) {
 
         LinearLayout row = new LinearLayout(this);
@@ -9289,7 +9290,6 @@ if (startBtn.isActive()) {
         );
 
         TextView labelView = new TextView(this);
-
         labelView.setText(label);
         labelView.setTextSize(14);
         labelView.setTextColor(
@@ -9313,17 +9313,47 @@ if (startBtn.isActive()) {
         row.addView(labelView, labelParams);
 
         android.widget.Switch toggle =
-        new android.widget.Switch(this);
+                new android.widget.Switch(this);
 
-toggle.setChecked(checked);
+        android.content.SharedPreferences preferences =
+                getSharedPreferences(
+                        "monitoring_preferences",
+                        MODE_PRIVATE
+                );
 
-row.addView(
-        toggle,
-        new LinearLayout.LayoutParams(-2, -2)
-);
+        String key;
+
+        if ("Sound alerts".equals(label)) {
+            key = "sound_alerts";
+        } else if ("Push notifications".equals(label)) {
+            key = "push_notifications";
+        } else if ("Appointment alerts".equals(label)) {
+            key = "appointment_alerts";
+        } else {
+            key = label;
+        }
+
+        toggle.setChecked(
+                preferences.getBoolean(key, defaultChecked)
+        );
+
+        toggle.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+
+                    preferences.edit()
+                            .putBoolean(key, isChecked)
+                            .apply();
+                }
+        );
+
+        row.addView(
+                toggle,
+                new LinearLayout.LayoutParams(-2, -2)
+        );
 
         return row;
     }
+ 
  
     // =========================================================
     // ALERTS
