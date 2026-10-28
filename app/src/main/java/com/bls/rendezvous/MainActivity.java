@@ -8551,15 +8551,7 @@ if (startBtn.isActive()) {
                 serviceIntent
         );
 
-        startBtn.setActive(true);
-
-        centerCol.removeView(activeWrapper);
-        centerCol.removeView(inactiveTxt);
-
-        centerCol.addView(
-                activeWrapper,
-                activeLp
-        );
+        startBtn.setActive(true);  
 
         Toast.makeText(
                 MainActivity.this,
@@ -8591,7 +8583,7 @@ if (startBtn.isActive()) {
     );
 
 
-    // =====================================================
+    / =====================================================
     // BOTTOM SECTION
     // =====================================================
 
