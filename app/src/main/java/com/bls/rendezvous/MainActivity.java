@@ -8354,71 +8354,77 @@ dialog.show();
 
 
     // =====================================================
-    // MONITORING STATUS
+    // PREMIUM COMPACT MONITORING CARD
     // =====================================================
 
-    LinearLayout activeWrapper = new LinearLayout(this);
-    activeWrapper.setOrientation(LinearLayout.HORIZONTAL);
-    activeWrapper.setGravity(Gravity.CENTER_VERTICAL);
+    LinearLayout monitoringBadge = new LinearLayout(this);
+    monitoringBadge.setOrientation(LinearLayout.HORIZONTAL);
+    monitoringBadge.setGravity(Gravity.CENTER);
+    monitoringBadge.setPadding(
+            dp(12),
+            dp(8),
+            dp(12),
+            dp(8)
+    );
 
-    LinearLayout.LayoutParams activeLp =
+    GradientDrawable badgeBg = new GradientDrawable();
+    badgeBg.setColor(Color.parseColor("#EEF2FF"));
+    badgeBg.setCornerRadius(dp(12));
+    badgeBg.setStroke(
+            dp(1),
+            Color.parseColor("#D9E2FF")
+    );
+
+    monitoringBadge.setBackground(badgeBg);
+    monitoringBadge.setElevation(dp(2));
+
+    // Star icon
+    TextView starIcon = new TextView(this);
+    starIcon.setText("⭐");
+    starIcon.setTextSize(17);
+
+    monitoringBadge.addView(
+            starIcon,
             new LinearLayout.LayoutParams(
                     -2,
                     -2
-            );
-
-    activeLp.topMargin = dp(7);
-
-
-    View greenDot = new View(this);
-
-    GradientDrawable dotBg = new GradientDrawable();
-    dotBg.setShape(GradientDrawable.OVAL);
-    dotBg.setColor(Color.parseColor("#10B981"));
-
-    greenDot.setBackground(dotBg);
-
-    activeWrapper.addView(
-            greenDot,
-            new LinearLayout.LayoutParams(
-                    dp(7),
-                    dp(7)
             )
     );
 
-
-    TextView activeTxt = text(
-            "Monitoring Active",
-            11,
-            Color.parseColor("#059669")
+    // Short title
+    TextView badgeTitle = text(
+            "Premium",
+            13,
+            Color.parseColor("#3448A5")
     );
 
-    activeTxt.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
+    badgeTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
-    LinearLayout.LayoutParams activeTextLp =
+    LinearLayout.LayoutParams badgeTitleLp =
             new LinearLayout.LayoutParams(
                     -2,
                     -2
             );
 
-    activeTextLp.leftMargin = dp(6);
+    badgeTitleLp.leftMargin = dp(6);
 
-    activeWrapper.addView(
-            activeTxt,
-            activeTextLp
+    monitoringBadge.addView(
+            badgeTitle,
+            badgeTitleLp
     );
 
+    LinearLayout.LayoutParams badgeLp =
+            new LinearLayout.LayoutParams(
+                    -2,
+                    -2
+            );
 
-    TextView inactiveTxt = text(
-            "Monitoring is stopped",
-            11,
-            Color.parseColor("#8993A7")
+    badgeLp.topMargin = dp(6);
+
+    centerCol.addView(
+            monitoringBadge,
+            badgeLp
     );
-
-
-    centerCol.addView(inactiveTxt, activeLp);
 
     topPart.addView(
             centerCol,
