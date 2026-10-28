@@ -8511,14 +8511,6 @@ if (startBtn.isActive()) {
 
         startBtn.setActive(false);
 
-        centerCol.removeView(activeWrapper);
-        centerCol.removeView(inactiveTxt);
-
-        centerCol.addView(
-                inactiveTxt,
-                activeLp
-        );
-
         Toast.makeText(
                 MainActivity.this,
                 "Monitoring stopped",
