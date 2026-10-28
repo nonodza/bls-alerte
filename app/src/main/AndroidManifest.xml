@@ -35,11 +35,15 @@
 
         </activity>
 
-        <service
+                <service
             android:name=".AppointmentMonitoringService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
 
+        <service
+            android:name=".ManualCheckService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
     </application>
 
 </manifest>
