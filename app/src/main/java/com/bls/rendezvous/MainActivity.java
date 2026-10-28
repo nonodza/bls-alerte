@@ -8572,101 +8572,132 @@ if (startBtn.isActive()) {
     );
  
 
+    
     // =====================================================
-    // AVAILABILITY CARD
+    // APPOINTMENT AVAILABILITY — NEON CARD
     // =====================================================
 
-    LinearLayout availabilityCard =
-            card();
+    LinearLayout availabilityCard = new LinearLayout(this);
+    availabilityCard.setOrientation(LinearLayout.HORIZONTAL);
+    availabilityCard.setGravity(Gravity.CENTER_VERTICAL);
+    availabilityCard.setPadding(
+            dp(14), dp(14), dp(10), dp(14)
+    );
+    availabilityCard.setClipToOutline(true);
+    availabilityCard.setElevation(dp(4));
 
-    TextView availabilityTitle =
-            text(
-                    "Appointment Availability",
-                    17,
-                    NAVY
+    GradientDrawable availabilityBg = new GradientDrawable();
+    availabilityBg.setColor(Color.WHITE);
+    availabilityBg.setCornerRadius(dp(18));
+    availabilityBg.setStroke(
+            dp(1),
+            Color.parseColor("#E1E9F5")
+    );
+    availabilityCard.setBackground(availabilityBg);
+
+    // LEFT CONTENT
+    LinearLayout availabilityContent = new LinearLayout(this);
+    availabilityContent.setOrientation(LinearLayout.VERTICAL);
+    availabilityContent.setGravity(Gravity.CENTER_VERTICAL);
+
+    LinearLayout.LayoutParams contentLp =
+            new LinearLayout.LayoutParams(
+                    0,
+                    -2,
+                    1f
             );
+    contentLp.rightMargin = dp(8);
 
-    availabilityTitle.setTypeface(
-            Typeface.DEFAULT_BOLD
+    TextView availabilityTitle = text(
+            "Appointment Availability",
+            15,
+            Color.parseColor("#102B52")
     );
+    availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
-    availabilityCard.addView(
-            availabilityTitle
+    availabilityContent.addView(availabilityTitle);
+
+    TextView availabilityStatus = text(
+            "No appointment detected yet",
+            12,
+            Color.parseColor("#344563")
     );
+    availabilityStatus.setTypeface(Typeface.DEFAULT_BOLD);
 
-    TextView availabilityStatus =
-            text(
-                    "No appointment detected yet",
-                    13,
-                    GRAY
-            );
+    LinearLayout.LayoutParams statusLp =
+            new LinearLayout.LayoutParams(-1, -2);
+    statusLp.topMargin = dp(8);
 
-    availabilityStatus.setTypeface(
-            Typeface.DEFAULT_BOLD
-    );
-
-    availabilityCard.addView(
+    availabilityContent.addView(
             availabilityStatus,
-            margin(0, 6, 0, 0)
+            statusLp
+    );
+
+    TextView availabilityDescription = text(
+            "You will be notified when an available appointment is detected.",
+            10,
+            Color.parseColor("#758099")
+    );
+
+    LinearLayout.LayoutParams descriptionLp =
+            new LinearLayout.LayoutParams(-1, -2);
+    descriptionLp.topMargin = dp(4);
+
+    availabilityContent.addView(
+            availabilityDescription,
+            descriptionLp
     );
 
     availabilityCard.addView(
-            text(
-                    "You will be notified when an available appointment is detected.",
-                    11,
-                    GRAY
-            ),
-            margin(0, 3, 0, 10)
+            availabilityContent,
+            contentLp
     );
 
-    Button checkButton =
-            smallButton(
-                    "CHECK NOW"
+    // RIGHT NEON CHECK BUTTON
+    SmallNeonCheckButton checkButton =
+            new SmallNeonCheckButton(this);
+
+    LinearLayout.LayoutParams checkButtonLp =
+            new LinearLayout.LayoutParams(
+                    dp(92),
+                    dp(42)
             );
 
-    checkButton.setOnClickListener(
-            v -> {
-
-                if (selectedCountry.length() == 0) {
-
-                    new AlertDialog.Builder(
-                            MainActivity.this
-                    )
-                            .setTitle(
-                                    "Select a country"
-                            )
-                            .setMessage(
-                                    "Please select a country first."
-                            )
-                            .setPositiveButton(
-                                    "OK",
-                                    null
-                            )
-                            .show();
-
-                    return;
-                }
-
-                availabilityStatus.setText(
-                        "Checking " +
-                        selectedCountry +
-                        "..."
-                );
-
-                availabilityStatus.setTextColor(
-                        BLUE
-                );
-            }
-    );
-
     availabilityCard.addView(
-            checkButton
+            checkButton,
+            checkButtonLp
     );
+
+    checkButton.setOnClickListener(v -> {
+
+        if (selectedCountry == null
+                || selectedCountry.trim().isEmpty()) {
+
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Select a country")
+                    .setMessage("Please select a country first.")
+                    .setPositiveButton("OK", null)
+                    .show();
+
+            return;
+        }
+
+        availabilityStatus.setText(
+                "Checking " + selectedCountry + "..."
+        );
+
+        availabilityStatus.setTextColor(
+                Color.parseColor("#2563EB")
+        );
+
+        checkButton.setChecking(true);
+    });
 
     page.addView(
             availabilityCard,
             margin(0, 0, 0, 12)
     );
+
 
     // =====================================================
     // HOW IT WORKS
