@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="22dp"
         android:gravity="center_vertical"
-        android:text="MANUAL CHECK • IN PROGRESS"
+        android:text="MANUAL CHECK - IN PROGRESS"
         android:textColor="#D9F8FF"
         android:textSize="10sp"
         android:textStyle="bold"
