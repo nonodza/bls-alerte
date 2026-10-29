@@ -1,4 +1,3 @@
-
 package com.bls.rendezvous;
 
 import android.app.Notification;
@@ -8,10 +7,16 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.widget.RemoteViews;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ManualCheckService extends Service {
 
@@ -20,6 +25,9 @@ public class ManualCheckService extends Service {
 
     public static final String ACTION_CANCEL =
             "com.bls.rendezvous.MANUAL_CHECK_CANCEL";
+
+    public static final String ACTION_DISMISS =
+            "com.bls.rendezvous.MANUAL_CHECK_DISMISS";
 
     public static final String PREFS_NAME =
             "manual_check_results";
@@ -59,7 +67,21 @@ public class ManualCheckService extends Service {
 
         String action = intent.getAction();
 
+        if (ACTION_DISMISS.equals(action)) {
+
+            NotificationManager manager =
+                    getSystemService(NotificationManager.class);
+
+            if (manager != null) {
+                manager.cancel(NOTIFICATION_ID);
+            }
+
+            stopSelf(startId);
+            return START_NOT_STICKY;
+        }
+
         if (ACTION_CANCEL.equals(action)) {
+
             cancelled = true;
 
             if (checkThread != null) {
@@ -134,7 +156,6 @@ public class ManualCheckService extends Service {
                 }
 
                 finalStatus = result.getStatus().name();
-
                 finalMessage = result.getMessage();
 
                 if (finalMessage == null ||
@@ -179,10 +200,8 @@ public class ManualCheckService extends Service {
                     return;
                 }
 
-                // Remove the temporary foreground notification.
                 stopForeground(true);
 
-                // Post the final result as a normal notification.
                 showFinalNotification(notificationMessage);
 
                 checkThread = null;
@@ -251,124 +270,153 @@ public class ManualCheckService extends Service {
                 .build();
     }
 
-    
-private void showFinalNotification(String message) {
+    private void showFinalNotification(String message) {
 
-    NotificationManager manager =
-            getSystemService(NotificationManager.class);
+        NotificationManager manager =
+                getSystemService(NotificationManager.class);
 
-    if (manager == null) {
-        return;
+        if (manager == null) {
+            return;
+        }
+
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        PREFS_NAME,
+                        MODE_PRIVATE
+                );
+
+        String status =
+                prefs.getString(KEY_STATUS, "UNKNOWN");
+
+        String description;
+
+        switch (status) {
+
+            case "WEBSITE_OK":
+                description = "BLS website is reachable";
+                break;
+
+            case "NO_APPOINTMENT":
+                description = "No appointment was detected";
+                break;
+
+            case "ACCESS_BLOCKED":
+                description = "Website access is blocked";
+                break;
+
+            case "TOO_MANY_REQUESTS":
+                description = "Please wait before trying again";
+                break;
+
+            case "WEBSITE_UNAVAILABLE":
+            case "SERVER_ERROR":
+                description = "BLS website is temporarily unavailable";
+                break;
+
+            case "CONNECTION_ERROR":
+                description = "Check your internet connection";
+                break;
+
+            case "ERROR":
+                description = "Manual check failed";
+                break;
+
+            default:
+                description = "Your BLS check has finished";
+                break;
+        }
+
+        String checkTime =
+                new SimpleDateFormat(
+                        "HH:mm:ss",
+                        Locale.getDefault()
+                ).format(new Date());
+
+        String statusInfo =
+                "Last check: " + checkTime;
+
+        RemoteViews remoteViews =
+                new RemoteViews(
+                        getPackageName(),
+                        R.layout.notification_manual_check
+                );
+
+        remoteViews.setTextViewText(
+                R.id.notification_rv,
+                "RV"
+        );
+
+        remoteViews.setTextViewText(
+                R.id.notification_title,
+                "BLS Rendez-Vous"
+        );
+
+        remoteViews.setTextViewText(
+                R.id.notification_description,
+                description
+        );
+
+        remoteViews.setTextViewText(
+                R.id.notification_info,
+                statusInfo
+        );
+
+        Intent openIntent = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(
+                        "https://algeria.blsspainvisa.com/algiers/"
+                )
+        );
+
+        PendingIntent openPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        2010,
+                        openIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                                | PendingIntent.FLAG_IMMUTABLE
+                );
+
+        Intent dismissIntent =
+                new Intent(this, ManualCheckService.class);
+
+        dismissIntent.setAction(ACTION_DISMISS);
+
+        PendingIntent dismissPendingIntent =
+                PendingIntent.getService(
+                        this,
+                        2011,
+                        dismissIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                                | PendingIntent.FLAG_IMMUTABLE
+                );
+
+        Notification notification =
+                new Notification.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(
+                                android.R.drawable.stat_notify_sync
+                        )
+                        .setCustomContentView(remoteViews)
+                        .setContentTitle("BLS Rendez-Vous")
+                        .setContentText(description)
+                        .setContentIntent(openPendingIntent)
+                        .addAction(
+                                android.R.drawable.ic_menu_view,
+                                "Open BLS",
+                                openPendingIntent
+                        )
+                        .addAction(
+                                android.R.drawable.ic_menu_close_clear_cancel,
+                                "Dismiss",
+                                dismissPendingIntent
+                        )
+                        .setAutoCancel(true)
+                        .setOngoing(false)
+                        .setOnlyAlertOnce(true)
+                        .build();
+
+        manager.notify(NOTIFICATION_ID, notification);
     }
-
-    SharedPreferences prefs =
-            getSharedPreferences(
-                    PREFS_NAME,
-                    MODE_PRIVATE
-            );
-
-    String status =
-            prefs.getString(KEY_STATUS, "UNKNOWN");
-
-    String resultMessage =
-            prefs.getString(
-                    KEY_MESSAGE,
-                    "Check finished."
-            );
-
-    long duration =
-            prefs.getLong(KEY_DURATION, 0L);
-
-    String description;
-    String statusInfo;
-
-    switch (status) {
-
-        case "WEBSITE_OK":
-            description = "BLS website is reachable";
-            break;
-
-        case "NO_APPOINTMENT":
-            description = "No appointment detected";
-            break;
-
-        case "ACCESS_BLOCKED":
-            description = "Website access is blocked";
-            break;
-
-        case "TOO_MANY_REQUESTS":
-            description = "Too many requests";
-            break;
-
-        case "WEBSITE_UNAVAILABLE":
-            description = "BLS website is unavailable";
-            break;
-
-        case "CONNECTION_ERROR":
-            description = "Connection error";
-            break;
-
-        case "SERVER_ERROR":
-            description = "BLS server error";
-            break;
-
-        case "ERROR":
-            description = "Manual check failed";
-            break;
-
-        default:
-            description = "BLS check completed";
-            break;
-    }
-
-    long seconds = duration / 1000L;
-
-    statusInfo =
-            "Status: " + status
-                    + "  •  Time: " + seconds + "s";
-
-    android.widget.RemoteViews remoteViews =
-            new android.widget.RemoteViews(
-                    getPackageName(),
-                    R.layout.notification_manual_check
-            );
-
-    remoteViews.setTextViewText(
-            R.id.notification_rv,
-            "RV"
-    );
-
-    remoteViews.setTextViewText(
-            R.id.notification_title,
-            "BLS Rendez-Vous"
-    );
-
-    remoteViews.setTextViewText(
-            R.id.notification_description,
-            description
-    );
-
-    remoteViews.setTextViewText(
-            R.id.notification_info,
-            statusInfo
-    );
-
-    Notification notification =
-            new Notification.Builder(this, CHANNEL_ID)
-                    .setSmallIcon(
-                            android.R.drawable.stat_notify_sync
-                    )
-                    .setCustomContentView(remoteViews)
-                    .setContentTitle("BLS Rendez-Vous")
-                    .setContentText(description)
-                    .setAutoCancel(true)
-                    .setOngoing(false)
-                    .setOnlyAlertOnce(true)
-                    .build();
-
-    manager.notify(NOTIFICATION_ID, notification);
-}
-
 
     private void createNotificationChannel() {
 
