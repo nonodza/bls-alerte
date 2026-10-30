@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.widget.RemoteViews;
@@ -106,28 +107,28 @@ public class AppointmentMonitoringService extends Service {
         // =================================================
 
         if (intent != null &&
-        ACTION_STOP.equals(intent.getAction())) {
+                ACTION_STOP.equals(intent.getAction())) {
 
-    android.util.Log.d(
-            "BLS_STOP",
-            "STOP command received"
-    );
+            android.util.Log.d(
+                    "BLS_STOP",
+                    "STOP command received"
+            );
 
-    stopMonitoring();
+            stopMonitoring();
 
-    stopForeground(true);
+            stopForeground(true);
 
-    NotificationManager manager =
-            getSystemService(NotificationManager.class);
+            NotificationManager manager =
+                    getSystemService(NotificationManager.class);
 
-    if (manager != null) {
-        manager.cancel(NOTIFICATION_ID);
-    }
+            if (manager != null) {
+                manager.cancel(NOTIFICATION_ID);
+            }
 
-    stopSelf();
+            stopSelf();
 
-    return START_NOT_STICKY;
-}
+            return START_NOT_STICKY;
+        }
 
 
         // =================================================
@@ -440,7 +441,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // INFORMATION TEXT
+        // CHECK COUNT
         // =================================================
 
         String timesText =
@@ -449,23 +450,143 @@ public class AppointmentMonitoringService extends Service {
                         : "times";
 
 
-        String informationText =
-                "Last check: "
-                        + currentTime
-                        + "  •  Checked: "
-                        + formatCheckedCount(
-                                checkedCount
-                        )
-                        + " "
-                        + timesText
-                        + "  •  Next: "
-                        + remainingSeconds
-                        + "s";
+        String countText =
+                formatCheckedCount(
+                        checkedCount
+                );
 
+
+        // =================================================
+        // PREMIUM COLORS
+        // =================================================
+
+        int labelColor =
+                Color.rgb(220, 235, 255);
+
+        int valueColor =
+                Color.rgb(0, 255, 255);
+
+
+        SpannableStringBuilder info =
+                new SpannableStringBuilder();
+
+
+        // =================================================
+        // LAST CHECK LABEL
+        // =================================================
+
+        int start = info.length();
+
+        info.append("Last check: ");
+
+        info.setSpan(
+                new ForegroundColorSpan(labelColor),
+                start,
+                info.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        // =================================================
+        // TIME VALUE
+        // =================================================
+
+        start = info.length();
+
+        info.append(currentTime);
+
+        info.setSpan(
+                new ForegroundColorSpan(valueColor),
+                start,
+                info.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        info.append("  •  ");
+
+
+        // =================================================
+        // CHECKED LABEL
+        // =================================================
+
+        start = info.length();
+
+        info.append("Checked: ");
+
+        info.setSpan(
+                new ForegroundColorSpan(labelColor),
+                start,
+                info.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        // =================================================
+        // COUNT VALUE
+        // =================================================
+
+        start = info.length();
+
+        info.append(countText);
+
+        info.setSpan(
+                new ForegroundColorSpan(valueColor),
+                start,
+                info.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        info.append(" ");
+        info.append(timesText);
+
+        info.append("  •  ");
+
+
+        // =================================================
+        // NEXT LABEL
+        // =================================================
+
+        start = info.length();
+
+        info.append("Next: ");
+
+        info.setSpan(
+                new ForegroundColorSpan(labelColor),
+                start,
+                info.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        // =================================================
+        // COUNTDOWN VALUE
+        // =================================================
+
+        start = info.length();
+
+        info.append(
+                String.valueOf(remainingSeconds)
+        );
+
+        info.append("s");
+
+        info.setSpan(
+                new ForegroundColorSpan(valueColor),
+                start,
+                info.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+
+        // =================================================
+        // APPLY INFORMATION
+        // =================================================
 
         notificationView.setTextViewText(
                 R.id.notification_info,
-                informationText
+                info
         );
     }
 
