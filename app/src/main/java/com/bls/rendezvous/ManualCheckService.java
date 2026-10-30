@@ -1,3 +1,4 @@
+
 package com.bls.rendezvous;
 
 import android.app.Notification;
@@ -341,9 +342,10 @@ public class ManualCheckService extends Service {
                         R.layout.notification_manual_check
                 );
 
-        remoteViews.setTextViewText(
+        // Premium RV logo
+        remoteViews.setImageViewResource(
                 R.id.notification_rv,
-                "RV"
+                R.drawable.rv_premium_logo
         );
 
         remoteViews.setTextViewText(
