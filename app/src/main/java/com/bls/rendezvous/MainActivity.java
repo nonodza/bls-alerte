@@ -8572,103 +8572,183 @@ if (startBtn.isActive()) {
     );
  
 
-    
-    // =====================================================
-    // APPOINTMENT AVAILABILITY — NEON CARD
-    // =====================================================
+   
+// =====================================================
+// APPOINTMENT AVAILABILITY — NEON CARD
+// =====================================================
 
-    LinearLayout availabilityCard = new LinearLayout(this);
-    availabilityCard.setOrientation(LinearLayout.HORIZONTAL);
-    availabilityCard.setGravity(Gravity.CENTER_VERTICAL);
-    availabilityCard.setPadding(
-            dp(14), dp(14), dp(10), dp(14)
-    );
-    availabilityCard.setClipToOutline(true);
-    availabilityCard.setElevation(dp(4));
+LinearLayout availabilityCard = new LinearLayout(this);
+availabilityCard.setOrientation(LinearLayout.HORIZONTAL);
+availabilityCard.setGravity(Gravity.CENTER_VERTICAL);
+availabilityCard.setPadding(
+        dp(14), dp(14), dp(10), dp(14)
+);
+availabilityCard.setClipToOutline(true);
+availabilityCard.setElevation(dp(4));
 
-    GradientDrawable availabilityBg = new GradientDrawable();
-    availabilityBg.setColor(Color.WHITE);
-    availabilityBg.setCornerRadius(dp(18));
-    availabilityBg.setStroke(
-            dp(1),
-            Color.parseColor("#E1E9F5")
-    );
-    availabilityCard.setBackground(availabilityBg);
+GradientDrawable availabilityBg = new GradientDrawable();
+availabilityBg.setColor(Color.WHITE);
+availabilityBg.setCornerRadius(dp(18));
+availabilityBg.setStroke(
+        dp(1),
+        Color.parseColor("#E1E9F5")
+);
+availabilityCard.setBackground(availabilityBg);
 
-    // LEFT CONTENT
-    LinearLayout availabilityContent = new LinearLayout(this);
-    availabilityContent.setOrientation(LinearLayout.VERTICAL);
-    availabilityContent.setGravity(Gravity.CENTER_VERTICAL);
 
-    LinearLayout.LayoutParams contentLp =
-            new LinearLayout.LayoutParams(
-                    0,
-                    -2,
-                    1f
-            );
-    contentLp.rightMargin = dp(8);
+// =====================================================
+// LEFT CONTENT
+// =====================================================
 
-    TextView availabilityTitle = text(
-            "Appointment Availability",
-            15,
-            Color.parseColor("#102B52")
-    );
-    availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
+LinearLayout availabilityContent = new LinearLayout(this);
+availabilityContent.setOrientation(LinearLayout.VERTICAL);
+availabilityContent.setGravity(Gravity.CENTER_VERTICAL);
 
-    availabilityContent.addView(availabilityTitle);
+LinearLayout.LayoutParams contentLp =
+        new LinearLayout.LayoutParams(
+                0,
+                -2,
+                1f
+        );
 
-    TextView availabilityStatus = text(
-            "No appointment detected yet",
-            12,
-            Color.parseColor("#344563")
-    );
-    availabilityStatus.setTypeface(Typeface.DEFAULT_BOLD);
+contentLp.rightMargin = dp(8);
 
-    LinearLayout.LayoutParams statusLp =
-            new LinearLayout.LayoutParams(-1, -2);
-    statusLp.topMargin = dp(8);
 
-    availabilityContent.addView(
-            availabilityStatus,
-            statusLp
-    );
+TextView availabilityTitle = text(
+        "Appointment Availability",
+        15,
+        Color.parseColor("#102B52")
+);
 
-    TextView availabilityDescription = text(
-            "You will be notified when an available appointment is detected.",
-            10,
-            Color.parseColor("#758099")
-    );
+availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
-    LinearLayout.LayoutParams descriptionLp =
-            new LinearLayout.LayoutParams(-1, -2);
-    descriptionLp.topMargin = dp(4);
+availabilityContent.addView(
+        availabilityTitle
+);
 
-    availabilityContent.addView(
-            availabilityDescription,
-            descriptionLp
-    );
 
-    availabilityCard.addView(
-            availabilityContent,
-            contentLp
-    );
+// =====================================================
+// STATUS
+// =====================================================
 
-    // RIGHT NEON CHECK BUTTON
-    SmallNeonCheckButton checkButton =
-            new SmallNeonCheckButton(this);
+TextView availabilityStatus = text(
+        "No appointment detected yet",
+        12,
+        Color.parseColor("#344563")
+);
 
-    LinearLayout.LayoutParams checkButtonLp =
-            new LinearLayout.LayoutParams(
-                    dp(92),
-                    dp(42)
-            );
+availabilityStatus.setTypeface(Typeface.DEFAULT_BOLD);
 
-    availabilityCard.addView(
-            checkButton,
-            checkButtonLp
-    );
+LinearLayout.LayoutParams statusLp =
+        new LinearLayout.LayoutParams(-1, -2);
 
-    
+statusLp.topMargin = dp(8);
+
+availabilityContent.addView(
+        availabilityStatus,
+        statusLp
+);
+
+
+// =====================================================
+// DESCRIPTION
+// =====================================================
+
+TextView availabilityDescription = text(
+        "You will be notified when an available appointment is detected.",
+        10,
+        Color.parseColor("#758099")
+);
+
+LinearLayout.LayoutParams descriptionLp =
+        new LinearLayout.LayoutParams(-1, -2);
+
+descriptionLp.topMargin = dp(4);
+
+availabilityContent.addView(
+        availabilityDescription,
+        descriptionLp
+);
+
+
+// =====================================================
+// LAST CHECK — PREMIUM TIME
+// =====================================================
+
+TextView availabilityLastCheck = text(
+        "Last check: --:--:--",
+        10,
+        Color.parseColor("#DCEBFF")
+);
+
+LinearLayout.LayoutParams lastCheckLp =
+        new LinearLayout.LayoutParams(-1, -2);
+
+lastCheckLp.topMargin = dp(7);
+
+
+// Initial two-tone text
+
+android.text.SpannableString initialTime =
+        new android.text.SpannableString(
+                "Last check: --:--:--"
+        );
+
+initialTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#DCEBFF")
+        ),
+        0,
+        12,
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
+initialTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#00FFFF")
+        ),
+        12,
+        initialTime.length(),
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
+availabilityLastCheck.setText(initialTime);
+
+availabilityContent.addView(
+        availabilityLastCheck,
+        lastCheckLp
+);
+
+
+availabilityCard.addView(
+        availabilityContent,
+        contentLp
+);
+
+
+// =====================================================
+// RIGHT NEON CHECK BUTTON
+// =====================================================
+
+SmallNeonCheckButton checkButton =
+        new SmallNeonCheckButton(this);
+
+LinearLayout.LayoutParams checkButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+availabilityCard.addView(
+        checkButton,
+        checkButtonLp
+);
+
+
+// =====================================================
+// CHECK BUTTON ACTION
+// =====================================================
+
 checkButton.setOnClickListener(v -> {
 
     if (selectedCountry == null
@@ -8700,6 +8780,7 @@ checkButton.setOnClickListener(v -> {
             );
 
     // Reset previous result before starting a new check.
+
     prefs.edit()
             .putString(
                     ManualCheckService.KEY_STATUS,
@@ -8719,12 +8800,17 @@ checkButton.setOnClickListener(v -> {
             )
             .apply();
 
-    availabilityStatus.setText("Checking BLS website...");
+
+    availabilityStatus.setText(
+            "Checking BLS website..."
+    );
+
     availabilityStatus.setTextColor(
             Color.parseColor("#2563EB")
     );
 
     checkButton.setChecking(true);
+
 
     Intent manualCheckIntent =
             new Intent(
@@ -8736,15 +8822,25 @@ checkButton.setOnClickListener(v -> {
             ManualCheckService.ACTION_START
     );
 
-    manualCheckIntent.putExtra("center", center);
+    manualCheckIntent.putExtra(
+            "center",
+            center
+    );
+
 
     try {
+
         if (android.os.Build.VERSION.SDK_INT >= 26) {
+
             startForegroundService(manualCheckIntent);
+
         } else {
+
             startService(manualCheckIntent);
         }
+
     } catch (Exception e) {
+
         checkButton.setChecking(false);
 
         availabilityStatus.setText(
@@ -8757,6 +8853,11 @@ checkButton.setOnClickListener(v -> {
 
         return;
     }
+
+
+    // =================================================
+    // RESULT CHECKER
+    // =================================================
 
     android.os.Handler handler =
             new android.os.Handler(
@@ -8781,6 +8882,7 @@ checkButton.setOnClickListener(v -> {
                 false
         );
 
+
         if (finished && !"CHECKING".equals(status)) {
 
             String message = prefs.getString(
@@ -8793,6 +8895,11 @@ checkButton.setOnClickListener(v -> {
                     0L
             );
 
+
+            // =========================================
+            // RESULT
+            // =========================================
+
             availabilityStatus.setText(
                     message + "\nResponse time: "
                             + (duration / 1000.0) + " s"
@@ -8804,22 +8911,80 @@ checkButton.setOnClickListener(v -> {
                             : Color.parseColor("#DC2626")
             );
 
+
+            // =========================================
+            // UPDATE LAST CHECK TIME
+            // =========================================
+
+            String checkTime =
+                    new java.text.SimpleDateFormat(
+                            "HH:mm:ss",
+                            java.util.Locale.getDefault()
+                    ).format(
+                            new java.util.Date()
+                    );
+
+
+            android.text.SpannableString timeText =
+                    new android.text.SpannableString(
+                            "Last check: " + checkTime
+                    );
+
+
+            timeText.setSpan(
+                    new android.text.style.ForegroundColorSpan(
+                            Color.parseColor("#DCEBFF")
+                    ),
+                    0,
+                    12,
+                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+
+
+            timeText.setSpan(
+                    new android.text.style.ForegroundColorSpan(
+                            Color.parseColor("#00FFFF")
+                    ),
+                    12,
+                    timeText.length(),
+                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+
+
+            availabilityLastCheck.setText(
+                    timeText
+            );
+
+
             checkButton.setChecking(false);
 
         } else {
-            handler.postDelayed(resultChecker[0], 700);
+
+            handler.postDelayed(
+                    resultChecker[0],
+                    700
+            );
         }
     };
 
-    handler.postDelayed(resultChecker[0], 700);
+
+    handler.postDelayed(
+            resultChecker[0],
+            700
+    );
 });
 
 
-    page.addView(
-            availabilityCard,
-            margin(0, 0, 0, 12)
-    );
+// =====================================================
+// ADD CARD
+// =====================================================
 
+page.addView(
+        availabilityCard,
+        margin(0, 0, 0, 12)
+);
+ 
+    
 
     // =====================================================
     // HOW IT WORKS
