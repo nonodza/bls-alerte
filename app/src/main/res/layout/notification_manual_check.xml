@@ -15,16 +15,13 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/notification_rv"
-            android:layout_width="32dp"
-            android:layout_height="24dp"
-            android:gravity="center"
-            android:text="RV"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:background="@drawable/notification_rv_bg" />
+        <ImageView
+    android:id="@+id/notification_rv"
+    android:layout_width="46dp"
+    android:layout_height="46dp"
+    android:src="@drawable/rv_premium_logo"
+    android:scaleType="fitCenter"
+    android:contentDescription="RV Premium Logo" />
 
         <TextView
             android:id="@+id/notification_title"
