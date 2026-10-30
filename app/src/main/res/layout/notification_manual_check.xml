@@ -17,8 +17,8 @@
 
         <ImageView
     android:id="@+id/notification_rv"
-    android:layout_width="46dp"
-    android:layout_height="46dp"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
     android:src="@drawable/rv_premium_logo"
     android:scaleType="fitCenter"
     android:contentDescription="RV Premium Logo" />
