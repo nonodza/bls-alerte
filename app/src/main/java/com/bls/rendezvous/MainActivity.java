@@ -8827,7 +8827,7 @@ checkButton.setOnClickListener(v -> {
             center
     );
 
-
+manualCheckIntent.putExtra("country", selectedCountry);
     try {
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
