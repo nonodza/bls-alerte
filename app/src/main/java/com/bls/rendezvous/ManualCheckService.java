@@ -148,7 +148,11 @@ public class ManualCheckService extends Service {
 
             String center =
                     intent.getStringExtra("center");
+           selectedCountry = intent.getStringExtra("country");
 
+if (selectedCountry == null || selectedCountry.trim().isEmpty()) {
+    selectedCountry = "Unknown country";
+}
 
             if (center == null ||
                     center.trim().isEmpty()) {
