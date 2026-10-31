@@ -53,7 +53,7 @@ public class ManualCheckService extends Service {
             new Handler(Looper.getMainLooper());
 
     private volatile boolean cancelled = false;
-
+    private String selectedCountry = "";
     private Thread checkThread;
 
 
