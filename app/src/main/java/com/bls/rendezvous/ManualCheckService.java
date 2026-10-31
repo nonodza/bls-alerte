@@ -159,7 +159,13 @@ if (selectedCountry == null || selectedCountry.trim().isEmpty()) {
 
                 center = "Algiers";
             }
+            selectedCountry = intent.getStringExtra("country");
 
+if (selectedCountry == null ||
+        selectedCountry.trim().isEmpty()) {
+
+    selectedCountry = "Unknown country";
+}
 
             cancelled = false;
 
