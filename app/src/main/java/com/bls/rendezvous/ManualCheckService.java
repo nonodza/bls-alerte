@@ -1,4 +1,3 @@
-
 package com.bls.rendezvous;
 
 import android.app.Notification;
@@ -24,6 +23,8 @@ import androidx.annotation.Nullable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ManualCheckService extends Service {
 
@@ -53,8 +54,142 @@ public class ManualCheckService extends Service {
             new Handler(Looper.getMainLooper());
 
     private volatile boolean cancelled = false;
-    private String selectedCountry = "";
+
+    private String selectedCountry = "Unknown country";
+
     private Thread checkThread;
+
+
+    // =====================================================
+    // COUNTRY DISPLAY
+    // =====================================================
+
+    private String getCountryDisplay() {
+
+        String value = selectedCountry;
+
+        if (value == null || value.trim().isEmpty()) {
+            return "🌍 Unknown country";
+        }
+
+        value = value.trim();
+
+        Map<String, String[]> countries = new HashMap<>();
+
+        countries.put("BE", new String[]{"🇧🇪", "Belgium"});
+        countries.put("BELGIUM", new String[]{"🇧🇪", "Belgium"});
+
+        countries.put("FR", new String[]{"🇫🇷", "France"});
+        countries.put("FRANCE", new String[]{"🇫🇷", "France"});
+
+        countries.put("ES", new String[]{"🇪🇸", "Spain"});
+        countries.put("SPAIN", new String[]{"🇪🇸", "Spain"});
+
+        countries.put("DE", new String[]{"🇩🇪", "Germany"});
+        countries.put("GERMANY", new String[]{"🇩🇪", "Germany"});
+
+        countries.put("IT", new String[]{"🇮🇹", "Italy"});
+        countries.put("ITALY", new String[]{"🇮🇹", "Italy"});
+
+        countries.put("NL", new String[]{"🇳🇱", "Netherlands"});
+        countries.put("NETHERLANDS", new String[]{"🇳🇱", "Netherlands"});
+
+        countries.put("PT", new String[]{"🇵🇹", "Portugal"});
+        countries.put("PORTUGAL", new String[]{"🇵🇹", "Portugal"});
+
+        countries.put("CH", new String[]{"🇨🇭", "Switzerland"});
+        countries.put("SWITZERLAND", new String[]{"🇨🇭", "Switzerland"});
+
+        countries.put("AT", new String[]{"🇦🇹", "Austria"});
+        countries.put("AUSTRIA", new String[]{"🇦🇹", "Austria"});
+
+        countries.put("GB", new String[]{"🇬🇧", "United Kingdom"});
+        countries.put("UK", new String[]{"🇬🇧", "United Kingdom"});
+        countries.put("UNITED KINGDOM", new String[]{"🇬🇧", "United Kingdom"});
+
+        countries.put("US", new String[]{"🇺🇸", "United States"});
+        countries.put("USA", new String[]{"🇺🇸", "United States"});
+        countries.put("UNITED STATES", new String[]{"🇺🇸", "United States"});
+
+        countries.put("CA", new String[]{"🇨🇦", "Canada"});
+        countries.put("CANADA", new String[]{"🇨🇦", "Canada"});
+
+        countries.put("AU", new String[]{"🇦🇺", "Australia"});
+        countries.put("AUSTRALIA", new String[]{"🇦🇺", "Australia"});
+
+        countries.put("DZ", new String[]{"🇩🇿", "Algeria"});
+        countries.put("ALGERIA", new String[]{"🇩🇿", "Algeria"});
+
+        countries.put("SE", new String[]{"🇸🇪", "Sweden"});
+        countries.put("SWEDEN", new String[]{"🇸🇪", "Sweden"});
+
+        countries.put("NO", new String[]{"🇳🇴", "Norway"});
+        countries.put("NORWAY", new String[]{"🇳🇴", "Norway"});
+
+        countries.put("DK", new String[]{"🇩🇰", "Denmark"});
+        countries.put("DENMARK", new String[]{"🇩🇰", "Denmark"});
+
+        countries.put("FI", new String[]{"🇫🇮", "Finland"});
+        countries.put("FINLAND", new String[]{"🇫🇮", "Finland"});
+
+        countries.put("GR", new String[]{"🇬🇷", "Greece"});
+        countries.put("GREECE", new String[]{"🇬🇷", "Greece"});
+
+        countries.put("PL", new String[]{"🇵🇱", "Poland"});
+        countries.put("POLAND", new String[]{"🇵🇱", "Poland"});
+
+        countries.put("IE", new String[]{"🇮🇪", "Ireland"});
+        countries.put("IRELAND", new String[]{"🇮🇪", "Ireland"});
+
+        countries.put("CZ", new String[]{"🇨🇿", "Czech Republic"});
+        countries.put("CZECH REPUBLIC", new String[]{"🇨🇿", "Czech Republic"});
+
+        countries.put("HU", new String[]{"🇭🇺", "Hungary"});
+        countries.put("HUNGARY", new String[]{"🇭🇺", "Hungary"});
+
+        countries.put("RO", new String[]{"🇷🇴", "Romania"});
+        countries.put("ROMANIA", new String[]{"🇷🇴", "Romania"});
+
+        countries.put("BG", new String[]{"🇧🇬", "Bulgaria"});
+        countries.put("BULGARIA", new String[]{"🇧🇬", "Bulgaria"});
+
+        countries.put("HR", new String[]{"🇭🇷", "Croatia"});
+        countries.put("CROATIA", new String[]{"🇭🇷", "Croatia"});
+
+        countries.put("SI", new String[]{"🇸🇮", "Slovenia"});
+        countries.put("SLOVENIA", new String[]{"🇸🇮", "Slovenia"});
+
+        countries.put("SK", new String[]{"🇸🇰", "Slovakia"});
+        countries.put("SLOVAKIA", new String[]{"🇸🇰", "Slovakia"});
+
+        countries.put("EE", new String[]{"🇪🇪", "Estonia"});
+        countries.put("ESTONIA", new String[]{"🇪🇪", "Estonia"});
+
+        countries.put("LV", new String[]{"🇱🇻", "Latvia"});
+        countries.put("LATVIA", new String[]{"🇱🇻", "Latvia"});
+
+        countries.put("LT", new String[]{"🇱🇹", "Lithuania"});
+        countries.put("LITHUANIA", new String[]{"🇱🇹", "Lithuania"});
+
+        countries.put("LU", new String[]{"🇱🇺", "Luxembourg"});
+        countries.put("LUXEMBOURG", new String[]{"🇱🇺", "Luxembourg"});
+
+        countries.put("MT", new String[]{"🇲🇹", "Malta"});
+        countries.put("MALTA", new String[]{"🇲🇹", "Malta"});
+
+        countries.put("CY", new String[]{"🇨🇾", "Cyprus"});
+        countries.put("CYPRUS", new String[]{"🇨🇾", "Cyprus"});
+
+        String key = value.toUpperCase(Locale.ROOT);
+
+        String[] result = countries.get(key);
+
+        if (result != null) {
+            return result[0] + " " + result[1];
+        }
+
+        return "🌍 " + value;
+    }
 
 
     // =====================================================
@@ -88,7 +223,6 @@ public class ManualCheckService extends Service {
             return START_NOT_STICKY;
         }
 
-
         String action = intent.getAction();
 
 
@@ -102,7 +236,6 @@ public class ManualCheckService extends Service {
                     getSystemService(NotificationManager.class);
 
             if (manager != null) {
-
                 manager.cancel(NOTIFICATION_ID);
             }
 
@@ -121,7 +254,6 @@ public class ManualCheckService extends Service {
             cancelled = true;
 
             if (checkThread != null) {
-
                 checkThread.interrupt();
             }
 
@@ -145,53 +277,49 @@ public class ManualCheckService extends Service {
                 return START_NOT_STICKY;
             }
 
-
             String center =
                     intent.getStringExtra("center");
-           selectedCountry = intent.getStringExtra("country");
-
-if (selectedCountry == null || selectedCountry.trim().isEmpty()) {
-    selectedCountry = "Unknown country";
-}
 
             if (center == null ||
                     center.trim().isEmpty()) {
 
                 center = "Algiers";
             }
-            selectedCountry = intent.getStringExtra("country");
 
-if (selectedCountry == null ||
-        selectedCountry.trim().isEmpty()) {
+            selectedCountry =
+                    intent.getStringExtra("country");
 
-    selectedCountry = "Unknown country";
-}
+            if (selectedCountry == null ||
+                    selectedCountry.trim().isEmpty()) {
+
+                selectedCountry = "Unknown country";
+            }
 
             cancelled = false;
 
+            String checkingMessage =
+                    "Checking appointment portal · "
+                            + getCountryDisplay();
 
             saveResult(
                     "CHECKING",
-                    "Checking BLS website...",
+                    checkingMessage,
                     0L,
                     false
             );
 
-
             startForeground(
                     NOTIFICATION_ID,
                     buildProgressNotification(
-                            "Checking BLS website..."
+                            checkingMessage
                     )
             );
-
 
             startManualCheck(
                     center,
                     startId
             );
         }
-
 
         return START_NOT_STICKY;
     }
@@ -208,33 +336,27 @@ if (selectedCountry == null ||
 
         final String selectedCenter = center;
 
-
         checkThread = new Thread(() -> {
 
             long startTime =
                     System.currentTimeMillis();
-
 
             String finalStatus;
             String finalMessage;
 
             long duration;
 
-
             try {
 
                 BLSMonitor monitor =
                         new BLSMonitor();
 
-
                 BLSMonitor.Result result =
                         monitor.check(selectedCenter);
-
 
                 duration =
                         System.currentTimeMillis()
                                 - startTime;
-
 
                 if (cancelled ||
                         Thread.currentThread().isInterrupted()) {
@@ -242,22 +364,17 @@ if (selectedCountry == null ||
                     return;
                 }
 
-
                 finalStatus =
                         result.getStatus().name();
-
 
                 finalMessage =
                         result.getMessage();
 
-
                 if (finalMessage == null ||
                         finalMessage.trim().isEmpty()) {
 
-                    finalMessage =
-                            "Check finished.";
+                    finalMessage = "Check finished.";
                 }
-
 
             } catch (Exception e) {
 
@@ -267,26 +384,21 @@ if (selectedCountry == null ||
                     return;
                 }
 
-
                 duration =
                         System.currentTimeMillis()
                                 - startTime;
 
-
                 finalStatus = "ERROR";
 
-
                 finalMessage =
-                        "Manual check failed. Please try again.";
+                        "Appointment portal check failed. Please try again.";
             }
-
 
             if (cancelled ||
                     Thread.currentThread().isInterrupted()) {
 
                 return;
             }
-
 
             saveResult(
                     finalStatus,
@@ -295,38 +407,30 @@ if (selectedCountry == null ||
                     true
             );
 
-
             final String notificationMessage =
                     "Result: "
                             + finalStatus
                             + " — "
                             + finalMessage;
 
-
             mainHandler.post(() -> {
 
                 if (cancelled) {
-
                     return;
                 }
 
-
                 stopForeground(true);
-
 
                 showFinalNotification(
                         notificationMessage
                 );
 
-
                 checkThread = null;
-
 
                 stopSelfResult(startId);
             });
 
         });
-
 
         checkThread.start();
     }
@@ -348,7 +452,6 @@ if (selectedCountry == null ||
                         PREFS_NAME,
                         MODE_PRIVATE
                 );
-
 
         prefs.edit()
 
@@ -390,11 +493,9 @@ if (selectedCountry == null ||
                         ManualCheckService.class
                 );
 
-
         cancelIntent.setAction(
                 ACTION_CANCEL
         );
-
 
         PendingIntent cancelPendingIntent =
                 PendingIntent.getService(
@@ -404,7 +505,6 @@ if (selectedCountry == null ||
                         PendingIntent.FLAG_UPDATE_CURRENT
                                 | PendingIntent.FLAG_IMMUTABLE
                 );
-
 
         return new Notification.Builder(
                 this,
@@ -416,11 +516,16 @@ if (selectedCountry == null ||
                 )
 
                 .setContentTitle(
-                        "Manual BLS Check"
+                        "Appointment Availability"
                 )
 
                 .setContentText(
                         message
+                )
+
+                .setStyle(
+                        new Notification.BigTextStyle()
+                                .bigText(message)
                 )
 
                 .setOngoing(true)
@@ -448,12 +553,9 @@ if (selectedCountry == null ||
         NotificationManager manager =
                 getSystemService(NotificationManager.class);
 
-
         if (manager == null) {
-
             return;
         }
-
 
         SharedPreferences prefs =
                 getSharedPreferences(
@@ -461,16 +563,13 @@ if (selectedCountry == null ||
                         MODE_PRIVATE
                 );
 
-
         String status =
                 prefs.getString(
                         KEY_STATUS,
                         "UNKNOWN"
                 );
 
-
         String description;
-
 
         // =================================================
         // STATUS DESCRIPTION
@@ -481,10 +580,9 @@ if (selectedCountry == null ||
             case "WEBSITE_OK":
 
                 description =
-                        "BLS website is reachable";
+                        "Appointment portal is reachable";
 
                 break;
-
 
             case "NO_APPOINTMENT":
 
@@ -493,14 +591,12 @@ if (selectedCountry == null ||
 
                 break;
 
-
             case "ACCESS_BLOCKED":
 
                 description =
-                        "Website access is blocked";
+                        "Portal access is blocked";
 
                 break;
-
 
             case "TOO_MANY_REQUESTS":
 
@@ -509,15 +605,13 @@ if (selectedCountry == null ||
 
                 break;
 
-
             case "WEBSITE_UNAVAILABLE":
             case "SERVER_ERROR":
 
                 description =
-                        "BLS website is temporarily unavailable";
+                        "Appointment portal is temporarily unavailable";
 
                 break;
-
 
             case "CONNECTION_ERROR":
 
@@ -526,23 +620,20 @@ if (selectedCountry == null ||
 
                 break;
 
-
             case "ERROR":
 
                 description =
-                        "Manual check failed";
+                        "Appointment portal check failed";
 
                 break;
-
 
             default:
 
                 description =
-                        "Your BLS check has finished";
+                        "Your appointment portal check has finished";
 
                 break;
         }
-
 
         // =================================================
         // CHECK TIME
@@ -556,7 +647,6 @@ if (selectedCountry == null ||
                         new Date()
                 );
 
-
         // =================================================
         // INFORMATION TEXT
         // =================================================
@@ -564,23 +654,18 @@ if (selectedCountry == null ||
         SpannableStringBuilder statusInfo =
                 new SpannableStringBuilder();
 
-
         int labelColor =
                 Color.rgb(220, 235, 255);
-
 
         int valueColor =
                 Color.rgb(0, 255, 255);
 
-
         int start =
                 statusInfo.length();
-
 
         statusInfo.append(
                 "Last check: "
         );
-
 
         statusInfo.setSpan(
                 new ForegroundColorSpan(labelColor),
@@ -589,15 +674,12 @@ if (selectedCountry == null ||
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
 
-
         start =
                 statusInfo.length();
-
 
         statusInfo.append(
                 checkTime
         );
-
 
         statusInfo.setSpan(
                 new ForegroundColorSpan(valueColor),
@@ -605,7 +687,6 @@ if (selectedCountry == null ||
                 statusInfo.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
-
 
         // =================================================
         // REMOTE VIEWS
@@ -617,7 +698,6 @@ if (selectedCountry == null ||
                         R.layout.notification_manual_check
                 );
 
-
         // =================================================
         // PREMIUM RV LOGO
         // =================================================
@@ -627,16 +707,14 @@ if (selectedCountry == null ||
                 R.drawable.rv_premium_logo
         );
 
-
         // =================================================
         // TITLE
         // =================================================
 
         remoteViews.setTextViewText(
                 R.id.notification_title,
-                "BLS Rendez-Vous"
+                "Visa Slot Tracker"
         );
-
 
         // =================================================
         // DESCRIPTION
@@ -644,9 +722,8 @@ if (selectedCountry == null ||
 
         remoteViews.setTextViewText(
                 R.id.notification_description,
-                description
+                description + " · " + getCountryDisplay()
         );
-
 
         // =================================================
         // COLORED INFORMATION
@@ -657,9 +734,8 @@ if (selectedCountry == null ||
                 statusInfo
         );
 
-
         // =================================================
-        // OPEN BLS INTENT
+        // OPEN PORTAL INTENT
         // =================================================
 
         Intent openIntent =
@@ -670,7 +746,6 @@ if (selectedCountry == null ||
                         )
                 );
 
-
         PendingIntent openPendingIntent =
                 PendingIntent.getActivity(
                         this,
@@ -679,7 +754,6 @@ if (selectedCountry == null ||
                         PendingIntent.FLAG_UPDATE_CURRENT
                                 | PendingIntent.FLAG_IMMUTABLE
                 );
-
 
         // =================================================
         // DISMISS INTENT
@@ -691,11 +765,9 @@ if (selectedCountry == null ||
                         ManualCheckService.class
                 );
 
-
         dismissIntent.setAction(
                 ACTION_DISMISS
         );
-
 
         PendingIntent dismissPendingIntent =
                 PendingIntent.getService(
@@ -705,7 +777,6 @@ if (selectedCountry == null ||
                         PendingIntent.FLAG_UPDATE_CURRENT
                                 | PendingIntent.FLAG_IMMUTABLE
                 );
-
 
         // =================================================
         // FINAL NOTIFICATION
@@ -726,11 +797,11 @@ if (selectedCountry == null ||
                         )
 
                         .setContentTitle(
-                                "BLS Rendez-Vous"
+                                "Visa Slot Tracker"
                         )
 
                         .setContentText(
-                                description
+                                description + " · " + getCountryDisplay()
                         )
 
                         .setContentIntent(
@@ -739,7 +810,7 @@ if (selectedCountry == null ||
 
                         .addAction(
                                 android.R.drawable.ic_menu_view,
-                                "Open BLS",
+                                "Open Portal",
                                 openPendingIntent
                         )
 
@@ -756,7 +827,6 @@ if (selectedCountry == null ||
                         .setOnlyAlertOnce(true)
 
                         .build();
-
 
         manager.notify(
                 NOTIFICATION_ID,
@@ -775,21 +845,18 @@ if (selectedCountry == null ||
                 Build.VERSION_CODES.O) {
 
             NotificationChannel channel =
-        new NotificationChannel(
-                CHANNEL_ID,
-                "Appointment Availability",
-                NotificationManager.IMPORTANCE_DEFAULT
-        );
-
+                    new NotificationChannel(
+                            CHANNEL_ID,
+                            "Appointment Availability",
+                            NotificationManager.IMPORTANCE_DEFAULT
+                    );
 
             channel.setDescription(
-                    "Progress and results of a manual BLS check"
+                    "Progress and results of an appointment portal check"
             );
-
 
             NotificationManager manager =
                     getSystemService(NotificationManager.class);
-
 
             if (manager != null) {
 
@@ -810,15 +877,11 @@ if (selectedCountry == null ||
 
         cancelled = true;
 
-
         if (checkThread != null) {
-
             checkThread.interrupt();
         }
 
-
         mainHandler.removeCallbacksAndMessages(null);
-
 
         super.onDestroy();
     }
