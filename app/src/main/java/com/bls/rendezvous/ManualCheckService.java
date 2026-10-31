@@ -765,11 +765,11 @@ public class ManualCheckService extends Service {
                 Build.VERSION_CODES.O) {
 
             NotificationChannel channel =
-                    new NotificationChannel(
-                            CHANNEL_ID,
-                            "Manual BLS Check",
-                            NotificationManager.IMPORTANCE_DEFAULT
-                    );
+        new NotificationChannel(
+                CHANNEL_ID,
+                "Appointment Availability",
+                NotificationManager.IMPORTANCE_DEFAULT
+        );
 
 
             channel.setDescription(
