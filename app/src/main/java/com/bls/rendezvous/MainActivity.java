@@ -8672,13 +8672,13 @@ availabilityContent.addView(
 // SELECTED COUNTRY — FLAG & NAME
 // =====================================================
 
-TextView availabilityCountry = text(
-        getCountryDisplay(),
-        12,
-        Color.parseColor("#2563EB")
+TextView availabilityTitle = text(
+        "Appointment Availability",
+        15,
+        Color.parseColor("#102B52")
 );
 
-availabilityCountry.setTypeface(Typeface.DEFAULT_BOLD);
+availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
 LinearLayout.LayoutParams countryLp =
         new LinearLayout.LayoutParams(
