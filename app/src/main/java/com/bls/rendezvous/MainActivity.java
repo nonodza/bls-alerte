@@ -8343,7 +8343,7 @@ dialog.show();
         );
 
         countryLine.setTextColor(
-                Color.parseColor("#8993A7")
+                Color.parseColor("#344563")
         );
     }
 
