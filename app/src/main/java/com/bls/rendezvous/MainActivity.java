@@ -8725,8 +8725,8 @@ availabilityContent.addView(
 
 TextView availabilityLastCheck = text(
         "Last check: --:--:--",
-        10,
-        Color.parseColor("#DCEBFF")
+        11,
+        Color.parseColor("#344563")
 );
 
 LinearLayout.LayoutParams lastCheckLp =
