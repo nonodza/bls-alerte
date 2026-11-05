@@ -872,12 +872,12 @@ countrySelector.setOnClickListener(
         countries,
         (dialog, which) -> {
 
-            String selectedCountry =
-                    countries[which];
+            MainActivity.this.selectedCountry =
+        countries[which];
 
-            countrySelector.setText(
-                    selectedCountry + "  ⌄"
-            );
+countrySelector.setText(
+        MainActivity.this.selectedCountry + "  ⌄"
+);
 
             // Save selected country
             getSharedPreferences(
