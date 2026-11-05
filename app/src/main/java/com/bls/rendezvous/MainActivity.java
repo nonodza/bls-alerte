@@ -8636,35 +8636,18 @@ LinearLayout.LayoutParams contentLp =
 
 contentLp.rightMargin = dp(8);
 
+// =====================================================
+// AVAILABILITY TITLE
+// =====================================================
 
 TextView availabilityTitle = text(
         "Appointment Availability",
         15,
-        Color.WHITE
+        Color.parseColor("#102B52")
 );
 
 availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 
-GradientDrawable availabilityGradient =
-        new GradientDrawable(
-                GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{
-                        Color.parseColor("#2563EB"),
-                        Color.parseColor("#5145CD"),
-                        Color.parseColor("#7138B8")
-                }
-        );
-
-availabilityGradient.setCornerRadius(dp(10));
-
-availabilityTitle.setBackground(availabilityGradient);
-
-availabilityTitle.setPadding(
-        dp(12),
-        dp(9),
-        dp(12),
-        dp(9)
-);
 availabilityContent.addView(
         availabilityTitle
 );
