@@ -8635,7 +8635,7 @@ LinearLayout.LayoutParams contentLp =
         );
 
 contentLp.rightMargin = dp(8);
-
+    
 // =====================================================
 // AVAILABILITY TITLE
 // =====================================================
@@ -8651,17 +8651,34 @@ availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 availabilityContent.addView(
         availabilityTitle
 );
+
+
 // =====================================================
 // SELECTED COUNTRY — FLAG & NAME
 // =====================================================
 
-TextView availabilityTitle = text(
-        "Appointment Availability",
-        15,
-        Color.parseColor("#102B52")
+String countryDisplay = selectedCountry;
+
+if (countryDisplay == null || countryDisplay.trim().isEmpty()) {
+
+    countryDisplay = getSharedPreferences(
+            "RV_SETTINGS",
+            MODE_PRIVATE
+    ).getString(
+            "selected_country",
+            "🌍 Unknown country"
+    );
+}
+
+TextView availabilityCountry = text(
+        countryDisplay,
+        12,
+        Color.parseColor("#344563")
 );
 
-availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
+availabilityCountry.setTypeface(
+        Typeface.DEFAULT_BOLD
+);
 
 LinearLayout.LayoutParams countryLp =
         new LinearLayout.LayoutParams(
