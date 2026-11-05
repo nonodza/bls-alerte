@@ -12827,8 +12827,102 @@ private class CountryIconView extends View {
 }
     
   
+// =====================================================
+// COUNTRY DISPLAY
+// =====================================================
+
+private String getCountryDisplay() {
+
+    String value = selectedCountry;
+
+    if (value == null || value.trim().isEmpty()) {
+        return "🌍 Unknown country";
+    }
+
+    value = value.trim();
+
+    Map<String, String[]> countries = new HashMap<>();
+
+    countries.put("BE", new String[]{"🇧🇪", "Belgium"});
+    countries.put("BELGIUM", new String[]{"🇧🇪", "Belgium"});
+    countries.put("FR", new String[]{"🇫🇷", "France"});
+    countries.put("FRANCE", new String[]{"🇫🇷", "France"});
+    countries.put("ES", new String[]{"🇪🇸", "Spain"});
+    countries.put("SPAIN", new String[]{"🇪🇸", "Spain"});
+    countries.put("DE", new String[]{"🇩🇪", "Germany"});
+    countries.put("GERMANY", new String[]{"🇩🇪", "Germany"});
+    countries.put("IT", new String[]{"🇮🇹", "Italy"});
+    countries.put("ITALY", new String[]{"🇮🇹", "Italy"});
+    countries.put("NL", new String[]{"🇳🇱", "Netherlands"});
+    countries.put("NETHERLANDS", new String[]{"🇳🇱", "Netherlands"});
+    countries.put("PT", new String[]{"🇵🇹", "Portugal"});
+    countries.put("PORTUGAL", new String[]{"🇵🇹", "Portugal"});
+    countries.put("CH", new String[]{"🇨🇭", "Switzerland"});
+    countries.put("SWITZERLAND", new String[]{"🇨🇭", "Switzerland"});
+    countries.put("AT", new String[]{"🇦🇹", "Austria"});
+    countries.put("AUSTRIA", new String[]{"🇦🇹", "Austria"});
+    countries.put("GB", new String[]{"🇬🇧", "United Kingdom"});
+    countries.put("UK", new String[]{"🇬🇧", "United Kingdom"});
+    countries.put("UNITED KINGDOM", new String[]{"🇬🇧", "United Kingdom"});
+    countries.put("US", new String[]{"🇺🇸", "United States"});
+    countries.put("USA", new String[]{"🇺🇸", "United States"});
+    countries.put("UNITED STATES", new String[]{"🇺🇸", "United States"});
+    countries.put("CA", new String[]{"🇨🇦", "Canada"});
+    countries.put("CANADA", new String[]{"🇨🇦", "Canada"});
+    countries.put("AU", new String[]{"🇦🇺", "Australia"});
+    countries.put("AUSTRALIA", new String[]{"🇦🇺", "Australia"});
+    countries.put("DZ", new String[]{"🇩🇿", "Algeria"});
+    countries.put("ALGERIA", new String[]{"🇩🇿", "Algeria"});
+    countries.put("SE", new String[]{"🇸🇪", "Sweden"});
+    countries.put("SWEDEN", new String[]{"🇸🇪", "Sweden"});
+    countries.put("NO", new String[]{"🇳🇴", "Norway"});
+    countries.put("NORWAY", new String[]{"🇳🇴", "Norway"});
+    countries.put("DK", new String[]{"🇩🇰", "Denmark"});
+    countries.put("DENMARK", new String[]{"🇩🇰", "Denmark"});
+    countries.put("FI", new String[]{"🇫🇮", "Finland"});
+    countries.put("FINLAND", new String[]{"🇫🇮", "Finland"});
+    countries.put("GR", new String[]{"🇬🇷", "Greece"});
+    countries.put("GREECE", new String[]{"🇬🇷", "Greece"});
+    countries.put("PL", new String[]{"🇵🇱", "Poland"});
+    countries.put("POLAND", new String[]{"🇵🇱", "Poland"});
+    countries.put("IE", new String[]{"🇮🇪", "Ireland"});
+    countries.put("IRELAND", new String[]{"🇮🇪", "Ireland"});
+    countries.put("CZ", new String[]{"🇨🇿", "Czech Republic"});
+    countries.put("CZECH REPUBLIC", new String[]{"🇨🇿", "Czech Republic"});
+    countries.put("HU", new String[]{"🇭🇺", "Hungary"});
+    countries.put("HUNGARY", new String[]{"🇭🇺", "Hungary"});
+    countries.put("RO", new String[]{"🇷🇴", "Romania"});
+    countries.put("ROMANIA", new String[]{"🇷🇴", "Romania"});
+    countries.put("BG", new String[]{"🇧🇬", "Bulgaria"});
+    countries.put("BULGARIA", new String[]{"🇧🇬", "Bulgaria"});
+    countries.put("HR", new String[]{"🇭🇷", "Croatia"});
+    countries.put("CROATIA", new String[]{"🇭🇷", "Croatia"});
+    countries.put("SI", new String[]{"🇸🇮", "Slovenia"});
+    countries.put("SLOVENIA", new String[]{"🇸🇮", "Slovenia"});
+    countries.put("SK", new String[]{"🇸🇰", "Slovakia"});
+    countries.put("SLOVAKIA", new String[]{"🇸🇰", "Slovakia"});
+    countries.put("EE", new String[]{"🇪🇪", "Estonia"});
+    countries.put("ESTONIA", new String[]{"🇪🇪", "Estonia"});
+    countries.put("LV", new String[]{"🇱🇻", "Latvia"});
+    countries.put("LATVIA", new String[]{"🇱🇻", "Latvia"});
+    countries.put("LT", new String[]{"🇱🇹", "Lithuania"});
+    countries.put("LITHUANIA", new String[]{"🇱🇹", "Lithuania"});
+    countries.put("LU", new String[]{"🇱🇺", "Luxembourg"});
+    countries.put("LUXEMBOURG", new String[]{"🇱🇺", "Luxembourg"});
+    countries.put("MT", new String[]{"🇲🇹", "Malta"});
+    countries.put("MALTA", new String[]{"🇲🇹", "Malta"});
+    countries.put("CY", new String[]{"🇨🇾", "Cyprus"});
+    countries.put("CYPRUS", new String[]{"🇨🇾", "Cyprus"});
+
+    String[] result = countries.get(value.toUpperCase(Locale.ROOT));
+
+    if (result != null) {
+        return result[0] + " " + result[1];
+    }
+
+    return "🌍 " + value;    
+}
 // =================================================
 // END MAINACTIVITY CLASS
 // =================================================
-
 } 
