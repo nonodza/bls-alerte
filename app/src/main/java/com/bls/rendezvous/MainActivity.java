@@ -8590,14 +8590,34 @@ availabilityCard.setClipToOutline(true);
 availabilityCard.setElevation(dp(4));
 
 GradientDrawable availabilityBg = new GradientDrawable();
-availabilityBg.setColor(Color.WHITE);
+
+availabilityBg.setOrientation(
+        GradientDrawable.Orientation.LEFT_RIGHT
+);
+
+availabilityBg.setColors(
+        new int[]{
+                Color.parseColor("#4FACFE"),
+                Color.parseColor("#00F2FE"),
+                Color.WHITE,
+                Color.WHITE
+        },
+        new float[]{
+                0f,
+                0.5f,
+                0.501f,
+                1f
+        }
+);
+
 availabilityBg.setCornerRadius(dp(18));
+
 availabilityBg.setStroke(
         dp(1),
         Color.parseColor("#E1E9F5")
 );
-availabilityCard.setBackground(availabilityBg);
 
+availabilityCard.setBackground(availabilityBg);
 
 // =====================================================
 // LEFT CONTENT
