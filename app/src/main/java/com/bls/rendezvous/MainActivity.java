@@ -8726,7 +8726,7 @@ availabilityContent.addView(
 TextView availabilityLastCheck = text(
         "Last check: --:--:--",
         11,
-        Color.parseColor("#344563")
+        Color.parseColor("#05FFCF")
 );
 
 LinearLayout.LayoutParams lastCheckLp =
@@ -8744,7 +8744,7 @@ android.text.SpannableString initialTime =
 
 initialTime.setSpan(
         new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#DCEBFF")
+                Color.parseColor("#4D7DBC")
         ),
         0,
         12,
