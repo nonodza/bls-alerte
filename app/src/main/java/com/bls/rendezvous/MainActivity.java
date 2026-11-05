@@ -8625,7 +8625,30 @@ availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 availabilityContent.addView(
         availabilityTitle
 );
+// =====================================================
+// SELECTED COUNTRY — FLAG & NAME
+// =====================================================
 
+TextView availabilityCountry = text(
+        getCountryDisplay(),
+        12,
+        Color.parseColor("#2563EB")
+);
+
+availabilityCountry.setTypeface(Typeface.DEFAULT_BOLD);
+
+LinearLayout.LayoutParams countryLp =
+        new LinearLayout.LayoutParams(
+                -1,
+                -2
+        );
+
+countryLp.topMargin = dp(5);
+
+availabilityContent.addView(
+        availabilityCountry,
+        countryLp
+);
 
 // =====================================================
 // STATUS
