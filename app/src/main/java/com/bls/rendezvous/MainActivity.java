@@ -8806,7 +8806,19 @@ checkButton.setOnClickListener(v -> {
 
         return;
     }
+boolean isMonitoringActive =
+        getSharedPreferences(
+                AppointmentMonitoringService.MONITOR_PREFS,
+                MODE_PRIVATE
+        ).getBoolean(
+                AppointmentMonitoringService.KEY_MONITORING_ACTIVE,
+                false
+        );
 
+if (isMonitoringActive) {
+    showCheckingConfirmation(selectedCenter);
+    return;
+}
     if (checkButton.isChecking()) {
         return;
     }
@@ -8897,7 +8909,38 @@ manualCheckIntent.putExtra("country", selectedCountry);
 
         return;
     }
+// =====================================================
+// CHECKING CONFIRMATION
+// =====================================================
 
+private void showCheckingConfirmation(
+        String center
+) {
+
+    new AlertDialog.Builder(this)
+            .setTitle("Switch to Manual Check?")
+            .setMessage(
+                    "Automatic monitoring is currently active.\n\n"
+                    + "To perform a manual check, automatic "
+                    + "monitoring must be paused temporarily.\n\n"
+                    + "Monitoring can resume automatically "
+                    + "after the manual check is completed."
+            )
+            .setNegativeButton(
+                    "Cancel",
+                    (dialog, which) -> dialog.dismiss()
+            )
+            .setPositiveButton(
+                    "Continue",
+                    (dialog, which) -> {
+
+                        // سنربط هنا إيقاف المراقبة
+                        // وبدء الفحص اليدوي بعد تأكيد توقف الخدمة.
+                    }
+            )
+            .setCancelable(true)
+            .show();
+}
 
     // =================================================
     // RESULT CHECKER
