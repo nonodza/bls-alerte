@@ -873,11 +873,11 @@ countrySelector.setOnClickListener(
         (dialog, which) -> {
 
             MainActivity.this.selectedCountry =
-        countries[which];
+                    countries[which];
 
-countrySelector.setText(
-        MainActivity.this.selectedCountry + "  ⌄"
-);
+            countrySelector.setText(
+                    MainActivity.this.selectedCountry + "  ⌄"
+            );
 
             // Save selected country
             getSharedPreferences(
@@ -887,16 +887,17 @@ countrySelector.setText(
                     .edit()
                     .putString(
                             "selected_country",
-                            selectedCountry
+                            MainActivity.this.selectedCountry
                     )
                     .apply();
 
-        }
-); 
+            // Refresh Availability page
+            showAppointments();
 
-            builder.show();
         }
 );
+
+builder.show();
 
 
 // =====================================================
