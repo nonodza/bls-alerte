@@ -894,7 +894,8 @@ countrySelector.setOnClickListener(
 );
 
 builder.show();
-
+        }
+);
 
 // =====================================================
 // ADD COUNTRY SELECTOR
