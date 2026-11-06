@@ -12835,7 +12835,33 @@ private class CountryIconView extends View {
     }
 }
     
-  
+// =====================================================
+// CHECKING CONFIRMATION
+// =====================================================
+
+private void showCheckingConfirmation(String center) {
+
+    new AlertDialog.Builder(this)
+            .setTitle("Switch to Manual Check?")
+            .setMessage(
+                    "Automatic monitoring is currently active.\n\n"
+                    + "To perform a manual check, automatic "
+                    + "monitoring must be paused temporarily.\n\n"
+                    + "Monitoring can resume automatically "
+                    + "after the manual check is completed."
+            )
+            .setNegativeButton(
+                    "Cancel",
+                    (dialog, which) -> dialog.dismiss()
+            )
+            .setPositiveButton(
+                    "Continue",
+                    (dialog, which) -> {
+                    }
+            )
+            .setCancelable(true)
+            .show();
+}   
 // =====================================================
 // COUNTRY DISPLAY
 // =====================================================
