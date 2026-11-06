@@ -8958,69 +8958,64 @@ manualCheckIntent.putExtra("country", selectedCountry);
             );
 
 
-            // =========================================
-            // UPDATE LAST CHECK TIME
-            // =========================================
+// =========================================
+// UPDATE LAST CHECK TIME
+// =========================================
 
-            String checkTime =
-                    new java.text.SimpleDateFormat(
-                            "HH:mm:ss",
-                            java.util.Locale.getDefault()
-                    ).format(
-                            new java.util.Date()
-                    );
-
-
-            android.text.SpannableString timeText =
-                    new android.text.SpannableString(
-                            "Last check: " + checkTime
-                    );
+String checkTime =
+        new java.text.SimpleDateFormat(
+                "HH:mm:ss",
+                java.util.Locale.getDefault()
+        ).format(
+                new java.util.Date()
+        );
 
 
-            timeText.setSpan(
-                    new android.text.style.ForegroundColorSpan(
-                            Color.parseColor("#DCEBFF")
-                    ),
-                    0,
-                    12,
-                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
+android.text.SpannableString timeText =
+        new android.text.SpannableString(
+                "Last check: " + checkTime
+        );
+
+// Label — Dark Navy
+timeText.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#000C40")
+        ),
+        0,
+        12,
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
+// Time — Premium Blue
+timeText.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#0575E6")
+        ),
+        12,
+        timeText.length(),
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
+availabilityLastCheck.setText(timeText);
 
 
-            timeText.setSpan(
-                    new android.text.style.ForegroundColorSpan(
-                            Color.parseColor("#00FFFF")
-                    ),
-                    12,
-                    timeText.length(),
-                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
+checkButton.setChecking(false);
 
-
-            availabilityLastCheck.setText(
-                    timeText
-            );
-
-
-            checkButton.setChecking(false);
-
-        } else {
-
-            handler.postDelayed(
-                    resultChecker[0],
-                    700
-            );
-        }
-    };
-
+} else {
 
     handler.postDelayed(
             resultChecker[0],
             700
     );
-});
+}
 
 
+handler.postDelayed(
+        resultChecker[0],
+        700
+);
+
+            
 // =====================================================
 // ADD CARD
 // =====================================================
