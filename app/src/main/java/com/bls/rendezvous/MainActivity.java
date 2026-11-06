@@ -8897,46 +8897,6 @@ manualCheckIntent.putExtra("country", selectedCountry);
         return;
     }
 
-
-// =====================================================
-// CHECKING CONFIRMATION
-// =====================================================
-
-private void showCheckingConfirmation(String center) {
-
-    new AlertDialog.Builder(this)
-
-            .setTitle("Switch to Manual Check?")
-
-            .setMessage(
-                    "Automatic monitoring is currently active.\n\n"
-                    + "To perform a manual check, automatic "
-                    + "monitoring must be paused temporarily.\n\n"
-                    + "Monitoring can resume automatically "
-                    + "after the manual check is completed."
-            )
-
-            .setNegativeButton(
-                    "Cancel",
-                    (dialog, which) -> dialog.dismiss()
-            )
-
-            .setPositiveButton(
-                    "Continue",
-                    (dialog, which) -> {
-
-                        // سيتم ربط إيقاف المراقبة
-                        // وبدء الفحص اليدوي في الخطوة التالية.
-
-                    }
-            )
-
-            .setCancelable(true)
-
-            .show();
-}
-
-
     // =================================================
     // RESULT CHECKER
     // =================================================
