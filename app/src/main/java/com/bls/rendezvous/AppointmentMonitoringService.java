@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -38,6 +39,13 @@ public class AppointmentMonitoringService extends Service {
 
     private static final String ACTION_STOP =
             "STOP_MONITORING";
+
+    // Shared monitoring state
+    public static final String MONITOR_PREFS =
+            "RV_MONITORING";
+
+    public static final String KEY_MONITORING_ACTIVE =
+            "monitoring_active";
 
 
     // =====================================================
@@ -76,6 +84,24 @@ public class AppointmentMonitoringService extends Service {
     private Handler notificationClockHandler;
 
     private Runnable notificationClockRunnable;
+
+
+    // =====================================================
+    // SAVE MONITORING STATE
+    // =====================================================
+
+    private void saveMonitoringState(boolean active) {
+
+        getSharedPreferences(
+                MONITOR_PREFS,
+                MODE_PRIVATE
+        ).edit()
+                .putBoolean(
+                        KEY_MONITORING_ACTIVE,
+                        active
+                )
+                .apply();
+    }
 
 
     // =====================================================
@@ -138,15 +164,12 @@ public class AppointmentMonitoringService extends Service {
         if (intent != null) {
 
             String center =
-                    intent.getStringExtra(
-                            "center"
-                    );
+                    intent.getStringExtra("center");
 
             if (center != null &&
-                    center.length() > 0) {
+                    !center.trim().isEmpty()) {
 
-                selectedCenter =
-                        center;
+                selectedCenter = center;
             }
         }
 
@@ -167,7 +190,7 @@ public class AppointmentMonitoringService extends Service {
 
 
         // =================================================
-        // QUITTER INTENT
+        // STOP INTENT
         // =================================================
 
         Intent stopIntent =
@@ -176,10 +199,7 @@ public class AppointmentMonitoringService extends Service {
                         AppointmentMonitoringService.class
                 );
 
-        stopIntent.setAction(
-                ACTION_STOP
-        );
-
+        stopIntent.setAction(ACTION_STOP);
 
         PendingIntent stopPendingIntent =
                 PendingIntent.getService(
@@ -201,26 +221,13 @@ public class AppointmentMonitoringService extends Service {
                 );
 
 
-        // =================================================
-        // UPDATE STATUS
-        // =================================================
+        updateStatus(notificationView);
 
-        updateStatus(
-                notificationView
-        );
+        updateInformation(notificationView);
 
 
         // =================================================
-        // UPDATE INFORMATION
-        // =================================================
-
-        updateInformation(
-                notificationView
-        );
-
-
-        // =================================================
-        // QUITTER BUTTON
+        // STOP BUTTON
         // =================================================
 
         notificationView.setOnClickPendingIntent(
@@ -238,44 +245,30 @@ public class AppointmentMonitoringService extends Service {
                         this,
                         CHANNEL_ID
                 )
-
                         .setSmallIcon(
                                 R.drawable.ic_bls_notification
                         )
-
                         .setCustomContentView(
                                 notificationView
                         )
-
                         .setContentTitle(
                                 "BLS Rendez-Vous"
                         )
-
                         .setContentText(
                                 "Monitoring is active • "
                                         + selectedCenter
                         )
-
-                        .setSubText(
-                                "BLS Spain"
-                        )
-
+                        .setSubText("BLS Spain")
                         .setOngoing(true)
-
                         .setAutoCancel(false)
-
                         .setSilent(true)
-
                         .setPriority(
                                 NotificationCompat.PRIORITY_LOW
                         )
-
                         .setCategory(
                                 NotificationCompat.CATEGORY_SERVICE
                         )
-
                         .setShowWhen(false)
-
                         .build();
 
 
@@ -295,7 +288,6 @@ public class AppointmentMonitoringService extends Service {
 
         startMonitoring();
 
-
         return START_STICKY;
     }
 
@@ -312,89 +304,53 @@ public class AppointmentMonitoringService extends Service {
                 "Monitoring  ACTIVE  •  "
                         + selectedCenter;
 
-
         SpannableString status =
-                new SpannableString(
-                        statusText
-                );
+                new SpannableString(statusText);
 
-
-        // =================================================
-        // MONITORING = WHITE
-        // =================================================
 
         int monitoringStart =
-                statusText.indexOf(
-                        "Monitoring"
-                );
+                statusText.indexOf("Monitoring");
 
         if (monitoringStart >= 0) {
 
             status.setSpan(
-                    new ForegroundColorSpan(
-                            Color.WHITE
-                    ),
+                    new ForegroundColorSpan(Color.WHITE),
                     monitoringStart,
-                    monitoringStart
-                            + "Monitoring".length(),
+                    monitoringStart + "Monitoring".length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             );
         }
 
 
-        // =================================================
-        // ACTIVE = GREEN
-        // =================================================
-
         int activeStart =
-                statusText.indexOf(
-                        "ACTIVE"
-                );
+                statusText.indexOf("ACTIVE");
 
         if (activeStart >= 0) {
 
             status.setSpan(
                     new ForegroundColorSpan(
-                            Color.rgb(
-                                    53,
-                                    208,
-                                    127
-                            )
+                            Color.rgb(53, 208, 127)
                     ),
                     activeStart,
-                    activeStart
-                            + "ACTIVE".length(),
+                    activeStart + "ACTIVE".length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             );
         }
 
 
-        // =================================================
-        // CENTER = WHITE
-        // =================================================
-
         int centerStart =
-                statusText.indexOf(
-                        selectedCenter
-                );
+                statusText.indexOf(selectedCenter);
 
         if (centerStart >= 0) {
 
             status.setSpan(
-                    new ForegroundColorSpan(
-                            Color.WHITE
-                    ),
+                    new ForegroundColorSpan(Color.WHITE),
                     centerStart,
-                    centerStart
-                            + selectedCenter.length(),
+                    centerStart + selectedCenter.length(),
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             );
         }
 
-
-        // =================================================
-        // APPLY STATUS
-        // =================================================
 
         notificationView.setTextViewText(
                 R.id.notification_description,
@@ -411,27 +367,16 @@ public class AppointmentMonitoringService extends Service {
             RemoteViews notificationView
     ) {
 
-        // =================================================
-        // LIVE TIME
-        // =================================================
-
         String currentTime =
                 new SimpleDateFormat(
                         "HH:mm:ss",
                         Locale.getDefault()
-                ).format(
-                        new Date()
-                );
+                ).format(new Date());
 
-
-        // =================================================
-        // NEXT CHECK
-        // =================================================
 
         long remainingMillis =
                 nextCheckTimestamp
                         - System.currentTimeMillis();
-
 
         long remainingSeconds =
                 Math.max(
@@ -440,25 +385,12 @@ public class AppointmentMonitoringService extends Service {
                 );
 
 
-        // =================================================
-        // CHECK COUNT
-        // =================================================
-
         String timesText =
-                checkedCount == 1
-                        ? "time"
-                        : "times";
-
+                checkedCount == 1 ? "time" : "times";
 
         String countText =
-                formatCheckedCount(
-                        checkedCount
-                );
+                formatCheckedCount(checkedCount);
 
-
-        // =================================================
-        // PREMIUM COLORS
-        // =================================================
 
         int labelColor =
                 Color.rgb(220, 235, 255);
@@ -471,10 +403,6 @@ public class AppointmentMonitoringService extends Service {
                 new SpannableStringBuilder();
 
 
-        // =================================================
-        // LAST CHECK LABEL
-        // =================================================
-
         int start = info.length();
 
         info.append("Last check: ");
@@ -486,10 +414,6 @@ public class AppointmentMonitoringService extends Service {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
 
-
-        // =================================================
-        // TIME VALUE
-        // =================================================
 
         start = info.length();
 
@@ -505,11 +429,6 @@ public class AppointmentMonitoringService extends Service {
 
         info.append("  •  ");
 
-
-        // =================================================
-        // CHECKED LABEL
-        // =================================================
-
         start = info.length();
 
         info.append("Checked: ");
@@ -521,10 +440,6 @@ public class AppointmentMonitoringService extends Service {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
 
-
-        // =================================================
-        // COUNT VALUE
-        // =================================================
 
         start = info.length();
 
@@ -540,13 +455,8 @@ public class AppointmentMonitoringService extends Service {
 
         info.append(" ");
         info.append(timesText);
-
         info.append("  •  ");
 
-
-        // =================================================
-        // NEXT LABEL
-        // =================================================
 
         start = info.length();
 
@@ -559,10 +469,6 @@ public class AppointmentMonitoringService extends Service {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
 
-
-        // =================================================
-        // COUNTDOWN VALUE
-        // =================================================
 
         start = info.length();
 
@@ -580,10 +486,6 @@ public class AppointmentMonitoringService extends Service {
         );
 
 
-        // =================================================
-        // APPLY INFORMATION
-        // =================================================
-
         notificationView.setTextViewText(
                 R.id.notification_info,
                 info
@@ -595,9 +497,7 @@ public class AppointmentMonitoringService extends Service {
     // FORMAT CHECK COUNT
     // =====================================================
 
-    private String formatCheckedCount(
-            int count
-    ) {
+    private String formatCheckedCount(int count) {
 
         return String.format(
                 Locale.US,
@@ -623,34 +523,20 @@ public class AppointmentMonitoringService extends Service {
                             NotificationManager.IMPORTANCE_LOW
                     );
 
-
             channel.setDescription(
                     "BLS appointment monitoring"
             );
 
-
-            channel.setSound(
-                    null,
-                    null
-            );
-
-
-            channel.enableVibration(
-                    false
-            );
-
+            channel.setSound(null, null);
+            channel.enableVibration(false);
 
             NotificationManager manager =
                     getSystemService(
                             NotificationManager.class
                     );
 
-
             if (manager != null) {
-
-                manager.createNotificationChannel(
-                        channel
-                );
+                manager.createNotificationChannel(channel);
             }
         }
     }
@@ -663,13 +549,13 @@ public class AppointmentMonitoringService extends Service {
     private void startMonitoring() {
 
         if (monitoring) {
-
             return;
         }
 
+        monitoring = true;
 
-        monitoring =
-                true;
+        // Save active state
+        saveMonitoringState(true);
 
 
         // =================================================
@@ -693,134 +579,74 @@ public class AppointmentMonitoringService extends Service {
         // =================================================
 
         monitoringThread =
-                new Thread(
-                        new Runnable() {
+                new Thread(() -> {
 
-                            @Override
-                            public void run() {
+                    BLSMonitor monitor =
+                            new BLSMonitor();
 
-                                BLSMonitor monitor =
-                                        new BLSMonitor();
+                    while (monitoring) {
 
+                        try {
 
-                                while (monitoring) {
+                            BLSMonitor.Result result =
+                                    monitor.check(selectedCenter);
 
-                                    try {
+                            checkedCount++;
 
-                                        // =================================
-                                        // REAL BLS CHECK
-                                        // =================================
+                            nextCheckTimestamp =
+                                    System.currentTimeMillis()
+                                            + BLSMonitor.CHECK_INTERVAL_MS;
 
-                                        BLSMonitor.Result result =
-                                                monitor.check(
-                                                        selectedCenter
-                                                );
+                            if (result != null) {
 
+                                android.util.Log.d(
+                                        "BLS_MONITOR",
+                                        "Center: "
+                                                + selectedCenter
+                                                + " | Status: "
+                                                + result.getStatus()
+                                                + " | HTTP: "
+                                                + result.getHttpCode()
+                                                + " | Checked: "
+                                                + checkedCount
+                                );
+                            }
 
-                                        // =================================
-                                        // COUNT REAL CHECK
-                                        // =================================
+                            updateMonitoringNotification();
 
-                                        checkedCount++;
+                            Thread.sleep(
+                                    BLSMonitor.CHECK_INTERVAL_MS
+                            );
 
+                        } catch (InterruptedException e) {
 
-                                        // =================================
-                                        // NEXT CHECK
-                                        // =================================
+                            Thread.currentThread().interrupt();
+                            break;
 
-                                        nextCheckTimestamp =
-                                                System.currentTimeMillis()
-                                                        + BLSMonitor.CHECK_INTERVAL_MS;
+                        } catch (Exception e) {
 
+                            android.util.Log.e(
+                                    "BLS_MONITOR",
+                                    "Monitoring error",
+                                    e
+                            );
 
-                                        // =================================
-                                        // LOG
-                                        // =================================
+                            nextCheckTimestamp =
+                                    System.currentTimeMillis()
+                                            + 10000L;
 
-                                        if (result != null) {
+                            try {
 
-                                            android.util.Log.d(
-                                                    "BLS_MONITOR",
-                                                    "Center: "
-                                                            + selectedCenter
-                                                            + " | Status: "
-                                                            + result.getStatus()
-                                                            + " | HTTP: "
-                                                            + result.getHttpCode()
-                                                            + " | Checked: "
-                                                            + checkedCount
-                                            );
-                                        }
+                                Thread.sleep(10000);
 
+                            } catch (InterruptedException ignored) {
 
-                                        // =================================
-                                        // UPDATE NOTIFICATION
-                                        // =================================
-
-                                        updateMonitoringNotification();
-
-
-                                        // =================================
-                                        // WAIT
-                                        // =================================
-
-                                        Thread.sleep(
-                                                BLSMonitor.CHECK_INTERVAL_MS
-                                        );
-
-
-                                    } catch (
-                                            InterruptedException e
-                                    ) {
-
-                                        Thread.currentThread()
-                                                .interrupt();
-
-                                        break;
-
-
-                                    } catch (
-                                            Exception e
-                                    ) {
-
-                                        android.util.Log.e(
-                                                "BLS_MONITOR",
-                                                "Monitoring error",
-                                                e
-                                        );
-
-
-                                        // =================================
-                                        // RETRY AFTER ERROR
-                                        // =================================
-
-                                        nextCheckTimestamp =
-                                                System.currentTimeMillis()
-                                                        + 10000L;
-
-
-                                        try {
-
-                                            Thread.sleep(
-                                                    10000
-                                            );
-
-
-                                        } catch (
-                                                InterruptedException ignored
-                                        ) {
-
-                                            Thread.currentThread()
-                                                    .interrupt();
-
-                                            break;
-                                        }
-                                    }
-                                }
+                                Thread.currentThread().interrupt();
+                                break;
                             }
                         }
-                );
-
+                    }
+                });
 
         monitoringThread.start();
     }
@@ -834,12 +660,8 @@ public class AppointmentMonitoringService extends Service {
 
         stopNotificationClock();
 
-
         notificationClockHandler =
-                new Handler(
-                        Looper.getMainLooper()
-                );
-
+                new Handler(Looper.getMainLooper());
 
         notificationClockRunnable =
                 new Runnable() {
@@ -848,21 +670,10 @@ public class AppointmentMonitoringService extends Service {
                     public void run() {
 
                         if (!monitoring) {
-
                             return;
                         }
 
-
-                        // =================================
-                        // UPDATE LIVE INFORMATION
-                        // =================================
-
                         updateMonitoringNotification();
-
-
-                        // =================================
-                        // NEXT SECOND
-                        // =================================
 
                         if (notificationClockHandler != null) {
 
@@ -873,7 +684,6 @@ public class AppointmentMonitoringService extends Service {
                         }
                     }
                 };
-
 
         notificationClockHandler.post(
                 notificationClockRunnable
@@ -895,12 +705,8 @@ public class AppointmentMonitoringService extends Service {
             );
         }
 
-
-        notificationClockHandler =
-                null;
-
-        notificationClockRunnable =
-                null;
+        notificationClockHandler = null;
+        notificationClockRunnable = null;
     }
 
 
@@ -911,179 +717,106 @@ public class AppointmentMonitoringService extends Service {
     private void updateMonitoringNotification() {
 
         if (!monitoring) {
-
             return;
         }
 
-
         Handler handler =
-                new Handler(
-                        Looper.getMainLooper()
+                new Handler(Looper.getMainLooper());
+
+        handler.post(() -> {
+
+            if (!monitoring) {
+                return;
+            }
+
+            int pendingFlags =
+                    PendingIntent.FLAG_CANCEL_CURRENT;
+
+            if (Build.VERSION.SDK_INT >=
+                    Build.VERSION_CODES.M) {
+
+                pendingFlags |=
+                        PendingIntent.FLAG_IMMUTABLE;
+            }
+
+
+            Intent stopIntent =
+                    new Intent(
+                            AppointmentMonitoringService.this,
+                            AppointmentMonitoringService.class
+                    );
+
+            stopIntent.setAction(ACTION_STOP);
+
+            PendingIntent stopPendingIntent =
+                    PendingIntent.getService(
+                            AppointmentMonitoringService.this,
+                            2001,
+                            stopIntent,
+                            pendingFlags
+                    );
+
+
+            RemoteViews notificationView =
+                    new RemoteViews(
+                            getPackageName(),
+                            R.layout.notification_monitoring
+                    );
+
+            updateStatus(notificationView);
+            updateInformation(notificationView);
+
+            notificationView.setOnClickPendingIntent(
+                    R.id.btnQuitter,
+                    stopPendingIntent
+            );
+
+
+            Notification notification =
+                    new NotificationCompat.Builder(
+                            AppointmentMonitoringService.this,
+                            CHANNEL_ID
+                    )
+                            .setSmallIcon(
+                                    R.drawable.ic_bls_notification
+                            )
+                            .setCustomContentView(
+                                    notificationView
+                            )
+                            .setContentTitle(
+                                    "BLS Rendez-Vous"
+                            )
+                            .setContentText(
+                                    "Monitoring is active • "
+                                            + selectedCenter
+                            )
+                            .setSubText("BLS Spain")
+                            .setOngoing(true)
+                            .setAutoCancel(false)
+                            .setSilent(true)
+                            .setPriority(
+                                    NotificationCompat.PRIORITY_LOW
+                            )
+                            .setCategory(
+                                    NotificationCompat.CATEGORY_SERVICE
+                            )
+                            .setShowWhen(false)
+                            .build();
+
+
+            NotificationManager manager =
+                    getSystemService(
+                            NotificationManager.class
+                    );
+
+            if (manager != null) {
+
+                manager.notify(
+                        NOTIFICATION_ID,
+                        notification
                 );
-
-
-        handler.post(
-                new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        if (!monitoring) {
-
-                            return;
-                        }
-
-
-                        // =================================
-                        // FLAGS
-                        // =================================
-
-                        int pendingFlags =
-                                PendingIntent.FLAG_CANCEL_CURRENT;
-
-
-                        if (Build.VERSION.SDK_INT >=
-                                Build.VERSION_CODES.M) {
-
-                            pendingFlags |=
-                                    PendingIntent.FLAG_IMMUTABLE;
-                        }
-
-
-                        // =================================
-                        // QUITTER INTENT
-                        // =================================
-
-                        Intent stopIntent =
-                                new Intent(
-                                        AppointmentMonitoringService.this,
-                                        AppointmentMonitoringService.class
-                                );
-
-
-                        stopIntent.setAction(
-                                ACTION_STOP
-                        );
-
-
-                        PendingIntent stopPendingIntent =
-                                PendingIntent.getService(
-                                        AppointmentMonitoringService.this,
-                                        2001,
-                                        stopIntent,
-                                        pendingFlags
-                                );
-
-
-                        // =================================
-                        // REMOTE VIEW
-                        // =================================
-
-                        RemoteViews notificationView =
-                                new RemoteViews(
-                                        getPackageName(),
-                                        R.layout.notification_monitoring
-                                );
-
-
-                        // =================================
-                        // STATUS
-                        // =================================
-
-                        updateStatus(
-                                notificationView
-                        );
-
-
-                        // =================================
-                        // INFORMATION
-                        // =================================
-
-                        updateInformation(
-                                notificationView
-                        );
-
-
-                        // =================================
-                        // QUITTER
-                        // =================================
-
-                        notificationView.setOnClickPendingIntent(
-                                R.id.btnQuitter,
-                                stopPendingIntent
-                        );
-
-
-                        // =================================
-                        // BUILD UPDATED NOTIFICATION
-                        // =================================
-
-                        Notification notification =
-                                new NotificationCompat.Builder(
-                                        AppointmentMonitoringService.this,
-                                        CHANNEL_ID
-                                )
-
-                                        .setSmallIcon(
-                                                R.drawable.ic_bls_notification
-                                        )
-
-                                        .setCustomContentView(
-                                                notificationView
-                                        )
-
-                                        .setContentTitle(
-                                                "BLS Rendez-Vous"
-                                        )
-
-                                        .setContentText(
-                                                "Monitoring is active • "
-                                                        + selectedCenter
-                                        )
-
-                                        .setSubText(
-                                                "BLS Spain"
-                                        )
-
-                                        .setOngoing(true)
-
-                                        .setAutoCancel(false)
-
-                                        .setSilent(true)
-
-                                        .setPriority(
-                                                NotificationCompat.PRIORITY_LOW
-                                        )
-
-                                        .setCategory(
-                                                NotificationCompat.CATEGORY_SERVICE
-                                        )
-
-                                        .setShowWhen(false)
-
-                                        .build();
-
-
-                        // =================================
-                        // PUBLISH
-                        // =================================
-
-                        NotificationManager manager =
-                                getSystemService(
-                                        NotificationManager.class
-                                );
-
-
-                        if (manager != null) {
-
-                            manager.notify(
-                                    NOTIFICATION_ID,
-                                    notification
-                            );
-                        }
-                    }
-                }
-        );
+            }
+        });
     }
 
 
@@ -1093,8 +826,10 @@ public class AppointmentMonitoringService extends Service {
 
     private void stopMonitoring() {
 
-        monitoring =
-                false;
+        monitoring = false;
+
+        // Save inactive state
+        saveMonitoringState(false);
 
 
         // =================================================
@@ -1108,8 +843,7 @@ public class AppointmentMonitoringService extends Service {
         // RESET COUNTDOWN
         // =================================================
 
-        nextCheckTimestamp =
-                0L;
+        nextCheckTimestamp = 0L;
 
 
         // =================================================
@@ -1119,9 +853,7 @@ public class AppointmentMonitoringService extends Service {
         if (monitoringThread != null) {
 
             monitoringThread.interrupt();
-
-            monitoringThread =
-                    null;
+            monitoringThread = null;
         }
     }
 
@@ -1135,20 +867,12 @@ public class AppointmentMonitoringService extends Service {
 
         stopMonitoring();
 
-
         NotificationManager manager =
-                getSystemService(
-                        NotificationManager.class
-                );
-
+                getSystemService(NotificationManager.class);
 
         if (manager != null) {
-
-            manager.cancel(
-                    NOTIFICATION_ID
-            );
+            manager.cancel(NOTIFICATION_ID);
         }
-
 
         super.onDestroy();
     }
@@ -1160,10 +884,8 @@ public class AppointmentMonitoringService extends Service {
 
     @Nullable
     @Override
-    public IBinder onBind(
-            Intent intent
-    ) {
+    public IBinder onBind(Intent intent) {
 
         return null;
     }
-}
+                }
