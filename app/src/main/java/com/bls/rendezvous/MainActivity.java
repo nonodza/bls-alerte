@@ -9011,9 +9011,10 @@ checkButton.setChecking(false);
 
 
 handler.postDelayed(
-        resultChecker[0],
-        700
-);
+            resultChecker[0],
+            700
+    );
+});
 
             
 // =====================================================
