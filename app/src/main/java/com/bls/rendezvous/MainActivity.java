@@ -8718,23 +8718,6 @@ availabilityContent.addView(
         descriptionLp
 );
 
-
-// =====================================================
-// LAST CHECK — PREMIUM TIME
-// =====================================================
-
-TextView availabilityLastCheck = text(
-        "Last check: --:--:--",
-        11,
-        Color.parseColor("#05FFCF")
-);
-
-LinearLayout.LayoutParams lastCheckLp =
-        new LinearLayout.LayoutParams(-1, -2);
-
-lastCheckLp.topMargin = dp(7);
-
-
 // Initial two-tone text
 
 android.text.SpannableString initialTime =
@@ -8742,18 +8725,20 @@ android.text.SpannableString initialTime =
                 "Last check: --:--:--"
         );
 
+// Label color
 initialTime.setSpan(
         new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#4D7DBC")
+                Color.parseColor("#000C40")
         ),
         0,
         12,
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
+// Time color
 initialTime.setSpan(
         new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#00FFFF")
+                Color.parseColor("#0575E6")
         ),
         12,
         initialTime.length(),
@@ -8761,18 +8746,6 @@ initialTime.setSpan(
 );
 
 availabilityLastCheck.setText(initialTime);
-
-availabilityContent.addView(
-        availabilityLastCheck,
-        lastCheckLp
-);
-
-
-availabilityCard.addView(
-        availabilityContent,
-        contentLp
-);
-
 
 // =====================================================
 // RIGHT NEON CHECK BUTTON
