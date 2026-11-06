@@ -8957,65 +8957,59 @@ manualCheckIntent.putExtra("country", selectedCountry);
                             : Color.parseColor("#DC2626")
             );
 
+            // =========================================
+            // UPDATE LAST CHECK TIME
+            // =========================================
 
-// =========================================
-// UPDATE LAST CHECK TIME
-// =========================================
+            String checkTime =
+                    new java.text.SimpleDateFormat(
+                            "HH:mm:ss",
+                            java.util.Locale.getDefault()
+                    ).format(
+                            new java.util.Date()
+                    );
 
-String checkTime =
-        new java.text.SimpleDateFormat(
-                "HH:mm:ss",
-                java.util.Locale.getDefault()
-        ).format(
-                new java.util.Date()
-        );
+            android.text.SpannableString timeText =
+                    new android.text.SpannableString(
+                            "Last check: " + checkTime
+                    );
 
+            timeText.setSpan(
+                    new android.text.style.ForegroundColorSpan(
+                            Color.parseColor("#000C40")
+                    ),
+                    0,
+                    12,
+                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
 
-android.text.SpannableString timeText =
-        new android.text.SpannableString(
-                "Last check: " + checkTime
-        );
+            timeText.setSpan(
+                    new android.text.style.ForegroundColorSpan(
+                            Color.parseColor("#0575E6")
+                    ),
+                    12,
+                    timeText.length(),
+                    android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
 
-// Label — Dark Navy
-timeText.setSpan(
-        new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#000C40")
-        ),
-        0,
-        12,
-        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-);
+            availabilityLastCheck.setText(timeText);
 
-// Time — Premium Blue
-timeText.setSpan(
-        new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#0575E6")
-        ),
-        12,
-        timeText.length(),
-        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-);
+            checkButton.setChecking(false);
 
-availabilityLastCheck.setText(timeText);
+        } else {
 
-
-checkButton.setChecking(false);
-
-} else {
+            handler.postDelayed(
+                    resultChecker[0],
+                    700
+            );
+        }
+    };
 
     handler.postDelayed(
             resultChecker[0],
             700
     );
-}
-
-
-handler.postDelayed(
-            resultChecker[0],
-            700
-    );
 });
-
             
 // =====================================================
 // ADD CARD
