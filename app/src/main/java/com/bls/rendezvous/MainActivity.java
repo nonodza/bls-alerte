@@ -8794,10 +8794,6 @@ availabilityCard.addView(
 
 checkButton.setOnClickListener(v -> {
 
-    // =================================================
-    // CHECK SELECTED COUNTRY
-    // =================================================
-
     if (selectedCountry == null
             || selectedCountry.trim().isEmpty()) {
 
@@ -8810,40 +8806,9 @@ checkButton.setOnClickListener(v -> {
         return;
     }
 
-
-    // =================================================
-    // CHECK AUTOMATIC MONITORING STATE
-    // =================================================
-
-    boolean isMonitoringActive =
-            getSharedPreferences(
-                    AppointmentMonitoringService.MONITOR_PREFS,
-                    MODE_PRIVATE
-            ).getBoolean(
-                    AppointmentMonitoringService.KEY_MONITORING_ACTIVE,
-                    false
-            );
-
-    if (isMonitoringActive) {
-
-        showCheckingConfirmation(selectedCenter);
-
-        return;
-    }
-
-
-    // =================================================
-    // CHECK BUTTON STATE
-    // =================================================
-
     if (checkButton.isChecking()) {
         return;
     }
-
-
-    // =================================================
-    // SELECT CENTER
-    // =================================================
 
     String center = selectedCenter;
 
@@ -8851,16 +8816,13 @@ checkButton.setOnClickListener(v -> {
         center = "Algiers";
     }
 
-
-    // =================================================
-    // RESET PREVIOUS RESULT
-    // =================================================
-
     android.content.SharedPreferences prefs =
             getSharedPreferences(
                     ManualCheckService.PREFS_NAME,
                     MODE_PRIVATE
             );
+
+    // Reset previous result before starting a new check.
 
     prefs.edit()
             .putString(
@@ -8882,10 +8844,6 @@ checkButton.setOnClickListener(v -> {
             .apply();
 
 
-    // =================================================
-    // UPDATE UI
-    // =================================================
-
     availabilityStatus.setText(
             "Checking BLS website..."
     );
@@ -8896,10 +8854,6 @@ checkButton.setOnClickListener(v -> {
 
     checkButton.setChecking(true);
 
-
-    // =================================================
-    // START MANUAL CHECK SERVICE
-    // =================================================
 
     Intent manualCheckIntent =
             new Intent(
@@ -8916,12 +8870,7 @@ checkButton.setOnClickListener(v -> {
             center
     );
 
-    manualCheckIntent.putExtra(
-            "country",
-            selectedCountry
-    );
-
-
+manualCheckIntent.putExtra("country", selectedCountry);
     try {
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
@@ -8945,16 +8894,8 @@ checkButton.setOnClickListener(v -> {
                 Color.parseColor("#DC2626")
         );
 
-        android.util.Log.e(
-                "MANUAL_CHECK",
-                "Could not start manual check",
-                e
-        );
-
         return;
     }
-
-});
 
 
 // =====================================================
