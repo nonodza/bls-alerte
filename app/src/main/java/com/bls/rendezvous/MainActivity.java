@@ -879,7 +879,6 @@ countrySelector.setOnClickListener(
                     MainActivity.this.selectedCountry + "  ⌄"
             );
 
-            // Save selected country
             getSharedPreferences(
                     "RV_SETTINGS",
                     MODE_PRIVATE
@@ -890,9 +889,6 @@ countrySelector.setOnClickListener(
                             MainActivity.this.selectedCountry
                     )
                     .apply();
-
-            // Refresh Availability page
-            showAppointments();
 
         }
 );
