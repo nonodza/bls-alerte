@@ -8788,12 +8788,15 @@ availabilityCard.addView(
         checkButtonLp
 );
 
-
 // =====================================================
 // CHECK BUTTON ACTION
 // =====================================================
 
 checkButton.setOnClickListener(v -> {
+
+    // =================================================
+    // CHECK SELECTED COUNTRY
+    // =================================================
 
     if (selectedCountry == null
             || selectedCountry.trim().isEmpty()) {
@@ -8806,22 +8809,41 @@ checkButton.setOnClickListener(v -> {
 
         return;
     }
-boolean isMonitoringActive =
-        getSharedPreferences(
-                AppointmentMonitoringService.MONITOR_PREFS,
-                MODE_PRIVATE
-        ).getBoolean(
-                AppointmentMonitoringService.KEY_MONITORING_ACTIVE,
-                false
-        );
 
-if (isMonitoringActive) {
-    showCheckingConfirmation(selectedCenter);
-    return;
-}
+
+    // =================================================
+    // CHECK AUTOMATIC MONITORING STATE
+    // =================================================
+
+    boolean isMonitoringActive =
+            getSharedPreferences(
+                    AppointmentMonitoringService.MONITOR_PREFS,
+                    MODE_PRIVATE
+            ).getBoolean(
+                    AppointmentMonitoringService.KEY_MONITORING_ACTIVE,
+                    false
+            );
+
+    if (isMonitoringActive) {
+
+        showCheckingConfirmation(selectedCenter);
+
+        return;
+    }
+
+
+    // =================================================
+    // CHECK BUTTON STATE
+    // =================================================
+
     if (checkButton.isChecking()) {
         return;
     }
+
+
+    // =================================================
+    // SELECT CENTER
+    // =================================================
 
     String center = selectedCenter;
 
@@ -8829,13 +8851,16 @@ if (isMonitoringActive) {
         center = "Algiers";
     }
 
+
+    // =================================================
+    // RESET PREVIOUS RESULT
+    // =================================================
+
     android.content.SharedPreferences prefs =
             getSharedPreferences(
                     ManualCheckService.PREFS_NAME,
                     MODE_PRIVATE
             );
-
-    // Reset previous result before starting a new check.
 
     prefs.edit()
             .putString(
@@ -8857,6 +8882,10 @@ if (isMonitoringActive) {
             .apply();
 
 
+    // =================================================
+    // UPDATE UI
+    // =================================================
+
     availabilityStatus.setText(
             "Checking BLS website..."
     );
@@ -8867,6 +8896,10 @@ if (isMonitoringActive) {
 
     checkButton.setChecking(true);
 
+
+    // =================================================
+    // START MANUAL CHECK SERVICE
+    // =================================================
 
     Intent manualCheckIntent =
             new Intent(
@@ -8883,7 +8916,12 @@ if (isMonitoringActive) {
             center
     );
 
-manualCheckIntent.putExtra("country", selectedCountry);
+    manualCheckIntent.putExtra(
+            "country",
+            selectedCountry
+    );
+
+
     try {
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
@@ -8907,18 +8945,28 @@ manualCheckIntent.putExtra("country", selectedCountry);
                 Color.parseColor("#DC2626")
         );
 
+        android.util.Log.e(
+                "MANUAL_CHECK",
+                "Could not start manual check",
+                e
+        );
+
         return;
     }
+
+});
+
+
 // =====================================================
 // CHECKING CONFIRMATION
 // =====================================================
 
-private void showCheckingConfirmation(
-        String center
-) {
+private void showCheckingConfirmation(String center) {
 
     new AlertDialog.Builder(this)
+
             .setTitle("Switch to Manual Check?")
+
             .setMessage(
                     "Automatic monitoring is currently active.\n\n"
                     + "To perform a manual check, automatic "
@@ -8926,21 +8974,27 @@ private void showCheckingConfirmation(
                     + "Monitoring can resume automatically "
                     + "after the manual check is completed."
             )
+
             .setNegativeButton(
                     "Cancel",
                     (dialog, which) -> dialog.dismiss()
             )
+
             .setPositiveButton(
                     "Continue",
                     (dialog, which) -> {
 
-                        // سنربط هنا إيقاف المراقبة
-                        // وبدء الفحص اليدوي بعد تأكيد توقف الخدمة.
+                        // سيتم ربط إيقاف المراقبة
+                        // وبدء الفحص اليدوي في الخطوة التالية.
+
                     }
             )
+
             .setCancelable(true)
+
             .show();
 }
+
 
     // =================================================
     // RESULT CHECKER
