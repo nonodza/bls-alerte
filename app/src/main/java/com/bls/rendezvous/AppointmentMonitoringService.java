@@ -27,26 +27,32 @@ import java.util.Locale;
 
 public class AppointmentMonitoringService extends Service {
 
-    // =====================================================
-    // CONSTANTS
-    // =====================================================
+    
+// =====================================================
+// CONSTANTS
+// =====================================================
 
-    private static final String CHANNEL_ID =
-            "bls_monitoring_channel";
+private static final String CHANNEL_ID =
+        "bls_monitoring_channel";
 
-    private static final int NOTIFICATION_ID =
-            1001;
+private static final int NOTIFICATION_ID =
+        1001;
 
-    private static final String ACTION_STOP =
-            "STOP_MONITORING";
+private static final String ACTION_STOP =
+        "STOP_MONITORING";
 
-    // Shared monitoring state
-    public static final String MONITOR_PREFS =
-            "RV_MONITORING";
+private static final String ACTION_PAUSE_FOR_MANUAL_CHECK =
+        "PAUSE_FOR_MANUAL_CHECK";
 
-    public static final String KEY_MONITORING_ACTIVE =
-            "monitoring_active";
+public static final String ACTION_MONITORING_PAUSED =
+        "com.bls.rendezvous.MONITORING_PAUSED";
 
+// Shared monitoring state
+public static final String MONITOR_PREFS =
+        "RV_MONITORING";
+
+public static final String KEY_MONITORING_ACTIVE =
+        "monitoring_active";
 
     // =====================================================
     // MONITORING
