@@ -128,19 +128,75 @@ public class AppointmentMonitoringService extends Service {
             int startId
     ) {
 
-        // =================================================
-        // STOP ACTION
-        // =================================================
+  // =================================================
+// STOP ACTION
+// =================================================
 
-        if (intent != null &&
-                ACTION_STOP.equals(intent.getAction())) {
+if (intent != null &&
+        ACTION_STOP.equals(intent.getAction())) {
 
-            android.util.Log.d(
-                    "BLS_STOP",
-                    "STOP command received"
-            );
+    android.util.Log.d(
+            "BLS_STOP",
+            "STOP command received"
+    );
 
-            stopMonitoring();
+    stopMonitoring();
+
+    stopForeground(true);
+
+    NotificationManager manager =
+            getSystemService(NotificationManager.class);
+
+    if (manager != null) {
+        manager.cancel(NOTIFICATION_ID);
+    }
+
+    stopSelf();
+
+    return START_NOT_STICKY;
+}
+
+
+// =================================================
+// PAUSE FOR MANUAL CHECK
+// =================================================
+
+if (intent != null &&
+        ACTION_PAUSE_FOR_MANUAL_CHECK.equals(intent.getAction())) {
+
+    android.util.Log.d(
+            "BLS_MONITOR",
+            "Pause requested for manual check"
+    );
+
+    // Keep a reference to the running thread
+    Thread threadToStop = monitoringThread;
+
+    // Stop monitoring and interrupt its thread
+    stopMonitoring();
+
+    // Wait until the monitoring thread has finished
+    new Thread(() -> {
+
+        if (threadToStop != null) {
+
+            try {
+                threadToStop.join();
+
+            } catch (InterruptedException e) {
+
+                Thread.currentThread().interrupt();
+
+                android.util.Log.e(
+                        "BLS_MONITOR",
+                        "Waiting for monitoring thread interrupted",
+                        e
+                );
+            }
+        }
+
+        // Return to the main thread after monitoring stops
+        new Handler(Looper.getMainLooper()).post(() -> {
 
             stopForeground(true);
 
@@ -151,11 +207,21 @@ public class AppointmentMonitoringService extends Service {
                 manager.cancel(NOTIFICATION_ID);
             }
 
+            // Notify MainActivity that monitoring has stopped
+            Intent pausedIntent =
+                    new Intent(ACTION_MONITORING_PAUSED);
+
+            pausedIntent.setPackage(getPackageName());
+
+            sendBroadcast(pausedIntent);
+
             stopSelf();
+        });
 
-            return START_NOT_STICKY;
-        }
+    }).start();
 
+    return START_NOT_STICKY;
+}      
 
         // =================================================
         // READ CENTER
