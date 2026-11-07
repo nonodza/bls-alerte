@@ -8384,31 +8384,6 @@ topPart.addView(
 startBtn.setOnClickListener(v -> {
 
     // =============================================
-    // CHECK COUNTRY
-    // =============================================
-
-    String monitoringCountry =
-            getSharedPreferences("RV_SETTINGS", MODE_PRIVATE)
-                    .getString("selected_country", "");
-
-    if (selectedCountry == null
-            || selectedCountry.trim().isEmpty()
-            || monitoringCountry.trim().isEmpty()
-            || monitoringCountry.equalsIgnoreCase("Other Countries")) {
-
-        new AlertDialog.Builder(MainActivity.this)
-                .setTitle("Select a Supported Country")
-                .setMessage(
-                        "Please select a supported visa destination "
-                        + "before starting appointment monitoring."
-                )
-                .setPositiveButton("OK", null)
-                .show();
-
-        return;
-    }
-
-    // =============================================
     // STOP MONITORING
     // =============================================
 
@@ -8462,57 +8437,44 @@ startBtn.setOnClickListener(v -> {
     } else {
 
         // =============================================
-        // START MONITORING
+        // CHECK COUNTRY BEFORE START
         // =============================================
 
-        if (selectedCenter == null
-                || selectedCenter.trim().isEmpty()) {
+        String monitoringCountry =
+                getSharedPreferences(
+                        "RV_SETTINGS",
+                        MODE_PRIVATE
+                ).getString(
+                        "selected_country",
+                        ""
+                );
 
-            Toast.makeText(
-                    MainActivity.this,
-                    "Please select a monitoring center first.",
-                    Toast.LENGTH_SHORT
-            ).show();
+        if (selectedCountry == null
+                || selectedCountry.trim().isEmpty()
+                || monitoringCountry.trim().isEmpty()
+                || monitoringCountry.equalsIgnoreCase("Other Countries")) {
+
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Select a Supported Country")
+                    .setMessage(
+                            "Please select a supported visa destination "
+                            + "before starting appointment monitoring."
+                    )
+                    .setPositiveButton("OK", null)
+                    .show();
 
             return;
         }
 
-        Intent serviceIntent = new Intent(
+        // =============================================
+        // START MONITORING
+        // =============================================
+
+        Toast.makeText(
                 MainActivity.this,
-                AppointmentMonitoringService.class
-        );
-
-        serviceIntent.putExtra("center", selectedCenter);
-
-        try {
-
-            ContextCompat.startForegroundService(
-                    MainActivity.this,
-                    serviceIntent
-            );
-
-            startBtn.setActive(true);
-
-            Toast.makeText(
-                    MainActivity.this,
-                    "Monitoring started",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-        } catch (Exception e) {
-
-            android.util.Log.e(
-                    "BLS_START",
-                    "Failed to start monitoring",
-                    e
-            );
-
-            Toast.makeText(
-                    MainActivity.this,
-                    "Unable to start monitoring",
-                    Toast.LENGTH_SHORT
-            ).show();
-        }
+                "Automatic monitoring will be available soon.",
+                Toast.LENGTH_LONG
+        ).show();
     }
 });
 
