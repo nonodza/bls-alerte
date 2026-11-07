@@ -10426,11 +10426,48 @@ private String getVisaPortalUrl(
         case "Sweden":
             return "https://www.migrationsverket.se/en/you-want-to-apply/visit-sweden.html";
 
-        case "Switzerland":
-    return "https://www.eda.admin.ch/countries/algeria/en/home/visa/entry-ch.html";
+                case "Switzerland":
+            return "https://www.eda.admin.ch/countries/algeria/en/home/visa/entry-ch.html";
 
-default:
-    return null;
+        // =============================================
+        // UNITED STATES
+        // =============================================
+
+        case "USA":
+        case "United States":
+            return "https://travel.state.gov/content/travel/en/us-visas.html";
+
+        // =============================================
+        // CANADA
+        // =============================================
+
+        case "Canada":
+            return "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada.html";
+
+        // =============================================
+        // UNITED KINGDOM
+        // =============================================
+
+        case "United Kingdom":
+            return "https://www.gov.uk/standard-visitor";
+
+        // =============================================
+        // AUSTRALIA
+        // =============================================
+
+        case "Australia":
+            return "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-finder/visit";
+
+        // =============================================
+        // OTHER COUNTRIES
+        // =============================================
+
+        case "Other Countries":
+            return null;
+
+        default:
+            return null;
+
 }
 }
 
