@@ -8465,27 +8465,63 @@ if (startBtn.isActive()) {
         // START MONITORING
         // =============================================
 
-        serviceIntent.putExtra(
-                "center",
-                selectedCenter == null
-                        || selectedCenter.isEmpty()
-                        ? "Algiers"
-                        : selectedCenter
-        );
+        } else {
 
-        ContextCompat.startForegroundService(
-                MainActivity.this,
-                serviceIntent
-        );
+    String monitoringCountry =
+            getSharedPreferences(
+                    "RV_SETTINGS",
+                    MODE_PRIVATE
+            ).getString(
+                    "selected_country",
+                    ""
+            );
 
-        startBtn.setActive(true);  
+    if (monitoringCountry.trim().isEmpty()
+            || monitoringCountry.equalsIgnoreCase("Other Countries")) {
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Select a Supported Country")
+                .setMessage(
+                        "Please select a supported visa destination "
+                        + "before starting appointment monitoring."
+                )
+                .setPositiveButton("OK", null)
+                .show();
+
+        return;
+    }
+
+    if (selectedCenter == null
+            || selectedCenter.trim().isEmpty()) {
 
         Toast.makeText(
                 MainActivity.this,
-                "Monitoring started",
+                "Please select a monitoring center first.",
                 Toast.LENGTH_SHORT
         ).show();
+
+        return;
     }
+
+    serviceIntent.putExtra(
+            "center",
+            selectedCenter
+    );
+
+    ContextCompat.startForegroundService(
+            MainActivity.this,
+            serviceIntent
+    );
+
+    startBtn.setTag(true);
+    startBtn.setText("STOP");
+
+    Toast.makeText(
+            MainActivity.this,
+            "Monitoring started",
+            Toast.LENGTH_SHORT
+    ).show();
+}
 });
    
 
