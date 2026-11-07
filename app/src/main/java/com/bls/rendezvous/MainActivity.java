@@ -8464,10 +8464,7 @@ if (startBtn.isActive()) {
         // =============================================
         // START MONITORING
         // =============================================
-
-        } else {
-
-    String monitoringCountry =
+   String monitoringCountry =
             getSharedPreferences(
                     "RV_SETTINGS",
                     MODE_PRIVATE
