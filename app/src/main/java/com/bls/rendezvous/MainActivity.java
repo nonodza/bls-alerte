@@ -8182,19 +8182,6 @@ startBtn.setOnClickListener(v -> {
             mainCard,
             margin(0, 0, 0, 12)
     );
-
-   
-
-    // =====================================================
-    // ADD FINAL CARD TO PAGE
-    // =====================================================
-
-    page.addView(
-            mainCard,
-            margin(0, 0, 0, 12)
-    );
- 
-
    
 // =====================================================
 // APPOINTMENT AVAILABILITY — NEON CARD
