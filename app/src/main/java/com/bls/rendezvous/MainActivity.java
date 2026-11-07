@@ -7571,6 +7571,17 @@ final String[] flags = {
                 if (originalIndex >= 0) {
                     selectedCountry = chosen;
 
+// Save selected country
+getSharedPreferences(
+        "RV_SETTINGS",
+        MODE_PRIVATE
+).edit()
+        .putString(
+                "selected_country",
+                selectedCountry
+        )
+        .apply();
+
                     countryValue.setText(selectedCountry);
 countryValue.setTextColor(NAVY);
 
