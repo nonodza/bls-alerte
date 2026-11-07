@@ -7619,156 +7619,9 @@ dialog.show();
     page.addView(
             countryCard,
             margin(0, 0, 0, 12)
-    );
+    );  
 
-    // =====================================================
-    // OFFICIAL VISA PORTAL — PREMIUM CARD
-    // =====================================================
 
-    LinearLayout offCard = card();
-
-    GradientDrawable offBg = new GradientDrawable(
-            GradientDrawable.Orientation.TL_BR,
-            new int[]{
-                    Color.rgb(242, 248, 255),
-                    Color.rgb(194, 224, 249)
-            }
-    );
-
-    offBg.setCornerRadius(dp(20));
-
-    offCard.setBackground(offBg);
-    offCard.setPadding(
-            dp(16), dp(16),
-            dp(16), dp(16)
-    );
-
-    LinearLayout offTop = new LinearLayout(this);
-    offTop.setOrientation(LinearLayout.HORIZONTAL);
-    offTop.setGravity(Gravity.CENTER_VERTICAL);
-
-    TextView offIcon = new TextView(this);
-    offIcon.setText("✓");
-    offIcon.setTextSize(19);
-    offIcon.setTextColor(Color.rgb(45, 110, 230));
-    offIcon.setGravity(Gravity.CENTER);
-
-    LinearLayout.LayoutParams offIconParams =
-            new LinearLayout.LayoutParams(dp(30), dp(30));
-
-    offTop.addView(offIcon, offIconParams);
-
-    LinearLayout offTexts = new LinearLayout(this);
-    offTexts.setOrientation(LinearLayout.VERTICAL);
-
-    TextView offTitle = new TextView(this);
-    offTitle.setText("Official Visa Portal");
-    offTitle.setTextSize(15);
-    offTitle.setTextColor(NAVY);
-    offTitle.setTypeface(null, Typeface.BOLD);
-
-    TextView offSubtitle = new TextView(this);
-    offSubtitle.setText("Official visa information and services");
-    offSubtitle.setTextSize(11);
-    offSubtitle.setTextColor(GRAY);
-
-    offTexts.addView(offTitle);
-    offTexts.addView(offSubtitle);
-
-    LinearLayout.LayoutParams offTextParams =
-            new LinearLayout.LayoutParams(
-                    0,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    1f
-            );
-
-    offTextParams.leftMargin = dp(10);
-    offTop.addView(offTexts, offTextParams);
-
-    offCard.addView(offTop);
-
-    TextView openBtn = new TextView(this);
-    openBtn.setText("OPEN OFFICIAL WEBSITE");
-    openBtn.setTextSize(13);
-    openBtn.setTextColor(Color.WHITE);
-    openBtn.setTypeface(null, Typeface.BOLD);
-    openBtn.setGravity(Gravity.CENTER);
-    openBtn.setPadding(
-            dp(12), dp(14),
-            dp(12), dp(14)
-    );
-
-    GradientDrawable openBg = new GradientDrawable(
-            GradientDrawable.Orientation.LEFT_RIGHT,
-            new int[]{
-                    Color.rgb(60, 120, 255),
-                    Color.rgb(85, 75, 210)
-            }
-    );
-
-    openBg.setCornerRadius(dp(14));
-    openBtn.setBackground(openBg);
-
-    LinearLayout.LayoutParams openParams =
-            new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-
-    openParams.topMargin = dp(14);
-    offCard.addView(openBtn, openParams);
-
-    openBtn.setOnClickListener(v -> {
-
-        String country =
-                getSharedPreferences(
-                        "RV_SETTINGS",
-                        MODE_PRIVATE
-                ).getString("selected_country", "");
-
-        if (country.isEmpty()) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Select Country")
-                    .setMessage("Please select a country first.")
-                    .setPositiveButton("OK", null)
-                    .show();
-            return;
-        }
-
-        String visaUrl = getVisaPortalUrl(country);
-
-        if (visaUrl == null) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Portal Not Configured")
-                    .setMessage(
-                            "The official visa portal for "
-                                    + country
-                                    + " is not configured yet."
-                    )
-                    .setPositiveButton("OK", null)
-                    .show();
-            return;
-        }
-
-        try {
-            Intent browserIntent = new Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(visaUrl)
-            );
-
-            startActivity(browserIntent);
-
-        } catch (Exception e) {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("Unable to Open Website")
-                    .setMessage("Please try again later.")
-                    .setPositiveButton("OK", null)
-                    .show();
-        }
-    });
-
-    
     // =====================================================
     // OFFICIAL VISA PORTAL — PREMIUM CARD
     // =====================================================
@@ -7921,6 +7774,9 @@ dialog.show();
             margin(0, 0, 0, 12)
     );
 
+    // =====================================================
+    // APPOINTMENT MONITORING — PREMIUM CARD
+    // =====================================================
 
     LinearLayout mainCard = new LinearLayout(this);
     mainCard.setOrientation(LinearLayout.VERTICAL);
@@ -8316,6 +8172,17 @@ startBtn.setOnClickListener(v -> {
             featureDescLp
     );
 
+
+    // =====================================================
+    // ADD FINAL CARD TO PAGE
+    // =====================================================
+
+    page.addView(
+            mainCard,
+            margin(0, 0, 0, 12)
+    );
+
+   
 
     // =====================================================
     // ADD FINAL CARD TO PAGE
