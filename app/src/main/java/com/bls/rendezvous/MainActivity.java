@@ -7161,7 +7161,7 @@ countryCard.addView(
         )
 ); 
 
- // =====================================================
+// =====================================================
 // COUNTRY SELECTOR — PREMIUM DARK SEARCH
 // =====================================================
 
@@ -7173,48 +7173,36 @@ countryCard.setOnClickListener(v -> {
             .start();
 
     final String[] countryNames = {
-        // SCHENGEN
-        "Austria", "Belgium", "Bulgaria", "Croatia",
-        "Czech Republic", "Denmark", "Estonia", "Finland",
-        "France", "Germany", "Greece", "Hungary",
-        "Iceland", "Italy", "Latvia", "Liechtenstein",
-        "Lithuania", "Luxembourg", "Malta", "Netherlands",
-        "Norway", "Poland", "Portugal", "Romania",
-        "Slovakia", "Slovenia", "Spain", "Sweden",
-        "Switzerland",
+            "Austria", "Belgium", "Bulgaria", "Croatia",
+            "Czech Republic", "Denmark", "Estonia", "Finland",
+            "France", "Germany", "Greece", "Hungary",
+            "Iceland", "Italy", "Latvia", "Liechtenstein",
+            "Lithuania", "Luxembourg", "Malta", "Netherlands",
+            "Norway", "Poland", "Portugal", "Romania",
+            "Slovakia", "Slovenia", "Spain", "Sweden",
+            "Switzerland",
+            "Canada", "USA", "United Kingdom",
+            "Australia", "Other Countries"
+    };
 
-        // OTHER DESTINATIONS
-        "Canada",
-        "USA",
-        "United Kingdom",
-        "Australia",
-        "Other Countries"
-};
-
-final String[] flags = {
-        // SCHENGEN FLAGS
-        "🇦🇹", "🇧🇪", "🇧🇬", "🇭🇷",
-        "🇨🇿", "🇩🇰", "🇪🇪", "🇫🇮",
-        "🇫🇷", "🇩🇪", "🇬🇷", "🇭🇺",
-        "🇮🇸", "🇮🇹", "🇱🇻", "🇱🇮",
-        "🇱🇹", "🇱🇺", "🇲🇹", "🇳🇱",
-        "🇳🇴", "🇵🇱", "🇵🇹", "🇷🇴",
-        "🇸🇰", "🇸🇮", "🇪🇸", "🇸🇪",
-        "🇨🇭",
-
-        // OTHER DESTINATION FLAGS
-        "🇨🇦",
-        "🇺🇸",
-        "🇬🇧",
-        "🇦🇺",
-        "🌍"
-};
-
-   final String[] filteredCountries = countryNames.clone();
+    final String[] flags = {
+            "🇦🇹", "🇧🇪", "🇧🇬", "🇭🇷",
+            "🇨🇿", "🇩🇰", "🇪🇪", "🇫🇮",
+            "🇫🇷", "🇩🇪", "🇬🇷", "🇭🇺",
+            "🇮🇸", "🇮🇹", "🇱🇻", "🇱🇮",
+            "🇱🇹", "🇱🇺", "🇲🇹", "🇳🇱",
+            "🇳🇴", "🇵🇱", "🇵🇹", "🇷🇴",
+            "🇸🇰", "🇸🇮", "🇪🇸", "🇸🇪",
+            "🇨🇭",
+            "🇨🇦", "🇺🇸", "🇬🇧",
+            "🇦🇺", "🌍"
+    };
 
     LinearLayout dialogLayout = new LinearLayout(this);
     dialogLayout.setOrientation(LinearLayout.VERTICAL);
-    dialogLayout.setPadding(dp(20), dp(18), dp(20), dp(12));
+    dialogLayout.setPadding(
+            dp(20), dp(18), dp(20), dp(12)
+    );
 
     GradientDrawable dialogBackground = new GradientDrawable();
     dialogBackground.setColor(Color.parseColor("#101B35"));
@@ -7241,6 +7229,7 @@ final String[] flags = {
 
     LinearLayout.LayoutParams subtitleParams =
             new LinearLayout.LayoutParams(-1, -2);
+
     subtitleParams.setMargins(0, dp(5), 0, dp(16));
     dialogLayout.addView(dialogSubtitle, subtitleParams);
 
@@ -7259,6 +7248,7 @@ final String[] flags = {
             dp(1),
             Color.parseColor("#35496F")
     );
+
     searchInput.setBackground(searchBackground);
 
     dialogLayout.addView(
@@ -7267,26 +7257,29 @@ final String[] flags = {
     );
 
     ListView countryList = new ListView(this);
+
     countryList.setDivider(
             new android.graphics.drawable.ColorDrawable(
                     Color.parseColor("#263653")
             )
     );
+
     countryList.setDividerHeight(dp(1));
     countryList.setBackgroundColor(Color.TRANSPARENT);
     countryList.setCacheColorHint(Color.TRANSPARENT);
 
     LinearLayout.LayoutParams listParams =
             new LinearLayout.LayoutParams(-1, dp(320));
+
     listParams.setMargins(0, dp(12), 0, 0);
     dialogLayout.addView(countryList, listParams);
 
     java.util.ArrayList<String> displayedCountries =
             new java.util.ArrayList<>();
 
-    for (int i = 0; i < countryNames.length; i++) {
-        displayedCountries.add(countryNames[i]);
-    }
+    displayedCountries.addAll(
+            java.util.Arrays.asList(countryNames)
+    );
 
     android.widget.ArrayAdapter<String> adapter =
             new android.widget.ArrayAdapter<String>(
@@ -7326,13 +7319,11 @@ final String[] flags = {
                     row.setGravity(Gravity.CENTER_VERTICAL);
                     row.setPadding(dp(10), 0, dp(10), 0);
 
-                    if (selectedCountry.contains(name)) {
+                    if (name.equals(selectedCountry)) {
                         row.setTextColor(
                                 Color.parseColor("#77B8FF")
                         );
-                        row.setTypeface(
-                                Typeface.DEFAULT_BOLD
-                        );
+                        row.setTypeface(Typeface.DEFAULT_BOLD);
                     }
 
                     row.setBackgroundColor(Color.TRANSPARENT);
@@ -7344,10 +7335,10 @@ final String[] flags = {
     countryList.setAdapter(adapter);
 
     AlertDialog dialog =
-            new AlertDialog.Builder(this)
-                    .create();
+            new AlertDialog.Builder(this).create();
 
     dialog.setView(dialogLayout);
+
     dialog.setOnShowListener(d -> {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(
@@ -7375,7 +7366,8 @@ final String[] flags = {
                         int before,
                         int count
                 ) {
-                    String query = s.toString().trim()
+                    String query = s.toString()
+                            .trim()
                             .toLowerCase(java.util.Locale.ROOT);
 
                     displayedCountries.clear();
@@ -7400,9 +7392,12 @@ final String[] flags = {
 
     countryList.setOnItemClickListener(
             (parent, view, position, id) -> {
-                String chosen = displayedCountries.get(position);
+
+                String chosen =
+                        displayedCountries.get(position);
 
                 int originalIndex = -1;
+
                 for (int i = 0; i < countryNames.length; i++) {
                     if (countryNames[i].equals(chosen)) {
                         originalIndex = i;
@@ -7411,25 +7406,25 @@ final String[] flags = {
                 }
 
                 if (originalIndex >= 0) {
+
                     selectedCountry = chosen;
 
-// Save selected country
-getSharedPreferences(
-        "RV_SETTINGS",
-        MODE_PRIVATE
-).edit()
-        .putString(
-                "selected_country",
-                selectedCountry
-        )
-        .apply();
+                    getSharedPreferences(
+                            "RV_SETTINGS",
+                            MODE_PRIVATE
+                    ).edit()
+                            .putString(
+                                    "selected_country",
+                                    selectedCountry
+                            )
+                            .apply();
 
                     countryValue.setText(selectedCountry);
-countryValue.setTextColor(NAVY);
+                    countryValue.setTextColor(NAVY);
 
-countryFlag.setText(
-        flags[originalIndex]
-);
+                    countryFlag.setText(
+                            flags[originalIndex]
+                    );
                 }
 
                 dialog.dismiss();
@@ -7437,22 +7432,21 @@ countryFlag.setText(
     );
 
     dialog.setButton(
-        AlertDialog.BUTTON_NEGATIVE,
-        "CLOSE",
-        (d, which) -> dialog.dismiss()
-);
+            AlertDialog.BUTTON_NEGATIVE,
+            "CLOSE",
+            (d, which) -> dialog.dismiss()
+    );
 
-// Reset arrow when dialog closes
-dialog.setOnDismissListener(
-        d -> countryArrow.animate()
-                .rotation(0f)
-                .setDuration(180)
-                .start()
-);
+    dialog.setOnDismissListener(
+            d -> countryArrow.animate()
+                    .rotation(0f)
+                    .setDuration(180)
+                    .start()
+    );
 
-dialog.show();
-});   
-
+    dialog.show();
+});
+                    
     
     // =====================================================
     // ADD COUNTRY CARD TO PAGE
