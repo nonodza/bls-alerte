@@ -8383,97 +8383,17 @@ topPart.addView(
 
 startBtn.setOnClickListener(v -> {
 
-    // =================================================
+    // =============================================
     // CHECK COUNTRY
-    // =================================================
+    // =============================================
+
+    String monitoringCountry =
+            getSharedPreferences("RV_SETTINGS", MODE_PRIVATE)
+                    .getString("selected_country", "");
 
     if (selectedCountry == null
-            || selectedCountry.trim().isEmpty()) {
-
-        Toast.makeText(
-                MainActivity.this,
-                "Please select a country first",
-                Toast.LENGTH_SHORT
-        ).show();
-
-        return;
-    }
-
-    // ================================================
-    // SERVICE INTENT
-    // =================================================
-
-    Intent serviceIntent = new Intent(
-            MainActivity.this,
-            AppointmentMonitoringService.class
-    );
-
-// =================================================
-// STOP MONITORING — DIRECT
-// =================================================
-
-if (startBtn.isActive()) {
-
-    Intent stopIntent = new Intent(
-            MainActivity.this,
-            AppointmentMonitoringService.class
-    );
-
-    stopIntent.setAction("STOP_MONITORING");
-
-    try {
-
-        android.content.ComponentName result =
-                startService(stopIntent);
-
-        if (result == null) {
-            Toast.makeText(
-                    MainActivity.this,
-                    "Unable to send stop command",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            return;
-        }
-
-        startBtn.setActive(false);
-
-        Toast.makeText(
-                MainActivity.this,
-                "Monitoring stopped",
-                Toast.LENGTH_SHORT
-        ).show();
-
-    } catch (Exception e) {
-
-        android.util.Log.e(
-                "BLS_STOP",
-                "Failed to stop monitoring",
-                e
-        );
-
-        Toast.makeText(
-                MainActivity.this,
-                "Unable to stop monitoring",
-                Toast.LENGTH_SHORT
-        ).show();
-    }
-
-} else {    
- 
-        // =============================================
-        // START MONITORING
-        // =============================================
-   String monitoringCountry =
-            getSharedPreferences(
-                    "RV_SETTINGS",
-                    MODE_PRIVATE
-            ).getString(
-                    "selected_country",
-                    ""
-            );
-
-    if (monitoringCountry.trim().isEmpty()
+            || selectedCountry.trim().isEmpty()
+            || monitoringCountry.trim().isEmpty()
             || monitoringCountry.equalsIgnoreCase("Other Countries")) {
 
         new AlertDialog.Builder(MainActivity.this)
@@ -8488,39 +8408,113 @@ if (startBtn.isActive()) {
         return;
     }
 
-    if (selectedCenter == null
-            || selectedCenter.trim().isEmpty()) {
+    // =============================================
+    // STOP MONITORING
+    // =============================================
 
-        Toast.makeText(
+    if (startBtn.isActive()) {
+
+        Intent stopIntent = new Intent(
                 MainActivity.this,
-                "Please select a monitoring center first.",
-                Toast.LENGTH_SHORT
-        ).show();
+                AppointmentMonitoringService.class
+        );
 
-        return;
+        stopIntent.setAction("STOP_MONITORING");
+
+        try {
+
+            android.content.ComponentName result =
+                    startService(stopIntent);
+
+            if (result == null) {
+                Toast.makeText(
+                        MainActivity.this,
+                        "Unable to send stop command",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                return;
+            }
+
+            startBtn.setActive(false);
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Monitoring stopped",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+        } catch (Exception e) {
+
+            android.util.Log.e(
+                    "BLS_STOP",
+                    "Failed to stop monitoring",
+                    e
+            );
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Unable to stop monitoring",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+
+    } else {
+
+        // =============================================
+        // START MONITORING
+        // =============================================
+
+        if (selectedCenter == null
+                || selectedCenter.trim().isEmpty()) {
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Please select a monitoring center first.",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+        Intent serviceIntent = new Intent(
+                MainActivity.this,
+                AppointmentMonitoringService.class
+        );
+
+        serviceIntent.putExtra("center", selectedCenter);
+
+        try {
+
+            ContextCompat.startForegroundService(
+                    MainActivity.this,
+                    serviceIntent
+            );
+
+            startBtn.setActive(true);
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Monitoring started",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+        } catch (Exception e) {
+
+            android.util.Log.e(
+                    "BLS_START",
+                    "Failed to start monitoring",
+                    e
+            );
+
+            Toast.makeText(
+                    MainActivity.this,
+                    "Unable to start monitoring",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
-
-    serviceIntent.putExtra(
-            "center",
-            selectedCenter
-    );
-
-    ContextCompat.startForegroundService(
-            MainActivity.this,
-            serviceIntent
-    );
-
-    startBtn.setTag(true);
-    startBtn.setText("STOP");
-
-    Toast.makeText(
-            MainActivity.this,
-            "Monitoring started",
-            Toast.LENGTH_SHORT
-    ).show();
-}
 });
-   
 
     // =====================================================
     // DIVIDER
