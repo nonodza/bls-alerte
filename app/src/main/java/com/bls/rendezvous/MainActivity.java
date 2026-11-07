@@ -62,6 +62,7 @@ import android.text.style.ForegroundColorSpan;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Locale;
+import android.net.Uri;
 
 public class MainActivity extends Activity {
 
