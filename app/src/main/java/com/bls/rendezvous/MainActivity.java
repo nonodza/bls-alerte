@@ -7943,18 +7943,76 @@ startBtn.setOnClickListener(v -> {
             return;
         }
 
-        // =============================================
-        // START MONITORING
-        // =============================================
+      // =============================================
+// START MONITORING
+// =============================================
 
-        Toast.makeText(
-                MainActivity.this,
-                "Automatic monitoring will be available soon.",
-                Toast.LENGTH_LONG
-        ).show();
+// Read the latest saved country
+String monitoringCountry =
+        getSharedPreferences(
+                "RV_SETTINGS",
+                MODE_PRIVATE
+        ).getString(
+                "selected_country",
+                ""
+        );
+
+if (monitoringCountry.trim().isEmpty()
+        || monitoringCountry.equalsIgnoreCase("Other Countries")) {
+
+    Toast.makeText(
+            MainActivity.this,
+            "Please select a supported country first",
+            Toast.LENGTH_SHORT
+    ).show();
+
+    return;
+}
+
+// Keep the selected country updated
+selectedCountry = monitoringCountry;
+
+// Start monitoring service
+Intent startIntent = new Intent(
+        MainActivity.this,
+        AppointmentMonitoringService.class
+);
+
+startIntent.putExtra(
+        "center",
+        monitoringCountry
+);
+
+try {
+
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        startForegroundService(startIntent);
+    } else {
+        startService(startIntent);
     }
-});
 
+    startBtn.setActive(true);
+
+    Toast.makeText(
+            MainActivity.this,
+            "Monitoring started",
+            Toast.LENGTH_SHORT
+    ).show();
+
+} catch (Exception e) {
+
+    android.util.Log.e(
+            "BLS_START",
+            "Failed to start monitoring",
+            e
+    );
+
+    Toast.makeText(
+            MainActivity.this,
+            "Unable to start monitoring",
+            Toast.LENGTH_SHORT
+    ).show();
+}  
     // =====================================================
     // DIVIDER
     // =====================================================
