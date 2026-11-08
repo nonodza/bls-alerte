@@ -7091,14 +7091,26 @@ infoParams.setMargins(
         dp(6),
         0
 );
+    
+// =====================================================
+// SELECTED COUNTRY
+// =====================================================
 
-// Selected country
+selectedCountry = getSharedPreferences(
+        "RV_SETTINGS",
+        MODE_PRIVATE
+).getString("selected_country", "");
+
+if (selectedCountry == null) {
+    selectedCountry = "";
+}
+
 TextView countryValue = text(
-        selectedCountry.length() == 0
+        selectedCountry.isEmpty()
                 ? "Select Country"
                 : selectedCountry,
         16,
-        selectedCountry.length() == 0
+        selectedCountry.isEmpty()
                 ? Color.parseColor("#3770C8")
                 : NAVY
 );
@@ -7119,10 +7131,12 @@ countryInfo.addView(
         countryValue,
         margin(0, 0, 0, 0)
 );
+
 countryCard.addView(
         countryInfo,
         infoParams
 );
+
 
 // =====================================================
 // PREMIUM DROPDOWN ARROW
