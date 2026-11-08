@@ -7948,7 +7948,7 @@ startBtn.setOnClickListener(v -> {
 // =============================================
 
 // Read the latest saved country
-String monitoringCountry =
+String startCountry =
         getSharedPreferences(
                 "RV_SETTINGS",
                 MODE_PRIVATE
@@ -7957,9 +7957,8 @@ String monitoringCountry =
                 ""
         );
 
-if (monitoringCountry.trim().isEmpty()
-        || monitoringCountry.equalsIgnoreCase("Other Countries")) {
-
+if (startCountry.trim().isEmpty()
+        || startCountry.equalsIgnoreCase("Other Countries")) {
     Toast.makeText(
             MainActivity.this,
             "Please select a supported country first",
@@ -7970,7 +7969,7 @@ if (monitoringCountry.trim().isEmpty()
 }
 
 // Keep the selected country updated
-selectedCountry = monitoringCountry;
+selectedCountry = startCountry;
 
 // Start monitoring service
 Intent startIntent = new Intent(
@@ -7980,7 +7979,7 @@ Intent startIntent = new Intent(
 
 startIntent.putExtra(
         "center",
-        monitoringCountry
+        startCountry
 );
 
 try {
