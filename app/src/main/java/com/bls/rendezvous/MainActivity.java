@@ -8008,11 +8008,13 @@ try {
     );
 
     Toast.makeText(
-            MainActivity.this,
-            "Unable to start monitoring",
-            Toast.LENGTH_SHORT
-     ).show();
+        MainActivity.this,
+        "Unable to start monitoring",
+        Toast.LENGTH_SHORT
+).show();
+
     }
+    } // إغلاق كتلة ELSE
 });
         
     // =====================================================
