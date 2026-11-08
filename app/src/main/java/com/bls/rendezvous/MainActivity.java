@@ -7752,7 +7752,7 @@ countryCard.setOnClickListener(v -> {
 
 
     // =====================================================
-    // COUNTRY + LAST CHECK
+    // COUNTRY + LAST CHECK — LIVE UPDATE
     // =====================================================
 
     LinearLayout flagLine = new LinearLayout(this);
@@ -7767,7 +7767,6 @@ countryCard.setOnClickListener(v -> {
 
     flagLineLp.topMargin = dp(10);
 
-
     TextView countryLine = text(
             "",
             11,
@@ -7779,16 +7778,24 @@ countryCard.setOnClickListener(v -> {
             android.text.TextUtils.TruncateAt.END
     );
 
+    // Read the latest saved country
+    selectedCountry = getSharedPreferences(
+            "RV_SETTINGS",
+            MODE_PRIVATE
+    ).getString(
+            "selected_country",
+            selectedCountry == null ? "" : selectedCountry
+    );
 
-    boolean hasCountry =
-            selectedCountry != null
-                    && !selectedCountry.trim().isEmpty();
-
-
-    if (hasCountry) {
+    if (selectedCountry != null
+            && !selectedCountry.trim().isEmpty()) {
 
         countryLine.setText(
                 selectedCountry + " • Ready to monitor"
+        );
+
+        countryLine.setTextColor(
+                Color.parseColor("#536078")
         );
 
     } else {
@@ -7809,13 +7816,12 @@ countryCard.setOnClickListener(v -> {
 
     centerCol.addView(flagLine, flagLineLp);
 
-    
     topPart.addView(
             centerCol,
             centerLp
     );
 
-   
+     
 // =====================================================
 // START / STOP BUTTON
 // =====================================================
