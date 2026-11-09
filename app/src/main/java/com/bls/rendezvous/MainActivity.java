@@ -7450,7 +7450,9 @@ countryValue.setTextColor(NAVY);
 countryFlag.setText(
         flags[originalIndex]
 );
-
+if (availabilityCountry != null) {
+    availabilityCountry.setText(selectedCountry);
+    }
                 }
 
                 dialog.dismiss();
