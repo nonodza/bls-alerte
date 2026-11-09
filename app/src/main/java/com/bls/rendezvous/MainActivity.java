@@ -7957,8 +7957,291 @@ startBtn.setOnClickListener(v -> {
 
             return;
         }
+// =============================================
+// PREMIUM MANUAL CHECK WARNING
+// =============================================
 
-      // =============================================
+{
+    LinearLayout warningLayout = new LinearLayout(
+            MainActivity.this
+    );
+
+    warningLayout.setOrientation(
+            LinearLayout.VERTICAL
+    );
+
+    warningLayout.setGravity(Gravity.CENTER_HORIZONTAL);
+
+    warningLayout.setPadding(
+            dp(22), dp(24), dp(22), dp(20)
+    );
+
+    GradientDrawable warningBackground =
+            new GradientDrawable();
+
+    warningBackground.setColor(
+            Color.parseColor("#0D1931")
+    );
+
+    warningBackground.setCornerRadius(dp(22));
+
+    warningBackground.setStroke(
+            dp(1),
+            Color.parseColor("#315A96")
+    );
+
+    warningLayout.setBackground(warningBackground);
+
+    // =============================================
+    // WARNING ICON
+    // =============================================
+
+    TextView warningIcon = new TextView(
+            MainActivity.this
+    );
+
+    warningIcon.setText("!");
+    warningIcon.setTextSize(27);
+    warningIcon.setTextColor(Color.WHITE);
+    warningIcon.setTypeface(Typeface.DEFAULT_BOLD);
+    warningIcon.setGravity(Gravity.CENTER);
+
+    GradientDrawable iconBackground =
+            new GradientDrawable();
+
+    iconBackground.setShape(
+            GradientDrawable.OVAL
+    );
+
+    iconBackground.setColor(
+            Color.parseColor("#183D70")
+    );
+
+    iconBackground.setStroke(
+            dp(2),
+            Color.parseColor("#398BFF")
+    );
+
+    warningIcon.setBackground(iconBackground);
+
+    warningLayout.addView(
+            warningIcon,
+            new LinearLayout.LayoutParams(
+                    dp(58),
+                    dp(58)
+            )
+    );
+
+    // =============================================
+    // TITLE
+    // =============================================
+
+    TextView warningTitle = new TextView(
+            MainActivity.this
+    );
+
+    warningTitle.setText(
+            "Manual Check Already Running"
+    );
+
+    warningTitle.setTextSize(18);
+    warningTitle.setTextColor(Color.WHITE);
+    warningTitle.setTypeface(Typeface.DEFAULT_BOLD);
+    warningTitle.setGravity(Gravity.CENTER);
+
+    LinearLayout.LayoutParams warningTitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    warningTitleParams.topMargin = dp(18);
+
+    warningLayout.addView(
+            warningTitle,
+            warningTitleParams
+    );
+
+    // =============================================
+    // SUBTITLE
+    // =============================================
+
+    TextView warningSubtitle = new TextView(
+            MainActivity.this
+    );
+
+    warningSubtitle.setText(
+            "Please wait a moment"
+    );
+
+    warningSubtitle.setTextSize(12);
+    warningSubtitle.setTextColor(
+            Color.parseColor("#8FB8F2")
+    );
+
+    warningSubtitle.setGravity(Gravity.CENTER);
+
+    LinearLayout.LayoutParams warningSubtitleParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    warningSubtitleParams.topMargin = dp(7);
+
+    warningLayout.addView(
+            warningSubtitle,
+            warningSubtitleParams
+    );
+
+    // =============================================
+    // MESSAGE PANEL
+    // =============================================
+
+    TextView warningMessage = new TextView(
+            MainActivity.this
+    );
+
+    warningMessage.setText(
+            "CHECK NOW is currently running.\n\n"
+            + "Please wait until the manual check finishes "
+            + "before starting appointment monitoring."
+    );
+
+    warningMessage.setTextSize(13);
+    warningMessage.setTextColor(
+            Color.parseColor("#C5D4EC")
+    );
+
+    warningMessage.setGravity(Gravity.CENTER);
+    warningMessage.setLineSpacing(dp(3), 1f);
+
+    warningMessage.setPadding(
+            dp(15), dp(16), dp(15), dp(16)
+    );
+
+    GradientDrawable messageBackground =
+            new GradientDrawable();
+
+    messageBackground.setColor(
+            Color.parseColor("#152744")
+    );
+
+    messageBackground.setCornerRadius(dp(14));
+
+    messageBackground.setStroke(
+            dp(1),
+            Color.parseColor("#263F64")
+    );
+
+    warningMessage.setBackground(messageBackground);
+
+    LinearLayout.LayoutParams warningMessageParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    -2
+            );
+
+    warningMessageParams.topMargin = dp(20);
+
+    warningLayout.addView(
+            warningMessage,
+            warningMessageParams
+    );
+
+    // =============================================
+    // GOT IT BUTTON
+    // =============================================
+
+    TextView warningButton = new TextView(
+            MainActivity.this
+    );
+
+    warningButton.setText("GOT IT");
+    warningButton.setTextSize(13);
+    warningButton.setTextColor(Color.WHITE);
+    warningButton.setTypeface(Typeface.DEFAULT_BOLD);
+    warningButton.setGravity(Gravity.CENTER);
+
+    GradientDrawable buttonBackground =
+            new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[]{
+                            Color.parseColor("#2678F5"),
+                            Color.parseColor("#6255E7")
+                    }
+            );
+
+    buttonBackground.setCornerRadius(dp(12));
+
+    warningButton.setBackground(buttonBackground);
+
+    LinearLayout.LayoutParams warningButtonParams =
+            new LinearLayout.LayoutParams(
+                    -1,
+                    dp(46)
+            );
+
+    warningButtonParams.topMargin = dp(20);
+
+    warningLayout.addView(
+            warningButton,
+            warningButtonParams
+    );
+
+    // =============================================
+    // SHOW PREMIUM DIALOG
+    // =============================================
+
+    AlertDialog premiumWarning =
+            new AlertDialog.Builder(MainActivity.this)
+                    .create();
+
+    premiumWarning.setView(warningLayout);
+
+    premiumWarning.setCancelable(true);
+
+    premiumWarning.show();
+
+    if (premiumWarning.getWindow() != null) {
+
+        premiumWarning.getWindow().setBackgroundDrawable(
+                new android.graphics.drawable.ColorDrawable(
+                        Color.TRANSPARENT
+                )
+        );
+
+        premiumWarning.getWindow().setLayout(
+                (int) (getResources().getDisplayMetrics().widthPixels
+                        * 0.88f),
+                -2
+        );
+    }
+
+    // =============================================
+    // FADE + ZOOM ANIMATION
+    // =============================================
+
+    warningLayout.setAlpha(0f);
+    warningLayout.setScaleX(0.88f);
+    warningLayout.setScaleY(0.88f);
+
+    warningLayout.animate()
+            .alpha(1f)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(260)
+            .start();
+
+    // =============================================
+    // BUTTON ACTION
+    // =============================================
+
+    warningButton.setOnClickListener(
+            buttonView -> premiumWarning.dismiss()
+    );
+}
+ // =============================================
 // START MONITORING
 // =============================================
 
