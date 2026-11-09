@@ -8330,7 +8330,33 @@ checkButton.setOnClickListener(v -> {
 
         return;
     }
+// =============================================
+// PREVENT MANUAL CHECK DURING MONITORING
+// =============================================
 
+boolean monitoringActive =
+        getSharedPreferences(
+                AppointmentMonitoringService.MONITOR_PREFS,
+                MODE_PRIVATE
+        ).getBoolean(
+                AppointmentMonitoringService.KEY_MONITORING_ACTIVE,
+                false
+        );
+
+if (monitoringActive) {
+
+    new AlertDialog.Builder(MainActivity.this)
+            .setTitle("Monitoring Already Active")
+            .setMessage(
+                    "Automatic monitoring is currently running.\n\n"
+                    + "Please stop monitoring before performing "
+                    + "a manual availability check."
+            )
+            .setPositiveButton("OK", null)
+            .show();
+
+    return;
+}
     if (checkButton.isChecking()) {
         return;
     }
