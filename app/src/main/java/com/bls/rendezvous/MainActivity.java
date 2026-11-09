@@ -7451,8 +7451,6 @@ countryFlag.setText(
         flags[originalIndex]
 );
 
-// Update Appointment Availability country
-availabilityCountry.setText(selectedCountry);
                 }
 
                 dialog.dismiss();
