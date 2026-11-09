@@ -8402,28 +8402,30 @@ if (monitoringActive) {
     // =============================================
 
     TextView dialogTitle = new TextView(MainActivity.this);
-    title.setText("Monitoring Already Active");
-    title.setTextColor(Color.WHITE);
-    title.setTextSize(18);
-    title.setTypeface(null, Typeface.BOLD);
-    title.setGravity(Gravity.CENTER);
 
-    mainLayout.addView(
-            title,
-            new LinearLayout.LayoutParams(
-                    -1, -2
-            )
-    );
+dialogTitle.setText("Monitoring Already Active");
+dialogTitle.setTextColor(Color.WHITE);
+dialogTitle.setTextSize(18);
+dialogTitle.setTypeface(null, Typeface.BOLD);
+dialogTitle.setGravity(Gravity.CENTER);
+
+mainLayout.addView(
+        dialogTitle,
+        new LinearLayout.LayoutParams(
+                -1, -2
+        )
+);
 
     // =============================================
     // SUBTITLE
     // =============================================
 
     TextView dialogSubtitle = new TextView(MainActivity.this);
-    subtitle.setText("Automatic monitoring is running");
-    subtitle.setTextColor(Color.rgb(102, 181, 255));
-    subtitle.setTextSize(12);
-    subtitle.setGravity(Gravity.CENTER);
+
+dialogSubtitle.setText("Automatic monitoring is running");
+dialogSubtitle.setTextColor(Color.rgb(102, 181, 255));
+dialogSubtitle.setTextSize(12);
+dialogSubtitle.setGravity(Gravity.CENTER);
 
     LinearLayout.LayoutParams subtitleParams =
             new LinearLayout.LayoutParams(-1, -2);
