@@ -8401,7 +8401,7 @@ if (monitoringActive) {
     // TITLE
     // =============================================
 
-    TextView title = new TextView(MainActivity.this);
+    TextView dialogTitle = new TextView(MainActivity.this);
     title.setText("Monitoring Already Active");
     title.setTextColor(Color.WHITE);
     title.setTextSize(18);
@@ -8419,7 +8419,7 @@ if (monitoringActive) {
     // SUBTITLE
     // =============================================
 
-    TextView subtitle = new TextView(MainActivity.this);
+    TextView dialogSubtitle = new TextView(MainActivity.this);
     subtitle.setText("Automatic monitoring is running");
     subtitle.setTextColor(Color.rgb(102, 181, 255));
     subtitle.setTextSize(12);
@@ -8431,7 +8431,7 @@ if (monitoringActive) {
     subtitleParams.topMargin = dp(7);
     subtitleParams.bottomMargin = dp(19);
 
-    mainLayout.addView(subtitle, subtitleParams);
+    mainLayout.addView(dialogSubtitle, subtitleParams);
 
     // =============================================
     // MESSAGE CONTAINER
@@ -8498,7 +8498,7 @@ if (monitoringActive) {
 
     mainLayout.addView(okButton, buttonParams);
 
-    okButton.setOnClickListener(v -> alertDialog.dismiss());
+    okButton.setOnClickListener(buttonView -> alertDialog.dismiss());
 
     // =============================================
     // SHOW DIALOG
