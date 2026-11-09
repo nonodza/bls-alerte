@@ -7444,9 +7444,15 @@ countryCard.setOnClickListener(v -> {
                     countryValue.setText(selectedCountry);
                     countryValue.setTextColor(NAVY);
 
-                    countryFlag.setText(
-                            flags[originalIndex]
-                    );
+                    countryValue.setText(selectedCountry);
+countryValue.setTextColor(NAVY);
+
+countryFlag.setText(
+        flags[originalIndex]
+);
+
+// Update Appointment Availability country
+availabilityCountry.setText(selectedCountry);
                 }
 
                 dialog.dismiss();
