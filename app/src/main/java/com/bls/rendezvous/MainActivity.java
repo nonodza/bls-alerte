@@ -94,6 +94,7 @@ private String currentPage = "HOME";
 private String selectedWilaya = "";
 private String selectedCenter = "";
 private String selectedCountry = "";
+private TextView availabilityCountry;
 private String selectedCategory = "";
 
 private TextView appointmentWilayaValue;
