@@ -8168,9 +8168,8 @@ availabilityTitle.setTypeface(Typeface.DEFAULT_BOLD);
 availabilityContent.addView(
         availabilityTitle
 );
-
 // =====================================================
-// READ LATEST SELECTED COUNTRY
+// APPOINTMENT AVAILABILITY — COUNTRY DISPLAY
 // =====================================================
 
 String countryDisplay = getSharedPreferences(
@@ -8182,19 +8181,21 @@ String countryDisplay = getSharedPreferences(
 );
 
 if (countryDisplay == null || countryDisplay.trim().isEmpty()) {
-
     countryDisplay = selectedCountry;
-
 }
 
 if (countryDisplay == null || countryDisplay.trim().isEmpty()) {
-
-    countryDisplay = "🌍 Unknown country";
-
+    countryDisplay = "";
 }
 
-TextView availabilityCountry = text(
-        countryDisplay,
+// =====================================================
+// COUNTRY DISPLAY TEXT
+// =====================================================
+
+availabilityCountry = text(
+        countryDisplay.isEmpty()
+                ? "🌍 Unknown country"
+                : countryDisplay,
         12,
         Color.parseColor("#344563")
 );
