@@ -55,6 +55,9 @@ public class ManualCheckService extends Service {
 
     private volatile boolean cancelled = false;
 
+    // LIVE MANUAL CHECK STATE
+    public static volatile boolean isRunning = false;
+
     private String selectedCountry = "Unknown country";
 
     private Thread checkThread;
@@ -253,6 +256,8 @@ public class ManualCheckService extends Service {
 
             cancelled = true;
 
+            isRunning = false;
+
             if (checkThread != null) {
                 checkThread.interrupt();
             }
@@ -276,6 +281,9 @@ public class ManualCheckService extends Service {
 
                 return START_NOT_STICKY;
             }
+
+            // A MANUAL CHECK IS NOW RUNNING
+            isRunning = true;
 
             String center =
                     intent.getStringExtra("center");
@@ -416,8 +424,14 @@ public class ManualCheckService extends Service {
             mainHandler.post(() -> {
 
                 if (cancelled) {
+
+                    isRunning = false;
+
                     return;
                 }
+
+                // MANUAL CHECK HAS FINISHED
+                isRunning = false;
 
                 stopForeground(true);
 
@@ -876,6 +890,9 @@ public class ManualCheckService extends Service {
     public void onDestroy() {
 
         cancelled = true;
+
+        // RESET LIVE STATE WHEN SERVICE IS DESTROYED
+        isRunning = false;
 
         if (checkThread != null) {
             checkThread.interrupt();
