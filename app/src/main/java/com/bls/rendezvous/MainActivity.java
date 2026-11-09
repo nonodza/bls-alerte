@@ -12669,11 +12669,18 @@ private void showCheckingConfirmation(String center) {
 
 private String getCountryDisplay() {
 
-    String value = selectedCountry;
+    String value = getSharedPreferences(
+        "RV_SETTINGS",
+        MODE_PRIVATE
+).getString("selected_country", "");
 
-    if (value == null || value.trim().isEmpty()) {
-        return "🌍 Unknown country";
-    }
+if (value == null || value.trim().isEmpty()) {
+    value = selectedCountry;
+}
+
+if (value == null || value.trim().isEmpty()) {
+    return "🌍 Unknown country";
+}
 
     value = value.trim();
 
