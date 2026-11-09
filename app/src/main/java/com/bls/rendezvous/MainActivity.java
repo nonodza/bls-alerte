@@ -8169,22 +8169,28 @@ availabilityContent.addView(
         availabilityTitle
 );
 
-
 // =====================================================
-// SELECTED COUNTRY — FLAG & NAME
+// READ LATEST SELECTED COUNTRY
 // =====================================================
 
-String countryDisplay = selectedCountry;
+String countryDisplay = getSharedPreferences(
+        "RV_SETTINGS",
+        MODE_PRIVATE
+).getString(
+        "selected_country",
+        ""
+);
 
 if (countryDisplay == null || countryDisplay.trim().isEmpty()) {
 
-    countryDisplay = getSharedPreferences(
-            "RV_SETTINGS",
-            MODE_PRIVATE
-    ).getString(
-            "selected_country",
-            "🌍 Unknown country"
-    );
+    countryDisplay = selectedCountry;
+
+}
+
+if (countryDisplay == null || countryDisplay.trim().isEmpty()) {
+
+    countryDisplay = "🌍 Unknown country";
+
 }
 
 TextView availabilityCountry = text(
