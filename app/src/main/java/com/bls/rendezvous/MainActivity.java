@@ -8701,7 +8701,10 @@ manualCheckIntent.putExtra("country", selectedCountry);
     } catch (Exception e) {
 
         checkButton.setChecking(false);
-
+        prefs.edit()
+        .putString(ManualCheckService.KEY_STATUS, "ERROR")
+        .putBoolean(ManualCheckService.KEY_FINISHED, true)
+        .apply();
         availabilityStatus.setText(
                 "Could not start check. Please try again."
         );
