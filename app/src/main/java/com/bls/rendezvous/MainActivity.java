@@ -7960,24 +7960,49 @@ startBtn.setOnClickListener(v -> {
         }
 
         // =============================================
-        // PREVENT OVERLAPPING MANUAL CHECK
-        // =============================================
+// PREVENT START DURING MANUAL CHECK
+// =============================================
 
-        if (ManualCheckService.isRunning) {
+android.content.SharedPreferences manualPrefs =
+        getSharedPreferences(
+                ManualCheckService.PREFS_NAME,
+                MODE_PRIVATE
+        );
 
-            new AlertDialog.Builder(MainActivity.this)
-                    .setTitle("Manual Check in Progress")
-                    .setMessage(
-                            "An appointment availability check is "
-                            + "currently running.\n\n"
-                            + "Please wait until the current check "
-                            + "is completed before starting monitoring."
-                    )
-                    .setPositiveButton("GOT IT", null)
-                    .show();
+String manualStatus =
+        manualPrefs.getString(
+                ManualCheckService.KEY_STATUS,
+                ""
+        );
 
-            return;
-        }
+boolean manualFinished =
+        manualPrefs.getBoolean(
+                ManualCheckService.KEY_FINISHED,
+                true
+        );
+
+boolean manualCheckActive =
+        ManualCheckService.isRunning
+        || (
+                "CHECKING".equalsIgnoreCase(manualStatus)
+                && !manualFinished
+        );
+
+if (manualCheckActive) {
+
+    new AlertDialog.Builder(MainActivity.this)
+            .setTitle("Manual Check in Progress")
+            .setMessage(
+                    "An appointment availability check is "
+                    + "currently running.\n\n"
+                    + "Please wait until the current check "
+                    + "is completed before starting monitoring."
+            )
+            .setPositiveButton("GOT IT", null)
+            .show();
+
+    return;
+}
 
         // =============================================
         // START MONITORING
