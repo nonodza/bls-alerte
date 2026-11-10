@@ -887,21 +887,39 @@ public class ManualCheckService extends Service {
     // =====================================================
 
     @Override
-    public void onDestroy() {
+public void onDestroy() {
 
-        cancelled = true;
+    cancelled = true;
 
-        // RESET LIVE STATE WHEN SERVICE IS DESTROYED
-        isRunning = false;
+    SharedPreferences prefs =
+            getSharedPreferences(
+                    PREFS_NAME,
+                    MODE_PRIVATE
+            );
 
-        if (checkThread != null) {
-            checkThread.interrupt();
-        }
+    boolean finished =
+            prefs.getBoolean(KEY_FINISHED, true);
 
-        mainHandler.removeCallbacksAndMessages(null);
+    if (!finished) {
 
-        super.onDestroy();
+        saveResult(
+                "CANCELLED",
+                "Manual check was interrupted.",
+                0L,
+                true
+        );
     }
+
+    isRunning = false;
+
+    if (checkThread != null) {
+        checkThread.interrupt();
+    }
+
+    mainHandler.removeCallbacksAndMessages(null);
+
+    super.onDestroy();
+}
 
 
     // =====================================================
