@@ -7983,10 +7983,7 @@ boolean manualFinished =
 
 boolean manualCheckActive =
         ManualCheckService.isRunning
-        || (
-                "CHECKING".equalsIgnoreCase(manualStatus)
-                && !manualFinished
-        );
+        || !manualFinished;
 
 if (manualCheckActive) {
 
