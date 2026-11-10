@@ -228,7 +228,52 @@ if (intent != null &&
 
     return START_NOT_STICKY;
 }      
+// =================================================
+// BLOCK MONITORING DURING MANUAL CHECK
+// =================================================
 
+SharedPreferences manualPrefs =
+        getSharedPreferences(
+                ManualCheckService.PREFS_NAME,
+                MODE_PRIVATE
+        );
+
+String manualStatus =
+        manualPrefs.getString(
+                ManualCheckService.KEY_STATUS,
+                ""
+        );
+
+boolean manualFinished =
+        manualPrefs.getBoolean(
+                ManualCheckService.KEY_FINISHED,
+                true
+        );
+
+boolean manualCheckActive =
+        ManualCheckService.isRunning
+        || (
+                "CHECKING".equalsIgnoreCase(manualStatus)
+                && !manualFinished
+        );
+
+if (manualCheckActive) {
+
+    android.util.Log.w(
+            "BLS_MONITOR",
+            "Monitoring START blocked: manual check is running"
+    );
+
+    // Stop only a newly started monitoring service.
+    // Never stop an already running monitoring service here.
+    if (!monitoring) {
+        stopSelf(startId);
+    }
+
+    return monitoring
+            ? START_STICKY
+            : START_NOT_STICKY;
+    }
         // =================================================
         // READ CENTER
         // =================================================
