@@ -8004,8 +8004,7 @@ new AlertDialog.Builder(MainActivity.this)
         )
         .setPositiveButton("OK", null)
         .show();
-
-return;
+        
 if (manualCheckActive) {
 
     new AlertDialog.Builder(MainActivity.this)
