@@ -7988,15 +7988,7 @@ boolean manualCheckActive =
 
 if (manualCheckActive) {
 
-    new AlertDialog.Builder(MainActivity.this)
-            .setTitle("Manual Check in Progress")
-            .setMessage(
-                    "CHECK NOW is currently running.\n\n"
-                    + "Please wait until the manual check finishes "
-                    + "before starting appointment monitoring."
-            )
-            .setPositiveButton("GOT IT", null)
-            .show();
+    showManualCheckActiveDialog();
 
     return;
 }
@@ -8871,7 +8863,192 @@ page.addView(
             margin(0, 0, 0, 5)
     );
 }          
+// =====================================================
+// PREMIUM MANUAL CHECK ACTIVE DIALOG
+// =====================================================
 
+private void showManualCheckActiveDialog() {
+
+    Dialog alertDialog = new Dialog(this);
+
+    LinearLayout mainLayout = new LinearLayout(this);
+    mainLayout.setOrientation(LinearLayout.VERTICAL);
+    mainLayout.setGravity(Gravity.CENTER_HORIZONTAL);
+    mainLayout.setPadding(
+            dp(22), dp(24), dp(22), dp(20)
+    );
+
+    GradientDrawable background = new GradientDrawable();
+    background.setColor(Color.rgb(13, 25, 49));
+    background.setCornerRadius(dp(22));
+    background.setStroke(dp(1), Color.rgb(43, 83, 135));
+
+    mainLayout.setBackground(background);
+
+    // ALERT ICON
+
+    TextView alertIcon = new TextView(this);
+    alertIcon.setText("!");
+    alertIcon.setTextColor(Color.WHITE);
+    alertIcon.setTextSize(27);
+    alertIcon.setTypeface(null, Typeface.BOLD);
+    alertIcon.setGravity(Gravity.CENTER);
+
+    GradientDrawable iconBackground = new GradientDrawable();
+    iconBackground.setShape(GradientDrawable.OVAL);
+    iconBackground.setColor(Color.rgb(25, 91, 157));
+    iconBackground.setStroke(
+            dp(2), Color.rgb(75, 170, 255)
+    );
+
+    alertIcon.setBackground(iconBackground);
+
+    LinearLayout.LayoutParams iconParams =
+            new LinearLayout.LayoutParams(dp(58), dp(58));
+
+    iconParams.gravity = Gravity.CENTER;
+    iconParams.bottomMargin = dp(16);
+
+    mainLayout.addView(alertIcon, iconParams);
+
+    // TITLE
+
+    TextView dialogTitle = new TextView(this);
+    dialogTitle.setText("Manual Check Already Active");
+    dialogTitle.setTextColor(Color.WHITE);
+    dialogTitle.setTextSize(18);
+    dialogTitle.setTypeface(null, Typeface.BOLD);
+    dialogTitle.setGravity(Gravity.CENTER);
+
+    mainLayout.addView(
+            dialogTitle,
+            new LinearLayout.LayoutParams(-1, -2)
+    );
+
+    // SUBTITLE
+
+    TextView dialogSubtitle = new TextView(this);
+    dialogSubtitle.setText("Manual availability check is running");
+    dialogSubtitle.setTextColor(Color.rgb(102, 181, 255));
+    dialogSubtitle.setTextSize(12);
+    dialogSubtitle.setGravity(Gravity.CENTER);
+
+    LinearLayout.LayoutParams subtitleParams =
+            new LinearLayout.LayoutParams(-1, -2);
+
+    subtitleParams.topMargin = dp(7);
+    subtitleParams.bottomMargin = dp(19);
+
+    mainLayout.addView(dialogSubtitle, subtitleParams);
+
+    // MESSAGE
+
+    TextView message = new TextView(this);
+
+    message.setText(
+            "Please stop the manual availability check "
+            + "before starting automatic monitoring."
+    );
+
+    message.setTextColor(Color.rgb(218, 229, 245));
+    message.setTextSize(13);
+    message.setGravity(Gravity.CENTER);
+    message.setLineSpacing(dp(5), 1f);
+    message.setPadding(
+            dp(15), dp(16), dp(15), dp(16)
+    );
+
+    GradientDrawable messageBackground = new GradientDrawable();
+    messageBackground.setColor(Color.rgb(23, 42, 72));
+    messageBackground.setCornerRadius(dp(13));
+    messageBackground.setStroke(
+            dp(1), Color.rgb(39, 65, 101)
+    );
+
+    message.setBackground(messageBackground);
+
+    mainLayout.addView(
+            message,
+            new LinearLayout.LayoutParams(-1, -2)
+    );
+
+    // GOT IT BUTTON
+
+    TextView okButton = new TextView(this);
+
+    okButton.setText("GOT IT");
+    okButton.setTextColor(Color.WHITE);
+    okButton.setTextSize(13);
+    okButton.setTypeface(null, Typeface.BOLD);
+    okButton.setGravity(Gravity.CENTER);
+    okButton.setLetterSpacing(0.08f);
+
+    GradientDrawable buttonBackground = new GradientDrawable(
+            GradientDrawable.Orientation.LEFT_RIGHT,
+            new int[]{
+                    Color.rgb(35, 117, 225),
+                    Color.rgb(37, 166, 225)
+            }
+    );
+
+    buttonBackground.setCornerRadius(dp(12));
+    okButton.setBackground(buttonBackground);
+
+    LinearLayout.LayoutParams buttonParams =
+            new LinearLayout.LayoutParams(-1, dp(46));
+
+    buttonParams.topMargin = dp(19);
+
+    mainLayout.addView(okButton, buttonParams);
+
+    okButton.setOnClickListener(v -> alertDialog.dismiss());
+
+    // SHOW DIALOG
+
+    alertDialog.setContentView(mainLayout);
+    alertDialog.setCancelable(true);
+
+    alertDialog.show();
+
+    if (alertDialog.getWindow() != null) {
+
+        alertDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
+
+        alertDialog.getWindow().setLayout(
+                (int) (
+                        getResources().getDisplayMetrics().widthPixels
+                                * 0.86f
+                ),
+                WindowManager.LayoutParams.WRAP_CONTENT
+        );
+
+        alertDialog.getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_DIM_BEHIND
+        );
+
+        WindowManager.LayoutParams windowParams =
+                alertDialog.getWindow().getAttributes();
+
+        windowParams.dimAmount = 0.65f;
+
+        alertDialog.getWindow().setAttributes(windowParams);
+    }
+
+    // PREMIUM FADE + ZOOM ANIMATION
+
+    mainLayout.setAlpha(0f);
+    mainLayout.setScaleX(0.90f);
+    mainLayout.setScaleY(0.90f);
+
+    mainLayout.animate()
+            .alpha(1f)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(250)
+            .start();
+        }
     // =========================================================
     // APPOINTMENT CATEGORY
     // =========================================================
