@@ -7986,25 +7986,6 @@ boolean manualCheckActive =
         || !manualFinished
         || "CHECKING".equalsIgnoreCase(manualStatus);
 
-android.util.Log.d(
-        "BLS_MANUAL_DEBUG",
-        "isRunning = " + ManualCheckService.isRunning
-        + " | finished = " + manualFinished
-        + " | status = " + manualStatus
-        + " | active = " + manualCheckActive
-);
-
-new AlertDialog.Builder(MainActivity.this)
-        .setTitle("Manual Check Debug")
-        .setMessage(
-                "Status: " + manualStatus
-                + "\nFinished: " + manualFinished
-                + "\nRunning: " + ManualCheckService.isRunning
-                + "\nActive: " + manualCheckActive
-        )
-        .setPositiveButton("OK", null)
-        .show();
-        
 if (manualCheckActive) {
 
     new AlertDialog.Builder(MainActivity.this)
