@@ -7994,14 +7994,18 @@ android.util.Log.d(
         + " | active = " + manualCheckActive
 );
 
-Toast.makeText(
-        MainActivity.this,
-        "Manual: " + manualStatus
-        + " | Finished: " + manualFinished
-        + " | Running: " + ManualCheckService.isRunning,
-        Toast.LENGTH_LONG
-).show();
+new AlertDialog.Builder(MainActivity.this)
+        .setTitle("Manual Check Debug")
+        .setMessage(
+                "Status: " + manualStatus
+                + "\nFinished: " + manualFinished
+                + "\nRunning: " + ManualCheckService.isRunning
+                + "\nActive: " + manualCheckActive
+        )
+        .setPositiveButton("OK", null)
+        .show();
 
+return;
 if (manualCheckActive) {
 
     new AlertDialog.Builder(MainActivity.this)
