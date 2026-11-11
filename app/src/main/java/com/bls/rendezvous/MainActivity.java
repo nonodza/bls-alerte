@@ -7983,17 +7983,33 @@ boolean manualFinished =
 
 boolean manualCheckActive =
         ManualCheckService.isRunning
-        || !manualFinished;
+        || !manualFinished
+        || "CHECKING".equalsIgnoreCase(manualStatus);
+
+android.util.Log.d(
+        "BLS_MANUAL_DEBUG",
+        "isRunning = " + ManualCheckService.isRunning
+        + " | finished = " + manualFinished
+        + " | status = " + manualStatus
+        + " | active = " + manualCheckActive
+);
+
+Toast.makeText(
+        MainActivity.this,
+        "Manual: " + manualStatus
+        + " | Finished: " + manualFinished
+        + " | Running: " + ManualCheckService.isRunning,
+        Toast.LENGTH_LONG
+).show();
 
 if (manualCheckActive) {
 
     new AlertDialog.Builder(MainActivity.this)
             .setTitle("Manual Check in Progress")
             .setMessage(
-                    "An appointment availability check is "
-                    + "currently running.\n\n"
-                    + "Please wait until the current check "
-                    + "is completed before starting monitoring."
+                    "CHECK NOW is currently running.\n\n"
+                    + "Please wait until the manual check finishes "
+                    + "before starting appointment monitoring."
             )
             .setPositiveButton("GOT IT", null)
             .show();
