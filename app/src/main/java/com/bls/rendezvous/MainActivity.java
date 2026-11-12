@@ -7959,32 +7959,12 @@ startBtn.setOnClickListener(v -> {
             return;
         }
 
-        // =============================================
+// =============================================
 // PREVENT START DURING MANUAL CHECK
 // =============================================
 
-android.content.SharedPreferences manualPrefs =
-        getSharedPreferences(
-                ManualCheckService.PREFS_NAME,
-                MODE_PRIVATE
-        );
-
-String manualStatus =
-        manualPrefs.getString(
-                ManualCheckService.KEY_STATUS,
-                ""
-        );
-
-boolean manualFinished =
-        manualPrefs.getBoolean(
-                ManualCheckService.KEY_FINISHED,
-                true
-        );
-
 boolean manualCheckActive =
-        ManualCheckService.isRunning
-        || !manualFinished
-        || "CHECKING".equalsIgnoreCase(manualStatus);
+        ManualCheckService.isRunning;
 
 if (manualCheckActive) {
 
