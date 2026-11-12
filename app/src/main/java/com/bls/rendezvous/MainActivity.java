@@ -7972,8 +7972,6 @@ boolean manualCheckActive =
 android.util.Log.e(
         "MANUAL_DEBUG",
         "isRunning=" + ManualCheckService.isRunning
-        + " | finished=" + manualFinished
-        + " | status=" + manualStatus
 );
 
 
