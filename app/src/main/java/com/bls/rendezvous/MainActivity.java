@@ -7966,14 +7966,11 @@ startBtn.setOnClickListener(v -> {
 boolean manualCheckActive =
         ManualCheckService.isRunning;
 
-
-// TEMPORARY DEBUG
-
-android.util.Log.e(
-        "MANUAL_DEBUG",
-        "isRunning=" + ManualCheckService.isRunning
-);
-
+Toast.makeText(
+        MainActivity.this,
+        "Manual check running: " + manualCheckActive,
+        Toast.LENGTH_LONG
+).show();
 
 if (manualCheckActive) {
 
