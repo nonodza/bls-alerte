@@ -309,7 +309,10 @@ public class ManualCheckService extends Service {
             String checkingMessage =
                     "Checking appointment portal · "
                             + getCountryDisplay();
-
+getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        .edit()
+        .putBoolean(KEY_START_BLOCKED, true)
+        .apply();
             saveResult(
                     "CHECKING",
                     checkingMessage,
