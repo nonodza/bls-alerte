@@ -44,6 +44,7 @@ public class ManualCheckService extends Service {
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_DURATION = "duration";
     public static final String KEY_FINISHED = "finished";
+    public static final String KEY_START_BLOCKED = "start_blocked";
 
     private static final String CHANNEL_ID =
             "manual_check_channel_v2";
