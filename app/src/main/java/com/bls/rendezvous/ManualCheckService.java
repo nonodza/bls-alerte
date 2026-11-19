@@ -255,20 +255,26 @@ public class ManualCheckService extends Service {
 
         if (ACTION_CANCEL.equals(action)) {
 
-            cancelled = true;
+    cancelled = true;
 
-            isRunning = false;
+    isRunning = false;
 
-            if (checkThread != null) {
-                checkThread.interrupt();
-            }
+    // Release the automatic monitoring start block
+    getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+            .edit()
+            .putBoolean(KEY_START_BLOCKED, false)
+            .apply();
 
-            stopForeground(true);
+    if (checkThread != null) {
+        checkThread.interrupt();
+    }
 
-            stopSelf();
+    stopForeground(true);
 
-            return START_NOT_STICKY;
-        }
+    stopSelf();
+
+    return START_NOT_STICKY;
+}
 
 
         // =================================================
