@@ -8376,6 +8376,33 @@ availabilityCard.addView(
         stopCheckButton,
         stopCheckButtonLp
 );
+
+// STOP CHECK CLICK
+stopCheckButton.setOnClickListener(v -> {
+
+    if (!ManualCheckService.isRunning) {
+        stopCheckButton.setVisibility(View.GONE);
+        return;
+    }
+
+    Intent cancelIntent =
+            new Intent(MainActivity.this, ManualCheckService.class);
+
+    cancelIntent.setAction(
+            ManualCheckService.ACTION_CANCEL
+    );
+
+    startService(cancelIntent);
+
+    stopCheckButton.setVisibility(View.GONE);
+    checkButton.setChecking(false);
+
+    availabilityStatus.setText("Manual check cancelled.");
+    availabilityStatus.setTextColor(
+            Color.parseColor("#DC2626")
+    );
+});
+    
 // =====================================================
 // CHECK BUTTON ACTION
 // =====================================================
@@ -8663,7 +8690,7 @@ dialogSubtitle.setGravity(Gravity.CENTER);
     );
 
     checkButton.setChecking(true);
-
+    stopCheckButton.setVisibility(View.VISIBLE);
 
     Intent manualCheckIntent =
             new Intent(
@@ -8695,6 +8722,7 @@ manualCheckIntent.putExtra("country", selectedCountry);
     } catch (Exception e) {
 
         checkButton.setChecking(false);
+        stopCheckButton.setVisibility(View.GONE);
         prefs.edit()
         .putString(ManualCheckService.KEY_STATUS, "ERROR")
         .putBoolean(ManualCheckService.KEY_FINISHED, true)
