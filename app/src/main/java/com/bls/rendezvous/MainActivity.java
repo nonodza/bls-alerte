@@ -8358,7 +8358,24 @@ availabilityCard.addView(
         checkButton,
         checkButtonLp
 );
+// RED STOP CHECK BUTTON
+SmallNeonStopCheckButton stopCheckButton =
+        new SmallNeonStopCheckButton(this);
 
+LinearLayout.LayoutParams stopCheckButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+stopCheckButtonLp.leftMargin = dp(8);
+
+stopCheckButton.setVisibility(View.GONE);
+
+availabilityCard.addView(
+        stopCheckButton,
+        stopCheckButtonLp
+);
 // =====================================================
 // CHECK BUTTON ACTION
 // =====================================================
