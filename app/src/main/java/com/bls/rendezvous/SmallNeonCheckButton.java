@@ -1,5 +1,6 @@
 package com.bls.rendezvous;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,10 +8,14 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.SweepGradient;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
+import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
-public class SmallNeonStopCheckButton extends View {
+public class SmallNeonCheckButton extends View {
 
     private final Paint bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -19,16 +24,31 @@ public class SmallNeonStopCheckButton extends View {
     private final Paint iconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private final RectF rect = new RectF();
+    private final Matrix matrix = new Matrix();
+
+    private SweepGradient gradient;
+    private ValueAnimator animator;
+
+    private boolean checking = false;
+    private float rotation = 0f;
 
     private int viewWidth;
     private int viewHeight;
 
-    private final int red = Color.rgb(239, 68, 68);
-    private final int lightRed = Color.rgb(255, 105, 105);
-    private final int darkRed = Color.rgb(153, 27, 27);
+    private final int blue = Color.rgb(36, 119, 255);
+    private final int cyan = Color.rgb(0, 225, 255);
+    private final int darkBlue = Color.rgb(20, 54, 135);
 
-    public SmallNeonStopCheckButton(Context context) {
+    public SmallNeonCheckButton(Context context) {
         super(context);
+        init();
+    }
+
+    public SmallNeonCheckButton(
+            Context context,
+            AttributeSet attrs
+    ) {
+        super(context, attrs);
         init();
     }
 
@@ -39,12 +59,12 @@ public class SmallNeonStopCheckButton extends View {
 
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(dp(1.5f));
-        borderPaint.setColor(lightRed);
+        borderPaint.setColor(cyan);
 
         glowPaint.setStyle(Paint.Style.STROKE);
         glowPaint.setStrokeWidth(dp(3f));
-        glowPaint.setColor(lightRed);
-        glowPaint.setShadowLayer(dp(5f), 0f, 0f, lightRed);
+        glowPaint.setColor(cyan);
+        glowPaint.setShadowLayer(dp(5f), 0f, 0f, cyan);
 
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(dp(9f));
@@ -54,7 +74,10 @@ public class SmallNeonStopCheckButton extends View {
         textPaint.setTextAlign(Paint.Align.CENTER);
 
         iconPaint.setColor(Color.WHITE);
-        iconPaint.setStyle(Paint.Style.FILL);
+        iconPaint.setStyle(Paint.Style.STROKE);
+        iconPaint.setStrokeWidth(dp(1.8f));
+        iconPaint.setStrokeCap(Paint.Cap.ROUND);
+        iconPaint.setStrokeJoin(Paint.Join.ROUND);
     }
 
     private float dp(float value) {
@@ -87,6 +110,19 @@ public class SmallNeonStopCheckButton extends View {
 
         float inset = dp(4f);
         rect.set(inset, inset, w - inset, h - inset);
+
+        gradient = new SweepGradient(
+                w / 2f,
+                h / 2f,
+                new int[]{
+                        cyan,
+                        blue,
+                        cyan,
+                        Color.rgb(70, 170, 255),
+                        cyan
+                },
+                null
+        );
     }
 
     @Override
@@ -100,7 +136,7 @@ public class SmallNeonStopCheckButton extends View {
         bgPaint.setShader(
                 new LinearGradient(
                         0, 0, viewWidth, viewHeight,
-                        new int[]{red, darkRed, red},
+                        new int[]{blue, darkBlue, blue},
                         null,
                         Shader.TileMode.CLAMP
                 )
@@ -109,15 +145,31 @@ public class SmallNeonStopCheckButton extends View {
         canvas.drawRoundRect(rect, radius, radius, bgPaint);
         bgPaint.setShader(null);
 
-        canvas.drawRoundRect(rect, radius, radius, glowPaint);
-        canvas.drawRoundRect(rect, radius, radius, borderPaint);
+        if (checking && gradient != null) {
+            matrix.setRotate(
+                    rotation,
+                    viewWidth / 2f,
+                    viewHeight / 2f
+            );
+            gradient.setLocalMatrix(matrix);
+
+            glowPaint.setShader(gradient);
+            canvas.drawRoundRect(rect, radius, radius, glowPaint);
+            glowPaint.setShader(null);
+
+            borderPaint.setShader(gradient);
+            canvas.drawRoundRect(rect, radius, radius, borderPaint);
+            borderPaint.setShader(null);
+        } else {
+            borderPaint.setColor(cyan);
+            canvas.drawRoundRect(rect, radius, radius, borderPaint);
+        }
 
         drawContent(canvas);
     }
 
     private void drawContent(Canvas canvas) {
-
-        String label = "STOP CHECK";
+        String label = checking ? "CHECKING..." : "CHECK NOW";
 
         float cy = viewHeight / 2f;
         float iconSize = dp(11f);
@@ -127,27 +179,24 @@ public class SmallNeonStopCheckButton extends View {
         float totalWidth = iconSize + gap + textWidth;
         float x = (viewWidth - totalWidth) / 2f;
 
-        // Stop icon
-        float iconLeft = x + dp(1f);
-        float iconTop = cy - dp(4.5f);
+        // Search icon
+        float cx = x + iconSize * 0.38f;
+        float circleY = cy - dp(1.5f);
+        float radius = dp(3.2f);
 
-        RectF stopRect = new RectF(
-                iconLeft,
-                iconTop,
-                iconLeft + dp(9f),
-                iconTop + dp(9f)
-        );
-
-        canvas.drawRoundRect(
-                stopRect,
-                dp(1.5f),
-                dp(1.5f),
+        canvas.drawCircle(cx, circleY, radius, iconPaint);
+        canvas.drawLine(
+                cx + radius * 0.7f,
+                circleY + radius * 0.7f,
+                cx + radius * 1.6f,
+                circleY + radius * 1.6f,
                 iconPaint
         );
 
         Paint.FontMetrics fm = textPaint.getFontMetrics();
         float baseline = cy - (fm.ascent + fm.descent) / 2f;
 
+        textPaint.setColor(Color.WHITE);
         canvas.drawText(
                 label,
                 x + iconSize + gap + textWidth / 2f,
@@ -156,7 +205,45 @@ public class SmallNeonStopCheckButton extends View {
         );
     }
 
-    private float dpValue(float value) {
-        return dp(value);
+    public void setChecking(boolean value) {
+        if (checking == value) return;
+
+        checking = value;
+
+        if (animator != null) {
+            animator.cancel();
+            animator = null;
+        }
+
+        if (checking) {
+            rotation = 0f;
+
+            animator = ValueAnimator.ofFloat(0f, 360f);
+            animator.setDuration(1400L);
+            animator.setRepeatCount(ValueAnimator.INFINITE);
+            animator.setInterpolator(new LinearInterpolator());
+
+            animator.addUpdateListener(a -> {
+                rotation = (float) a.getAnimatedValue();
+                invalidate();
+            });
+
+            animator.start();
+        }
+
+        invalidate();
+    }
+
+    public boolean isChecking() {
+        return checking;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (animator != null) {
+            animator.cancel();
+            animator = null;
+        }
+        super.onDetachedFromWindow();
     }
 }
