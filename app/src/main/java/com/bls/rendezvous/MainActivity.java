@@ -8489,8 +8489,11 @@ stopCheckButton.setOnClickListener(v -> {
     startService(cancelIntent);
 
     stopCheckButton.setVisibility(View.GONE);
+    refreshButton.setVisibility(View.VISIBLE);
     checkButton.setChecking(false);
-
+    stopCheckButton.setVisibility(View.GONE);
+refreshButton.setVisibility(View.VISIBLE);
+    
     availabilityStatus.setText("Manual check cancelled.");
     availabilityStatus.setTextColor(
             Color.parseColor("#DC2626")
