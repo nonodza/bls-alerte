@@ -8305,12 +8305,12 @@ lastCheckLp.topMargin = dp(7);
 
 // Initial two-tone text
 
-android.text.SpannableString initialTime =
+android.text.SpannableString refreshedTime =
         new android.text.SpannableString(
                 "Last check: --:--:--"
         );
 
-initialTime.setSpan(
+refreshedTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#000C40")
         ),
@@ -8319,7 +8319,7 @@ initialTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-initialTime.setSpan(
+refreshedTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
         ),
@@ -8328,7 +8328,7 @@ initialTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-availabilityLastCheck.setText(initialTime);
+availabilityLastCheck.setText(refreshedTime);
 
 availabilityContent.addView(
         availabilityLastCheck,
