@@ -8456,14 +8456,14 @@ refreshButton.setOnClickListener(v -> {
             android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     );
 
-    initialTime.setSpan(
-            new android.text.style.ForegroundColorSpan(
-                    Color.parseColor("#0575E6")
-            ),
-            12,
-            initialTime.length(),
-            android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-    );
+    refreshedTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#0575E6")
+        ),
+        12,
+        refreshedTime.length(),
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
 
     availabilityLastCheck.setText(initialTime);
 
