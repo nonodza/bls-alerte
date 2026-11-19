@@ -8377,6 +8377,47 @@ availabilityCard.addView(
         stopCheckButtonLp
 );
 
+// REFRESH BUTTON
+TextView refreshButton = new TextView(this);
+
+refreshButton.setText("↻ REFRESH");
+refreshButton.setTextColor(Color.WHITE);
+refreshButton.setTextSize(10);
+refreshButton.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+refreshButton.setGravity(Gravity.CENTER);
+refreshButton.setBackground(
+        new android.graphics.drawable.GradientDrawable(
+                android.graphics.drawable.GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{
+                        Color.rgb(36, 119, 255),
+                        Color.rgb(20, 54, 135)
+                }
+        )
+);
+
+android.graphics.drawable.GradientDrawable refreshBg =
+        (android.graphics.drawable.GradientDrawable)
+                refreshButton.getBackground();
+
+refreshBg.setCornerRadius(dp(12));
+refreshBg.setStroke(dp(1), Color.rgb(100, 180, 255));
+
+refreshButton.setElevation(dp(5));
+
+LinearLayout.LayoutParams refreshLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+refreshLp.leftMargin = dp(8);
+
+refreshButton.setVisibility(View.GONE);
+
+availabilityCard.addView(
+        refreshButton,
+        refreshLp
+);
 // STOP CHECK CLICK
 stopCheckButton.setOnClickListener(v -> {
 
