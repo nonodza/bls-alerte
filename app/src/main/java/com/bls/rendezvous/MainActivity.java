@@ -8418,6 +8418,59 @@ availabilityCard.addView(
         refreshButton,
         refreshLp
 );
+ 
+refreshButton.setOnClickListener(v -> {
+
+    // Clear previous manual check result
+    getSharedPreferences(
+            ManualCheckService.PREFS_NAME,
+            MODE_PRIVATE
+    ).edit()
+            .remove(ManualCheckService.KEY_STATUS)
+            .remove(ManualCheckService.KEY_MESSAGE)
+            .remove(ManualCheckService.KEY_DURATION)
+            .remove(ManualCheckService.KEY_FINISHED)
+            .apply();
+
+    // Restore initial status
+    availabilityStatus.setText(
+            "No appointment detected yet"
+    );
+
+    availabilityStatus.setTextColor(
+            Color.parseColor("#344563")
+    );
+
+    // Restore initial last check time
+    android.text.SpannableString initialTime =
+            new android.text.SpannableString(
+                    "Last check: --:--:--"
+            );
+
+    initialTime.setSpan(
+            new android.text.style.ForegroundColorSpan(
+                    Color.parseColor("#000C40")
+            ),
+            0,
+            12,
+            android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    );
+
+    initialTime.setSpan(
+            new android.text.style.ForegroundColorSpan(
+                    Color.parseColor("#0575E6")
+            ),
+            12,
+            initialTime.length(),
+            android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    );
+
+    availabilityLastCheck.setText(initialTime);
+
+    // Hide refresh button
+    refreshButton.setVisibility(View.GONE);
+});
+   
 // STOP CHECK CLICK
 stopCheckButton.setOnClickListener(v -> {
 
