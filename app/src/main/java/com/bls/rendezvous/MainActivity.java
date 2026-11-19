@@ -8787,6 +8787,7 @@ dialogSubtitle.setGravity(Gravity.CENTER);
     );
 
     checkButton.setChecking(true);
+    refreshButton.setVisibility(View.GONE);
     stopCheckButton.setVisibility(View.VISIBLE);
 
     Intent manualCheckIntent =
