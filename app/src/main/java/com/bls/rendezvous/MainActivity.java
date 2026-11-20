@@ -8468,55 +8468,33 @@ buttonColumn.addView(
         refreshLp
 );
 
-
 // =====================================================
-// STOP CHECK BUTTON
+// STOP CHECK CLICK
 // =====================================================
 
-SmallNeonStopCheckButton stopCheckButton =
-        new SmallNeonStopCheckButton(this);
+stopCheckButton.setOnClickListener(v -> {
 
-LinearLayout.LayoutParams stopCheckButtonLp =
-        new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
+    if (ManualCheckService.isRunning) {
+
+        Intent cancelIntent =
+                new Intent(
+                        MainActivity.this,
+                        ManualCheckService.class
+                );
+
+        cancelIntent.setAction(
+                ManualCheckService.ACTION_CANCEL
         );
 
-stopCheckButtonLp.topMargin = dp(8);
-stopCheckButton.setVisibility(View.GONE);
+        startService(cancelIntent);
 
-buttonColumn.addView(
-        stopCheckButton,
-        stopCheckButtonLp
-);
-
-
-// =====================================================
-// CHECK NOW BUTTON
-// =====================================================
-
-SmallNeonCheckButton checkButton =
-        new SmallNeonCheckButton(this);
-
-LinearLayout.LayoutParams checkButtonLp =
-        new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
+        availabilityStatus.setText(
+                "Manual check cancelled."
         );
 
-checkButtonLp.topMargin = dp(8);
-
-buttonColumn.addView(
-        checkButton,
-        checkButtonLp
-);
-
-
-availabilityCard.addView(
-        buttonColumn,
-        buttonColumnLp
-);
-
+        availabilityStatus.setTextColor(
+                Color.parseColor("#DC2626")
+        );
     }
 
     // Switch STOP to REFRESH
@@ -8526,7 +8504,6 @@ availabilityCard.addView(
     // Restore CHECK NOW button
     checkButton.setChecking(false);
 });
-
 
 // =====================================================
 // REFRESH CLICK
@@ -8586,32 +8563,6 @@ refreshButton.setOnClickListener(v -> {
 
     // Restore CHECK NOW
     checkButton.setChecking(false);
-});
-   
-// STOP CHECK CLICK
-stopCheckButton.setOnClickListener(v -> {
-
-    if (!ManualCheckService.isRunning) {
-        stopCheckButton.setVisibility(View.GONE);
-        return;
-    }
-
-    Intent cancelIntent =
-            new Intent(MainActivity.this, ManualCheckService.class);
-
-    cancelIntent.setAction(
-            ManualCheckService.ACTION_CANCEL
-    );
-
-    startService(cancelIntent);
-
-    stopCheckButton.setVisibility(View.GONE);
-    refreshButton.setVisibility(View.VISIBLE);
-    
-    availabilityStatus.setText("Manual check cancelled.");
-    availabilityStatus.setTextColor(
-            Color.parseColor("#DC2626")
-    );
 });
     
 // =====================================================
