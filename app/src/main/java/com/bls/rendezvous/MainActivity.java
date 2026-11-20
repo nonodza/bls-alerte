@@ -8674,10 +8674,6 @@ if (monitoringActive) {
     // ALERT ICON
     // =============================================
 
-    // =============================================
-    // ALERT ICON
-    // =============================================
-
     TextView alertIcon = new TextView(MainActivity.this);
     alertIcon.setText("!");
     alertIcon.setTextColor(Color.WHITE);
