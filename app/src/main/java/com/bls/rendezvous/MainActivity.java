@@ -8506,9 +8506,6 @@ stopCheckButton.setOnClickListener(v -> {
 
     stopCheckButton.setVisibility(View.GONE);
     refreshButton.setVisibility(View.VISIBLE);
-    checkButton.setChecking(false);
-    stopCheckButton.setVisibility(View.GONE);
-refreshButton.setVisibility(View.VISIBLE);
     
     availabilityStatus.setText("Manual check cancelled.");
     availabilityStatus.setTextColor(
