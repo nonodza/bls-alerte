@@ -8377,8 +8377,151 @@ buttonColumn.addView(
         refreshButton,
         refreshLp
 );
+// =====================================================
+// LAST CHECK — PREMIUM TIME
+// =====================================================
 
+TextView availabilityLastCheck = text(
+        "Last check: --:--:--",
+        11,
+        Color.parseColor("#05FFCF")
+);
+
+LinearLayout.LayoutParams lastCheckLp =
+        new LinearLayout.LayoutParams(-1, -2);
+
+lastCheckLp.topMargin = dp(7);
+
+
+// Initial two-tone text
+
+android.text.SpannableString refreshedTime =
+        new android.text.SpannableString(
+                "Last check: --:--:--"
+        );
+
+refreshedTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#000C40")
+        ),
+        0,
+        12,
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
+refreshedTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#0575E6")
+        ),
+        12,
+        refreshedTime.length(),
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
+availabilityLastCheck.setText(refreshedTime);
+
+availabilityContent.addView(
+        availabilityLastCheck,
+        lastCheckLp
+);
+
+availabilityCard.addView(
+        availabilityContent,
+        contentLp
+);
+
+
+// =====================================================
+// RIGHT VERTICAL BUTTON COLUMN
+// =====================================================
+
+LinearLayout buttonColumn = new LinearLayout(this);
+buttonColumn.setOrientation(LinearLayout.VERTICAL);
+buttonColumn.setGravity(Gravity.CENTER);
+
+LinearLayout.LayoutParams buttonColumnLp =
+        new LinearLayout.LayoutParams(
+                dp(104),
+                -2
+        );
+
+buttonColumnLp.leftMargin = dp(8);
+
+
+// =====================================================
+// REFRESH BUTTON
+// =====================================================
+
+SmallNeonRefreshButton refreshButton =
+        new SmallNeonRefreshButton(this);
+
+LinearLayout.LayoutParams refreshLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+refreshButton.setVisibility(View.GONE);
+
+buttonColumn.addView(
+        refreshButton,
+        refreshLp
+);
+
+
+// =====================================================
+// STOP CHECK BUTTON
+// =====================================================
+
+SmallNeonStopCheckButton stopCheckButton =
+        new SmallNeonStopCheckButton(this);
+
+LinearLayout.LayoutParams stopCheckButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+stopCheckButtonLp.topMargin = dp(8);
+stopCheckButton.setVisibility(View.GONE);
+
+buttonColumn.addView(
+        stopCheckButton,
+        stopCheckButtonLp
+);
+
+
+// =====================================================
+// CHECK NOW BUTTON
+// =====================================================
+
+SmallNeonCheckButton checkButton =
+        new SmallNeonCheckButton(this);
+
+LinearLayout.LayoutParams checkButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+checkButtonLp.topMargin = dp(8);
+
+buttonColumn.addView(
+        checkButton,
+        checkButtonLp
+);
+
+
+availabilityCard.addView(
+        buttonColumn,
+        buttonColumnLp
+);
+
+
+// =====================================================
 // STOP CHECK CLICK
+// =====================================================
+
 stopCheckButton.setOnClickListener(v -> {
 
     // Cancel service only if it is still running
@@ -8413,28 +8556,11 @@ stopCheckButton.setOnClickListener(v -> {
     checkButton.setChecking(false);
 });
 
-// CHECK NOW BUTTON
-SmallNeonCheckButton checkButton =
-        new SmallNeonCheckButton(this);
 
-LinearLayout.LayoutParams checkButtonLp =
-        new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
-        );
+// =====================================================
+// REFRESH CLICK
+// =====================================================
 
-checkButtonLp.topMargin = dp(8);
-
-buttonColumn.addView(
-        checkButton,
-        checkButtonLp
-);
-
-availabilityCard.addView(
-        buttonColumn,
-        buttonColumnLp
-);
- 
 refreshButton.setOnClickListener(v -> {
 
     // Clear previous manual check result
@@ -8472,19 +8598,23 @@ refreshButton.setOnClickListener(v -> {
             android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     );
 
-    refreshedTime.setSpan(
-        new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#0575E6")
-        ),
-        12,
-        refreshedTime.length(),
-        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-);
+    initialTime.setSpan(
+            new android.text.style.ForegroundColorSpan(
+                    Color.parseColor("#0575E6")
+            ),
+            12,
+            initialTime.length(),
+            android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    );
 
     availabilityLastCheck.setText(initialTime);
 
-    // Hide refresh button
+    // Hide REFRESH and STOP
     refreshButton.setVisibility(View.GONE);
+    stopCheckButton.setVisibility(View.GONE);
+
+    // Restore CHECK NOW
+    checkButton.setChecking(false);
 });
    
 // STOP CHECK CLICK
