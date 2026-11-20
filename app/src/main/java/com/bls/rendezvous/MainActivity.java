@@ -8409,6 +8409,38 @@ refreshedTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
+// =====================================================
+// LAST CHECK — PREMIUM TIME
+// =====================================================
+
+TextView availabilityLastCheck = text(
+        "Last check: --:--:--",
+        11,
+        Color.parseColor("#05FFCF")
+);
+
+LinearLayout.LayoutParams lastCheckLp =
+        new LinearLayout.LayoutParams(-1, -2);
+
+lastCheckLp.topMargin = dp(7);
+
+
+// Initial two-tone text
+
+android.text.SpannableString refreshedTime =
+        new android.text.SpannableString(
+                "Last check: --:--:--"
+        );
+
+refreshedTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#000C40")
+        ),
+        0,
+        12,
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
+
 refreshedTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
@@ -8424,6 +8456,7 @@ availabilityContent.addView(
         availabilityLastCheck,
         lastCheckLp
 );
+
 
 availabilityCard.addView(
         availabilityContent,
@@ -8447,7 +8480,6 @@ LinearLayout.LayoutParams buttonColumnLp =
 
 buttonColumnLp.leftMargin = dp(8);
 
-
 // =====================================================
 // REFRESH BUTTON
 // =====================================================
@@ -8469,46 +8501,47 @@ buttonColumn.addView(
 );
 
 // =====================================================
-// STOP CHECK CLICK
+// STOP CHECK BUTTON
 // =====================================================
+SmallNeonStopCheckButton stopCheckButton =
+        new SmallNeonStopCheckButton(this);
 
-stopCheckButton.setOnClickListener(v -> {
-
-    if (ManualCheckService.isRunning) {
-
-        Intent cancelIntent =
-                new Intent(
-                        MainActivity.this,
-                        ManualCheckService.class
-                );
-
-        cancelIntent.setAction(
-                ManualCheckService.ACTION_CANCEL
+LinearLayout.LayoutParams stopCheckButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
         );
 
-        startService(cancelIntent);
+stopCheckButtonLp.topMargin = dp(8);
+stopCheckButton.setVisibility(View.GONE);
 
-        availabilityStatus.setText(
-                "Manual check cancelled."
+buttonColumn.addView(
+        stopCheckButton,
+        stopCheckButtonLp
+);
+
+// CHECK NOW BUTTON
+SmallNeonCheckButton checkButton =
+        new SmallNeonCheckButton(this);
+
+LinearLayout.LayoutParams checkButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
         );
 
-        availabilityStatus.setTextColor(
-                Color.parseColor("#DC2626")
-        );
-    }
+checkButtonLp.topMargin = dp(8);
 
-    // Switch STOP to REFRESH
-    stopCheckButton.setVisibility(View.GONE);
-    refreshButton.setVisibility(View.VISIBLE);
+buttonColumn.addView(
+        checkButton,
+        checkButtonLp
+);
 
-    // Restore CHECK NOW button
-    checkButton.setChecking(false);
-});
-
-// =====================================================
-// REFRESH CLICK
-// =====================================================
-
+availabilityCard.addView(
+        buttonColumn,
+        buttonColumnLp
+);
+ 
 refreshButton.setOnClickListener(v -> {
 
     // Clear previous manual check result
@@ -8546,23 +8579,48 @@ refreshButton.setOnClickListener(v -> {
             android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     );
 
-    initialTime.setSpan(
-            new android.text.style.ForegroundColorSpan(
-                    Color.parseColor("#0575E6")
-            ),
-            12,
-            initialTime.length(),
-            android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-    );
+    refreshedTime.setSpan(
+        new android.text.style.ForegroundColorSpan(
+                Color.parseColor("#0575E6")
+        ),
+        12,
+        refreshedTime.length(),
+        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+);
 
     availabilityLastCheck.setText(initialTime);
 
-    // Hide REFRESH and STOP
+    // Hide refresh button
     refreshButton.setVisibility(View.GONE);
-    stopCheckButton.setVisibility(View.GONE);
+});
+   
+// STOP CHECK CLICK
+stopCheckButton.setOnClickListener(v -> {
 
-    // Restore CHECK NOW
+    if (!ManualCheckService.isRunning) {
+        stopCheckButton.setVisibility(View.GONE);
+        return;
+    }
+
+    Intent cancelIntent =
+            new Intent(MainActivity.this, ManualCheckService.class);
+
+    cancelIntent.setAction(
+            ManualCheckService.ACTION_CANCEL
+    );
+
+    startService(cancelIntent);
+
+    stopCheckButton.setVisibility(View.GONE);
+    refreshButton.setVisibility(View.VISIBLE);
     checkButton.setChecking(false);
+    stopCheckButton.setVisibility(View.GONE);
+refreshButton.setVisibility(View.VISIBLE);
+    
+    availabilityStatus.setText("Manual check cancelled.");
+    availabilityStatus.setTextColor(
+            Color.parseColor("#DC2626")
+    );
 });
     
 // =====================================================
@@ -8611,6 +8669,10 @@ if (monitoringActive) {
     background.setStroke(dp(1), Color.rgb(43, 83, 135));
 
     mainLayout.setBackground(background);
+
+    // =============================================
+    // ALERT ICON
+    // =============================================
 
     // =============================================
     // ALERT ICON
