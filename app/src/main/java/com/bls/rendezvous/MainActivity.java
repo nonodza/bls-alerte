@@ -8319,12 +8319,12 @@ refreshedTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-refreshedTime.setSpan(
+initialTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
         ),
         12,
-        refreshedTime.length(),
+        initialTime.length(),
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
@@ -8378,25 +8378,40 @@ buttonColumn.addView(
         refreshLp
 );
 
-// =====================================================
-// STOP CHECK BUTTON
-// =====================================================
-SmallNeonStopCheckButton stopCheckButton =
-        new SmallNeonStopCheckButton(this);
+// STOP CHECK CLICK
+stopCheckButton.setOnClickListener(v -> {
 
-LinearLayout.LayoutParams stopCheckButtonLp =
-        new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
+    // Cancel service only if it is still running
+    if (ManualCheckService.isRunning) {
+
+        Intent cancelIntent =
+                new Intent(
+                        MainActivity.this,
+                        ManualCheckService.class
+                );
+
+        cancelIntent.setAction(
+                ManualCheckService.ACTION_CANCEL
         );
 
-stopCheckButtonLp.topMargin = dp(8);
-stopCheckButton.setVisibility(View.GONE);
+        startService(cancelIntent);
 
-buttonColumn.addView(
-        stopCheckButton,
-        stopCheckButtonLp
-);
+        availabilityStatus.setText(
+                "Manual check cancelled."
+        );
+
+        availabilityStatus.setTextColor(
+                Color.parseColor("#DC2626")
+        );
+    }
+
+    // Switch STOP to REFRESH
+    stopCheckButton.setVisibility(View.GONE);
+    refreshButton.setVisibility(View.VISIBLE);
+
+    // Restore CHECK NOW button
+    checkButton.setChecking(false);
+});
 
 // CHECK NOW BUTTON
 SmallNeonCheckButton checkButton =
