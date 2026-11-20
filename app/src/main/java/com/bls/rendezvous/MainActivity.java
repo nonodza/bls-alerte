@@ -8359,7 +8359,21 @@ LinearLayout.LayoutParams buttonColumnLp =
 buttonColumnLp.leftMargin = dp(8);
 
 // REFRESH BUTTON
-TextView refreshButton = new TextView(this);
+SmallNeonRefreshButton refreshButton =
+        new SmallNeonRefreshButton(this);
+
+LinearLayout.LayoutParams refreshLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+refreshButton.setVisibility(View.GONE);
+
+buttonColumn.addView(
+        refreshButton,
+        refreshLp
+);
 
 refreshButton.setText("↻ REFRESH");
 refreshButton.setTextColor(Color.WHITE);
