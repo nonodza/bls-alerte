@@ -8994,10 +8994,6 @@ manualCheckIntent.putExtra("country", selectedCountry);
 
             availabilityLastCheck.setText(timeText);
 
-// Manual check finished
-checkButton.setChecking(false);
-stopCheckButton.setVisibility(View.GONE);
-refreshButton.setVisibility(View.VISIBLE);
         } else {
 
             handler.postDelayed(
