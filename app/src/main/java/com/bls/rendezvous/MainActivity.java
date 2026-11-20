@@ -8358,7 +8358,10 @@ LinearLayout.LayoutParams buttonColumnLp =
 
 buttonColumnLp.leftMargin = dp(8);
 
+// =====================================================
 // REFRESH BUTTON
+// =====================================================
+
 SmallNeonRefreshButton refreshButton =
         new SmallNeonRefreshButton(this);
 
@@ -8375,36 +8378,9 @@ buttonColumn.addView(
         refreshLp
 );
 
-refreshButton.setText("↻ REFRESH");
-refreshButton.setTextColor(Color.WHITE);
-refreshButton.setTextSize(10);
-refreshButton.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-refreshButton.setGravity(Gravity.CENTER);
-
-GradientDrawable refreshBg = new GradientDrawable(
-        GradientDrawable.Orientation.LEFT_RIGHT,
-        new int[]{
-                Color.rgb(36, 119, 255),
-                Color.rgb(20, 54, 135)
-        }
-);
-
-refreshBg.setCornerRadius(dp(12));
-refreshBg.setStroke(dp(1), Color.rgb(100, 180, 255));
-
-refreshButton.setBackground(refreshBg);
-refreshButton.setElevation(dp(5));
-
-LinearLayout.LayoutParams refreshLp =
-        new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
-        );
-
-refreshButton.setVisibility(View.GONE);
-buttonColumn.addView(refreshButton, refreshLp);
-
+// =====================================================
 // STOP CHECK BUTTON
+// =====================================================
 SmallNeonStopCheckButton stopCheckButton =
         new SmallNeonStopCheckButton(this);
 
