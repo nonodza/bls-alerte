@@ -8517,35 +8517,6 @@ availabilityCard.addView(
         buttonColumnLp
 );
 
-
-// =====================================================
-// STOP CHECK CLICK
-// =====================================================
-
-stopCheckButton.setOnClickListener(v -> {
-
-    // Cancel service only if it is still running
-    if (ManualCheckService.isRunning) {
-
-        Intent cancelIntent =
-                new Intent(
-                        MainActivity.this,
-                        ManualCheckService.class
-                );
-
-        cancelIntent.setAction(
-                ManualCheckService.ACTION_CANCEL
-        );
-
-        startService(cancelIntent);
-
-        availabilityStatus.setText(
-                "Manual check cancelled."
-        );
-
-        availabilityStatus.setTextColor(
-                Color.parseColor("#DC2626")
-        );
     }
 
     // Switch STOP to REFRESH
