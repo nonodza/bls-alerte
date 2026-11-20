@@ -8341,41 +8341,22 @@ availabilityCard.addView(
         contentLp
 );
 
+
 // =====================================================
-// RIGHT NEON CHECK BUTTON
+// RIGHT VERTICAL BUTTON COLUMN
 // =====================================================
 
-SmallNeonCheckButton checkButton =
-        new SmallNeonCheckButton(this);
+LinearLayout buttonColumn = new LinearLayout(this);
+buttonColumn.setOrientation(LinearLayout.VERTICAL);
+buttonColumn.setGravity(Gravity.CENTER);
 
-LinearLayout.LayoutParams checkButtonLp =
+LinearLayout.LayoutParams buttonColumnLp =
         new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
+                dp(104),
+                -2
         );
 
-availabilityCard.addView(
-        checkButton,
-        checkButtonLp
-);
-// RED STOP CHECK BUTTON
-SmallNeonStopCheckButton stopCheckButton =
-        new SmallNeonStopCheckButton(this);
-
-LinearLayout.LayoutParams stopCheckButtonLp =
-        new LinearLayout.LayoutParams(
-                dp(92),
-                dp(42)
-        );
-
-stopCheckButtonLp.leftMargin = dp(8);
-
-stopCheckButton.setVisibility(View.GONE);
-
-availabilityCard.addView(
-        stopCheckButton,
-        stopCheckButtonLp
-);
+buttonColumnLp.leftMargin = dp(8);
 
 // REFRESH BUTTON
 TextView refreshButton = new TextView(this);
@@ -8385,23 +8366,19 @@ refreshButton.setTextColor(Color.WHITE);
 refreshButton.setTextSize(10);
 refreshButton.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
 refreshButton.setGravity(Gravity.CENTER);
-refreshButton.setBackground(
-        new android.graphics.drawable.GradientDrawable(
-                android.graphics.drawable.GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{
-                        Color.rgb(36, 119, 255),
-                        Color.rgb(20, 54, 135)
-                }
-        )
-);
 
-android.graphics.drawable.GradientDrawable refreshBg =
-        (android.graphics.drawable.GradientDrawable)
-                refreshButton.getBackground();
+GradientDrawable refreshBg = new GradientDrawable(
+        GradientDrawable.Orientation.LEFT_RIGHT,
+        new int[]{
+                Color.rgb(36, 119, 255),
+                Color.rgb(20, 54, 135)
+        }
+);
 
 refreshBg.setCornerRadius(dp(12));
 refreshBg.setStroke(dp(1), Color.rgb(100, 180, 255));
 
+refreshButton.setBackground(refreshBg);
 refreshButton.setElevation(dp(5));
 
 LinearLayout.LayoutParams refreshLp =
@@ -8410,13 +8387,47 @@ LinearLayout.LayoutParams refreshLp =
                 dp(42)
         );
 
-refreshLp.leftMargin = dp(8);
-
 refreshButton.setVisibility(View.GONE);
+buttonColumn.addView(refreshButton, refreshLp);
+
+// STOP CHECK BUTTON
+SmallNeonStopCheckButton stopCheckButton =
+        new SmallNeonStopCheckButton(this);
+
+LinearLayout.LayoutParams stopCheckButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+stopCheckButtonLp.topMargin = dp(8);
+stopCheckButton.setVisibility(View.GONE);
+
+buttonColumn.addView(
+        stopCheckButton,
+        stopCheckButtonLp
+);
+
+// CHECK NOW BUTTON
+SmallNeonCheckButton checkButton =
+        new SmallNeonCheckButton(this);
+
+LinearLayout.LayoutParams checkButtonLp =
+        new LinearLayout.LayoutParams(
+                dp(92),
+                dp(42)
+        );
+
+checkButtonLp.topMargin = dp(8);
+
+buttonColumn.addView(
+        checkButton,
+        checkButtonLp
+);
 
 availabilityCard.addView(
-        refreshButton,
-        refreshLp
+        buttonColumn,
+        buttonColumnLp
 );
  
 refreshButton.setOnClickListener(v -> {
