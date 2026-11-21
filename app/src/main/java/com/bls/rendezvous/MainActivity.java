@@ -8319,38 +8319,6 @@ refreshedTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-// =====================================================
-// LAST CHECK — PREMIUM TIME
-// =====================================================
-
-TextView availabilityLastCheck = text(
-        "Last check: --:--:--",
-        11,
-        Color.parseColor("#05FFCF")
-);
-
-LinearLayout.LayoutParams lastCheckLp =
-        new LinearLayout.LayoutParams(-1, -2);
-
-lastCheckLp.topMargin = dp(7);
-
-
-// Initial two-tone text
-
-android.text.SpannableString refreshedTime =
-        new android.text.SpannableString(
-                "Last check: --:--:--"
-        );
-
-refreshedTime.setSpan(
-        new android.text.style.ForegroundColorSpan(
-                Color.parseColor("#000C40")
-        ),
-        0,
-        12,
-        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-);
-
 refreshedTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
