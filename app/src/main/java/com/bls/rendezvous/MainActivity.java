@@ -8319,7 +8319,7 @@ refreshedTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-initialTime.setSpan(
+refreshedTime.length(),
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
         ),
@@ -8448,7 +8448,7 @@ refreshButton.setOnClickListener(v -> {
                     "Last check: --:--:--"
             );
 
-    initialTime.setSpan(
+    refreshedTime.setSpan(
             new android.text.style.ForegroundColorSpan(
                     Color.parseColor("#000C40")
             ),
