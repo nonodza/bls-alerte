@@ -8475,26 +8475,25 @@ refreshButton.setOnClickListener(v -> {
 // STOP CHECK CLICK
 stopCheckButton.setOnClickListener(v -> {
 
-    if (!ManualCheckService.isRunning) {
-        stopCheckButton.setVisibility(View.GONE);
-        return;
+    if (ManualCheckService.isRunning) {
+
+        Intent cancelIntent =
+                new Intent(MainActivity.this, ManualCheckService.class);
+
+        cancelIntent.setAction(
+                ManualCheckService.ACTION_CANCEL
+        );
+
+        startService(cancelIntent);
     }
 
-    Intent cancelIntent =
-            new Intent(MainActivity.this, ManualCheckService.class);
-
-    cancelIntent.setAction(
-            ManualCheckService.ACTION_CANCEL
-    );
-
-    startService(cancelIntent);
-
+    // Switch STOP to REFRESH
     stopCheckButton.setVisibility(View.GONE);
     refreshButton.setVisibility(View.VISIBLE);
+
+    // Restore CHECK NOW
     checkButton.setChecking(false);
-    stopCheckButton.setVisibility(View.GONE);
-refreshButton.setVisibility(View.VISIBLE);
-    
+
     availabilityStatus.setText("Manual check cancelled.");
     availabilityStatus.setTextColor(
             Color.parseColor("#DC2626")
