@@ -8319,12 +8319,12 @@ refreshedTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-refreshedTime.setSpan(
+initialTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
         ),
         12,
-        refreshedTime.length(),
+        initialTime.length(),
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
