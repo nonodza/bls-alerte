@@ -8310,7 +8310,7 @@ android.text.SpannableString refreshedTime =
                 "Last check: --:--:--"
         );
 
-initialTime.setSpan(
+refreshedTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#000C40")
         ),
@@ -8319,12 +8319,12 @@ initialTime.setSpan(
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
-initialTime.setSpan(
+refreshedTime.setSpan(
         new android.text.style.ForegroundColorSpan(
                 Color.parseColor("#0575E6")
         ),
         12,
-        initialTime.length(),
+        refreshedTime.length(),
         android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 );
 
