@@ -7977,6 +7977,18 @@ boolean manualCheckActive =
         );
 if (manualCheckActive) {
 
+    Toast.makeText(
+            MainActivity.this,
+            "Manual check is active: "
+                    + ManualCheckService.isRunning
+                    + " | Blocked: "
+                    + manualPrefs.getBoolean(
+                            ManualCheckService.KEY_START_BLOCKED,
+                            false
+                    ),
+            Toast.LENGTH_LONG
+    ).show();
+
     showManualCheckActiveDialog();
 
     return;
