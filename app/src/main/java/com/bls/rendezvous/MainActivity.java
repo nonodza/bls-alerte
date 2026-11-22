@@ -7874,6 +7874,11 @@ topPart.addView(
 );
 
 startBtn.setOnClickListener(v -> {
+  Toast.makeText(
+        MainActivity.this,
+        "START BUTTON CLICKED",
+        Toast.LENGTH_LONG
+).show();  
 
     // =============================================
     // STOP MONITORING
