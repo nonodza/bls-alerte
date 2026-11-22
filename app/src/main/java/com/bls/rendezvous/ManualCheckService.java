@@ -904,7 +904,10 @@ stopForeground(true);
 
     @Override
 public void onDestroy() {
-
+android.util.Log.d(
+        "MANUAL_CHECK",
+        "onDestroy called | isRunning=" + isRunning
+);
     cancelled = true;
 
     SharedPreferences prefs =
