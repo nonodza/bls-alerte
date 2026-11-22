@@ -68,35 +68,49 @@ public class SmallNeonStartButton extends View {
     }
 
     private void init() {
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+    setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-        backgroundPaint.setStyle(Paint.Style.FILL);
+    backgroundPaint.setStyle(Paint.Style.FILL);
 
-        borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(dp(1.5f));
-        borderPaint.setColor(cyan);
+    borderPaint.setStyle(Paint.Style.STROKE);
+    borderPaint.setStrokeWidth(dp(1.5f));
+    borderPaint.setColor(cyan);
 
-        glowPaint.setStyle(Paint.Style.STROKE);
-        glowPaint.setStrokeWidth(dp(3f));
-        glowPaint.setColor(cyan);
-        glowPaint.setShadowLayer(dp(5f), 0f, 0f, cyan);
+    glowPaint.setStyle(Paint.Style.STROKE);
+    glowPaint.setStrokeWidth(dp(3f));
+    glowPaint.setColor(cyan);
+    glowPaint.setShadowLayer(dp(5f), 0f, 0f, cyan);
 
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTextSize(dp(11f));
-        textPaint.setTypeface(
-                Typeface.create("sans-serif", Typeface.BOLD)
-        );
-        textPaint.setTextAlign(Paint.Align.CENTER);
+    textPaint.setColor(Color.WHITE);
+    textPaint.setTextSize(dp(11f));
+    textPaint.setTypeface(
+            Typeface.create("sans-serif", Typeface.BOLD)
+    );
+    textPaint.setTextAlign(Paint.Align.CENTER);
 
-        iconPaint.setColor(Color.WHITE);
-        iconPaint.setStyle(Paint.Style.FILL);
-        iconPaint.setStrokeWidth(dp(1.8f));
-        iconPaint.setStrokeCap(Paint.Cap.ROUND);
-        iconPaint.setStrokeJoin(Paint.Join.ROUND);
+    iconPaint.setColor(Color.WHITE);
+    iconPaint.setStyle(Paint.Style.FILL);
+    iconPaint.setStrokeWidth(dp(1.8f));
+    iconPaint.setStrokeCap(Paint.Cap.ROUND);
+    iconPaint.setStrokeJoin(Paint.Join.ROUND);
 
-        setClickable(true);
-        setFocusable(true);
-    }
+    setClickable(true);
+    setFocusable(true);
+
+    setOnTouchListener((view, event) -> {
+
+        if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
+
+            android.widget.Toast.makeText(
+                    getContext(),
+                    "BUTTON TOUCH RECEIVED",
+                    android.widget.Toast.LENGTH_SHORT
+            ).show();
+        }
+
+        return false;
+    });
+}
 
     private float dp(float value) {
         return value * getResources()
