@@ -441,9 +441,15 @@ getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                 }
 
                 // MANUAL CHECK HAS FINISHED
-                isRunning = false;
+isRunning = false;
 
-                stopForeground(true);
+// Release the automatic monitoring start block
+getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        .edit()
+        .putBoolean(KEY_START_BLOCKED, false)
+        .apply();
+
+stopForeground(true);
 
                 showFinalNotification(
                         notificationMessage
@@ -921,6 +927,12 @@ public void onDestroy() {
     }
 
     isRunning = false;
+
+// Ensure the manual check start block is released
+getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        .edit()
+        .putBoolean(KEY_START_BLOCKED, false)
+        .apply();
 
     if (checkThread != null) {
         checkThread.interrupt();
