@@ -7960,7 +7960,7 @@ startBtn.setOnClickListener(v -> {
         }
 
 // =============================================
-// PREVENT START DURING MANUAL CHECK
+// DEBUG MANUAL CHECK STATE
 // =============================================
 
 android.content.SharedPreferences manualPrefs =
@@ -7969,25 +7969,23 @@ android.content.SharedPreferences manualPrefs =
                 MODE_PRIVATE
         );
 
-boolean manualCheckActive =
-        ManualCheckService.isRunning
-        || manualPrefs.getBoolean(
+boolean runningState =
+        ManualCheckService.isRunning;
+
+boolean blockedState =
+        manualPrefs.getBoolean(
                 ManualCheckService.KEY_START_BLOCKED,
                 false
         );
-if (manualCheckActive) {
 
-    Toast.makeText(
-            MainActivity.this,
-            "Manual check is active: "
-                    + ManualCheckService.isRunning
-                    + " | Blocked: "
-                    + manualPrefs.getBoolean(
-                            ManualCheckService.KEY_START_BLOCKED,
-                            false
-                    ),
-            Toast.LENGTH_LONG
-    ).show();
+Toast.makeText(
+        MainActivity.this,
+        "Running: " + runningState
+                + " | Blocked: " + blockedState,
+        Toast.LENGTH_LONG
+).show();
+
+if (runningState || blockedState) {
 
     showManualCheckActiveDialog();
 
