@@ -443,12 +443,6 @@ getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                 // MANUAL CHECK HAS FINISHED
 isRunning = false;
 
-// Release the automatic monitoring start block
-getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-        .edit()
-        .putBoolean(KEY_START_BLOCKED, false)
-        .apply();
-
 stopForeground(true);
 
                 showFinalNotification(
