@@ -250,13 +250,19 @@ boolean manualFinished =
                 true
         );
 
+boolean manualStartBlocked =
+        manualPrefs.getBoolean(
+                ManualCheckService.KEY_START_BLOCKED,
+                false
+        );
+
 boolean manualCheckActive =
         ManualCheckService.isRunning
+        || manualStartBlocked
         || (
                 "CHECKING".equalsIgnoreCase(manualStatus)
                 && !manualFinished
         );
-
 if (manualCheckActive) {
 
     android.util.Log.w(
