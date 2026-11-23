@@ -8494,17 +8494,17 @@ refreshButton.setOnClickListener(v -> {
 // STOP CHECK CLICK
 stopCheckButton.setOnClickListener(v -> {
 
-    if (ManualCheckService.isRunning) {
-
-        Intent cancelIntent =
-                new Intent(MainActivity.this, ManualCheckService.class);
-
-        cancelIntent.setAction(
-                ManualCheckService.ACTION_CANCEL
+    Intent cancelIntent =
+        new Intent(
+                MainActivity.this,
+                ManualCheckService.class
         );
 
-        startService(cancelIntent);
-    }
+cancelIntent.setAction(
+        ManualCheckService.ACTION_CANCEL
+);
+
+startService(cancelIntent);
 
     // Switch STOP to REFRESH
     stopCheckButton.setVisibility(View.GONE);
