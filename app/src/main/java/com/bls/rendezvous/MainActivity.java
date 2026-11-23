@@ -7985,8 +7985,12 @@ boolean blockedState =
 
 Toast.makeText(
         MainActivity.this,
-        "Running: " + runningState
-                + " | Blocked: " + blockedState,
+        "Manual running: " + ManualCheckService.isRunning
+                + "\nStart blocked: "
+                + manualPrefs.getBoolean(
+                        ManualCheckService.KEY_START_BLOCKED,
+                        false
+                ),
         Toast.LENGTH_LONG
 ).show();
 
