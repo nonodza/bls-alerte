@@ -441,23 +441,15 @@ getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                 }
 
                 // MANUAL CHECK HAS FINISHED
+// Keep manual mode locked until the user presses STOP CHECK.
 isRunning = false;
-
-// Release the automatic monitoring start block
-getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-        .edit()
-        .putBoolean(KEY_START_BLOCKED, false)
-        .apply();
 
 stopForeground(true);
 
-                showFinalNotification(
-                        notificationMessage
-                );
+showFinalNotification(notificationMessage);
 
-                checkThread = null;
-
-                stopSelfResult(startId);
+checkThread = null;
+stopSelfResult(startId);
             });
 
         });
